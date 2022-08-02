@@ -6,9 +6,11 @@ import { uuidFromRef, urlFromUuid, listeChapitresDuNiveau, listeExosDuChapitre, 
 const isVerbose = /-(-verbode|v)/.test(process.argv)
 const logIfVerbose = (...args) => { if (isVerbose) console.log(...args) }
 // const jsDir = '../' // path.resolve('./src')
-const dictFile = path.resolve('.', 'exercicesDisponiblesReferentiel2022.json')
-const uuidToUrlFile = path.resolve('.', 'uuidsToUrl.json')
-const referentiel2022File = path.resolve('.', 'referentiel2022.json')
+const dictFile = path.relative('.', 'exercicesDisponiblesReferentiel2022.json')
+const uuidToUrlFile = path.relative('.', '../jsons/uuidsToUrl.json')
+const referentiel2022File = path.relative('.', '../jsons/referentiel2022.json')
+const levelsThemesListFile = path.relative('.', '../jsons/levelsThemesList.json')
+let levelsThemesList
 let dictionnaire
 let referentiel2022
 let uuidsToUrl
@@ -100,6 +102,7 @@ function ajouteExoReferentiel ({ uuid, name, level, chap, referentiel }) {
 }
 
 function ajouteExoDico ({ uuid = '', name = '', titre = '', level = '', chap = '', themes = [], tags = {}, datePublication = '', dateModification = '', dico }) {
+  let theme, sousTheme
   if (!(Array.isArray(dico))) {
     console.log('dictionnaire non valide')
     return false
@@ -115,27 +118,30 @@ function ajouteExoDico ({ uuid = '', name = '', titre = '', level = '', chap = '
     dicoChap = dicoLevel.get(chap)
   }
   */
-
-  const exo = { uuid, AMC: tags.AMC, Interactif: tags.Interactif, Can: tags.Can, themes, datePublication, dateModification }
+  if (levelsThemesList.get(chap) !== undefined) {
+    theme = levelsThemesList.get(chap).titre || ''
+    sousTheme = levelsThemesList.get(chap)[name.substring(0, chap.length + 1)] || ''
+  }
+  const exo = { uuid, theme, sousTheme, AMC: tags.AMC, Interactif: tags.Interactif, Can: tags.Can, themes, datePublication, dateModification }
   // dicoChap.set(uuid, exo
   dico.push(exo)
 }
 
 function mettreAJourFichierDico (file, dico) {
   const contenuFichier = JSON.stringify(dico, null, 2)
-  const dictFile = path.resolve('.', file)
+  const dictFile = path.relative('.', `../jsons/${file}`)
   fs.writeFileSync(dictFile, contenuFichier, 'utf-8')
 }
 function mettreAJourFichierReferentiel (file, dico) {
   const objDico = toObjet(dico)
   const contenuFichier = JSON.stringify(objDico, null, 2)
-  const dictFile = path.resolve('.', file)
+  const dictFile = path.relative('.', `../jsons/${file}`)
   fs.writeFileSync(dictFile, contenuFichier, 'utf-8')
 }
 function mettreAJourFichierUuidToUrl (file, dico) {
   const objDico = toObjet(dico)
   const contenuFichier = JSON.stringify(objDico, null, 2)
-  const dictFile = path.resolve('.', file)
+  const dictFile = path.relative('.', `../jsons/${file}`)
   fs.writeFileSync(dictFile, contenuFichier, 'utf-8')
 }
 function gereModuleJs (module, file, name, dictionnaire, referentiel2022, uuidsToUrl, listOfUuids, isCan) {
@@ -198,14 +204,21 @@ function gereModuleJs (module, file, name, dictionnaire, referentiel2022, uuidsT
  * @author Jean-Claude Lhote
  */
 async function builJsonDictionnaireExercices () {
+  try {
+    levelsThemesList = await import('../jsons/levelsThemesList.json', { assert: { type: 'json' } })
+    levelsThemesList = toMap(levelsThemesList.default)
+  } catch (error) {
+    console.log('problème avec levelsThemesList.json')
+    console.error(error)
+  }
   // on charge le dictionnaire si il existe et on génère la liste des UUID déjà prises
-  let listOfUuids = []
   // On prépare les fichiers que l'on va alimenter : listOfUuids, dictionnaire, uuidsToUrl
   let contenuFichierDico
+  let listOfUuids = []
   try {
-    contenuFichierDico = await import(dictFile)
-    dictionnaire = JSON.parse(contenuFichierDico)
-    listOfUuids = collecteUuidsFromDico(dictionnaire)
+    dictionnaire = await import(dictFile, { assert: { type: 'json' } })
+    // dictionnaire = JSON.parse(contenuFichierDico)
+    listOfUuids = collecteUuidsFromDico(dictionnaire.default)
   } catch (error) {
     dictionnaire = []
     listOfUuids = new Map()
@@ -213,16 +226,16 @@ async function builJsonDictionnaireExercices () {
 
   let fichierUuidsToUrl
   try {
-    fichierUuidsToUrl = await import(uuidToUrlFile)
-    uuidsToUrl = toMap(JSON.parse(fichierUuidsToUrl))
+    fichierUuidsToUrl = await import(uuidToUrlFile, { assert: { type: 'json' } })
+    uuidsToUrl = toMap(fichierUuidsToUrl.default)
   } catch (error) {
     uuidsToUrl = new Map()
   }
 
   let fichierReferentiel
   try {
-    fichierReferentiel = await import(referentiel2022File)
-    referentiel2022 = toMap(JSON.parse(fichierReferentiel))
+    fichierReferentiel = await import(referentiel2022File, { assert: { type: 'json' } })
+    referentiel2022 = toMap(fichierReferentiel.default)
   } catch (error) {
     referentiel2022 = new Map()
   }
@@ -250,9 +263,9 @@ async function builJsonDictionnaireExercices () {
   }
   Promise.all(promesses)
     .then(() => {
-      mettreAJourFichierDico('exercicesDisponiblesReferentiel2022.json', dictionnaire)
-      mettreAJourFichierReferentiel('uuidsToUrl.json', uuidsToUrl)
-      mettreAJourFichierUuidToUrl('referentiel2022.json', referentiel2022)
+      mettreAJourFichierDico(dictFile, dictionnaire)
+      mettreAJourFichierReferentiel(uuidToUrlFile, uuidsToUrl)
+      mettreAJourFichierUuidToUrl(referentiel2022File, referentiel2022)
     })
     .catch(error => {
       console.log(' Il y a une erreur avec le Promise.All : ', error.message)
