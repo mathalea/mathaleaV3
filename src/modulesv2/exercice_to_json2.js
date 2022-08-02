@@ -101,8 +101,8 @@ function ajouteExoReferentiel ({ uuid, name, level, chap, referentiel }) {
   refChap.set(name, uuid)
 }
 
-function ajouteExoDico ({ uuid = '', name = '', titre = '', level = '', chap = '', themes = [], tags = {}, datePublication = '', dateModification = '', dico }) {
-  let theme, sousTheme
+function ajouteExoDico ({ uuid = '', name = '', titre = '', level = '', chap = '', leTheme, leSousTheme, keywords = [], tags = {}, datePublication = '', dateModification = '', dico }) {
+  let theme = ''; let sousTheme = ''
   if (!(Array.isArray(dico))) {
     console.log('dictionnaire non valide')
     return false
@@ -118,11 +118,21 @@ function ajouteExoDico ({ uuid = '', name = '', titre = '', level = '', chap = '
     dicoChap = dicoLevel.get(chap)
   }
   */
-  if (levelsThemesList.get(chap) !== undefined) {
-    theme = levelsThemesList.get(chap).titre || ''
-    sousTheme = levelsThemesList.get(chap)[name.substring(0, chap.length + 1)] || ''
+  if (levelsThemesList.get(leTheme) !== undefined) {
+    theme = leTheme // ici on ne stocke que la clé... à l'inverse ci-dessous on stocke le titre complet
+    // theme = levelsThemesList.get(leTheme).get('titre')
+    if (theme !== '') {
+      if (levelsThemesList.get(leTheme).get('sousThemes') !== undefined) {
+        if (levelsThemesList.get(leTheme).get('sousThemes').get(leSousTheme) !== undefined) {
+          sousTheme = leSousTheme // ici on stocke la clé... ci-dessous on stocke la définition complète
+        // sousTheme = levelsThemesList.get(leTheme).get('sousThemes').get(leSousTheme) || ''
+        }
+      }
+    } else {
+      sousTheme = ''
+    }
   }
-  const exo = { uuid, theme, sousTheme, AMC: tags.AMC, Interactif: tags.Interactif, Can: tags.Can, themes, datePublication, dateModification }
+  const exo = { uuid, theme, sousTheme, AMC: tags.AMC, Interactif: tags.Interactif, Can: tags.Can, keywords, datePublication, dateModification }
   // dicoChap.set(uuid, exo
   dico.push(exo)
 }
@@ -146,7 +156,7 @@ function mettreAJourFichierUuidToUrl (file, dico) {
 }
 function gereModuleJs (module, file, name, dictionnaire, referentiel2022, uuidsToUrl, listOfUuids, isCan) {
   if (module.uuid === undefined) {
-    let uuid, level, chap, titre, isAmcReady, isInteractifReady, themes, datePublication, dateModification
+    let uuid, level, chap, leTheme, leSousTheme, titre, isAmcReady, isInteractifReady, keywords, datePublication, dateModification
     try {
       do {
         uuid = createUuid()
@@ -154,7 +164,7 @@ function gereModuleJs (module, file, name, dictionnaire, referentiel2022, uuidsT
       titre = module.titre
       isAmcReady = Boolean(module.amcReady)
       isInteractifReady = Boolean(module.interactifReady)
-      themes = module.themes ? module.themes : []
+      keywords = module.keywords ? module.keywords : []
       datePublication = module.dateDePulication
       dateModification = module.dateDeModificationImportante
     } catch (error) {
@@ -168,21 +178,29 @@ function gereModuleJs (module, file, name, dictionnaire, referentiel2022, uuidsT
         level = name.substring(3, 5)
         chap = name.substring(3, 6)
       }
+      leTheme = ''
+      leSousTheme = ''
     } else {
       if (['1', '2', '3', '4', '5', '6', 'T'].indexOf(name[0]) !== -1) {
         level = name[0] + 'e'
         chap = name.substring(0, 3)
+        leTheme = name.substring(0, 3)
+        leSousTheme = name.substring(0, 4)
       } else if (name.substring(0, 7) === 'techno1') {
         level = name.substring(0, 7)
         chap = name.substring(7, 8)
+        leTheme = name.substring(7, 8)
+        leSousTheme = name.substring(7, 8)
       } else {
         level = name[0] + name[1]
         chap = name.substring(0, 4)
+        leTheme = name.substring(0, 4)
+        leSousTheme = name.substring(0, 4)
       }
     }
     const tags = { AMC: !!isAmcReady, Interactif: !!isInteractifReady, Can: !!isCan }
     ecrireUuidDansFichier(uuid, name, file)
-    ajouteExoDico({ uuid, name, titre, level, chap, themes, tags, datePublication, dateModification, dico: dictionnaire })
+    ajouteExoDico({ uuid, name, titre, level, chap, leTheme, leSousTheme, keywords, tags, datePublication, dateModification, dico: dictionnaire })
     ajouteExoReferentiel({ uuid, name, level, chap, referentiel: referentiel2022 })
     if (isCan) {
       uuidsToUrl.set(uuid, [`can/${level}`, name])
