@@ -11,13 +11,14 @@
   import { loadMathLive } from "../../modules/loaders"
   import { exerciceInteractif, prepareExerciceCliqueFigure } from "../../interactif/interactif"
 
-  export let directory: string
-  export let id: string
-  export let nbQuestions = undefined
-  export let sup = undefined
-  export let sup2 = undefined
-  export let sup3 = undefined
-  export let sup4 = undefined
+  // export let directory: string
+  // export let id: string
+  // export let nbQuestions = undefined
+  // export let sup = undefined
+  // export let sup2 = undefined
+  // export let sup3 = undefined
+  // export let sup4 = undefined
+  export let paramsExercice
   export let indiceExercice: number
   export let indiceLastExercice: number
 
@@ -129,13 +130,13 @@
   }
 
   onMount(async () => {
-    exercice = await Mathalea.load(directory, id)
+    exercice = await Mathalea.load(paramsExercice.directory, paramsExercice.id)
     // Nombre de questions transmis par App.svelte
-    if (nbQuestions) exercice.nbQuestions = nbQuestions
-    if (sup) exercice.sup = sup
-    if (sup2) exercice.sup2 = sup2
-    if (sup3) exercice.sup3 = sup3
-    if (sup4) exercice.sup4 = sup4
+    if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
+    if (paramsExercice.sup) exercice.sup = paramsExercice.sup
+    if (paramsExercice.sup2) exercice.sup2 = paramsExercice.sup2
+    if (paramsExercice.sup3) exercice.sup3 = paramsExercice.sup3
+    if (paramsExercice.sup4) exercice.sup4 = paramsExercice.sup4
     exercice.numeroExercice = indiceExercice
     updateDisplay()
   })

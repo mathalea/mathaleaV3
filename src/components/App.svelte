@@ -12,14 +12,15 @@
   import referentiel from "../dicos/referentiel2022.json"
   import { Mathalea } from "../Mathalea"
   import { onMount } from "svelte"
+  import { toMap } from "./utils/toMap";
 
 
   // ToFix fonction à lier avec bugsnag
   window.notify = (arg) => console.log(arg)
 
 
-  let isInitialUrlHandled = false
   // Récupération des informations de l'URL
+  let isInitialUrlHandled = false
   onMount(() => {
     Mathalea.loadExercicesFromUrl()
     isInitialUrlHandled = true
@@ -30,30 +31,6 @@
     if (isInitialUrlHandled) Mathalea.updateUrl($listeExercices)
   }
 
-  /**
-   * Transforme un objet en arbre basé sur un type Map.
-   * Chaque propriété devient une clé et la valeur correspondante devient :
-   * - soit une valeur si la valeur de la propriété est un tableau
-   * - soit une autre map dans le cas contraire
-   * @param {any} obj
-   * @return {Map} l'arbre correspondant à l'objet
-   * @author sylvain Chambon
-   */
-  function toMap(obj: any): Map {
-    let dico = new Map()
-    for (let cle of Object.keys(obj)) {
-      if (obj[cle] instanceof Object) {
-        if (obj[cle] instanceof Array) {
-          dico.set(cle, obj[cle])
-        } else {
-          dico.set(cle, toMap(obj[cle]))
-        }
-      } else {
-        dico.set(cle, obj[cle])
-      }
-    }
-    return dico
-  }
 
   let refTree: Map = toMap(referentiel)
   // ToFix je réordonne le Map pour créer un menu dans l'ordre souhaité
@@ -148,9 +125,9 @@
     <!-- content -->
     <div class="flex-1 flex flex-col p-6 overflow-hidden h-full">
       <div class="flex-1 overflow-y-scroll overscroll-auto">
-        {#each $listeExercices as exercice, i (exercice)}
+        {#each $listeExercices as paramsExercice, i (paramsExercice)}
           <div animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
-            <Exercice {...exercice} indiceExercice={i} indiceLastExercice={$listeExercices.length} />
+            <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$listeExercices.length} />
           </div>
         {/each}
       </div>
