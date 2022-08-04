@@ -154,7 +154,7 @@
 <div class="z-0 flex-1 overflow-hidden" bind:this={divExercice}>
   <h1 class="border-b border-gray-300 text-orange-600 pl-4 mt-4 pb-2 flex flex-col lg:flex-row lg:justify-between lg:items-center">
     <div class="flex flex-col lg:flex-row lg:justify-start lg:items-center" id="exercice{indiceExercice}">
-      <div class="flex font-bold text-3xl md:text-lg">Exercice {indiceExercice + 1}</div>
+      <div class="flex font-bold text-3xl md:text-lg">Exercice&#8239;{indiceExercice + 1}</div>
       <div class="flex font-normal text-lg lg:text-normal"><span class="invisible lg:visible mx-1 font-bold">&middot;</span>{titre}</div>
     </div>
     <div class="flex justify-start text-normal mt-1 text-3xl lg:justify-end lg:text-xl">
