@@ -16,14 +16,14 @@
       listeId = listeId
     }
 
-let filteredExercices = [];
+let filteredExercices = []; 
 
 const filterEx = () => {
 	let storageArr = []
 	if (inputValue) {
 		data.forEach(ex => {
 			 if (cleanInput(inputValue).every(element => ex.replace('.js','').toLowerCase().includes(element))) {
-				 storageArr = [...storageArr, makeMatchBold(ex.replace('.js',''))];
+				 storageArr = [...storageArr, (ex.replace('.js',''))];
 			 }
 		})
 	}
@@ -124,6 +124,7 @@ const navigateList = (e) => {
   <div class="autocomplete">
     <input id="idInput" 
 					 type="text" 
+           list="autocomplete-items-list"
 					 placeholder="Identifiant d'exercice" 
 					 bind:this={searchInput}
 					 bind:value={inputValue} 
@@ -131,11 +132,11 @@ const navigateList = (e) => {
   </div>
   <input type="submit" on:click={handleChange2}>
 	{#if filteredExercices.length > 0}
-		<ul id="autocomplete-items-list" class="fixed">
+		<datalist id="autocomplete-items-list" class="fixed">
 			{#each filteredExercices as ex, i}
-				<ExercicesData itemLabel={ex} highlighted={i === hiLiteIndex} on:click={() => setInputVal(ex)} on:change={handleChange2} />
+				<option value={ex} />
 			{/each}			
-		</ul>
+		</datalist>
 	{/if}
 </form>
 
