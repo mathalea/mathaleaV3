@@ -11,18 +11,17 @@
   import { loadMathLive } from "../../modules/loaders"
   import { exerciceInteractif, prepareExerciceCliqueFigure } from "../../interactif/interactif"
 
-  // export let directory: string
-  // export let id: string
-  // export let nbQuestions = undefined
-  // export let sup = undefined
-  // export let sup2 = undefined
-  // export let sup3 = undefined
-  // export let sup4 = undefined
+  // paramsExercice est de type {directory, id, nbQuestions, sup, sup2, sup3, sup4}
   export let paramsExercice
   export let indiceExercice: number
   export let indiceLastExercice: number
 
   let exercice
+  let nbQuestions
+  let sup
+  let sup2
+  let sup3
+  let sup4
   let divExercice: HTMLDivElement
   let divScore: HTMLDivElement
   let buttonScore: HTMLButtonElement
@@ -179,10 +178,14 @@
   {#if isVisible}
     <div class="flex flex-col-reverse lg:flex-row">
       <div class="flex flex-col relative {isParametresVisible ? 'w-full lg:w-3/4' : 'w-full'} duration-500" id="exercice{indiceExercice}">
-        {#if isContenuVisible}
-          <Contenu chapeau={consigne} entrees={listeQuestions} {spacing} {indiceExercice} type={"enonce"} />
-        {:else}
-          <Contenu chapeau={consigneCorrection} entrees={listeCorrections} spacing={spacingCorr} {indiceExercice} type={"correction"} />
+        {#if exercice?.typeExercice === 'simple'}
+          Ce type d'exercice n'est pas encore géré
+          {:else}
+          {#if isContenuVisible}
+            <Contenu chapeau={consigne} entrees={listeQuestions} {spacing} {indiceExercice} type={"enonce"} />
+          {:else}
+            <Contenu chapeau={consigneCorrection} entrees={listeCorrections} spacing={spacingCorr} {indiceExercice} type={"correction"} />
+          {/if}
         {/if}
         {#if isInteractif && !isCorrectionVisible && isContenuVisible}
           <button
