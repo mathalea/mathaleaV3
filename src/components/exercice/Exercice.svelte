@@ -23,7 +23,7 @@ import { onMount } from "svelte"
     exercice.numeroExercice = indiceExercice
     typeExercice = exercice.typeExercice
     // Chargement dynamique du component correspondant au type d'exercice
-    if (typeExercice === 'simple') {
+    if (typeExercice === 'simplefdfd') { //ToFix, ce n'est plus utilisé pour simple mais ça pourra l'être pour statique
       ComponentExercice = (await import('./ExerciceSimple.svelte')).default
     } else {
       ComponentExercice = (await import('./ExerciceMathalea.svelte')).default

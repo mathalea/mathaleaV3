@@ -2,6 +2,8 @@ import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
 import { listeExercices } from './components/store'
 import Exercice from './exercices/Exercice.js'
+import { setReponse } from './modulesv2/gestionInteractif'
+import { ajouteChampTexteMathLive } from './modulesv2/questionMathLive'
 // export type Settings = { sup?: boolean | string | number, sup2?: boolean | string | number, sup3?: boolean | string | number, sup4?: boolean | string | number, nbQuestions?: number, seed?: string }
 
 /**
@@ -152,5 +154,24 @@ export class Mathalea {
     listeExercices.update((l) => {
       return newListeExercice
     })
+  }
+
+  static handleExerciceSimple (exercice, isInteractif) {
+    exercice.autoCorrection = []
+    exercice.interactif = isInteractif
+    exercice.listeQuestions = []
+    exercice.listeCorrections = []
+    for (let i = 0, cptSecours = 0; i < exercice.nbQuestions && cptSecours < 50;) {
+      exercice.nouvelleVersion()
+      if (exercice.questionJamaisPosee(i, exercice.question)) {
+        setReponse(exercice, i, exercice.reponse, { formatInteractif: exercice.formatInteractif } || {})
+        exercice.listeQuestions.push(exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte || {}, exercice.optionsChampTexte || {}))
+        exercice.listeCorrections.push(exercice.correction)
+        cptSecours = 0
+        i++
+      } else {
+        cptSecours++
+      }
+    }
   }
 }

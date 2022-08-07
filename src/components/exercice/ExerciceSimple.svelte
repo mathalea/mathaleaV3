@@ -1,4 +1,6 @@
 <script>
+import { Mathalea } from '../../Mathalea'
+
   import HeaderExercice from './HeaderExercice.svelte'
   export let exercice
   export let indiceExercice
@@ -10,9 +12,11 @@
     title: 'Mon exercice',
   }
 
+  Mathalea.handleExerciceSimple(exercice)
 
+
+console.log(exercice)
 </script>
 
 
 <HeaderExercice {...headerExerciceProps} {indiceExercice} {indiceLastExercice} />
-Exercice simple pas encore pris en charge

@@ -4,7 +4,6 @@ import { addElement, get, setStyles } from '../modules/dom'
 export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** number */) {
   // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
   let eltFeedback = get(`resultatCheckEx${exercice.numeroExercice}Q${i}`, false)
-  console.log(eltFeedback)
   // On ajoute le div pour le feedback
   if (!eltFeedback) {
     const eltExercice = (document.querySelector(`#exercice${exercice.numeroExercice}Q${i}`))
@@ -26,7 +25,6 @@ export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** numb
     saisie.push(option.value)
   }
   saisie = saisie.join('-')
-  console.log(saisie)
   for (const reponse of reponses) {
     // Pour les exercices où on associe plusieurs liste déroulantes, la réponse est un tableau (cf 6N43-4)
     // On concatène les saisies et les réponses pour les comparer

@@ -67,6 +67,7 @@
   async function newData() {
     const seed = (Math.random() * 1000).toString();
     exercice.seed = seed;
+    if (buttonScore) initButtonScore()
     updateDisplay();
   }
 
@@ -96,6 +97,7 @@
   }
 
   function updateDisplay() {
+    if (exercice.typeExercice === 'simple') Mathalea.handleExerciceSimple(exercice, isInteractif)
     if (exercice.seed === undefined)
       exercice.seed = randomInt(1, 9999).toString();
     seedrandom(exercice.seed, { global: true });
@@ -103,6 +105,7 @@
     exercice.nouvelleVersion();
     listQuestions = [...exercice.listeQuestions];
     listCorrections = [...exercice.listeCorrections];
+    console.log(listQuestions)
     consigne = exercice.consigne + exercice.introduction;
     consigneCorrection = exercice.consigneCorrection;
     spacing = exercice.spacing;

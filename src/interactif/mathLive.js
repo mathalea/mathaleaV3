@@ -218,7 +218,6 @@ export function verifQuestionMathLive (exercice, i) {
       }
       j++
     }
-    console.log(resultat)
     if (resultat === 'OK') {
       spanReponseLigne.innerHTML = '😎'
       spanReponseLigne.style.fontSize = 'large'
