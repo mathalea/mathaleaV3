@@ -1,23 +1,29 @@
 <script lang="ts">
-  import { flip } from "svelte/animate"
   import Exercice from "./exercice/Exercice.svelte"
   import NavBar from "./header/NavBar.svelte"
   import Footer from "./Footer.svelte"
   import Header2 from "./header2/Header2.svelte"
-  import { listeExercices } from "./store"
   import Recherche from "./Recherche.svelte"
   import NiveauListeExos from "./sidebar/NiveauListeExos.svelte"
   import SearchChoiceOptionsRadio from "./sidebar/SearchChoiceOptionsRadio.svelte"
+  import { listeExercices } from "./store"
   import codeList from "../dicos/codeToLevelList.json"
   import referentiel from "../dicos/referentiel2022.json"
   import { Mathalea } from "../Mathalea"
+  import { flip } from "svelte/animate"
   import { onMount } from "svelte"
-  import { toMap } from "./utils/toMap";
+  import { toMap } from "./utils/toMap"
+  import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from '../modules/ElementInstrumenpoche'
 
+  import { context } from '../modules/context'
+
+  context.versionMathalea = 3
+
+  customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
+  customElements.define('alea-buttoninstrumenpoche', ElementButtonInstrumenpoche)
 
   // ToFix fonction à lier avec bugsnag
   window.notify = (arg) => console.log(arg)
-
 
   // Récupération des informations de l'URL
   let isInitialUrlHandled = false
@@ -30,7 +36,6 @@
   $: {
     if (isInitialUrlHandled) Mathalea.updateUrl($listeExercices)
   }
-
 
   let refTree: Map = toMap(referentiel)
   // ToFix je réordonne le Map pour créer un menu dans l'ordre souhaité

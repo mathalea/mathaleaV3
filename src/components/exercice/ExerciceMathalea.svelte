@@ -102,10 +102,9 @@
       exercice.seed = randomInt(1, 9999).toString();
     seedrandom(exercice.seed, { global: true });
     exercice.interactif = isInteractif;
-    exercice.nouvelleVersion();
+    exercice.nouvelleVersion(indiceExercice);
     listQuestions = [...exercice.listeQuestions];
     listCorrections = [...exercice.listeCorrections];
-    console.log(listQuestions)
     consigne = exercice.consigne + exercice.introduction;
     consigneCorrection = exercice.consigneCorrection;
     spacing = exercice.spacing;
