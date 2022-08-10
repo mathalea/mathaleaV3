@@ -6,7 +6,7 @@
   import Recherche from "./Recherche.svelte"
   import NiveauListeExos from "./sidebar/NiveauListeExos.svelte"
   import SearchChoiceOptionsRadio from "./sidebar/SearchChoiceOptionsRadio.svelte"
-  import { listeExercices } from "./store"
+  import { listeExercices, displayOptions } from "./store"
   import codeList from "../dicos/codeToLevelList.json"
   import referentiel from "../dicos/referentiel2022.json"
   import { Mathalea } from "../Mathalea"
@@ -22,14 +22,21 @@
   customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
   customElements.define('alea-buttoninstrumenpoche', ElementButtonInstrumenpoche)
 
+  let isNavBarVisible = true
+
   // ToFix fonction à lier avec bugsnag
   window.notify = (arg) => console.log(arg)
 
   // Récupération des informations de l'URL
   let isInitialUrlHandled = false
   onMount(() => {
-    Mathalea.loadExercicesFromUrl()
+    const urlOptions = Mathalea.loadExercicesFromUrl()
+    displayOptions.update( () => { return urlOptions })
     isInitialUrlHandled = true
+    if (urlOptions.v === 'l') {
+      isNavBarVisible = false
+      isSideMenuVisible = false
+    }
   })
 
   // Mise à jour de l'URL dès que l'on change listeExercices (sauf pour l'URL d'arrivée sur la page)
@@ -72,11 +79,12 @@
     Gestion du menu de recherche des exercices
   ---------------------------------------------------------------------*/
   let nbExercisesInList: number
-  let sideMenuVisible: boolean = false
+  let isSideMenuVisible: boolean = false
   $: {
     nbExercisesInList = $listeExercices.length
     if (nbExercisesInList === 0) {
-      sideMenuVisible = true
+      isSideMenuVisible = true
+      isNavBarVisible = true
     }
   }
   const searchOptions = [
@@ -91,7 +99,7 @@
   ]
   let searchOption
   function handleSideMenu(event: CustomEvent) {
-    sideMenuVisible = event.detail.isListVisible
+    isSideMenuVisible = event.detail.isListVisible
   }
   function toggleSearchType(e) {
     console.log(e.value)
@@ -100,11 +108,13 @@
 
 <div class="h-screen  scrollbar-hide">
   <!-- <Header /> -->
+  {#if isNavBarVisible}
   <NavBar />
-  <Header2 {sideMenuVisible} on:sideMenuChange={handleSideMenu} />
+  <Header2 sideMenuVisible={isSideMenuVisible} on:sideMenuChange={handleSideMenu} />
+  {/if}
   <main class="flex h-full">
     <!-- side menu -->
-    {#if sideMenuVisible || nbExercisesInList === 0}
+    {#if isSideMenuVisible || nbExercisesInList === 0}
       <aside class="flex flex-col bg-gray-200 w-1/3 p-4  overflow-hidden h-full transition-width transition-slowest ease duration-500">
         <div class="flex-none block overflow-y-scroll overscroll-auto h-full">
           <h2 class="inline-flex items-center font-bold text-xl mb-6">

@@ -1,9 +1,11 @@
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
-import { listeExercices } from './components/store'
+import { listeExercices, displayOptions } from './components/store'
+import { get } from "svelte/store"
 import Exercice from './exercices/Exercice.js'
 import { setReponse } from './modulesv2/gestionInteractif'
 import { ajouteChampTexteMathLive } from './modulesv2/questionMathLive'
+
 // export type Settings = { sup?: boolean | string | number, sup2?: boolean | string | number, sup3?: boolean | string | number, sup4?: boolean | string | number, nbQuestions?: number, seed?: string }
 
 /**
@@ -124,10 +126,17 @@ export class Mathalea {
       if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
       if (ex.sup4 !== undefined) url.searchParams.append('s4', ex.sup4)
     }
+    const params = get(displayOptions)
+    if (params.v) {
+      url.searchParams.append('v', params.v)
+    } else {
+      url.searchParams.delete('v')
+    }
     window.history.pushState({}, '', url)
   }
 
   static loadExercicesFromUrl () {
+    let v = ''
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     let indiceExercice = -1
@@ -147,6 +156,8 @@ export class Mathalea {
         newListeExercice[indiceExercice].sup3 = entry[1]
       } else if (entry[0] === 's4') {
         newListeExercice[indiceExercice].sup4 = entry[1]
+      } else if (entry[0] === 'v') {
+        v = entry[1]
       } else {
         newListeExercice[indiceExercice][entry[0]] = entry[1]
       }
@@ -154,6 +165,7 @@ export class Mathalea {
     listeExercices.update((l) => {
       return newListeExercice
     })
+    return { v }
   }
 
   static handleExerciceSimple (exercice, isInteractif) {

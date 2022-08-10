@@ -2,6 +2,9 @@ import { writable } from 'svelte/store'
 
 export const listeExercices = writable([])
 
+// displayOptions est utilisé dans Mathalea.updateUrl() et dans Mathalea.loadExercicesFromUrl()
+export const displayOptions = writable({})
+
 /**
  *
  * @param liste
