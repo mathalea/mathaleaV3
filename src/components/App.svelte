@@ -33,15 +33,16 @@
     const urlOptions = Mathalea.loadExercicesFromUrl()
     displayOptions.update( () => { return urlOptions })
     isInitialUrlHandled = true
-    if (urlOptions.v === 'l') {
-      isNavBarVisible = false
-      isSideMenuVisible = false
-    }
   })
 
   // Mise à jour de l'URL dès que l'on change listeExercices (sauf pour l'URL d'arrivée sur la page)
   $: {
     if (isInitialUrlHandled) Mathalea.updateUrl($listeExercices)
+    if ($displayOptions.v === 'l') {
+      isNavBarVisible = false
+      isSideMenuVisible = false
+    }
+
   }
 
   let refTree: Map = toMap(referentiel)

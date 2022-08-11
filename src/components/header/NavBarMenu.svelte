@@ -1,5 +1,6 @@
 <script lang="ts">
   export let entrees: string[]
+  export let actions = []
   export let isMenuOpen: boolean
   export let titre: string
   export let id: string
@@ -23,9 +24,10 @@
       },
     }
   }
-  function closeMenu() {
+  function closeMenu(i) {
     isMenuOpen = false
     isNavBarVisible = false
+    if(actions[i]) actions[i]()
   }
   function handleClickOutside() {
     isMenuOpen = false
@@ -39,7 +41,7 @@
   <ul class="lg:absolute right-0 {isMenuOpen ? 'block' : 'hidden'} text-white w-56 filter drop-shadow-xl z-50">
     {#each entrees as entree, i}
       <li>
-        <a class="bg-coopmaths hover:bg-coopmaths-light py-2 px-4 block whitespace-no-wrap" id={[id, "-entree-", i + 1].join("")} href={"#"} on:click={closeMenu}>{entree}</a>
+        <a class="bg-coopmaths hover:bg-coopmaths-light py-2 px-4 block whitespace-no-wrap" id={[id, "-entree-", i + 1].join("")} on:click={() => closeMenu(i)}>{entree}</a>
       </li>
     {/each}
   </ul>

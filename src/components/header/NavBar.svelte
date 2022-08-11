@@ -1,4 +1,6 @@
 <script>
+import { displayOptions } from "../store";
+
   import NavBarMenu from "./NavBarMenu.svelte"
   let isNavBarVisible = false
   const menus = {
@@ -32,9 +34,22 @@
     export: {
       titre: "Export",
       id: "export",
-      entrees: ["Plein écran", "Diaporama", "Lien", "LaTeX", "PDF", "Moodle", "AMC"],
+      entrees: ["Plein écran", "Diaporama", "Lien", "LaTeX", "Moodle", "AMC"],
+      actions: [() => displayOptions.update(params => {params.v = "l"; return params}),
+      () => {document.location.href = urlV2('diap')},
+      () => {alert("Non disponible")},
+      () => {document.location.href = urlV2('latex')},
+      () => {document.location.href = urlV2('moodle')},
+      () => {document.location.href = urlV2('amc')},
+    ],
       isMenuOpen: false,
     },
+  }
+
+  function urlV2(vue) {
+    const params = new URLSearchParams(document.location.search)
+    if (vue) params.set('v', vue)
+    return ('https://coopmaths.fr/mathalea.html?' + params.toString()).replaceAll('&s', ',s').replaceAll('&n', ',n')
   }
 </script>
 
