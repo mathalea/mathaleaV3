@@ -1,6 +1,7 @@
 <script lang="ts">
   import { slide } from "svelte/transition"
   import EntreeListeExos from "./EntreeListeExos.svelte"
+  import { toMap } from "../utils/toMap";
 
   export let expanded: boolean = false
   export let levelTitle: string
@@ -8,39 +9,15 @@
   export let pathToThisNode: string[]
   export let nestedLevelCount: number
 
-  /**
-   * Transforme un objet en arbre basé sur un type Map.
-   * Chaque propriété devient une clé et la valeur correspondante devient :
-   * - soit une valeur si la valeur de la propriété est un tableau
-   * - soit une autre map dans le cas contraire
-   * @param {any} obj
-   * @return {Map} l'arbre correspondant à l'objet
-   * @author sylvain chambon
-   */
-  function toMap(obj: any): Map {
-    let dico = new Map()
-    for (let cle of Object.keys(obj)) {
-      if (obj[cle] instanceof Object) {
-        if (obj[cle] instanceof Array) {
-          dico.set(cle, obj[cle])
-        } else {
-          dico.set(cle, toMap(obj[cle]))
-        }
-      } else {
-        dico.set(cle, obj[cle])
-      }
-    }
-    return dico
-  }
 
-  import themesList from "../../dicos/levelsThemesList.json"
+  import themesList from "../../json/levelsThemesList.json"
   const themes = toMap(themesList)
   /**
    * Recherche dans la liste des thèmes si le thème est référencé
    * et si oui, renvoie son intitulé
    * @param {string} themeCode code du thème
    * @return {string} intitulédu thème
-   * @author sylvain chambon
+   * @author Sylvain Chambon & Rémi Angot
    */
   function themeTitle(themeCode: string) {
     if (themes.has(themeCode)) {
@@ -54,6 +31,7 @@
    * Basculer le flag pour l'affichage du contenu
    */
   function toggleContent() {
+    const item = Array.from(items, ([key, obj]) => ({ key, obj }))
     expanded = !expanded
   }
 </script>
@@ -85,7 +63,7 @@
     {#each Array.from(items, ([key, obj]) => ({ key, obj })) as item}
       <li>
         {#if typeof item.obj === "string"}
-          <EntreeListeExos nestedLevelCount={nestedLevelCount + 1} {pathToThisNode} exo={{ id: item.obj, code: item.key }} />
+          <EntreeListeExos nestedLevelCount={nestedLevelCount + 1} {pathToThisNode} exo={{ uuid: item.obj, id: item.key }} />
         {:else}
           <svelte:self nestedLevelCount={nestedLevelCount + 1} pathToThisNode={[...pathToThisNode, item.key]} levelTitle={item.key} items={item.obj} />
         {/if}

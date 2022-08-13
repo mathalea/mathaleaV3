@@ -1,7 +1,6 @@
 <script lang="ts">
   import Chips from "./Chips.svelte"
   import { listeExercices } from "../store"
-  import ExercicesData from "./ExercicesData.svelte";
   import data from '../../json/exercicesList.json'
   
   let input: HTMLInputElement
@@ -158,9 +157,9 @@ input[type=text] {
   background-color: #f1f1f1;
   width: 100%;
 }
-input[type=submit] {
+/* input[type=submit] {
   background-color: DodgerBlue;
   color: #fff;
-}
+} */
 	
 </style>	

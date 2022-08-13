@@ -1,43 +1,17 @@
 <script lang="ts">
   import { listeExercices } from "../store"
-  import uuidToUrl from '../../dicos/uuidsToUrl.json'
-  import data from "../../dicos/exosDispo.json"
+  import uuidToUrl from '../../json/uuidsToUrl.json'
+  import data from '../../json/menuReferentiel2022.json'
+  import { toMap } from "../utils/toMap";
 
 
   type Exo = {
+    uuid: string
     id: string
-    code: string
   }
   export let exo: Exo
   export let pathToThisNode: string[]
   export let nestedLevelCount: number
-  /*--------------------------------------------------------------
-    Gestions de l'affichage du titre de l'exercice
-   ---------------------------------------------------------------*/
-  /**
-   * Transforme un objet en arbre basé sur un type Map.
-   * Chaque propriété devient une clé et la valeur correspondante devient :
-   * - soit une valeur si la valeur de la propriété est un tableau
-   * - soit une autre map dans le cas contraire
-   * @param {any} obj
-   * @return {Map} l'arbre correspondant à l'objet
-   * @author sylvain chambon
-   */
-  function toMap(obj: any): Map {
-    let dico = new Map()
-    for (let cle of Object.keys(obj)) {
-      if (obj[cle] instanceof Object) {
-        if (obj[cle] instanceof Array) {
-          dico.set(cle, obj[cle])
-        } else {
-          dico.set(cle, toMap(obj[cle]))
-        }
-      } else {
-        dico.set(cle, obj[cle])
-      }
-    }
-    return dico
-  }
 
   const dictionnaire = toMap(data)
 
@@ -51,7 +25,7 @@
    * @return {string} titre de l'exercice
    * @author sylvain chambon
    */
-  function codeToTitle(chemin: string[]): string {
+  function uuidToTitle(chemin: string[]): string {
     let cheminAChercher = [...chemin]
     let response = dictionnaire.get(cheminAChercher.shift())
     cheminAChercher.forEach((cle) => {
@@ -63,7 +37,7 @@
   /*--------------------------------------------------------------
     Gestions des exercices via la liste
    ---------------------------------------------------------------*/
-  const isPresent = (code) => code === exo.code
+  const isPresent = (code) => code === exo.uuid
   let selectedCount = 0
   let listeCodes = []
   // on compte réactivement le nombre d'occurences
@@ -81,8 +55,10 @@
    */
   function addToList() {
     const newExercise = {
-      directory: uuidToUrl[exo.id][0],
-      id: uuidToUrl[exo.id][1] // ToFix l'id est en fait le filename
+      url: uuidToUrl[exo.uuid],
+      id: exo.id
+      // directory: uuidToUrl[exo.id][0],
+      // id: uuidToUrl[exo.id][1] // ToFix l'id est en fait le filename
     }
     listeExercices.update((list) => [...list, newExercise])
   }
@@ -92,7 +68,7 @@
    */
   function removeFromList() {
     let matchingIndex = listeCodes.findIndex(isPresent)
-    console.log("exo " + exo.code + " est en position " + matchingIndex)
+    console.log("exo " + exo.id + " est en position " + matchingIndex)
     listeExercices.update((list) => [...list.slice(0, matchingIndex), ...list.slice(matchingIndex + 1)])
   }
 
@@ -132,7 +108,7 @@
 <div class="relative flex flex-row items-center text-sm text-gray-600 bg-gray-400 ml-{nestedLevelCount * 2}">
   <div class="flex-1 hover:bg-coopmaths-lightest cursor-pointer" on:click={addToList}>
     <div class="ml-[3px] pl-2 bg-gray-200 hover:bg-gray-100 flex-1">
-      <span class="font-bold">{exo.code} - </span>{codeToTitle([...pathToThisNode, exo.id])}
+      <span class="font-bold">{exo.id} - </span>{uuidToTitle([...pathToThisNode, exo.uuid])}
     </div>
   </div>
   {#if selectedCount >= 1}
