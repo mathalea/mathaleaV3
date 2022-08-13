@@ -1,0 +1,3 @@
+- builJsonDictionnaireExercices
+    - On ouvre levels/themesList.json
+    - On charge le dictionnaire et on récupère la liste des UUID déjà utilisés

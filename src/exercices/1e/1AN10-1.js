@@ -12,7 +12,8 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * @author
  * Référence
 */
-export const uuid = '3094e'
+export const keywords = ['Dérivé', 'Fonction']
+export const uuid = '8f883'
 export const ref = '1AN10-1'
 export default function Tauxvariation () {
   // Exercice.call(this) // Héritage de la classe Exercice()
