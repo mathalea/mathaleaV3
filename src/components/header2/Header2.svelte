@@ -1,15 +1,18 @@
 <script lang="ts">
   import Searchbar from "./Searchbar.svelte"
+  import { listeExercices } from "../store"
   import { createEventDispatcher } from "svelte"
   const dispatch = createEventDispatcher()
   const dispatch2 = createEventDispatcher()
   export let sideMenuVisible: boolean
   let isListVisible: boolean
   function toggleSideList() {
-    isListVisible = !sideMenuVisible
-    dispatch("sideMenuChange", {
-      isListVisible,
-    })
+    if ($listeExercices.length > 0) {
+      isListVisible = !sideMenuVisible
+      dispatch("sideMenuChange", {
+        isListVisible,
+      })
+    }
   }
 </script>
 
