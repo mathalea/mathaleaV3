@@ -2,7 +2,7 @@
   import Chips from "./Chips.svelte"
   import { listeExercices } from "../store"
   import ExercicesData from "./ExercicesData.svelte";
-  import data from '../../exercicesList.json'
+  import data from '../../json/exercicesList.json'
   
   let input: HTMLInputElement
   let listeId = []

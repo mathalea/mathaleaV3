@@ -1,7 +1,7 @@
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import 'katex/dist/katex.min.css'
 import { listeExercices, displayOptions } from './components/store'
-import { get } from "svelte/store"
+import { get } from 'svelte/store'
 import Exercice from './exercices/Exercice.js'
 import { setReponse } from './modulesv2/gestionInteractif'
 import { ajouteChampTexteMathLive } from './modulesv2/questionMathLive'
