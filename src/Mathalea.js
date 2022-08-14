@@ -5,6 +5,7 @@ import { get } from 'svelte/store'
 import Exercice from './exercices/Exercice.js'
 import { setReponse } from './modulesv2/gestionInteractif'
 import { ajouteChampTexteMathLive } from './modulesv2/questionMathLive'
+import uuidToUrl from './json/uuidsToUrl.json'
 
 // export type Settings = { sup?: boolean | string | number, sup2?: boolean | string | number, sup3?: boolean | string | number, sup4?: boolean | string | number, nbQuestions?: number, seed?: string }
 
@@ -18,7 +19,8 @@ export class Mathalea {
  * @param {string} url
  * @returns {Promise<Exercice>} exercice
  */
-  static async load (url) {
+  static async load (uuid) {
+    const url = uuidToUrl[uuid]
     const [directory, filename] = url.split('/')
     try {
       // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
@@ -120,7 +122,8 @@ export class Mathalea {
   static updateUrl (listeExercices) {
     const url = new URL(window.location.protocol + '//' + window.location.host + window.location.pathname)
     for (const ex of listeExercices) {
-      url.searchParams.append('ex', ex.id)
+      url.searchParams.append('uuid', ex.uuid)
+      url.searchParams.append('id', ex.id)
       if (ex.nbQuestions !== undefined) url.searchParams.append('n', ex.nbQuestions)
       if (ex.sup !== undefined) url.searchParams.append('s', ex.sup)
       if (ex.sup2 !== undefined) url.searchParams.append('s2', ex.sup2)
@@ -143,10 +146,12 @@ export class Mathalea {
     let indiceExercice = -1
     const newListeExercice = []
     for (const entry of entries) {
-      if (entry[0] === 'ex') {
+      if (entry[0] === 'uuid') {
         indiceExercice++
-        // ToFix il faudra supprimer directory et aller chercher l'url
-        newListeExercice[indiceExercice] = { id: entry[1], directory: entry[1][0] + 'e' }
+        if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = {}
+        newListeExercice[indiceExercice].uuid = entry[1]
+      } else if (entry[0] === 'id') {
+        newListeExercice[indiceExercice].id = entry[1]
       } else if (entry[0] === 'n') {
         newListeExercice[indiceExercice].nbQuestions = entry[1]
       } else if (entry[0] === 's') {

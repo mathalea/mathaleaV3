@@ -28,7 +28,8 @@
   function addToList() {
     const newExercise = {
       url: exo.get('url'),
-      id: exo.get('id')
+      id: exo.get('id'),
+      uuid: exo.get('uuid')
     }
     listeExercices.update((list) => [...list, newExercise])
     

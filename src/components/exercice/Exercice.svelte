@@ -14,7 +14,7 @@ import { onMount } from "svelte"
 
 
   onMount(async () => {
-    exercice = await Mathalea.load(paramsExercice.url)
+    exercice = await Mathalea.load(paramsExercice.uuid)
     if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
     if (paramsExercice.sup) exercice.sup = paramsExercice.sup
     if (paramsExercice.sup2) exercice.sup2 = paramsExercice.sup2
