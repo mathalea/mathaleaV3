@@ -171,8 +171,7 @@ function mettreAJourFichierReferentiel (dico) {
     'Terminale expert': unordered.Ex,
     'Hors-programme (lycée)': unordered.HP,
     CRPE: unordered.PE,
-    'Calcul mental': unordered.CM
-    // Test: unordered
+    'Calcul mental': {...unordered.CM.CM00, ...unordered.CM.CM01, ...unordered.CM.CM02}
   }
   for (const niveau in ordered) {
     if (niveau !== 'CAN') ordered[niveau] = orderObject(ordered[niveau])
