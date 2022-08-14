@@ -24,7 +24,6 @@ export class Mathalea {
       // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
       // cf https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#globs-only-go-one-level-deep
       if (directory !== 'exercicesStatiques') {
-        console.log(directory, filename)
         const module = await import(`./exercices/${directory}/${filename}`)
         const ClasseExercice = module.default
         const exercice /** Promise<Exercice> */= new ClasseExercice()

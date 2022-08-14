@@ -103,7 +103,6 @@
     isSideMenuVisible = event.detail.isListVisible
   }
   function toggleSearchType(e) {
-    console.log(e.value)
   }
 </script>
 

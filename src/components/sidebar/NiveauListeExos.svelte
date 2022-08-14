@@ -62,8 +62,8 @@
   <ul transition:slide={{ duration: 500 }}>
     {#each Array.from(items, ([key, obj]) => ({ key, obj })) as item}
       <li>
-        {#if typeof item.obj === "string"}
-          <EntreeListeExos nestedLevelCount={nestedLevelCount + 1} {pathToThisNode} exo={{ uuid: item.obj, id: item.key }} />
+        {#if item.obj.has('uuid')}
+          <EntreeListeExos nestedLevelCount={nestedLevelCount + 1} exo={item.obj} />
         {:else}
           <svelte:self nestedLevelCount={nestedLevelCount + 1} pathToThisNode={[...pathToThisNode, item.key]} levelTitle={item.key} items={item.obj} />
         {/if}

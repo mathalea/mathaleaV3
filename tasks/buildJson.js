@@ -199,7 +199,7 @@ function gereModuleJs (module, file, name, dictionnaire, referentiel2022, menu20
 
   if (isCan) {
     if (['1', '2', '3', '4', '5', '6', 'T'].indexOf(name[3]) !== -1) {
-      level = name[3] + 'e'
+      level = 'can' + name[3] + 'e'
       chap = name.substring(3, 5)
     } else {
       level = name.substring(3, 5)

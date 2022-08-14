@@ -1,43 +1,15 @@
 <script lang="ts">
   import { listeExercices } from "../store"
-  import uuidToUrl from '../../json/uuidsToUrl.json'
-  import data from '../../json/menuReferentiel2022.json'
-  import { toMap } from "../utils/toMap";
-
-
-  type Exo = {
-    uuid: string
-    id: string
-  }
-  export let exo: Exo
-  export let pathToThisNode: string[]
+  
+  export let exo
   export let nestedLevelCount: number
-
-  const dictionnaire = toMap(data)
-
-  /**
-   * Cherche dans l'arbre des exercices disponibles
-   * un exercice connaissant son chemin
-   * (c'est-à-dire par exemple 1e>1AN>UUID)
-   * et renvoie son titre
-   * @param {string[]} chemin tableau des nœuds représentant
-   * le chemin dans le JSON des exos dispos
-   * @return {string} titre de l'exercice
-   * @author sylvain chambon
-   */
-  function uuidToTitle(chemin: string[]): string {
-    let cheminAChercher = [...chemin]
-    let response = dictionnaire.get(cheminAChercher.shift())
-    cheminAChercher.forEach((cle) => {
-      response = response.get(cle)
-    })
-    return response.get("titre")
-  }
 
   /*--------------------------------------------------------------
     Gestions des exercices via la liste
    ---------------------------------------------------------------*/
-  const isPresent = (code) => code === exo.uuid
+  const isPresent = (code) => {
+    return code === exo.get('id')
+  }
   let selectedCount = 0
   let listeCodes = []
   // on compte réactivement le nombre d'occurences
@@ -55,12 +27,11 @@
    */
   function addToList() {
     const newExercise = {
-      url: uuidToUrl[exo.uuid],
-      id: exo.id
-      // directory: uuidToUrl[exo.id][0],
-      // id: uuidToUrl[exo.id][1] // ToFix l'id est en fait le filename
+      url: exo.get('url'),
+      id: exo.get('id')
     }
     listeExercices.update((list) => [...list, newExercise])
+    
   }
   /**
    * Retirer l'exercice de la liste (si plusieurs occurences
@@ -68,7 +39,6 @@
    */
   function removeFromList() {
     let matchingIndex = listeCodes.findIndex(isPresent)
-    console.log("exo " + exo.id + " est en position " + matchingIndex)
     listeExercices.update((list) => [...list.slice(0, matchingIndex), ...list.slice(matchingIndex + 1)])
   }
 
@@ -108,7 +78,7 @@
 <div class="relative flex flex-row items-center text-sm text-gray-600 bg-gray-400 ml-{nestedLevelCount * 2}">
   <div class="flex-1 hover:bg-coopmaths-lightest cursor-pointer" on:click={addToList}>
     <div class="ml-[3px] pl-2 bg-gray-200 hover:bg-gray-100 flex-1">
-      <span class="font-bold">{exo.id} - </span>{uuidToTitle([...pathToThisNode, exo.uuid])}
+      <span class="font-bold">{exo.get('id')} - </span>{exo.get('titre')}
     </div>
   </div>
   {#if selectedCount >= 1}

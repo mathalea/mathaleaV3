@@ -25,7 +25,6 @@
     if (scaleIndex < scales.length - 1) {
       scaleIndex++
     }
-    console.log(typeof scales[scaleIndex])
   }
   function downScale() {
     if (scaleIndex > 0) {
