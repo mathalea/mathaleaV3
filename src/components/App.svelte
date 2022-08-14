@@ -7,7 +7,7 @@
   import NiveauListeExos from "./sidebar/NiveauListeExos.svelte"
   import SearchChoiceOptionsRadio from "./sidebar/SearchChoiceOptionsRadio.svelte"
   import { listeExercices, displayOptions } from "./store"
-  import codeList from "../json/codeToLevelList.json"
+  import codeList from "../dicos/codeToLevelList.json"
   import referentiel from "../json/referentiel2022.json"
   import { Mathalea } from "../Mathalea"
   import { flip } from "svelte/animate"

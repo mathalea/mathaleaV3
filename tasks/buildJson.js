@@ -1,14 +1,7 @@
-/* eslint-disable no-unused-vars */
 import fs from 'fs'
 import path from 'path'
-import { toObjet, toMap, collecteUuidsFromDico } from './fileTools.js'
+import { toObjet, toMap } from './fileTools.js'
 
-const isVerbose = /-(-verbode|v)/.test(process.argv)
-const logIfVerbose = (...args) => { if (isVerbose) console.log(...args) }
-const dictFilePath = '../src/json/exercicesDisponiblesReferentiel2022.json'
-const uuidToUrlFilePath = '../src/json/uuidsToUrl.json'
-const referentiel2022FilePath = '../src/json/referentiel2022.json'
-const levelsThemesListFilePath = '../src/json/levelsThemesList.json'
 let levelsThemesList
 let dictionnaire
 let referentiel2022
@@ -66,7 +59,7 @@ function ecrireUuidDansFichier (uuid, name, file) {
   }
 }
 
-function ajouteExoReferentiel ({ uuid, name, level, chap, referentiel }) {
+function ajouteExoReferentiel ({ uuid, id, url, name, titre, tags, datePublication, dateModification, level, chap, referentiel }) {
   if (!(referentiel instanceof Map)) {
     console.log('référentiel non valide')
     return false
@@ -81,30 +74,31 @@ function ajouteExoReferentiel ({ uuid, name, level, chap, referentiel }) {
     refLevel.set(chap, new Map())
     refChap = refLevel.get(chap)
   }
-  refChap.set(name, uuid)
+  const exo = { uuid, id, titre, url, tags, datePublication, dateModification }
+  refChap.set(name, exo)
 }
 
-function ajouteExoMenu ({ uuid, name, level, chap, titre, tags, datePublication, dateModification, menu }) {
-  if (!(menu instanceof Map)) {
-    console.log('référentiel non valide')
-    return false
-  }
-  let refLevel = menu.get(level)
+function ajouteExoMenu ({ uuid, id, level, chap, titre, tags, datePublication, dateModification, menu }) {
+  // if (!(menu instanceof Map)) {
+  //   console.log('référentiel non valide')
+  //   return false
+  // }
+  let refLevel = menu[level]
   if (!refLevel) {
-    menu.set(level, new Map())
-    refLevel = menu.get(level)
+    menu[level] = {}
+    refLevel = menu[level]
   }
-  let refChap = refLevel.get(chap)
+  let refChap = refLevel[chap]
   if (!refChap) {
-    refLevel.set(chap, new Map())
-    refChap = refLevel.get(chap)
+    refLevel[chap] = {}
+    refChap = refLevel[chap]
   }
-  const exo = { titre, tags, datePublication, dateModification }
-  refChap.set(uuid, exo)
+  const exo = { titre, id, tags, datePublication, dateModification }
+  refChap[uuid] = exo
 }
 
-function ajouteExoDico ({ uuid = '', url = '', name = '', titre = '', level = '', chap = '', idTheme, idSousTheme, keywords = [], tags = {}, datePublication = '', dateModification = '', dico } = {}) {
-  let theme = ''; let sousTheme = ''
+function ajouteExoDico ({ uuid = '', id = '', url = '', name = '', titre = '', level = '', chap = '', idTheme, idSousTheme, keywords = [], tags = {}, datePublication = '', dateModification = '', dico } = {}) {
+  let theme = ''
   if (!(Array.isArray(dico))) {
     console.log('dictionnaire non valide')
     return false
@@ -126,16 +120,13 @@ function ajouteExoDico ({ uuid = '', url = '', name = '', titre = '', level = ''
     if (theme !== '') {
       if (levelsThemesList.get(idTheme).get('sousThemes') !== undefined) {
         if (levelsThemesList.get(idTheme).get('sousThemes').get(idSousTheme) !== undefined) {
-          sousTheme = idSousTheme // ici on stocke la clé... ci-dessous on stocke la définition complète
+          // sousTheme = idSousTheme // ici on stocke la clé... ci-dessous on stocke la définition complète
         // sousTheme = levelsThemesList.get(leTheme).get('sousThemes').get(leSousTheme) || ''
         }
       }
-    } else {
-      sousTheme = ''
     }
   }
-  const exo = { uuid, url, titre, niveau: level, idTheme, idSousTheme, AMC: tags.AMC, Interactif: tags.Interactif, Can: tags.Can, keywords, datePublication, dateModification }
-  // dicoChap.set(uuid, exo
+  const exo = { uuid, url, id, titre, niveau: level, idTheme, idSousTheme, AMC: tags.AMC, Interactif: tags.Interactif, Can: tags.Can, keywords, datePublication, dateModification }
   dico.push(exo)
 }
 
@@ -149,8 +140,8 @@ function mettreAJourFichierDico (dico) {
   }
 }
 function mettreAJourFichierMenu (dico) {
-  const objDico = toObjet(dico)
-  const contenuFichier = JSON.stringify(objDico, null, 2)
+  // const objDico = toObjet(dico)
+  const contenuFichier = JSON.stringify(dico, null, 2)
   const menuReferentiel2022FilePath = './src/json/menuReferentiel2022.json'
   try {
     fs.writeFileSync(menuReferentiel2022FilePath, contenuFichier, 'utf-8')
@@ -159,8 +150,15 @@ function mettreAJourFichierMenu (dico) {
   }
 }
 function mettreAJourFichierReferentiel (dico) {
-  const objDico = toObjet(dico)
-  const contenuFichier = JSON.stringify(objDico, null, 2)
+  const unordered = toObjet(dico)
+  const ordered = orderObject(unordered)
+  for (const niveau in ordered) {
+    ordered[niveau] = orderObject(ordered[niveau])
+    for (const theme in ordered[niveau]) {
+      ordered[niveau][theme] = orderObject(ordered[niveau][theme])
+    }
+  }
+  const contenuFichier = JSON.stringify(ordered, null, 2)
   const referentiel2022FilePath = './src/json/referentiel2022.json'
   try {
     fs.writeFileSync(referentiel2022FilePath, contenuFichier, 'utf-8')
@@ -197,6 +195,7 @@ function gereModuleJs (module, file, name, dictionnaire, referentiel2022, menu20
   const keywords = module.keywords ? module.keywords : []
   const datePublication = module.dateDePublication
   const dateModification = module.dateDeModifImportante
+  const ref = module.ref
 
   if (isCan) {
     if (['1', '2', '3', '4', '5', '6', 'T'].indexOf(name[3]) !== -1) {
@@ -228,9 +227,9 @@ function gereModuleJs (module, file, name, dictionnaire, referentiel2022, menu20
   }
   const url = file.replace('../src/exercices/', '')
   const tags = { AMC: !!isAmcReady, Interactif: !!isInteractifReady, Can: !!isCan }
-  ajouteExoDico({ uuid, url, name, titre, level, chap, idTheme, idSousTheme, keywords, tags, datePublication, dateModification, dico: dictionnaire })
-  ajouteExoReferentiel({ uuid, name, level, chap, referentiel: referentiel2022 })
-  ajouteExoMenu({ uuid, name, level, chap, titre, tags, datePublication, dateModification, menu: menu2022 })
+  ajouteExoDico({ uuid, id: ref, url, name, titre, level, chap, idTheme, idSousTheme, keywords, tags, datePublication, dateModification, dico: dictionnaire })
+  ajouteExoReferentiel({ uuid, id: ref, name, url, titre, tags, datePublication, dateModification, level, chap, referentiel: referentiel2022 })
+  ajouteExoMenu({ uuid, id: ref, level, chap, titre, tags, datePublication, dateModification, menu: menu2022 })
   uuidsToUrl.set(uuid, url)
   return true
 }
@@ -259,7 +258,7 @@ async function builJsonDictionnaireExercices () {
   dictionnaire = []
   uuidsToUrl = new Map()
   referentiel2022 = new Map()
-  menu2022 = new Map()
+  menu2022 = {}
 
   // On charge la liste des exercices
   const exercicesDir = path.relative(path.resolve('.'), path.resolve('src', 'exercices'))
@@ -299,25 +298,36 @@ async function builJsonDictionnaireExercices () {
  * @param {string} level
  * @author Jean-Claude Lhote
  */
-function buildJsonExercicesOfLevel (level) { // level contient la première lettre du niveau
-  let listeExosLevel
-  if (dictionnaire === undefined) dictionnaire = toMap(JSON.parse(fs.readFileSync(dictFilePath, 'utf-8')))
-  const entrées = Object.entries(toObjet(dictionnaire))
-  const listeExos = []
-  for (const [clé, liste] of entrées) {
-    if (clé === level) {
-      for (const [key, data] of Object.entries(liste)) {
-        const exos = Object.entries(data)
-        for (const [key2, value] of Object.entries(exos)) {
-          listeExos.push([value[0], value[1]])
-        }
-      }
-    }
-  }
+// function buildJsonExercicesOfLevel (level) { // level contient la première lettre du niveau
+//   let listeExosLevel
+//   if (dictionnaire === undefined) dictionnaire = toMap(JSON.parse(fs.readFileSync(dictFilePath, 'utf-8')))
+//   const entrées = Object.entries(toObjet(dictionnaire))
+//   const listeExos = []
+//   for (const [clé, liste] of entrées) {
+//     if (clé === level) {
+//       for (const [key, data] of Object.entries(liste)) {
+//         const exos = Object.entries(data)
+//         for (const [key2, value] of Object.entries(exos)) {
+//           listeExos.push([value[0], value[1]])
+//         }
+//       }
+//     }
+//   }
+//
+//   const dicoLevel = Object.fromEntries(listeExos)
+//   const dicoLevelFile = `./exercicesDisponiblesNiveau${level}Referentiel2022.json`// path.resolve('src', 'modules', `exercicesDisponiblesNiveau${level}Referentiel2022.json`)
+//   fs.writeFileSync(dicoLevelFile, JSON.stringify(dicoLevel, null, 2))
+// }
 
-  const dicoLevel = Object.fromEntries(listeExos)
-  const dicoLevelFile = `./exercicesDisponiblesNiveau${level}Referentiel2022.json`// path.resolve('src', 'modules', `exercicesDisponiblesNiveau${level}Referentiel2022.json`)
-  fs.writeFileSync(dicoLevelFile, JSON.stringify(dicoLevel, null, 2))
+function orderObject (unordered) {
+  const ordered = Object.keys(unordered).sort().reduce(
+    (obj, key) => {
+      obj[key] = unordered[key]
+      return obj
+    },
+    {}
+  )
+  return ordered
 }
 
 // main script
