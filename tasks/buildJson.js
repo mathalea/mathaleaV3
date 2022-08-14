@@ -224,7 +224,7 @@ function gereModuleJs (module, file, name, dictionnaire, referentiel2022, menu20
       level = 'can' + name[3] + 'e'
       chap = name.substring(3, 5)
     } else {
-      level = name.substring(3, 5)
+      level = name.substring(0, 5)
       chap = name.substring(3, 6)
     }
     idTheme = ''
