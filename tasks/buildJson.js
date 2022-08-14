@@ -151,9 +151,31 @@ function mettreAJourFichierMenu (dico) {
 }
 function mettreAJourFichierReferentiel (dico) {
   const unordered = toObjet(dico)
-  const ordered = orderObject(unordered)
+  const ordered = {
+    CAN: {
+      '6e': unordered.can6e,
+      '5e': unordered.can5e,
+      '4e': unordered.can4e,
+      '3e': unordered.can3e,
+      '2e': unordered.can2e,
+      '1e': unordered.can1e
+    },
+    'CM1/CM2': unordered.c3,
+    '6e': unordered['6e'],
+    '5e': unordered['5e'],
+    '4e': unordered['4e'],
+    '3e': unordered['3e'],
+    Seconde: unordered['2e'],
+    Première: unordered['1e'],
+    'Première Technologique': unordered.techno1,
+    'Terminale expert': unordered.Ex,
+    'Hors-programme (lycée)': unordered.HP,
+    CRPE: unordered.PE,
+    'Calcul mental': unordered.CM
+    // Test: unordered
+  }
   for (const niveau in ordered) {
-    ordered[niveau] = orderObject(ordered[niveau])
+    if (niveau !== 'CAN') ordered[niveau] = orderObject(ordered[niveau])
     for (const theme in ordered[niveau]) {
       ordered[niveau][theme] = orderObject(ordered[niveau][theme])
     }

@@ -98,7 +98,7 @@
       label: "Themes",
     },
   ]
-  let searchOption
+  let searchOption = 'list'
   function handleSideMenu(event: CustomEvent) {
     isSideMenuVisible = event.detail.isListVisible
   }
@@ -119,7 +119,7 @@
         <div class="flex-none block overflow-y-scroll overscroll-auto h-full">
           <h2 class="inline-flex items-center font-bold text-xl mb-6">
             <span>Choix des exercices</span>
-            <SearchChoiceOptionsRadio options={searchOptions} bind:userSelected={searchOption} />
+            <!-- <SearchChoiceOptionsRadio options={searchOptions} bind:userSelected={searchOption} /> -->
           </h2>
           {#if searchOption === "list"}
             <ul>
