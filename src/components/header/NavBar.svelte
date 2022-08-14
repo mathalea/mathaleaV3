@@ -49,7 +49,8 @@ import { displayOptions } from "../store";
   function urlV2(vue) {
     const params = new URLSearchParams(document.location.search)
     if (vue) params.set('v', vue)
-    return ('https://coopmaths.fr/mathalea.html?' + params.toString()).replaceAll('&s', ',s').replaceAll('&n', ',n')
+    params.delete('uuid')
+    return ('https://coopmaths.fr/mathalea.html?' + params.toString()).replaceAll('id=', 'ex=').replaceAll('&s', ',s').replaceAll('&n', ',n')
   }
 </script>
 
