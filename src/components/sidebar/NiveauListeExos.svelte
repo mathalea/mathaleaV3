@@ -1,7 +1,7 @@
 <script lang="ts">
   import { slide } from "svelte/transition"
   import EntreeListeExos from "./EntreeListeExos.svelte"
-  import { toMap } from "../utils/toMap";
+  import { toMap } from "../utils/toMap"
 
   export let expanded: boolean = false
   export let levelTitle: string

@@ -21,12 +21,18 @@ export class Mathalea {
  */
   static async load (uuid) {
     const url = uuidToUrl[uuid]
-    const [directory, filename] = url.split('/')
+    const [filename, directory, isCan] = url.split('/').reverse()
     try {
       // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
       // cf https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#globs-only-go-one-level-deep
+      // L'extension doit-être visible donc on l'enlève avant de la remettre...
       if (directory !== 'exercicesStatiques') {
-        const module = await import(`./exercices/${directory}/${filename}`)
+        let module
+        if (isCan) {
+          module = await import(`./exercices/can/${directory}/${filename.replace('.js', '')}.js`)
+        } else {
+          module = await import(`./exercices/${directory}/${filename.replace('.js', '')}.js`)
+        }
         const ClasseExercice = module.default
         const exercice /** Promise<Exercice> */= new ClasseExercice()
         ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach((p) => {
