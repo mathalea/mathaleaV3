@@ -68,6 +68,9 @@
     const seed = (Math.random() * 1000).toString();
     exercice.seed = seed;
     if (buttonScore) initButtonScore()
+    if (isCorrectionVisible) {
+      window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, "true")
+    }
     updateDisplay();
   }
 
