@@ -171,7 +171,7 @@ function mettreAJourFichierReferentiel (dico) {
     'Terminale expert': unordered.Ex,
     'Hors-programme (lycée)': unordered.HP,
     CRPE: unordered.PE,
-    'Calcul mental': {...unordered.CM.CM00, ...unordered.CM.CM01, ...unordered.CM.CM02}
+    'Calcul mental': { ...unordered.CM.CM00, ...unordered.CM.CM01, ...unordered.CM.CM02 }
   }
   for (const niveau in ordered) {
     if (niveau !== 'CAN') ordered[niveau] = orderObject(ordered[niveau])
@@ -221,7 +221,8 @@ function gereModuleJs (module, file, name, dictionnaire, referentiel2022, menu20
   if (isCan) {
     if (['1', '2', '3', '4', '5', '6', 'T'].indexOf(name[3]) !== -1) {
       level = 'can' + name[3] + 'e'
-      chap = name.substring(3, 5)
+      chap = name.substring(0, 5)
+      if (name[4] === 'a') chap = 'Annales'
     } else {
       level = name.substring(0, 5)
       chap = name.substring(3, 6)

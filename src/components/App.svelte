@@ -7,7 +7,7 @@
   import NiveauListeExos from "./sidebar/NiveauListeExos.svelte"
   import SearchChoiceOptionsRadio from "./sidebar/SearchChoiceOptionsRadio.svelte"
   import { listeExercices, displayOptions } from "./store"
-  import codeList from "../dicos/codeToLevelList.json"
+  import codeList from "../json/codeToLevelList.json"
   import referentiel from "../json/referentiel2022.json"
   import { Mathalea } from "../Mathalea"
   import { flip } from "svelte/animate"
@@ -46,24 +46,7 @@
   }
 
   let refTree: Map = toMap(referentiel)
-  // ToFix je réordonne le Map pour créer un menu dans l'ordre souhaité
-  // const refc3 = refTree.get('c3')
-  // const ref6e = refTree.get('6e')
-  // const ref5e = refTree.get('5e')
-  // const ref4e = refTree.get('4e')
-  // const ref3e = refTree.get('3e')
-  // const ref2e = refTree.get('2e')
-  // const ref1e = refTree.get('1e')
-  // const refPe = refTree.get('PE')
-  // refTree = new Map()
-  // refTree.set('c3', refc3)
-  // refTree.set('6e', ref6e)
-  // refTree.set('5e', ref5e)
-  // refTree.set('4e', ref4e)
-  // refTree.set('3e', ref3e)
-  // refTree.set('2e', ref2e)
-  // refTree.set('1e', ref1e)
-  // refTree.set('PE', refPe)
+  
   /**
    * Retrouve le titre d'un niveau basé sur son
    * @param levelId

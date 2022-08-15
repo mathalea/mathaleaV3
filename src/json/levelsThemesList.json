@@ -1,4 +1,137 @@
 {
+  "Annales": {
+    "titre": "Annales aléatoires"
+  },
+  "can6C": {
+    "titre": "Calculs"
+  },
+  "can6D": {
+    "titre": "Durées"
+  },
+  "can6G": {
+    "titre": "Géométrie"
+  },
+  "can6I": {
+    "titre": "Algorithmique"
+  },
+  "can6M": {
+    "titre": "Mesure"
+  },
+  "can6N": {
+    "titre": "Numération"
+  },
+  "can6P": {
+    "titre": "Proportionnalité"
+  },
+  "can6S": {
+    "titre": "Statistiques"
+  },
+  "can5A": {
+    "titre": "Algorithmes"
+  },
+  "can5C": {
+    "titre": "Calculs"
+  },
+  "can5D": {
+    "titre": "Durées"
+  },
+  "can5G": {
+    "titre": "Géométrie"
+  },
+  "can5P": {
+    "titre": "Proportionnalité"
+  },
+  "can5L": {
+    "titre": "Calcul littéral"
+  },
+  "can5N": {
+    "titre": "Numération"
+  },
+  "can4A": {
+    "titre": "Algorithmes"
+  },
+  "can4C": {
+    "titre": "Calculs"
+  },
+  "can4D": {
+    "titre": "Durées"
+  },
+  "can4G": {
+    "titre": "Géométrie"
+  },
+  "can4P": {
+    "titre": "Proportionnalité"
+  },
+  "can4L": {
+    "titre": "Calcul littéral"
+  },
+  "can4N": {
+    "titre": "Numération"
+  },
+  "can3A": {
+    "titre": "Algorithmes"
+  },
+  "can3C": {
+    "titre": "Calculs"
+  },
+  "can3D": {
+    "titre": "Durées"
+  },
+  "can3G": {
+    "titre": "Géométrie"
+  },
+  "can3P": {
+    "titre": "Proportionnalité"
+  },
+  "can3L": {
+    "titre": "Calcul littéral"
+  },
+  "can3N": {
+    "titre": "Numération"
+  },
+  "can3M": {
+    "titre": "Mesure"
+  },
+  "can3F": {
+    "titre": "Fonctions"
+  },
+  "can3S": {
+    "titre": "Statistiques et probabilités"
+  },
+  "can2C": {
+    "titre": "Calculs"
+  },
+  "can2F": {
+    "titre": "Fonctions"
+  },
+  "can2G": {
+    "titre": "Géométrie"
+  },
+  "can2L": {
+    "titre": "Calcul littéral"
+  },
+  "can2N": {
+    "titre": "Numération"
+  },
+  "can2P": {
+    "titre": "Probabilités"
+  },
+  "can1F": {
+    "titre": "Fonctions"
+  },
+  "can1G": {
+    "titre": "Géométrie"
+  },
+  "can1L": {
+    "titre": "Calcul littéral"
+  },
+  "can1P": {
+    "titre": "Probabilités"
+  },
+  "can1S": {
+    "titre": "Suites"
+  },
+
   "c3C1" : {
     "titre": "Calculs - Niveau 1"
   },

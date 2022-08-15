@@ -1,7 +1,56 @@
 {
   "CAN": {
     "6e": {
-      "6C": {
+      "Annales": {
+        "can6a-2018": {
+          "uuid": "db656",
+          "id": "can6a-2018",
+          "titre": "CAN 6ième sujet 2018",
+          "url": "can/6e/can6a-2018.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "30/03/2022"
+        },
+        "can6a-2022": {
+          "uuid": "d9655",
+          "id": "can6a-2022",
+          "titre": "CAN 6ième sujet 2022",
+          "url": "can/6e/can6a-2022.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "13/04/2022"
+        },
+        "can6a-2021": {
+          "uuid": "d4f41",
+          "id": "can6a-2021",
+          "titre": "CAN 6ième sujet 2021",
+          "url": "can/6e/can6a-2021.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "11/04/2022"
+        },
+        "can6a-xxxx": {
+          "uuid": "43a2a",
+          "id": "can6a-xxxx",
+          "titre": "Course aux nombres fin de 6e",
+          "url": "can/6e/can6a-xxxx.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        }
+      },
+      "can6C": {
         "can6C15": {
           "uuid": "2707f",
           "id": "can6C15",
@@ -12,6 +61,18 @@
             "Interactif": true,
             "Can": true
           }
+        },
+        "can6C34": {
+          "uuid": "02c95",
+          "id": "can6C34",
+          "titre": "Pyramide additive inverse",
+          "url": "can/6e/can6C34.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "09/05/2022"
         },
         "can6C32": {
           "uuid": "c3c0e",
@@ -30,18 +91,6 @@
           "id": "can6C33",
           "titre": "Pyramide multiplicative",
           "url": "can/6e/can6C33.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "09/05/2022"
-        },
-        "can6C34": {
-          "uuid": "02c95",
-          "id": "can6C34",
-          "titre": "Pyramide additive inverse",
-          "url": "can/6e/can6C34.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -71,17 +120,6 @@
             "Can": true
           }
         },
-        "can6C04": {
-          "uuid": "41fc1",
-          "id": "can6C04",
-          "titre": "Ajouter 10n + 9",
-          "url": "can/6e/can6C04.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          }
-        },
         "can6C05": {
           "uuid": "9086e",
           "id": "can6C05",
@@ -93,11 +131,11 @@
             "Can": true
           }
         },
-        "can6C06": {
-          "uuid": "ece40",
-          "id": "can6C06",
-          "titre": "Diviser par 9",
-          "url": "can/6e/can6C06.js",
+        "can6C04": {
+          "uuid": "41fc1",
+          "id": "can6C04",
+          "titre": "Ajouter 10n + 9",
+          "url": "can/6e/can6C04.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -126,22 +164,22 @@
             "Can": true
           }
         },
-        "can6C09": {
-          "uuid": "8eaf2",
-          "id": "can6C09",
-          "titre": "Soustraire 10n+9",
-          "url": "can/6e/can6C09.js",
+        "can6C06": {
+          "uuid": "ece40",
+          "id": "can6C06",
+          "titre": "Diviser par 9",
+          "url": "can/6e/can6C06.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
             "Can": true
           }
         },
-        "can6C11": {
-          "uuid": "8cdc7",
-          "id": "can6C11",
-          "titre": "Calculer le double ou le triple (décimal)",
-          "url": "can/6e/can6C11.js",
+        "can6C09": {
+          "uuid": "8eaf2",
+          "id": "can6C09",
+          "titre": "Soustraire 10n+9",
+          "url": "can/6e/can6C09.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -159,33 +197,11 @@
             "Can": true
           }
         },
-        "can6C13": {
-          "uuid": "410ea",
-          "id": "can6C13",
-          "titre": "Calculer la somme de deux décimaux",
-          "url": "can/6e/can6C13.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          }
-        },
         "can6C12": {
           "uuid": "9f937",
           "id": "can6C12",
           "titre": "Calculer le double ou le triple",
           "url": "can/6e/can6C12.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          }
-        },
-        "can6C14": {
-          "uuid": "72093",
-          "id": "can6C14",
-          "titre": "Calculer la somme de quatre entiers qui se marient",
-          "url": "can/6e/can6C14.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -203,17 +219,6 @@
             "Can": true
           }
         },
-        "can6C17": {
-          "uuid": "9d305",
-          "id": "can6C17",
-          "titre": "Calculer la fraction d’une quantité",
-          "url": "can/6e/can6C17.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          }
-        },
         "can6C18": {
           "uuid": "18659",
           "id": "can6C18",
@@ -225,6 +230,17 @@
             "Can": true
           },
           "dateModification": "04/12/2021"
+        },
+        "can6C17": {
+          "uuid": "9d305",
+          "id": "can6C17",
+          "titre": "Calculer la fraction d’une quantité",
+          "url": "can/6e/can6C17.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
         },
         "can6C19": {
           "uuid": "6e3b1",
@@ -270,17 +286,6 @@
             "Can": true
           }
         },
-        "can6C23": {
-          "uuid": "d58c3",
-          "id": "can6C23",
-          "titre": "Calculer avec +/-99 ou +/-999",
-          "url": "can/6e/can6C23.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          }
-        },
         "can6C24": {
           "uuid": "c8f0e",
           "id": "can6C24",
@@ -292,13 +297,13 @@
             "Can": true
           }
         },
-        "can6C25": {
-          "uuid": "da500",
-          "id": "can6C25",
-          "titre": "Rechercher un prix unitaire",
-          "url": "can/6e/can6C25.js",
+        "can6C23": {
+          "uuid": "d58c3",
+          "id": "can6C23",
+          "titre": "Calculer avec +/-99 ou +/-999",
+          "url": "can/6e/can6C23.js",
           "tags": {
-            "AMC": false,
+            "AMC": true,
             "Interactif": true,
             "Can": true
           }
@@ -325,6 +330,28 @@
             "Can": true
           }
         },
+        "can6C28": {
+          "uuid": "7573e",
+          "id": "can6C28",
+          "titre": "Résoudre un problème de fraction",
+          "url": "can/6e/can6C28.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "can6C14": {
+          "uuid": "72093",
+          "id": "can6C14",
+          "titre": "Calculer la somme de quatre entiers qui se marient",
+          "url": "can/6e/can6C14.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
         "can6C29": {
           "uuid": "e0ab8",
           "id": "can6C29",
@@ -337,28 +364,16 @@
           },
           "datePublication": "1/11/2021"
         },
-        "can6C28": {
-          "uuid": "7573e",
-          "id": "can6C28",
-          "titre": "Résoudre un problème de fraction",
-          "url": "can/6e/can6C28.js",
+        "can6C25": {
+          "uuid": "da500",
+          "id": "can6C25",
+          "titre": "Rechercher un prix unitaire",
+          "url": "can/6e/can6C25.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
             "Can": true
           }
-        },
-        "can6C30": {
-          "uuid": "e5cd7",
-          "id": "can6C30",
-          "titre": "Multiplier deux décimaux",
-          "url": "can/6e/can6C30.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "04/03/2022"
         },
         "can6C31": {
           "uuid": "9b4a2",
@@ -382,14 +397,48 @@
             "Interactif": true,
             "Can": true
           }
+        },
+        "can6C11": {
+          "uuid": "8cdc7",
+          "id": "can6C11",
+          "titre": "Calculer le double ou le triple (décimal)",
+          "url": "can/6e/can6C11.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "can6C13": {
+          "uuid": "410ea",
+          "id": "can6C13",
+          "titre": "Calculer la somme de deux décimaux",
+          "url": "can/6e/can6C13.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "can6C30": {
+          "uuid": "e5cd7",
+          "id": "can6C30",
+          "titre": "Multiplier deux décimaux",
+          "url": "can/6e/can6C30.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "04/03/2022"
         }
       },
-      "6D": {
-        "can6D01": {
-          "uuid": "9694a",
-          "id": "can6D01",
-          "titre": "Convertir des Heures/minutes en minutes",
-          "url": "can/6e/can6D01.js",
+      "can6D": {
+        "can6D03": {
+          "uuid": "e72b7",
+          "id": "can6D03",
+          "titre": "Calculer une durée en minutes",
+          "url": "can/6e/can6D03.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -407,11 +456,11 @@
             "Can": true
           }
         },
-        "can6D03": {
-          "uuid": "e72b7",
-          "id": "can6D03",
-          "titre": "Calculer une durée en minutes",
-          "url": "can/6e/can6D03.js",
+        "can6D01": {
+          "uuid": "9694a",
+          "id": "can6D01",
+          "titre": "Convertir des Heures/minutes en minutes",
+          "url": "can/6e/can6D01.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -430,12 +479,12 @@
           }
         }
       },
-      "6G": {
-        "can6G04": {
-          "uuid": "62267",
-          "id": "can6G04",
-          "titre": "Résoudre un problème de longueurs",
-          "url": "can/6e/can6G04.js",
+      "can6G": {
+        "can6G05": {
+          "uuid": "911b4",
+          "id": "can6G05",
+          "titre": "Résoudre un problème de longueurs (inverse)",
+          "url": "can/6e/can6G05.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -443,11 +492,11 @@
           },
           "datePublication": "2/11/2021"
         },
-        "can6G05": {
-          "uuid": "911b4",
-          "id": "can6G05",
-          "titre": "Résoudre un problème de longueurs (inverse)",
-          "url": "can/6e/can6G05.js",
+        "can6G04": {
+          "uuid": "62267",
+          "id": "can6G04",
+          "titre": "Résoudre un problème de longueurs",
+          "url": "can/6e/can6G04.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -467,22 +516,22 @@
           },
           "datePublication": "18/12/2021"
         },
-        "can6G02": {
-          "uuid": "5f438",
-          "id": "can6G02",
-          "titre": "Compter les cubes",
-          "url": "can/6e/can6G02.js",
+        "can6G03": {
+          "uuid": "22d77",
+          "id": "can6G03",
+          "titre": "Compter les cubes manquants",
+          "url": "can/6e/can6G03.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
             "Can": true
           }
         },
-        "can6G03": {
-          "uuid": "22d77",
-          "id": "can6G03",
-          "titre": "Compter les cubes manquants",
-          "url": "can/6e/can6G03.js",
+        "can6G02": {
+          "uuid": "5f438",
+          "id": "can6G02",
+          "titre": "Compter les cubes",
+          "url": "can/6e/can6G02.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -512,7 +561,7 @@
           }
         }
       },
-      "6I": {
+      "can6I": {
         "can6I01": {
           "uuid": "1b651",
           "id": "can6I01",
@@ -525,7 +574,7 @@
           }
         }
       },
-      "6M": {
+      "can6M": {
         "can6M11": {
           "uuid": "1980e",
           "id": "can6M11",
@@ -594,17 +643,6 @@
             "Can": true
           }
         },
-        "can6M07": {
-          "uuid": "4cc32",
-          "id": "can6M07",
-          "titre": "Compléter un volume au litre",
-          "url": "can/6e/can6M07.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          }
-        },
         "can6M09": {
           "uuid": "611be",
           "id": "can6M09",
@@ -612,6 +650,17 @@
           "url": "can/6e/can6M09.js",
           "tags": {
             "AMC": false,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "can6M07": {
+          "uuid": "4cc32",
+          "id": "can6M07",
+          "titre": "Compléter un volume au litre",
+          "url": "can/6e/can6M07.js",
+          "tags": {
+            "AMC": true,
             "Interactif": true,
             "Can": true
           }
@@ -650,7 +699,7 @@
           }
         }
       },
-      "6N": {
+      "can6N": {
         "can6N11": {
           "uuid": "e45d5",
           "id": "can6N11",
@@ -720,6 +769,17 @@
             "Can": true
           }
         },
+        "can6N06": {
+          "uuid": "47ea4",
+          "id": "can6N06",
+          "titre": "Arrondir au dixième ou au centième",
+          "url": "can/6e/can6N06.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
         "can6N02": {
           "uuid": "7841c",
           "id": "can6N02",
@@ -742,45 +802,22 @@
             "Can": true
           }
         },
-        "can6N05": {
-          "uuid": "4fb85",
-          "id": "can6N05",
-          "titre": "Déterminer le chiffre des ...",
-          "url": "can/6e/can6N05.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          }
-        },
-        "can6N06": {
-          "uuid": "47ea4",
-          "id": "can6N06",
-          "titre": "Arrondir au dixième ou au centième",
-          "url": "can/6e/can6N06.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          }
-        },
-        "can6N08": {
-          "uuid": "df3c7",
-          "id": "can6N08",
-          "titre": "Déterminer le nombre de centaines, dizaines",
-          "url": "can/6e/can6N08.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "02/12/2021"
-        },
         "can6N09": {
           "uuid": "0de8c",
           "id": "can6N09",
           "titre": "Trouver le nombre qui suit",
           "url": "can/6e/can6N09.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "can6N05": {
+          "uuid": "4fb85",
+          "id": "can6N05",
+          "titre": "Déterminer le chiffre des ...",
+          "url": "can/6e/can6N05.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -799,6 +836,18 @@
           },
           "datePublication": "15/12/2021"
         },
+        "can6N08": {
+          "uuid": "df3c7",
+          "id": "can6N08",
+          "titre": "Déterminer le nombre de centaines, dizaines",
+          "url": "can/6e/can6N08.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "02/12/2021"
+        },
         "can6N14": {
           "uuid": "ade4c",
           "id": "can6N14",
@@ -812,7 +861,7 @@
           "datePublication": "05/03/2022"
         }
       },
-      "6P": {
+      "can6P": {
         "can6P01": {
           "uuid": "1e34d",
           "id": "can6P01",
@@ -835,22 +884,22 @@
             "Can": true
           }
         },
-        "can6P04": {
-          "uuid": "76fae",
-          "id": "can6P04",
-          "titre": "Appliquer un pourcentage",
-          "url": "can/6e/can6P04.js",
+        "can6P03": {
+          "uuid": "1bb32",
+          "id": "can6P03",
+          "titre": "Déterminer le nombre de km avec une vitesse",
+          "url": "can/6e/can6P03.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
             "Can": true
           }
         },
-        "can6P03": {
-          "uuid": "1bb32",
-          "id": "can6P03",
-          "titre": "Déterminer le nombre de km avec une vitesse",
-          "url": "can/6e/can6P03.js",
+        "can6P04": {
+          "uuid": "76fae",
+          "id": "can6P04",
+          "titre": "Appliquer un pourcentage",
+          "url": "can/6e/can6P04.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -870,7 +919,7 @@
           "datePublication": "13/11/2021"
         }
       },
-      "6S": {
+      "can6S": {
         "can6S01": {
           "uuid": "4ed66",
           "id": "can6S01",
@@ -882,13 +931,15 @@
             "Can": true
           }
         }
-      },
-      "6a": {
-        "can6a-2018": {
-          "uuid": "db656",
-          "id": "can6a-2018",
-          "titre": "CAN 6ième sujet 2018",
-          "url": "can/6e/can6a-2018.js",
+      }
+    },
+    "5e": {
+      "Annales": {
+        "can5a-2021": {
+          "uuid": "9fea9",
+          "id": "can5a-2021",
+          "titre": "CAN 5ième sujet 2021",
+          "url": "can/5e/can5a-2021.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
@@ -896,45 +947,31 @@
           },
           "datePublication": "30/03/2022"
         },
-        "can6a-2021": {
-          "uuid": "d4f41",
-          "id": "can6a-2021",
-          "titre": "CAN 6ième sujet 2021",
-          "url": "can/6e/can6a-2021.js",
+        "can5a-2022": {
+          "uuid": "59ebd",
+          "id": "can5a-2022",
+          "titre": "CAN 5ième sujet 2022",
+          "url": "can/5e/can5a-2022.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
             "Can": true
           },
-          "datePublication": "11/04/2022"
+          "datePublication": "02/05/2022"
         },
-        "can6a-2022": {
-          "uuid": "d9655",
-          "id": "can6a-2022",
-          "titre": "CAN 6ième sujet 2022",
-          "url": "can/6e/can6a-2022.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "13/04/2022"
-        },
-        "can6a-xxxx": {
-          "uuid": "43a2a",
-          "id": "can6a-xxxx",
-          "titre": "Course aux nombres fin de 6e",
-          "url": "can/6e/can6a-xxxx.js",
+        "can5a-xxxx": {
+          "uuid": "f752a",
+          "id": "can5a-xxxx",
+          "titre": "Course aux nombres début de 5e",
+          "url": "can/5e/can5a-xxxx.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
             "Can": true
           }
         }
-      }
-    },
-    "5e": {
-      "5A": {
+      },
+      "can5A": {
         "can5A01": {
           "uuid": "f1a7b",
           "id": "can5A01",
@@ -947,23 +984,12 @@
           }
         }
       },
-      "5C": {
+      "can5C": {
         "can5C01": {
           "uuid": "55d6a",
           "id": "can5C01",
           "titre": "Calculer un produit d’entiers",
           "url": "can/5e/can5C01.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          }
-        },
-        "can5C02": {
-          "uuid": "1edde",
-          "id": "can5C02",
-          "titre": "Calculer une somme d’entiers",
-          "url": "can/5e/can5C02.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -986,6 +1012,17 @@
           "id": "can5C04",
           "titre": "Calculer avec triple et moitié",
           "url": "can/5e/can5C04.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "can5C02": {
+          "uuid": "1edde",
+          "id": "can5C02",
+          "titre": "Calculer une somme d’entiers",
+          "url": "can/5e/can5C02.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -1160,17 +1197,6 @@
             "Can": true
           }
         },
-        "can5C10": {
-          "uuid": "3815d",
-          "id": "can5C10",
-          "titre": "Décomposer en produit de facteurs premiers",
-          "url": "can/5e/can5C10.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          }
-        },
         "can5C18": {
           "uuid": "d2481",
           "id": "can5C18",
@@ -1182,21 +1208,20 @@
             "Can": true
           },
           "datePublication": "24/02/2022"
-        }
-      },
-      "5D": {
-        "can5D01": {
-          "uuid": "5aaa2",
-          "id": "can5D01",
-          "titre": "Convertir des heures décimales en heures/minutes et inversement",
-          "url": "can/5e/can5D01.js",
+        },
+        "can5C10": {
+          "uuid": "3815d",
+          "id": "can5C10",
+          "titre": "Décomposer en produit de facteurs premiers",
+          "url": "can/5e/can5C10.js",
           "tags": {
-            "AMC": true,
+            "AMC": false,
             "Interactif": true,
             "Can": true
-          },
-          "dateModification": "08/02/2022"
-        },
+          }
+        }
+      },
+      "can5D": {
         "can5D02": {
           "uuid": "f1686",
           "id": "can5D02",
@@ -1208,6 +1233,18 @@
             "Can": true
           },
           "datePublication": "08/02/2022"
+        },
+        "can5D01": {
+          "uuid": "5aaa2",
+          "id": "can5D01",
+          "titre": "Convertir des heures décimales en heures/minutes et inversement",
+          "url": "can/5e/can5D01.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "dateModification": "08/02/2022"
         },
         "can5D03": {
           "uuid": "cc6d1",
@@ -1222,7 +1259,7 @@
           "datePublication": "08/02/2022"
         }
       },
-      "5G": {
+      "can5G": {
         "can5G02": {
           "uuid": "a41e9",
           "id": "can5G02",
@@ -1258,7 +1295,7 @@
           }
         }
       },
-      "5L": {
+      "can5L": {
         "can5L01": {
           "uuid": "a45ee",
           "id": "can5L01",
@@ -1271,18 +1308,7 @@
           }
         }
       },
-      "5N": {
-        "can5N01": {
-          "uuid": "056a8",
-          "id": "can5N01",
-          "titre": "Calculer la somme de nombres décimaux",
-          "url": "can/5e/can5N01.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          }
-        },
+      "can5N": {
         "can5N02": {
           "uuid": "ec48e",
           "id": "can5N02",
@@ -1294,9 +1320,20 @@
             "Can": true
           },
           "datePublication": "15/12/2021"
+        },
+        "can5N01": {
+          "uuid": "056a8",
+          "id": "can5N01",
+          "titre": "Calculer la somme de nombres décimaux",
+          "url": "can/5e/can5N01.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
         }
       },
-      "5P": {
+      "can5P": {
         "can5P01": {
           "uuid": "42f5b",
           "id": "can5P01",
@@ -1307,18 +1344,6 @@
             "Interactif": true,
             "Can": true
           }
-        },
-        "can5P02": {
-          "uuid": "2b163",
-          "id": "can5P02",
-          "titre": "Déterminer (ou calculer avec) un pourcentage de proportion",
-          "url": "can/5e/can5P02.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          },
-          "dateModification": "19/12/2021"
         },
         "can5P03": {
           "uuid": "c4477",
@@ -1332,17 +1357,6 @@
           },
           "datePublication": "28/10/2021"
         },
-        "can5P04": {
-          "uuid": "baef1",
-          "id": "can5P04",
-          "titre": "Calculer avec une proportion",
-          "url": "can/5e/can5P04.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          }
-        },
         "can5P05": {
           "uuid": "2a239",
           "id": "can5P05",
@@ -1355,6 +1369,17 @@
           },
           "datePublication": "18/12/2021"
         },
+        "can5P04": {
+          "uuid": "baef1",
+          "id": "can5P04",
+          "titre": "Calculer avec une proportion",
+          "url": "can/5e/can5P04.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
         "can5P06": {
           "uuid": "78bd7",
           "id": "can5P06",
@@ -1366,14 +1391,28 @@
             "Can": true
           },
           "datePublication": "19/12/2021"
+        },
+        "can5P02": {
+          "uuid": "2b163",
+          "id": "can5P02",
+          "titre": "Déterminer (ou calculer avec) un pourcentage de proportion",
+          "url": "can/5e/can5P02.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "dateModification": "19/12/2021"
         }
-      },
-      "5a": {
-        "can5a-2021": {
-          "uuid": "9fea9",
-          "id": "can5a-2021",
-          "titre": "CAN 5ième sujet 2021",
-          "url": "can/5e/can5a-2021.js",
+      }
+    },
+    "4e": {
+      "Annales": {
+        "can4a-2021": {
+          "uuid": "8338f",
+          "id": "can4a-2021",
+          "titre": "CAN 4ième sujet 2021",
+          "url": "can/4e/can4a-2021.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
@@ -1381,33 +1420,20 @@
           },
           "datePublication": "30/03/2022"
         },
-        "can5a-2022": {
-          "uuid": "59ebd",
-          "id": "can5a-2022",
-          "titre": "CAN 5ième sujet 2022",
-          "url": "can/5e/can5a-2022.js",
+        "can4a-2022": {
+          "uuid": "3d1df",
+          "id": "can4a-2022",
+          "titre": "CAN 4ième sujet 2022",
+          "url": "can/4e/can4a-2022.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
             "Can": true
           },
-          "datePublication": "02/05/2022"
-        },
-        "can5a-xxxx": {
-          "uuid": "f752a",
-          "id": "can5a-xxxx",
-          "titre": "Course aux nombres début de 5e",
-          "url": "can/5e/can5a-xxxx.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          }
+          "datePublication": "01/05/2022"
         }
-      }
-    },
-    "4e": {
-      "4C": {
+      },
+      "can4C": {
         "can4C01": {
           "uuid": "a965f",
           "id": "can4C01",
@@ -1463,6 +1489,17 @@
             "Can": true
           }
         },
+        "can4C05": {
+          "uuid": "ad0df",
+          "id": "can4C05",
+          "titre": "Déterminer la somme de fractions à dénominateurs compatibles",
+          "url": "can/4e/can4C05.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
         "can4C02": {
           "uuid": "d1e35",
           "id": "can4C02",
@@ -1475,33 +1512,22 @@
           },
           "dateModification": "05/12/2021"
         },
-        "can4C03": {
-          "uuid": "1dc29",
-          "id": "can4C03",
-          "titre": "Effectuer une division avec une fraction",
-          "url": "can/4e/can4C03.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          }
-        },
-        "can4C05": {
-          "uuid": "ad0df",
-          "id": "can4C05",
-          "titre": "Déterminer la somme de fractions à dénominateurs compatibles",
-          "url": "can/4e/can4C05.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          }
-        },
         "can4C07": {
           "uuid": "a1b24",
           "id": "can4C07",
           "titre": "Calculer la différence de fractions à dénominateurs compatibles",
           "url": "can/4e/can4C07.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "can4C03": {
+          "uuid": "1dc29",
+          "id": "can4C03",
+          "titre": "Effectuer une division avec une fraction",
+          "url": "can/4e/can4C03.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -1532,7 +1558,7 @@
           "datePublication": "04/07/2022"
         }
       },
-      "4G": {
+      "can4G": {
         "can4G01": {
           "uuid": "dc88f",
           "id": "can4G01",
@@ -1544,22 +1570,22 @@
             "Can": true
           }
         },
-        "can4G03": {
-          "uuid": "23f8c",
-          "id": "can4G03",
-          "titre": "Calculer l’hypoténuse avec le théorème de Pythagore",
-          "url": "can/4e/can4G03.js",
+        "can4G04": {
+          "uuid": "0c469",
+          "id": "can4G04",
+          "titre": "Calculer un côté avec le théorème de Pythagore",
+          "url": "can/4e/can4G04.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
             "Can": true
           }
         },
-        "can4G04": {
-          "uuid": "0c469",
-          "id": "can4G04",
-          "titre": "Calculer un côté avec le théorème de Pythagore",
-          "url": "can/4e/can4G04.js",
+        "can4G03": {
+          "uuid": "23f8c",
+          "id": "can4G03",
+          "titre": "Calculer l’hypoténuse avec le théorème de Pythagore",
+          "url": "can/4e/can4G03.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
@@ -1622,23 +1648,12 @@
           }
         }
       },
-      "4L": {
+      "can4L": {
         "can4L04": {
           "uuid": "3fbdf",
           "id": "can4L04",
           "titre": "Calculer une expression pour une valeur particulière",
           "url": "can/4e/can4L04.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          }
-        },
-        "can4L05": {
-          "uuid": "6719f",
-          "id": "can4L05",
-          "titre": "Développer avec la simple distributivité",
-          "url": "can/4e/can4L05.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -1656,6 +1671,17 @@
             "Can": true
           }
         },
+        "can4L05": {
+          "uuid": "6719f",
+          "id": "can4L05",
+          "titre": "Développer avec la simple distributivité",
+          "url": "can/4e/can4L05.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
         "can4L07": {
           "uuid": "b3418",
           "id": "can4L07",
@@ -1667,6 +1693,18 @@
             "Can": true
           },
           "datePublication": "23/02/2022"
+        },
+        "can4L08": {
+          "uuid": "fd659",
+          "id": "can4L08",
+          "titre": "Reconnaître une expression littérale (QCM)",
+          "url": "can/4e/can4L08.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "27/02/2022"
         },
         "can4L01": {
           "uuid": "faccd",
@@ -1700,21 +1738,9 @@
             "Interactif": true,
             "Can": true
           }
-        },
-        "can4L08": {
-          "uuid": "fd659",
-          "id": "can4L08",
-          "titre": "Reconnaître une expression littérale (QCM)",
-          "url": "can/4e/can4L08.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "27/02/2022"
         }
       },
-      "4P": {
+      "can4P": {
         "can4P05": {
           "uuid": "2c81f",
           "id": "can4P05",
@@ -1728,22 +1754,22 @@
           "datePublication": "23/01/2021",
           "dateModification": "23/01/2021"
         },
-        "can4P02": {
-          "uuid": "37612",
-          "id": "can4P02",
-          "titre": "Résoudre un problème de vitesse",
-          "url": "can/4e/can4P02.js",
+        "can4P01": {
+          "uuid": "0cdb6",
+          "id": "can4P01",
+          "titre": "Résoudre un problème de robinets",
+          "url": "can/4e/can4P01.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
             "Can": true
           }
         },
-        "can4P01": {
-          "uuid": "0cdb6",
-          "id": "can4P01",
-          "titre": "Résoudre un problème de robinets",
-          "url": "can/4e/can4P01.js",
+        "can4P02": {
+          "uuid": "37612",
+          "id": "can4P02",
+          "titre": "Résoudre un problème de vitesse",
+          "url": "can/4e/can4P02.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -1773,13 +1799,15 @@
             "Can": true
           }
         }
-      },
-      "4a": {
-        "can4a-2021": {
-          "uuid": "8338f",
-          "id": "can4a-2021",
-          "titre": "CAN 4ième sujet 2021",
-          "url": "can/4e/can4a-2021.js",
+      }
+    },
+    "3e": {
+      "Annales": {
+        "can3a-2021": {
+          "uuid": "c62d8",
+          "id": "can3a-2021",
+          "titre": "CAN 3ième sujet 2021",
+          "url": "can/3e/can3a-2021.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
@@ -1787,22 +1815,20 @@
           },
           "datePublication": "30/03/2022"
         },
-        "can4a-2022": {
-          "uuid": "3d1df",
-          "id": "can4a-2022",
-          "titre": "CAN 4ième sujet 2022",
-          "url": "can/4e/can4a-2022.js",
+        "can3a-2022": {
+          "uuid": "44d1f",
+          "id": "can3a-2022",
+          "titre": "CAN 3ième sujet 2022",
+          "url": "can/3e/can3a-2022.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
             "Can": true
           },
-          "datePublication": "01/05/2022"
+          "datePublication": "19/04/2022"
         }
-      }
-    },
-    "3e": {
-      "3C": {
+      },
+      "can3C": {
         "can3C07": {
           "uuid": "94f54",
           "id": "can3C07",
@@ -1826,17 +1852,6 @@
             "Can": true
           },
           "datePublication": "09/05/2022"
-        },
-        "can3C01": {
-          "uuid": "a10d3",
-          "id": "can3C01",
-          "titre": "Calculer avec des puissances",
-          "url": "can/3e/can3C01.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          }
         },
         "can3C02": {
           "uuid": "7ad1f",
@@ -1894,17 +1909,6 @@
             "Can": true
           }
         },
-        "can3C10": {
-          "uuid": "3850f",
-          "id": "can3C10",
-          "titre": "Encadrer avec des puissances de 10",
-          "url": "can/3e/can3C10.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          }
-        },
         "can3C12": {
           "uuid": "19f5b",
           "id": "can3C12",
@@ -1912,6 +1916,17 @@
           "url": "can/3e/can3C12.js",
           "tags": {
             "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "can3C10": {
+          "uuid": "3850f",
+          "id": "can3C10",
+          "titre": "Encadrer avec des puissances de 10",
+          "url": "can/3e/can3C10.js",
+          "tags": {
+            "AMC": false,
             "Interactif": true,
             "Can": true
           }
@@ -1948,9 +1963,20 @@
             "Interactif": true,
             "Can": true
           }
+        },
+        "can3C01": {
+          "uuid": "a10d3",
+          "id": "can3C01",
+          "titre": "Calculer avec des puissances",
+          "url": "can/3e/can3C01.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
         }
       },
-      "3F": {
+      "can3F": {
         "can3F01": {
           "uuid": "9262c",
           "id": "can3F01",
@@ -1961,18 +1987,6 @@
             "Interactif": true,
             "Can": true
           }
-        },
-        "can3F08": {
-          "uuid": "ef726",
-          "id": "can3F08",
-          "titre": "Lire graphiquement une fonction affine*",
-          "url": "can/3e/can3F08.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "25/10/2021"
         },
         "can3F07": {
           "uuid": "9c366",
@@ -1986,11 +2000,11 @@
           },
           "datePublication": "25/10/2021"
         },
-        "can3F09": {
-          "uuid": "ea0b6",
-          "id": "can3F09",
-          "titre": "Reconnaître une fonction affine",
-          "url": "can/3e/can3F09.js",
+        "can3F08": {
+          "uuid": "ef726",
+          "id": "can3F08",
+          "titre": "Lire graphiquement une fonction affine*",
+          "url": "can/3e/can3F08.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
@@ -2003,6 +2017,18 @@
           "id": "can3F06",
           "titre": "Déterminer le coefficient d’une fonction affine",
           "url": "can/3e/can3F06.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "25/10/2021"
+        },
+        "can3F09": {
+          "uuid": "ea0b6",
+          "id": "can3F09",
+          "titre": "Reconnaître une fonction affine",
+          "url": "can/3e/can3F09.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
@@ -2055,7 +2081,7 @@
           }
         }
       },
-      "3G": {
+      "can3G": {
         "can3G03": {
           "uuid": "a3ab7",
           "id": "can3G03",
@@ -2067,22 +2093,22 @@
             "Can": true
           }
         },
-        "can3G05": {
-          "uuid": "a7734",
-          "id": "can3G05",
-          "titre": "Utiliser la trigonométrie",
-          "url": "can/3e/can3G05.js",
+        "can3G04": {
+          "uuid": "423ab",
+          "id": "can3G04",
+          "titre": "Rechercher une valeur avec le théorème de Pythagore",
+          "url": "can/3e/can3G04.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
             "Can": true
           }
         },
-        "can3G04": {
-          "uuid": "423ab",
-          "id": "can3G04",
-          "titre": "Rechercher une valeur avec le théorème de Pythagore",
-          "url": "can/3e/can3G04.js",
+        "can3G05": {
+          "uuid": "a7734",
+          "id": "can3G05",
+          "titre": "Utiliser la trigonométrie",
+          "url": "can/3e/can3G05.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
@@ -2112,18 +2138,7 @@
           }
         }
       },
-      "3L": {
-        "can3L01": {
-          "uuid": "66b4e",
-          "id": "can3L01",
-          "titre": "Résoudre une équation du type ax=b",
-          "url": "can/3e/can3L01.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          }
-        },
+      "can3L": {
         "can3L02": {
           "uuid": "59cd7",
           "id": "can3L02",
@@ -2140,6 +2155,17 @@
           "id": "can3L03",
           "titre": "Résoudre une équation du type ax+b=c",
           "url": "can/3e/can3L03.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "can3L01": {
+          "uuid": "66b4e",
+          "id": "can3L01",
+          "titre": "Résoudre une équation du type ax=b",
+          "url": "can/3e/can3L01.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -2170,7 +2196,7 @@
           }
         }
       },
-      "3M": {
+      "can3M": {
         "can3M01": {
           "uuid": "587ec",
           "id": "can3M01",
@@ -2194,7 +2220,7 @@
           }
         }
       },
-      "3P": {
+      "can3P": {
         "can3P01": {
           "uuid": "aa8f6",
           "id": "can3P01",
@@ -2208,45 +2234,12 @@
           "datePublication": "25/10/2021"
         }
       },
-      "3S": {
-        "can3S02": {
-          "uuid": "111a6",
-          "id": "can3S02",
-          "titre": "Calculer la probabilité d’ un évènement contraire",
-          "url": "can/3e/can3S02.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          }
-        },
+      "can3S": {
         "can3S03": {
           "uuid": "3eb7e",
           "id": "can3S03",
           "titre": "Calculer une probabilités*",
           "url": "can/3e/can3S03.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          }
-        },
-        "can3S04": {
-          "uuid": "6f278",
-          "id": "can3S04",
-          "titre": "Calculer une étendue",
-          "url": "can/3e/can3S04.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          }
-        },
-        "can3S05": {
-          "uuid": "ced39",
-          "id": "can3S05",
-          "titre": "Calculer une moyenne",
-          "url": "can/3e/can3S05.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
@@ -2264,6 +2257,39 @@
             "Can": true
           }
         },
+        "can3S05": {
+          "uuid": "ced39",
+          "id": "can3S05",
+          "titre": "Calculer une moyenne",
+          "url": "can/3e/can3S05.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "can3S04": {
+          "uuid": "6f278",
+          "id": "can3S04",
+          "titre": "Calculer une étendue",
+          "url": "can/3e/can3S04.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "can3S02": {
+          "uuid": "111a6",
+          "id": "can3S02",
+          "titre": "Calculer la probabilité d’ un évènement contraire",
+          "url": "can/3e/can3S02.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          }
+        },
         "can3S01": {
           "uuid": "88982",
           "id": "can3S01",
@@ -2275,36 +2301,24 @@
             "Can": true
           }
         }
-      },
-      "3a": {
-        "can3a-2021": {
-          "uuid": "c62d8",
-          "id": "can3a-2021",
-          "titre": "CAN 3ième sujet 2021",
-          "url": "can/3e/can3a-2021.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "30/03/2022"
-        },
-        "can3a-2022": {
-          "uuid": "44d1f",
-          "id": "can3a-2022",
-          "titre": "CAN 3ième sujet 2022",
-          "url": "can/3e/can3a-2022.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "19/04/2022"
-        }
       }
     },
     "2e": {
-      "2C": {
+      "Annales": {
+        "can2a-2021": {
+          "uuid": "40a04",
+          "id": "can2a-2021",
+          "titre": "CAN Seconde sujet 2021",
+          "url": "can/2e/can2a-2021.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "05/04/2022"
+        }
+      },
+      "can2C": {
         "can2C09": {
           "uuid": "25133",
           "id": "can2C09",
@@ -2312,17 +2326,6 @@
           "url": "can/2e/can2C09.js",
           "tags": {
             "AMC": false,
-            "Interactif": true,
-            "Can": true
-          }
-        },
-        "can2C01": {
-          "uuid": "a2f6f",
-          "id": "can2C01",
-          "titre": "Trouver le nombre d’entiers entre deux valeurs",
-          "url": "can/2e/can2C01.js",
-          "tags": {
-            "AMC": true,
             "Interactif": true,
             "Can": true
           }
@@ -2338,11 +2341,11 @@
             "Can": true
           }
         },
-        "can2C03": {
-          "uuid": "38aeb",
-          "id": "can2C03",
-          "titre": "Calculer avec  des puissances",
-          "url": "can/2e/can2C03.js",
+        "can2C01": {
+          "uuid": "a2f6f",
+          "id": "can2C01",
+          "titre": "Trouver le nombre d’entiers entre deux valeurs",
+          "url": "can/2e/can2C01.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -2360,17 +2363,6 @@
             "Can": true
           }
         },
-        "can2C07": {
-          "uuid": "91e25",
-          "id": "can2C07",
-          "titre": "Calculer avec une racine carrée",
-          "url": "can/2e/can2C07.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          }
-        },
         "can2C08": {
           "uuid": "d47ce",
           "id": "can2C08",
@@ -2382,29 +2374,16 @@
             "Can": true
           }
         },
-        "can2C10": {
-          "uuid": "5a0c7",
-          "id": "can2C10",
-          "titre": "Passer du taux d’évolution au coefficient multiplicateur",
-          "url": "can/2e/can2C10.js",
+        "can2C07": {
+          "uuid": "91e25",
+          "id": "can2C07",
+          "titre": "Calculer avec une racine carrée",
+          "url": "can/2e/can2C07.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
             "Can": true
-          },
-          "datePublication": "09/12/2021"
-        },
-        "can2C11": {
-          "uuid": "2748e",
-          "id": "can2C11",
-          "titre": "Passer du coefficient multiplicateur au taux d’évolution",
-          "url": "can/2e/can2C11.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "09/12/2021"
+          }
         },
         "can2C12": {
           "uuid": "230fb",
@@ -2418,16 +2397,40 @@
           },
           "datePublication": "19/12/2021"
         },
-        "can2C04": {
-          "uuid": "fa311",
-          "id": "can2C04",
-          "titre": "Calculer avec les identités remarquables - simple",
-          "url": "can/2e/can2C04.js",
+        "can2C03": {
+          "uuid": "38aeb",
+          "id": "can2C03",
+          "titre": "Calculer avec  des puissances",
+          "url": "can/2e/can2C03.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "can2C11": {
+          "uuid": "2748e",
+          "id": "can2C11",
+          "titre": "Passer du coefficient multiplicateur au taux d’évolution",
+          "url": "can/2e/can2C11.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
             "Can": true
-          }
+          },
+          "datePublication": "09/12/2021"
+        },
+        "can2C10": {
+          "uuid": "5a0c7",
+          "id": "can2C10",
+          "titre": "Passer du taux d’évolution au coefficient multiplicateur",
+          "url": "can/2e/can2C10.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "09/12/2021"
         },
         "can2C05": {
           "uuid": "91ec3",
@@ -2439,9 +2442,20 @@
             "Interactif": true,
             "Can": true
           }
+        },
+        "can2C04": {
+          "uuid": "fa311",
+          "id": "can2C04",
+          "titre": "Calculer avec les identités remarquables - simple",
+          "url": "can/2e/can2C04.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          }
         }
       },
-      "2F": {
+      "can2F": {
         "can2F06": {
           "uuid": "cc615",
           "id": "can2F06",
@@ -2453,19 +2467,6 @@
             "Can": true
           },
           "datePublication": "15/12/2021"
-        },
-        "can2F07": {
-          "uuid": "0502d",
-          "id": "can2F07",
-          "titre": "Lire les extremums dans un tableau de variations",
-          "url": "can/2e/can2F07.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "21/12/2021",
-          "dateModification": "24/10/2021"
         },
         "can2F08": {
           "uuid": "629b4",
@@ -2480,22 +2481,35 @@
           "datePublication": "22/12/2021",
           "dateModification": "24/10/2021"
         },
-        "can2F02": {
-          "uuid": "e3dfb",
-          "id": "can2F02",
-          "titre": "Calculer une image avec un quotient",
-          "url": "can/2e/can2F02.js",
+        "can2F07": {
+          "uuid": "0502d",
+          "id": "can2F07",
+          "titre": "Lire les extremums dans un tableau de variations",
+          "url": "can/2e/can2F07.js",
           "tags": {
-            "AMC": false,
+            "AMC": true,
             "Interactif": true,
             "Can": true
-          }
+          },
+          "datePublication": "21/12/2021",
+          "dateModification": "24/10/2021"
         },
         "can2F01": {
           "uuid": "05c1c",
           "id": "can2F01",
           "titre": "Calculer une image avec le second degré",
           "url": "can/2e/can2F01.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "can2F02": {
+          "uuid": "e3dfb",
+          "id": "can2F02",
+          "titre": "Calculer une image avec un quotient",
+          "url": "can/2e/can2F02.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
@@ -2514,17 +2528,6 @@
           },
           "datePublication": "25/10/2021"
         },
-        "can2F03": {
-          "uuid": "c6ae9",
-          "id": "can2F03",
-          "titre": "Déterminer le signe d’une fonction affine (V/F)",
-          "url": "can/2e/can2F03.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          }
-        },
         "can2F05": {
           "uuid": "fd3c8",
           "id": "can2F05",
@@ -2537,17 +2540,16 @@
           },
           "datePublication": "1/11/2021"
         },
-        "can2F13": {
-          "uuid": "7ba47",
-          "id": "can2F13",
-          "titre": "Déterminer l’image d’un nombre par une fonction de référence.",
-          "url": "can/2e/can2F13.js",
+        "can2F03": {
+          "uuid": "c6ae9",
+          "id": "can2F03",
+          "titre": "Déterminer le signe d’une fonction affine (V/F)",
+          "url": "can/2e/can2F03.js",
           "tags": {
-            "AMC": true,
+            "AMC": false,
             "Interactif": true,
             "Can": true
-          },
-          "datePublication": "18/01/2022"
+          }
         },
         "can2F09": {
           "uuid": "172e4",
@@ -2596,9 +2598,21 @@
             "Can": true
           },
           "datePublication": "27/12/2021"
+        },
+        "can2F13": {
+          "uuid": "7ba47",
+          "id": "can2F13",
+          "titre": "Déterminer l’image d’un nombre par une fonction de référence.",
+          "url": "can/2e/can2F13.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "18/01/2022"
         }
       },
-      "2G": {
+      "can2G": {
         "can2G01": {
           "uuid": "fb504",
           "id": "can2G01",
@@ -2668,54 +2682,6 @@
           },
           "datePublication": "29/06/2022"
         },
-        "can2G08": {
-          "uuid": "ee9d8",
-          "id": "can2G08",
-          "titre": "Déterminer les coordonnées d’un vecteur (bis)",
-          "url": "can/2e/can2G08.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "30/10/2021"
-        },
-        "can2G07": {
-          "uuid": "227f3",
-          "id": "can2G07",
-          "titre": "Déterminer les coordonnées d’un vecteur",
-          "url": "can/2e/can2G07.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "30/10/2021"
-        },
-        "can2G14": {
-          "uuid": "d8824",
-          "id": "can2G14",
-          "titre": "Déterminer les coordonnées d'un point avec une translation",
-          "url": "can/2e/can2G14.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "04/03:2022"
-        },
-        "can2G15": {
-          "uuid": "e2fdf",
-          "id": "can2G15",
-          "titre": "Déterminer le déterminant de deux vecteurs.",
-          "url": "can/2e/can2G15.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "04/03:2022"
-        },
         "can2G04": {
           "uuid": "0a38a",
           "id": "can2G04",
@@ -2762,11 +2728,72 @@
           },
           "datePublication": "6/12/2021"
         },
+        "can2G07": {
+          "uuid": "227f3",
+          "id": "can2G07",
+          "titre": "Déterminer les coordonnées d’un vecteur",
+          "url": "can/2e/can2G07.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "30/10/2021"
+        },
+        "can2G15": {
+          "uuid": "e2fdf",
+          "id": "can2G15",
+          "titre": "Déterminer le déterminant de deux vecteurs.",
+          "url": "can/2e/can2G15.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "04/03:2022"
+        },
+        "can2G08": {
+          "uuid": "ee9d8",
+          "id": "can2G08",
+          "titre": "Déterminer les coordonnées d’un vecteur (bis)",
+          "url": "can/2e/can2G08.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "30/10/2021"
+        },
+        "can2G14": {
+          "uuid": "d8824",
+          "id": "can2G14",
+          "titre": "Déterminer les coordonnées d'un point avec une translation",
+          "url": "can/2e/can2G14.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "04/03:2022"
+        },
         "can2G11": {
           "uuid": "886f0",
           "id": "can2G11",
           "titre": "Utiliser la relation de Chasles/réductions vectorielles*",
           "url": "can/2e/can2G11.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "30/10/2021",
+          "dateModification": "03/01/2022"
+        },
+        "can2G10": {
+          "uuid": "3a3eb",
+          "id": "can2G10",
+          "titre": "Utiliser la relation de Chasles/réductions vectorielles",
+          "url": "can/2e/can2G10.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
@@ -2786,55 +2813,9 @@
             "Can": true
           },
           "datePublication": "30/10/2021"
-        },
-        "can2G10": {
-          "uuid": "3a3eb",
-          "id": "can2G10",
-          "titre": "Utiliser la relation de Chasles/réductions vectorielles",
-          "url": "can/2e/can2G10.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "30/10/2021",
-          "dateModification": "03/01/2022"
         }
       },
-      "2L": {
-        "can2L02": {
-          "uuid": "fb157",
-          "id": "can2L02",
-          "titre": "Calculer les coordonnées d’un point sur une droite",
-          "url": "can/2e/can2L02.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          }
-        },
-        "can2L03": {
-          "uuid": "e0993",
-          "id": "can2L03",
-          "titre": "Calculer les coordonnées du point d’intersection entre l’axe des abscisses/droite",
-          "url": "can/2e/can2L03.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          }
-        },
-        "can2L04": {
-          "uuid": "ddc49",
-          "id": "can2L04",
-          "titre": "Calculer les coordonnées du point d’intersection entre l’axe des ordonnées/droite",
-          "url": "can/2e/can2L04.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          }
-        },
+      "can2L": {
         "can2L01": {
           "uuid": "71649",
           "id": "can2L01",
@@ -2845,18 +2826,6 @@
             "Interactif": true,
             "Can": true
           }
-        },
-        "can2L06": {
-          "uuid": "26a35",
-          "id": "can2L06",
-          "titre": "Développer avec les égalités remarquables",
-          "url": "can/2e/can2L06.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "25/10/2021"
         },
         "can2L07": {
           "uuid": "84c4f",
@@ -2882,6 +2851,51 @@
           },
           "datePublication": "04/03/2022"
         },
+        "can2L06": {
+          "uuid": "26a35",
+          "id": "can2L06",
+          "titre": "Développer avec les égalités remarquables",
+          "url": "can/2e/can2L06.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "25/10/2021"
+        },
+        "can2L03": {
+          "uuid": "e0993",
+          "id": "can2L03",
+          "titre": "Calculer les coordonnées du point d’intersection entre l’axe des abscisses/droite",
+          "url": "can/2e/can2L03.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "can2L02": {
+          "uuid": "fb157",
+          "id": "can2L02",
+          "titre": "Calculer les coordonnées d’un point sur une droite",
+          "url": "can/2e/can2L02.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "can2L04": {
+          "uuid": "ddc49",
+          "id": "can2L04",
+          "titre": "Calculer les coordonnées du point d’intersection entre l’axe des ordonnées/droite",
+          "url": "can/2e/can2L04.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          }
+        },
         "can2L05": {
           "uuid": "79384",
           "id": "can2L05",
@@ -2894,7 +2908,7 @@
           }
         }
       },
-      "2N": {
+      "can2N": {
         "can2N01": {
           "uuid": "7eb8e",
           "id": "can2N01",
@@ -2919,7 +2933,7 @@
           "datePublication": "07/02/2022"
         }
       },
-      "2P": {
+      "can2P": {
         "can2P02": {
           "uuid": "e135d",
           "id": "can2P02",
@@ -2942,24 +2956,10 @@
             "Can": true
           }
         }
-      },
-      "2a": {
-        "can2a-2021": {
-          "uuid": "40a04",
-          "id": "can2a-2021",
-          "titre": "CAN Seconde sujet 2021",
-          "url": "can/2e/can2a-2021.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "05/04/2022"
-        }
       }
     },
     "1e": {
-      "1F": {
+      "can1F": {
         "can1F08": {
           "uuid": "330eb",
           "id": "can1F08",
@@ -3068,30 +3068,6 @@
           },
           "datePublication": "09/06/2022"
         },
-        "can1F01": {
-          "uuid": "64be7",
-          "id": "can1F01",
-          "titre": "Déterminer les coordonnées sommet parabole à partir de la forme canonique",
-          "url": "can/1e/can1F01.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "1/11/2021"
-        },
-        "can1F10": {
-          "uuid": "56a91",
-          "id": "can1F10",
-          "titre": "Déterminer la fonction dérivée d’un polynôme de degré 2",
-          "url": "can/1e/can1F10.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "20/06/2022"
-        },
         "can1F11": {
           "uuid": "382ce",
           "id": "can1F11",
@@ -3104,17 +3080,17 @@
           },
           "datePublication": "21/06/2022"
         },
-        "can1F12": {
-          "uuid": "0f09e",
-          "id": "can1F12",
-          "titre": "Déterminer la fonction dérivée d’une fonction $k/x$ ou $k\\sqrt{x}$",
-          "url": "can/1e/can1F12.js",
+        "can1F10": {
+          "uuid": "56a91",
+          "id": "can1F10",
+          "titre": "Déterminer la fonction dérivée d’un polynôme de degré 2",
+          "url": "can/1e/can1F10.js",
           "tags": {
             "AMC": false,
             "Interactif": true,
             "Can": true
           },
-          "datePublication": "21/06/2022"
+          "datePublication": "20/06/2022"
         },
         "can1F14": {
           "uuid": "4d74c",
@@ -3164,6 +3140,18 @@
           },
           "datePublication": "24/06/2022"
         },
+        "can1F01": {
+          "uuid": "64be7",
+          "id": "can1F01",
+          "titre": "Déterminer les coordonnées sommet parabole à partir de la forme canonique",
+          "url": "can/1e/can1F01.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "1/11/2021"
+        },
         "can1F02": {
           "uuid": "9d363",
           "id": "can1F02",
@@ -3188,9 +3176,21 @@
             "Can": true
           },
           "datePublication": "15/06/2022"
+        },
+        "can1F12": {
+          "uuid": "0f09e",
+          "id": "can1F12",
+          "titre": "Déterminer la fonction dérivée d’une fonction $k/x$ ou $k\\sqrt{x}$",
+          "url": "can/1e/can1F12.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "21/06/2022"
         }
       },
-      "1G": {
+      "can1G": {
         "can1G07": {
           "uuid": "ee3f7",
           "id": "can1G07",
@@ -3276,7 +3276,7 @@
           "datePublication": "01/06/2022"
         }
       },
-      "1L": {
+      "can1L": {
         "can1L09": {
           "uuid": "d004c",
           "id": "can1L09",
@@ -3288,6 +3288,54 @@
             "Can": true
           },
           "datePublication": "19/06/2022"
+        },
+        "can1L01": {
+          "uuid": "ffa74",
+          "id": "can1L01",
+          "titre": "Calculer un discriminant",
+          "url": "can/1e/can1L01.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "26/10/2021"
+        },
+        "can1L07": {
+          "uuid": "22173",
+          "id": "can1L07",
+          "titre": "Déterminer un coefficient dans un développement",
+          "url": "can/1e/can1L07.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "11/06/2022"
+        },
+        "can1L06": {
+          "uuid": "bbc4e",
+          "id": "can1L06",
+          "titre": "Déterminer une forme canonique",
+          "url": "can/1e/can1L06.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "07/06/2022"
+        },
+        "can1L08": {
+          "uuid": "f68a9",
+          "id": "can1L08",
+          "titre": "Déterminer un coefficient dans un développement*",
+          "url": "can/1e/can1L08.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "11/06/2022"
         },
         "can1L04": {
           "uuid": "cb96c",
@@ -3325,54 +3373,6 @@
           },
           "datePublication": "01/06/2022"
         },
-        "can1L01": {
-          "uuid": "ffa74",
-          "id": "can1L01",
-          "titre": "Calculer un discriminant",
-          "url": "can/1e/can1L01.js",
-          "tags": {
-            "AMC": true,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "26/10/2021"
-        },
-        "can1L06": {
-          "uuid": "bbc4e",
-          "id": "can1L06",
-          "titre": "Déterminer une forme canonique",
-          "url": "can/1e/can1L06.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "07/06/2022"
-        },
-        "can1L07": {
-          "uuid": "22173",
-          "id": "can1L07",
-          "titre": "Déterminer un coefficient dans un développement",
-          "url": "can/1e/can1L07.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "11/06/2022"
-        },
-        "can1L08": {
-          "uuid": "f68a9",
-          "id": "can1L08",
-          "titre": "Déterminer un coefficient dans un développement*",
-          "url": "can/1e/can1L08.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "11/06/2022"
-        },
         "can1L02": {
           "uuid": "33e88",
           "id": "can1L02",
@@ -3386,7 +3386,7 @@
           "datePublication": "1/11/2021"
         }
       },
-      "1P": {
+      "can1P": {
         "can1P01": {
           "uuid": "ca40a",
           "id": "can1P01",
@@ -3412,19 +3412,7 @@
           "datePublication": "03/07/2022"
         }
       },
-      "1S": {
-        "can1S09": {
-          "uuid": "617b6",
-          "id": "can1S09",
-          "titre": "Déterminer une relation de récurrence",
-          "url": "can/1e/can1S09.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "18/02/2022"
-        },
+      "can1S": {
         "can1S01": {
           "uuid": "a6d7e",
           "id": "can1S01",
@@ -3473,18 +3461,6 @@
           },
           "datePublication": "18/02/2022"
         },
-        "can1S06": {
-          "uuid": "7a8a1",
-          "id": "can1S06",
-          "titre": "Donner la forme explicite d’une suite arithmétique/géométrique",
-          "url": "can/1e/can1S06.js",
-          "tags": {
-            "AMC": false,
-            "Interactif": true,
-            "Can": true
-          },
-          "datePublication": "17/02/2022"
-        },
         "can1S08": {
           "uuid": "0b1ec",
           "id": "can1S08",
@@ -3497,6 +3473,18 @@
           },
           "datePublication": "18/02/2022"
         },
+        "can1S06": {
+          "uuid": "7a8a1",
+          "id": "can1S06",
+          "titre": "Donner la forme explicite d’une suite arithmétique/géométrique",
+          "url": "can/1e/can1S06.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "17/02/2022"
+        },
         "can1S11": {
           "uuid": "4ce88",
           "id": "can1S11",
@@ -3508,6 +3496,18 @@
             "Can": true
           },
           "datePublication": "21/02/2022"
+        },
+        "can1S09": {
+          "uuid": "617b6",
+          "id": "can1S09",
+          "titre": "Déterminer une relation de récurrence",
+          "url": "can/1e/can1S09.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "18/02/2022"
         },
         "can1S04": {
           "uuid": "1a97e",
