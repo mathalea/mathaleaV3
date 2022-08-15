@@ -1,4 +1,7 @@
 <script lang="ts">
+import { typeOf } from "mathjs";
+
+
   export let entrees: string[]
   export let actions = []
   export let isMenuOpen: boolean
@@ -27,7 +30,11 @@
   function closeMenu(i) {
     isMenuOpen = false
     isNavBarVisible = false
-    if(actions[i]) actions[i]()
+    if(typeOf (actions[i]) === 'string') {
+      window.location.href = actions[i]
+    } else {
+      actions[i]()
+    }
   }
   function handleClickOutside() {
     isMenuOpen = false

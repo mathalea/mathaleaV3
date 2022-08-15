@@ -5,9 +5,17 @@ import { displayOptions } from "../store";
   let isNavBarVisible = false
   const menus = {
     referentiels: {
-      titre: "Référentiels",
-      id: "referentiels",
+      titre: "Classes",
+      id: "classes",
       entrees: ["Sixième", "Cinquième", "Quatrième", "Troisième", "Seconde", "CRPE"],
+      actions: [
+        "https://coopmaths.fr/6e",
+        "https://coopmaths.fr/5e",
+        "https://coopmaths.fr/4e",
+        "https://coopmaths.fr/3e",
+        "https://coopmaths.fr/2e",
+        "https://coopmaths.fr/crpe",
+      ],
       isMenuOpen: false,
     },
     professeurs: {
@@ -21,7 +29,15 @@ import { displayOptions } from "../store";
         "Programmation de figures géométriques",
         "Animations avec des instruments de géométrie",
         "Outils",
-        "Scores des éleves",
+      ],
+      actions: [
+        "/",
+        "https://coopmaths.fr/mathalea_tuto/",
+        () => {document.location.href = urlV2('latex')},
+        () => {document.location.href = urlV2('moodle')},
+        "https://coopmaths.fr/mathalea2d.html",
+        "https://coopmaths.fr/mathalea2iep.html",
+        "https://coopmaths.fr/mathalea.html?filtre=outils"
       ],
       isMenuOpen: false,
     },
@@ -29,6 +45,7 @@ import { displayOptions } from "../store";
       titre: "À Propos",
       id: "apropos",
       entrees: ["Objectifs généraux", "Présentation du logiciel", "Nous contacter", "Documentation pour les développeurs"],
+      actions: ["https://coopmaths.fr/a_propos", "https://coopmaths.fr/mathalea_a_propos/", "mailto:contact@coopmaths.fr" , "https://coopmaths.fr/documentation"],
       isMenuOpen: false,
     },
     export: {
@@ -72,7 +89,7 @@ import { displayOptions } from "../store";
           <NavBarMenu {...menus.referentiels} bind:isNavBarVisible />
         </li>
         <li>
-          <a href={"#"} class="bg-coopmaths hover:bg-coopmaths-light text-white text-xl font-extrabold relative block py-6 px-2 lg:p-6 items-center">Calcul mental</a>
+          <a href={"https://coopmaths.fr/calculmental/"} class="bg-coopmaths hover:bg-coopmaths-light text-white text-xl font-extrabold relative block py-6 px-2 lg:p-6 items-center">Calcul mental</a>
         </li>
         <li>
           <NavBarMenu {...menus.professeurs} bind:isNavBarVisible />
