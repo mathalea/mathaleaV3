@@ -41,6 +41,9 @@
     if ($displayOptions.v === 'l') {
       isNavBarVisible = false
       isSideMenuVisible = false
+    } else {
+      isNavBarVisible = true
+      isSideMenuVisible = true
     }
 
   }
@@ -87,6 +90,12 @@
   }
   function toggleSearchType(e) {
   }
+
+  function quitFullScreen() {
+      displayOptions.update(params => {
+        delete params.v
+        return params})
+  }
 </script>
 
 <div class="h-screen  scrollbar-hide">
@@ -121,7 +130,12 @@
       <div class="flex w-1 bg-coopmaths-light hover:bg-coopmaths-lightest" />
     {/if}
     <!-- content -->
-    <div class="flex-1 flex flex-col p-6 overflow-hidden h-full">
+    {#if $displayOptions.v === 'l'}
+    <div class="absolute right-10 my-10">
+      <button type="button" on:click={quitFullScreen}><i class="bx ml-2 bx-sm bx-exit-fullscreen" /></button>
+    </div>
+    {/if}
+    <div class="flex-1 flex flex-col p-6 overflow-hidden h-full mt-10">
       <div class="flex-1 overflow-y-scroll overscroll-auto">
         {#each $listeExercices as paramsExercice, i (paramsExercice)}
           <div animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
