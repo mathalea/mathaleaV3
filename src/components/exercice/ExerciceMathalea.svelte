@@ -165,8 +165,10 @@
           />
         {:else}
           <Contenu
-            chapeau={consigneCorrection}
-            entrees={listCorrections}
+            chapeau={consigne}
+            chapeau2={consigneCorrection}
+            entrees={listQuestions}
+            entrees2={listCorrections}
             spacing={spacingCorr}
             {indiceExercice}
             type={"correction"}
