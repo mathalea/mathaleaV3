@@ -174,11 +174,14 @@ function mettreAJourFichierReferentiel (dico) {
     'Calcul mental': { ...unordered.CM.CM00, ...unordered.CM.CM01, ...unordered.CM.CM02 }
   }
   for (const niveau in ordered) {
-    if (niveau !== 'CAN') ordered[niveau] = orderObject(ordered[niveau])
     for (const theme in ordered[niveau]) {
       ordered[niveau][theme] = orderObject(ordered[niveau][theme])
+      for (const sousTheme in ordered[niveau][theme]) {
+        if (ordered[niveau][theme][sousTheme]) ordered[niveau][theme][sousTheme] = orderObject(ordered[niveau][theme][sousTheme])
+      }
     }
   }
+  //console.log(ordered.can.can6e.can6C)
   const contenuFichier = JSON.stringify(ordered, null, 2)
   const referentiel2022FilePath = './src/json/referentiel2022.json'
   try {
