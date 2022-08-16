@@ -37,6 +37,7 @@
   async function transitionContenuCorrection() {
     isCorrectionVisible = !isCorrectionVisible
     isContentVisible = !isContentVisible
+    if (isCorrectionVisible) isInteractif = false
     dispatch('clickCorrection', {isCorrectionVisible, isContentVisible})
 
     if (isCorrectionVisible) {
@@ -71,7 +72,7 @@
       <div class="flex font-normal text-lg lg:text-normal"><span class="invisible lg:visible mx-1 font-bold">&middot;</span>{title}</div>
     </div>
     <div class="flex justify-start text-normal mt-1 text-3xl lg:justify-end lg:text-xl">
-      <button type="button" on:click={switchInteractif}><i class="bx ml-2 {isInteractif ? 'bxs-mouse' : 'bx-mouse'} {interactifReady ? '' : 'invisible' }" /></button>
+      <button type="button" on:click={switchInteractif} class="{interactifReady ? '' : 'invisible' }"><i class="bx ml-2 {isInteractif ? 'bxs-mouse' : 'bx-mouse'}" /></button>
       <button type="button" on:click={() => {
         isVisible = !isVisible
         dispatch('clickVisible', {isVisible})
@@ -81,8 +82,9 @@
       <button type="button" on:click={() => {
         isSettingsVisible = !isSettingsVisible
         dispatch('clickSettings', {isSettingsVisible: isSettingsVisible})
-        }}>
-        <i class="bx ml-2 {!settingsReady ? 'invisible' :  isSettingsVisible ? 'bxs-cog' : 'bx-cog'}" />
+        }}
+        class="{settingsReady ? '' : 'invisible' }">
+        <i class="bx ml-2 {isSettingsVisible ? 'bxs-cog' : 'bx-cog'}" />
       </button>
       <button type="button" on:click={newData}><i class="bx bx-refresh ml-2 {randomReady ? '' : 'invisible'}" /></button>
       <button type="button" on:click={remove}><i class="bx bx-trash ml-2" /></button>

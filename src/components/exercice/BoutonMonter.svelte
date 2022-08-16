@@ -8,4 +8,4 @@
   }
 </script>
 
-<button on:click={monter}> <i class="bx bx-up-arrow-circle ml-4 {indice > 0 ? '' : 'invisible'}" /> </button>
+<button on:click={monter} class="{indice > 0 ? '' : 'invisible'}"> <i class="bx bx-up-arrow-circle ml-4" /> </button>

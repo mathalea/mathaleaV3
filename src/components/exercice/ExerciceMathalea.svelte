@@ -138,6 +138,11 @@
       if (isCorrectionVisible) {
         window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, "true")
       }
+      if (isInteractif) {
+        isInteractif = !isInteractif
+        exercice.interactif = isInteractif
+        updateDisplay()
+      }
     }}
     on:clickInteractif = {(event) => {
       isInteractif = event.detail.isInteractif
@@ -148,6 +153,7 @@
     {...headerExerciceProps}
     {indiceExercice}
     {indiceLastExercice}
+    interactifReady={!isCorrectionVisible}
   />
 
   {#if isVisible}

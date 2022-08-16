@@ -9,4 +9,4 @@
   }
 </script>
 
-<button on:click={descendre}><i class="bx bx-down-arrow-circle ml-[0.5] {indice < indiceLastExercice - 1 ? '' : 'invisible'}" /></button>
+<button on:click={descendre} class="{indice < indiceLastExercice - 1 ? '' : 'invisible'}"><i class="bx bx-down-arrow-circle ml-[0.5]" /></button>
