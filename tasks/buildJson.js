@@ -187,7 +187,7 @@ function mettreAJourFichierReferentiel (dico) {
     }
   }
   for (const niveau in ordered) {
-    ordered[niveau] = orderObject(ordered[niveau])
+    if (niveau !== 'CAN') ordered[niveau] = orderObject(ordered[niveau])
   }
   const contenuFichier = JSON.stringify(ordered, null, 2)
   const referentiel2022FilePath = './src/json/referentiel2022.json'
