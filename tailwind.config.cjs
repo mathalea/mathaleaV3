@@ -1,6 +1,6 @@
 const plugin = require('tailwindcss/plugin')
 const config = {
-  content: ['./src/**/*.{html,js,svelte,ts}', './node_modules/tw-elements/dist/js/**/*.js'],
+  content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
     extend: {
       colors: {
@@ -21,7 +21,7 @@ const config = {
     display: ['group-hover']
   },
   plugins: [
-    require('tw-elements/dist/plugin'),
+    require('daisyui'),
     require('@tailwindcss/forms'),
     plugin(function ({ addUtilities }) {
       addUtilities({

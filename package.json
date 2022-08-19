@@ -17,6 +17,7 @@
     "@svgdotjs/svg.js": "^3.1.2",
     "algebrite": "^1.4.0",
     "boxicons": "^2.1.2",
+    "daisyui": "^2.24.0",
     "decimal.js": "^10.3.1",
     "earcut": "^2.2.3",
     "instrumenpoche": "git+https://git.sesamath.net/sesamath/instrumenpoche.git",
@@ -27,8 +28,7 @@
     "mathsteps": "github:mathalea/mathsteps",
     "seedrandom": "^3.0.5",
     "simple-svelte-autocomplete": "^2.4.0",
-    "ts-import": "4.0.0-beta.6",
-    "tw-elements": "1.0.0-alpha12"
+    "ts-import": "4.0.0-beta.6"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",

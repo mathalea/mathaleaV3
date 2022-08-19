@@ -72,22 +72,24 @@
       <div class="flex font-normal text-lg lg:text-normal"><span class="invisible lg:visible mx-1 font-bold">&middot;</span>{title}</div>
     </div>
     <div class="flex justify-start text-normal mt-1 text-3xl lg:justify-end lg:text-xl">
-      <button type="button" on:click={switchInteractif} class="{interactifReady ? '' : 'invisible' }"><i class="bx ml-2 {isInteractif ? 'bxs-mouse' : 'bx-mouse'}" /></button>
-      <button type="button" on:click={() => {
-        isVisible = !isVisible
-        dispatch('clickVisible', {isVisible})
-        }}>
-        <i class="bx ml-2 {isVisible ? 'bx-hide' : 'bx-show'}" />
+        <button class="tooltip tooltip-left {interactifReady ? '' : 'invisible' }" data-tip="Exercice interactif" type="button" on:click={switchInteractif}><i class="bx ml-2 {isInteractif ? 'bxs-mouse' : 'bx-mouse'}" /></button>
+        <button type="button" on:click={() => {
+          isVisible = !isVisible
+          dispatch('clickVisible', {isVisible})
+          }}
+          class="tooltip tooltip-left" data-tip=" {isVisible ? 'Masquer' : 'Montrer'} l'exercice">
+          <i class="bx ml-2 {isVisible ? 'bx-hide' : 'bx-show'}" />
       </button>
-      <button type="button" on:click={() => {
+      <button class="tooltip tooltip-left settingsReady ? '' : 'invisible' " data-tip="Changer les paramètres de l'exercice"
+       type="button" on:click={() => {
         isSettingsVisible = !isSettingsVisible
         dispatch('clickSettings', {isSettingsVisible: isSettingsVisible})
         }}
-        class="{settingsReady ? '' : 'invisible' }">
+        >
         <i class="bx ml-2 {isSettingsVisible ? 'bxs-cog' : 'bx-cog'}" />
       </button>
-      <button type="button" on:click={newData}><i class="bx bx-refresh ml-2 {randomReady ? '' : 'invisible'}" /></button>
-      <button type="button" on:click={remove}><i class="bx bx-trash ml-2" /></button>
+      <button class="tooltip tooltip-left" data-tip="Nouvel énoncé" type="button" on:click={newData}><i class="bx bx-refresh ml-2 {randomReady ? '' : 'invisible'}" /></button>
+      <button class="tooltip tooltip-left" data-tip="Supprimer l'exercice" type="button" on:click={remove}><i class="bx bx-trash ml-2" /></button>
       <BoutonMonter indice={indiceExercice} />
       <BoutonDescendre indice={indiceExercice} {indiceLastExercice} />
       <button class="flew flex-row items-center w-32 {correctionReady ? '' : 'invisible'}" type="button" on:click={transitionContenuCorrection}>
@@ -96,6 +98,7 @@
     </div>
   </h1>
   </div>
+
 
 
 <style>
