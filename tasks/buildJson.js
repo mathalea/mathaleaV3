@@ -173,15 +173,22 @@ function mettreAJourFichierReferentiel (dico) {
     CRPE: unordered.PE,
     'Calcul mental': { ...unordered.CM.CM00, ...unordered.CM.CM01, ...unordered.CM.CM02 }
   }
+
   for (const niveau in ordered) {
     for (const theme in ordered[niveau]) {
-      ordered[niveau][theme] = orderObject(ordered[niveau][theme])
       for (const sousTheme in ordered[niveau][theme]) {
         if (ordered[niveau][theme][sousTheme]) ordered[niveau][theme][sousTheme] = orderObject(ordered[niveau][theme][sousTheme])
       }
     }
   }
-  //console.log(ordered.can.can6e.can6C)
+  for (const niveau in ordered) {
+    for (const theme in ordered[niveau]) {
+      ordered[niveau][theme] = orderObject(ordered[niveau][theme])
+    }
+  }
+  for (const niveau in ordered) {
+    ordered[niveau] = orderObject(ordered[niveau])
+  }
   const contenuFichier = JSON.stringify(ordered, null, 2)
   const referentiel2022FilePath = './src/json/referentiel2022.json'
   try {
@@ -219,7 +226,7 @@ function gereModuleJs (module, file, name, dictionnaire, referentiel2022, menu20
   const keywords = module.keywords ? module.keywords : []
   const datePublication = module.dateDePublication
   const dateModification = module.dateDeModifImportante
-  const ref = module.ref
+  const id = module.ref
 
   if (isCan) {
     if (['1', '2', '3', '4', '5', '6', 'T'].indexOf(name[3]) !== -1) {
@@ -252,9 +259,9 @@ function gereModuleJs (module, file, name, dictionnaire, referentiel2022, menu20
   }
   const url = file.replace('../src/exercices/', '')
   const tags = { AMC: !!isAmcReady, Interactif: !!isInteractifReady, Can: !!isCan }
-  ajouteExoDico({ uuid, id: ref, url, name, titre, level, chap, idTheme, idSousTheme, keywords, tags, datePublication, dateModification, dico: dictionnaire })
-  ajouteExoReferentiel({ uuid, id: ref, name, url, titre, tags, datePublication, dateModification, level, chap, referentiel: referentiel2022 })
-  ajouteExoMenu({ uuid, id: ref, level, chap, titre, tags, datePublication, dateModification, menu: menu2022 })
+  ajouteExoDico({ uuid, id, url, name, titre, level, chap, idTheme, idSousTheme, keywords, tags, datePublication, dateModification, dico: dictionnaire })
+  ajouteExoReferentiel({ uuid, id, name, url, titre, tags, datePublication, dateModification, level, chap, referentiel: referentiel2022 })
+  ajouteExoMenu({ uuid, id, level, chap, titre, tags, datePublication, dateModification, menu: menu2022 })
   uuidsToUrl.set(uuid, url)
   return true
 }
