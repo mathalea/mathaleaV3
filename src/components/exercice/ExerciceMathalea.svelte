@@ -8,7 +8,6 @@
   import { exerciceInteractif } from "../../interactif/interactif"
   import { listeExercices } from "../store"
 
-  import Contenu from "./Contenu.svelte"
   import HeaderExercice from "./HeaderExercice.svelte"
   import Settings from "./Settings.svelte"
   export let exercice
@@ -23,12 +22,6 @@
   let isCorrectionVisible = false
   let isSettingsVisible = false
   let isInteractif = false
-  let consigne: string
-  let consigneCorrection: string
-  let listQuestions: string[] = []
-  let listCorrections: string[] = []
-  let spacing: number
-  let spacingCorr: number
 
   $: {
     if (isContentVisible && isInteractif && buttonScore) initButtonScore()
@@ -106,12 +99,6 @@
     seedrandom(exercice.seed, { global: true });
     exercice.interactif = isInteractif;
     exercice.nouvelleVersion(indiceExercice);
-    listQuestions = [...exercice.listeQuestions];
-    listCorrections = [...exercice.listeCorrections];
-    consigne = exercice.consigne + exercice.introduction;
-    consigneCorrection = exercice.consigneCorrection;
-    spacing = exercice.spacing;
-    spacingCorr = exercice.spacingCorr;
   }
 
   function verifExercice() {
@@ -158,31 +145,32 @@
 
   {#if isVisible}
     <div class="flex flex-col-reverse lg:flex-row">
-      <div
-        class="flex flex-col relative {isSettingsVisible
-          ? 'w-full lg:w-3/4'
-          : 'w-full'} duration-500"
-        id="exercice{indiceExercice}"
-      >
-        {#if isContentVisible}
-          <Contenu
-            chapeau={consigne}
-            entrees={listQuestions}
-            {spacing}
-            {indiceExercice}
-            type={"enonce"}
-          />
-        {:else}
-          <Contenu
-            chapeau={consigne}
-            chapeau2={consigneCorrection}
-            entrees={listQuestions}
-            entrees2={listCorrections}
-            spacing={spacingCorr}
-            {indiceExercice}
-            type={"correction"}
-          />
-        {/if}
+      <div class="flex flex-col relative {isSettingsVisible ? 'w-full lg:w-3/4' : 'w-full'} duration-500" id="exercice{indiceExercice}">
+        <article class="text-2xl lg:text-base">
+          {#if isCorrectionVisible}
+          <p class="leading-relaxed mt-2  ml-2 lg:mx-5 text-gray-800">
+            {@html exercice.consigne + exercice.introduction}
+          </p>
+            <div class="bg-gray-100 leading-relaxed mt-2  ml-2 lg:mx-5">
+              {@html exercice.consigneCorrection}
+            </div>
+          <ul class="list-decimal list-inside mt-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold">
+            {#each exercice.listeQuestions as item, i (i)}
+            <li style="line-height: {Math.max(2, exercice.spacing)};" id="exercice${indiceExercice}Q${i}">{@html item.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</li>
+            <div class="bg-gray-100" style="line-height: {exercice.spacingCorr};" id="correction${indiceExercice}Q${i}"> {@html exercice.listeCorrections[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</div>
+            {/each}
+          </ul>
+          {:else}
+          <p class="leading-relaxed mt-2  ml-2 lg:mx-5 text-gray-800">
+            {@html exercice.consigne + exercice.introduction}
+          </p>
+          <ul class="list-decimal list-inside mt-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold">
+            {#each exercice.listeQuestions as item, i (i)}
+              <li style="line-height: {Math.max(2, exercice.spacing)};" id="exercice${indiceExercice}Q${i}">{@html item.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</li>
+            {/each}
+          </ul>
+            {/if}
+        </article>
         {#if isInteractif && !isCorrectionVisible && isContentVisible}
           <button
             type="submit"
