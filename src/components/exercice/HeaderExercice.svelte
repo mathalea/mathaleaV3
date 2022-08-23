@@ -80,7 +80,7 @@
           class="tooltip tooltip-left" data-tip=" {isVisible ? 'Masquer' : 'Montrer'} l'exercice">
           <i class="bx ml-2 {isVisible ? 'bx-hide' : 'bx-show'}" />
       </button>
-      <button class="tooltip tooltip-left settingsReady ? '' : 'invisible' " data-tip="Changer les paramètres de l'exercice"
+      <button class="tooltip tooltip-left {settingsReady ? '' : 'invisible'} " data-tip="Changer les paramètres de l'exercice"
        type="button" on:click={() => {
         isSettingsVisible = !isSettingsVisible
         dispatch('clickSettings', {isSettingsVisible: isSettingsVisible})
