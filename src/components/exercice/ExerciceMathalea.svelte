@@ -140,7 +140,7 @@
     {...headerExerciceProps}
     {indiceExercice}
     {indiceLastExercice}
-    interactifReady={!isCorrectionVisible}
+    interactifReady={exercice.interactifReady && !isCorrectionVisible}
   />
 
   {#if isVisible}
