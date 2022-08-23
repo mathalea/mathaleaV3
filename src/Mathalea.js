@@ -82,6 +82,15 @@ export class Mathalea {
     }
   }
 
+  static async loadFromUrlWithoutExtension (urlWithoutExtension) {
+    const uuid = Object.keys(uuidToUrl).find(key => uuidToUrl[key] === urlWithoutExtension + '.js')
+    const newEx = { uuid, id: urlWithoutExtension.split('/')[1] }
+    listeExercices.update(l => {
+      l.push(newEx)
+      return l
+    })
+  }
+
   /**
    * Change les paramètres d'un exercice
    * Exemple : changeSettingsExercice(exercice2, { sup: true, nbQuestions: 3 })
@@ -145,6 +154,11 @@ export class Mathalea {
     window.history.pushState({}, '', url)
   }
 
+  /**
+   * Analyse l'url courante de la fenêtre
+   * pour en charger tous les exercices demandés
+   * @returns vue
+   */
   static loadExercicesFromUrl () {
     let v = ''
     const url = new URL(window.location.href)

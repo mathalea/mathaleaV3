@@ -2,6 +2,7 @@
   import Chips from "./Chips.svelte"
   import { listeExercices } from "../store"
   import data from '../../json/exercicesList.json'
+  import { Mathalea } from '../../Mathalea'
   
   let input: HTMLInputElement
   let listeId = []
@@ -52,6 +53,7 @@ const clearInput = () => {
 }
 	
 const setInputVal = (ex) => {
+  Mathalea.loadFromId(ex)
 	inputValue = ex
 	filteredExercices = []
 	hiLiteIndex = null
@@ -89,21 +91,8 @@ function handleChange2() {
   if (filterEx.length === 1 || inputValue === '') {
     return
   }
-  let newId = inputValue.replace('.js','')
-  let ex = newId.split('/')
-  let newExercice = {}
-  if ( ex.length == 3 ) {
-    newExercice = {
-    directory: ex[0]+'/'+ex[1],
-    id: ex[2],
-    }
-  } else {
-  newExercice = {
-    directory: ex[0],
-    id: ex[1],
-  }
-}
-  listeExercices.update((l) => [...l, newExercice])
+  let newId = inputValue
+  Mathalea.loadFromUrlWithoutExtension(newId)
   clearInput()
 }
 
