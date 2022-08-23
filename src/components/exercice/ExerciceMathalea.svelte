@@ -72,19 +72,19 @@
       exercice.nbQuestions = event.detail.nbQuestions;
       $listeExercices[indiceExercice].nbQuestions = exercice.nbQuestions;
     }
-    if (event.detail.sup) {
+    if (event.detail.sup !== undefined) {
       exercice.sup = event.detail.sup;
       $listeExercices[indiceExercice].sup = exercice.sup;
     }
-    if (event.detail.sup2) {
+    if (event.detail.sup2 !== undefined) {
       exercice.sup2 = event.detail.sup2;
       $listeExercices[indiceExercice].sup2 = exercice.sup2;
     }
-    if (event.detail.sup3) {
+    if (event.detail.sup3 !== undefined) {
       exercice.sup3 = event.detail.sup3;
       $listeExercices[indiceExercice].sup3 = exercice.sup3;
     }
-    if (event.detail.sup4) {
+    if (event.detail.sup4 !== undefined) {
       exercice.sup4 = event.detail.sup4;
       $listeExercices[indiceExercice].sup4 = exercice.sup4;
     }
@@ -151,20 +151,20 @@
           <p class="leading-relaxed mt-2  ml-2 lg:mx-5 text-gray-800">
             {@html exercice.consigne + exercice.introduction}
           </p>
-            <div class="bg-gray-100 leading-relaxed mt-2  ml-2 lg:mx-5">
+            <div class="bg-gray-200 leading-relaxed mt-2  ml-2 lg:mx-5">
               {@html exercice.consigneCorrection}
             </div>
-          <ul class="list-decimal list-inside mt-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold">
+          <ul class="{(exercice.listeQuestions.length > 1) ? 'list-decimal' : 'list-none'} list-inside mt-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold">
             {#each exercice.listeQuestions as item, i (i)}
             <li style="line-height: {Math.max(2, exercice.spacing)};" id="exercice${indiceExercice}Q${i}">{@html item.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</li>
-            <div class="bg-gray-100" style="line-height: {exercice.spacingCorr};" id="correction${indiceExercice}Q${i}"> {@html exercice.listeCorrections[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</div>
+            <div class="bg-gray-200" style="line-height: {exercice.spacingCorr};" id="correction${indiceExercice}Q${i}"> {@html exercice.listeCorrections[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</div>
             {/each}
           </ul>
           {:else}
           <p class="leading-relaxed mt-2  ml-2 lg:mx-5 text-gray-800">
             {@html exercice.consigne + exercice.introduction}
           </p>
-          <ul class="list-decimal list-inside mt-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold">
+          <ul class="{(exercice.listeQuestions.length > 1) ? 'list-decimal' : 'list-none'} list-inside mt-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold">
             {#each exercice.listeQuestions as item, i (i)}
               <li style="line-height: {Math.max(2, exercice.spacing)};" id="exercice${indiceExercice}Q${i}">{@html item.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</li>
             {/each}

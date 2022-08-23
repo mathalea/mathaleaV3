@@ -155,23 +155,23 @@ export class Mathalea {
       if (entry[0] === 'uuid') {
         indiceExercice++
         if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = {}
-        newListeExercice[indiceExercice].uuid = entry[1]
+        newListeExercice[indiceExercice].uuid = _handleStringFromUrl(entry[1])
       } else if (entry[0] === 'id') {
-        newListeExercice[indiceExercice].id = entry[1]
+        newListeExercice[indiceExercice].id = _handleStringFromUrl(entry[1])
       } else if (entry[0] === 'n') {
-        newListeExercice[indiceExercice].nbQuestions = entry[1]
+        newListeExercice[indiceExercice].nbQuestions = _handleStringFromUrl(entry[1])
       } else if (entry[0] === 's') {
-        newListeExercice[indiceExercice].sup = entry[1]
+        newListeExercice[indiceExercice].sup = _handleStringFromUrl(entry[1])
       } else if (entry[0] === 's2') {
-        newListeExercice[indiceExercice].sup2 = entry[1]
+        newListeExercice[indiceExercice].sup2 = _handleStringFromUrl(entry[1])
       } else if (entry[0] === 's3') {
-        newListeExercice[indiceExercice].sup3 = entry[1]
+        newListeExercice[indiceExercice].sup3 = _handleStringFromUrl(entry[1])
       } else if (entry[0] === 's4') {
-        newListeExercice[indiceExercice].sup4 = entry[1]
+        newListeExercice[indiceExercice].sup4 = _handleStringFromUrl(entry[1])
       } else if (entry[0] === 'v') {
-        v = entry[1]
+        v = _handleStringFromUrl(entry[1])
       } else {
-        newListeExercice[indiceExercice][entry[0]] = entry[1]
+        newListeExercice[indiceExercice][entry[0]] = _handleStringFromUrl(entry[1])
       }
     }
     listeExercices.update((l) => {
@@ -197,5 +197,15 @@ export class Mathalea {
         cptSecours++
       }
     }
+  }
+}
+
+function _handleStringFromUrl (txt) {
+  if (txt === 'true' || txt === 'false') { // "true"=>true
+    return (txt === 'true')
+  } else if (!isNaN(txt)) { // "17"=>17
+    return parseInt(txt)
+  } else {
+    return txt
   }
 }

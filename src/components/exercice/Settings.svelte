@@ -35,7 +35,11 @@
     if (exercice && premierUpdate) {
       premierUpdate = false
       nbQuestions = exercice.nbQuestions
-      sup = exercice.sup
+      if (exercice.sup === 'false') {
+        sup = false
+      } else {
+        sup = exercice.sup
+      }
       sup2 = exercice.sup2
       sup3 = exercice.sup3
       sup4 = exercice.sup4
@@ -176,7 +180,7 @@
   {/if}
   {#if exercice.nbQuestionsModifiable}
     <div>
-      <span class="text-coopmaths-lightest">Nombre de questions :</span> <input type="number" bind:value={nbQuestions} on:change={newSettings} class="w-16 border-2" />
+      <span class="text-coopmaths-lightest">Nombre de questions :</span> <input type="number" min="1" bind:value={nbQuestions} on:change={newSettings} class="w-full border-2" />
     </div>
   {/if}
   {#if exercice.besoinFormulaireCaseACocher}
@@ -184,7 +188,7 @@
       <label class="form-check-label text-coopmaths-lightest" for="check1">
         {exercice.besoinFormulaireCaseACocher[0]} :
       </label>
-      <input name="check1" type="checkbox" class="form-check-input checkbox-primary" bind:checked={sup} on:change={newSettings} />
+      <input name="check1" type="checkbox" class="form-check-input" bind:checked={sup} on:change={newSettings} />
     </div>
   {/if}
   {#if exercice.besoinFormulaireNumerique}
@@ -192,7 +196,7 @@
       <div class="flex flex-col">
         <form action="">
           <label class="text-coopmaths-lightest" for="formNum1">{formNum1.titre}</label>
-          <select class="flex flex-auto" name="formNum1" id="formNum1-select" bind:value={sup} on:change={newSettings}>
+          <select class="flex flex-auto border-2 w-full" name="formNum1" id="formNum1-select" bind:value={sup} on:change={newSettings}>
             {#each formNum1.champs as entree, i}
               <option value={i + 1}>{entree}</option>
             {/each}
@@ -218,9 +222,17 @@
     {/if}
   {/if}
   {#if exercice.besoinFormulaireTexte}
-    <div>
+    <div class="tooltip tooltip-left"  data-tip={exercice.besoinFormulaireTexte[1]}>
       <form id="formText1" name="formText1">
-        <fieldset>
+        <label class="text-coopmaths-lightest" for="formText1">{exercice.besoinFormulaireTexte[0]} :</label>
+        <input
+          class="border-2 w-full"
+          name="formText1"
+          type='text' 
+          bind:value={sup}
+          on:change={newSettings}
+        />
+        <!-- <fieldset>
           <legend class="text-coopmaths-lightest">{formText1.titre}</legend>
           <div class="flex flex-col  ml-3 mt-1">
             {#each formText1.champsDecortiques as entree, i}
@@ -236,7 +248,7 @@
               </div>
             {/each}
           </div>
-        </fieldset>
+        </fieldset> -->
       </form>
     </div>
   {/if}
@@ -253,7 +265,7 @@
       <div class="flex flex-col">
         <form action="">
           <label class="text-coopmaths-lightest" for="formNum2">{formNum2.titre}</label>
-          <select class="flex flex-auto" name="formNum2" id="formNum2-select" bind:value={sup2} on:change={newSettings}>
+          <select class="flex flex-auto  border-2 w-full" name="formNum2" id="formNum2-select" bind:value={sup2} on:change={newSettings}>
             {#each formNum2.champs as entree, i}
               <option value={i + 1}>{entree}</option>
             {/each}
@@ -279,9 +291,17 @@
     {/if}
   {/if}
   {#if exercice.besoinFormulaire2Texte}
-    <div>
-      <form id="formText2" name="formText2">
-        <fieldset>
+  <div class=" tooltip tooltip-left"  data-tip="{exercice.besoinFormulaire2Texte[1]}">
+    <form id="formText2" name="formText2">
+      <label class="text-coopmaths-lightest" for="formText1">{exercice.besoinFormulaire2Texte[0]} :</label>
+      <input
+        class="border-2 w-full"
+        name="formText1"
+        type='text' 
+        bind:value={sup2}
+        on:change={newSettings}
+      />
+        <!-- <fieldset>
           <legend class="text-coopmaths-lightest">{formText2.titre}</legend>
           <div class="flex flex-col  ml-3 mt-1">
             {#each formText2.champsDecortiques as entree, i}
@@ -297,7 +317,7 @@
               </div>
             {/each}
           </div>
-        </fieldset>
+        </fieldset> -->
       </form>
     </div>
   {/if}
@@ -340,7 +360,17 @@
     {/if}
   {/if}
   {#if exercice.besoinFormulaire3Texte}
-    <div>
+  <div class=" tooltip tooltip-left"  data-tip="{exercice.besoinFormulaire3Texte[1]}">
+    <form id="formText3" name="formText3">
+      <label class="text-coopmaths-lightest" for="formText1">{exercice.besoinFormulaire3Texte[0]} :</label>
+      <input
+        class="border-2 w-full"
+        name="formText3"
+        type='text' 
+        bind:value={sup3}
+        on:change={newSettings}
+      />
+    <!-- <div>
       <form id="formText3" name="formText3">
         <fieldset>
           <legend class="text-coopmaths-lightest">{formText3.titre}</legend>
@@ -358,7 +388,7 @@
               </div>
             {/each}
           </div>
-        </fieldset>
+        </fieldset> -->
       </form>
     </div>
   {/if}
@@ -401,7 +431,19 @@
     {/if}
   {/if}
   {#if exercice.besoinFormulaire4Texte}
-    <div>
+  <div class="tooltip tooltip-left"  data-tip="{exercice.besoinFormulaire4Texte[1]}">
+    <form id="formText4" name="formText4">
+      <label class="text-coopmaths-lightest" for="formText4">{exercice.besoinFormulaire4Texte[0]} :</label>
+      <input
+        class="border-2 w-full"
+        name="formText1"
+        type='text' 
+        bind:value={sup4}
+        on:change={newSettings}
+      />
+    </form>
+   </div>
+    <!-- <div>
       <form id="formText4" name="formText4">
         <fieldset>
           <legend class="text-coopmaths-lightest">{formText4.titre}</legend>
@@ -421,6 +463,6 @@
           </div>
         </fieldset>
       </form>
-    </div>
+    </div> -->
   {/if}
 </div>
