@@ -58,7 +58,12 @@
   });
 
   async function newData() {
-    const seed = (Math.random() * 1000).toString();
+    const seed = Mathalea.generateSeed({
+      includeUpperCase: true,
+      includeNumbers: true,
+      length: 4,
+      startsWithLowerCase: false
+    })
     exercice.seed = seed;
     if (buttonScore) initButtonScore()
     if (isCorrectionVisible) {
@@ -89,20 +94,27 @@
       $listeExercices[indiceExercice].sup4 = exercice.sup4;
     }
     updateDisplay();
-    Mathalea.updateUrl($listeExercices);
   }
 
   function updateDisplay() {
     if (exercice.typeExercice === 'simple') Mathalea.handleExerciceSimple(exercice, isInteractif)
     if (exercice.seed === undefined)
-      exercice.seed = randomInt(1, 9999).toString();
-    seedrandom(exercice.seed, { global: true });
-    exercice.interactif = isInteractif;
-    exercice.nouvelleVersion(indiceExercice);
+      exercice.seed = Mathalea.generateSeed({
+      includeUpperCase: true,
+      includeNumbers: true,
+      length: 4,
+      startsWithLowerCase: false
+    })
+    seedrandom(exercice.seed, { global: true })
+    exercice.interactif = isInteractif
+    $listeExercices[indiceExercice].alea = exercice.seed
+    $listeExercices[indiceExercice].i = isInteractif
+    exercice.nouvelleVersion(indiceExercice)
+    Mathalea.updateUrl($listeExercices)
   }
 
   function verifExercice() {
-    exerciceInteractif(exercice, divScore, buttonScore);
+    exerciceInteractif(exercice, divScore, buttonScore)
   }
 
   function initButtonScore() {

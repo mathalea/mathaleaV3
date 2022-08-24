@@ -144,6 +144,7 @@ export class Mathalea {
       if (ex.sup2 !== undefined) url.searchParams.append('s2', ex.sup2)
       if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
       if (ex.sup4 !== undefined) url.searchParams.append('s4', ex.sup4)
+      url.searchParams.append('alea', ex.alea)
     }
     const params = get(displayOptions)
     if (params.v) {
@@ -161,6 +162,7 @@ export class Mathalea {
    */
   static loadExercicesFromUrl () {
     let v = ''
+    let alea = ''
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     let indiceExercice = -1
@@ -169,13 +171,13 @@ export class Mathalea {
       if (entry[0] === 'uuid') {
         indiceExercice++
         if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = {}
-        newListeExercice[indiceExercice].uuid = _handleStringFromUrl(entry[1])
+        newListeExercice[indiceExercice].uuid = entry[1] // string
       } else if (entry[0] === 'id') {
-        newListeExercice[indiceExercice].id = _handleStringFromUrl(entry[1])
+        newListeExercice[indiceExercice].id = entry[1] // string
       } else if (entry[0] === 'n') {
-        newListeExercice[indiceExercice].nbQuestions = _handleStringFromUrl(entry[1])
+        newListeExercice[indiceExercice].nbQuestions = parseInt(entry[1]) // int
       } else if (entry[0] === 's') {
-        newListeExercice[indiceExercice].sup = _handleStringFromUrl(entry[1])
+        newListeExercice[indiceExercice].sup = _handleStringFromUrl(entry[1]) // string | number | boolean
       } else if (entry[0] === 's2') {
         newListeExercice[indiceExercice].sup2 = _handleStringFromUrl(entry[1])
       } else if (entry[0] === 's3') {
@@ -183,15 +185,17 @@ export class Mathalea {
       } else if (entry[0] === 's4') {
         newListeExercice[indiceExercice].sup4 = _handleStringFromUrl(entry[1])
       } else if (entry[0] === 'v') {
-        v = _handleStringFromUrl(entry[1])
+        v = entry[1]
+      } else if (entry[0] === 'alea') {
+        alea = entry[1]
       } else {
-        newListeExercice[indiceExercice][entry[0]] = _handleStringFromUrl(entry[1])
+        newListeExercice[indiceExercice][entry[0]] = entry[1]
       }
     }
     listeExercices.update((l) => {
       return newListeExercice
     })
-    return { v }
+    return { v, alea }
   }
 
   static handleExerciceSimple (exercice, isInteractif) {
@@ -211,6 +215,47 @@ export class Mathalea {
         cptSecours++
       }
     }
+  }
+
+  /**
+  * Créé un string aléatoire
+  *
+  * generateSeed({
+  *  includeUpperCase: true,
+  *  includeNumbers: true,
+  *  length: 5,
+  *  startsWithLowerCase: true
+  * });
+  *
+  * // renvoie par exemple : "iL0v3"
+  *
+  * @Source https://www.equinode.com/blog/article/generer-une-chaine-de-caracteres-aleatoire-avec-javascript
+  */
+  static generateSeed (o) {
+    let a = 10
+    const b = 'abcdefghijklmnopqrstuvwxyz'
+    let c = ''
+    let d = 0
+    let e = '' + b
+    if (o) {
+      if (o.startsWithLowerCase) {
+        c = b[Math.floor(Math.random() * b.length)]
+        d = 1
+      }
+      if (o.length) {
+        a = o.length
+      }
+      if (o.includeUpperCase) {
+        e += b.toUpperCase()
+      }
+      if (o.includeNumbers) {
+        e += '1234567890'
+      }
+    }
+    for (; d < a; d++) {
+      c += e[Math.floor(Math.random() * e.length)]
+    }
+    return c
   }
 }
 
