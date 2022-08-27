@@ -10,8 +10,7 @@
   export let correctionReady = true;
   export let indiceExercice: number;
   export let indiceLastExercice: number;
-
-  let isInteractif = false;
+  export let isInteractif = false;
   let isVisible = true;
   let isSettingsVisible = false;
   let isContentVisible = true;

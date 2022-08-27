@@ -20,6 +20,7 @@ import { onMount } from "svelte"
     if (paramsExercice.sup2) exercice.sup2 = paramsExercice.sup2
     if (paramsExercice.sup3) exercice.sup3 = paramsExercice.sup3
     if (paramsExercice.sup4) exercice.sup4 = paramsExercice.sup4
+    if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif
     exercice.numeroExercice = indiceExercice
     typeExercice = exercice.typeExercice
     // Chargement dynamique du component correspondant au type d'exercice

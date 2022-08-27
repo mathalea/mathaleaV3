@@ -1,6 +1,5 @@
 <script lang="ts">
   import { afterUpdate, createEventDispatcher } from "svelte"
-  import Curseur from "./Curseur.svelte"
 
   export let exercice
   let nbQuestions: number

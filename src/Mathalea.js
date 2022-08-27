@@ -145,6 +145,7 @@ export class Mathalea {
       if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
       if (ex.sup4 !== undefined) url.searchParams.append('s4', ex.sup4)
       url.searchParams.append('alea', ex.alea)
+      if (ex.i) url.searchParams.append('i', 1)
     }
     const params = get(displayOptions)
     if (params.v) {
@@ -188,6 +189,8 @@ export class Mathalea {
         v = entry[1]
       } else if (entry[0] === 'alea') {
         alea = entry[1]
+      } else if (entry[0] === 'i' && entry[1] === '1') {
+        newListeExercice[indiceExercice].interactif = true
       } else {
         newListeExercice[indiceExercice][entry[0]] = entry[1]
       }

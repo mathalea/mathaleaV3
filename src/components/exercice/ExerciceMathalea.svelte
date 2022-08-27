@@ -21,7 +21,7 @@
   let isContentVisible = true
   let isCorrectionVisible = false
   let isSettingsVisible = false
-  let isInteractif = false
+  let isInteractif = exercice.interactif
 
   $: {
     if (isContentVisible && isInteractif && buttonScore) initButtonScore()
@@ -29,6 +29,7 @@
 
   const headerExerciceProps = {
     title: exercice.titre,
+    isInteractif
   }
 
   onMount(async () => {
