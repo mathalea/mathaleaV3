@@ -1,9 +1,11 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, stringNombre } from '../../modules/outils.js'
-import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, creerLutin, baisseCrayon, allerA, point, texteParPositionEchelle, tracePoint } from '../../modules/2d.js'
+import { scratchblock, point, texteParPositionEchelle, tracePoint } from '../../modules/2d.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
+import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin.js'
 export const titre = 'Note la couleur (scratch)'
 
 /**
@@ -13,7 +15,7 @@ export const titre = 'Note la couleur (scratch)'
  * Publié le 11/04/2021
  * @author Jean-Claude Lhote
  */
-export const uuid = '55ace'
+export const uuid = 'e380b'
 export const ref = 'c3I11'
 export default function NoteLaCouleurC3 () {
   'use strict'
@@ -35,7 +37,7 @@ export default function NoteLaCouleurC3 () {
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     const damier = [
       ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc'],
       ['Blanc', 'Noir', 'Orange', 'Rouge', 'Orange', 'Jaune', 'Rouge', 'Jaune', 'Rose', 'Blanc'],
@@ -90,7 +92,7 @@ export default function NoteLaCouleurC3 () {
         ydepart = 10 + randint(1, 6) * 20
 
         pion = noteLaCouleur({ x: xdepart, y: ydepart, orientation: angledepart, plateau: lePlateau.plateauNLC, relatif: this.relatif, nx: 10, ny: 8, pas: 20 })
-        lutin.color = context.isHtml ? 'green' : 'black'
+        lutin.color = context.isHtml ? colorToLatexOrHTML('green') : colorToLatexOrHTML('black')
         lutin.epaisseur = 2
         lutin.pointilles = 2
         allerA(xdepart, ydepart, lutin)

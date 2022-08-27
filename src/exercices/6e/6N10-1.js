@@ -18,7 +18,7 @@ export const dateDeModifImportante = '07/11/2021'
  * 6N10-1
  * Relecture : Novembre 2021 par EE
  */
-export const uuid = '80575'
+export const uuid = '7efdf'
 export const ref = '6N10-1'
 export default function ExerciceNumerationEntier () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -30,7 +30,7 @@ export default function ExerciceNumerationEntier () {
   this.sup3 = 3
   this.sup4 = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup3 = Number(this.sup3)
     this.sup4 = Number(this.sup4)
     this.listeQuestions = [] // Liste de questions

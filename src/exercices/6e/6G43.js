@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
-import { mathalea2d } from '../../modules/2d.js'
+
 import { cube } from '../../modules/3d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -19,7 +20,7 @@ export const amcReady = true
 * Compter des cubes dans un empilement de cubes
 */
 
-export const uuid = '89177'
+export const uuid = '5f115'
 export const ref = '6G43'
 export default function DenombrerCubes () {
   Exercice.call(this)
@@ -33,7 +34,7 @@ export default function DenombrerCubes () {
   this.sup = 1 // A décommenter : valeur par défaut d'un premier paramètre
   this.sup2 = 1 // A décommenter : valeur par défaut d'un deuxième paramètre
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     this.autoCorrection = []

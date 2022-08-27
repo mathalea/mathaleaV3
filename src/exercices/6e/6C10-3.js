@@ -7,14 +7,14 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcType = 'qcmMono' // type de question AMC
 
-export const titre = 'Utiliser tables de multiplications pour effectuer produits avec décimaux'
+export const titre = 'Utiliser tables de multiplication pour effectuer produits avec décimaux'
 
 /**
  * Multiplier deux nombres décimaux
  * @author Rémi Angot
  * Référence 6C10-3
  */
-export const uuid = '33317'
+export const uuid = 'a5c5a'
 export const ref = '6C10-3'
 export default function ExerciceTablesMultiplicationsEtDecimaux (
   tablesParDefaut = '2-3-4-5-6-7-8-9'
@@ -28,7 +28,7 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
   this.tailleDiaporama = 3
   this.nbQuestions = 10
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

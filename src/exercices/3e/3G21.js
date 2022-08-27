@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, lettreDepuisChiffre, texNombre, miseEnEvidence, texFraction, creerBoutonMathalea2d, contraindreValeur, choice } from '../../modules/outils.js'
-import { angleOriente, homothetie, mathalea2d, point, pointSurSegment, polygone, rotation, texteParPoint } from '../../modules/2d.js'
+import { angleOriente, homothetie, point, pointSurSegment, polygone, rotation, texteParPoint } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
@@ -20,7 +21,7 @@ export const titre = 'Démontrer que deux droites sont ou ne sont pas parallèle
  * 18/10/21 passage de MG32 à MathALEA2D par Rémi Angot
  * 3G21
  */
-export const uuid = '24152'
+export const uuid = '3451c'
 export const ref = '3G21'
 export default function ReciproqueThales () {
   'use strict'
@@ -39,7 +40,7 @@ export default function ReciproqueThales () {
   this.listePackages = 'tkz-euclide'
 
   // coefficient de l'homothétie compris entre -0,8 et -0,2 ou entre 0,2 et 0,8 pour éviter les constructions trop serrées
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.autoCorrections = []
     this.listeQuestions = []
     this.listeCorrections = []
@@ -200,7 +201,7 @@ export default function ReciproqueThales () {
       }
 
       if (this.sup !== 3) {
-        texte += mathalea2d({ xmin: xMin, xMax, ymin: yMin, ymax: yMax }, t1, t2, marqueNomA, marqueNomB, marqueNomC, marqueNomM, marqueNomN)
+        texte += mathalea2d({ xmin: xMin, xMax: xMax, ymin: yMin, ymax: yMax }, t1, t2, marqueNomA, marqueNomB, marqueNomC, marqueNomM, marqueNomN)
       }
 
       const epaisseurTriangle = (k < 0) ? 2 : 6 // En cas de configuration papillon il est inutile de changer l'épaisseur
@@ -458,6 +459,6 @@ export default function ReciproqueThales () {
   this.besoinFormulaire3Numerique = [
     'Triangles emboîtés ou papillon',
     3,
-    " 1 : Triangles emboîtés \n 2 : Papillon \n 3 : L'un des deux au hasard"
+    ' 1 : Triangles emboîtés \n 2 : Papillon \n 3 : L\'un des deux au hasard'
   ]
 }

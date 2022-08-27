@@ -1,3 +1,4 @@
+
 import FractionEtendue from '../FractionEtendue.js'
 import { number } from 'mathjs'
 import Grandeur from '../Grandeur.js'
@@ -5,10 +6,8 @@ import { context } from '../context.js'
 import { afficheScore } from '../gestionInteractif.js'
 import { gestionCan } from './gestionCan.js'
 import { sp, texteExposant } from '../outils.js'
-// import { ComputeEngine } from "@cortex-js/compute-engine"
 import * as pkg from '@cortex-js/compute-engine'
 const { ComputeEngine } = pkg
-
 export function verifQuestionMathLive (exercice, i) {
   const engine = new ComputeEngine()
   let saisieParsee, num, den, fSaisie, fReponse
@@ -56,6 +55,8 @@ export function verifQuestionMathLive (exercice, i) {
           // La réponse est transformée en chaine compatible avec engine.parse()
           reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
           saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+          // console.log('saisie : ', saisie) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
+          // console.log('reponse : ', reponse) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
           if (engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
             resultat = 'OK'
           }
@@ -83,8 +84,8 @@ export function verifQuestionMathLive (exercice, i) {
 
           if (champTexte !== undefined) saisie = champTexte.value
           else saisie = ''
-          // console.log('saisie : ', saisie) // NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
-          // console.log('reponse : ', reponse) // NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
+          // console.log('saisie : ', saisie) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
+          // console.log('reponse : ', reponse) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
           if (saisie === reponse) {
             resultat = 'OK'
           }
@@ -239,7 +240,7 @@ export function verifQuestionMathLive (exercice, i) {
       spanReponseLigne.style.color = '#f15929'
       spanReponseLigne.style.fontWeight = 'bold'
     } else if (resultat === 'essaieEncorePuissance') {
-      spanReponseLigne.innerHTML = "<br><em>Attention, la réponse est mathématiquement correcte mais n'a pas le format demandé.</em>"
+      spanReponseLigne.innerHTML = '<br><em>Attention, la réponse est mathématiquement correcte mais n\'a pas le format demandé.</em>'
       spanReponseLigne.style.color = '#f15929'
       spanReponseLigne.style.fontWeight = 'bold'
     } else {

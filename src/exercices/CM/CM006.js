@@ -13,7 +13,7 @@ export const amcType = 'AMCNum'
  * @author Rémi Angot
  * Référence CM006
 */
-export const uuid = 'dcff3'
+export const uuid = 'd8a39'
 export const ref = 'CM006'
 export default function Soustraire9 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -23,7 +23,7 @@ export default function Soustraire9 () {
   this.nbColsCorr = 2
   this.tailleDiaporama = 3
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 

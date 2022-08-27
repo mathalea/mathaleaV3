@@ -10,14 +10,14 @@ export const interactifType = 'mathLive'
  * Référence can2P02
  * Date de publication septembre 2021
 */
-export const uuid = 'e135d'
+export const uuid = '38207'
 export const ref = 'can2P02'
 export default function Denombrement () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, c, prenom1
     switch (choice(['a', 'b'])) {
       case 'a':

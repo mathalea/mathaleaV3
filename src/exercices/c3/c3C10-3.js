@@ -13,7 +13,7 @@ export const dateDePublication = '12/12/2021'
  * Référence c3C10-3
  * Date décembre 2021
  */
-export const uuid = 'b95fd'
+export const uuid = 'f92e1'
 export const ref = 'c3C10-3'
 export default function MultiplierDecimauxPar101001000CM () {
   MultiplierDecimauxPar101001000.call(this)

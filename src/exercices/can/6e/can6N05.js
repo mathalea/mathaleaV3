@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6N05
  */
-export const uuid = '4fb85'
+export const uuid = '22f41'
 export const ref = 'can6N05'
 export default function ChiffreDes () {
   Exercice.call(this)
@@ -20,7 +20,7 @@ export default function ChiffreDes () {
   this.formatChampTexte = 'largeur15 inline'
   this.consigne = ''
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(1, 3)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])

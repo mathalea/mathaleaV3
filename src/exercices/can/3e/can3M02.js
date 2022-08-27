@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
   * Créé pendant l'été 2021
  * Référence can3E01
 */
-export const uuid = 'c0ac9'
+export const uuid = 'f0128'
 export const ref = 'can3M02'
 export default function CalculVolumePyramide () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function CalculVolumePyramide () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.optionsChampTexte = { texteApres: `cm${texteExposant(3)}` }
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const triplet = shuffle([3, randint(2, 8) * 2, randint(1, 2) * 5])
     const a = triplet[0]
     const b = triplet[1]

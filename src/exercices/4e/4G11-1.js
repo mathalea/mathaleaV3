@@ -8,7 +8,7 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Pavag
  * @author Jean-Claude Lhote
  * référence 4G11-1
  */
-export const uuid = '39eaa'
+export const uuid = '48253'
 export const ref = '4G11-1'
 export default function PavagesEtTranslation () {
   PavagesEtTransformations.call(this)

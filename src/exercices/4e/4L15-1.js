@@ -12,7 +12,7 @@ export const dateDeModificationImportante = '04/04/2022'
  * * modification le jj/mm/aaaa pour ....
  * @author Sébastien Lozano
  */
-export const uuid = '8b7f2'
+export const uuid = 'ce00c'
 export const ref = '4L15-1'
 export default function EquationsFractions () {
   EqResolvantesThales.call(this)

@@ -10,7 +10,7 @@ export const dateDePublication = '1/11/2021'
  * @author Rémi Angot
  * Référence PEG22
 */
-export const uuid = 'b203b'
+export const uuid = 'b752a'
 export const ref = 'PEG22'
 export default function RacineCarrAvecTheoremePythagore () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function RacineCarrAvecTheoremePythagore () {
   this.nbQuestionsModifiable = false
   this.sup = 2
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     let AB, BC, r
     AB = randint(2, 5)
     BC = randint(2, 5)

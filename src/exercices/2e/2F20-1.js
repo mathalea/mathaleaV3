@@ -12,7 +12,7 @@ export const titre = 'Montrer qu\'un point appartient ou non à une courbe'
 * @author Gilles Mora
 * 3F10-1
 */
-export const uuid = 'b5dde'
+export const uuid = '36795'
 export const ref = '2F20-1'
 export default function PointSurCourbe () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -24,7 +24,7 @@ export default function PointSurCourbe () {
   this.spacing = 1
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions

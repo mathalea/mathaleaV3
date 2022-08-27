@@ -7,7 +7,7 @@ export const titre = 'Réduire un produit et une somme à partir des mêmes él�
  * Distinction entre la réduction d'un produit et la réduction d'une somme, on garde les même coeffs
  * @author Sébastien Lozano
  */
-export const uuid = '16fa8'
+export const uuid = '46234'
 export const ref = '5L12-1'
 export default function ReduireDinstinctionSommeProduit () {
   'use strict'
@@ -25,7 +25,7 @@ export default function ReduireDinstinctionSommeProduit () {
   // this.sup2=false; // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
   this.titre = titre
   let typesDeQuestionsDisponibles
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     // let typesDeQuestionsDisponibles
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

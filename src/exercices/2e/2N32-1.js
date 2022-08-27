@@ -7,7 +7,7 @@ export const titre = 'Existence d\'une racine carrée'
  * 2N32-1, ex 2N10
  * @author Stéphane Guyon
  */
-export const uuid = '4a141'
+export const uuid = '55cc0'
 export const ref = '2N32-1'
 export default function ExistenceDUneRacineCarree () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -18,7 +18,7 @@ export default function ExistenceDUneRacineCarree () {
   this.nbColsCorr = 2
   this.sup = 1 //
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]; let typesDeQuestions

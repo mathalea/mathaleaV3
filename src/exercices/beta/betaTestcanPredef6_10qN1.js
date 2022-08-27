@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { droiteGraduee } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint, texNombrec, range1, combinaisonListesSansChangerOrdre, prenomF, choice, texteEnCouleur, calcul } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -23,7 +24,7 @@ export default function Can10Questions6N1 () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let questions = []
@@ -129,7 +130,7 @@ export default function Can10Questions6N1 () {
           for (let q = 0; q < 3; q++) {
             maListe.push([c + a * q, texNombrec(c + a * q)])
           }
-          d = droiteGraduee2({
+          d = droiteGraduee({
             Unite: 3 / a,
             Min: c - a,
             Max: c + 3 * a,

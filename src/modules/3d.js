@@ -1,7 +1,8 @@
 import { point, vecteur, droite, segment, polyline, polygone } from './2d.js'
 import { matrix, multiply, norm, cross, dot } from 'mathjs'
 import { context } from './context.js'
-const math = { matrix, multiply, norm, cross, dot }
+import { colorToLatexOrHTML } from './2dGeneralites.js'
+const math = { matrix: matrix, multiply: multiply, norm: norm, cross: cross, dot: dot }
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -18,7 +19,7 @@ let numId = 0
 function ObjetMathalea2D () {
   this.positionLabel = 'above'
   this.isVisible = true
-  this.color = 'black'
+  this.color = colorToLatexOrHTML('black')
   this.style = '' // stroke-dasharray="4 3" pour des hachures //stroke-width="2" pour un trait plus épais
   this.styleTikz = ''
   this.epaisseur = 1
@@ -255,7 +256,7 @@ class Polygone3d {
       }
     } else {
       this.listePoints = args
-      this.color = 'black'
+      this.color = colorToLatexOrHTML('black')
     }
     const segments3d = []; let A; const segments = []
     A = this.listePoints[0]
@@ -294,7 +295,7 @@ export function polygone3d (...args) {
    * @param {string} color
    */
 function Sphere3d (centre, rayon, nbParalleles, nbMeridiens, color) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.centre = centre
   this.rayon = vecteur3d(rayon, 0, 0)
   this.normal = vecteur3d(0, 0, 1)
@@ -339,7 +340,7 @@ export function sphere3d (centre, rayon, nbParalleles, nbMeridiens, color = 'bla
     *
     */
 function Cone3d (centrebase, sommet, normal, rayon, generatrices = 18) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.sommet = sommet
   this.centrebase = centrebase
   this.normal = normal
@@ -368,9 +369,9 @@ function Cone3d (centrebase, sommet, normal, rayon, generatrices = 18) {
       s = segment(this.sommet.c2d, c1.listePoints[i])
       if (cote1 === 'caché') {
         s.pointilles = 2
-        s.color = 'gray'
+        s.color = colorToLatexOrHTML('gray')
       } else {
-        s.color = 'black'
+        s.color = colorToLatexOrHTML('black')
       }
       this.c2d.push(s)
     }
@@ -380,9 +381,9 @@ function Cone3d (centrebase, sommet, normal, rayon, generatrices = 18) {
       s = segment(this.sommet.c2d, c2.listePoints[i])
       if (cote2 === 'caché') {
         s.pointilles = 2
-        s.color = 'gray'
+        s.color = colorToLatexOrHTML('gray')
       } else {
-        s.color = 'black'
+        s.color = colorToLatexOrHTML('black')
       }
       this.c2d.push(s)
     }
@@ -406,7 +407,7 @@ export function cone3d (centre, sommet, normal, rayon, generatrices = 18) {
    * @param {Vecteur3d} rayon2
    */
 function Cylindre3d (centrebase1, centrebase2, normal, rayon1, rayon2, color) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.centrebase1 = centrebase1
   this.centrebase2 = centrebase2
   this.normal = normal
@@ -471,7 +472,7 @@ export function cylindre3d (centrebase1, centrebase2, normal, rayon, rayon2, col
    */
 class Prisme3d {
   constructor (base, vecteur, color) {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
 
     this.color = color
     base.color = color
@@ -504,7 +505,7 @@ export function prisme3d (base, vecteur, color = 'black') {
    */
 class Pyramide3d {
   constructor (base, sommet, color) {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
 
     this.color = color
     base.color = color
@@ -546,7 +547,7 @@ export function pyramide3d (base, vecteur, color = 'black') {
    */
 class PyramideTronquee3d {
   constructor (base, sommet, coeff = 0.5, color = 'black') {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
 
     this.color = color
     base.color = color
@@ -581,8 +582,8 @@ export function pyramideTronquee3d (base, sommet, coeff = 0.5, color = 'black') 
    *
 */
 class Cube3d {
-  constructor (x, y, z, c, color = 'black') {
-    ObjetMathalea2D.call(this)
+  constructor (x, y, z, c, color = 'black', colorAV = 'lightgray', colorTOP = 'white', colorDr = 'darkgray') {
+    ObjetMathalea2D.call(this, { })
     const A = point3d(x, y, z)
     const vx = vecteur3d(c, 0, 0)
     const vy = vecteur3d(0, c, 0)
@@ -597,14 +598,14 @@ class Cube3d {
     const faceAV = polygone([A.c2d, B.c2d, C.c2d, D.c2d], color)
     const faceDr = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
     const faceTOP = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
-    faceAV.couleurDeRemplissage = 'lightgray'
-    faceTOP.couleurDeRemplissage = 'white'
-    faceDr.couleurDeRemplissage = 'darkgray'
+    faceAV.couleurDeRemplissage = colorAV
+    faceTOP.couleurDeRemplissage = colorTOP
+    faceDr.couleurDeRemplissage = colorDr
     this.c2d = [faceAV, faceDr, faceTOP]
   }
 }
-export function cube3d (x, y, z, c) {
-  return new Cube3d(x, y, z, c)
+export function cube3d (x, y, z, c, color = 'black', colorAV = 'lightgray', colorTOP = 'white', colorDr = 'darkgray') {
+  return new Cube3d(x, y, z, c, color, colorAV, colorTOP, colorDr)
 }
 /**
  * @author Jean-Claude Lhote
@@ -613,7 +614,7 @@ export function cube3d (x, y, z, c) {
  */
 class Barre3d {
   constructor (x, y, z, c, l, color = 'black') {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
     let B, C, D, E, F, G, H, faceAv, faceTop
     this.c2d = []
     const vx = vecteur3d(c, 0, 0)
@@ -631,13 +632,13 @@ class Barre3d {
       H = translation3d(D, vy)
       faceAv = polygone([A.c2d, B.c2d, C.c2d, D.c2d], color)
       faceTop = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
-      faceAv.couleurDeRemplissage = 'lightgray'
-      faceTop.couleurDeRemplissage = 'white'
+      faceAv.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
+      faceTop.couleurDeRemplissage = colorToLatexOrHTML('white')
       this.c2d.push(faceAv, faceTop)
       A = translation3d(A, vx)
     }
     const faceD = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
-    faceD.couleurDeRemplissage = 'darkgray'
+    faceD.couleurDeRemplissage = colorToLatexOrHTML('darkgray')
     this.c2d.push(faceD)
   }
 }
@@ -652,7 +653,7 @@ export function barre3d (x, y, z, c, l, color = 'black') {
  */
 class Plaque3d {
   constructor (x, y, z, c, l, p, color = 'black') {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
     let A, B, C, D, F, G, H, faceAv, faceTop, faceD
     this.c2d = []
     const vx = vecteur3d(c, 0, 0)
@@ -670,16 +671,16 @@ class Plaque3d {
         H = translation3d(D, vy)
         if (j === 0) {
           faceAv = polygone([A.c2d, B.c2d, C.c2d, D.c2d], color)
-          faceAv.couleurDeRemplissage = 'lightgray'
+          faceAv.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
           this.c2d.push(faceAv)
         }
         if (i === l - 1) {
           faceD = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
-          faceD.couleurDeRemplissage = 'darkgray'
+          faceD.couleurDeRemplissage = colorToLatexOrHTML('darkgray')
           this.c2d.push(faceD)
         }
         faceTop = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
-        faceTop.couleurDeRemplissage = 'white'
+        faceTop.couleurDeRemplissage = colorToLatexOrHTML('white')
         this.c2d.push(faceTop)
       }
     }
@@ -692,7 +693,7 @@ export function plaque3d (x, y, z, c, l, p, color = 'black') {
 
 class PaveLPH3d {
   constructor (x, y, z, c, l, p, h, color = 'black') {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
     let A, B, C, D, F, G, H, faceAv, faceTop, faceD
     this.c2d = []
     const vx = vecteur3d(c, 0, 0)
@@ -711,17 +712,17 @@ class PaveLPH3d {
           H = translation3d(D, vy)
           if (j === 0) {
             faceAv = polygone([A.c2d, B.c2d, C.c2d, D.c2d], color)
-            faceAv.couleurDeRemplissage = 'lightgray'
+            faceAv.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
             this.c2d.push(faceAv)
           }
           if (i === l - 1) {
             faceD = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
-            faceD.couleurDeRemplissage = 'darkgray'
+            faceD.couleurDeRemplissage = colorToLatexOrHTML('darkgray')
             this.c2d.push(faceD)
           }
           if (k === h - 1) {
             faceTop = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
-            faceTop.couleurDeRemplissage = 'white'
+            faceTop.couleurDeRemplissage = colorToLatexOrHTML('white')
             this.c2d.push(faceTop)
           }
         }
@@ -755,7 +756,7 @@ export function paveLPH3d (x, y, z, c, l, p, h, color = 'black') {
  */
 class Cube {
   constructor (x, y, z, alpha, beta, colorD, colorT, colorG) {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
     this.x = x
     this.y = y
     this.z = z
@@ -801,16 +802,15 @@ class Cube {
 export function cube (x = 0, y = 0, z = 0, alpha = 45, beta = -35, { colorD = 'green', colorT = 'white', colorG = 'gray' } = {}) {
   return new Cube(x, y, z, alpha, beta, colorD, colorG, colorT)
 }
-
 /**
    * LE PAVE
    * @author Jean-Claude Lhote
-   * usage : pave(A,B,D,E) construit le pavé ABCDEFGH dont les arêtes [AB],[AD] et [AE] sont délimitent 3 faces adjacentes.
+   * usage : pave(A,B,D,E) construit le pavé ABCDEFGH dont les arêtes [AB],[AD] et [AE] délimitent 3 faces adjacentes.
    *
 */
 class Pave3d {
   constructor (A, B, D, E, color) {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
     const v1 = vecteur3d(A, B)
     const v2 = vecteur3d(A, E)
     const v3 = vecteur3d(A, D)
@@ -913,7 +913,7 @@ export function rotation3d (point3D, droite3D, angle, color) {
  * son sens est définit par le vecteur directeur de l'axe (changer le signe de chaque composante de ce vecteur pour changer le sens de rotation)
  */
 function SensDeRotation3d (axe, rayon, angle, epaisseur, color) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.epaisseur = epaisseur
   this.color = color
   this.c2d = []

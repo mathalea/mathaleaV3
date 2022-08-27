@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, mathalea2d, fixeBordures, texteSurSegment, texteSurArc, rotation, homothetie } from '../../modules/2d.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, texteSurSegment, texteSurArc, rotation, homothetie } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, texNum, combinaisonListes } from '../../modules/outils.js'
 import { fraction, abs, multiply, evaluate, divide, isInteger, pow, round, subtract, max } from 'mathjs'
@@ -14,12 +15,12 @@ export const dateDePublication = '28/11/2021' // La date de publication initiale
  * @author Frédéric PIOU
  * Référence
 */
-export const uuid = '170ea'
+export const uuid = '6f383'
 export const ref = '3G13'
 export default function calculsHomothetie () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
-  this.nbQuestions = 11 // Nombre de questions par défaut
+  this.nbQuestions = 4 // Nombre de questions par défaut
   this.nbCols = 0 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 0 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
@@ -59,7 +60,7 @@ export default function calculsHomothetie () {
     '1 : k est décimal (0.1 < k < 4) \n2 : k est une fraction k = a/b avec (a,b) in [1;9]\n3 : k est une fraction et les mesures sont des entiers'
   ]
   this.besoinFormulaire4CaseACocher = ['Figure dans l`énoncé (1-6,9-11)', false]
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typeQuestionsDisponibles = []

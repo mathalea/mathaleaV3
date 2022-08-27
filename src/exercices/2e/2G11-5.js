@@ -8,7 +8,7 @@ export { amcReady, amcType } from '../6e/6M30.js'
  *
  * @author Sébastien LOZANO
  */
-export const uuid = 'fada4'
+export const uuid = '65bed'
 export const ref = '2G11-5'
 export default function CalculDeVolumes2nde () {
   CalculDeVolumes.call(this)

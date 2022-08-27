@@ -20,7 +20,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.video = '' // Id YouTube ou url
   this.typeExercice = 'XCas'
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -80,4 +80,4 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   // this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
 }
 
-// python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
+// python3 list-to-js.py pour faire apparaître l'exercice dans le menu

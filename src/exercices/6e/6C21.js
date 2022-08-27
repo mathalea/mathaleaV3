@@ -10,7 +10,7 @@ export const titre = 'Effectuer divisions euclidiennes - Niveau 2'
  * référence 6C21
 */
 
-export const uuid = '769a2'
+export const uuid = 'bbcac'
 export const ref = '6C21'
 export default function DivisionsEuclidiennesNiv2 () {
   DivisionsEuclidiennes.call(this)

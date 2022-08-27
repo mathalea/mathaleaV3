@@ -16,7 +16,7 @@ export default function MaFonctionQuiCreeExercice () {
   this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.boutonAide = modalTexteCourt(numeroExercice, 'Ajouter 9 revient à ajouter 10 et à soustraire 1.')
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

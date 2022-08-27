@@ -22,7 +22,7 @@ export const dateDePublication = '20/01/2022'
  * Référence 6N10-6
  */
 
-export const uuid = '6f936'
+export const uuid = 'c5438'
 export const ref = '6N10-6'
 export default function sommmeFractionsDecimales () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -32,7 +32,7 @@ export default function sommmeFractionsDecimales () {
   this.sup = 7
   this.sup2 = 3
   this.tailleDiaporama = 2
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

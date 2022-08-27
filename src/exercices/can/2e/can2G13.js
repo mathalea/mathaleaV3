@@ -11,14 +11,14 @@ export const dateDePublication = '6/12/2021'
  * Référence can2G13
  * Date de publication décembre 2021
 */
-export const uuid = 'e4b40'
+export const uuid = '3a0e1'
 export const ref = 'can2G13'
 export default function NormeVecteur () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, nom, reduction
     switch (choice(['a'])) {
       case 'a':

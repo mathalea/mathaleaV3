@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
  * Référence can5C17
  * Date de publication 18/10/2021
 */
-export const uuid = '7e76d'
+export const uuid = '7d21c'
 export const ref = 'can5C16'
 export default function CalculAstucieuxAvecFactorisation () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -19,7 +19,7 @@ export default function CalculAstucieuxAvecFactorisation () {
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, c, d
     switch (choice(['a', 'b', 'c', 'c', 'd', 'e'])) { //
       case 'a':

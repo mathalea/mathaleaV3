@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
  * Date de publication
 */
 export const dateDeModifImportante = '19/12/2021'
-export const uuid = '2b163'
+export const uuid = 'bd5d1'
 export const ref = 'can5P02'
 export default function PoucentageP2 () {
   Exercice.call(this)
@@ -20,7 +20,7 @@ export default function PoucentageP2 () {
   this.nbQuestions = 1
   this.tailleDiaporama = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const listeCarac = [['filles', 'Elles'], ['garçons', 'Ils'], ['sportifs', 'Ils'], ['musiciens', 'Ils']]
     const listeCarac2 = [['maisons', 'T2'], ['maisons', 'T3'], ['appartements', 'T2'], ['appartements', 'T3']
     ]

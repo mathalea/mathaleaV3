@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
-import { repere, mathalea2d, point, labelPoint, segment, nomVecteurParPosition, texteParPosition, vecteur, homothetie, longueur, latexParPoint } from '../../modules/2d.js'
+import { repere, point, labelPoint, segment, nomVecteurParPosition, texteParPosition, vecteur, homothetie, longueur, latexParPoint } from '../../modules/2d.js'
 
 export const titre = 'Représenter un vecteur dans un repère, à partir de ses coordonnées.'
 
@@ -9,7 +10,7 @@ export const titre = 'Représenter un vecteur dans un repère, à partir de ses 
  * @author Stéphane Guyon légèrement modifié par Jean-Claude Lhote
  * référence 2G22-1
  */
-export const uuid = '77592'
+export const uuid = '3a3ec'
 export const ref = '2G22-1'
 export default function RepresenterUnVecteur () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -18,7 +19,7 @@ export default function RepresenterUnVecteur () {
   this.nbCols = 2
   this.nbColsCorr = 2
   this.sup = 1 //
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -59,7 +60,7 @@ export default function RepresenterUnVecteur () {
       k = vecteur(O, I).representant(O) // Variable qui trace [OI] en rouge
       j = vecteur(O, J).representant(O)// Variable qui trace [OJ] en rouge
       s.epaisseur = 2// Variable qui grossit le tracé du vecteur AB
-      s.color = 'red'
+      s.color = colorToLatexOrHTML('red')
       k.epaisseur = 2// Variable qui grossit le tracé du vecteur OI
       j.epaisseur = 2// Variable qui grossit le tracé du vecteur OJ
       h1.epaisseur = 2// Variable qui grossit le tracé bleu

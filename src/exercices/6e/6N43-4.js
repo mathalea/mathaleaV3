@@ -14,7 +14,7 @@ export const interactifType = 'listeDeroulante'
  * @author Rémi Angot
  * Référence 6N43-4
 */
-export const uuid = 'f46b7'
+export const uuid = 'f894a'
 export const ref = '6N43-4'
 export default function DivisibleDiviseurMultiple () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -26,7 +26,7 @@ export default function DivisibleDiviseurMultiple () {
   this.video = '' // Id YouTube ou url
   this.listePackages = 'xlop'
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

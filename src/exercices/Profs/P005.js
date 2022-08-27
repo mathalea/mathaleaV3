@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { point, segment, polygone, carre, grille, grilleHorizontale, texteParPosition, mathalea2d, grilleVerticale } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { point, segment, polygone, carre, grille, grilleHorizontale, texteParPosition, grilleVerticale } from '../../modules/2d.js'
 
 export const titre = 'Grilles décimales'
 
@@ -14,7 +15,7 @@ export default function FeuilleDeGrilles () {
   this.sup = 1
   this.titre = titre
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.contenu = ''
     const objets = []; let fleche; let A; let B; let C; let D; let texte = ''
     if (parseInt(this.sup) === 1) { // On travaille au dixième

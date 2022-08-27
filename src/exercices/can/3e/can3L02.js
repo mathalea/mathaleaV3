@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
   * Créé pendant l'été 2021
  * Référence can3L02
 */
-export const uuid = '59cd7'
+export const uuid = '9419f'
 export const ref = 'can3L02'
 export default function EquationAXPlusBEgalZero () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function EquationAXPlusBEgalZero () {
   this.nbQuestions = 1
   this.tailleDiaporama = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(-5, 5, [0, -1, 1])
     this.reponse = randint(-9, 9, [-1, 0, 1])
     const b = -a * this.reponse

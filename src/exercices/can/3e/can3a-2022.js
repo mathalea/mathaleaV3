@@ -1,8 +1,9 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import Decimal from 'decimal.js/decimal.mjs'
 import {
-  mathalea2d, point, labelPoint, polygoneAvecNom, milieu, texteParPosition, polygone, codageAngleDroit
+  point, labelPoint, polygoneAvecNom, milieu, texteParPosition, polygone, codageAngleDroit
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, randint, texNombre, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
@@ -25,7 +26,7 @@ export const dateDePublication = '19/04/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
-export const uuid = '44d1f'
+export const uuid = '6a087'
 export const ref = 'can3a-2022'
 export default function SujetCAN2022troisieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -36,7 +37,7 @@ export default function SujetCAN2022troisieme () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
@@ -424,7 +425,7 @@ export default function SujetCAN2022troisieme () {
           B = point(0, 4, 'B', 'above')
           C = point(6, 0, 'C', 'below')
           poly = polygone([A, B, C], 'black')
-          poly.couleurDeRemplissage = 'lightgray'
+          poly.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
           d = texteParPosition(`$${c} \\text{ cm}^2$`, 1.5, 1.5, 'milieu', 'black', 1, 'middle', false)
           e = texteParPosition(`$${a} \\text{ cm}$`, -0.7, 2, 'milieu', 'black', 1, 'middle', false)
           poly.epaisseur = 1
@@ -557,7 +558,7 @@ export default function SujetCAN2022troisieme () {
             texte = `Calcule : <br>
             $\\dfrac{${a}}{${b}}\\times\\dfrac{${c}}{${d}}\\times\\dfrac{0}{${e}}\\times\\dfrac{${f}}{${g}}$ `
             reponse = fraction(0, 1)
-            texteCorr = "Il s'agit d'un produit avec un facteur nul, donc la résultat est 0."
+            texteCorr = 'Il s\'agit d\'un produit avec un facteur nul, donc la résultat est 0.'
           }
           if (choix === 'b') {
             if (choice([true, false])) {
@@ -667,7 +668,7 @@ export default function SujetCAN2022troisieme () {
             reponse = [`\\sqrt{${b ** 2 - a ** 2}}`]
             texte = 'Recopie la bonne réponse. <br>'
             texte += `${propositions[0]} ${sp(7)} ${propositions[1]} ${sp(7)} ${propositions[2]}${sp(7)} ${propositions[3]}<br>`
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $IJK$ :<br>
               On a $IJ^2=JK^2-IK^2$, soit $IJ^2=${b}^2-${a}^2=${b ** 2 - a ** 2}$.<br>
@@ -695,7 +696,7 @@ export default function SujetCAN2022troisieme () {
             reponse = [`\\sqrt{${b ** 2 + a ** 2}}`]
             texte = 'Recopie la bonne réponse. <br>'
             texte += `${propositions[0]} ${sp(7)} ${propositions[1]} ${sp(7)} ${propositions[2]}${sp(7)} ${propositions[3]}<br>`
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $IJK$ :<br>
                     On a $IJ^2=JK^2+IK^2$, soit $IJ^2=${b}^2+${a}^2=${b ** 2 + a ** 2}$.<br>

@@ -24,7 +24,7 @@ export const dateDePublication = '02/11/2021'
  * Date octobre 2021
 */
 
-export const uuid = '86f41'
+export const uuid = '28d56'
 export const ref = '6C12'
 export default class QuestionsPrix extends Exercice {
   constructor () {

@@ -13,7 +13,7 @@ export const amcType = 'AMCNum'
  * @author Rémi Angot
  * Référence CM005
 */
-export const uuid = '2aedc'
+export const uuid = '30800'
 export const ref = 'CM005'
 export default function Ajouter9 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -23,7 +23,7 @@ export default function Ajouter9 () {
   this.nbColsCorr = 2
   this.tailleDiaporama = 3
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.boutonAide = modalTexteCourt(
       numeroExercice,
       'Ajouter 9 revient à ajouter 10 et à soustraire 1.'

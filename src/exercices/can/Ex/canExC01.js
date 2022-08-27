@@ -13,14 +13,14 @@ export const dateDePublication = '26/10/2021'
  * @author Jean-Claude Lhote
  * Référence canExC01
 */
-export const uuid = 'dae34'
+export const uuid = '71292'
 export const ref = 'canExC01'
 export default function SommeDeComplexes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   this.typeExercice = 'simple'
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const z1 = complex(randint(-5, 5), randint(-5, 5))
     const z2 = complex(randint(-5, 5), randint(-5, 5))
     this.question = `On donne $~~a = ${z1.toString()}~~$ et $~~b = ${z2.toString()}$.<br>Calcule $a + b$.`

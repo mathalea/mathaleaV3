@@ -10,7 +10,7 @@ export const dateDePublication = '1/11/2021'
  * @author Rémi Angot
  * Référence PEG21
 */
-export const uuid = '7bb07'
+export const uuid = '838fb'
 export const ref = 'PEG21'
 export default function RacineCarrAvecTheoremeHauteur () {
   Exercice.call(this)
@@ -18,7 +18,7 @@ export default function RacineCarrAvecTheoremeHauteur () {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     const couplesPossibles = [[1, 5], [2, 3], [1, 7], [2, 4], [2, 5], [3, 4], [3, 5]]
     const couple = choice(couplesPossibles)
     const a = couple[0]

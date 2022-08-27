@@ -13,14 +13,14 @@ export const dateDeModifImportante = '03/01/2022'
  * @author Gilles Mora
  * Référence
 */
-export const uuid = '3a3eb'
+export const uuid = '26f3b'
 export const ref = 'can2G10'
 export default function RelationChasles1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   this.spacing = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     let texte, texteCorr

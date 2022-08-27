@@ -1,8 +1,9 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu, sp } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
-import { repere, mathalea2d, texteParPosition, point, segment, vecteur } from '../../../modules/2d.js'
+import { repere, texteParPosition, point, segment, vecteur } from '../../../modules/2d.js'
 export const titre = 'Déterminer les coordonnées d’un vecteur à partir d’un graphique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,7 +17,7 @@ export const dateDePublication = '29/06/2022' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
-export const uuid = 'c1ba2'
+export const uuid = '8a0ce'
 export const ref = 'can2G18'
 export default function LectureGraphiqueVecteurRepere () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -26,7 +27,7 @@ export default function LectureGraphiqueVecteurRepere () {
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let texte, texteCorr, xa, ya, k1, k2, o, r1, A, B, vAB, xmin, xmax, ymin, ymax, nomvAB, AB
@@ -72,7 +73,7 @@ export default function LectureGraphiqueVecteurRepere () {
       })
 
       texte = 'Lire les coordonnées du vecteur $\\vec{u}$.<br> '
-      texte += mathalea2d({ xmin, xmax, ymin, ymax, style: 'display: inline', pixelsParCm: 30, scale: 0.5 },
+      texte += mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, style: 'display: inline', pixelsParCm: 30, scale: 0.5 },
         r1, o, AB, nomvAB
       )
 

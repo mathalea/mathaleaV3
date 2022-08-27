@@ -24,7 +24,7 @@ export const dateDePublication = '02/11/2021'
  * Date octobre 2021
 */
 
-export const uuid = '45246'
+export const uuid = '4e2b2'
 export const ref = '6C12-1'
 export default function QuestionsMasses () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -41,7 +41,7 @@ export default function QuestionsMasses () {
   this.video = '' // Id YouTube ou url
   this.interactifType = 'mathLive'
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

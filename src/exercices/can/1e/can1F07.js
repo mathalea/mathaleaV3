@@ -12,7 +12,7 @@ export const dateDePublication = '15/06/2022'
  * @author Gilles Mora
  * Référence can1F07
 */
-export const uuid = '010af'
+export const uuid = '5b203'
 export const ref = 'can1F07'
 export default function AxeSymetrieParabole () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -20,7 +20,7 @@ export default function AxeSymetrieParabole () {
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, x1, x2, somme, moinsb, b, c, f, alpha, beta
     switch (choice([1, 2, 3])) {
       case 1:// forme factorisée
@@ -36,7 +36,7 @@ export default function AxeSymetrieParabole () {
       $f(x)=${rienSi1(a)}(${reduireAxPlusB(1, -x1)})(${reduireAxPlusB(1, -x2)})$. <br>`
         }
 
-        this.question += "Donner une équation de l'axe de symétrie de la parabole représentant $f$."
+        this.question += 'Donner une équation de l\'axe de symétrie de la parabole représentant $f$.'
 
         this.correction = `$f$ est une fonction polynôme du second degré écrite sous forme factorisée $a(x-x_1)(x-x_2)$.<br>
     Les racines sont donc $x_1=${x1}$ et $x_2=${x2}$.<br>
@@ -56,7 +56,7 @@ export default function AxeSymetrieParabole () {
         this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
       $f(x)=${reduirePolynomeDegre3(0, a, b, c)}$. <br>`
 
-        this.question += "Donner une équation de l'axe de symétrie de la parabole représentant $f$."
+        this.question += 'Donner une équation de l\'axe de symétrie de la parabole représentant $f$.'
 
         this.correction = `$f$ est une fonction polynôme du second degré écrite sous forme développée $ax^2+bx+c$.<br>
     Le sommet de la parabole a pour abscisse $-\\dfrac{b}{2a}$.<br>
@@ -79,7 +79,7 @@ export default function AxeSymetrieParabole () {
         this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
       $f(x)=${rienSi1(a)}(x${ecritureAlgebrique(-alpha)})^2${ecritureAlgebrique(beta)}$. <br>`
 
-        this.question += "Donner une équation de l'axe de symétrie de la parabole représentant $f$."
+        this.question += 'Donner une équation de l\'axe de symétrie de la parabole représentant $f$.'
 
         this.correction = `$f$ est une fonction polynôme du second degré écrite sous forme canonique $a(x-\\alpha)^2+\\beta$.<br>
         L'axe de symétrie a pour équation $x=\\alpha$. <br>

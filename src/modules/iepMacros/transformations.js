@@ -27,12 +27,12 @@ export function symetrieAxialePoint (p, d, nom, { couleur = this.couleur, couleu
     this.regleSegment(p, image)
     this.regleMasquer()
     this.equerreMasquer()
-    this.segmentCodage(p, M, { codage, couleur: couleurCodage })
-    this.segmentCodage(image, M, { codage, couleur: couleurCodage })
+    this.segmentCodage(p, M, { codage: codage, couleur: couleurCodage })
+    this.segmentCodage(image, M, { codage: codage, couleur: couleurCodage })
     this.crayonMasquer()
     this.compasMasquer()
   }
-  this.pointCreer(image, { couleur, couleurLabel: couleur }) // on construit l'image
+  this.pointCreer(image, { couleur: couleur, couleurLabel: couleur }) // on construit l'image
 }
 
 /**
@@ -59,7 +59,7 @@ export const rotationPoint = function (p, centre, angle, nom, { couleur = this.c
   this.compasEcarter2Points(centre, p) // on prend l'écartement du compas
   this.compasTracerArcCentrePoint(centre, image) // On fait l'arc qui coupe la demi-droite
   this.compasMasquer()
-  this.pointCreer(image, { couleur, couleurLabel: couleur }) // On marque le point image (qui est nommé)
+  this.pointCreer(image, { couleur: couleur, couleurLabel: couleur }) // On marque le point image (qui est nommé)
   if (codage) {
     if (Math.abs(angle) === 90) {
       this.codageAngleDroit(p, centre, image, { couleur: couleurCodage })
@@ -128,7 +128,7 @@ export const translationPoint = function (p, A, B, nom, { couleur = 'black', cou
     this.compasTracerArcCentrePoint(p, image)
   }
   this.compasMasquer()
-  this.pointCreer(image, { couleur, couleurLabel: couleur })
+  this.pointCreer(image, { couleur: couleur, couleurLabel: couleur })
   const choix1 = randint(0, 4)
   const choix2 = randint(0, 4, choix1)
   const marques = ['/', '//', '///', 'O', '\\\\']
@@ -168,11 +168,11 @@ export const demiTourPoint = function (p, centre, nom, { couleur = 'black', coul
   this.regleSegment(p, image)
   this.couleur = couleur
   this.epaisseur = 2
-  this.pointCreer(image, { couleur, couleurLabel: couleur }) // on construit l'image
+  this.pointCreer(image, { couleur: couleur, couleurLabel: couleur }) // on construit l'image
   this.regleMasquer()
   this.crayonMasquer()
-  this.segmentCodage(p, centre, { codage, couleur: couleurCodage })
-  this.segmentCodage(centre, image, { codage, couleur: couleurCodage })
+  this.segmentCodage(p, centre, { codage: codage, couleur: couleurCodage })
+  this.segmentCodage(centre, image, { codage: codage, couleur: couleurCodage })
 }
 
 /**
@@ -203,7 +203,7 @@ export const homothetiePoint = function (p, centre, k, nom, { couleur = this.cou
   const t1 = this.textePosition(`La mesure de ${centre.nom}${p.nom} est ${stringNombre(l, 1)} cm et le rapport de l'homothetie est ${stringNombre(k, 3)}`, positionTexte.x, positionTexte.y - 1, { taille: 15 })
   const t2 = this.textePosition(`donc ${centre.nom}${image.nom} mesure ${stringNombre(l, 1)} cm × ${stringNombre(Math.abs(k), 3)} = ${stringNombre(lprime, 1)} cm`, positionTexte.x, positionTexte.y - 2, { taille: 15 })
   this.regleSegment(centre, image)
-  this.pointCreer(image, { couleur, couleurLabel: couleur }) // on construit l'image
+  this.pointCreer(image, { couleur: couleur, couleurLabel: couleur }) // on construit l'image
   this.regleMasquer()
   this.crayonMasquer()
   this.pause()
@@ -238,7 +238,7 @@ export const rotationPolygone = function (p, centre, angle, noms = [], { couleur
       codage = false
     }
     if (longueur(centre, sommet) !== 0) {
-      this.rotationPoint(sommet, centre, angle, nom, { couleur, couleurCodage, codage })
+      this.rotationPoint(sommet, centre, angle, nom, { couleur: couleur, couleurCodage: couleurCodage, codage: codage })
     }
     i++
   }
@@ -269,7 +269,7 @@ export const symetrieAxialePolygone = function (p, d, noms = [], { couleur = thi
     } else {
       nom = sommet.nom + "'"
     }
-    this.symetrieAxialePoint(sommet, d, nom, { couleur, couleurCodage, codage: marques[i] })
+    this.symetrieAxialePoint(sommet, d, nom, { couleur: couleur, couleurCodage: couleurCodage, codage: marques[i] })
     i++
   }
   this.compasMasquer()
@@ -302,7 +302,7 @@ export const translationPolygone = function (p, A, B, noms = [], { couleur = thi
     } else {
       nom = sommet.nom + "'"
     }
-    this.translationPoint(sommet, A, B, nom, { couleur, couleurCodage, codage })
+    this.translationPoint(sommet, A, B, nom, { couleur: couleur, couleurCodage: couleurCodage, codage: codage })
   }
   this.epaisseur = 2
   this.couleur = couleur
@@ -331,7 +331,7 @@ export const demiTourPolygone = function (p, centre, noms = [], { couleur = this
     } else {
       nom = sommet.nom + "'"
     }
-    this.demiTourPoint(sommet, centre, nom, { couleur, couleurCodage, codage: marques[i] })
+    this.demiTourPoint(sommet, centre, nom, { couleur: couleur, couleurCodage: couleurCodage, codage: marques[i] })
     i++
   }
   this.epaisseur = 2
@@ -361,7 +361,7 @@ export const homothetiePolygone = function (p, centre, k, noms = [], { couleur =
     } else {
       nom = sommet.nom + "'"
     }
-    this.homothetiePoint(sommet, centre, k, nom, { couleur })
+    this.homothetiePoint(sommet, centre, k, nom, { couleur: couleur })
     i++
   }
   this.epaisseur = 2

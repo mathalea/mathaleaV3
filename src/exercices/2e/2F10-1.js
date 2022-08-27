@@ -14,7 +14,7 @@ export const amcType = 'qcmMono'
 * @author Stéphane Guyon
 * 2F20
 */
-export const uuid = '4e13a'
+export const uuid = '90998'
 export const ref = '2F10-1'
 export default function Reconnaitrefonctionaffine () {
   'use strict'
@@ -28,7 +28,7 @@ export default function Reconnaitrefonctionaffine () {
   this.spacingCorr = 1
   this.nbQuestions = 5
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let bonneReponse

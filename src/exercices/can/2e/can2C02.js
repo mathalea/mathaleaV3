@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
  * Référence can2C02
  * Date de publication
 */
-export const uuid = 'be7d9'
+export const uuid = '76ac6'
 export const ref = 'can2C02'
 export default function CalculAstucieuxAvecDifferenceCarre () {
   Exercice.call(this)
@@ -20,7 +20,7 @@ export default function CalculAstucieuxAvecDifferenceCarre () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(15, 40)
     const b = a + 1
     if (choice([true, false])) {

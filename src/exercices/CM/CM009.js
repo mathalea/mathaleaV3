@@ -13,7 +13,7 @@ export const amcType = 'AMCNum'
  * @author Rémi Angot
  * Référence CM009
 */
-export const uuid = '834d4'
+export const uuid = '14688'
 export const ref = 'CM009'
 export default function Moitie () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -24,7 +24,7 @@ export default function Moitie () {
   this.sup = 1 // niveau de difficulté
   this.tailleDiaporama = 3
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 

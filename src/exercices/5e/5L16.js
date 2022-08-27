@@ -15,7 +15,7 @@ export const dateDeModifImportante = '18/06/2022'
  * Référence 5L16
  * Ajout du paramètre de procédure inverse par Guillaume Valmont le 18/06/2022
 */
-export const uuid = '2595e'
+export const uuid = 'e2e64'
 export const ref = '5L16'
 export default function NomExercice () {
   Exercice.call(this)
@@ -29,7 +29,7 @@ export default function NomExercice () {
   this.nbCols = 2
   this.nbColsCorr = 2
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

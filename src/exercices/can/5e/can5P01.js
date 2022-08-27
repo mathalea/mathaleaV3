@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Référence
  * Date de publication
 */
-export const uuid = '42f5b'
+export const uuid = '7487c'
 export const ref = 'can5P01'
 export default function PoucentageE () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function PoucentageE () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur25 inline'
   this.optionsChampTexte = { texteApres: ' €' }
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, n
     switch (choice(['a', 'b', 'c', 'd', 'e'])) { //,
       case 'a':

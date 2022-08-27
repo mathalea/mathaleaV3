@@ -24,7 +24,7 @@ export const amcType = 'AMCOpen'
  * 6N31
  * Ajout AMC : Janvier 2022 par EE
  */
-export const uuid = 'c70e5'
+export const uuid = 'be1e4'
 export const ref = '6N31'
 export default function ComparerDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -33,7 +33,7 @@ export default function ComparerDecimaux () {
   this.nbCols = 2
   this.nbColsCorr = 2
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6D02
  */
-export const uuid = '4e9d5'
+export const uuid = '46e66'
 export const ref = 'can6D02'
 export default function ResteEnMinutes () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function ResteEnMinutes () {
   this.tailleDiaporama = 1
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(1, 2)
     const b = randint(10, 59)
     const d = calcul(a * 60 + b)

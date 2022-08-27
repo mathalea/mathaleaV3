@@ -11,14 +11,14 @@ export const interactifType = 'qcm'
  * Référence can2L05 // pour l'instant
  * Date de publication 24/10/2021
 */
-export const uuid = '79384'
+export const uuid = '96a78'
 export const ref = 'can2L05'
 export default function SolutionInequationQCM () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   this.spacing = 3
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.date = 1635094684684

@@ -86,14 +86,14 @@ export async function loadGiac () {
  * @return {Promise<iepApp>} L'appli iep
  */
 export async function loadIep (elt, xml) {
-  // try {
-  //   const { default: iepLoadPromise } = await import('instrumenpoche')
-  //   const iepApp = await iepLoadPromise(elt, xml, { zoom: true, autostart: false })
-  //   return iepApp
-  // } catch (error) {
-  //   console.error(error)
-  //   throw UserFriendlyError('Le chargement d’instrumenpoche a échoué')
-  // }
+  try {
+    const { default: iepLoadPromise } = await import('instrumenpoche')
+    const iepApp = await iepLoadPromise(elt, xml, { zoom: true, autostart: false })
+    return iepApp
+  } catch (error) {
+    console.error(error)
+    throw UserFriendlyError('Le chargement d’instrumenpoche a échoué')
+  }
 }
 
 /**
@@ -105,11 +105,18 @@ export async function loadIep (elt, xml) {
  */
 export async function loadMG32 (elt, svgOptions, mtgOptions) {
   try {
-    await load('mathgraph')
+    if (typeof window.mtgLoad !== 'function') await load('mathgraph')
     if (typeof window.mtgLoad !== 'function') throw Error('mtgLoad n’existe pas')
     // cf https://www.mathgraph32.org/documentation/loading/global.html#mtgLoad
-    const mtgApp = await window.mtgLoad(elt, svgOptions, mtgOptions)
-    return mtgApp
+    // la syntaxe qui retourne une promesse fonctionne avec un import seulement (il faudrait mettre mathgraph dans nos dépendances et l'importer)
+    // avec le chargement du js via un tag script il faut fournir une callback
+    return new Promise((resolve, reject) => {
+      window.mtgLoad(elt, svgOptions, mtgOptions, (error, mtgApp) => {
+        if (error) return reject(error)
+        if (mtgApp) return resolve(mtgApp)
+        reject(Error('mtgLoad ne retourne ni erreur ni application'))
+      })
+    })
   } catch (error) {
     console.error(error)
     throw new UserFriendlyError('Erreur de chargement de Mathgraph')
@@ -142,7 +149,6 @@ export async function loadMathLive () {
     await import('mathlive')
     for (const mf of champs) {
       mf.setOptions(clavierCollege)
-      mf.setOptions({ fontsDirectory: './fonts' })
 
       // Evite les problèmes de positionnement du clavier mathématique dans les iframes
       if (context.vue === 'exMoodle') {

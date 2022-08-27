@@ -11,14 +11,14 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6M04
  */
-export const uuid = '7d664'
+export const uuid = 'c0bf1'
 export const ref = 'can6M04'
 export default function ConversionEnTousSens () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, resultat
     switch (choice(['a', 'b', 'c', 'd'])) { //
       case 'a':

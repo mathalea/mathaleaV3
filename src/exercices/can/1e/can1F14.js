@@ -10,7 +10,7 @@ export const dateDePublication = '20/06/2022'
  * @author Gilles Mora
 
 */
-export const uuid = '4d74c'
+export const uuid = 'a1ba2'
 export const ref = 'can1F14'
 export default function NombreDerivee () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -18,7 +18,7 @@ export default function NombreDerivee () {
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, c, nbre
     switch (choice([1, 2, 3])) { //
       case 1:// second degre ax^2+bx+c

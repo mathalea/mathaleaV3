@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, randint, quotientier, rangeMinMax, nombreDeChiffresDe } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { mathalea2d } from '../../modules/2d.js'
+
 import { fractionCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -18,7 +19,7 @@ export const amcType = 'AMCNum'
  * @author Rémi Angot
  * Référence 6N22
 */
-export const uuid = '43bbf'
+export const uuid = 'c75b6'
 export const ref = '6N22'
 export default function FractionsCalculsSimples () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -32,7 +33,7 @@ export default function FractionsCalculsSimples () {
   this.correctionDetaillee = true
   this.correctionDetailleeDisponible = true
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     if (this.correctionDetaillee) this.nbColsCorr = 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

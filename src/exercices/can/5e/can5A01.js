@@ -15,7 +15,7 @@ export const amcType = 'AMCNum'
  * publié le 24/10/2021
  * Référence can5A01
  */
-export const uuid = 'f1a7b'
+export const uuid = 'af3c8'
 export const ref = 'can5A01'
 export default function RepetitionScratch () {
   Exercice.call(this)
@@ -25,7 +25,7 @@ export default function RepetitionScratch () {
   this.listePackages = 'scratch3'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let prog = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n \\blockinit{quand \\greenflag est cliqué}\n '
     prog += "\\blockpen{stylo en position d'écriture}\n"
     const b = choice([[120, 'triangle équilatéral'], [90, 'carré'], [72, 'pentagone régulier'], [60, 'hexagone régulier'], [45, 'octogone régulier'], [40, 'énéagone régulier'], [36, 'décagone régulier']])

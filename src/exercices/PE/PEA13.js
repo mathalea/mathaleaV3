@@ -12,7 +12,7 @@ export const dateDePublication = '2/11/2021'
 * @author Rémi Angot
 */
 
-export const uuid = '1389c'
+export const uuid = 'a7016'
 export const ref = 'PEA13'
 export default function MultiplicationsBaseN () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -25,7 +25,7 @@ export default function MultiplicationsBaseN () {
   this.pasDeVersionLatex = true
   this.spacingCorr = context.isHtml ? 2 : 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const base = (this.sup === undefined || this.sup < 3 || this.sup > 9) ? randint(3, 5) : this.sup
@@ -50,7 +50,7 @@ export default function MultiplicationsBaseN () {
       nb = nb.toString()
       texte = `$(${mb})_{${base}} \\times (${nb})_{${base}}$`
       if (parseInt(mb) < parseInt(nb)) [mb, nb] = [nb, mb]
-      texteCorr = `En base ${base} :<br>` + Operation({ operande1: m, operande2: n, type: 'multiplication', base }) + '<br>'
+      texteCorr = `En base ${base} :<br>` + Operation({ operande1: m, operande2: n, type: 'multiplication', base: base }) + '<br>'
       for (let ligne = nb.length - 1; ligne > -1; ligne--) {
         const retenue = []
         texteCorr += `Calcul de $${nb[ligne]}\\times${mb} :$ <br>`

@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+
 import { point3d, polygone3d, rotation3d, droite3d } from '../../modules/3d.js'
 import { texcolors } from '../../modules/outils.js'
 
@@ -14,7 +15,7 @@ export default function betaRotation3d () {
   this.spacing = 2
   this.nbQuestions = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const objets = []

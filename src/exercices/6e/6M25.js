@@ -7,7 +7,7 @@ export const titre = 'Connaître le cours sur le périmètre et l\'aire'
  * @author Rémi Angot
  * Référence 6M25
  */
-export const uuid = '28644'
+export const uuid = 'dc7ba'
 export const ref = '6M25'
 export default function ConnaitreFormulesDePerimetreEtAires () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -17,7 +17,7 @@ export default function ConnaitreFormulesDePerimetreEtAires () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

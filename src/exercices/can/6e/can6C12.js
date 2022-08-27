@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C12
  */
-export const uuid = '9f937'
+export const uuid = 'c3b5b'
 export const ref = 'can6C12'
 export default function DoubleOuTriple () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function DoubleOuTriple () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(1, 3)
     const b = randint(1, 9, a)
     const c = calcul(a * 10 + b)

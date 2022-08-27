@@ -10,7 +10,7 @@ export const dateDePublication = '1/11/2021'
  * @author Rémi Angot
  * Référence PEG24
 */
-export const uuid = 'e353b'
+export const uuid = 'f9dd2'
 export const ref = 'PEG24'
 export default function QuotientDeDeuxLongueurs () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function QuotientDeDeuxLongueurs () {
   this.nbQuestionsModifiable = false
   this.sup = 1
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     const anim = new Alea2iep()
     const unite = this.sup
     const a = this.sup2 === undefined ? randint(2, 5) : this.sup2

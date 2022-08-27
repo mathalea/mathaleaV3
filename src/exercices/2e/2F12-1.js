@@ -13,7 +13,7 @@ export const dateDePublication = '07/01/2022'
 * @author Gilles Mora // suppression des calcul des texNombrec et simplification des racines carrées de fration par Jean-Claude Lhote
 *
 */
-export const uuid = '21272'
+export const uuid = 'de0d1'
 export const ref = '2F12-1'
 export default function EquationsFonctionsRef () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -25,7 +25,7 @@ export default function EquationsFonctionsRef () {
   this.spacing = 1
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
@@ -50,7 +50,7 @@ export default function EquationsFonctionsRef () {
        //
     }
     function ecritureParentheseSiNegatif (a, maximumFractionDigits = 15) {
-      const result = Intl.NumberFormat('fr-FR', { maximumFractionDigits }).format(a).replace(',', '{,}')
+      const result = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumFractionDigits }).format(a).replace(',', '{,}')
       return a < 0 ? `(${result})` : result
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)

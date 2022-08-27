@@ -5,7 +5,7 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Trans
 
 /** */
 // 5G10
-export const uuid = '5bff5'
+export const uuid = 'da157'
 export const ref = '5G10'
 export default function SymetrieAxiale5e () {
   Transformations.call(this)

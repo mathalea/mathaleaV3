@@ -12,7 +12,7 @@ export const titre = 'Passer de la base dix à une autre base et inversement'
 *
 * @author Rémi Angot
 */
-export const uuid = 'e4e3a'
+export const uuid = '8dbda'
 export const ref = 'PEA11'
 export default function PasserDUneBaseA1Autre () {
   'use strict'
@@ -25,7 +25,7 @@ export default function PasserDUneBaseA1Autre () {
   this.spacing = 1
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 

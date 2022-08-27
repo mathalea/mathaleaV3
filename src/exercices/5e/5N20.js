@@ -24,7 +24,7 @@ export const titre = 'Additionner ou soustraire deux fractions (dénominateurs m
 * @author Rémi Angot
 * 5N20
 */
-export const uuid = '13a6c'
+export const uuid = 'd5ee3'
 export const ref = '5N20'
 export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -38,7 +38,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
   this.nbQuestions = 5
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     if (this.sup3 && !context.isAmc) {
       this.consigne = 'Calculer et simplifier au maximum le résultat.'
     } else {

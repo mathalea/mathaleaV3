@@ -13,7 +13,7 @@ export const titre = 'Tester une égalité'
 * @author Rémi Angot
 * 5L15
 */
-export const uuid = 'd7ef2'
+export const uuid = 'd88d6'
 export const ref = '5L15'
 export default function TesterUneEgalite () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -25,7 +25,7 @@ export default function TesterUneEgalite () {
   this.sup = 1
   this.sup2 = false
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

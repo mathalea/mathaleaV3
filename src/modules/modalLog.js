@@ -25,7 +25,7 @@ export const modalLog = async () => {
         body: JSON.stringify({
           isSubmitUserId: true,
           isVerifResult: false,
-          userId,
+          userId: userId,
           prof1: userId[0],
           prof2: userId[1],
           prof3: userId[2],

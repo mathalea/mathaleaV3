@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can5C09
  */
-export const uuid = '65330'
+export const uuid = '1a593'
 export const ref = 'can5C09'
 export default function MutliplierParN0N () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function MutliplierParN0N () {
   this.tailleDiaporama = 2
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(2, 4)
     const b = randint(9, 24, [10, 20])
     this.reponse = calcul(101 * a * b)

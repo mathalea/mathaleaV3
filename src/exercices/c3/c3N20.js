@@ -14,7 +14,7 @@ export const amcType = 'AMCNum'
  * 2021-03-24
 */
 
-export const uuid = '463d8'
+export const uuid = 'ec7e4'
 export const ref = 'c3N20'
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -27,7 +27,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.video = '' // Id YouTube ou url
   this.sup = 2
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 

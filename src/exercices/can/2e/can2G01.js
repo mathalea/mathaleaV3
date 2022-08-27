@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can2G01
  */
-export const uuid = 'fb504'
+export const uuid = '4a666'
 export const ref = 'can2G01'
 export default function AgrandissementReductionGFraction () {
   Exercice.call(this)
@@ -20,7 +20,7 @@ export default function AgrandissementReductionGFraction () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'fraction'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const listeFractions = [
       [1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5], [1, 6], [5, 6], [1, 7],
       [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8], [1, 9], [2, 9],

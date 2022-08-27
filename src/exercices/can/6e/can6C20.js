@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C20
  */
-export const uuid = '9e365'
+export const uuid = '9e396'
 export const ref = 'can6C20'
 export default function ComplementAUn () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function ComplementAUn () {
   this.formatChampTexte = 'largeur15 inline'
   this.typeExercice = 'simple'
   this.tailleDiaporama = 2
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a
     switch (choice([1, 2, 3])) {
       case 1:

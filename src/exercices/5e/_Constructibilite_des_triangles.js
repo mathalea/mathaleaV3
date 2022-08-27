@@ -40,7 +40,7 @@ export default function ConstructibiliteDesTriangles () {
 
   let typesDeQuestionsDisponibles
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     if (this.exo === this.beta + '5G21-1') { // via longueurs
       if (this.sup === 1) {

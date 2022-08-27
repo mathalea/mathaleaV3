@@ -38,7 +38,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
   this.amcType = amcType
   this.interactifReady = interactifReady
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.interactifType = parseInt(this.sup3) === 2 ? 'mathLive' : 'qcm'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

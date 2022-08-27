@@ -17,7 +17,7 @@ export const amcType = 'AMCNum' // type de question AMC
  * 4C32
  */
 
-export const uuid = '2e9bc'
+export const uuid = 'a0d16'
 export const ref = '4C32'
 export default function NotationScientifique () {
   Exercice.call(this)
@@ -28,12 +28,12 @@ export default function NotationScientifique () {
   this.nbQuestions = 5
   this.interactif = false
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     Decimal.toExpNeg = -15
     Decimal.toExpPos = 20
     let reponse
-    if (parseInt(this.sup) === 1) this.consigne = "Donner l'écriture scientifique des nombres suivants."
-    else this.consigne = "Donner l'écriture décimale des nombres suivants."
+    if (parseInt(this.sup) === 1) this.consigne = 'Donner l\'écriture scientifique des nombres suivants.'
+    else this.consigne = 'Donner l\'écriture décimale des nombres suivants.'
     let typesDeQuestionsDisponibles
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -65,7 +65,7 @@ export default function NotationScientifique () {
           break
         case 2:
           if (choice([false, true])) mantisse = new Decimal(randint(111, 999)).div(100)
-          else mantisse = new Decimal(randint(1, 9)).div(100).plus(randint(1, 9) * 100)
+          else mantisse = new Decimal(randint(1, 9)).plus(randint(1, 9) * 100).div(100)
           if (!context.isAmc) {
             exp = randint(1, 7) * choice([-1, 1])
           } else {
@@ -73,7 +73,7 @@ export default function NotationScientifique () {
           }
           break
         case 3:
-          if (choice([true, false])) mantisse = new Decimal(randint(1, 19) * 5).div(1000).plus(randint(1, 9) * 1000)
+          if (choice([true, false])) mantisse = new Decimal(randint(1, 19) * 5).plus(randint(1, 9) * 1000).div(1000)
           else mantisse = new Decimal(randint(1111, 9999)).div(1000)
           if (!context.isAmc) {
             exp = randint(1, 7) * choice([-1, 1])

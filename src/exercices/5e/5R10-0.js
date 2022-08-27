@@ -10,7 +10,7 @@ export const dateDeModifImportante = '26/11/2021'
 * Ajout d'un paramètre pour afficher quelques fois le signe des nombres positif par Guillaume Valmont le 26/11/2021
 */
 
-export const uuid = '99450'
+export const uuid = 'cab80'
 export const ref = '5R10-0'
 export default function TrouverOppose () {
   'use strict'
@@ -32,7 +32,7 @@ export default function TrouverOppose () {
 
   let typesDeQuestionsDisponibles
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     if (this.debug) {
       typesDeQuestionsDisponibles = [1]
     } else {

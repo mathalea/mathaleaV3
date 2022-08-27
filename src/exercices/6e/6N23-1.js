@@ -21,7 +21,7 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  * 6N23-1
  */
-export const uuid = '83572'
+export const uuid = '1acf7'
 export const ref = '6N23-1'
 export default function ExerciceDifferentesEcrituresNombresDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -29,7 +29,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
   this.spacing = 2
   this.spacingCorr = 2
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

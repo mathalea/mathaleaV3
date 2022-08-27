@@ -11,7 +11,7 @@ export const dateDePublication = '20/11/2021'
  * @author Jean-Claude Lhote
  * Référence canc3C06
  */
-export const uuid = '4d468'
+export const uuid = '3ca23'
 export const ref = 'canc3C06'
 export default function ComplementAuDixiemeOuALaDizaine () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function ComplementAuDixiemeOuALaDizaine () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b
     if (choice([true, false])) { // décimal ou entier ?
       a = calcul((randint(1, 5) * 10 + randint(1, 9) / 10))

@@ -18,7 +18,7 @@ export const titre = 'Arrondir une valeur'
  * Ajout Nouvel AMC : Janvier 2022 par EE
  */
 
-export const uuid = '941f0'
+export const uuid = 'ab793'
 export const ref = '6N31-3'
 export default function ArrondirUneValeur () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -30,7 +30,7 @@ export default function ArrondirUneValeur () {
   this.sup2 = 1
   this.spacingCorr = context.isHtml ? 2.5 : 3.5
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     if (this.version === 3) {
       this.sup = 3
     } else if (this.version === 4) {

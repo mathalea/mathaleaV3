@@ -14,7 +14,7 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
  * @author Gilles Mora
  * Référence can3F09
 */
-export const uuid = 'ea0b6'
+export const uuid = 'b60f4'
 export const ref = 'can3F09'
 export default function ReconnaitreFonctionAffine () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -22,7 +22,7 @@ export default function ReconnaitreFonctionAffine () {
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'calcul'
   this.nbQuestions = 1
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeCorrections = []
     this.listeQuestions = []
     let a, b, c

@@ -15,7 +15,7 @@ export const dateDePublication = '19/06/2022' // La date de publication initiale
  * @author Gilles Mora
  * Référence can1L09
 */
-export const uuid = 'd004c'
+export const uuid = '6adb0'
 export const ref = 'can1L09'
 export default function EquationSecondDegreParticuliere () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -25,7 +25,7 @@ export default function EquationSecondDegreParticuliere () {
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 

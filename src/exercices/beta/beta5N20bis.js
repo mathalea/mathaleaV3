@@ -37,7 +37,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
   this.nbQuestions = 5
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     if (this.sup3 && !context.isAmc) {
       this.consigne = this.level === 6 ? 'Calculer.' : 'Calculer et simplifier au maximum le résultat.'
     } else {

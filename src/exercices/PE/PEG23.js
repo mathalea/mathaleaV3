@@ -10,7 +10,7 @@ export const dateDePublication = '1/11/2021'
  * @author Rémi Angot
  * Référence PEG23
 */
-export const uuid = '71ad5'
+export const uuid = 'b976a'
 export const ref = 'PEG23'
 export default function ProduitDeDeuxLongueurs () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function ProduitDeDeuxLongueurs () {
   this.nbQuestionsModifiable = false
   this.sup = 1
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     const anim = new Alea2iep()
     const unite = this.sup
     const a = this.sup2 === undefined ? randint(2, 5) : this.sup2

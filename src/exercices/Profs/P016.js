@@ -20,7 +20,7 @@ export default function SimulateurDes () {
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let liste = []; let texte
     console.log(this.sup)
     if (!this.sup || isNaN(this.sup)) {

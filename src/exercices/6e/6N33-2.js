@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
-import { point, pointSurSegment, rotation, codageAngle, texteParPoint, mathalea2d } from '../../modules/2d.js'
+import { point, pointSurSegment, rotation, codageAngle, texteParPoint } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Résoudre des problèmes de calcul de pourcentage par complément à 100%'
@@ -14,7 +15,7 @@ export const amcReady = true
  * @author Jean-Claude Lhote
  * Référence 6N33-2
  */
-export const uuid = 'bcb05'
+export const uuid = 'db772'
 export const ref = '6N33-2'
 export default function CalculerUnPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -25,7 +26,7 @@ export default function CalculerUnPourcentage () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const typesDeQuestionsDisponibles = [1, 2, 3]
     const listeChoix = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     this.listeQuestions = [] // Liste de questions

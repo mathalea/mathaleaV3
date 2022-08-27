@@ -1,10 +1,11 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Grandeur from '../../../modules/Grandeur.js'
-import { droiteGraduee2, mathalea2d } from '../../../modules/2d.js'
+import { droiteGraduee } from '../../../modules/2d.js'
 export const titre = 'Course aux nombres début de 5e'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,7 +17,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence canPredef5-1
 */
-export const uuid = 'f752a'
+export const uuid = '9e40d'
 export const ref = 'can5a-xxxx'
 export default function CourseAuxNombres5e (numeroExercice) {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -28,7 +29,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let a, b, c, d, resultat, propositions
@@ -361,7 +362,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
           c = new FractionEtendue(b, a)
           resultat = calcul(b / a)
 
-          texte = 'Determiner l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({
+          texte = 'Determiner l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee({
             Unite: 3,
             Min: 0,
             Max: 4.2,

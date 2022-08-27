@@ -8,7 +8,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const titre = "Fonction : calculs d'images (et d'antécédents)"
+export const titre = 'Fonction : calculs d\'images (et d\'antécédents)'
 
 /**
 * Répondre à des questions sur les fonctions.
@@ -16,7 +16,7 @@ export const titre = "Fonction : calculs d'images (et d'antécédents)"
 * @author Jean-Claude Lhote
 * 3F10-1
 */
-export const uuid = 'fc46c'
+export const uuid = 'ba520'
 export const ref = '3F10-2'
 export default function CalculsImagesFonctions () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -28,7 +28,7 @@ export default function CalculsImagesFonctions () {
   this.spacing = 2
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions

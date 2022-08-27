@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, rienSi1, prettyTex } from '../../modules/outils.js'
 import { Polynome } from '../../modules/fonctionsMaths.js'
 import { simplify, parse, derivative, divide } from 'mathjs'
-const math = { simplify, parse, derivative }
+const math = { simplify: simplify, parse: parse, derivative: derivative }
 export const titre = 'Dérivée d\'une composée affine'
 
 /**
@@ -11,7 +11,7 @@ export const titre = 'Dérivée d\'une composée affine'
  * Référence 1AN14-6
  */
 
-export const uuid = '19e4f'
+export const uuid = '3391d'
 export const ref = '1AN14-6'
 export default function DeriveeComposee () {
   Exercice.call(this)
@@ -30,7 +30,7 @@ export default function DeriveeComposee () {
   reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
   reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

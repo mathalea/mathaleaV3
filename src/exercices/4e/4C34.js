@@ -62,7 +62,7 @@ export const titre = 'Calculs utilisant les priorités opératoires et les puiss
  * Date 2021-01-23
  * Ajout de l'interactivité par Guillaume Valmont le 2021-11-20
  */
-export const uuid = '87dff'
+export const uuid = '2d79c'
 export const ref = '4C34'
 export default function PrioritesEtRelatifsEtPuissances () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -192,4 +192,4 @@ export default function PrioritesEtRelatifsEtPuissances () {
     listeQuestionsToContenuSansNumero(this)
   }
 }
-// python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
+// python3 list-to-js.py pour faire apparaître l'exercice dans le menu

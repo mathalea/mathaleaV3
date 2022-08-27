@@ -8,7 +8,7 @@ export const titre = 'Produire une forme littérale en introduisant une lettre p
  *
  * @author Sébastien LOZANO
  */
-export const uuid = 'ce37f'
+export const uuid = '27741'
 export const ref = '2N50-2'
 export default function FormeLitteraleIntroduireUneLettre2nde () {
   FormeLitteraleIntroduireUneLettre.call(this)

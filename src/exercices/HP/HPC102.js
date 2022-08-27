@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, texNombre } from '../../modules/outils.js'
 import { aleaVariables } from '../../modules/outilsMathjs.js'
 import { create, all, sqrt } from 'mathjs'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { integrale, repere, courbe, mathalea2d } from '../../modules/2d.js'
+import { integrale, repere, courbe } from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // import { calcule } from '../../modules/fonctionsMaths.js'
@@ -18,7 +19,7 @@ const math = create(all)
  * Référence HPC102
 */
 
-export const uuid = '31a0d'
+export const uuid = '89071'
 export const ref = 'HPC102'
 export default function CalculsLoiNormale () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -30,7 +31,7 @@ export default function CalculsLoiNormale () {
   this.sup = 1
   this.spacing = 1
   this.spacingCorr = 1.5
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

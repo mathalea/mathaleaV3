@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, miseEnEvidence } from '../../modules/outils.js'
-import { mathalea2d } from '../../modules/2d.js'
+
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Exprimer le rapport de deux longueurs sur un segment'
 
@@ -11,7 +12,7 @@ export const titre = 'Exprimer le rapport de deux longueurs sur un segment'
  * @author Sébastien Lozano
  */
 
-export const uuid = '2461a'
+export const uuid = '7781a'
 export const ref = '6N22-1'
 export default function RapportsSurUnSegment () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -32,7 +33,7 @@ export default function RapportsSurUnSegment () {
 
   let typesDeQuestionsDisponibles
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     if (this.beta) {
       typesDeQuestionsDisponibles = [0, 1]
     } else {

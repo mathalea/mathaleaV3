@@ -7,7 +7,7 @@ export const titre = 'Déterminer les termes d\'une suite définie de façon exp
  * 1N10
  * @author Gaelle Morvan
  */
-export const uuid = 'fbd15'
+export const uuid = 'f0c2d'
 export const ref = '1N10'
 export default function TermeDUneSuiteDefinieExplicitement () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -15,7 +15,7 @@ export default function TermeDUneSuiteDefinieExplicitement () {
   this.consigne = 'Une suite étant donnée, calculer le terme demandé.'
   this.nbQuestions = 4
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Vide la liste de questions
     this.listeCorrections = [] // Vide la liste de questions corrigées
 

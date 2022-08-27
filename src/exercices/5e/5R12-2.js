@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenuSansNumero, creerCouples, randint, calcul, lettreDepuisChiffre, texNombre, shuffle2tableaux } from '../../modules/outils.js'
-import { mathalea2d, point, repere, labelPoint, tracePoint } from '../../modules/2d.js'
+import { point, repere, labelPoint, tracePoint } from '../../modules/2d.js'
 
 export const titre = 'Déterminer les coordonnées (relatives) d\'un point'
 
@@ -9,7 +10,7 @@ export const titre = 'Déterminer les coordonnées (relatives) d\'un point'
  * @author Jean-Claude Lhote
  * Références 5R12-2
  */
-export const uuid = '8b82f'
+export const uuid = 'ab968'
 export const ref = '5R12-2'
 export default function ReperagePointDuPlan () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -26,7 +27,7 @@ export default function ReperagePointDuPlan () {
   this.quartDePlan = false
   this.listePackages = 'tkz-euclide'
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

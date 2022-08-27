@@ -15,7 +15,7 @@ export const dateDePublication = '20/06/2022' // La date de publication initiale
      * @author Gilles Mora
      * Référence
     */
-export const uuid = '5eb88'
+export const uuid = '84ae6'
 export const ref = 'can1F09'
 export default function CalculFonctionDeriveeAffine2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -26,7 +26,7 @@ export default function CalculFonctionDeriveeAffine2 () {
   this.formatInteractif = 'fractionEgale'
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const listeFractions = [[2, 5], [-2, 3], [-3, 4], [5, 7], [-3, 7],
       [3, 5], [4, 5], [-2, 7], [-7, 9], [-4, 9], [4, 7], [2, 11], [-3, 11], [8, 9], [6, 7], [-8, 3], [-7, 3], [2, 15], [-2, 15], [3, 17], [-3, 10]]
     const listeFractions2 = [[2, 5], [2, 3], [3, 4], [5, 7], [3, 7],
@@ -41,7 +41,7 @@ export default function CalculFonctionDeriveeAffine2 () {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
             ${texteCentre(`$f(x)=\\dfrac{x}{${a}}${ecritureAlgebrique(p)}$`)}  
             Déterminer la fonction dérivée de la fonction $f$.<br>     `
-          if (this.interactif) { this.question += "$f'(x)=$" }
+          if (this.interactif) { this.question += '$f\'(x)=$' }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=\\dfrac{1}{${a}}$ et $p=${texNombre(p, 1)}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{1}{${a}}$. `
 
@@ -50,7 +50,7 @@ export default function CalculFonctionDeriveeAffine2 () {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
           ${texteCentre(`$f(x)=-\\dfrac{x}{${a}}${ecritureAlgebrique(p)}$`)}  
             Déterminer la fonction dérivée de la fonction $f$.<br>     `
-          if (this.interactif) { this.question += "$f'(x)=$" }
+          if (this.interactif) { this.question += '$f\'(x)=$' }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=-\\dfrac{1}{${a}}$ et $p=${texNombre(p, 1)}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=-\\dfrac{1}{${a}}$. `
 
@@ -67,7 +67,7 @@ export default function CalculFonctionDeriveeAffine2 () {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
             ${texteCentre(`$f(x)=\\dfrac{${reduireAxPlusB(m, p)}}{${a}}$`)}  
             Déterminer la fonction dérivée de la fonction $f$.<br>     `
-          if (this.interactif) { this.question += "$f'(x)=$" }
+          if (this.interactif) { this.question += '$f\'(x)=$' }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=\\dfrac{${m}}{${a}}$ et $p=\\dfrac{${texNombre(p, 1)}}{${a}}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{${m}}{${a}}${f.texSimplificationAvecEtapes()}$. `
 
@@ -76,7 +76,7 @@ export default function CalculFonctionDeriveeAffine2 () {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
             ${texteCentre(`$f(x)=\\dfrac{${texNombre(p, 1)}${ecritureAlgebrique(m)}x}{${a}}$`)}  
             Déterminer la fonction dérivée de la fonction $f$.<br>     `
-          if (this.interactif) { this.question += "$f'(x)=$" }
+          if (this.interactif) { this.question += '$f\'(x)=$' }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=\\dfrac{${m}}{${a}}$ et $p=\\dfrac{${texNombre(p, 1)}}{${a}}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{${m}}{${a}}${f.texSimplificationAvecEtapes()}$. `
 
@@ -95,7 +95,7 @@ export default function CalculFonctionDeriveeAffine2 () {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
           ${texteCentre(`$f(x)=\\dfrac{${fraction[0]}x}{${fraction[1]}}${ecritureAlgebrique(p)}$`)}  
             Déterminer la fonction dérivée de la fonction $f$.<br>     `
-          if (this.interactif) { this.question += "$f'(x)=$" }
+          if (this.interactif) { this.question += '$f\'(x)=$' }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=\\dfrac{${fraction[0]}}{${fraction[1]}}$  et $p=${texNombre(p, 1)}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{${fraction[0]}}{${fraction[1]}}$. `
 
@@ -104,7 +104,7 @@ export default function CalculFonctionDeriveeAffine2 () {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
             ${texteCentre(`$f(x)=\\dfrac{${fraction[0]}x}{${fraction[1]}}$`)}  
               Déterminer la fonction dérivée de la fonction $f$.<br>     `
-          if (this.interactif) { this.question += "$f'(x)=$" }
+          if (this.interactif) { this.question += '$f\'(x)=$' }
           this.correction = `On reconnaît une fonction linéaire de la forme $f(x)=mx$ avec $m=\\dfrac{${fraction[0]}}{${fraction[1]}}$.<br>
               La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{${fraction[0]}}{${fraction[1]}}$. `
 
@@ -124,7 +124,7 @@ export default function CalculFonctionDeriveeAffine2 () {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
           ${texteCentre(`$f(x)=${texNombre(p, 1)}+\\dfrac{${fraction2[0]}x}{${fraction2[1]}}$`)}  
             Déterminer la fonction dérivée de la fonction $f$.<br>     `
-          if (this.interactif) { this.question += "$f'(x)=$" }
+          if (this.interactif) { this.question += '$f\'(x)=$' }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=\\dfrac{${fraction2[0]}}{${fraction2[1]}}$  et $p=${texNombre(p, 1)}$.<br>
             La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=\\dfrac{${fraction2[0]}}{${fraction2[1]}}$. `
 
@@ -134,7 +134,7 @@ export default function CalculFonctionDeriveeAffine2 () {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
             ${texteCentre(`$f(x)=${texNombre(p, 1)}-\\dfrac{${fraction2[0]}x}{${fraction2[1]}}$`)}  
               Déterminer la fonction dérivée de la fonction $f$.<br>     `
-          if (this.interactif) { this.question += "$f'(x)=$" }
+          if (this.interactif) { this.question += '$f\'(x)=$' }
           this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=-\\dfrac{${fraction2[0]}}{${fraction2[1]}}$  et $p=${texNombre(p, 1)}$.<br>
               La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=-\\dfrac{${fraction2[0]}}{${fraction2[1]}}$. `
 

@@ -12,7 +12,7 @@ export const titre = 'Factoriser, si possible, un polynôme du second degré'
  * @author Stéphane Guyon
  * Référence 1E13
 */
-export const uuid = 'b50a8'
+export const uuid = '334ca'
 export const ref = '1E13'
 export default function Resolutionavecformecanonique () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -24,7 +24,7 @@ export default function Resolutionavecformecanonique () {
   this.spacingCorr = 3
   this.sup = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     if (this.interactif) {

@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Publié le 11 / 09 / 2021
  * Référence can6N06
  */
-export const uuid = '0de8c'
+export const uuid = 'cc882'
 export const ref = 'can6N09'
 export default function PositionDesChiffres () {
   Exercice.call(this)
@@ -20,7 +20,7 @@ export default function PositionDesChiffres () {
   this.formatChampTexte = 'largeur15 inline'
   this.consigne = ''
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const f = choice([1, 10, 100])
     const a = randint(1, 9) * 10 + randint(1, 9)
     this.question = ` Compléter la suite logique : <br>$${texNombrec((a + 0.6) / f)}$ ${sp(1)} ; ${sp(1)}$${texNombrec((a + 0.7) / f)}$ ${sp(1)} ; ${sp(1)}$${texNombrec((a + 0.8) / f)}$ ${sp(1)} ; ${sp(1)}$${texNombrec((a + 0.9) / f)}$ &nbsp ; &nbsp .....`

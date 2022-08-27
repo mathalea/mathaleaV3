@@ -14,7 +14,7 @@ export const dateDePublication = '15/02/2022' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
-export const uuid = 'c188c'
+export const uuid = 'fccb4'
 export const ref = 'can1S03'
 export default function CalculTermeSuiteRec2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -24,7 +24,7 @@ export default function CalculTermeSuiteRec2 () {
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, k, u, listeFractions1, fraction1, n1, d1
     switch (choice(['a', 'b', 'c', 'd', 'e'])) { //
       case 'a':// suite arithmétique

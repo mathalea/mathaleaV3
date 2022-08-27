@@ -39,7 +39,7 @@ export function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
         // Booléen pour savoir si on crée un espace ou si on en crée un nouveau
         isSubmitUserId: false,
         isVerifResult: true,
-        userId,
+        userId: userId,
         prof1: userId[0],
         prof2: userId[1],
         prof3: userId[2],
@@ -55,10 +55,10 @@ export function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
         sup: exercice.sup,
         sup2: exercice.sup2,
         sup3: exercice.sup3,
-        nbBonnesReponses,
+        nbBonnesReponses: nbBonnesReponses,
         nbQuestions: nbBonnesReponses + nbMauvaisesReponses,
         score: nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100,
-        duree
+        duree: duree
       })
     })
     if (!response.ok) {

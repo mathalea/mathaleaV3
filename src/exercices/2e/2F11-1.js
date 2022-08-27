@@ -2,6 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, ecritureParentheseSiNegatif, texNombre, texFraction, choice, arrondi } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import FractionX from '../../modules/FractionEtendue.js'
 export const titre = 'Déterminer l\'image d\'un nombre par une fonction de référence.'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,7 +18,7 @@ export const dateDePublication = '18/01/2022' // La date de publication initiale
  * @author Degrange Mathieu
  *
 */
-export const uuid = '62801'
+export const uuid = 'b6cc0'
 export const ref = '2F11-1'
 export default function ImageFonctionsRefs () {
   Exercice.call(this)
@@ -37,7 +38,7 @@ export default function ImageFonctionsRefs () {
   this.nbColsCorr = 2
   this.tailleDiaporama = 3
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -62,15 +63,18 @@ export default function ImageFonctionsRefs () {
         case 'carré':
           nombre = randint(-10, 10, [0, 1])
           solution = nombre * nombre
+          solution = new FractionX(solution, 1)
           texteCorr = `$${nom}(${nombre}) = ${ecritureParentheseSiNegatif(nombre)}^2 = ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${solution}$`
           break
         case 'cube':
           nombre = randint(-5, 5, [0, 1])
           solution = nombre * nombre * nombre
+          solution = new FractionX(solution, 1)
           texteCorr = `$${nom}(${nombre}) = ${ecritureParentheseSiNegatif(nombre)}^3 = ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${ecritureParentheseSiNegatif(nombre * nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${solution}$`
           break
         case 'racine carrée':
           solution = randint(1, 10)
+          solution = new FractionX(solution, 1)
           nombre = solution * solution
           texteCorr = `$${nom}(${nombre}) = \\sqrt{${nombre}} = ${solution} $ car $ ${ecritureParentheseSiNegatif(solution)}^2 = ${nombre} $`
           break
@@ -82,7 +86,7 @@ export default function ImageFonctionsRefs () {
           }
           Math.random() < 0.25 && (nombre = arrondi(1 / nombre, 6))
           Math.random() < 0.5 && (nombre *= -1)
-          solution = arrondi(1 / nombre, 6)
+          solution = new FractionX(1, nombre)
           texteCorr = `$${nom}(${texNombre(nombre)}) = ${texFraction(1, nombre)} = ${texNombre(solution)}$`
           break
       }
@@ -95,7 +99,8 @@ export default function ImageFonctionsRefs () {
       if (this.questionJamaisPosee(i, listeTypeQuestions[i], nombre)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        setReponse(this, i, solution, { digits: 6, decimals: listeTypeQuestions[i] === 'inverse' ? 6 : 0, signe: true })
+        // setReponse(this, i, solution, { digits: 6, decimals: listeTypeQuestions[i] === 'inverse' ? 6 : 0, signe: true })
+        setReponse(this, i, solution, { formatInteractif: 'fractionEgale' })
         i++
       }
       cpt++

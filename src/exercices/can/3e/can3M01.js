@@ -11,14 +11,14 @@ export const amcType = 'AMCNum'
   * Créé pendant l'été 2021
  * Référence can3M01
 */
-export const uuid = '587ec'
+export const uuid = 'db589'
 export const ref = 'can3M01'
 export default function CarreAire () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, c
     switch (choice(['a', 'b'])) {
       case 'a':

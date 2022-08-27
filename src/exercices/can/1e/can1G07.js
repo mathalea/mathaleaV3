@@ -11,7 +11,7 @@ export const dateDePublication = '29/06/2022'
  * Référence can1G07
  *
 */
-export const uuid = 'ee3f7'
+export const uuid = '14aa1'
 export const ref = 'can1G07'
 export default function RechercheCoordonneesProdScal () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -21,7 +21,7 @@ export default function RechercheCoordonneesProdScal () {
   this.formatInteractif = 'fractionEgale'
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const ux = randint(-10, 10)
     const uy = randint(-10, 10, 0)
     const vx = randint(-10, 10, 0)

@@ -21,7 +21,7 @@ export const interactifType = 'mathLive'
 * @author Rémi Angot
 * 4C21
 */
-export const uuid = 'd4456'
+export const uuid = '5f429'
 export const ref = '4C21'
 export default function ExerciceAdditionnerOuSoustraireDesFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -35,7 +35,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
   this.nbQuestions = 5
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     if (!this.sup3 && !context.isAmc) {
       this.consigne = 'Calculer :'
     } else {

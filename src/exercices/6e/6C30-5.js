@@ -15,7 +15,7 @@ export const titre = 'Multiplier par 0,1 ; 0,01 ; 0,001 (compléter avec le nomb
  * Référence 6C30-5
  * Relecture : Décembre 2021 par EE
  */
-export const uuid = 'e60cc'
+export const uuid = '021f3'
 export const ref = '6C30-5'
 export default function MultiplierPar001 () {
   'use strict'
@@ -35,7 +35,7 @@ export default function MultiplierPar001 () {
   //  this.modeQcm = false; // A décommenter : valeur par défaut d'un troisième paramètre
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup2 = parseInt(this.sup2)
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page

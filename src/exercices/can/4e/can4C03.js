@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can4C03
  */
-export const uuid = '1dc29'
+export const uuid = '22c4c'
 export const ref = 'can4C03'
 export default function QuotientEntierQuiVaBienParFraction () {
   Exercice.call(this)
@@ -21,7 +21,7 @@ export default function QuotientEntierQuiVaBienParFraction () {
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur25 inline'
   this.formatInteractif = 'calcul'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 3, 4, 5, 6])
     const b = a.n * c

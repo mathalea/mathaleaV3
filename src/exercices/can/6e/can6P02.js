@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6P02
  */
-export const uuid = '31fe1'
+export const uuid = '5e28d'
 export const ref = 'can6P02'
 export default function ProportionnaliteCompliquee () {
   Exercice.call(this)
@@ -31,7 +31,7 @@ export default function ProportionnaliteCompliquee () {
     ['bananes', 1.5, 15, 25]
   ]
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(0, 7) // index du fruit
     const b = calcul(fruits[a][1] * (1 + choice([-1, 1]) * randint(1, 3) * 0.1)) // prix au kg
     const c = Math.round(randint(fruits[a][2], fruits[a][3] / 10)) // nombre de kg première valeur

@@ -11,7 +11,7 @@ export const dateDePublication = '05/11/2021'
  * Référence 6N12-1
  */
 
-export const uuid = '6ed97'
+export const uuid = '89c0c'
 export const ref = '6N12-1'
 export default function Exercice6N121 () {
   MultiplierUnNombreParPuissanceDeDix.call(this)

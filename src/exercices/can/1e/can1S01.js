@@ -13,7 +13,7 @@ export const dateDePublication = '14/02/2022' // La date de publication initiale
  * @author Gilles Mora (exercice en partie repris de Gaelle Morvan (1N10))
  * Référence
 */
-export const uuid = 'a6d7e'
+export const uuid = '44c30'
 export const ref = 'can1S01'
 export default function CalculTermeSuiteExp () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -23,7 +23,7 @@ export default function CalculTermeSuiteExp () {
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, c, k, choix, listeFractions1, fraction1
     switch (choice(['a', 'b', 'c', 'd'])) { //
       case 'a':// fonction affine

@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, pointAdistance, polygoneAvecNom, labelPoint, segmentAvecExtremites, droite, segment, milieu, texteParPosition
+  point, pointAdistance, polygoneAvecNom, labelPoint, segmentAvecExtremites, droite, segment, milieu, texteParPosition
 } from '../../../modules/2d.js'
 export const titre = 'Calculer une longueur avec le théorème de Thalès'
 export const interactifReady = true
@@ -13,7 +14,7 @@ export const interactifType = 'mathLive'
  * Référence can4G06
  * Date de publication septembre 2021
 */
-export const uuid = '4458a'
+export const uuid = '61c07'
 export const ref = 'can4G06'
 export default function CalculLongueurThales () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -22,7 +23,7 @@ export default function CalculLongueurThales () {
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let nom, a, b, c, k, A, B, C, D, E, G, H, xmin, xmax, ymin, ymax, objets, pol
     if (choice([true, false])) {
       nom = creerNomDePolygone(5, ['QD'])
@@ -50,7 +51,7 @@ export default function CalculLongueurThales () {
         texteParPosition(`$${texNombrec(b)}$`, milieu(A, B).x, milieu(A, B).y + 0.3, 'milieu', 'black', 1, 'middle', true), texteParPosition(`$${texNombrec(c)}$`, milieu(B, E).x, milieu(B, E).y + 0.2, 'milieu', 'black', 1, 'middle', true))
       this.question = `Les droites $(${nom[1]}${nom[4]})$ et $(${nom[3]}${nom[2]})$ sont parallèles.
         Calculer $${nom[3]}${nom[2]}$.<br>`
-      this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
+      this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
       this.correction = ` Le triangle $${nom[0]}${nom[3]}${nom[2]}$ est un agrandissement du triangle $${nom[0]}${nom[3]}${nom[2]}$.<br>
     Le coefficient d'agrandissement est  donné par : $\\dfrac{${nom[0]}${nom[3]}}{${nom[0]}${nom[1]}}=\\dfrac{${texNombrec(a)}}{${b}}=${texNombrec(a / b)}$.<br>
     On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[2]}$ sont $${texNombrec(a / b)}$ fois plus grandes que celles du triangle $${nom[0]}${nom[1]}${nom[4]}$. <br>
@@ -81,7 +82,7 @@ export default function CalculLongueurThales () {
         texteParPosition(`$${texNombrec(b)}$`, milieu(B, E).x + 0.5, milieu(B, E).y + 0.1, 'milieu', 'black', 1, 'middle', true))
       this.question = `Les droites $(${nom[1]}${nom[4]})$ et $(${nom[3]}${nom[2]})$ sont parallèles. 
        Calculer $${nom[0]}${nom[3]}$.<br>`
-      this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
+      this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
       this.correction = ` Le triangle $${nom[0]}${nom[3]}${nom[2]}$ est un agrandissement du triangle $${nom[0]}${nom[3]}${nom[2]}$.<br>
    Le coefficient d'agrandissement est  donné par : $\\dfrac{${nom[2]}${nom[3]}}{${nom[1]}${nom[4]}}=\\dfrac{${texNombrec(k * b)}}{${b}}=${texNombrec(k)}$.<br>
    On en déduit que les longueurs du triangle $${nom[0]}${nom[3]}${nom[2]}$ sont $${texNombrec(k)}$ fois plus grandes que celles du triangle $${nom[0]}${nom[1]}${nom[4]}$. <br>

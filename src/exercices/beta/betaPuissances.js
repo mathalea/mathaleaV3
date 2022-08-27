@@ -20,7 +20,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.spacing = 4
   this.spacingCorr = 4
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

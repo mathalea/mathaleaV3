@@ -8,7 +8,7 @@ export { interactifReady, interactifType } from '../3e/3L12-1.js'
  *
  * @author Sébastien LOZANO
  */
-export const uuid = '8845c'
+export const uuid = '3b7ee'
 export const ref = '2N41-3'
 export default function DevelopperIdentitesRemarquables32nde () {
   DevelopperIdentitesRemarquables3.call(this)

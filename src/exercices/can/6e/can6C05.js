@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C05
  */
-export const uuid = '9086e'
+export const uuid = 'c8078'
 export const ref = 'can6C05'
 export default function MultiplierAstucieusement () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function MultiplierAstucieusement () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])

@@ -13,13 +13,13 @@ export const amcType = 'qcmMono'
  * Créé pendant l'été 2021
  * Référence can6M01
  */
-export const uuid = '82265'
+export const uuid = 'bae27'
 export const ref = 'can6M08'
 export default function QuestionDAires () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     const a = randint(2, 9)

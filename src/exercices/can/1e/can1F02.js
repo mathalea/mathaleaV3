@@ -15,14 +15,14 @@ export const dateDeModifImportante = '10/06/2022' // Une date de modification im
  * @author Gilles Mora
  * Référence can1F02
 */
-export const uuid = '9d363'
+export const uuid = 'cc460'
 export const ref = 'can1F02'
 export default function SecondDegreVariations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.spacing = 1

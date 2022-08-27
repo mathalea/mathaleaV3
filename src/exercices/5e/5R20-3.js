@@ -33,7 +33,7 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  * 5R20-3
  */
-export const uuid = '716c8'
+export const uuid = '36e2a'
 export const ref = '5R20-3'
 export default function ExerciceAdditionsDe5Relatifs (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -49,7 +49,7 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
   this.amcType = amcType
   this.amcReady = amcReady
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     if (!context.isHtml) this.interactif = false
     this.sup = parseInt(this.sup)
     if (this.interactif) {

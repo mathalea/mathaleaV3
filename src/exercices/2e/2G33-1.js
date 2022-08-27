@@ -6,7 +6,7 @@ export const titre = 'Alignement de 3 points.'
  * @author Stéphane Guyon
  * Référence 2G33-1
 */
-export const uuid = '9c657'
+export const uuid = 'b1777'
 export const ref = '2G33-1'
 export default function alignementdetroispoints () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -19,7 +19,7 @@ export default function alignementdetroispoints () {
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   // this.consigne = 'Déterminer si les points donnés ci-dessous, sont ou non, alignés. <br> <i>On demande une démonstration en lien avec les équations de droites</i>'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 

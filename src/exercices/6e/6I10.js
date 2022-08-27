@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, choice } from '../../modules/outils.js'
-import { point, polygone, grille, texteParPosition, mathalea2d } from '../../modules/2d.js'
+import { point, polygone, grille, texteParPosition } from '../../modules/2d.js'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -13,7 +14,7 @@ export const titre = 'Programmer des déplacements (Scratch)'
  * @author Erwan Duplessy // (Ajout paramètre 3 par EE)
  * Ajout AMC : Janvier 2022 par EE
  */
-export const uuid = '2fd2f'
+export const uuid = 'c8fe9'
 export const ref = '6I10'
 export default function ColorierDeplacement () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -32,7 +33,7 @@ export default function ColorierDeplacement () {
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.listePackages = 'scratch3' // pour dessiner les blocs en LaTeX/Tikz
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -127,7 +128,7 @@ export default function ColorierDeplacement () {
     let p // carré gris représentant le lutin en position de départ
     p = polygone(point(lstX[0], lstY[0]), point(lstX[0] + 1, lstY[0]), point(lstX[0] + 1, lstY[0] - 1), point(lstX[0], lstY[0] - 1))
     p.opacite = 0.5
-    p.couleurDeRemplissage = 'black'
+    p.couleurDeRemplissage = colorToLatexOrHTML('black')
     p.opaciteDeRemplissage = 0.5
     p.epaisseur = 0
     lstObjet.push(p)

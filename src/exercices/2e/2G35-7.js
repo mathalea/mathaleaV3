@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, ecritureAlgebrique, pgcd } from '../../modules/outils.js'
-import { repere, droite, segment, tracePoint, labelPoint, point, mathalea2d } from '../../modules/2d.js'
+import { repere, droite, segment, tracePoint, labelPoint, point } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -14,7 +15,7 @@ export const amcType = 'AMCHybride'
  2G35-7, ex 2G50-2
 
 */
-export const uuid = 'fe2cb'
+export const uuid = '41e6f'
 export const ref = '2G35-7'
 export default function lecturegraphiquedeaetb (numeroExercice) {
   Exercice.call(this)
@@ -30,7 +31,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
   this.spacingCorr = 3
   this.sup = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = []
     this.listeCorrections = []
@@ -50,7 +51,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
         }// On évite la situation de double nullité
         r = repere()// On définit le repère
         c = droite(a, -1, b) // On définit l'objet qui tracera la courbe dans le repère
-        c.color = 'red'
+        c.color = colorToLatexOrHTML('red')
         c.epaisseur = 2
         texte = 'A partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite.<br>'
         texte += mathalea2d({
@@ -65,15 +66,15 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           texteCorr += `<br>La droite est l'ensemble des points ayant comme ordonnée : $${b}$ `
           texteCorr += `<br>L'équation réduite de cette droite est donc : $y=${b}$`
         } else {
-          texteCorr = "On sait que l'équation réduite d'une droite non verticale est de la forme : $y= ax+b$ avec $a$ et $b$ deux réels non tous deux nuls.<br>"
-          texteCorr += "Le premier coefficient à lire graphiquement est $b$, l'ordonnée à l'origine de la droite.<br>"
-          texteCorr += "C'est l'ordonnée du point d'intersection de la droite avec l'axe des ordonnées.<br>"
+          texteCorr = 'On sait que l\'équation réduite d\'une droite non verticale est de la forme : $y= ax+b$ avec $a$ et $b$ deux réels non tous deux nuls.<br>'
+          texteCorr += 'Le premier coefficient à lire graphiquement est $b$, l\'ordonnée à l\'origine de la droite.<br>'
+          texteCorr += 'C\'est l\'ordonnée du point d\'intersection de la droite avec l\'axe des ordonnées.<br>'
           texteCorr += `On lit ici que le point $(0;${b}) \\in (d)$.<br>`
           texteCorr += `On peut alors conclure que l'ordonnée à l'origine est : $b=${b}$. <br>`
           texteCorr += 'On peut lire ensuite le coefficient directeur $a$ de la droite $(d)$.<br>'
           texteCorr += 'On sait que $a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}$'
           texteCorr += `<br>En lisant le déplacement vertical correspondant à un déplacement horizontal d'une unité, on lit : <br>$a=\\dfrac{\\text{Dénivelé vertical}}{1}=${a}$`
-          texteCorr += "<br>On peut en déduire que l'équation réduite de la droite $(d)$ est :"
+          texteCorr += '<br>On peut en déduire que l\'équation réduite de la droite $(d)$ est :'
 
           texteCorr += `$y=${reduireAxPlusB(a, b)}$`
         }
@@ -85,8 +86,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           s2.epaisseur = 4
           const A = point(0, b, 'A')
           t = tracePoint(A, 'blue') // Variable qui trace les points avec une croix
-          l = labelPoint(A)// Variable qui trace les nom s A et B
-          l.color = 'blue'
+          l = labelPoint(A, 'blue')// Variable qui trace les nom s A et B
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -8,
@@ -104,8 +104,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           s2.epaisseur = 4
           const A = point(0, b, 'A')
           t = tracePoint(A, 'blue') // Variable qui trace les points avec une croix
-          l = labelPoint(A)// Variable qui trace les nom s A et B
-          l.color = 'blue'
+          l = labelPoint(A, 'blue')// Variable qui trace les nom s A et B
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -8,
@@ -169,7 +168,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
 
         r = repere()// On définit le repère
         c = droite(a / d, -1, b) // On définit l'objet qui tracera la courbe dans le repère
-        c.color = 'red'
+        c.color = colorToLatexOrHTML('red')
         c.epaisseur = 2// On définit l'objet qui tracera la courbe dans le repère
 
         texte = 'A partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite.<br>'
@@ -185,9 +184,9 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           texteCorr += `<br>La droite est l'ensemble des points ayant comme ordonnée : $${b}$ `
           texteCorr += `<br>L'équation réduite de cette droite est donc : $y=${b}$`
         } else {
-          texteCorr = "On sait que l'équation réduite d'une droite non verticale est de la forme : $y= ax+b$ avec $a$ et $b$ deux réels non tous deux nuls.<br>"
-          texteCorr += "Le premier coefficient à lire graphiquement est $b$, l'ordonnée à l'origine de la droite.<br>"
-          texteCorr += "C'est l'ordonnée du point d'intersection de la droite avec l'axe des ordonnées.<br>"
+          texteCorr = 'On sait que l\'équation réduite d\'une droite non verticale est de la forme : $y= ax+b$ avec $a$ et $b$ deux réels non tous deux nuls.<br>'
+          texteCorr += 'Le premier coefficient à lire graphiquement est $b$, l\'ordonnée à l\'origine de la droite.<br>'
+          texteCorr += 'C\'est l\'ordonnée du point d\'intersection de la droite avec l\'axe des ordonnées.<br>'
           texteCorr += `On lit ici que : $A(0;${b}) \\in (d)$.<br>`
           texteCorr += `On peut alors conclure que l'ordonnée à l'origine est : $b=${b}$. <br>`
           texteCorr += 'On peut lire ensuite le coefficient directeur $a$ de la droite $(d)$.<br>'
@@ -204,7 +203,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           }
           texteCorr += '$'
 
-          texteCorr += "<br>On peut en déduire que l'équation réduite de la droite $(d)$ est : $y= "
+          texteCorr += '<br>On peut en déduire que l\'équation réduite de la droite $(d)$ est : $y= '
           if (a === d) {
             texteCorr += `x${b !== 0 ? ecritureAlgebrique(b) : ''}`
           } else if (a === -d) {
@@ -229,8 +228,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           s2.epaisseur = 4
           const A = point(0, b, 'A')
           t = tracePoint(A, 'red') // Variable qui trace les points avec une croix
-          l = labelPoint(A)// Variable qui trace les nom s A et B
-          l.color = 'red'
+          l = labelPoint(A, 'red')// Variable qui trace les nom s A et B
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -6,

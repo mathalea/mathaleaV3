@@ -10,14 +10,14 @@ export const interactifType = 'mathLive'
  * Référence can2G04
  * Date de publication sptembre 2021
 */
-export const uuid = '0a38a'
+export const uuid = '8bc88'
 export const ref = 'can2G04'
 export default function CalculCoordonneesMilieu () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, c, d
     const nom = creerNomDePolygone(2, 'PQD')
     switch (choice(['b', 'b', 'a', 'b', 'c'])) { //,

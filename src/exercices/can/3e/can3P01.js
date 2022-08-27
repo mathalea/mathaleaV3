@@ -11,7 +11,7 @@ export const dateDePublication = '25/10/2021'
  * Référence can3L05
  * Date de publication
 */
-export const uuid = 'aa8f6'
+export const uuid = '9734b'
 export const ref = 'can3P01'
 export default function ProportionnaliteExpressionAlgebrique () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -20,7 +20,7 @@ export default function ProportionnaliteExpressionAlgebrique () {
   this.tailleDiaporama = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(-3, 3, 0)
     const b = randint(-5, 5, 0)
     const c = randint(-5, 5, 0)

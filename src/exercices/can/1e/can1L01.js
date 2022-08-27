@@ -11,14 +11,14 @@ export const dateDePublication = '26/10/2021'
 /*!
  * @author Jean-Claude Lhote
  */
-export const uuid = 'ffa74'
+export const uuid = 'd0042'
 export const ref = 'can1L01'
 export default function Discriminant () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(1, 5) * choice([-1, 1, 1, 1])
     const b = randint(-5, 5)
     const c = randint(-5, 5)

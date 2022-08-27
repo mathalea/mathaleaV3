@@ -8,7 +8,7 @@ export const titre = 'Problèmes utilisant le théorème de Thalès'
  *
  * @author Sébastien LOZANO
  */
-export const uuid = 'bf8d1'
+export const uuid = 'eab10'
 export const ref = '2G11-2'
 export default function ProblemesThales2nde () {
   ProblemesThales.call(this)

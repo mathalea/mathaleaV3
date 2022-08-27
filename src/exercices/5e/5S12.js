@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { egalOuApprox, premiereLettreEnMajuscule, listeQuestionsToContenuSansNumero, texcolors, texNombre, texFraction, combinaisonListes, tableauColonneLigne, choice, randint, rangeMinMax } from '../../modules/outils.js'
-import { traceGraphiqueCartesien, segment, mathalea2d, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere, traceBarre, cercleCentrePoint } from '../../modules/2d.js'
+import { traceGraphiqueCartesien, segment, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere, traceBarre, cercleCentrePoint } from '../../modules/2d.js'
 
 export const dateDePublication = '20/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModificationImportante = '17/04/2022'
@@ -10,7 +11,7 @@ export const titre = 'Représenter des données par un diagramme'
  * @author Mickael Guironnet - Jean-Claude Lhote
  * Référence 5S12
  */
-export const uuid = '33f2e'
+export const uuid = 'd3ca7'
 export const ref = '5S12'
 export default function ConstruireUnDiagramme () {
   'use strict'
@@ -28,7 +29,7 @@ export default function ConstruireUnDiagramme () {
   this.sup4 = true
 
   //  this.sup3 = false;
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -145,7 +146,7 @@ export default function ConstruireUnDiagramme () {
           a = arc(rotation(B, A, alpha), A, angle, true, texcolors(i + 1), 'black', 0.7)
           hachures = motifs(listeMotifs[i])
           a.hachures = hachures
-          a.couleurDeRemplissage = texcolors(i + 1)
+          a.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i + 1))
           a.couleurDesHachures = a.couleurDeRemplissage
           objetsCorrection.push(a)
           alpha += angle
@@ -198,7 +199,7 @@ export default function ConstruireUnDiagramme () {
           a = arc(rotation(B, A, alpha), A, angle, true, texcolors(i + 1), 'black', 0.7)
           hachures = motifs(listeMotifs[i])
           a.hachures = hachures
-          a.couleurDeRemplissage = texcolors(i + 1)
+          a.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i + 1))
           a.couleurDesHachures = a.couleurDeRemplissage
           objetsCorrection.push(a)
           alpha += angle
@@ -295,7 +296,7 @@ export default function ConstruireUnDiagramme () {
         objetsCorrection.push(r, g)
 
         paramsEnonce = { xmin: -6.5, ymin: 0, xmax: 6.5, ymax: 0, pixelsParCm: 20, scale: 1, mainlevee: false }
-        paramsCorrection = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 7, pixelsParCm: 20, scale: 1, mainlevee: false }
+        paramsCorrection = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 8, pixelsParCm: 20, scale: 1, mainlevee: false }
 
         break
     }

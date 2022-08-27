@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
  * Référence can5C14
  * Date de publication
 */
-export const uuid = '11ff3'
+export const uuid = '4fc0e'
 export const ref = 'can5C14'
 export default function DivisionAvecDecimaux () {
   Exercice.call(this)
@@ -20,7 +20,7 @@ export default function DivisionAvecDecimaux () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b
     switch (choice(['a', 'b', 'c', 'd'])) { //
       case 'a':

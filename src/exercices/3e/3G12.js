@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, choice, shuffle, nombreAvecEspace, arcenciel, texcolors } from '../../modules/outils.js'
-import { pavage, tracePoint, labelPoint, segment, rotation, rotationAnimee, codageAngle, texteParPosition, mathalea2d } from '../../modules/2d.js'
+import { pavage, tracePoint, labelPoint, segment, rotation, rotationAnimee, codageAngle, texteParPosition } from '../../modules/2d.js'
 export const titre = 'Trouver l\'image d\'une figure par une rotation dans un pavage'
 
 /**
@@ -10,7 +11,7 @@ export const titre = 'Trouver l\'image d\'une figure par une rotation dans un pa
  * Trouver l'image par sune rotation d'une figure dans un pavage
  * Ref 3G12
  */
-export const uuid = 'd94a4'
+export const uuid = '442e0'
 export const ref = '3G12'
 export default function PavageEtRotation2D () {
   'use strict'
@@ -27,7 +28,7 @@ export default function PavageEtRotation2D () {
   this.sup2 = false // On cache les barycentres par défaut.
   this.sup3 = 7
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
     this.sup3 = Number(this.sup3)
     const videcouples = function (tableau) {
@@ -145,11 +146,10 @@ export default function PavageEtRotation2D () {
         }
         A.nom = 'A'
         A.positionLabel = 'above left'
-        trace = tracePoint(A) // la trace du centre de symétrie sera rouge et grosse
+        trace = tracePoint(A, 'red') // la trace du centre de symétrie sera rouge et grosse
         label = labelPoint(A)
         trace.epaisseur = 3
         trace.taille = 4
-        trace.color = 'red'
         alpha = alphas[typeDePavage - 1][randint(0, alphas[typeDePavage - 1].length - 1)]
         sensdirect = choice([1, -1])
         for (let i = 1; i <= monpavage.nb_polygones; i++) { // on crée une liste des couples (antécédents, images)
@@ -209,17 +209,17 @@ export default function PavageEtRotation2D () {
         M = monpavage.barycentres[couples[i][0] - 1]
         N = monpavage.barycentres[couples[i][1] - 1]
         P1 = monpavage.polygones[couples[i][0] - 1]
-        P1.color = texcolors(i)
-        P1.couleurDeRemplissage = texcolors(i)
+        P1.color = colorToLatexOrHTML(texcolors(i))
+        P1.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i))
         P1.opaciteDeRemplissage = 0.5
         P1.epaisseur = 2
         P2 = monpavage.polygones[couples[i][1] - 1]
-        P2.color = texcolors(i)
-        P2.couleurDeRemplissage = texcolors(i)
+        P2.color = colorToLatexOrHTML(texcolors(i))
+        P2.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i))
         P2.opaciteDeRemplissage = 0.5
         P2.epaisseur = 2
         P3 = rotationAnimee(P1, A, alpha * sensdirect, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`)
-        P3.color = texcolors(i)
+        P3.color = colorToLatexOrHTML(texcolors(i))
         P3.epaisseur = 2
         objetsCorrection.push(tracePoint(M, N), segment(A, M, texcolors(i)), segment(A, N, arcenciel(i)), codageAngle(M, A, N, 0.8, '', arcenciel(i), 1, 1, 'blue', 0.2, true), P1, P2, P3)
       }

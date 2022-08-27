@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, deuxColonnes, centrage, texteEnCouleur, contraindreValeur, enleveElement, compteOccurences, miseEnEvidence, calcul } from '../../modules/outils.js'
-import { grille, mathalea2d, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle } from '../../modules/2d.js'
+import { grille, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -22,7 +23,7 @@ export const dateDePublication = '3/12/2021'
  * publié le 03/12/2021
  */
 
-export const uuid = '99c3d'
+export const uuid = '4ffdb'
 export const ref = '4G12'
 export default function SerieDeTransformations () {
   Exercice.call(this)
@@ -119,12 +120,12 @@ export default function SerieDeTransformations () {
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la symétrie d'axe $${nomDroite}$.`
         texte = `La figure${sp(1)}...${sp(1)}a pour image la figure${sp(1)}\\ldots${sp(1)}par la symétrie d'axe $(${sp(1)}\\ldots${sp(1)})$`
         texteInteractif = "Une symétrie axiale dont l'axe passe par deux points du quadrillage."
-        return { texte, texteCorr, texteInteractif, type, axe: axeSymetrie }
+        return { texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, axe: axeSymetrie }
       case 'trans': // facile pour la translation : depart->arrivee
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la translation transformant $${noeuds[depart].nom}$ en $${noeuds[arrivee].nom}$.`
         texte = `La figure${sp(1)}...${sp(1)}a pour image la figure${sp(1)}\\ldots${sp(1)}par la translation transformant ${sp(1)}\\ldots${sp(1)} en ${sp(1)}\\ldots${sp(1)}`
         texteInteractif = 'Une translation définie par deux points du quadrillage.'
-        return { texte, texteCorr, texteInteractif, type, vecteur: vecteur(noeuds[depart], noeuds[arrivee]) }
+        return { texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, vecteur: vecteur(noeuds[depart], noeuds[arrivee]) }
       case 'rot90': // la position du centre dépend du sens de rotation et de départ et arrivee.
         switch (sensProgression) {
           case 'Est' :
@@ -147,7 +148,7 @@ export default function SerieDeTransformations () {
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la rotation de centre $${nomCentreRotation}$ d'angle $90\\degree$ dans le sens ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}.`
         texte = `La figure${sp(1)}...${sp(1)}a pour image la figure${sp(1)}\\ldots${sp(1)}par la rotation de centre ${sp(1)}\\ldots${sp(1)} d'angle $90\\degree$ dans le sens  ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}`
         texteInteractif = "Une rotation d'angle 90° et dont le centre est un point du quadrillage."
-        return { texte, texteCorr, texteInteractif, type, centre: centreRotation, sens: leSens }
+        return { texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: centreRotation, sens: leSens }
       case 'rot180': // pas besoin du sens, mais le milieu choisit dépend de depart et arrivee
         switch (sensProgression) {
           case 'Est' :
@@ -170,10 +171,10 @@ export default function SerieDeTransformations () {
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la symétrie dont le centre est le milieu de $${nomSegment}$.`
         texte = `La figure${sp(1)}...${sp(1)}a pour image la figure${sp(1)}\\ldots${sp(1)}par la symétrie dont le centre est le milieu de $[${sp(1)}\\ldots${sp(1)}]$`
         texteInteractif = "Une symétrie centrale dont le centre est un milieu d'un côté de case."
-        return { texte, texteCorr, texteInteractif, type, centre: centreSymetrie }
+        return { texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: centreSymetrie }
     }
   }
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     if (this.version === 1) {
       this.sup = 1
     } else if (this.version === 2) {
@@ -300,19 +301,19 @@ export default function SerieDeTransformations () {
         for (let y = 0, numero; y < 5; y++) {
           numero = texteParPointEchelle(Number(x * 6 + y).toString(), point(x * 3.2 + 1.6, y * 3.2 + 1.6), 'milieu', context.isHtml ? 'yellow' : 'black', 1.2, 'middle', true, 0.4)
           numero.contour = context.isHtml
-          numero.couleurDeRemplissage = 'black'
+          numero.couleurDeRemplissage = colorToLatexOrHTML('black')
           numero.opacite = context.isHtml ? 0.5 : 1
           numero.opaciteDeRemplissage = 1
           maGrille.push(numero)
           polys[x * 6 + y].opacite = 0.7
-          polys[x * 6 + y].color = 'blue'
+          polys[x * 6 + y].color = colorToLatexOrHTML('blue')
         }
       }
 
       polys[0].opaciteDeRemplissage = 0.7
-      polys[0].couleurDeRemplissage = texcolors(11)
+      polys[0].couleurDeRemplissage = colorToLatexOrHTML(texcolors(11))
       polys[28].opaciteDeRemplissage = 0.7
-      polys[28].couleurDeRemplissage = texcolors(11 + (chemin.length - 1))
+      polys[28].couleurDeRemplissage = colorToLatexOrHTML(texcolors(11 + (chemin.length - 1)))
       objetsEnonce.push(...polys)
       objetsEnonce.push(...maGrille)
 
@@ -320,7 +321,7 @@ export default function SerieDeTransformations () {
         for (let y = 0, label; y < 6; y++) {
           label = texteParPointEchelle(noeuds[x * 6 + y].nom, translation(noeuds[x * 6 + y], vecteur(0.3, 0.3)), 'milieu', context.isHtml ? 'red' : 'black', 1.2, 'middle', true, 0.4)
           label.contour = context.isHtml
-          label.couleurDeRemplissage = 'black'
+          label.couleurDeRemplissage = colorToLatexOrHTML('black')
           label.opacite = context.isHtml ? 0.8 : 1
           label.opaciteDeRemplissage = 1
           objetsEnonce.push(label)
@@ -335,8 +336,8 @@ export default function SerieDeTransformations () {
       }
       for (let k = 1, figure; k < chemin.length - 1; k++) {
         figure = translation(polys[chemin[k]], vecteur(0, 0))
-        figure.color = texcolors(k + 11)
-        figure.couleurDeRemplissage = texcolors(k + 11)
+        figure.color = colorToLatexOrHTML(texcolors(k + 11))
+        figure.couleurDeRemplissage = colorToLatexOrHTML(texcolors(k + 11))
         figure.opaciteDeRemplissage = 0.6
         objetsCorrection.push(figure)
       }

@@ -24,7 +24,7 @@ export const dateDeModifImportante = '12/12/2021'
  * Relecture : Décembre 2021 par EE
  *
  */
-export const uuid = '4b140'
+export const uuid = '2471d'
 export const ref = '6C30-1'
 export default function MultiplierDecimauxPar101001000 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -38,7 +38,7 @@ export default function MultiplierDecimauxPar101001000 () {
   this.spacingCorr = 2
   this.nbQuestions = 8
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

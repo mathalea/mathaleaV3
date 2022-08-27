@@ -11,7 +11,7 @@ export const dateDePublication = '11/05/2022'
  *
  *
  */
-export const uuid = '26942'
+export const uuid = '843e1'
 export const ref = 'can5C21'
 export default function SommeDecimaux () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function SommeDecimaux () {
   this.formatChampTexte = 'largeur15 inline'
   this.typeExercice = 'simple'
   this.tailleDiaporama = 2
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, c, e, f, g, k
     const choix = randint(1, 3)
     if (choix === 1) {

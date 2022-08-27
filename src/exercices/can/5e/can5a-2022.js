@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, labelPoint, droiteGraduee2, grille, segment, milieu, arc, droite, texteParPosition, tracePoint, polygone, codageAngleDroit, fixeBordures, pointSurSegment, angleModulo, rotation, rapporteur, codageAngle
+  point, labelPoint, droiteGraduee, grille, segment, milieu, arc, droite, texteParPosition, tracePoint, polygone, codageAngleDroit, pointSurSegment, angleModulo, rotation, rapporteur, codageAngle
 } from '../../../modules/2d.js'
 import { round, min, max } from 'mathjs'
 import Grandeur from '../../../modules/Grandeur.js'
@@ -26,7 +27,7 @@ export const dateDePublication = '02/05/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
-export const uuid = '59ebd'
+export const uuid = '1fdf7'
 export const ref = 'can5a-2022'
 export default function SujetCAN2022cinquieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -37,7 +38,7 @@ export default function SujetCAN2022cinquieme () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
@@ -537,7 +538,7 @@ export default function SujetCAN2022cinquieme () {
             a = randint(21, 28)
             k = randint(1, 9)
             reponse = arrondi(a + k / 10, 1)
-            texte = 'Détermine l\'abscisse du point A  :<br> ' + mathalea2d({ xmin: -0.8, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.7, style: 'margin: auto' }, droiteGraduee2({
+            texte = 'Détermine l\'abscisse du point A  :<br> ' + mathalea2d({ xmin: -0.8, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.7, style: 'margin: auto' }, droiteGraduee({
               Unite: 10,
               Min: a - 0.2,
               Max: a + 1.2,
@@ -560,7 +561,7 @@ export default function SujetCAN2022cinquieme () {
             a = randint(21, 28)
             k = randint(1, 4)
             reponse = arrondi(a + k / 5, 1)
-            texte = 'Determine l\'abscisse du point A  :<br> ' + mathalea2d({ xmin: -0.8, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.7, style: 'margin: auto' }, droiteGraduee2({
+            texte = 'Determine l\'abscisse du point A  :<br> ' + mathalea2d({ xmin: -0.8, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.7, style: 'margin: auto' }, droiteGraduee({
               Unite: 10,
               Min: a - 0.2,
               Max: a + 1.2,
@@ -785,8 +786,8 @@ export default function SujetCAN2022cinquieme () {
           reponse = arrondi(c / (d + 1), 1)
           texte = `Quelle est la distance du point $A$ à la droite $(BC)$ ? <br>
             `
-          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
-          texteCorr = mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets, s2, traceH, droite(B, C),
+          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
+          texteCorr = mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets, s2, traceH, droite(B, C),
             texteParPosition(`${reponse}  cm`, milieu(A, H).x - 0.9, milieu(A, H).y, 'milieu', 'black', 1, 'middle', true), labelPoint(H))
           texteCorr += `<br>La distance du point $A$ à la droite $(BC)$ est donnée par la longueur $AH$ : $${texNombre(reponse, 1)}$ cm`
 

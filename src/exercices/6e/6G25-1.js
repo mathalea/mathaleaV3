@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { choice, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, texteEnCouleur, numAlpha } from '../../modules/outils.js'
-import { centreGraviteTriangle, droite, mathalea2d, point, polygone, rotation, symetrieAnimee, symetrieAxiale, texteParPointEchelle, translation, vecteur } from '../../modules/2d.js'
+import { centreGraviteTriangle, droite, point, polygone, rotation, symetrieAnimee, symetrieAxiale, texteParPointEchelle, translation, vecteur } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const titre = 'Utiliser des symétries axiales en pavage triangulaire'
 export const interactifReady = true
@@ -10,10 +11,11 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /**
+* Référence 6G25-1
 * Relecture : Novembre 2021 par EE
 */
 
-export const uuid = '4da00'
+export const uuid = '49cb2'
 export const ref = '6G25-1'
 export default function SymetrieAxialePavageTriangulaire () {
   'use strict'
@@ -295,10 +297,10 @@ export default function SymetrieAxialePavageTriangulaire () {
         }
         break
     }
-    return { antecedent, image, distracteurs }
+    return { antecedent: antecedent, image: image, distracteurs: distracteurs }
   }
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     this.autocorrection = []

@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
-import { mathalea2d } from '../../modules/2d.js'
+
 import { cube } from '../../modules/3d.js'
 
 export const titre = 'Représentation de solides'
@@ -27,7 +28,7 @@ export default function VuesEmpilementCubes () {
   this.sup = 1 // A décommenter : valeur par défaut d'un premier paramètre
   this.sup2 = 1 // A décommenter : valeur par défaut d'un deuxième paramètre
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     const typesDeQuestionsDisponibles = [parseInt(this.sup)] // tableau à compléter par valeurs possibles des types de questions

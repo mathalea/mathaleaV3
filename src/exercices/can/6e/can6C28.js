@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
  * Référence can6C26
  * Date de publication 21/10/2021
 */
-export const uuid = '7573e'
+export const uuid = '2ce71'
 export const ref = 'can6C28'
 export default function PetitsProblemeDeFraction () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -19,7 +19,7 @@ export default function PetitsProblemeDeFraction () {
   this.tailleDiaporama = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = choice([12, 24, 36, 48])
     const b = choice([15, 20, 25, 30, 35, 40, 45])
     const N = choice(['quart', 'tiers', 'cinquième', 'sixième'])

@@ -12,14 +12,14 @@ export const amcType = 'AMCNum'
  * Référence can2C03
  * Date de publication
 */
-export const uuid = '38aeb'
+export const uuid = 'b1517'
 export const ref = 'can2C03'
 export default function CalculPuissance1 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, c, d
     switch (choice(['a', 'b', 'c', 'd', 'e', 'f'])) { //
       case 'a':

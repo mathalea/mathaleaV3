@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils.js'
-import { point, labelPoint, segment, segmentAvecExtremites, texteParPosition, mathalea2d } from '../../modules/2d.js'
+import { point, labelPoint, segment, segmentAvecExtremites, texteParPosition } from '../../modules/2d.js'
 
 /* auteur Stéphane Guyon */
 export const titre = 'Résoudre une équation avec des valeurs absolues'
@@ -10,7 +11,7 @@ export const titre = 'Résoudre une équation avec des valeurs absolues'
  * 2N15-2, ex 2N23
  * @author Stéphane Guyon
  */
-export const uuid = '51726'
+export const uuid = 'e471c'
 export const ref = '2N15-2'
 export default function ValeurAbsolueEtEquation () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -23,7 +24,7 @@ export default function ValeurAbsolueEtEquation () {
   this.correction_detaille_disponible = true
   context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2, 2, 2, 2, 2]; let typesDeQuestions
@@ -66,8 +67,7 @@ export default function ValeurAbsolueEtEquation () {
             const x1 = point(9, 0, c + b, 'below')
             x1.nom = c + b
             x1.positionLabel = 'below'
-            const s1 = segmentAvecExtremites(x0, x1)
-            s1.color = 'blue'
+            const s1 = segmentAvecExtremites(x0, x1, 'blue')
             s1.epaisseur = 2
             const s2 = segmentAvecExtremites(x0, A)
             const l = labelPoint(A, x0, x1)

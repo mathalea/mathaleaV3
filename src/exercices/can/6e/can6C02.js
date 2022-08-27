@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C02
  */
-export const uuid = '9dafa'
+export const uuid = '5c1b3'
 export const ref = 'can6C02'
 export default function NombrePairFois5 () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function NombrePairFois5 () {
   this.tailleDiaporama = 2
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(11, 49, [20, 30, 40, 15, 25, 35, 45]) * 2
     this.reponse = calcul(a * 5)
     this.question = `$${a}\\times 5=$`

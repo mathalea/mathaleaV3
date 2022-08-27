@@ -33,7 +33,7 @@ export default function calculDeProbabilitesAvecDeuxEnsemblesAetB () {
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1)
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

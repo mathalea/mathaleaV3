@@ -29,7 +29,7 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
   this.spacing = 1
   this.nbQuestions = 4
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const reponses = []

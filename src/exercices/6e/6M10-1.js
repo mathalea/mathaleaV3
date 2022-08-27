@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, contraindreValeur, combinaisonListes, texteExposant, texNombre, texteEnCouleurEtGras, miseEnEvidence, stringNombre, arrondi } from '../../modules/outils.js'
-import { latexParCoordonnees, mathalea2d, point, polygone, segment, texteParPositionEchelle } from '../../modules/2d.js'
+import { latexParCoordonnees, point, polygone, segment, texteParPositionEchelle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -10,7 +11,7 @@ export const titre = 'Problèmes d\'aires de rectangles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const uuid = 'dd2bd'
+export const uuid = '9a5fe'
 export const ref = '6M10-1'
 export default function ProblemesAiresRectangles () {
   Exercice.call(this)
@@ -313,7 +314,7 @@ export default function ProblemesAiresRectangles () {
     return [texte, texteCorr, reponse]
   }
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     this.autoCorrection = []

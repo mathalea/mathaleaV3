@@ -1,5 +1,6 @@
-import { courbeInterpolee, mathalea2d, point, repere, tracePoint } from '../../modules/2d.js'
+import { courbeInterpolee, point, repere, tracePoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'interpolation cosinusoïdale'
 
 /**
@@ -21,7 +22,7 @@ export default function TraceCourbeInterpolee1 () {
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const liste = this.sup.split('/')
     const points = []
     const objets = []
@@ -46,12 +47,13 @@ export default function TraceCourbeInterpolee1 () {
     const r = repere({ xMin: xMin - 1, xMax: xMax + 1, yMin: yMin - 1, yax: yMax - 1 })
     const c = courbeInterpolee(
       points,
-      couleurs[parseInt(this.sup3) - 1].colCourbe,
-      2,
-      [1, 1],
-      xMin,
-      xMax
-    )
+      {
+        color: couleurs[parseInt(this.sup3) - 1].colCourbe,
+        epaisseur: 2,
+        repere: r,
+        xMin,
+        xMax
+      })
     objets.push(r, c)
     if (this.sup2) {
       for (let i = 0, p; i < points.length; i++) {

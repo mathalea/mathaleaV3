@@ -25,7 +25,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
   this.sup3 = true
   this.version = 1 // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.autoCorrection = []
     let typesDeQuestionsDisponibles = []
     let reponse

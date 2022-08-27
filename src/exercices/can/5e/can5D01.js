@@ -13,13 +13,13 @@ export const dateDeModifImportante = '08/02/2022' // Une date de modification im
  * Créé pendant l'été 2021
  * Référence can5D01
  */
-export const uuid = '5aaa2'
+export const uuid = 'd8797'
 export const ref = 'can5D01'
 export default function ConversionHeuresDecimalesMinutes () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let a, b, d, texte, texteCorr

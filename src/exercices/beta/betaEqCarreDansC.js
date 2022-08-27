@@ -19,7 +19,7 @@ export default function ResoudreDesEquationsCarreeDansC () {
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -74,4 +74,4 @@ export default function ResoudreDesEquationsCarreeDansC () {
   // this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
 }
 
-// python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
+// python3 list-to-js.py pour faire apparaître l'exercice dans le menu

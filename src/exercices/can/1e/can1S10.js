@@ -13,7 +13,7 @@ export const dateDePublication = '19/02/2022' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
-export const uuid = '40f41'
+export const uuid = 'd1261'
 export const ref = 'can1S10'
 export default function SensVariationSuite () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -21,7 +21,7 @@ export default function SensVariationSuite () {
   this.tailleDiaporama = 2
   this.spacing = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
 

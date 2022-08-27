@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021 modifié le 21/05/2022 (support de la classe Decimal)
  * Référence can6C13
  */
-export const uuid = '410ea'
+export const uuid = 'c3e17'
 export const ref = 'can6C13'
 export default function FSomme2Decimaux () {
   Exercice.call(this)
@@ -20,7 +20,7 @@ export default function FSomme2Decimaux () {
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, c, d, e
     if (choice([true, false])) {
       a = randint(3, 9)

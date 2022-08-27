@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
-import { pointAdistance, point, mathalea2d, arc, codageSegments, rotation, afficheLongueurSegment } from '../../modules/2d.js'
+import { pointAdistance, point, arc, codageSegments, rotation, afficheLongueurSegment } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, arrondi, texNombre, calcul } from '../../modules/outils.js'
 
@@ -15,7 +16,7 @@ export const titre = 'Calculer périmètre et aire de portions de cercles/disque
  * @author Rémi Angot
  * Rééférence 6M22-2
  */
-export const uuid = 'f7905'
+export const uuid = 'ff386'
 export const ref = '6M22-2'
 export default function Perimetre_aire_et_portions_de_disques (pa = 3) {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -31,7 +32,7 @@ export default function Perimetre_aire_et_portions_de_disques (pa = 3) {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.sup = parseInt(this.sup)
     this.listeCorrections = [] // Liste de questions corrigées
     this.listeQuestions = []

@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, calcul, choice, texNombrec, creerNomDePolygone } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, labelPoint, segment, codageSegments
+  point, labelPoint, segment, codageSegments
 } from '../../../modules/2d.js'
 export const titre = 'Calculer une longueur avec le théorème de Thalès (milieu)'
 export const interactifReady = true
@@ -13,7 +14,7 @@ export const interactifType = 'mathLive'
  * Référence can4G07
  * Date de publication septembre 2021
 */
-export const uuid = 'fb142'
+export const uuid = 'ae712'
 export const ref = 'can4G07'
 export default function CalculLongueurThalesMilieu () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -22,7 +23,7 @@ export default function CalculLongueurThalesMilieu () {
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, A, B, C, D, E, objets, nom
     if (choice([true, false])) {
       nom = creerNomDePolygone(5, ['QD'])

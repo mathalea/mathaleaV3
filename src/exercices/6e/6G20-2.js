@@ -6,7 +6,7 @@ export const titre = 'Utiliser le vocabulaire des triangles'
  * 6G20-2
  * @author Sébastien Lozano
  */
-export const uuid = '004c7'
+export const uuid = 'b5eaf'
 export const ref = '6G20-2'
 export default function VocabulaireDesTriangles6e () {
   VocabulaireDesTriangles.call(this)

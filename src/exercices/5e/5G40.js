@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre, choice, combinaisonListes } from '../../modules/outils.js'
-import { cercleCentrePoint, cercle, codageSegments, pointAdistance, pointIntersectionCC, point, labelPoint, similitude, polygoneAvecNom, tracePoint, texteParPoint, droite, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, mathalea2d } from '../../modules/2d.js'
+import { cercleCentrePoint, cercle, codageSegments, pointAdistance, pointIntersectionCC, point, labelPoint, similitude, polygoneAvecNom, tracePoint, texteParPoint, droite, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
 export const titre = 'Construire des parallélogrammes avec dispositif d\'auto-correction'
@@ -13,7 +14,7 @@ export const dateDeModifImportante = '08/05/2022'
  * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
  * Publié le 30/11/2020
  */
-export const uuid = '373fe'
+export const uuid = 'b611a'
 export const ref = '5G40'
 export default function ConstructionsParallelogrammes () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -26,7 +27,7 @@ export default function ConstructionsParallelogrammes () {
   this.correctionDetaillee = false
   this.correctionDetailleeDisponible = true
   this.typeExercice = 'IEP'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -70,14 +71,11 @@ export default function ConstructionsParallelogrammes () {
       const result2 = dansLaCibleCarree(D.x, D.y, 5, 0.5, cellule2)
       const result3 = dansLaCibleCarree(B.x, B.y, 5, 0.5, cellule3)
 
-      const cible = cibleCarree({ x: result[0], y: result[1], rang: 5, num: 1, taille: 0.5 })
-      cible.color = 'gray'
+      const cible = cibleCarree({ x: result[0], y: result[1], rang: 5, num: 1, taille: 0.5, color: 'gray' })
       cible.opacite = 0.7
-      const cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: 2, taille: 0.5 })
-      cible2.color = 'gray'
+      const cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: 2, taille: 0.5, color: 'gray' })
       cible2.opacite = 0.7
-      const cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: 3, taille: 0.5 })
-      cible3.color = 'gray'
+      const cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: 3, taille: 0.5, color: 'gray' })
       cible3.opacite = 0.7
       const xMin = Math.min(A.x, B.x, C.x, D.x) - 3
       const yMin = Math.min(A.y, B.y, C.y, D.y) - 3

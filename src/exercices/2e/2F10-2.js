@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, reduireAxPlusB, abs, pgcd, texteEnCouleurEtGras, texFraction, miseEnEvidence, ecritureAlgebrique, texFractionReduite } from '../../modules/outils.js'
-import { repere, droite, mathalea2d, point, tracePoint, segment, texteParPosition, latexParPoint, vecteur, translation, homothetie } from '../../modules/2d.js'
+import { repere, droite, point, tracePoint, segment, texteParPosition, latexParPoint, vecteur, translation, homothetie } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -14,7 +15,7 @@ export const amcType = 'AMCHybride'
 /**
 
 */
-export const uuid = 'a55e2'
+export const uuid = '93f13'
 export const ref = '2F10-2'
 export default function lecturefonctionaffine () {
   Exercice.call(this)
@@ -30,7 +31,7 @@ export default function lecturefonctionaffine () {
   this.spacingCorr = 1
   this.sup = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -54,7 +55,7 @@ export default function lecturefonctionaffine () {
           a = 1
         }// On évite la fonction nulle
         c = droite(a, -1, b)
-        c.color = 'red'
+        c.color = colorToLatexOrHTML('red')
         c.epaisseur = 2
         texte = 'Déterminer graphiquement l\'expression algébrique de la fonction affine $f$ représentée ci-dessus :<br>'
         texte += mathalea2d({
@@ -133,7 +134,7 @@ export default function lecturefonctionaffine () {
         d = randint(2, 5, [a, 2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
         r = repere()// On définit le repère
         c = droite(a / d, -1, b)
-        c.color = 'red'
+        c.color = colorToLatexOrHTML('red')
         c.epaisseur = 2
         texte = 'A partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite'
         texte += mathalea2d({
@@ -256,7 +257,7 @@ export default function lecturefonctionaffine () {
         t = tracePoint(A, 'red')// Variable qui trace les nom s A et B
         t.taille = 3
         t.epaisseur = 2
-        l.color = 'red'
+        // l.color = colorToLatexOrHTML('red')
         if (a !== 0) {
           texteCorr += mathalea2d({
             xmin: -8,

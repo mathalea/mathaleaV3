@@ -7,7 +7,7 @@ export const titre = 'Résoudre une équation ax+b=c'
  * Créé pendant l'été 2021
  * Référence can4L02
  */
-export const uuid = '6cffe'
+export const uuid = 'c5700'
 export const ref = 'can4L02'
 export default function UneEquationMoyenne () {
   ExerciceEquationASolutionEntiere.call(this)

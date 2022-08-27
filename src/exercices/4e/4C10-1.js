@@ -8,7 +8,7 @@ export { interactifReady, interactifType, amcReady, amcType } from './4C10-0.js'
  * 4C10-1 fils de 4C10-0
  * @author Sébastien Lozano
  */
-export const uuid = '6212a'
+export const uuid = '4fd42'
 export const ref = '4C10-1'
 export default function SigneProduitRelatifs () {
   SigneProduitQuotientRelatifs.call(this)

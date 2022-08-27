@@ -13,7 +13,7 @@ export const titre = 'Tracer un triangle dont on connaît une longueur et 2 angl
  * @author Mickael Guironnet - Rémi Angot
  * Références 6G23-2 et 5G20-2git
  */
-export const uuid = 'b3701'
+export const uuid = '73630'
 export const ref = '6G23-3'
 export default function TracerTriangle2Angles () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -26,7 +26,7 @@ export default function TracerTriangle2Angles () {
   this.sup = false
   this.sup3 = 0 // Type de question
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

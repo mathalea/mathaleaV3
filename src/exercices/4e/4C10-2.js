@@ -7,7 +7,7 @@ export const titre = 'Signe d\'un quotient de nombres relatifs'
  * 4C10-2 fils de 4C10-0
  * @author Sébastien Lozano
  */
-export const uuid = '69775'
+export const uuid = 'aa4f9'
 export const ref = '4C10-2'
 export default function SigneQuotientRelatifs () {
   SigneProduitQuotientRelatifs.call(this)

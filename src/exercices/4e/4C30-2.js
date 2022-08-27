@@ -3,8 +3,9 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, puissanceEnProduit, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import Decimal from 'decimal.js/decimal.mjs'
-export const titre = "Écriture décimale d'une puissance de 10"
+import pkg from 'decimal.js'
+const { Decimal } = pkg
+export const titre = 'Écriture décimale d\'une puissance de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -15,7 +16,7 @@ export const amcType = 'AMCNum'
  * @author Rémi Angot
 * Référence 4C30-2
  */
-export const uuid = '3e15f'
+export const uuid = '93df9'
 export const ref = '4C30-2'
 export default function EcritureDecimalePuissanceDe10 () {
   Exercice.call(this)
@@ -26,7 +27,7 @@ export default function EcritureDecimalePuissanceDe10 () {
   this.nbColsCorr = 1
   this.sup = 3 // exposants positifs et négatifs par défaut
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

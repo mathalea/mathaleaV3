@@ -11,14 +11,14 @@ export const amcType = 'AMCNum'
   * Créé pendant l'été 2021
  * Référence can3G01
 */
-export const uuid = 'ad6a0'
+export const uuid = 'dcc68'
 export const ref = 'can3G01'
 export default function AgrandissementReduction () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, c
     switch (choice(['a', 'b', 'c', 'c'])) {
       case 'a':

@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { choice, listeQuestionsToContenu, numAlpha, premiereLettreEnMajuscule, randint, shuffle, tableauColonneLigne } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { Arbre, texProba } from '../../modules/arbres.js'
-import { mathalea2d } from '../../modules/2d.js'
+
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionX from '../../modules/FractionEtendue.js'
@@ -18,7 +19,7 @@ export const amcType = 'AMCNum'
  * @author Jean-Claude Lhote
  * Référence 2S30-5
 */
-export const uuid = '86485'
+export const uuid = 'cee5d'
 export const ref = '2S30-5'
 export default function CalculProbaExperience2Epreuves2e () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -148,7 +149,7 @@ export default function CalculProbaExperience2Epreuves2e () {
     texteCorr += `L'événement 'obtenir une boule ${boules[choix]}' est réalisé par les issues ('Pile','${boules[choix]}') et ('Face','${boules[choix]}'), donc sa probabilité est la somme des probabilités calculées ci-dessus.<br>`
     texteCorr += `La probabilité d'obtenir une boule ${boules[choix]} est donc de $${texProba(fraction(n1[choix], 2 * card1), true)}+${texProba(fraction(n2[choix], 2 * card2), true)}=${texProba(p[choix], true)}$.`
 
-    return { texte, texteCorr, alea: [...n1, ...n2] }
+    return { texte: texte, texteCorr: texteCorr, alea: [...n1, ...n2] }
   }
 
   function urneDeuxTiragesAvecRemise (exercice, i, sup, sup2, niveau) { // tirage dans une urne avec remise
@@ -289,10 +290,10 @@ export default function CalculProbaExperience2Epreuves2e () {
     texteCorr += `Une autre façon de faire est de considéré que c'est l'événement contraire de "obtenir deux boules de la même couleur" dont on a calculé la probabilité à la question ${numAlpha(1)}.<br>`
     texteCorr += `On peut donc calculer la probabilité de cet événement en calculant : $1 -${proba1et2.texFractionSimplifiee} = ${proba1et2.entierMoinsFraction(1).texFractionSimplifiee}$.`
 
-    return { texte, texteCorr, alea: [nbBoule1, nbBoule2, b1Char, b2Char] }
+    return { texte: texte, texteCorr: texteCorr, alea: [nbBoule1, nbBoule2, b1Char, b2Char] }
   }
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

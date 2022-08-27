@@ -6,7 +6,7 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/6C32.j
  *
  * @author Jean-Claude Lhote
  */
-export const uuid = 'beb3e'
+export const uuid = 'b74c6'
 export const ref = 'c3C31'
 export default function ProblemeCourseC3 () {
   ProblemeCourse.call(this)

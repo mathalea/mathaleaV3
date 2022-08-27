@@ -13,7 +13,7 @@ export const dateDePublication = '21/02/2022' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
-export const uuid = '4ce88'
+export const uuid = '0f014'
 export const ref = 'can1S11'
 export default function CalculSuitePython () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -23,7 +23,7 @@ export default function CalculSuitePython () {
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, k, u, r, q
     let n = 0
     switch (choice(['a', 'b', 'c'])) {

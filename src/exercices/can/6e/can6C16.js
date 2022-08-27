@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C16
  */
-export const uuid = 'd6090'
+export const uuid = '88435'
 export const ref = 'can6C16'
 export default function DoubleEtMoitie () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function DoubleEtMoitie () {
   this.nbQuestions = 1
   this.tailleDiaporama = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(1, 25) * 2 // variables aléatoires
     this.question = `Le double d'un nombre vaut $${2 * a}$, combien vaut sa moitié ?<br>`
     this.correction = `Sa moitié vaut : $${texNombrec(a / 2)}$.

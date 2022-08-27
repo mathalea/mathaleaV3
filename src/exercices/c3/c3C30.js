@@ -6,7 +6,7 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/6C30-1
  *
  * @author Jean-Claude Lhote
  */
-export const uuid = 'd9d50'
+export const uuid = '7fa0e'
 export const ref = 'c3C30'
 export default function MultiplierDecimauxPar101001000C3 () {
   MultiplierDecimauxPar101001000.call(this)

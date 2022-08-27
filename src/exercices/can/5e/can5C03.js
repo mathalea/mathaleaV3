@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can5C03
  */
-export const uuid = '285a4'
+export const uuid = '62e1f'
 export const ref = 'can5C03'
 export default function DifferenceEntiers5e () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function DifferenceEntiers5e () {
   this.tailleDiaporama = 2
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const b = randint(41, 69, [50, 60])
     const a = randint(2, 30) + 100
     this.reponse = calcul(a - b)

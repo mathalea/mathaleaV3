@@ -18,7 +18,7 @@ export const interactifType = ['qcm', 'mathLive']
  * référence 6M30
  */
 
-export const uuid = 'f4b53'
+export const uuid = '04b0d'
 export const ref = '6M30'
 export default function CalculDeVolumes () {
   'use strict'
@@ -35,7 +35,7 @@ export default function CalculDeVolumes () {
   this.interactifType = interactifType
   this.sup3 = 2
   this.sup4 = 8
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.consigne = this.interactif ? '' : "Calculer, en détaillant, le volume des solides donnés. Arrondir à l'unité."
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
@@ -92,7 +92,7 @@ export default function CalculDeVolumes () {
           volume = c.pow(3)
           j = randint(0, 3) // pour le choix de l'unité
           texte = `Calculer le volume, en$${listeUnites[j][1]}$`
-          texte += this.sup2 ? " (arrondi à l'unité), " : ', '
+          texte += this.sup2 ? ' (arrondi à l\'unité), ' : ', '
           texte += `d'un cube de $${texNombre(c, 1)} ${listeUnites[j][0]}$ d'arête.`
           texteCorr = `$\\mathcal{V}= c^3 =c \\times c \\times c = ${texNombre(c, 1)}${listeUnites[j][0]}\\times${texNombre(c, 1)}${listeUnites[j][0]}\\times${texNombre(c, 1)}${listeUnites[j][0]}=${texNombre(volume)}${listeUnites[j][1]}`
           if (!volume.eq(volume.round())) {
@@ -115,7 +115,7 @@ export default function CalculDeVolumes () {
             L = partieDecimale3.plus(randint(6, 10))
             volume = l.mul(L).mul(h)
             texte = `Calculer le volume, en$${listeUnites[j][1]}$`
-            texte += this.sup2 ? " (arrondi à l'unité), " : ', '
+            texte += this.sup2 ? ' (arrondi à l\'unité), ' : ', '
             texte += `d'un pavé droit de $${texNombre(l, 1)}${listeUnites[j][0]}$ de largeur, de $${texNombre(L, 1)}${listeUnites[j][0]}$ de longueur et de $${texNombre(h)}${listeUnites[j][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}= l \\times L \\times h = ${texNombre(l, 1)}${listeUnites[j][0]}\\times${texNombre(L, 1)}${listeUnites[j][0]}\\times${texNombre(h)}${listeUnites[j][0]}=${texNombre(volume)}${listeUnites[j][1]}`
             if (!volume.eq(volume.round())) {
@@ -160,7 +160,7 @@ export default function CalculDeVolumes () {
             resultat3 = volume.div(2).round()
             resultat4 = volume.mul(2).round()
             texte = `Calculer le volume, en$${listeUnites[j][1]}$`
-            texte += " (arrondi à l'unité), " // Il faut toujours arrondir à cause de la présence de Pi
+            texte += ' (arrondi à l\'unité), ' // Il faut toujours arrondir à cause de la présence de Pi
             texte += `d'un cylindre de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombre(h, 0)}${listeUnites[j][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${listeUnites[j][0]}\\right)^2\\times${texNombre(h, 0)}${listeUnites[j][0]}=${texNombre(
               r.pow(2).mul(h), 0
@@ -187,7 +187,7 @@ export default function CalculDeVolumes () {
             l = randint(6, 10)
             volume = c.mul(h * l).div(2)
             texte = `Calculer le volume, en$${listeUnites[j][1]}$`
-            texte += this.sup2 ? " (arrondi à l'unité), " : ', '
+            texte += this.sup2 ? ' (arrondi à l\'unité), ' : ', '
             texte += `d'un prisme droit de hauteur $${l}${listeUnites[j][0]}$ et dont les bases sont des triangles de base $${texNombre(c, 1)}${listeUnites[j][0]}$ et de hauteur correspondante $${h}${listeUnites[j][0]}$.`
             texteCorr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${texNombre(c, 1)}${listeUnites[j][0]}\\times${h}${listeUnites[j][0]}}{2}\\times${l}${listeUnites[j][0]}=${texNombre(volume, 2)}${listeUnites[j][1]}`
             if (!volume.eq(volume.round())) {
@@ -227,7 +227,7 @@ export default function CalculDeVolumes () {
             h = randint(2, 15)
             volume = new Decimal(r * r * h).mul(Decimal.acos(-1)).div(3)
             texte = `Calculer le volume, en$${listeUnites[j][1]}$`
-            texte += " (arrondi à l'unité), " // Il faut toujours arrondir à cause de la présence de Pi
+            texte += ' (arrondi à l\'unité), ' // Il faut toujours arrondir à cause de la présence de Pi
             texte += `d'un cône de $${r}${listeUnites[j][0]}$ de rayon et de $${h}${listeUnites[j][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${listeUnites[j][0]}\\right)^2\\times${h}${listeUnites[j][0]}=${texFraction(
               r * r * h,
@@ -259,7 +259,7 @@ export default function CalculDeVolumes () {
             l = randint(6, 10)
             volume = c.mul(c).mul(h).div(3)
             texte = `Calculer le volume, en$${listeUnites[j][1]}$`
-            texte += this.sup2 ? " (arrondi à l'unité), " : ', '
+            texte += this.sup2 ? ' (arrondi à l\'unité), ' : ', '
             texte += `d'une pyramide de hauteur $${h}${listeUnites[j][0]}$ et dont la base  est un carré de $${texNombre(c, 1)}${listeUnites[j][0]}$ de côté.`
             texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${texNombre(c, 1)}${listeUnites[j][0]}\\right)^2\\times${h}${listeUnites[j][0]}`
             if (volume.eq(volume.round())) {

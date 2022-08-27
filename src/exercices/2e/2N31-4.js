@@ -8,7 +8,7 @@ export { amcReady, amcType } from '../4e/4C34.js'
  * @author Sébastien Lozano
  */
 
-export const uuid = '274a8'
+export const uuid = '6fda8'
 export const ref = '2N31-4'
 export default function PrioritesEtRelatifsEtPuissances2e () {
   PrioritesEtRelatifsEtPuissances.call(this)

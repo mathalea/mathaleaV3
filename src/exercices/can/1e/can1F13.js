@@ -14,7 +14,7 @@ export const dateDePublication = '21/06/2022' // La date de publication initiale
      * @author Gilles Mora
      * Référence
     */
-export const uuid = 'f2cd3'
+export const uuid = '3c690'
 export const ref = 'can1F13'
 export default function CalculCoeffDir () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -25,7 +25,7 @@ export default function CalculCoeffDir () {
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a; let f
     switch (choice([1, 1, 2, 2, 3, 3, 4])) { //
       case 1:// x^2

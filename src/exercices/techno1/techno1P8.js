@@ -12,7 +12,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * @author Stéphane Guyon
  * Référence
 */
-export const uuid = 'f8567'
+export const uuid = '1aad3'
 export const ref = 'techno1P8'
 export default class nomExercice extends Exercice {
   constructor () {

@@ -12,14 +12,14 @@ export const interactifType = 'mathLive'
  * Référence
  * Date de publication
 */
-export const uuid = 'ddc49'
+export const uuid = '898a7'
 export const ref = 'can2L04'
 export default function CoordonneesPointIntersectionAxeOrdonneesDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(-10, 10, 0)
     const b = randint(1, 10)
     const n = randint(-5, 5, 0)

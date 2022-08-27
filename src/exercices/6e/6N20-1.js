@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { modalTexteCourt, combinaisonListes, listeQuestionsToContenu, randint, rangeMinMax } from '../../modules/outils.js'
-import { mathalea2d } from '../../modules/2d.js'
+
 import { fraction } from '../../modules/fractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -17,7 +18,7 @@ export const amcType = 'AMCHybride'
  * Référence 6N20-1
  * Relecture : Novembre 2021 par EE
 */
-export const uuid = '1d13e'
+export const uuid = '1f5de'
 export const ref = '6N20-1'
 export default function EncadrerFractionEntre2Entiers () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -30,7 +31,7 @@ export default function EncadrerFractionEntre2Entiers () {
   this.lycee = false
   context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

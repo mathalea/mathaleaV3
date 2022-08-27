@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can5C06
  */
-export const uuid = 'df3f8'
+export const uuid = 'bc6a9'
 export const ref = 'can5C06'
 export default function ResteDivision5e () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function ResteDivision5e () {
   this.tailleDiaporama = 2
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = choice([25, 20, 50, 40, 15])
     const b = randint(5, a - 1)
     const c = randint(3, 9)

@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, repere, courbe, labelPoint, segment, milieu, texteParPosition, codageSegment
+  point, repere, courbe, labelPoint, segment, milieu, texteParPosition, codageSegment
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, stringNombre, randint, ecritureAlgebrique, texNombre, texFractionReduite, printlatex, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../../modules/outils.js'
@@ -24,7 +25,7 @@ export const dateDePublication = '05/04/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
-export const uuid = '40a04'
+export const uuid = '1f0cd'
 export const ref = 'can2a-2021'
 export default function SujetCAN2021Seconde () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -35,7 +36,7 @@ export default function SujetCAN2021Seconde () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const nbQ1 = min(round(this.nbQuestions * 8 / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
@@ -419,20 +420,20 @@ export default function SujetCAN2021Seconde () {
           xmin = -1
           ymin = -2.5
           xmax = 7
-          ymax = 4.7
+          ymax = 5
           objets = []
           objets.push(
-            texteParPosition(`$${d} \\text{ cm}$`, milieu(A, D).x, milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('$\\large \\text{?}$', milieu(B, E).x, milieu(B, E).y - 0.3, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${b} \\text{ cm}$`, milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${a} \\text{ cm}$`, milieu(C, B).x + 0.3, milieu(C, B).y + 0.2, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${d} cm`, milieu(A, D).x, milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(' ?', milieu(B, E).x, milieu(B, E).y - 0.3, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${b}  cm`, milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${a} cm`, milieu(C, B).x + 0.3, milieu(C, B).y + 0.2, 'milieu', 'black', 1, 'middle', true),
             labelPoint(A, B, C, D, E), segment(B, E), segment(D, E), segment(A, D), segment(A, B))
           reponse = c
           texte = `$(AD)//(EB)$.<br>
            $A$, $C$ et $B$ sont alignés <br>
            $D$, $C$ et $E$ sont alignés.<br>
            <br>`
-          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
+          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
           texteCorr = `Le triangle $ACD$ est un agrandissement du triangle $EBC$. Le coefficient d'agrandissement est donné par : $\\dfrac{${b}}{${a}}=${k}$.<br>
           On obtient donc la longueur $EB$ en divisant par $${k}$ la longueur $AD$.<br>
           $EB=\\dfrac{${d}}{${k}}=${c}$ cm.<br>`
@@ -653,7 +654,7 @@ export default function SujetCAN2021Seconde () {
           reponse = [`\\sqrt{${2 * a ** 2}}`, `${Math.sqrt(2 * a ** 2)}`, `${a}\\sqrt{2}`]
           texte = `Compléter : <br>
             `
-          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
+          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
           texteCorr = `Le théorème de Pythagore dans le triangle rectangle $ADB$ donne : <br>
             $DB^2=AD^2+AB^2$ soit $DB^2=${a}^2+${a}^2=2\\times ${a}^2=${2 * a ** 2}$.<br>
             Ainsi, $DB=\\sqrt{${2 * a ** 2}}$ ou encore $DB=${a}\\sqrt{2}$.`
@@ -687,7 +688,7 @@ export default function SujetCAN2021Seconde () {
           b = randint(1, 4) + randint(1, 9) / 10
 
           r = repere({ xMin: -4, xMax: 4, yMin: -3, yMax: 8, xUnite: 2, yUnite: 1 })
-          // courbe(x => a * x + b, { repere: repere, color: 'blue' })
+          // courbe(x => a * x + b, { repere: r, color: 'blue' })
           f = x => 0.5 * x ** 3 + b
           C = courbe(f, { repere: r, color: 'red' })
 
@@ -714,7 +715,7 @@ Donner une valeur approchée de l'antécédent de $${a}$ par $f$ ?<br>`
           if (choix === 'b') {
             texte = `On lance deux dés cubiques équilibrés.<br>Quelle est la probabilité d’obtenir un total de $${c}$ ?<br>Donner le résultat sous la forme d'une fraction irréductible.`
             texteCorr = `Sur $36$ cas possibles équiprobables, il y en a $${p[c - 2]}$ qui donnent une somme de $${c}$. Donc la probabilité d'obtenir un total de $${c}$ est $\\dfrac{${p[c - 2]}}{36}${simplificationDeFractionAvecEtapes(p[c - 2], 36)}$.`
-            reponse = texFractionReduite(p[c - 2], 36)
+            reponse = fraction(p[c - 2], 36).simplifie()
           }
           setReponse(this, index, reponse, { formatInteractif: 'fraction' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }

@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenuSansNumero, randint, shuffle, combinaisonListes, lettreDepuisChiffre, texcolors, texteGras, numAlpha } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, droite, segment, demiDroite, polygone, codageAngle, texteParPosition, mathalea2d } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, droite, segment, demiDroite, polygone, codageAngle, texteParPosition } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Appliquer les propriétés de conservation de la symétrie axiale'
 
@@ -16,7 +17,7 @@ export const dateDePublication = '26/10/2020'
  * @author Jean-Claude Lhote
  * Relecture : Novembre 2021 par EE
  */
-export const uuid = '33b29'
+export const uuid = 'cd69a'
 export const ref = '6G32-1'
 export default function SymetrieAxialeConservation1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -28,7 +29,7 @@ export default function SymetrieAxialeConservation1 () {
   this.nbColsCorr = 1
   this.sup = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     const typesDeQuestionsDisponibles = ['Segment', 'Droite', '1/2droite', 'Triangle', 'Angle']
     const points = []; const traces = []; const nom = []; let alternance

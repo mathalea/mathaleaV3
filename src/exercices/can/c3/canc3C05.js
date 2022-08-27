@@ -13,13 +13,13 @@ export const dateDePublication = '20/11/2021'
  * @author Jean-Claude Lhote
  * Référence canc3C05
  */
-export const uuid = '7040f'
+export const uuid = 'd0287'
 export const ref = 'canc3C05'
 export default function PariteDunNombre () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     let a, b, c, d, e, f, g, texte, texteCorr

@@ -16,7 +16,7 @@ export const titre = 'Addition à trou de deux entiers relatifs'
 * @author Rémi Angot
 * 5R20-2
 */
-export const uuid = 'f86ac'
+export const uuid = 'ce842'
 export const ref = '5R20-2'
 export default function ExerciceAdditionsRelatifsATrou (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -30,7 +30,7 @@ export default function ExerciceAdditionsRelatifsATrou (max = 20) {
   this.consigne = 'Compléter :'
   this.spacing = 2
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.sup = parseInt(this.sup)
     this.numeroExercice = numeroExercice
     this.listeQuestions = [] // Liste de questions
@@ -42,12 +42,17 @@ export default function ExerciceAdditionsRelatifsATrou (max = 20) {
       k = choice([[-1, -1], [-1, 1], [1, -1]]) // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
       a = a * k[0]
       b = b * k[1]
+      let termes
+      const rang1 = randint(0, 1)
+      const rang2 = 1 - rang1
       if (this.sup2) {
-        texte = '$ ' + a + ' + ' + '\\ldots\\ldots\\ldots' + ' = ' + (a + b) + ' $'
-        texteCorr = '$ ' + a + ecritureAlgebrique(b) + ' = ' + (a + b) + ' $'
+        termes = [a, '\\ldots\\ldots\\ldots', a, ecritureAlgebrique(b)]
+        texte = '$ ' + termes[rang1] + ' + ' + termes[rang2] + ' = ' + (a + b) + ' $'
+        texteCorr = '$ ' + termes[rang1 + 2] + termes[rang2 + 2] + ' = ' + (a + b) + ' $'
       } else {
-        texte = '$ ' + ecritureNombreRelatif(a) + ' + ' + '\\ldots\\ldots\\ldots' + ' = ' + ecritureNombreRelatif(a + b) + ' $'
-        texteCorr = '$ ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(b) + ' = ' + ecritureNombreRelatifc(a + b) + ' $'
+        termes = [ecritureNombreRelatif(a), '\\ldots\\ldots\\ldots', ecritureNombreRelatifc(a), ecritureNombreRelatifc(b)]
+        texte = '$ ' + termes[rang1] + ' + ' + termes[rang2] + ' = ' + ecritureNombreRelatif(a + b) + ' $'
+        texteCorr = '$ ' + termes[rang1 + 2] + ' + ' + termes[rang2 + 2] + ' = ' + ecritureNombreRelatifc(a + b) + ' $'
       }
       this.autoCorrection[i] = {}
       this.autoCorrection[i].enonce = `${texte}\n`

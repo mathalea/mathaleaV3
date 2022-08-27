@@ -8,7 +8,7 @@ export { interactifReady, interactifType, amcReady, amcType } from '../../6e/6D1
  * Créé pendant l'été 2021
  * Référence can6D04
  */
-export const uuid = '5fc95'
+export const uuid = 'd34e5'
 export const ref = 'can6D04'
 export default function ConvertirMinutesHeures () {
   ConversionHeuresMinutesOuMinutesEtSecondes.call(this, true)

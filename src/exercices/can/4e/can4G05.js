@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
  * Référence can4G05
  * Date de publication sptembre 2021
 */
-export const uuid = '6a116'
+export const uuid = '66672'
 export const ref = 'can4G05'
 export default function DiagonaleCarre () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -20,7 +20,7 @@ export default function DiagonaleCarre () {
   this.tailleDiaporama = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, c2, reductible, reduction, entiere
     a = randint(1, 10)//
     switch (choice(['a', 'b'])) {

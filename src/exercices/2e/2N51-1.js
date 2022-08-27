@@ -8,7 +8,7 @@ export const titre = 'Tester si un nombre est solution d\'une équation'
  *
  * @author Sébastien LOZANO
  */
-export const uuid = '9436b'
+export const uuid = '71e5c'
 export const ref = '2N51-1'
 export default function TesterSiUnNombreEstSolutionDUneEquation2nde () {
   TesterSiUnNombreEstSolutionDUneEquation.call(this)

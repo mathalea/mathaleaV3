@@ -13,7 +13,7 @@ export const dateDePublication = '24/06/2022' // La date de publication initiale
      * @author Gilles Mora
      * Référence
     */
-export const uuid = 'bea3f'
+export const uuid = '12089'
 export const ref = 'can1F17'
 export default function CalculFonctionDeriveeUnsurU () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -24,7 +24,7 @@ export default function CalculFonctionDeriveeUnsurU () {
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let m; let p
     switch (choice([1, 2, 3])) {
       case 1:// //1/(mx+p)

@@ -12,7 +12,7 @@ export const interactifType = 'mathLive'
  * Référence
  * Date de publication
 */
-export const uuid = 'fb157'
+export const uuid = 'dfe60'
 export const ref = 'can2L02'
 export default function CoordonneesPointDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -20,7 +20,7 @@ export default function CoordonneesPointDroite () {
   this.formatChampTexte = 'largeur15 inline'
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(-10, 10, 0)
     const b = randint(-10, 10, 0)
     const c = randint(-10, 10, 0)

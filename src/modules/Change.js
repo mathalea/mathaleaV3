@@ -24,9 +24,9 @@ const COMPARATOR_TO_STRING = {
 // from the oldNode, newNode, and changeType
 Change.formatChange = function (step) {
   if (!(step.changeType in Change.changeFormatFunctionMap)) {
-  	// TODO: add tests that will alert us when a new change type doesn't
-  	// have a change function yet
-  	console.error(step.changeType + ' does not have a change function!')
+    // TODO: add tests that will alert us when a new change type doesn't
+    // have a change function yet
+    console.error(step.changeType + ' does not have a change function!')
     return step.changeType
   }
 

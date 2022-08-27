@@ -1,12 +1,13 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, sp, combinaisonListes, numAlpha } from '../../modules/outils.js'
-import { tableauDeVariation, mathalea2d } from '../../modules/2d.js'
+import { tableauDeVariation } from '../../modules/2d.js'
 export const titre = 'Déterminer un extremum ou encadrer par lecture d\'un tableau de variations'
 export const dateDePublication = '20/12/2021'
 /**
 * @author Gilles Mora
 */
-export const uuid = '2b136'
+export const uuid = 'acee0'
 export const ref = '2F32-3'
 export default function LireUnTableauDevariations () {
   Exercice.call(this)
@@ -17,7 +18,7 @@ export default function LireUnTableauDevariations () {
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typeDeQuestionsDisponibles

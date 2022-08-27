@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
-import { grille, seyes, mathalea2d } from '../../modules/2d.js'
+import { grille, seyes } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Représenter une fraction de l\'unité'
 
@@ -11,7 +12,7 @@ export const titre = 'Représenter une fraction de l\'unité'
  * 6N32
  */
 
-export const uuid = 'edb01'
+export const uuid = 'c28e5'
 export const ref = '6N32'
 export default function FractionsDunite () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -24,7 +25,7 @@ export default function FractionsDunite () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

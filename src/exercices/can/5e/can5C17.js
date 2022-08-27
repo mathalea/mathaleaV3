@@ -10,14 +10,14 @@ export const amcType = 'AMCNum'
 /*!
  * @author Gilles Mora
  */
-export const uuid = 'e2fbd'
+export const uuid = 'b1881'
 export const ref = 'can5C17'
 export default function EntierPlusFractionVersDecimal () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, c, maFraction, maFraction2
     let resultat
     this.formatChampTexte = 'largeur15 inline'

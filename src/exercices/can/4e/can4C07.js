@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can4C07
  */
-export const uuid = 'a1b24'
+export const uuid = 'da898'
 export const ref = 'can4C07'
 export default function DifferenceFractionsCompatibles () {
   Exercice.call(this)
@@ -21,7 +21,7 @@ export default function DifferenceFractionsCompatibles () {
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'fractionEgale'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 3])
     const b = fraction(1, a.d * c)

@@ -8,7 +8,7 @@ export const titre = 'Equations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$'
  *
  * @author Sébastien LOZANO
  */
-export const uuid = '01e8d'
+export const uuid = '7959f'
 export const ref = '2N51-3'
 export default function EqResolvantesThales2nde () {
   EqResolvantesThales.call(this)

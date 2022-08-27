@@ -15,7 +15,7 @@ export const amcType = 'qcmMono'
  * @author Jean-Claude Lhote
  * référence 6P10
  */
-export const uuid = '485e2'
+export const uuid = '850d5'
 export const ref = '6P10'
 export default function ProportionnalitePasProportionnalite () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -28,7 +28,7 @@ export default function ProportionnalitePasProportionnalite () {
   this.nbColsCorrModifiable = false
   this.sup = 6
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -191,7 +191,7 @@ export default function ProportionnalitePasProportionnalite () {
             y = randint(2, 5)
             somme = pu.mul(y)
             p = y * randint(2, 5)
-            z = pu.sub(0.1).pul(p).toDP(2)
+            z = pu.sub(0.1).mul(p).toDP(2)
             texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}. `
             texte += `Elle a obtenu ${y} ${objet} pour $${texPrix(somme)}${sp()}$€. ${prenoms[1]} achète quant à lui, au même endroit ${p}${sp()}${objet} pour $${texPrix(z)}$€.<br>`
             texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`
@@ -219,10 +219,10 @@ export default function ProportionnalitePasProportionnalite () {
           texteCorr = `${prenoms[0]} parcourt ${x} m en ${n} minutes soit environ $\\dfrac{${x}\\text{ m}}{${n}\\text{ min}} ${index1.eq(index1.toDP(1)) ? '=' : '\\approx'} ${texNombre(index1.toDP(1), 1)}\\text{ m}/_{\\text{ min}}$`
           texteCorr += ` et ${prenoms[1]} parcourt ${y} m en ${p} minutes soit environ $\\dfrac{${y}\\text{ m}}{${p}\\text{ min}} ${index2.eq(index2.toDP(1)) ? '=' : '\\approx'} ${texNombre(index2.toDP(1))}\\text{ m}/_{\\text{ min}}$.<br>`
           if (index1.eq(index2)) {
-            texteCorr += "Pour ces deux élèves, le temps mis et la distance parcourue sont proportionnelles (si l'on compare leur vitesse moyenne)."
+            texteCorr += 'Pour ces deux élèves, le temps mis et la distance parcourue sont proportionnelles (si l\'on compare leur vitesse moyenne).'
             bonneReponse = 'oui'
           } else {
-            texteCorr += "La distance parcourue en une minute (vitesse moyenne) n'est pas la même dans ces deux situations, il n'y a donc pas proportionnalité.<br>"
+            texteCorr += 'La distance parcourue en une minute (vitesse moyenne) n\'est pas la même dans ces deux situations, il n\'y a donc pas proportionnalité.<br>'
             bonneReponse = 'non'
           }
           break
@@ -248,10 +248,10 @@ export default function ProportionnalitePasProportionnalite () {
           texte += `Le nombre de malades ${verbes[index2]} tous les ${index2 + 2
             } jours.<br>`
           texte += `Le nombre de malades est-il proportionnel au nombre de${getVueFromUrl() === 'multi' ? '<br>' : ' '}`
-          texte += "jours passés depuis le début de l'épidémie ?<br>"
+          texte += 'jours passés depuis le début de l\'épidémie ?<br>'
           texteCorr = `Admettons qu'il y ait 10 malades le 1er jour. Le ${1 + 2 + index2}e jour il y aura $10 \\times ${index2 + 2} = ${10 * (index2 + 2)}$ malades.<br>`
           texteCorr += `Entre le 1er jour et le ${3 + index2}e jour, le nombre de malades est multiplié par ${index2 + 2} mais le nombre de jours est multiplié par ${3 + index2}.<br>`
-          texteCorr += "Donc le nombre de malades n'est pas proportionnel au nombre de jours passés.<br>"
+          texteCorr += 'Donc le nombre de malades n\'est pas proportionnel au nombre de jours passés.<br>'
           bonneReponse = 'non'
           break
         case 5: // Achat (tableau de proportionnalité)

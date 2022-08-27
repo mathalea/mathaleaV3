@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can5C12
  */
-export const uuid = '45d36'
+export const uuid = 'e4b95'
 export const ref = 'can5C12'
 export default function FractionDEntierQuiVaBien () {
   Exercice.call(this)
@@ -20,7 +20,7 @@ export default function FractionDEntierQuiVaBien () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur25 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 3, 4, 5, 6])
     const b = a.d * c

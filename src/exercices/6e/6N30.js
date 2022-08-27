@@ -1,7 +1,8 @@
 import { combinaisonListes, listeQuestionsToContenu, randint, calcul, htmlConsigne, lettreDepuisChiffre, stringNombre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+import { droiteGraduee } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Lire l\'abscisse décimale d\'un point'
@@ -15,7 +16,7 @@ export const amcType = 'AMCOpen'
  * @author Jean-Claude Lhote et Rémi Angot
  * référence 6N30
  */
-export const uuid = 'd66f1'
+export const uuid = 'c1888'
 export const ref = '6N30'
 export default function LireAbscisseDecimale () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -29,7 +30,7 @@ export default function LireAbscisseDecimale () {
   this.sup = 1
   this.listePackages = 'tkz-euclide'
   this.interactif = false
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.autoCorrection = []
     // numeroExercice est 0 pour l'exercice 1
     let typesDeQuestions
@@ -81,7 +82,7 @@ export default function LireAbscisseDecimale () {
       xA = calcul(x1 + x11 / pas2)
       xB = calcul(x2 + x22 / pas2)
       xC = calcul(x3 + x33 / pas2)
-      d[2 * i] = droiteGraduee2({
+      d[2 * i] = droiteGraduee({
         Unite: 4,
         Min: 0,
         Max: 7.1,
@@ -94,7 +95,7 @@ export default function LireAbscisseDecimale () {
         labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(calcul(abs0 + 1 / pas1))}`]],
         pointListe: [[xA, l1], [xB, l2], [xC, l3]]
       })
-      d[2 * i + 1] = droiteGraduee2({
+      d[2 * i + 1] = droiteGraduee({
         Unite: 4,
         Min: 0,
         Max: 7.1,

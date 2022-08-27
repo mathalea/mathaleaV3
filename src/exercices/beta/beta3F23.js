@@ -36,7 +36,7 @@ export default function antecedentParCalcul () {
   //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     const typesDeQuestionsDisponibles = [1, 2, 3, 4] // tableau à compléter par valeurs possibles des types de questions

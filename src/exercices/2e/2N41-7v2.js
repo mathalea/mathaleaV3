@@ -8,7 +8,7 @@ export const titre = 'Factoriser avec les identités remarquables'
 * @author Jean-Claude Lhote
 * 2N41-7, ex 2L11
 */
-export const uuid = 'ac8af'
+export const uuid = '0bd00'
 export const ref = '2N41-7v2'
 export default function FactoriserIdentitesRemarquables2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -21,7 +21,7 @@ export default function FactoriserIdentitesRemarquables2 () {
   this.nbQuestions = 5
   this.sup = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

@@ -4,7 +4,8 @@ import FractionX from '../../modules/FractionEtendue.js'
 import { evaluate, Fraction } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import { ComputeEngine } from '@cortex-js/compute-engine'
+import * as pkg from '@cortex-js/compute-engine'
+const { ComputeEngine } = pkg
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,7 +25,7 @@ export default function testFractions () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.besoinFormulaireTexte = ['numérateur ', '']
   this.besoinFormulaire2Texte = ['dénominateur ', '']
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const engine = new ComputeEngine({ numericMode: 'decimal', numericPrecision: 30 })
     const rac3 = engine.parse('\\frac{\\sqrt{3}}{2}')
     const sinPiSur3 = engine.parse('\\sin(\\frac{\\pi}{3})')

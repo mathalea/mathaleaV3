@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, contraindreValeur, randint, choice, shuffle } from '../../modules/outils.js'
-import { labelPoint, longueur, mathalea2d, papierPointe, point, rotation, tracePoint } from '../../modules/2d.js'
+import { labelPoint, longueur, papierPointe, point, rotation, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 export const titre = 'Compléter un nuage de points symétriques'
@@ -16,7 +17,7 @@ export const amcType = 'AMCOpenNum'
  * @author Jean-Claude Lhote
  * Publié le 18/12/2021
  */
-export const uuid = '90ee6'
+export const uuid = '2a611'
 export const ref = '5G11-6'
 export default function CompleterParSymetrie5e () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -25,7 +26,7 @@ export default function CompleterParSymetrie5e () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup2 = 1
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     if (this.interactif) this.consigne = 'Placer les points en cliquant, puis vérifier la réponse.'
     this.sup2 = contraindreValeur(1, 4, this.sup2, 1)
     this.listeQuestions = [] // Liste de questions
@@ -62,10 +63,9 @@ export default function CompleterParSymetrie5e () {
       } else {
         O = point(4.33, 4.5, 'O')
       }
-      d = tracePoint(O)
+      d = tracePoint(O, context.isHtml ? 'blue' : 'black')
       d.epaisseur = 2
       d.style = '+'
-      d.color = context.isHtml ? 'blue' : 'black'
       objetsEnonce.push(d)
       pointsPossibles = papier.listeCoords.slice()
       // on prépare les points cliquables pour la version interactive

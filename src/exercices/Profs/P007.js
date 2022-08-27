@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, nombreAvecEspace } from '../../modules/outils.js'
-import { pavage, texteParPosition, mathalea2d } from '../../modules/2d.js'
+import { pavage, texteParPosition } from '../../modules/2d.js'
 
 export const titre = 'Fabriquer des pavages pour travailler les transformations'
 
@@ -26,7 +27,7 @@ export default function PavagesMathalea2d () {
   this.correctionDetaillee = false
   this.correctionDetailleeDisponible = true
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const objets = []
     let Nx, Ny // nombres de dalles en x et en y
     if (!this.sup2) { // On fixe le nombre de dalles en x et en y

@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C06
  */
-export const uuid = 'ece40'
+export const uuid = '8be78'
 export const ref = 'can6C06'
 export default function DivisionPar9 () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function DivisionPar9 () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const b = randint(2, 9)
     let a
     switch (choice([1, 2, 3])) {

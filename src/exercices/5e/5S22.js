@@ -6,7 +6,7 @@ export const dateDePublication = '03/04/2022'
  * @author Guillaume Valmont
  * reference 5S22
  */
-export const uuid = '3be69'
+export const uuid = 'df72b'
 export const ref = '5S22'
 export default function FonctionsVocabulaireProbabilite5e () {
   FonctionsProbabilite1.call(this)

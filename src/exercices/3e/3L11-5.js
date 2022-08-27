@@ -16,7 +16,7 @@ export const interactifType = 'mathLive'
  * * décliné en can2C05 => 10/10/2021
  * @author Sébastien Lozano
  */
-export const uuid = 'f8728'
+export const uuid = 'edbd5'
 export const ref = '3L11-5'
 export default function identitesCalculs () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -48,7 +48,7 @@ export default function identitesCalculs () {
 
   let typesDeQuestionsDisponibles
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     // une fonction pour gérer un \hfill dans la sortie LaTeX
     function myhfill () {
       if (context.isHtml) {
@@ -139,9 +139,9 @@ export default function identitesCalculs () {
       const situations = [
         {
           lettre: lettres,
-          a,
+          a: a,
           b: bSomme,
-          coeff,
+          coeff: coeff,
           a_coeff: a * coeff,
           operations: [{ str: '+', nb: 1 }, { str: '+', nb: 1 }],
           facteurs: [{ str: `${texNombre(a * coeff)}+${bSomme}`, nb: texNombre(a * coeff + bSomme) }, { str: `${texNombre(a * coeff)}+${bSomme}`, nb: texNombre(a * coeff + bSomme) }],
@@ -157,9 +157,9 @@ export default function identitesCalculs () {
         },
         {
           lettre: lettres,
-          a,
+          a: a,
           b: bDifference,
-          coeff,
+          coeff: coeff,
           a_coeff: a * coeff,
           operations: [{ str: '-', nb: -1 }, { str: '-', nb: -1 }],
           facteurs: [{ str: `${texNombre(a * coeff)}-${bDifference}`, nb: texNombre(a * coeff - bDifference) }, { str: `${texNombre(a * coeff)}-${bDifference}`, nb: texNombre(a * coeff - bDifference) }],
@@ -175,7 +175,7 @@ export default function identitesCalculs () {
         },
         {
           lettre: lettres,
-          a,
+          a: a,
           b: bSomDif,
           coeff: coeffSomDif,
           a_coeff: a * coeffSomDif,

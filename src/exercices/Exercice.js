@@ -11,7 +11,7 @@ export default function Exercice () {
   this.titre = '' // Chaîne de caractère sans point à la fin. C'est le titre de l'exercice qui sera affiché avec la référence dans le générateur d'exercices.
   this.boutonAide = false // Bouton en haut à droite des questions permettant d'afficher un pdf, texte, image, vidéo, contenu d'un autre site en "pop-up" via les fonctions modalXXXXXXX de outils.js.
   // Ci-dessous des exemples d'utilisation du this.boutonAide.
-  // Noter que pour récupérer le numeroExercice dont il est question, au lieu d'écrire "this.nouvelleVersion = () => {" comme d'habitude, on écrit "this.nouvelleVersion = (numeroExercice) => {".
+  // Noter que pour récupérer le numeroExercice dont il est question, au lieu d'écrire "this.nouvelleVersion = function () {" comme d'habitude, on écrit "this.nouvelleVersion = function (numeroExercice) {".
   // this.boutonAide = modalImage(numeroExercice, urlImage, titre, labelBouton = 'Illustration', icone = 'image')
   // this.boutonAide = modalPdf(numeroExercice, urlPdf, titre='Aide', labelBouton = 'Aide - PDF', icone = 'file pdf')
   // this.boutonAide = modalTexteCourt(numeroExercice, texte, labelBouton = 'Aide', icone = 'info circle')
@@ -103,17 +103,14 @@ export default function Exercice () {
   // this.typeExercice = 'simple' // Pour les exercices plus simples destinés aux courses aux nombres
 
   this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
-  /**
- * modifie les valeurs de l'instance de l'exercice.
- * @param {number} numeroExercice
- */
+
   /**
      * Compare chaque nouvelle version d'un exercice aux précédentes pour s'assurer de ne pas avoir deux exercices identiques
-     * @param {number} i indice de la question
-     * @param  {...any[]} args toutes les variables pertinentes qui "résumeraient" la question
+     * @param {int} i indice de la question
+     * @param  {...any} args toutes les variables pertinentes qui "résumeraient" la question
      * @returns {boolean} true si la question n'a jamais été posée
      */
-  this.questionJamaisPosee = (i, ...args) => {
+  this.questionJamaisPosee = function (i, ...args) {
     if (i === 0) this.listeArguments = []
     let argsConcatenes = ''
     for (const arg of args) {

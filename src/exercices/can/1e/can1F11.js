@@ -10,7 +10,7 @@ export const dateDePublication = '21/06/2022'
  * @author Gilles Mora
 
 */
-export const uuid = '382ce'
+export const uuid = 'ffbf6'
 export const ref = 'can1F11'
 export default function DeriveePoly3 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -18,7 +18,7 @@ export default function DeriveePoly3 () {
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, c, d
     switch (choice([1, 2, 3, 4, 5, 6])) { //
       case 1:// troisième degre ax^3+bx^2+cx+d

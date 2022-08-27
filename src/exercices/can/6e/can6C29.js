@@ -12,7 +12,7 @@ export const amcReady = true
  * @author Gilles Mora
  * Référence can6C29
 */
-export const uuid = 'e0ab8'
+export const uuid = 'c9168'
 export const ref = 'can6C29'
 export default function Partage () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -26,7 +26,7 @@ export default function Partage () {
     ['Trois', 'trois', 3], ['Quatre', 'quatre', 4], ['Cinq', 'cinq', 5],
     ['Six', 'six', 6], ['Sept', 'sept', 7], ['Huit', 'huit', 8], ['Neuf', 'neuf', 9]]
   let nombre, a, b, prix, n
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     nombre = choice(nbrePers)
     a = nombre[0]
     b = nombre[1]

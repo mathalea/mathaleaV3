@@ -1,8 +1,9 @@
-import { texteEnCouleurEtGras, listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, modalYoutube, lampeMessage, enumerateSansPuceSansNumero, texteGras } from '../../modules/outils.js'
+import { texteEnCouleurEtGras, listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, modalYoutube, lampeMessage, texteGras } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 
-import { mathalea2d, repere, traceGraphiqueCartesien, point, segment, texteParPosition } from '../../modules/2d.js'
+import { repere, traceGraphiqueCartesien, point, segment, texteParPosition } from '../../modules/2d.js'
 
 export const titre = 'Conjecture de Syracuse'
 
@@ -67,10 +68,10 @@ function Syracuse ({ N }) {
 };
 
 function syracuse ({ N = '1' }) {
-  return new Syracuse({ N })
+  return new Syracuse({ N: N })
 };
 
-export const uuid = '4d50c'
+export const uuid = '9ff49'
 export const ref = '3I1-1'
 export default function ConjectureDeSyracuse () {
   'use strict'
@@ -92,7 +93,7 @@ export default function ConjectureDeSyracuse () {
   //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.boutonAide = modalYoutube(
       numeroExercice,
       'https://youtu.be/aRe4ARtQiJY',
@@ -126,22 +127,18 @@ export default function ConjectureDeSyracuse () {
       } else {
         stringIntro += '\\par\\vspace{0.5cm}'
       };
-      stringIntro += `${texteGras('Algorithme de Syracuse :')}`
-      if (context.isHtml) {
-        stringIntro += '<br>'
-      };
-      stringIntro += `        
-        ${enumerateSansPuceSansNumero([
-          'On choisit un nombre entier strictement positif.',
-          '$\\leadsto$ Si l\'entier choisi est pair on le divise par 2.',
-          '$\\leadsto$ Si l\'entier choisi est impair on le multiplie par 3 et on ajoute 1.',
-          'On recommence avec le nouvel entier trouvé tant qu\'il ne vaut pas 1.'
-        ])}<br>                    
+      stringIntro += `${texteGras('Algorithme de Syracuse :')}<br>`
+      stringIntro += `                
+          On choisit un nombre entier strictement positif<br>
+          $\\leadsto$ Si l'entier choisi est pair on le divise par 2.<br>
+          $\\leadsto$ Si l'entier choisi est impair on le multiplie par 3 et on ajoute 1.<br>
+          On recommence avec le nouvel entier trouvé tant qu'il ne vaut pas 1.<br>
         `
-      stringIntro += `${texteGras('Conjecture de Syracuse :')}<br>`
+
+      stringIntro += `<br>${texteGras('Conjecture de Syracuse :')}<br>`
       stringIntro += `Encore appelée conjecture de ${texteGras('Collatz')}, conjecture ${texteGras('d\'Ulam')},
         conjecture ${texteGras('tchèque')} ou ${texteGras('problème 3x + 1')}, est l'hypothèse mathématique selon laquelle
-        la suite de Syracuse de n'importe quel entier strictement positif atteint 1.<br>
+        la suite de Syracuse de n'importe quel entier strictement positif atteint 1.<br><br>
         En dépit de la simplicité de son énoncé, cette conjecture défie depuis de nombreuses années les mathématiciens.
         `
 

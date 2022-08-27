@@ -1,6 +1,7 @@
-import { mathalea2d, pave, point } from '../../../modules/2d.js'
+import { pave } from '../../../modules/2d.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Volume de pavé droit'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -13,7 +14,7 @@ export const dateDePublication = '04/07/2022'
  *
  * Référence can6M10
  */
-export const uuid = 'c83ea'
+export const uuid = 'f8019'
 export const ref = 'can6M10'
 export default function VolumePaveSimple () {
   Exercice.call(this)
@@ -21,7 +22,7 @@ export default function VolumePaveSimple () {
   this.nbQuestions = 1
   this.sup = 1
   this.tailleDiaporama = 2
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const l = randint(2, 5)
     const L = randint(2, 4)
     const h = randint(2, 6, [l, L])

@@ -6,7 +6,7 @@ export const titre = 'Déterminer une équation cartésienne à partir d\'un poi
  * @author Stéphane Guyon
  * Référence 2G30-5
 */
-export const uuid = '4f760'
+export const uuid = 'd1da3'
 export const ref = '2G30-5'
 export default function Determinerequationcartesienneavecpente () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -18,7 +18,7 @@ export default function Determinerequationcartesienneavecpente () {
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     for (let i = 0, xA, yA, m, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

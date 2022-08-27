@@ -16,7 +16,7 @@ export const dateDePublication = '21/11/2021' // La date de publication initiale
  * @author Guillaume Valmont
  * Référence 4C33-0
 */
-export const uuid = 'c9b66'
+export const uuid = '1d078'
 export const ref = '4C33-0'
 export default function NotationPuissance () {
   Exercice.call(this)
@@ -27,7 +27,7 @@ export default function NotationPuissance () {
   this.besoinFormulaire2Numerique = ['Exposant', 3, '1 : Positif\n2 : Négatif\n3 : Mélange']
   this.sup2 = 1
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

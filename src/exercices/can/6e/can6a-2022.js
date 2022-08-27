@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, grille, droiteGraduee2, segment, milieu, labelPoint, texteParPosition, codageAngleDroit
+  point, grille, droiteGraduee, segment, milieu, labelPoint, texteParPosition, codageAngleDroit
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 
@@ -25,7 +26,7 @@ export const dateDePublication = '13/04/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
-export const uuid = 'd9655'
+export const uuid = 'b9634'
 export const ref = 'can6a-2022'
 export default function SujetCAN2022Sixieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -36,7 +37,7 @@ export default function SujetCAN2022Sixieme () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
@@ -123,7 +124,7 @@ export default function SujetCAN2022Sixieme () {
         case 6:
           a = randint(84, 100) // choix de la table = écart entre deux graduations
 
-          d = droiteGraduee2({
+          d = droiteGraduee({
             Unite: 0.5,
             Min: 81,
             Max: 105,
@@ -381,14 +382,14 @@ $${a + 1}$ h et $${reponse}$ min.`
           ymax = 4
           objets = []
           objets.push(
-            texteParPosition(`$${texNombre(a / 2)} \\text{ cm}$`, milieu(A, B).x, milieu(A, B).y - 0.4, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${texNombre(a / 2)} \\text{ cm}$`, milieu(D, C).x, milieu(D, C).y + 0.4, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`$${texNombre(a / 2, 1)} \\text{ cm}$`, milieu(A, B).x, milieu(A, B).y - 0.8, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`$${texNombre(a / 2, 1)} \\text{ cm}$`, milieu(D, C).x, milieu(D, C).y + 0.2, 'milieu', 'black', 1, 'middle', true),
             texteParPosition('$\\text{?}$', milieu(B, C).x + 0.3, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
             segment(A, B), segment(B, C), segment(C, D), segment(D, A), code1, code2, code3, code4)
           reponse = b / 2
           texte = `Le périmètre de cette figure est $${a + b}$ cm. <br>
             `
-          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
+          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
           texteCorr = `Puisque le périmètre du rectangle est $${a + b}$ cm, alors $\\text{?}=(${a + b}-2\\times ${texNombre(a / 2)})\\div 2=${texNombre(b / 2)}$ cm.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -499,7 +500,7 @@ $${a + 1}$ h et $${reponse}$ min.`
             reponse = fraction(b, 4)
             texte = `Quelle est la longueur du segment $[AB]$ ? <br>
             `
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
             texteCorr = `Une unité correspond à $4$ carreaux, le segment $[AB]$ mesure $${b}$ carreaux, soit $\\dfrac{${b}}{4}=${texNombre(b / 4)}$ unité. `
           } else {
             a = grille(-2, -2, 10, 4, 'gray', 1, 1)
@@ -525,7 +526,7 @@ $${a + 1}$ h et $${reponse}$ min.`
             reponse = fraction(b, 5)
             texte = `Quelle est la longueur du segment $[AB]$ ? <br>
             `
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texteCorr = `Une unité correspond à $5$ carreaux, le segment $[AB]$ mesure $${b}$ carreaux, soit $\\dfrac{${b}}{5}=${texNombre(b / 5)}$ unité. `
           }
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
@@ -612,7 +613,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           if (choice([true, false])) {
             a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
             reponse = arrondi(a / 5, 1)
-            texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
+            texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
               Unite: 3,
               Min: 0,
               Max: 3.2,
@@ -633,7 +634,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           } else {
             a = choice([1, 3, 5, 7, 9]) // numérateur
             reponse = arrondi(a / 4, 2)
-            texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
+            texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
               Unite: 3,
               Min: 0,
               Max: 3.2,

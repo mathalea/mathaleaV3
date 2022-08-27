@@ -9,7 +9,7 @@ export const titre = 'Tester si un nombre est solution d\'une équation'
  * * adaptation de l'exo 5L14 de Rémi Angot
  * @author Sébastien Lozano
  */
-export const uuid = 'a005c'
+export const uuid = 'a1c9a'
 export const ref = '4L14-0'
 export default function TesterSiUnNombreEstSolutionDUneEquation () {
   'use strict'
@@ -28,7 +28,7 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
     this.nbQuestions = 9
   }
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.sup = Number(this.sup)

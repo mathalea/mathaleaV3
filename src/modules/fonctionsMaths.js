@@ -394,7 +394,7 @@ class SplineCatmullRom {
 }
 
 export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 }) {
-  return new SplineCatmullRom({ tabY, x0, step })
+  return new SplineCatmullRom({ tabY: tabY, x0: x0, step: step })
 }
 
 /**

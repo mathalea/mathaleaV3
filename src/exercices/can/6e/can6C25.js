@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
  * Référence can6C25
  * Date de publication 18/10/2021
 */
-export const uuid = 'da500'
+export const uuid = '81a00'
 export const ref = 'can6C25'
 export default function RecherchePrix () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -20,7 +20,7 @@ export default function RecherchePrix () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.optionsChampTexte = { texteApres: ' €' }
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const listeviennoiserie = [
       ['pains au chocolat', ' un pain au chocolat'],
       ['chocolatines', 'une chocolatine'], ['pains aux raisins', 'un pain aux raisins'], ['cookies', 'un cookie'], ['brioches', 'une brioche']]

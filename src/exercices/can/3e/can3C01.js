@@ -14,14 +14,14 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can3C01
  */
-export const uuid = 'a10d3'
+export const uuid = '8d08f'
 export const ref = 'can3C01'
 export default function CalculPuissanceSimple () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

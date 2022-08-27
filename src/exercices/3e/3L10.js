@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  * 3L10
  */
-export const uuid = 'e8868'
+export const uuid = '603a8'
 export const ref = '3L10'
 export default function OpposeExpression () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -25,7 +25,7 @@ export default function OpposeExpression () {
   this.spacing = context.isHtml ? 3 : 2
   this.nbQuestions = 6
   this.tailleDiaporama = 3
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = ['-(ax+b)', '-(ax2+bx+c)']

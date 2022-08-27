@@ -28,7 +28,7 @@ export default function PuzzlesGeometriques () {
   this.typeExercice = 'IEP'
   this.listePackages = ['bclogo', 'yhmath']
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const type = parseInt(this.sup)
     const anim = new Alea2iep()
     // anim.taille(1200, 1200)

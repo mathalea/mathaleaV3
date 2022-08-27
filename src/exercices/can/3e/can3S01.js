@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can3S01
 */
-export const uuid = '88982'
+export const uuid = '47142'
 export const ref = 'can3S01'
 export default function CalculProbaSimple () {
   Exercice.call(this)
@@ -21,7 +21,7 @@ export default function CalculProbaSimple () {
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'fractionEgale'
   const parfums = ['au citron', 'à la fraise', 'à la menthe', "à l'orange", 'à la cerise', 'à la framboise', 'au cassis']
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(3, 10)
     const k = choice([1, 3, 4, 9])
     const parfum1 = choice(parfums)

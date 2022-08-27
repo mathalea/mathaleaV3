@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6P03
  */
-export const uuid = '1bb32'
+export const uuid = 'b0f1a'
 export const ref = 'can6P03'
 export default function QuestionDeVitesse () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function QuestionDeVitesse () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.optionsChampTexte = { texteApres: ' km' }
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(2, 6) * 20
     const b = randint(1, 6)
     this.reponse = calcul(a * (b + 0.5))

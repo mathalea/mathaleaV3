@@ -516,7 +516,7 @@ function questionDistance (exo, i) { // questions de distance parcourue à une v
               texte: texteCorr,
               statut: '',
               reponse: {
-                texte,
+                texte: texte,
                 valeur: [calcul(distance * dureeR / dureeQ)],
                 param: {
                   digits: nombreDeChiffresDe(calcul(distance * dureeR / dureeQ, 3)),
@@ -757,7 +757,7 @@ texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} doit en acheter ${quantiteF}${s
     const alea1 = randint(0, liste.length - 1)
     const alea2 = randint(0, liste[alea1].qtt_matiere_unitaire.length - 1)
     const alea3 = randint(0, liste[alea1].qtt_surface.length - 1)
-    const rapport = [0.25, 0.5, 0.75, 1.25, 1.5, 2, 3, 4, 5] // choix parmi des rapports simples (en 6eme cela parait suffisant)
+    const rapport = [0.25, 0.5, 0.75, 1.25, 1.5, 2, 3, 4, 5] // choix parmi des rapports simples (en 6eme cela paraît suffisant)
     const quantite = liste[alea1].qtt_matiere_unitaire[alea2]
     const alea4 = randint(0, rapport.length - 1)
     const surfaceFinale = calcul(rapport[alea4] * liste[alea1].qtt_surface[alea3], 3)
@@ -829,7 +829,7 @@ fois ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${s
 
 // _______ Fin des fonctions correspondants aux situations problèmes _____
 
-export const uuid = '2e3c4'
+export const uuid = 'f7a14'
 export const ref = '6P11'
 export default function ProportionnaliteParLinearite () {
   'use strict'
@@ -844,7 +844,7 @@ export default function ProportionnaliteParLinearite () {
   this.sup = false
   this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Echelle\n6 : Surface\n7 : Mélange']
   this.sup2 = 7
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions === 1 ? 'Répondre à la question posée en justifiant.' : 'Répondre aux questions posées en justifiant.'
     let indiceQuestion = 0
     this.listeQuestions = [] // Liste de questions

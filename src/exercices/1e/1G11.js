@@ -15,7 +15,7 @@ export const dateDeModifImportante = '' // Une date de modification importante a
  * @author Stéphane Guyon
  * Référence
 */
-export const uuid = '27c8f'
+export const uuid = 'a720c'
 export const ref = '1G11'
 export default function MesurePrincipale () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -24,7 +24,7 @@ export default function MesurePrincipale () {
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.video = '' // Id YouTube ou url
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

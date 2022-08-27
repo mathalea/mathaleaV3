@@ -1,6 +1,7 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, creerNomDePolygone, texteEnCouleur, texNombrec } from '../../../modules/outils.js'
-import { afficheLongueurSegment, codageAngle, mathalea2d, point, pointAdistance, polygoneAvecNom } from '../../../modules/2d.js'
+import { afficheLongueurSegment, codageAngle, point, pointAdistance, polygoneAvecNom } from '../../../modules/2d.js'
 export const titre = 'Déterminer une longueur avec des triangles semblables'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,7 +13,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can4G01
 */
-export const uuid = 'dc88f'
+export const uuid = 'f0b9b'
 export const ref = 'can4G01'
 export default function LongueurPythagore () {
   Exercice.call(this)
@@ -20,7 +21,7 @@ export default function LongueurPythagore () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.optionsChampTexte = { texteApres: ' cm' }
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const triplet = choice([
 
       [6, 8, 10],

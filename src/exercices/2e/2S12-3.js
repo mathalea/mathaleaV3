@@ -3,7 +3,7 @@ import Decimal from 'decimal.js/decimal.mjs'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, texteEnCouleur, texNombre, egalOuApprox } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-export const titre = "Déterminer un taux d'évolution réciproque"
+export const titre = 'Déterminer un taux d\'évolution réciproque'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '16/01/2022'
@@ -17,7 +17,7 @@ export const dateDePublication = '16/01/2022'
 * @author Florence Tapiero
 * 2S12-3
 */
-export const uuid = '2841d'
+export const uuid = '509db'
 export const ref = '2S12-3'
 export default function EvolutionsSuccesives () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -32,7 +32,7 @@ export default function EvolutionsSuccesives () {
   this.spacing = 1
   this.spacingCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -66,9 +66,9 @@ export default function EvolutionsSuccesives () {
             nomr = 'baisse'
           }
           texte = `Le prix d'un article subit une ${nom} de $${t}~\\%$.<br>Quelle évolution devra-t-il subir pour revenir à son prix initial ?`
-          texte += "<br>On donnera le taux d'évolution en pourcentage, éventuellement arrondi à 0,01% près."
+          texte += '<br>On donnera le taux d\'évolution en pourcentage, éventuellement arrondi à 0,01% près.'
           texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texteApres: '%' })
-          texteCorr = "Pour déterminer le taux d'évolution réciproque, on commence par calculer le coefficient multiplicateur associé :"
+          texteCorr = 'Pour déterminer le taux d\'évolution réciproque, on commence par calculer le coefficient multiplicateur associé :'
           if (taux > 0) {
             texteCorr += `<br>Augmenter de $${t}~\\%$ revient à multiplier par $ 1 + \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
           }
@@ -94,7 +94,7 @@ export default function EvolutionsSuccesives () {
         case 2 :
           taux = randint(-50, 50, 0)
           if (taux > 0) {
-            nom = "d'augmenter"
+            nom = 'd\'augmenter'
           }
           if (taux < 0) {
             nom = 'de diminuer'
@@ -116,9 +116,9 @@ export default function EvolutionsSuccesives () {
           }
           metier = choice(['Un artisan', 'Un ouvrier', 'Un coiffeur', 'Une informaticienne', 'Une cordonnière', 'Une luthière'])
           texte = `${metier} a décidé ${nom} son tarif horaire de $${t}~\\%$.<br>Quelle évolution devra-t-il subir pour revenir à son niveau de départ ?`
-          texte += "<br>On donnera le taux d'évolution en pourcentage, éventuellement arrondi à 0,01% près."
+          texte += '<br>On donnera le taux d\'évolution en pourcentage, éventuellement arrondi à 0,01% près.'
           texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texteApres: '%' })
-          texteCorr = "Pour déterminer le taux d'évolution réciproque, on commence par calculer le coefficient multiplicateur associé :"
+          texteCorr = 'Pour déterminer le taux d\'évolution réciproque, on commence par calculer le coefficient multiplicateur associé :'
           if (taux > 0) {
             texteCorr += `<br>Augmenter de $${t}~\\%$ revient à multiplier par $ 1 + \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
           }
@@ -163,11 +163,11 @@ export default function EvolutionsSuccesives () {
           if (tauxr < 0) {
             nomr = 'baisse'
           }
-          metier = choice(["d'employés", 'de commmerciaux', 'de stagiaires', 'de jeunes diplomés'])
+          metier = choice(['d\'employés', 'de commmerciaux', 'de stagiaires', 'de jeunes diplomés'])
           texte = `Le nombre ${metier} d'une entreprise a ${nom} de $${t}~\\%$.<br>Quelle évolution permettrait de retrouver le nombre de départ ?`
-          texte += "<br>On donnera le taux d'évolution en pourcentage, éventuellement arrondi à 0,1% près."
+          texte += '<br>On donnera le taux d\'évolution en pourcentage, éventuellement arrondi à 0,1% près.'
           texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texteApres: '%' })
-          texteCorr = "Pour déterminer le taux d'évolution réciproque, on commence par calculer le coefficient multiplicateur associé :"
+          texteCorr = 'Pour déterminer le taux d\'évolution réciproque, on commence par calculer le coefficient multiplicateur associé :'
           if (taux > 0) {
             texteCorr += `<br>Augmenter de $${t}~\\%$ revient à multiplier par $ 1 + \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
           }

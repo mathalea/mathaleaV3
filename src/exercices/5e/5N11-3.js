@@ -17,7 +17,7 @@ export const dateDeModifImportante = '17/03/2022'
  * Référence 5N11-3
  * 2021-02-06
 */
-export const uuid = '828c3'
+export const uuid = '0e58f'
 export const ref = '5N11-3'
 export default function FractionVersPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -30,7 +30,7 @@ export default function FractionVersPourcentage () {
   this.besoinFormulaireNumerique = ['Difficulté', 2, '1 : Partir d\'une fraction de dénominateur autre que 100\n2 : Partir d\'une fraction de dénominateur 100']
   this.sup = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

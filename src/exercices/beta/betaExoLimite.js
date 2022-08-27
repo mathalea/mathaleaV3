@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu, choice, shuffle } from '../../modules/outils.js'
-import { mathalea2d, courbe, repere } from '../../modules/2d.js'
+import { courbe, repere } from '../../modules/2d.js'
 export const titre = 'Lecture graphique de limites'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -18,7 +19,7 @@ export default function NomExercice () {
   this.sup = false // x>2 au lieu de x->2+
   this.sup2 = false // asymptotes
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

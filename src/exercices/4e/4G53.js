@@ -7,7 +7,7 @@ export { amcReady, amcType } from '../6e/6M30.js'
 /**
  * @author Jean-claude Lhote
  */
-export const uuid = '6cc27'
+export const uuid = 'b6cbe'
 export const ref = '4G53'
 export default function CalculDeVolumes4e () {
   CalculDeVolumes.call(this)

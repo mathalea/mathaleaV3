@@ -1,6 +1,7 @@
-import { mathalea2d, texteParPosition } from '../../../modules/2d.js'
+import { texteParPosition } from '../../../modules/2d.js'
 import Pyramide from '../../../modules/pyramide.js'
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Pyramide additive fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -12,7 +13,7 @@ export const dateDePublication = '09/05/2022'
  *
  *
  */
-export const uuid = '18844'
+export const uuid = '140ad'
 export const ref = 'can3C13'
 export default function Pyramide3EtagesAdditionFractions () {
   Exercice.call(this)
@@ -20,7 +21,7 @@ export default function Pyramide3EtagesAdditionFractions () {
   this.formatChampTexte = 'largeur15 inline'
   this.typeExercice = 'simple'
   this.tailleDiaporama = 2
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const pyr = new Pyramide({ operation: '+', nombreEtages: 3, rangeData: [[-3, 3], [5, 10]], exclusions: [0], fractionOn: true })
     pyr.isVisible = [[false], [false, false], [true, true, true]]
     this.question = `Chaque case contient la somme des deux cases sur lesquelles elle repose. Quel est le nombre qui correspond à * ?<br>

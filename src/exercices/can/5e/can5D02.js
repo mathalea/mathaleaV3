@@ -12,13 +12,13 @@ export const dateDePublication = '08/02/2022' // La date de publication initiale
 /*!
  * @author Gilles Mora
  */
-export const uuid = 'f1686'
+export const uuid = '47802'
 export const ref = 'can5D02'
 export default function HeuresDecimalesHeuresMinutes2 () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let a, b, d, texte, texteCorr

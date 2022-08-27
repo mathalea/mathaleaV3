@@ -1,13 +1,13 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codageSegment
+  point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codageSegment
 } from '../../../modules/2d.js'
 import { listeQuestionsToContenu, randint, texNombre, shuffle, printlatex, stringNombre, texFraction, miseEnEvidence, simplificationDeFractionAvecEtapes, choice, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { round, min } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { context } from '../../../modules/context.js'
 export const titre = 'CAN 3ième sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,7 +23,7 @@ export const dateDePublication = '30/03/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
-export const uuid = 'c62d8'
+export const uuid = 'afd9f'
 export const ref = 'can3a-2021'
 export default function SujetCAN20213ieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -34,7 +34,7 @@ export default function SujetCAN20213ieme () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const nbQ1 = min(round(this.nbQuestions * 8 / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
@@ -298,14 +298,14 @@ export default function SujetCAN20213ieme () {
           sCote2.styleExtremites = '<->'
           objets = []
           objets.push(
-            texteParPosition(`$${a} $`, milieu(B, E).x + 0.4, milieu(B, E).y - 0.3, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('$\\large \\text{?}$', milieu(A, E).x - 0.4, milieu(A, E).y + 0.7, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${b} $`, milieu(D, C).x + 0.5, milieu(D, C).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${d} $`, milieu(A, D).x - 1, milieu(A, D).y + 1.5, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${a} `, milieu(B, E).x + 0.4, milieu(B, E).y, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition('?', milieu(A, E).x - 0.4, milieu(A, E).y + 0.7, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${b} `, milieu(D, C).x + 0.5, milieu(D, C).y, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${d} `, milieu(A, D).x - 1, milieu(A, D).y + 1.5, 'milieu', 'black', 1, 'middle', true),
             demiDroite(A, C), demiDroite(A, D), labelPoint(A, B, C, D, E), segment(A, D), segment(A, C), segment(B, E), segment(D, C), sCote1, sCote2)
           reponse = c
           texte = '$(BE)//(DC)$.  Détermine la longueur $AE$.<br>'
-          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
           texteCorr = `Le triangle $ADC$ est un agrandissement du triangle $ABE$. Le coefficient d'agrandissement est donné par : $\\dfrac{${b}}{${a}}=${texNombre(b / a)}$.<br>
           On obtient donc la longueur $AE$ en divisant par $${k}$ la longueur $AD$.<br>
           $AE=\\dfrac{${d}}{${k}}=${c}$.<br>`
@@ -381,15 +381,15 @@ export default function SujetCAN20213ieme () {
           xmin = -3
           ymin = -5
           xmax = 3
-          ymax = 1
+          ymax = 1.5
           objets = []
           objets.push(
-            texteParPosition('$3 \\text{ cm} $', milieu(A, C).x, milieu(A, C).y + 0.25 * context.zoom, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${b} \\text{ cm} $`, milieu(A, D).x + 0.4 * context.zoom, milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition('3 cm ', milieu(A, C).x, milieu(A, C).y + 0.15, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${b} cm `, milieu(A, D).x + 0.5, milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
             segment(B, D), segment(D, C), s1, s2, c)
           reponse = 3 * b
           texte = 'Donne le volume exact de ce cône.<br>'
-          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
           texteCorr = `Le volume du cône est  : $\\dfrac{1}{3}\\times \\text{(Aire de la base)}\\times \\text{Hauteur}$.<br>
           Soit : $\\dfrac{1}{3}\\times \\pi \\times 3^2\\times ${b}=${reponse}\\pi$ cm$^3$.  `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -450,7 +450,7 @@ export default function SujetCAN20213ieme () {
             reponse = a[1]
             texte = 'Calcule la longueur $AB$. <br>'
 
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texte += '<br>$AB=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -466,7 +466,7 @@ export default function SujetCAN20213ieme () {
             reponse = a[0]
             texte = 'Calcule la longueur $AC$. <br>'
 
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texte += '<br>$AC=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -482,7 +482,7 @@ export default function SujetCAN20213ieme () {
             reponse = a[2]
             texte = 'Calcule la longueur $BC$. <br>'
 
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texte += '<br>$BC=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -577,7 +577,7 @@ export default function SujetCAN20213ieme () {
               s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, segment(D, E))
             reponse = printlatex(`4x+${2 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texteCorr = `La figure est composée de $4$ segments de longueur $x$, de $2$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
           Le périmètre de cette figure est donc : $4\\times x+2\\times ${a}+${b}=4x+${2 * a + b}$.   `
           }
@@ -615,7 +615,7 @@ export default function SujetCAN20213ieme () {
               s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, segment(D, E))
             reponse = printlatex(`2x+${4 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texteCorr = `La figure est composée de $2$ segments de longueur $x$, de $4$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
             Le périmètre de cette figure est donc : $2\\times x+4\\times ${a}+${b}=2x+${4 * a + b}$.   `
           }
@@ -651,7 +651,7 @@ export default function SujetCAN20213ieme () {
               s1, s2, s4, s5, s6, code1, code2, code4, code5, code6, segment(D, E))
             reponse = printlatex(`2x+${3 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texteCorr = `La figure est composée de $2$ segments de longueur $x$, de $3$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
               Le périmètre de cette figure est donc : $2\\times x+3\\times ${a}+${b}=2x+${3 * a + b}$.   `
           }
@@ -686,7 +686,7 @@ export default function SujetCAN20213ieme () {
               s1, s2, s4, s5, s6, code1, code2, code4, code5, code6, segment(D, E))
             reponse = printlatex(`3x+${2 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texteCorr = `La figure est composée de $3$ segments de longueur $x$, de $2$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
                 Le périmètre de cette figure est donc : $3\\times x+2\\times ${a}+${b}=3x+${2 * a + b}$.   `
           }

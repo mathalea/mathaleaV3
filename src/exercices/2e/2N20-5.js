@@ -8,7 +8,7 @@ export { interactifReady, interactifType } from '../5e/5A13.js'
  * @author Jean-Claude Lhote
  */
 
-export const uuid = 'a81d1'
+export const uuid = 'c14e8'
 export const ref = '2N20-5'
 export default function ExerciceDecomposerEnFacteursPremiers2nde () {
   ExerciceDecomposerEnFacteursPremiers.call(this)

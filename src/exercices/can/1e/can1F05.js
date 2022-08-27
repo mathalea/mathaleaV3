@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu, choice, sp, texNombre } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { repere, courbe, mathalea2d, texteParPosition } from '../../../modules/2d.js'
+import { repere, courbe, texteParPosition } from '../../../modules/2d.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { calcule } from '../../../modules/fonctionsMaths.js'
 import Decimal from 'decimal.js/decimal.mjs'
@@ -17,7 +18,7 @@ export const dateDePublication = '08/06/2022' // La date de publication initiale
  * @author Gilles Mora
  * Référence can1L04
 */
-export const uuid = '61f10'
+export const uuid = '053d7'
 export const ref = 'can1F05'
 export default function LectureGraphiqueParabolebEtc () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -27,7 +28,7 @@ export default function LectureGraphiqueParabolebEtc () {
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -62,7 +63,7 @@ export default function LectureGraphiqueParabolebEtc () {
 
           F = x => (x - x1) * (x - x2)
 
-          texte = "On donne la courbe représentative d'une fonction $f$ polynôme du second degré définie par $f(x)=x^2+bx+c$ .<br>"
+          texte = 'On donne la courbe représentative d\'une fonction $f$ polynôme du second degré définie par $f(x)=x^2+bx+c$ .<br>'
 
           texte += 'Déterminer les valeurs de $b$ et $c$.<br>' + mathalea2d({ xmin: -5, xmax: 5, ymin: Math.floor(f((x1 + x2) / 2)) - 1, ymax: Math.max(3, f(0) + 1), pixelsParCm: 18, scale: 0.6 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 

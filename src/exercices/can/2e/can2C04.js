@@ -11,7 +11,7 @@ export { interactifReady, interactifType } from '../../3e/3L11-5.js'
 
 export const titre = 'Calculer avec les identités remarquables - simple'
 
-export const uuid = 'fa311'
+export const uuid = '69522'
 export const ref = 'can2C04'
 export default function identitesCalculs2e () {
   identitesCalculs.call(this)

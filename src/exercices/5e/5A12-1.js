@@ -16,7 +16,7 @@ export const amcType = 'qcmMono'
  * 5A12-1
  * @author Sébastien Lozano
  */
-export const uuid = 'b00ed'
+export const uuid = '36074'
 export const ref = '5A12-1'
 export default function PremierOuPas5e () {
   'use strict'
@@ -34,7 +34,7 @@ export default function PremierOuPas5e () {
   this.sup = 1
   this.listePackages = 'bclogo'
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
     if (context.isHtml) { // les boutons d'aide uniquement pour la version html
       // this.boutonAide = '';

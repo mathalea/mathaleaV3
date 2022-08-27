@@ -7,7 +7,7 @@ export const titre = 'Utiliser la notion de valeur absolue d\'une quantité'
  * 2N15-1, ex 2N22
  * @author Stéphane Guyon
  */
-export const uuid = 'db58f'
+export const uuid = '0d8b3'
 export const ref = '2N15-1'
 export default function ValeurAbsolue () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -18,7 +18,7 @@ export default function ValeurAbsolue () {
   this.nbColsCorr = 2
   this.sup = 1 //
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2, 3]; let typesDeQuestions

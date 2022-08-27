@@ -41,7 +41,7 @@ export default class NomExercice extends Exercice {
               b: false
             }
           )
-          exercice = calculer('(a*x+b)^2', { variables, name: 'A' })
+          exercice = calculer('(a*x+b)^2', { variables: variables, name: 'A' })
           exercice.texte = `Développer puis réduire l'expression suivante : $${exercice.name}=${exercice.printExpression}$`
           exercice.texteCorr = this.correctionDetaillee ? '<br>' + exercice.texteCorr : `$${exercice.name}=${exercice.printResult}$`
           break
@@ -54,7 +54,7 @@ export default class NomExercice extends Exercice {
               c: false
             }
           )
-          exercice = calculer('a/2*(b/3+c/8)', { variables, substeps: true })
+          exercice = calculer('a/2*(b/3+c/8)', { variables: variables, substeps: true })
           exercice.texte = `Calculer : $${exercice.printExpression}$`
           exercice.texteCorr = this.correctionDetaillee ? '<br>' + exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
           break
@@ -74,7 +74,7 @@ export default class NomExercice extends Exercice {
           )
           const polynomeTex = toTex(simplify('a/d*x^2+b/e*x+c/f', [], variables), { suppr1: true })
           const discriminantTex = toTex(simplify('(b/e)^2-4*(a/d)*(c/f)', [], variables), { suppr1: true })
-          const stepscalculsDiscriminant = calculer('(b/e)^2-4*(a/d)*c/f', { variables, comments: false, mixed: false, name: '\\Delta' }).texteCorr
+          const stepscalculsDiscriminant = calculer('(b/e)^2-4*(a/d)*c/f', { variables: variables, comments: false, mixed: false, name: '\\Delta' }).texteCorr
           exercice = {}
           exercice.texteCorr = `$\\Delta = b^2-4ac=${discriminantTex}=${toTex(variables.disc.toFraction())}$
           <br>
@@ -98,7 +98,7 @@ export default class NomExercice extends Exercice {
             SIMPLIFY_RIGHT_SIDE: 'Réduire.',
             SIMPLIFY_LEFT_SIDE: 'Réduire.'
           }
-          exercice = resoudre('3*x+a=9*x+b', { variables, comment: true, comments: commentairesPersonnalises })
+          exercice = resoudre('3*x+a=9*x+b', { variables: variables, comment: true, comments: commentairesPersonnalises })
           exercice.texte = `Résoudre l'équation $${exercice.equation}$ en détaillant les étapes.`
           exercice.texteCorr = `<br>
           ${exercice.texteCorr}
@@ -114,7 +114,7 @@ export default class NomExercice extends Exercice {
               test: 'a!=b'
             }
           )
-          exercice = resoudre('a*x+7=b*x-3', { variables, color: 'black', comment: true })
+          exercice = resoudre('a*x+7=b*x-3', { variables: variables, color: 'black', comment: true })
           exercice.texte = `Résoudre : $${exercice.equation}$`
           exercice.texteCorr = this.correctionDetaillee ? '<br>' + exercice.texteCorr : `La solution est $${exercice.solution}$`
         }
@@ -130,7 +130,7 @@ export default class NomExercice extends Exercice {
             }
           )
           // Toutes les étapes sont détaillées avec le paramètre reduceSteps: false
-          exercice = resoudre('a*x+b=c*x+d', { reduceSteps: false, variables, color: 'blue', comment: true })
+          exercice = resoudre('a*x+b=c*x+d', { reduceSteps: false, variables: variables, color: 'blue', comment: true })
           exercice.texte = `Résoudre : $${exercice.equation}$`
           exercice.texteCorr = `
           <br>

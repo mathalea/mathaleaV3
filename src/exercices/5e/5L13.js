@@ -12,7 +12,7 @@ export const interactifType = 'mathLive'
 * @author Rémi Angot
 * 5L13
 */
-export const uuid = 'f91f1'
+export const uuid = '1bce3'
 export const ref = '5L13'
 export default function Reductionaxbx () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -24,7 +24,7 @@ export default function Reductionaxbx () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

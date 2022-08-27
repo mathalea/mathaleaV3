@@ -16,7 +16,7 @@ export const titre = 'Arrondir une racine carrée'
  * @author Mireille Gain, 27 juin 2021
  */
 
-export const uuid = '80fab'
+export const uuid = '41187'
 export const ref = '4G20-4'
 export default function ArrondirUneValeur () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -30,7 +30,7 @@ export default function ArrondirUneValeur () {
   this.interactifReady = interactifReady
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.consigne = "Arrondir chaque nombre à l'unité, puis au dixième, puis au centième."
 
@@ -60,7 +60,7 @@ export default function ArrondirUneValeur () {
 
       texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n, 10)}$`
 
-      texte += "<br>Arrondi à l'unité : "
+      texte += '<br>Arrondi à l\'unité : '
       texte += ajouteChampTexteMathLive(this, 3 * i)
       texteCorr = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n, 10)}$`
       texteCorr += "<br>Arrondi à l'unité : "

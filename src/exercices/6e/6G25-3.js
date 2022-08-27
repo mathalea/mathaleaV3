@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, shuffle, nombreAvecEspace, texcolors } from '../../modules/outils.js'
-import { tracePoint, mediatrice, codageMediatrice, segment, symetrieAxiale, symetrieAnimee, texteParPosition, mathalea2d, pavage } from '../../modules/2d.js'
+import { tracePoint, mediatrice, codageMediatrice, segment, symetrieAxiale, symetrieAnimee, texteParPosition, pavage } from '../../modules/2d.js'
 export const titre = 'Trouver l\'image d\'une figure par une symétrie axiale dans un pavage'
 
 // Gestion de la date de publication initiale
@@ -13,7 +14,7 @@ export const dateDePublication = '14/12/2020'
  * Réf : 6G25-3
  * Relecture : Novembre 2021 par EE
  */
-export const uuid = '660f3'
+export const uuid = '328b1'
 export const ref = '6G25-3'
 export default function PavageEtReflexion2d () {
   'use strict'
@@ -30,7 +31,7 @@ export default function PavageEtReflexion2d () {
   this.sup2 = false // On cache les centres par défaut.
   this.sup3 = 7
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const videcouples = function (tableau) {
       for (let k = 0; k < tableau.length; k++) {
         for (let j = k + 1; j < tableau.length; j++) {
@@ -194,17 +195,17 @@ export default function PavageEtReflexion2d () {
         A = monpavage.barycentres[couples[i][0] - 1]
         B = monpavage.barycentres[couples[i][1] - 1]
         P1 = monpavage.polygones[couples[i][0] - 1]
-        P1.color = texcolors(i)
-        P1.couleurDeRemplissage = texcolors(i)
+        P1.color = colorToLatexOrHTML(texcolors(i))
+        P1.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i))
         P1.opaciteDeRemplissage = 0.5
         P1.epaisseur = 2
         P2 = monpavage.polygones[couples[i][1] - 1]
-        P2.color = texcolors(i)
-        P2.couleurDeRemplissage = texcolors(i)
+        P2.color = colorToLatexOrHTML(texcolors(i))
+        P2.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i))
         P2.opaciteDeRemplissage = 0.5
         P2.epaisseur = 2
         P3 = symetrieAnimee(P1, d, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`)
-        P3.color = texcolors(i)
+        P3.color = colorToLatexOrHTML(texcolors(i))
         P3.epaisseur = 2
         objetsCorrection.push(tracePoint(A, B), segment(A, B, texcolors(i)), codageMediatrice(A, B, texcolors(i), codes[i]), P1, P2, P3)
       }

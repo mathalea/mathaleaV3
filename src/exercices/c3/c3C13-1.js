@@ -13,7 +13,7 @@ export const dateDePublication = '02/11/2021'
  * Référence c3C13-1
  * Date octobre 2021
  */
-export const uuid = 'e1e48'
+export const uuid = 'ec3cc'
 export const ref = 'c3C13-1'
 export default function QuestionsMassesCM () {
   QuestionsMasses.call(this)

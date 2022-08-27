@@ -16,7 +16,7 @@ export const amcType = 'AMCNum' // Question numérique
  * @author Rémi Angot
 * Référence CM002
   */
-export const uuid = '765f3'
+export const uuid = '77511'
 export const ref = 'CM002'
 export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') {
   // Diviser deux nombres
@@ -27,7 +27,7 @@ export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') 
   this.spacing = 2
   this.tailleDiaporama = 3
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

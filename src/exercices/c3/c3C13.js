@@ -13,7 +13,7 @@ export const dateDePublication = '02/11/2021'
  * Référence c3C13
  * Date octobre 2021
  */
-export const uuid = '0d34b'
+export const uuid = 'b0311'
 export const ref = 'c3C13'
 export default function QuestionsPrixCM () {
   QuestionsPrix.call(this)

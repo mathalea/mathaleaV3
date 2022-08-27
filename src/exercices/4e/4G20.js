@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, creerNomDePolygone, texNombre, arrondi } from '../../modules/outils.js'
-import { point, polygone, nommePolygone, rotation, similitude, codageAngleDroit, afficheLongueurSegment, longueur, mathalea2d } from '../../modules/2d.js'
+import { point, polygone, nommePolygone, rotation, similitude, codageAngleDroit, afficheLongueurSegment, longueur } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur.js'
@@ -18,7 +19,7 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  * 4G20
  */
-export const uuid = '01af7'
+export const uuid = 'bd660'
 export const ref = '4G20'
 export default function Pythagore2D () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -35,7 +36,7 @@ export default function Pythagore2D () {
   this.video = 'M9sceJ8gzNc'
   this.besoinFormulaire2Numerique = ['Côté', 3, '1 : Hypoténuse\n2 : Côté de l\'angle droit\n3 : Mélange']
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     if (this.sup) {
       this.sup = parseInt(this.sup)
     }
@@ -103,7 +104,7 @@ export default function Pythagore2D () {
       }
 
       if (!context.isHtml) { texte = '~\\\\' }
-      texte += mathalea2d({ xmin, xmax, ymin, ymax, scale: 0.6, style: 'display: block' }, mesObjetsATracer)
+      texte += mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, scale: 0.6, style: 'display: block' }, mesObjetsATracer)
       if (this.sup === 2) {
         if (listeTypeDeQuestions[i] === 'AB') {
           texte += `<br>$${A.nom + B.nom}^2=\\ldots$`

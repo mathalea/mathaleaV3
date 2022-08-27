@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, shuffle, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
-import { mathalea2d, labyrinthe } from '../../modules/2d.js'
+import { labyrinthe } from '../../modules/2d.js'
 export const dateDePublication = '16/11/2021'
 export const titre = 'Labyrinthe de multiples avec critères choisis équilibrés '
 
@@ -10,7 +11,7 @@ export const titre = 'Labyrinthe de multiples avec critères choisis équilibré
  * Ref 5A11-2 (clône de 5A11-1 qui datait du 7/12/2020)
  * Sortir du labyrinthe en utilisant les critères de divisibilité.
  */
-export const uuid = '2e886'
+export const uuid = '5618d'
 export const ref = '5A11-2'
 export default function ExerciceLabyrintheDivisibilite () {
   Exercice.call(this)
@@ -25,7 +26,7 @@ export default function ExerciceLabyrintheDivisibilite () {
   this.sup = 6
 
   // this.consigne=`Trouve la sortie en ne passant que par les cases contenant un nombre divisible par $${parseInt(this.sup)}$.`
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
     const tailleChiffre = 0.8
     this.listeCorrections = []

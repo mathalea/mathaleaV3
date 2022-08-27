@@ -7,7 +7,7 @@ export { amcReady, amcType } from '../3e/3G32-0.js'
  * @author Guillaume Valmont
  * reference 3G32-3
  */
-export const uuid = 'fa1d1'
+export const uuid = 'e42e0'
 export const ref = '3G32-3'
 export default function calculHauteurFalaise () {
   problemesTrigoLongueur.call(this)

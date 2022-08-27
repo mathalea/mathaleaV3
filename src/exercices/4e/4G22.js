@@ -14,7 +14,7 @@ export const titre = 'Résoudre des problèmes utilisant le théorème de Pythag
  * @author Rémi Angot
  * 4G22
  */
-export const uuid = '8b356'
+export const uuid = 'b18e8'
 export const ref = '4G22'
 export default function ProblemesPythagore () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -27,7 +27,7 @@ export default function ProblemesPythagore () {
   this.sup = 3
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

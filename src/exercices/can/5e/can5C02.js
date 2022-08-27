@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can5C02
  */
-export const uuid = '1edde'
+export const uuid = '5ecdc'
 export const ref = 'can5C02'
 export default function SommeEntiers5e () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function SommeEntiers5e () {
   this.tailleDiaporama = 2
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const b = randint(51, 89, [60, 70, 80])
     const a = randint(2, 39, [10, 20, 30]) + 100
     this.reponse = calcul(a + b)

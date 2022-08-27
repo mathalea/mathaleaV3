@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, pgcd, calcul, texNombrec, texFraction, stringNombre, texNombre, arrondi } from '../../modules/outils.js'
-import { mathalea2d } from '../../modules/2d.js'
+
 import { fraction } from '../../modules/fractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -16,7 +17,7 @@ export const amcType = 'AMCNum'
  * @author Jean-Claude Lhote
  * référence 6N33-0
  */
-export const uuid = '87fbb'
+export const uuid = 'a168c'
 export const ref = '6N33-0'
 export default function FractionDuneQuantite () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -29,7 +30,7 @@ export default function FractionDuneQuantite () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

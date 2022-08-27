@@ -6,7 +6,7 @@ export const titre = 'Connaître les propriétés du cube et du pavé droit'
  * vocabulaire arête, face, perpendicularité dans l'espace, parallélisme dans l'espace
  * référence : 6G42
  */
-export const uuid = '8098b'
+export const uuid = 'b36df'
 export const ref = '6G42'
 export default function UtiliserVocabulairePave () {
   Solide6e.call(this)

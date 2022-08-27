@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
-import { tableauDeVariation, mathalea2d, courbe, repere } from '../../modules/2d.js'
+import { tableauDeVariation, courbe, repere } from '../../modules/2d.js'
 
 export const titre = 'Déterminer le sens de variation d\'une fonction affine'
 
@@ -8,7 +9,7 @@ export const titre = 'Déterminer le sens de variation d\'une fonction affine'
 * @author Stéphane Guyon
 * 2F10-3
 */
-export const uuid = 'ee773'
+export const uuid = 'b72b0'
 export const ref = '2F10-6'
 export default function variationsfonctionaffine () {
   Exercice.call(this)
@@ -22,7 +23,7 @@ export default function variationsfonctionaffine () {
   this.spacingCorr = 1
   this.sup = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = []
     this.listeCorrections = []

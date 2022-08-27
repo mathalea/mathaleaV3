@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, texNombrec, creerNomDePolygone } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, segment, milieu, polygoneAvecNom, texteParPosition
+  point, segment, milieu, polygoneAvecNom, texteParPosition
 } from '../../../modules/2d.js'
 export const titre = 'Rechercher une valeur avec le théorème de Pythagore'
 export const interactifReady = true
@@ -13,7 +14,7 @@ export const interactifType = 'mathLive'
  * Référence can3G04
  * Date de publication sptembre 2021
 */
-export const uuid = '423ab'
+export const uuid = '85416'
 export const ref = 'can3G04'
 export default function RechercheValeurPythagore () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -22,7 +23,7 @@ export default function RechercheValeurPythagore () {
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, A, B, C, objets, nom, pol
 
     switch (choice(['a', 'b'])) {

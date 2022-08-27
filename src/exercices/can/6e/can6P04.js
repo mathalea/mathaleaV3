@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6P04 Complété par des corrections de Gilles Mora
  */
-export const uuid = '76fae'
+export const uuid = 'da0c1'
 export const ref = 'can6P04'
 export default function AppliquerUnPourcentage () {
   Exercice.call(this)
@@ -20,7 +20,7 @@ export default function AppliquerUnPourcentage () {
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.bis = false
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, p
     switch (this.bis ? choice([4, 5, 6]) : choice([1, 2, 3])) {
       case 1:// prende 10%

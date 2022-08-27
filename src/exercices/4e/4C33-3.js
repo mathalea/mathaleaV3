@@ -20,7 +20,7 @@ export const amcType = 'AMCNum'
  * @author Sébastien Lozano
  * 4C33-3
  */
-export const uuid = '4bd69'
+export const uuid = 'c71da'
 export const ref = '4C33-3'
 export default function PuissancesDUnRelatif2 () {
   'use strict'
@@ -34,7 +34,7 @@ export default function PuissancesDUnRelatif2 () {
   this.nbQuestions = 8
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

@@ -23,7 +23,7 @@ export const titre = 'Réduire, si possible, une expression littérale simple'
  * @author Rémi Angot
  * 4L10-1
  */
-export const uuid = 'd48ce'
+export const uuid = 'cc129'
 export const ref = '4L10-1'
 export default function ReductionsPiegesClassiques () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -33,7 +33,7 @@ export default function ReductionsPiegesClassiques () {
   this.nbQuestions = 10
   this.sup = true
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 

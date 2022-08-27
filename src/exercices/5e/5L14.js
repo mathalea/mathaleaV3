@@ -23,7 +23,7 @@ export const interactifType = 'mathLive'
 * @author Rémi Angot
 * 5L14
 */
-export const uuid = 'd598f'
+export const uuid = '17e39'
 export const ref = '5L14'
 export default function CalculerLaValeurDUneExpressionLitterale () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -35,7 +35,7 @@ export default function CalculerLaValeurDUneExpressionLitterale () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

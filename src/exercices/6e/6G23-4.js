@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { abs, choice, contraindreValeur, lettreDepuisChiffre, listeQuestionsToContenu, numAlpha, randint, texteEnCouleurEtGras, texteGras } from '../../modules/outils.js'
-import { point, mathalea2d, segment, rapporteur, rotation, pointSurSegment, labelPoint, tracePoint, angleModulo } from '../../modules/2d.js'
+import { point, segment, rapporteur, rotation, pointSurSegment, labelPoint, tracePoint, angleModulo } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { min, max } from 'mathjs'
@@ -18,7 +19,7 @@ export const dateDePublication = '26/04/2022'
  * @author Eric Elter
  * Publié le 27/04/2022
  */
-export const uuid = 'f44a7'
+export const uuid = 'ff2cc'
 export const ref = '6G23-4'
 export default function MesurerUnAngleAvecRapporteur () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -28,7 +29,7 @@ export default function MesurerUnAngleAvecRapporteur () {
   this.sup2 = 7
   this.sup3 = 4
   this.sup4 = false
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

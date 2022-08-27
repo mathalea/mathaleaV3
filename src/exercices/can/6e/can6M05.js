@@ -11,14 +11,14 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6M05
  */
-export const uuid = '7d467'
+export const uuid = 'a39f6'
 export const ref = 'can6M05'
 export default function ConversionM3EtLitres () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, resultat
     switch (choice(['a', 'b'])) {
       case 'a':

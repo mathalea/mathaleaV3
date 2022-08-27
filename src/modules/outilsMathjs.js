@@ -3,7 +3,6 @@ import { texNombre2, obtenirListeFacteursPremiers } from './outils.js'
 import { all, create, format, number, SymbolNode, ConstantNode, OperatorNode, ParenthesisNode, simplify, parse, round } from 'mathjs'
 import { Node, Negative, solveEquation, simplifyExpression, factor } from 'mathsteps'
 import { getNewChangeNodes } from './Change.js'
-// import { Decimal } from "decimal.js"
 import Decimal from 'decimal.js/decimal.mjs'
 
 const math = create(all)
@@ -22,7 +21,7 @@ function searchFirstNode (node, op) {
   } else if (node.type === 'ParenthesisNode') {
     return searchFirstNode(node.content, node.op)
   } else {
-    return { node, op }
+    return { node: node, op: op }
   }
 }
 
@@ -32,7 +31,7 @@ function searchLastNode (node, op) {
   } else if (node.type === 'ParenthesisNode') {
     return searchLastNode(node.content, node.op)
   } else {
-    return { node, op }
+    return { node: node, op: op }
   }
 }
 
@@ -635,7 +634,7 @@ export function calculer (expression, params) {
   }
   const texte = `Calculer $${expressionPrint}$.`
   const texteCorr = `$\\begin{aligned}\n${stepsExpression.join('\\\\\n')}\n\\end{aligned}$`
-  return { result: steps.length > 0 ? steps[steps.length - 1].newNode.toString() : expressionPrint, printResult: steps.length > 0 ? toTex(steps[steps.length - 1].newNode, params.totex) : expressionPrint, netapes: stepsExpression.length, texteDebug: texte + texteCorr, texte, texteCorr, stepsLatex: stepsExpression, steps, commentaires: comments, printExpression: expressionPrint, name: params.name }
+  return { result: steps.length > 0 ? steps[steps.length - 1].newNode.toString() : expressionPrint, printResult: steps.length > 0 ? toTex(steps[steps.length - 1].newNode, params.totex) : expressionPrint, netapes: stepsExpression.length, texteDebug: texte + texteCorr, texte: texte, texteCorr: texteCorr, stepsLatex: stepsExpression, steps: steps, commentaires: comments, printExpression: expressionPrint, name: params.name }
 }
 
 export function aleaEquation (equation = 'a*x+b=c*x-d', variables = { a: false, b: false, c: false, d: false, test: 'a>b or true' }, debug = false) { // Ne pas oublier le signe de la multiplication
@@ -760,7 +759,7 @@ export function resoudreEquation (equation = '5(x-7)=3(x+1)', debug = false) {
   \end{aligned}$
   `
   if (debug) texte = texteCorr
-  return { texte, texteCorr, equation: equationPrint }
+  return { texte: texte, texteCorr: texteCorr, equation: equationPrint }
 }
 
 export function commentStep (step, comments) {
@@ -776,8 +775,8 @@ export function commentStep (step, comments) {
     DIVIDE_FROM_BOTH_SIDES: `Diviser chaque membre par $${stepChange}$.`,
     MULTIPLY_BOTH_SIDES_BY_INVERSE_FRACTION: `Multiplier chaque membre par $${stepChange}$.`,
     SWAP_SIDES: 'Echanger les deux membres.',
-    STATEMENT_IS_FALSE: "L'égalité est fausse.",
-    STATEMENT_IS_TRUE: "L'égalité est vraie.",
+    STATEMENT_IS_FALSE: 'L\'égalité est fausse.',
+    STATEMENT_IS_TRUE: 'L\'égalité est vraie.',
     DISTRIBUTE: 'Distribution.',
     SIMPLIFY_RIGHT_SIDE: 'Simplifier le membre de droite.',
     SIMPLIFY_LEFT_SIDE: 'Simplifier le membre de gauche.',
@@ -796,8 +795,8 @@ export function commentStep (step, comments) {
     REMOVE_MULTIPLYING_BY_ONE: 'Retirer la multiplication par $1$.',
     COLLECT_LIKE_TERMS: 'Regrouper les termes.',
     MULTIPLY_DENOMINATORS: 'Calculer les dénominateurs.',
-    ADD_EXPONENT_OF_ONE: "Ajouter l'exposant 1.",
-    COLLECT_POLYNOMIAL_EXPONENTS: "Ajouter l'exposant 1.",
+    ADD_EXPONENT_OF_ONE: 'Ajouter l\'exposant 1.',
+    COLLECT_POLYNOMIAL_EXPONENTS: 'Ajouter l\'exposant 1.',
     COMMON_DENOMINATOR: 'Obtenir le même dénominateur.',
     MULTIPLY_NUMERATORS: 'Calculer.',
     COMBINE_NUMERATORS: 'Combiner les numérateurs.',
@@ -831,7 +830,7 @@ export function isDecimal (value) {
 
 /**
  * Find if there is a SymbolNode in the node
- * @param {import('mathjs').MathNodeCommon} node
+ * @param {Mathnode} node
  * @returns {boolean}
  */
 function isContentSymbolNode (node) {
@@ -990,13 +989,13 @@ export function resoudre (equation, params) {
           `
   }
   return {
-    solution,
-    texte,
-    texteCorr,
+    solution: solution,
+    texte: texte,
+    texteCorr: texteCorr,
     equation: printEquation,
     verifLeftSide: calculateLeftSide,
     verifRightSide: calculateRightSide,
-    steps,
+    steps: steps,
     printSteps: stepsNewEquation
   }
 }
@@ -1151,7 +1150,7 @@ export function programmeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*x', '3
       resultatIntermediaireInv.push(simplify(calculIntermediaireInv[i], { x: nombreChoisi }))
     }
   }
-  return { phrases, steps, stepsSimplified, stepsInv, stepsSimplifiedInv, phrasesInv, nodes, stepProg, calculIntermediaire, resultatIntermediaire, calculIntermediaireInv, resultatIntermediaireInv }
+  return { phrases: phrases, steps: steps, stepsSimplified: stepsSimplified, stepsInv: stepsInv, stepsSimplifiedInv: stepsSimplifiedInv, phrasesInv: phrasesInv, nodes: nodes, stepProg: stepProg, calculIntermediaire: calculIntermediaire, resultatIntermediaire: resultatIntermediaire, calculIntermediaireInv: calculIntermediaireInv, resultatIntermediaireInv: resultatIntermediaireInv }
 }
 
 export function traduireProgrammeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*x', '3*x', '-2*x', '-3*x', 'x^2', '-x^2', 'x', '-x', '*x', '/x'], nombreChoisi, debug = false) {
@@ -1179,7 +1178,7 @@ export function traduireProgrammeCalcul (stepProg = ['+', '-', '*', '/', '^2', '
           ${stepsSolutionDetaillee.join('\\\\')}
           \end{aligned}$`
   if (debug) texte = `${texte}<br>${texteCorr}`
-  return { texte, texteCorr }
+  return { texte: texte, texteCorr: texteCorr }
 }
 
 export function ecrireProgrammeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*x', '3*x', '-2*x', '-3*x', 'x^2', '-x^2', 'x', '-x', '*x', '/x'], nombreChoisi, debug = false) {
@@ -1201,7 +1200,7 @@ export function ecrireProgrammeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*
           ${stepsSolutionDetaillee.join('\\\\')}
           \end{aligned}$`
   if (debug) texte = `${texte}<br>${texteCorr}`
-  return { texte, texteCorr }
+  return { texte: texte, texteCorr: texteCorr }
 }
 
 export function remonterProgrammeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*x', '3*x', '-2*x', '-3*x', 'x^2', '-x^2', 'x', '-x', '*x', '/x'], nombreChoisi, debug = false) {
@@ -1241,7 +1240,7 @@ export function remonterProgrammeCalcul (stepProg = ['+', '-', '*', '/', '^2', '
           Le nombre choisi était donc $${toTex(nombreChoisi)}$.
           `
   if (debug) texte = `${texte}<br>${texteCorr}`
-  return { texte, texteCorr }
+  return { texte: texte, texteCorr: texteCorr }
 }
 
 export function appliquerProgrammeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*x', '3*x', '-2*x', '-3*x', 'x^2', '-x^2', 'x', '-x', '*x', '/x'], nombreChoisi, debug = false) {
@@ -1273,7 +1272,7 @@ export function appliquerProgrammeCalcul (stepProg = ['+', '-', '*', '/', '^2', 
           ${stepsSolutionDetaillee.join('\\\\')}
           \end{aligned}$`
   if (debug) texte = `${texte}<br>${texteCorr}`
-  return { texte, texteCorr }
+  return { texte: texte, texteCorr: texteCorr }
 }
 
 export function calculExpression2 (expression = '4/3+5/6', factoriser = false, debug = false) {
@@ -1361,12 +1360,12 @@ export function calculExpression2 (expression = '4/3+5/6', factoriser = false, d
   \end{aligned}$
   `
   if (debug) texte = texteCorr
-  return { texte, texteCorr }
+  return { texte: texte, texteCorr: texteCorr }
 }
 
 /**
  * Retourne des noms de points (ou des objets) dans un ordre aléatoire.
- * @param {string|Array|number} names // Liste des lettres sous format string ou array
+ * @param {string|Array} names // Liste des lettres sous format string ou array
  * @param {number} n // Nombre de lettres à retourner
  * @param {string|Array} result // S'il n'y a qu'un seul nom en sortie c'est un string sinon c'est un array
  * @remarque // Les lettres Q,W,X,Y,Z ont été exclues par défaut

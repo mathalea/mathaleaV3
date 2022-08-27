@@ -14,7 +14,7 @@ export const interactifType = 'mathLive'
 * @author Rémi Angot
 * 3P10-1
 */
-export const uuid = 'b51ce'
+export const uuid = '4ce2d'
 export const ref = '3P10-1'
 export default function CoefficientEvolution () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -27,7 +27,7 @@ export default function CoefficientEvolution () {
   this.nbColsCorr = 1
   this.sup = 1
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.boutonAide = modalUrl(numeroExercice, 'https://coopmaths.fr/aide/3P10/')

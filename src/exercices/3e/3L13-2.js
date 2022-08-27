@@ -18,7 +18,7 @@ export const dateDeModificationImportante = '04/04/2022'
  * * correctif le 27/03/2022
  * @author Sébastien Lozano
  */
-export const uuid = '9e63d'
+export const uuid = '6516e'
 export const ref = '3L13-2'
 export default function EqResolvantesThales () {
   'use strict'
@@ -43,7 +43,7 @@ export default function EqResolvantesThales () {
 
   let typesDeQuestionsDisponibles
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     // une fonction pour dire que c'est trivial dans ce cas
     function trivial (bool, a, b, c, inc) {
       let sortie
@@ -146,7 +146,7 @@ export default function EqResolvantesThales () {
         a: nbAlea[0] * coeff[0],
         b: nbAlea[1] * coeff[1],
         c: nbAlea[2] * coeff[2],
-        inc,
+        inc: inc,
         fraction: new FractionX(nbAlea[1] * nbAlea[0], nbAlea[2] / coeff[0] / coeff[1])
       }
 

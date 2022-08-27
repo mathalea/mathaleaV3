@@ -9,7 +9,7 @@ export const titre = 'Trouver ordre de grandeur d\'opérations sur les décimaux
  * @author Sébastien Lozano
  */
 
-export const uuid = 'd37af'
+export const uuid = '843e5'
 export const ref = '6N31-2'
 export default function OrdreDeGrandeurOperationsDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -30,7 +30,7 @@ export default function OrdreDeGrandeurOperationsDecimaux () {
 
   let typesDeQuestionsDisponibles
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     if (this.beta) {
       typesDeQuestionsDisponibles = [0]
     } else {

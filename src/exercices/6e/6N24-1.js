@@ -10,7 +10,7 @@ export const titre = 'Multiplier ou diviser un nombre entier par 10, 100 ou 1 00
  * @author Rémi Angot
  * 6N24-1
  */
-export const uuid = 'a55d0'
+export const uuid = 'ec005'
 export const ref = '6N24-1'
 export default function ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -18,7 +18,7 @@ export default function ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 ()
   this.spacing = 2
   this.spacingCorr = 2
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

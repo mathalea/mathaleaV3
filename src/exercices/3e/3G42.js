@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu, combinaisonListes, nombreDecimal, texteExposant, texteGras, stringNombre, texNombre } from '../../modules/outils.js'
-import { mathalea2d } from '../../modules/2d.js'
+
 import { point3d, vecteur3d, sphere3d, cylindre3d } from '../../modules/3d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -10,7 +11,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
-export const titre = "Volume d'une boule"
+export const titre = 'Volume d\'une boule'
 
 /**
 * Calculer le volume d'une boule
@@ -19,7 +20,7 @@ export const titre = "Volume d'une boule"
 * date : 2021/02/09
 */
 
-export const uuid = '5409b'
+export const uuid = '8c803'
 export const ref = '3G42'
 export default function VolumeBoule () {
   Exercice.call(this)
@@ -39,7 +40,7 @@ export default function VolumeBoule () {
   this.sup = 1
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
     this.sup = Number(this.sup)
@@ -66,7 +67,7 @@ export default function VolumeBoule () {
           r = randint(2, 30)
           reponse = new Decimal(r).pow(3).mul(Decimal.acos(-1)).mul(4).div(3).toDP(1)
           texte += `Calculer le volume d'une boule de rayon ${r} cm. `
-          texteCorr += "Le volume d'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>"
+          texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${r} \\text{ cm})^3$. <br>`
           texteCorr += texteGras('Le volume de la boule est donc environ : ' + stringNombre(reponse, 1) + ' cm' + texteExposant(3) + '. <br>')
           setReponse(this, i, reponse)
@@ -76,7 +77,7 @@ export default function VolumeBoule () {
           d = randint(2, 30)
           reponse = new Decimal(d).pow(3).mul(Decimal.acos(-1)).mul(4).div(3).toDP(1)
           texte += `Calculer le volume d'une boule de diamètre ${2 * d} cm. `
-          texteCorr += "Le volume d'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>"
+          texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += `Le rayon de la boule est la moitié de son diamètre soit : ${d} cm. <br>`
           texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${d} \\text{ cm})^3$. <br>`
           texteCorr += texteGras('Le volume de la boule est donc environ : ' + stringNombre(reponse, 1) + ' cm' + texteExposant(3) + '. <br>')
@@ -86,9 +87,9 @@ export default function VolumeBoule () {
         case 3:
           A = randint(2, 30)
           texte += `Calculer le volume d'une boule d'aire ${A} cm². `
-          texteCorr += "Le volume d'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>"
+          texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += 'Il faut donc trouver le rayon de la boule. <br>'
-          texteCorr += "L'aire d'une boule est donnée par la formule : $A = 4\\pi r^2$. <br>"
+          texteCorr += 'L\'aire d\'une boule est donnée par la formule : $A = 4\\pi r^2$. <br>'
           texteCorr += `On a donc l'égalité : $${A} = 4\\pi r^2$. `
           texteCorr += `On en déduit : $r^2 = \\dfrac{${A}}{4\\pi}$. <br>`
           texteCorr += `Et, comme $r$ est positif : $r=\\sqrt{\\dfrac{${A}}{4\\pi}}$. <br>`
@@ -139,5 +140,5 @@ export default function VolumeBoule () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 4, " 1 : À partir du rayon\n 2 : À partir du rayon ou du diamètre\n 3 : À partir du rayon, du diamètre ou de l'aire\n 4 : À partir du rayon, du diamètre, de l'aire ou en résolvant un problème"]
+  this.besoinFormulaireNumerique = ['Type de questions', 4, ' 1 : À partir du rayon\n 2 : À partir du rayon ou du diamètre\n 3 : À partir du rayon, du diamètre ou de l\'aire\n 4 : À partir du rayon, du diamètre, de l\'aire ou en résolvant un problème']
 } // Fin de l'exercice.

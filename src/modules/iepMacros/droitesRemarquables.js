@@ -200,18 +200,18 @@ export const bissectriceAuCompas = function (A, B, C, { codage = '/', l = 2, cou
   const C1 = pointSurSegment(B, C, l)
   const angle = angleOriente(A, B, C)
   const M = rotation(B, A1, -(180 - angle))
-  const options = { couleur, tempo, vitesse, sens, pointilles: false }
+  const options = { couleur: couleur, tempo: tempo, vitesse: vitesse, sens: sens, pointilles: false }
   const arc1 = this.compasTracerArcCentrePoint(B, A1, options)
   const arc2 = this.compasTracerArcCentrePoint(B, C1, options)
   const arc3 = this.compasTracerArcCentrePoint(A1, M, options)
   const arc4 = this.compasTracerArcCentrePoint(C1, M, options)
   this.compasMasquer()
-  this.regleDemiDroiteOriginePoint(B, M, { longueur: longueur(B, A), couleur, tempo, vitesse, sens, epaisseur, pointilles })
+  this.regleDemiDroiteOriginePoint(B, M, { longueur: longueur(B, A), couleur: couleur, tempo: tempo, vitesse: vitesse, sens: sens, epaisseur: epaisseur, pointilles: pointilles })
   this.regleMasquer()
   this.crayonMasquer()
   if (codage) {
-    this.angleCodage(A, B, M, { couleur: couleurCodage, codage, tempo })
-    this.angleCodage(M, B, C, { couleur: couleurCodage, codage, tempo })
+    this.angleCodage(A, B, M, { couleur: couleurCodage, codage: codage, tempo: tempo })
+    this.angleCodage(M, B, C, { couleur: couleurCodage, codage: codage, tempo: tempo })
   }
   if (masquerTraitsDeConstructions) {
     this.traitMasquer(arc1)
@@ -219,7 +219,7 @@ export const bissectriceAuCompas = function (A, B, C, { codage = '/', l = 2, cou
     this.traitMasquer(arc3)
     this.traitMasquer(arc4)
   }
-  return { arc1, arc2, arc3, arc4 }
+  return { arc1: arc1, arc2: arc2, arc3: arc3, arc4: arc4 }
 }
 /**
    * Construit les 3 médiatrices des côtés du triangle ABC puis le cercle circonscrit au triangle

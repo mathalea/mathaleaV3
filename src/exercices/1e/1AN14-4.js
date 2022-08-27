@@ -4,7 +4,7 @@ import { Polynome } from '../../modules/fonctionsMaths.js'
 import { simplify, parse, derivative, abs } from 'mathjs'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-const math = { simplify, parse, derivative }
+const math = { simplify: simplify, parse: parse, derivative: derivative }
 export const titre = 'Dérivée d\'un produit'
 export const dateDePublication = '22/01/2022'
 export const interactifReady = true
@@ -16,7 +16,7 @@ export const interactifType = 'mathLive'
  * Référence 1AN14-4
  */
 
-export const uuid = '20a8b'
+export const uuid = '1a60f'
 export const ref = '1AN14-4'
 export default function DeriveeProduit () {
   Exercice.call(this)
@@ -35,7 +35,7 @@ export default function DeriveeProduit () {
   // reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
   // reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
     this.sup2 = Boolean(this.sup2)
     this.listeQuestions = [] // Liste de questions

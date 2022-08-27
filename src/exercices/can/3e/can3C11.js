@@ -10,14 +10,14 @@ export const amcType = 'AMCNum'
 /*!
  * @author Gilles Mora
  */
-export const uuid = 'ad526'
+export const uuid = '59365'
 export const ref = 'can3C11'
 export default function SimplifieFractionOuRacinesCarrees () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, n, k, maFraction
     let resultat
     this.formatChampTexte = 'largeur15 inline'

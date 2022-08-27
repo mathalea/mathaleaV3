@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { axes, mathalea2d, point, polygoneAvecNom, repere } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { axes, point, polygoneAvecNom, repere } from '../../modules/2d.js'
 import { extraireRacineCarree, listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, fractionSimplifiee, texNombre } from '../../modules/outils.js'
 export const titre = 'Déterminer la nature d\'un polygone'
 
@@ -7,7 +8,7 @@ export const titre = 'Déterminer la nature d\'un polygone'
  * 2G12
  * @author Stéphane Guyon
  */
-export const uuid = '9e15d'
+export const uuid = 'd633a'
 export const ref = '2G12-4'
 export default function NaturePolygone () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -16,7 +17,7 @@ export default function NaturePolygone () {
   this.nbCols = 2
   this.nbColsCorr = 2
   // this.sup = 1 ; //
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1]; let typesDeQuestions
@@ -37,7 +38,7 @@ export default function NaturePolygone () {
           yA = randint(0, 5) * choice([-1, 1])
           ux = randint(1, 5) * choice([-1, 1])
           uy = randint(1, 5) * choice([-1, 1])
-          while (ux === uy) {
+          while (ux === uy || ux === -uy) { // ajout d'une condition pour éviter des points alignés (Jean-claude Lhote)
             uy = randint(1, 5) * choice([-1, 1])
           }// empêcher ux=uy pour éviter B=C
           xB = xA + ux

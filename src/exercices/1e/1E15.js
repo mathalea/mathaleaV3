@@ -11,7 +11,7 @@ export const dateDePublication = '30/10/2021'
  * @author Eric Schrafstetter
  * Référence 1E15
 */
-export const uuid = '79078'
+export const uuid = 'fe4df'
 export const ref = '1E15'
 export default function equationDuSecondDegreAvecUnParametre () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -25,7 +25,7 @@ export default function equationDuSecondDegreAvecUnParametre () {
   this.typeExercice = 'XCas'
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -140,4 +140,4 @@ export default function equationDuSecondDegreAvecUnParametre () {
   // this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
 }
 
-// python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
+// python3 list-to-js.py pour faire apparaître l'exercice dans le menu

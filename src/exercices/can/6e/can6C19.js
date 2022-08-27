@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C19
  */
-export const uuid = '6e3b1'
+export const uuid = 'd656b'
 export const ref = 'can6C19'
 export default function ComplementACent () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function ComplementACent () {
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.typeExercice = 'simple'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(11, 49, [20, 30, 40])
     this.question = `$100-${a}=$`
     this.correction = `$100-${a}=${100 - a}$`

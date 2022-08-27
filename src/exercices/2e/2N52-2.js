@@ -8,7 +8,7 @@ export const titre = 'Résoudre des équations carrées.'
 * @author Stéphane Guyon
 * 2N52-2, ex 2L11-1
 */
-export const uuid = '8c3f8'
+export const uuid = 'bb6d5'
 export const ref = '2N52-2'
 export default function FactoriserIdentitesRemarquables2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -22,7 +22,7 @@ export default function FactoriserIdentitesRemarquables2 () {
   this.sup = 1
   this.spacingCorr = 3
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

@@ -16,7 +16,7 @@ export const dateDePublication = '16/03/2022'
  * @author Guillaume Valmont
  * Référence 5N10
 */
-export const uuid = '42b1c'
+export const uuid = '91d72'
 export const ref = '5N10'
 export default function PasserEcritureDecimaleEcritureFractionnaireInversement () {
   Exercice.call(this)
@@ -30,7 +30,7 @@ export default function PasserEcritureDecimaleEcritureFractionnaireInversement (
   this.nbCols = 2
   this.nbColsCorr = 2
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

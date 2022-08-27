@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, shuffle, cesar } from '../../modules/outils.js'
-import { point, polygoneRegulier, repere, graphiqueInterpole, mathalea2d } from '../../modules/2d.js'
+import { point, polygoneRegulier, repere, graphiqueInterpole } from '../../modules/2d.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Spécial escape game'
 export const interactifReady = true
@@ -12,7 +13,7 @@ export const interactifType = 'mathLive'
  * publié le  15/11/2020
  * ref 3F13-2
  */
-export const uuid = '55099'
+export const uuid = 'be398'
 export const ref = '3F13-2'
 export default function PremierEscapeGameMathalea () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -26,7 +27,7 @@ export default function PremierEscapeGameMathalea () {
   this.sup = 1
   // this.sup2 = ''
   this.pasDeVersionLatex = false
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const lettres = []; const mots = ['BMDF', 'OGNQ', 'BUQP', 'BAUP', 'BXGE', 'BDUJ', 'MZSXQE', 'BDUEYQ', 'BMDFUQ', 'HMXQGD', 'OAGBXQ', 'PDAUFQ', 'DQXMFUAZ', 'BMDMNAXQ', 'MPPUFUAZ', 'QJBAEMZF', 'RAZOFUAZ', 'OAYBXQJQ']
     let alphabet = []
     this.listeQuestions = []
@@ -93,7 +94,7 @@ export default function PremierEscapeGameMathalea () {
     switch (type) {
       case 1: // N&B
         p = polygoneRegulier(point(-1, -2), point(15, -2), 4)
-        p.couleurDeRemplissage = 'gray'
+        p.couleurDeRemplissage = colorToLatexOrHTML('gray')
         p.opacite = 0.2
         f1 = graphiqueInterpole([[0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]]], { repere: r, color: 'black', step: 0.1 })
         f2 = graphiqueInterpole([[0, ord0[1]], [absc[2], ord[2]], [absc[3], ord[3]], [7, ord6[1]]], { repere: r, color: 'white', step: 0.1 })
@@ -104,7 +105,7 @@ export default function PremierEscapeGameMathalea () {
       case 2: // RGB
         p = polygoneRegulier(point(-1, -2), point(15, -2), 4)
         p.opacite = 0.2
-        p.couleurDeRemplissage = 'gray'
+        p.couleurDeRemplissage = colorToLatexOrHTML('gray')
         f1 = graphiqueInterpole([[0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]]], { repere: r, color: 'red', step: 0.1 })
         f2 = graphiqueInterpole([[0, ord0[1]], [absc[2], ord[2]], [absc[3], ord[3]], [7, ord6[1]]], { repere: r, color: 'green', step: 0.1 })
         f3 = graphiqueInterpole([[0, ord0[2]], [absc[4], ord[4]], [absc[5], ord[5]], [7, ord6[2]]], { repere: r, color: 'blue', step: 0.1 })
@@ -116,7 +117,7 @@ export default function PremierEscapeGameMathalea () {
       case 3: // CJMN
         p = polygoneRegulier(point(-1, -2), point(15, -2), 4)
         p.opacite = 0.2
-        p.couleurDeRemplissage = 'gray'
+        p.couleurDeRemplissage = colorToLatexOrHTML('gray')
         f1 = graphiqueInterpole([[0, ord0[0]], [absc[0], ord[0]], [absc[1], ord[1]], [7, ord6[0]]], { repere: r, color: 'cyan', step: 0.1 })
         f2 = graphiqueInterpole([[0, ord0[1]], [absc[2], ord[2]], [absc[3], ord[3]], [7, ord6[1]]], { repere: r, color: 'yellow', step: 0.1 })
         f3 = graphiqueInterpole([[0, ord0[2]], [absc[4], ord[4]], [absc[5], ord[5]], [7, ord6[2]]], { repere: r, color: 'magenta', step: 0.1 })

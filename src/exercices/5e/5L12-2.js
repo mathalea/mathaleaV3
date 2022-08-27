@@ -26,7 +26,7 @@ export const dateDePublication = '22/02/2022' // La date de publication initiale
 * @author Mickael Guironnet - Rémi Angot
 * 5L12
 */
-export const uuid = '5c46b'
+export const uuid = 'a8ad0'
 export const ref = '5L12-2'
 export default function ReduireUneExpressionLitterale () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -41,7 +41,7 @@ export default function ReduireUneExpressionLitterale () {
   this.sup2 = false // avec des nombres décimaux
   this.sup3 = '6-7-8-9' // Type de question
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

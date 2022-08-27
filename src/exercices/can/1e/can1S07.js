@@ -13,7 +13,7 @@ export const dateDePublication = '18/02/2022' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
-export const uuid = '926a5'
+export const uuid = 'cd45d'
 export const ref = 'can1S07'
 export default function CalculRaison () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -23,7 +23,7 @@ export default function CalculRaison () {
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let u, i, v, r, q
     const nomSuite = ['u', 'v', 'w']
     const s = choice(nomSuite)

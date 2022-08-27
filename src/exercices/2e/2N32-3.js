@@ -7,7 +7,7 @@ export const titre = 'Écrire le nombre proposé sous la forme $a\\sqrt{b}$'
  * 2N32-3, ex 2N11
  * @author Stéphane Guyon
  */
-export const uuid = 'cdc4d'
+export const uuid = 'd9495'
 export const ref = '2N32-3'
 export default function ExtraireUnCarreParfaitDUneRacineCarree () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -18,7 +18,7 @@ export default function ExtraireUnCarreParfaitDUneRacineCarree () {
   this.nbColsCorr = 2
   this.sup = 2 //
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions

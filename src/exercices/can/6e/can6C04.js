@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C04
  */
-export const uuid = '41fc1'
+export const uuid = '5b591'
 export const ref = 'can6C04'
 export default function Ajoute10NPlus9 () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function Ajoute10NPlus9 () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(3, 9)
     const b = randint(2, 8)
     const c = randint(1, 5)

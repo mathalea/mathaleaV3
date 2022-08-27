@@ -1,6 +1,7 @@
 import { xcas, listeQuestionsToContenu, randint, texMasse } from '../../modules/outils.js'
-import { mathalea2d, tableauDeVariation } from '../../modules/2d.js'
+import { tableauDeVariation } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Equation avec une valeur absolue'
 
@@ -22,7 +23,7 @@ export default function EquationAvecUneValeurAbsolue () {
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
   this.listePackages = 'tkz-tab' // Pour la compilation LateX des tableaux de signes
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -123,4 +124,4 @@ export default function EquationAvecUneValeurAbsolue () {
   // this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
 }
 
-// python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
+// python3 list-to-js.py pour faire apparaître l'exercice dans le menu

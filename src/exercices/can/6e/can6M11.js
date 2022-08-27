@@ -1,7 +1,8 @@
-import { mathalea2d } from '../../../modules/2d.js'
+
 import { paveLPH3d } from '../../../modules/3d.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Volume de pavé droit par dénombrement de cubes unités'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -14,7 +15,7 @@ export const dateDePublication = '04/07/2022'
  *
  * Référence can6M11
  */
-export const uuid = '1980e'
+export const uuid = 'e332d'
 export const ref = 'can6M11'
 export default function VolumePaveCubes () {
   Exercice.call(this)
@@ -22,7 +23,7 @@ export default function VolumePaveCubes () {
   this.nbQuestions = 1
   this.sup = 1
   this.tailleDiaporama = 2
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const l = randint(2, 5)
     const L = randint(2, 4)
     const h = randint(2, 6, [l, L])

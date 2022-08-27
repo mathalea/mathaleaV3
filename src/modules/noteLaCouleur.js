@@ -12,7 +12,9 @@
  * this.testSequence([...code]) est une méthode qui retourne true si la séquence d'instructions est valide.
  */
 
-import { avance, boite, ObjetMathalea2D, segment, texteParPositionEchelle, tournerD, tournerG } from './2d.js'
+import { boite, segment, texteParPositionEchelle } from './2d.js'
+import { ObjetMathalea2D } from './2dGeneralites.js'
+import { avance, tournerD, tournerG } from './2dLutin.js'
 import { randint } from './outils.js'
 
 class NoteLaCouleur {
@@ -20,7 +22,7 @@ class NoteLaCouleur {
     x = 15, y = 15, orientation = 90, plateau = [], relatif = true, nx = 16, ny = 12, pas = 30
   }) {
     this.plateauNLC = plateau
-    this.currentPos = { x, y }
+    this.currentPos = { x: x, y: y }
     this.currentOrientation = orientation
     this.codeScratch = ''
     this.currentIndex = 0
@@ -231,7 +233,7 @@ class NoteLaCouleur {
 export function noteLaCouleur ({
   x = 15, y = 15, orientation = 90, plateau = [], relatif = true, nx = 16, ny = 12, pas = 30
 } = {}) {
-  return new NoteLaCouleur({ x, y, orientation, relatif, plateau, nx, ny, pas })
+  return new NoteLaCouleur({ x: x, y: y, orientation: orientation, relatif: relatif, plateau: plateau, nx: nx, ny: ny, pas: pas })
 }
 class Plateau2dNLC {
   constructor ({
@@ -252,7 +254,7 @@ class Plateau2dNLC {
     ]
 
   } = {}) {
-    ObjetMathalea2D.call(this)
+    ObjetMathalea2D.call(this, { })
     this.relatif = relatif
     this.pas = pas
     this.type = 1
@@ -288,7 +290,7 @@ class Plateau2dNLC {
         case 'Vert':
           return 'green'
         case 'Orange':
-          return 'orange'
+          return '#f15929'
         case 'Gris':
           return 'gray'
       }

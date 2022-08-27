@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can5C08
  */
-export const uuid = '4a5b9'
+export const uuid = '2aa64'
 export const ref = 'can5C08'
 export default function ProchainMultipleDeTroisOuDeNeuf () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function ProchainMultipleDeTroisOuDeNeuf () {
   this.tailleDiaporama = 2
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(225, 528) * 3 + choice([0, 1, 2])
     const b = randint(143, 254) * 9 + randint(0, 8)
     const aString = Number(a).toString()

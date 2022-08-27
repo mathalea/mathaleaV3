@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
   * Créé pendant l'été 2021
  * Référence can3C03
 */
-export const uuid = 'ce4ec'
+export const uuid = 'f1208'
 export const ref = 'can3C03'
 export default function FractionIrreductible () {
   Exercice.call(this)
@@ -21,7 +21,7 @@ export default function FractionIrreductible () {
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'fraction'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const maFraction = choice(obtenirListeFractionsIrreductibles())
     const k = choice([4, 6, 8, 12, 15, 20])
     const a = k * maFraction[0]

@@ -9,7 +9,7 @@ export const titre = 'Vocabulaire des triangles'
  * 6G20-2 ; 5G20-1
  * @author Sébastien Lozano
  */
-export const uuid = '6b995'
+export const uuid = 'c3781'
 export const ref = '5G20-1'
 export default function VocabulaireDesTriangles () {
   'use strict'
@@ -27,17 +27,15 @@ export default function VocabulaireDesTriangles () {
 
   let typeDeQuestionsDisponibles
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.sup = parseInt(this.sup)
     if (this.classe === 6) {
       if (this.sup === 1) {
         this.nbQuestions = 4
       } else {
-        // this.nbQuestions = 9;
         this.nbQuestions = 5
       }
     } else if (this.classe === 5) {
-      // this.nbQuestions = 11;
       this.nbQuestions = 5
     }
 

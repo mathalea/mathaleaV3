@@ -13,7 +13,7 @@ export const dateDePublication = '27/12/2021' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
-export const uuid = '26773'
+export const uuid = '1380f'
 export const ref = 'can2F10'
 export default function ResoudreEquationsFonctionDeReference2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -21,7 +21,7 @@ export default function ResoudreEquationsFonctionDeReference2 () {
   this.tailleDiaporama = 1
   this.spacing = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     let texte, texteCorr, k, b, c

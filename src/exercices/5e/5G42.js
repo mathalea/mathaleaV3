@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, choisitLettresDifferentes } from '../../modules/outils.js'
-import { mathalea2d, point, rotation, codageSegments, segment, polygoneAvecNom, codageAngleDroit, labelPoint, similitude } from '../../modules/2d.js'
+import { point, rotation, codageSegments, segment, polygoneAvecNom, codageAngleDroit, labelPoint, similitude } from '../../modules/2d.js'
 export const titre = 'Nature de parallélogrammes'
 
 /**
@@ -8,7 +9,7 @@ export const titre = 'Nature de parallélogrammes'
  * @author
  * Référence 5G42
 */
-export const uuid = '6a2f6'
+export const uuid = '8812e'
 export const ref = '5G42'
 export default function demonstrationsParallelogrammes () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -19,7 +20,7 @@ export default function demonstrationsParallelogrammes () {
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.video = '' // Id YouTube ou url
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -36,16 +37,12 @@ export default function demonstrationsParallelogrammes () {
       C = similitude(A, O, 180, 0.9 + randint(1, 20) / 100, noms[2])
       D = similitude(B, O, 180, 0.9 + randint(1, 20) / 100, noms[3])
       p = polygoneAvecNom(A, B, C, D)
-      s1 = segment(A, B)
-      s2 = segment(B, C)
-      s3 = segment(C, D)
-      s4 = segment(D, A)
+      s1 = segment(A, B, 'blue')
+      s2 = segment(B, C, 'red')
+      s3 = segment(C, D, 'blue')
+      s4 = segment(D, A, 'red')
       d1 = segment(A, C)
       d2 = segment(B, D)
-      s1.color = 'blue'
-      s3.color = 'blue'
-      s2.color = 'red'
-      s4.color = 'red'
       objets.push(s1, s2, s3, s4, p[1])
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent

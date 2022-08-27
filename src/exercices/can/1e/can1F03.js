@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu, choice, sp } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { repere, courbe, mathalea2d, texteParPosition } from '../../../modules/2d.js'
+import { repere, courbe, texteParPosition } from '../../../modules/2d.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Lire graphiquement le signe de $a$ et de $\\Delta$'
 export const interactifReady = true
@@ -15,7 +16,7 @@ export const dateDePublication = '08/06/2022' // La date de publication initiale
  * @author Gilles Mora
  * Référence can1L04
 */
-export const uuid = 'c90bc'
+export const uuid = 'a8936'
 export const ref = 'can1F03'
 export default function LectureGraphiqueParabole () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -25,7 +26,7 @@ export default function LectureGraphiqueParabole () {
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 

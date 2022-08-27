@@ -1,8 +1,9 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, texNombre, choisitLettresDifferentes, sp } from '../../../modules/outils.js'
 import Decimal from 'decimal.js/decimal.mjs'
 import { Arbre } from '../../../modules/arbres.js'
-import { mathalea2d } from '../../../modules/2d.js'
+
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Lire une probabilité  à partir d’un arbre'
@@ -17,7 +18,7 @@ export const amcType = 'AMCNum'
  * @author Gilles Mora
 
 */
-export const uuid = '4cb65'
+export const uuid = '32394'
 export const ref = 'can1P02'
 export default function LectureProbabilite () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -30,7 +31,7 @@ export default function LectureProbabilite () {
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -102,7 +103,7 @@ export default function LectureProbabilite () {
 
       omega.setTailles() // On calcule les tailles des arbres.
       objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
-      texte = "On donne l'arbre de probabilités ci-dessous :<br>"
+      texte = 'On donne l\'arbre de probabilités ci-dessous :<br>'
       texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline' }, ...objets)
       texte += '<br>Compléter avec la notation qui convient : '
       if (this.interactif) {

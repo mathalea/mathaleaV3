@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
  * @author Rémi Angot
  * Référence CM017
 */
-export const uuid = 'ea274'
+export const uuid = 'fc635'
 export const ref = 'CM017'
 export default function DiviserDecimalPar101001000 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -22,7 +22,7 @@ export default function DiviserDecimalPar101001000 () {
   this.nbColsCorr = 2
   this.tailleDiaporama = 3
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 

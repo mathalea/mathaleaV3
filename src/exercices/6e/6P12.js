@@ -463,7 +463,7 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
 
 // _______ Fin des fonctions correspondants aux situations problèmes _____
 
-export const uuid = '30214'
+export const uuid = 'b0f4e'
 export const ref = '6P12'
 export default function ProportionnaliteParCoefDeProportionnalite () {
   'use strict'
@@ -477,7 +477,7 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
   this.besoinFormulaireCaseACocher = ['Version simplifiée ne comportant que des nombres entiers']
   this.sup = false
   this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Échelle\n6 : Surface']
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions === 1 ? 'Répondre à la question posée en justifiant.' : 'Répondre aux questions posées en justifiant.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

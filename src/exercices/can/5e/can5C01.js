@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can5C01
  */
-export const uuid = '55d6a'
+export const uuid = '102f4'
 export const ref = 'can5C01'
 export default function ProduitEntiers5e () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function ProduitEntiers5e () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const b = randint(5, 9)
     const a = randint(12, 19)
     this.reponse = calcul(a * b)

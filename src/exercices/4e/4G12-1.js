@@ -1,15 +1,16 @@
 import Exercice from '../Exercice.js'
 import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, randint, deuxColonnes, contraindreValeur } from '../../modules/outils.js'
-import { grille, mathalea2d, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle, symetrieAnimee, translationAnimee, rotationAnimee } from '../../modules/2d.js'
+import { grille, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle, symetrieAnimee, translationAnimee, rotationAnimee } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { choixDeroulant } from '../../modules/interactif/questionListeDeroulante.js'
+import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 export const dateDePublication = '3/12/2021'
 export const titre = 'Trouver la transformation'
 export const interactifReady = true // Pour l'instant le listeDeroulante n'est pas au point avec les chaines ???
 export const interactifType = 'listeDeroulante'
 
-export const uuid = 'dfc6c'
+export const uuid = '8ac93'
 export const ref = '4G12-1'
 export default function TrouverLaTransformations () {
   Exercice.call(this)
@@ -92,31 +93,31 @@ export default function TrouverLaTransformations () {
         texteInteractif = `la symétrie d'axe (${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom})`
         axe = Est ? droite(noeuds[arrivee], noeuds[arrivee + 1]) : droite(noeuds[arrivee], noeuds[arrivee + 6])
         animation = symetrieAnimee(poly1, axe, 'begin="0s" dur="5s" repeatCount="indefinite"')
-        return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, axe }
+        return { animation: animation, depart: depart, arrivee: arrivee, texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, axe: axe }
       case 'trans': // facile pour la translation : depart->arrivee
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la translation transformant $${noeuds[depart].nom}$ en $${noeuds[arrivee].nom}$.`
         texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la translation transformant ${sp(1)}\\ldots${sp(1)} en ${sp(1)}\\ldots${sp(1)}.`
         texteInteractif = `la translation transformant ${noeuds[depart].nom} en ${noeuds[arrivee].nom}`
         vector = vecteur(noeuds[depart], noeuds[arrivee])
         animation = translationAnimee(poly1, vector, 'begin="0s" dur="5s" repeatCount="indefinite"')
-        return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, vecteur: vecteur(noeuds[depart], noeuds[arrivee]) }
+        return { animation: animation, depart: depart, arrivee: arrivee, texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, vecteur: vecteur(noeuds[depart], noeuds[arrivee]) }
       case 'rot90': // la position du centre dépend du sens de rotation et de départ et arrivee.
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la rotation de centre $${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)}$ d'angle $90\\degree$ dans le sens ${leSens ? 'direct' : 'indirect'}.`
         texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la rotation de centre ${sp(1)}\\ldots${sp(1)} d'angle $90\\degree$ dans le sens  ${leSens ? 'direct' : 'indirect'}.`
         texteInteractif = `la rotation de centre ${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)} d'angle 90° dans le sens ${leSens ? 'direct' : 'indirect'}`
         centre = Est ? (leSens ? noeuds[arrivee + 1] : noeuds[arrivee]) : (leSens ? noeuds[arrivee] : noeuds[arrivee + 6])
         animation = rotationAnimee(poly1, centre, leSens ? 90 : -90, 'begin="0s" dur="5s" repeatCount="indefinite"')
-        return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, centre, sens: leSens }
+        return { animation: animation, depart: depart, arrivee: arrivee, texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: centre, sens: leSens }
       case 'rot180': // pas besoin du sens, mais le milieu choisit dépend de depart et arrivee
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la symétrie de centre le milieu de $[${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom}]$.`
         texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie de centre le milieu de $[${sp(1)}\\ldots${sp(1)}]$.`
         texteInteractif = `la symétrie de centre le milieu de [${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom}]`
         centre = milieu(noeuds[arrivee], Est ? noeuds[arrivee + 1] : noeuds[arrivee + 6])
         animation = rotationAnimee(poly1, centre, 180, 'begin="0s" dur="5s" repeatCount="indefinite"')
-        return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, centre }
+        return { animation: animation, depart: depart, arrivee: arrivee, texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: centre }
     }
   }
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.autoCorrection = []
     if (this.version === 1) {
       this.sup = 1
@@ -164,12 +165,12 @@ export default function TrouverLaTransformations () {
       for (let y = 0, numero; y < 5; y++) {
         numero = texteParPointEchelle(Number(x * 6 + y).toString(), point(x * 3.2 + 1.6, y * 3.2 + 1.6), 'milieu', context.isHtml ? 'yellow' : 'black', 1.2, 'middle', true, 0.4)
         numero.contour = context.isHtml
-        numero.couleurDeRemplissage = 'black'
+        numero.couleurDeRemplissage = colorToLatexOrHTML('black')
         numero.opacite = context.isHtml ? 0.5 : 1
         numero.opaciteDeRemplissage = 1
         maGrille.push(numero)
         polys[x * 6 + y].opacite = 0.7
-        polys[x * 6 + y].color = 'blue'
+        polys[x * 6 + y].color = colorToLatexOrHTML('blue')
       }
     }
     objetsEnonce.push(...polys)
@@ -180,7 +181,7 @@ export default function TrouverLaTransformations () {
       for (let y = 0, label; y < 6; y++) {
         label = texteParPointEchelle(noeuds[x * 6 + y].nom, translation(noeuds[x * 6 + y], vecteur(0.3, 0.3)), 'milieu', context.isHtml ? 'red' : 'black', 1.2, 'middle', true, 0.4)
         label.contour = context.isHtml
-        label.couleurDeRemplissage = 'black'
+        label.couleurDeRemplissage = colorToLatexOrHTML('black')
         label.opacite = context.isHtml ? 0.8 : 1
         label.opaciteDeRemplissage = 1
         objetsEnonce.push(label)
@@ -238,8 +239,8 @@ export default function TrouverLaTransformations () {
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
-    this.contenu = deuxColonnes(this.contenu, mathalea2d(paramsEnonce, objetsEnonce), 50)
-    this.contenuCorrection = deuxColonnes(this.contenuCorrection, mathalea2d(paramsCorrection, objetsCorrection), 50)
+    this.contenu = deuxColonnes(this.contenu(paramsEnonce, objetsEnonce), 50)
+    this.contenuCorrection = deuxColonnes(this.contenuCorrection(paramsCorrection, objetsCorrection), 50)
   }
   this.besoinFormulaireNumerique = ['Types de transformations possibles', 3, '1 : Symétries axiales et centrales\n2 : Symétries et translations\n3 : Symétries, translations et quarts de tour']
 }

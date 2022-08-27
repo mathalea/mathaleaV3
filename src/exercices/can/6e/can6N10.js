@@ -10,7 +10,7 @@ export const dateDePublication = '15/12/2021' // La date de publication initiale
 /*!
  * @author Gilles Mora
  */
-export const uuid = '77ef3'
+export const uuid = '93bb5'
 export const ref = 'can6N10'
 export default function FractionDecimaleEcritureDecimale1 () {
   Exercice.call(this)
@@ -18,7 +18,7 @@ export default function FractionDecimaleEcritureDecimale1 () {
   this.tailleDiaporama = 1
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, c, u
     switch (choice(['a', 'b', 'c', 'd', 'e'])) { //,
       case 'a':

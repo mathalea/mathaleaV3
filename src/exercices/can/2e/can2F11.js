@@ -13,7 +13,7 @@ export const dateDePublication = '30/12/2021' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
-export const uuid = '9f983'
+export const uuid = '991c2'
 export const ref = 'can2F11'
 export default function ComparerAvecFctCarre () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -21,7 +21,7 @@ export default function ComparerAvecFctCarre () {
   this.tailleDiaporama = 1
   this.spacing = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     let texte, texteCorr, a, b

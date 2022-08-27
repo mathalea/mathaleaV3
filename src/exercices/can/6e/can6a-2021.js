@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, droiteGraduee2, segment, milieu, texteParPosition, codageSegment, polygone, grille
+  point, droiteGraduee, segment, milieu, texteParPosition, codageSegment, polygone, grille
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
@@ -24,7 +25,7 @@ export const dateDePublication = '11/04/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
-export const uuid = 'd4f41'
+export const uuid = '90c8c'
 export const ref = 'can6a-2021'
 export default function SujetCAN2021Sixieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -35,7 +36,7 @@ export default function SujetCAN2021Sixieme () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
@@ -111,7 +112,7 @@ export default function SujetCAN2021Sixieme () {
           for (let i = 0; i < 2; i++) {
             maListe.push([c + a * i, c + a * i])
           }
-          d = droiteGraduee2({
+          d = droiteGraduee({
             Unite: 3 / a,
             Min: c - 2 * a,
             Max: c + 2 * a,
@@ -312,7 +313,7 @@ export default function SujetCAN2021Sixieme () {
         case 15:
           a = choice(listeFractions15)
           b = fraction(a[0], a[1])
-          d = droiteGraduee2(
+          d = droiteGraduee(
             {
               Unite: 6, // nombre de cm pour une unité
               Min: 0, // Là où commence la droite
@@ -437,7 +438,7 @@ export default function SujetCAN2021Sixieme () {
           a = choice(listeFractions20)
           b = fraction(a[0], a[1])
           reponse = Math.round(a[0] / a[1] * 100)
-          propositions = shuffle([`$${texNombre(a[0] / a[1]), 2}\\%$`, `$${reponse}\\%$`, `$${texNombre(a[1])}\\%$`, `$${a[0]},${a[1]}\\%$`])
+          propositions = shuffle([`$${texNombre(a[0] / a[1], 2)}\\%$`, `$${reponse}\\%$`, `$${texNombre(a[1])}\\%$`, `$${a[0]},${a[1]}\\%$`])
           texteCorr = `$\\dfrac{${a[0]}}{${a[1]}}=${texNombre(a[0] / a[1], 2)}=${reponse}\\%$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -580,7 +581,7 @@ export default function SujetCAN2021Sixieme () {
           reponse = arrondi(2 * a + b + c, 1)
           texte = `Quel est le périmètre de cette figure ? <br>
             `
-          texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
+          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
           texteCorr = `Le périmètre est donné par la somme des quatre longueurs : $${texNombre(a, 1)}\\times 2+${texNombre(b, 1)}+${texNombre(c, 1)}=${texNombre(2 * a + b + c, 1)}$ cm.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -594,7 +595,7 @@ export default function SujetCAN2021Sixieme () {
           b = choice([a + 1, 2 * a - 1])
           reponse = fraction(b, a)// .simplifie()
           texte = "Quelle est la fraction repérée par le point d'interrogation ?<br>" +
-           mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
+           mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
              Unite: 8,
              Min: 1,
              Max: 2,
@@ -655,14 +656,14 @@ export default function SujetCAN2021Sixieme () {
           a = randint(1, 5)
           b = randint(2, 4)
           A = polygone([point(1, 7), point(11, 7), point(11, 6), point(1, 6)], 'black')
-          A.couleurDeRemplissage = 'lightgray'
+          A.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
           B = texteParPosition('1 uA', 6, 6.5, 'milieu', 'black', 1, 'middle', false)
           C = grille(0, 0, 12, 7, 'black', 1, 1, false)
           D = point(1 + a, 4 - b)
           d = polygone([D, point(D.x, D.y + 1), point(11, D.y + 1), point(11, 5), point(1, 5), point(1, D.y)], 'black')
           d.epaisseur = 2
-          d.couleurDeRemplissage = 'white'
-          d.couleurDesHachures = 'gray'
+          d.couleurDeRemplissage = colorToLatexOrHTML('white')
+          d.couleurDesHachures = colorToLatexOrHTML('gray')
           d.distanceDesHachures = 4
           d.hachures = 'north east lines'
 

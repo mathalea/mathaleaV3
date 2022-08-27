@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C03
  */
-export const uuid = '32cbf'
+export const uuid = '2e274'
 export const ref = 'can6C03'
 export default function AdditionATrou () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function AdditionATrou () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(5, 9)
     const b = randint(6, 9)
     const c = randint(1, 5)

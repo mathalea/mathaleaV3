@@ -13,7 +13,7 @@ export const titre = 'Inéquation du premier degré'
  * @author Remi Angot et Guillaume Valmont
  * 2N60-4, ex 2L13
  */
-export const uuid = '83147'
+export const uuid = 'bc1e4'
 export const ref = '2N60-4'
 export default function ExerciceInequation1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -29,7 +29,7 @@ export default function ExerciceInequation1 () {
   this.sup2 = 4 // Choix du type d'inéquation
   this.nbQuestions = 6
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions

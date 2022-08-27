@@ -22,7 +22,7 @@ export default function AugmenterEtReduireDunPourcentage () {
   this.video = '' // Id YouTube ou url
   this.interactifType = 'mathLive'
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const n = parseInt(this.sup) - 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

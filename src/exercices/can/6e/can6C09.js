@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C09
  */
-export const uuid = '8eaf2'
+export const uuid = '592c7'
 export const ref = 'can6C09'
 export default function SoustraireX9 () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function SoustraireX9 () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(5, 9)
     const b = randint(1, 8)
     const c = randint(1, 4)

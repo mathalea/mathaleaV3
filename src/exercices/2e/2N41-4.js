@@ -11,7 +11,7 @@ export const interactifType = 'mathLive'
 * @author Matthieu Devillers très très largement inspiré par Jean-Claude Lhote
 * 2N41-4, ex 2L12-2
 */
-export const uuid = '71d3a'
+export const uuid = '877a9'
 export const ref = '2N41-4'
 export default function DevelopperIdentitesRemarquables3 () {
   'use strict'
@@ -31,7 +31,7 @@ export default function DevelopperIdentitesRemarquables3 () {
   this.spacingCorr = 1
   this.nbQuestions = 4
   this.sup = 5
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 
 import { listeQuestionsToContenu, randint, choice, quotientier, combinaisonListes, ecritureParentheseSiNegatif, texFractionReduite, ecritureAlgebrique } from '../../modules/outils.js'
-import { repere, mathalea2d, point, tracePoint, labelPoint } from '../../modules/2d.js'
+import { repere, point, tracePoint, labelPoint } from '../../modules/2d.js'
 export const titre = 'Déterminer une fonction affine à partir de deux images.'
 
 /**
@@ -9,7 +10,7 @@ export const titre = 'Déterminer une fonction affine à partir de deux images.'
 * @author Stéphane Guyon
 * 2F20
 */
-export const uuid = 'bea9f'
+export const uuid = 'ef897'
 export const ref = '2F10-4'
 export default function Determinerfonctionaffine () {
   'use strict'
@@ -22,7 +23,7 @@ export default function Determinerfonctionaffine () {
   this.spacingCorr = 1
   this.nbQuestions = 3
   this.sup = 1
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []
@@ -153,8 +154,7 @@ export default function Determinerfonctionaffine () {
           if (yB === 0) { B = point(xB, yB, 'B', 'above') }// éviter A sur l'axe des abscisses
 
           t = tracePoint(A, B, 'red') // Variable qui trace les points avec une croix
-          l = labelPoint(A, B)// Variable qui trace les nom s A et B
-          l.color = 'red'
+          l = labelPoint(A, B, 'red')// Variable qui trace les noms A et B
           texte = 'Déterminer, en détaillant les calculs, l\'expression algébrique de la fonction affine $f$ dont la représentation<br>'
           texte += `graphique passe par les points $A(${xA};${yA})$ et $B(${xB};${yB})$ représentés ci-dessous :<br>`
           texte += mathalea2d({

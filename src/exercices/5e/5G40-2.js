@@ -1,5 +1,6 @@
-import { point, polygone, segment, milieu, nommePolygone, codageSegment, codageAngle, mathalea2d, latexParPoint } from '../../modules/2d.js'
+import { point, polygone, segment, milieu, nommePolygone, codageSegment, codageAngle, latexParPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { creerNomDePolygone, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 export const titre = 'Reconnaître un parallélogramme à partir du codage d\'une figure'
 
@@ -11,7 +12,7 @@ export const dateDeModifImportante = '08/05/2022'
  * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
  * Publié le 5/4/2021
 */
-export const uuid = '85ccb'
+export const uuid = '588fe'
 export const ref = '5G40-2'
 export default function ParallelogrammeAPartirDUneFigure () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -23,7 +24,7 @@ export default function ParallelogrammeAPartirDUneFigure () {
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -48,22 +49,18 @@ export default function ParallelogrammeAPartirDUneFigure () {
     const sCOcodage = codageSegment(O, C, '|', 'blue')
     const sBOcodage = codageSegment(B, O, '||', 'blue')
     const sDOcodage = codageSegment(O, D, '||', 'blue')
-    const aDABcodage = codageAngle(D, A, B, 0.8, '|', 'black', 1, 1, 'blue')
-    const aBCDcodage = codageAngle(B, C, D, 0.8, '|', 'black', 1, 1, 'blue')
-    const aABCcodage = codageAngle(A, B, C, 0.8, '|||', 'black', 1, 1, 'orange')
-    const aCDAcodage = codageAngle(C, D, A, 0.8, '|||', 'black', 1, 1, 'orange')
-    const sAB = segment(A, B)
-    const sBC = segment(B, C)
-    const sCD = segment(C, D)
-    const sAD = segment(A, D)
+    const aDABcodage = codageAngle(D, A, B, 0.8, '|', 'black', 1, 1)
+    const aBCDcodage = codageAngle(B, C, D, 0.8, '|', 'black', 1, 1)
+    const aABCcodage = codageAngle(A, B, C, 0.8, '|||', 'black', 1, 1)
+    const aCDAcodage = codageAngle(C, D, A, 0.8, '|||', 'black', 1, 1)
+    const sAB = segment(A, B, 'blue')
+    const sBC = segment(B, C, 'green')
+    const sCD = segment(C, D, 'blue')
+    const sAD = segment(A, D, 'green')
     sAB.epaisseur = 2
-    sAB.color = 'blue'
     sCD.epaisseur = 2
-    sCD.color = 'blue'
     sBC.epaisseur = 2
-    sBC.color = 'green'
     sAD.epaisseur = 2
-    sAD.color = 'green'
 
     // Cerf-volant
     const M1 = point(0, 0)

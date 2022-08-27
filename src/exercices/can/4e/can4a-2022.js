@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, labelPoint, polygoneAvecNom, milieu, texteParPosition, tracePoint, repere, polygone, codageAngleDroit, latexParCoordonnees
+  point, labelPoint, polygoneAvecNom, milieu, texteParPosition, tracePoint, repere, polygone, codageAngleDroit, latexParCoordonnees
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, arrondi, randint, texNombre, shuffle, ecritureParentheseSiNegatif, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../../modules/outils.js'
@@ -24,7 +25,7 @@ export const dateDePublication = '01/05/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
-export const uuid = '3d1df'
+export const uuid = 'cf47f'
 export const ref = 'can4a-2022'
 export default function SujetCAN2022quatrieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -35,7 +36,7 @@ export default function SujetCAN2022quatrieme () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
@@ -522,9 +523,6 @@ export default function SujetCAN2022quatrieme () {
             axeYStyle: '->'
           })
 
-          // C.color = 'red'
-          // C.epaisseur = 2
-
           A = point(a, b)
           o = latexParCoordonnees('\\text{O}', -0.3, -0.4, 'black', 15, 10, '', 7)
           lA = latexParCoordonnees('A', a + 0.2, b + 0.2, 'red', 15, 10, '', 10)
@@ -705,7 +703,7 @@ export default function SujetCAN2022quatrieme () {
             reponse = a[1]
             texte = 'Calcule la longueur $AB$. <br>'
 
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texte += '<br>$AB=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -721,7 +719,7 @@ export default function SujetCAN2022quatrieme () {
             reponse = a[0]
             texte = 'Calcule la longueur $AC$. <br>'
 
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texte += '<br>$AC=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
@@ -737,7 +735,7 @@ export default function SujetCAN2022quatrieme () {
             reponse = a[2]
             texte = 'Calcule la longueur $BC$. <br>'
 
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texte += '<br>$BC=$'
 
             texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>

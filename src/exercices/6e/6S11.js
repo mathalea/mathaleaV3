@@ -11,7 +11,7 @@ export const titre = 'Organiser des données dans un tableau'
 
 // source : http://www.ac-grenoble.fr/savoie/pedagogie/docs_pedas/ogd_c2_c3/ogd_c2_c3.pdf
 
-export const uuid = '3f1b3'
+export const uuid = '99d95'
 export const ref = '6S11'
 export default function OrganiserDonneesDepuisTexte () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -26,7 +26,7 @@ export default function OrganiserDonneesDepuisTexte () {
   context.isHtml ? this.spacing = 2 : this.spacing = 1
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

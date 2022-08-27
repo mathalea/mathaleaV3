@@ -22,7 +22,7 @@ export const titre = 'Poser des multiplications de nombres décimaux'
  * @author Rémi Angot
  * Référence 6C30
  */
-export const uuid = '090c5'
+export const uuid = '52939'
 export const ref = '6C30'
 export default function MultiplierDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -34,7 +34,7 @@ export default function MultiplierDecimaux () {
   this.sup = false
   this.listePackages = 'xlop'
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

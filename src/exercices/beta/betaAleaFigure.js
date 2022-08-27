@@ -4,10 +4,11 @@ import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { parse, create, all, unit } from 'mathjs'
 import { toString, aleaVariables, assignVariables, calculer, toTex, resoudre, aleaName } from '../../modules/outilsMathjs.js'
 import { GVGraphicView } from '../../modules/aleaFigure/GraphicView.js'
-import { GVGrandeur } from '../../modules/aleaFigure/grandeurs'
-import { GVLine, GVSegment, GVVector, GVPoint } from '../../modules/aleaFigure/elements'
-import { GVAleaThalesConfig } from '../../modules/aleaFigure/outilsThales'
+import { GVGrandeur } from '../../modules/aleaFigure/grandeurs.js'
+import { GVLine, GVSegment, GVVector, GVPoint } from '../../modules/aleaFigure/elements.js'
+import { GVAleaThalesConfig } from '../../modules/aleaFigure/outilsThales.js'
 import { circularPermutation, name } from '../../modules/aleaFigure/outils.js'
+import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 
 // eslint-disable-next-line no-debugger
 debugger
@@ -977,7 +978,7 @@ ${consigne[this.sup3 - 1]}` + '<br>' + graph
             }
             rectangles.push(sommets, graphic.addSidesPolygon(...sommets))
           }
-          rectangles.filter((x, i) => (i === 1 || i === 2 * aleaRectangle + 1)).map((y, j) => y.map(z => { z.color = 'blue'; return z }))
+          rectangles.filter((x, i) => (i === 1 || i === 2 * aleaRectangle + 1)).map((y, j) => y.map(z => { z.color = colorToLatexOrHTML('blue'); return z }))
           const cotesRectangles = rectangles.filter(x => x[0] instanceof GVSegment)
           const sommetsRectangles = rectangles.filter(x => x[0] instanceof GVPoint)
           const graph = graphic.getFigure(...sommetsRectangles, ...cotesRectangles, cotesRectangles[0], cotesRectangles[aleaRectangle])
@@ -1072,7 +1073,7 @@ Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixe
             }
             rectangles.push(sommets, graphic.addSidesPolygon(...sommets))
           }
-          rectangles.filter((x, i) => (i === 1 || i === 2 * rectangleImage + 1)).map((y, j) => y.map(z => { z.color = 'blue'; return z }))
+          rectangles.filter((x, i) => (i === 1 || i === 2 * rectangleImage + 1)).map((y, j) => y.map(z => { z.color = colorToLatexOrHTML('blue'); return z }))
           const cotesRectangles = rectangles.filter(x => x[0] instanceof GVSegment)
           const sommetsRectangles = rectangles.filter(x => x[0] instanceof GVPoint)
           const graph = graphic.getFigure(...sommetsRectangles, ...cotesRectangles, cotesRectangles[0], cotesRectangles[rectangleImage])
@@ -1377,9 +1378,9 @@ L'aire du carré est donc $${AireEFGH.format()}$
           const p = variables.p
           const graph = graphic.getFigure(ABCD, AB, BC, ...angles.map(x => { x.right = true; return x }))
           const resolution = resoudre(`${p}=2*(${exprAB}) + 2*(${exprBC})`, { suppr1: false, substeps: this.correctionDetaillee })
-          const calculAB = calculer('a*(x)+b'.replace('x', resolution.solution.exact), { name: AB.name, suppr1: false, substeps: this.correctionDetaillee, variables })
-          const calculBC = calculer('c*(x)+d'.replace('x', resolution.solution.exact), { name: BC.name, suppr1: false, substeps: this.correctionDetaillee, variables })
-          const calculAire = calculer(`${calculAB.result}*${calculBC.result}`, { name: '\\mathcal{A}', suppr1: false, substeps: this.correctionDetaillee, variables })
+          const calculAB = calculer('a*(x)+b'.replace('x', resolution.solution.exact), { name: AB.name, suppr1: false, substeps: this.correctionDetaillee, variables: variables })
+          const calculBC = calculer('c*(x)+d'.replace('x', resolution.solution.exact), { name: BC.name, suppr1: false, substeps: this.correctionDetaillee, variables: variables })
+          const calculAire = calculer(`${calculAB.result}*${calculBC.result}`, { name: '\\mathcal{A}', suppr1: false, substeps: this.correctionDetaillee, variables: variables })
           let solutionDecimale = math.fraction(calculAire.result.replaceAll(' ', '')).valueOf()
           const environ = solutionDecimale === math.round(solutionDecimale, 2) ? '' : 'environ'
           solutionDecimale = math.round(solutionDecimale, 2).toString()
@@ -1450,9 +1451,9 @@ Donc l'aire du rectangle $${ABCD}$ est ${environ} $${toTex(solutionDecimale)}~cm
           const p = variables.p
           const graph = graphic.getFigure(ABCD, AB, CD, ...angles.map(x => { x.right = true; return x }))
           const resolution = resoudre(`${exprAB}=${exprCD}`, { suppr1: false, substeps: this.correctionDetaillee })
-          const calculAB = calculer('a*(x)+b'.replace('x', resolution.solution.exact), { name: AB.name, suppr1: false, substeps: this.correctionDetaillee, variables })
+          const calculAB = calculer('a*(x)+b'.replace('x', resolution.solution.exact), { name: AB.name, suppr1: false, substeps: this.correctionDetaillee, variables: variables })
           const resolution2 = resoudre(name`${p} = 2*${calculAB.result} + 2*${BC}`, { suppr1: false, substeps: this.correctionDetaillee })
-          const calculAire = calculer(`${calculAB.result}*${resolution2.solution.exact}`, { name: '\\mathcal{A}', suppr1: false, substeps: this.correctionDetaillee, variables })
+          const calculAire = calculer(`${calculAB.result}*${resolution2.solution.exact}`, { name: '\\mathcal{A}', suppr1: false, substeps: this.correctionDetaillee, variables: variables })
           let solutionDecimale = math.fraction(calculAire.result.replaceAll(' ', '')).valueOf()
           const environ = solutionDecimale === math.round(solutionDecimale, 2) ? '' : 'environ'
           solutionDecimale = math.round(solutionDecimale, 2).toString()

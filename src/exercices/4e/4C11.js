@@ -41,7 +41,7 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  * 4C11
  */
-export const uuid = '73bba'
+export const uuid = '62f66'
 export const ref = '4C11'
 export default function PrioritesEtRelatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -54,7 +54,7 @@ export default function PrioritesEtRelatifs () {
   this.nbColsCorr = 1
   this.sup = 3
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

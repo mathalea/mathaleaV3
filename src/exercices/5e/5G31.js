@@ -21,7 +21,7 @@ export const titre = 'Somme des angles dans un triangle'
 * @author Jean-Claude Lhote
 * Référence 5G31
 */
-export const uuid = '9f69c'
+export const uuid = 'dc8c9'
 export const ref = '5G31'
 export default function ExerciceAnglesTriangles () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -41,7 +41,7 @@ export default function ExerciceAnglesTriangles () {
     if (a1 + a2 <= 180) { return 180 - (a1 + a2) } else { return -1 }
   }
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

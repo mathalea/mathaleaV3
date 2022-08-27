@@ -15,7 +15,7 @@ export const titre = 'Multiplier par 0,1 ; 0,01 ; 0,001 (placer la virgule)'
  * Référence 6C30-4
  * Relecture : Décembre 2021 par EE
  */
-export const uuid = '956c1'
+export const uuid = '47a54'
 export const ref = '6C30-4'
 export default function PlacerLaVirgule () {
   'use strict'
@@ -31,7 +31,7 @@ export default function PlacerLaVirgule () {
   this.sup = false
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
 

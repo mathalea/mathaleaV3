@@ -9,7 +9,7 @@ export const titre = 'Deviner un nombre relatif'
  *  @author Jean-Claude Lhote à partir de CM000 de Rémi Angot
  * Référence 5R10
  */
-export const uuid = '1f06c'
+export const uuid = '76343'
 export const ref = '5R10-1'
 export default function DevinerNombreRelatif () {
   'use strict'
@@ -18,7 +18,7 @@ export default function DevinerNombreRelatif () {
   this.consigne = 'Qui suis-je ?'
   this.spacing = 2
   this.nbQuestions = 3
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

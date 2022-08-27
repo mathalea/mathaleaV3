@@ -16,7 +16,7 @@ export const dateDeModifImportante = '23/02/2022'
  * @author Sébastien Lozano (et Eric Elter pour divers enrichissements)
  */
 
-export const uuid = 'b3091'
+export const uuid = 'c511f'
 export const ref = '6P11-1'
 export default function ProportionnaliteParLineariteBis () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -36,7 +36,7 @@ export default function ProportionnaliteParLineariteBis () {
     titre = 'Résoudre un problème relevant de la proportionnalité'
   }
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const tabHash = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

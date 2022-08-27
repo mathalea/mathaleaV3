@@ -12,7 +12,7 @@ export const interactifType = 'mathLive'
 * @author Jean-Claude Lhote
 * 3L12-1
 */
-export const uuid = '345d2'
+export const uuid = 'be157'
 export const ref = '3L12-1'
 export default function DevelopperIdentitesRemarquables3 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -28,7 +28,7 @@ export default function DevelopperIdentitesRemarquables3 () {
   this.sup = 2
   this.tailleDiaporama = 3
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

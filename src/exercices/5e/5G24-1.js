@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { point, pointAdistance, rotation, similitude, translation, vecteur, barycentre, codageSegment, codageAngle, nommePolygone, mathalea2d, triangle2points2longueurs, longueur, angle, polygone } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { point, pointAdistance, rotation, similitude, translation, vecteur, barycentre, codageSegment, codageAngle, nommePolygone, triangle2points2longueurs, longueur, angle, polygone } from '../../modules/2d.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, choisitLettresDifferentes, shuffleLettres } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Triangles égaux et côtés homologues'
@@ -9,7 +10,7 @@ export const titre = 'Triangles égaux et côtés homologues'
  * @author Rémi Angot
  * Référence 5G24-1
 */
-export const uuid = '2bbc2'
+export const uuid = '10148'
 export const ref = '5G24-1'
 export default function TrianglesEgaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -22,7 +23,7 @@ export default function TrianglesEgaux () {
   this.video = '' // Id YouTube ou url
   this.spacing = 2
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

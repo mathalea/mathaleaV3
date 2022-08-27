@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Date de publication septembre 2021
  * Référence canc3C02
  */
-export const uuid = 'b5e4d'
+export const uuid = '913e9'
 export const ref = 'canc3C02'
 export default function CompositionDeNombreEntier () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function CompositionDeNombreEntier () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])

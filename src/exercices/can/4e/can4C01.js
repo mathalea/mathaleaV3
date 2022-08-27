@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can4C01
  */
-export const uuid = 'a965f'
+export const uuid = '1da2d'
 export const ref = 'can4C01'
 export default function PrioriteOperatoireEtRelatifs () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function PrioriteOperatoireEtRelatifs () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur25 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a = randint(-12, 12, 0)
     const b = randint(-4, 4, [-1, 0, 1])
     const c = randint(2, 6)

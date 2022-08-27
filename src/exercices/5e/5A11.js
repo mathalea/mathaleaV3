@@ -7,7 +7,7 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/6N43-2
  * @author Rémi Angot
  * 5A11 (clone de 6N43-2)
  */
-export const uuid = '8c46e'
+export const uuid = 'a55d2'
 export const ref = '5A11'
 export default function TableauCriteresDeDivisibilite5e () {
   TableauCriteresDeDivisibilite.call(this)

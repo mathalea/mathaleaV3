@@ -16,7 +16,7 @@ export const dateDeModifImportante = '29/10/2021'
  * Référence 6N31-4
  * Ajout AMC : Janvier 2022 par EE
 */
-export const uuid = 'cec71'
+export const uuid = 'b86b9'
 export const ref = '6N31-4'
 export default function IntercalerDecimalEntre2Decimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -25,7 +25,7 @@ export default function IntercalerDecimalEntre2Decimaux () {
   this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

@@ -11,7 +11,7 @@ export const dateDePublication = '13/11/2020'
  * @author Jean-Claude Lhote
  * Relecture : Novembre 2021 par EE
  */
-export const uuid = '6b7f8'
+export const uuid = 'c9ba6'
 export const ref = 'c3N30'
 export default function ConversionsC3 () {
   ExerciceConversions.call(this)

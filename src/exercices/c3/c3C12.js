@@ -6,7 +6,7 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/6C34.j
  *
  * @author Jean-Claude Lhote
  */
-export const uuid = '544a7'
+export const uuid = 'e2a48'
 export const ref = 'c3C12'
 export default function DerbierChiffreC3 () {
   DernierChiffre.call(this)

@@ -1,5 +1,5 @@
 /* globals $ cmResize */
-// import iepLoadPromise from 'instrumenpoche'
+import iepLoadPromise from 'instrumenpoche'
 import CodeMirror from 'codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/monokai.css'
@@ -13,7 +13,7 @@ import 'codemirror/addon/hint/show-hint.css'
 import 'codemirror/addon/edit/closebrackets.js'
 import initialiseEditeur from './initialiseEditeur.js'
 import '../../css/style_mathalea.css'
-import { telechargeFichier } from './outils'
+import { telechargeFichier } from './outils.js'
 import { context } from './context.js'
 
 // Pour le menu du haut
@@ -111,17 +111,17 @@ function scriptJsToAnimEtSvg () {
   xml = window.anim.script()
   document.getElementById('svg').innerHTML = codeSvgFigure
   document.getElementById('xmlSrc').value = xml
-  // iepLoadPromise(container, xml, { autostart: true }).then(iepApp => {
-  //   // la figure est chargée
-  //   document.querySelectorAll('svg.svgIep').forEach(svg => {
-  //     // const iepDoc = svg.iepDoc
-  //     // Décaler de 1 cm à droite
-  //     // iepDoc.setViewBox({ x: 30, y: 0, width: 800, height: 600 })
-  //   })
-  // }).catch(error => {
-  //   // il y a eu un pb
-  //   console.log(error)
-  // })
+  iepLoadPromise(container, xml, { autostart: true }).then(iepApp => {
+    // la figure est chargée
+    document.querySelectorAll('svg.svgIep').forEach(svg => {
+      // const iepDoc = svg.iepDoc
+      // Décaler de 1 cm à droite
+      // iepDoc.setViewBox({ x: 30, y: 0, width: 800, height: 600 })
+    })
+  }).catch(error => {
+    // il y a eu un pb
+    console.log(error)
+  })
   if (document.getElementById('telecharger')) {
     buttonTelecharger.onclick = function () {
       telechargeFichier(myCodeMirror.getValue(), 'mathalea2d.iep')
@@ -144,17 +144,17 @@ function display (event) {
     event.stopPropagation()
     const divXmlIep = document.getElementById('xmlSrc')
     // iepLoad('display', divXmlIep.value)
-    // iepLoadPromise(container, divXmlIep.value, { autostart: true }).then(iepApp => {
-    //   // la figure est chargée
-    //   document.querySelectorAll('svg.svgIep').forEach(svg => {
-    //   // const iepDoc = svg.iepDoc
-    //   // Décaler de 1 cm à droite
-    //   // iepDoc.setViewBox({ x: 30, y: 0, width: 800, height: 600 })
-    //   })
-    // }).catch(error => {
-    //   // il y a eu un pb
-    //   console.log(error)
-    // })
+    iepLoadPromise(container, divXmlIep.value, { autostart: true }).then(iepApp => {
+      // la figure est chargée
+      document.querySelectorAll('svg.svgIep').forEach(svg => {
+      // const iepDoc = svg.iepDoc
+      // Décaler de 1 cm à droite
+      // iepDoc.setViewBox({ x: 30, y: 0, width: 800, height: 600 })
+      })
+    }).catch(error => {
+      // il y a eu un pb
+      console.log(error)
+    })
   } catch (error) {
     console.log("Plantage à l'affichage, xml probablement malformé")
     console.error(error)

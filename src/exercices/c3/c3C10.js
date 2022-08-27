@@ -6,7 +6,7 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/6C10.j
  *
  * @author Jean-Claude Lhote
  */
-export const uuid = '5be91'
+export const uuid = 'fa836'
 export const ref = 'c3C10'
 export default function OperationsPosees () {
   AdditionsSoustractionsMultiplicationsPosees.call(this)

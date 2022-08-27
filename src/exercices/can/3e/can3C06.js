@@ -13,7 +13,7 @@ export const dateDeModifImportante = '08/12/2021'
  * Référence can3C06
  * Date de publication
 */
-export const uuid = 'b13ec'
+export const uuid = '9634b'
 export const ref = 'can3C06'
 export default function CalculDivers1 () {
   Exercice.call(this)
@@ -21,7 +21,7 @@ export default function CalculDivers1 () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, c
     switch (choice(['a', 'b', 'c', 'd'])) { //
       case 'a':

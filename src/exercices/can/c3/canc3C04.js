@@ -12,7 +12,7 @@ export const dateDePublication = '16/11/2021'
  * Date de publication 16/11/2021
  * Référence canc3C04
  */
-export const uuid = '35a6d'
+export const uuid = '4ba86'
 export const ref = 'canc3C04'
 export default function DoubleOuBienMoitie () {
   Exercice.call(this)
@@ -20,7 +20,7 @@ export default function DoubleOuBienMoitie () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a = randint(2, 4) * 10 + randint(1, 9)
     if (choice([true, false])) {
       this.reponse = a << 1

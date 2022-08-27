@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, calcul, choice, texNombrec, texFractionReduite } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, labelPoint, segment, texteParPosition, milieu, tracePoint, codageAngleDroit
+  point, labelPoint, segment, texteParPosition, milieu, tracePoint, codageAngleDroit
 } from '../../../modules/2d.js'
 import { fraction } from '../../../modules/fractions.js'
 export const titre = 'Calculer une aire ou un périmètre (carré et rectangle)'
@@ -14,7 +15,7 @@ export const interactifType = 'mathLive'
  * Référence can4G07
  * Date de publication septembre 2021
 */
-export const uuid = '4926a'
+export const uuid = 'b1a48'
 export const ref = 'can4G08'
 export default function QuestionsAiresEtPerimetres () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -24,7 +25,7 @@ export default function QuestionsAiresEtPerimetres () {
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, c, n, d, A, B, C, D, N, maFraction
     const objets = []
     switch (choice([1, 2, 3, 4, 5, 6, 7])) {

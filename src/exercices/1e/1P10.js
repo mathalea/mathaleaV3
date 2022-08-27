@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, arrondi, contraindreValeur, egalOuApprox } from '../../modules/outils.js'
-import { latexParCoordonnees, mathalea2d, point, segment } from '../../modules/2d.js'
+import { latexParCoordonnees, point, segment } from '../../modules/2d.js'
 import { number, fraction } from 'mathjs'
 export const titre = 'Probabilités conditionnelles'
 
@@ -13,7 +14,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * @author
  * Référence
 */
-export const uuid = '9836c'
+export const uuid = '9ccfd'
 export const ref = '1P10'
 export default function ProbabilitésConditionnelles () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -35,7 +36,7 @@ export default function ProbabilitésConditionnelles () {
   function texProba (proba, rationnel) {
     return rationnel ? fraction(arrondi(proba, 3)).toLatex().replace('frac', 'dfrac') : number(arrondi(proba, 3)).toString().replace('.', '{,}')
   }
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -201,7 +202,7 @@ export default function ProbabilitésConditionnelles () {
           texte += '$1.$ Donner les valeurs de $P(C)$, $P( C \\cap E)$ et $P_{\\bar{C}}(E)$.<br>'
           texte += '$2.$ Calculer la probabilité que le client ne souhaite ni une "couleur-soin", ni un "effet coup de soleil".<br>'
           texte += '$3.$ Calculer la probabilité qu\'un client choisisse l\'"effet coup de soleil" sachant qu\'il a pris une "couleur soin".<br>'
-          texte += `$4.$ Montrer que la probabilité de l\'évènement $E$ est égale à $${texProba(ce / 100 + (1 - c / 100) * ec / 100, false)}$ (à $10^{-3}$ près).<br>`
+          texte += `$4.$ Montrer que la probabilité de l'évènement $E$ est égale à $${texProba(ce / 100 + (1 - c / 100) * ec / 100, false)}$ (à $10^{-3}$ près).<br>`
           texte += '$5.$ Les évènements $C$ et $E$ sont-ils indépendants ?<br>'
           texte += 'On donnera les résultats sous forme de valeurs approchées à $10^{-3}$ près.'
           texteCorr = `1. D'après l'énoncé, on a :<br>$\\bullet~~P(C)=${texProba(c / 100, this.sup)}$.`

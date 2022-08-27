@@ -9,7 +9,7 @@ export const titre = 'Partager une quantité en deux ou trois parts selon un rat
  * Référence 5P12
  * Date de publication : 24/07/2021
 */
-export const uuid = '274e8'
+export const uuid = '60910'
 export const ref = '5P12'
 export default function PartagerSelonUnRatio () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -20,7 +20,7 @@ export default function PartagerSelonUnRatio () {
   this.sup = 1
   this.correctionDetailleeDisponible = true
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

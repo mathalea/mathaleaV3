@@ -8,7 +8,7 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Trans
  * référence 4G10
  * Pas de version LaTeX
  */
-export const uuid = '1b334'
+export const uuid = 'cf7ce'
 export const ref = '4G10'
 export default function Transformations4e () {
   Transformations.call(this)

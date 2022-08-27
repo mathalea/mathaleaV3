@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6P01
  */
-export const uuid = '1e34d'
+export const uuid = '6de10'
 export const ref = 'can6P01'
 export default function ProportionnaliteSimple () {
   Exercice.call(this)
@@ -29,7 +29,7 @@ export default function ProportionnaliteSimple () {
     ['citrons', 1.5, 15, 30],
     ['bananes', 1.5, 15, 25]
   ]
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(0, 7)
     const b = fruits[a][1]
     const c = randint(fruits[a][2], fruits[a][3])

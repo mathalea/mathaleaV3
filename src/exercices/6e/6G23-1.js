@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, lettreDepuisChiffre, contraindreValeur, combinaisonListes } from '../../modules/outils.js'
-import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, homothetie, demiDroite, texteParPoint, similitude, pointSurSegment } from '../../modules/2d.js'
+import { point, labelPoint, rotation, afficheMesureAngle, homothetie, demiDroite, texteParPoint, similitude, pointSurSegment } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
@@ -16,7 +17,7 @@ export const titre = 'Mesurer un angle sans rapporteur sur l\'énoncé'
  * @author Jean-Claude Lhote
  * Référence 6G23
  */
-export const uuid = 'cb9c1'
+export const uuid = 'c7f7a'
 export const ref = '6G23-1'
 export default function MesurerUnAngle () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -29,7 +30,7 @@ export default function MesurerUnAngle () {
   this.sup2 = false
   this.video = 'TEzu9uky56M'
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

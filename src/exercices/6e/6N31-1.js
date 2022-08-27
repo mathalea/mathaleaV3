@@ -9,7 +9,7 @@ export const titre = 'Encadrer un décimal par deux entiers consécutifs'
  * * 6N31-1
  * @author Sébastien Lozano
  */
-export const uuid = '63f0f'
+export const uuid = '3e083'
 export const ref = '6N31-1'
 export default function EncadrerUnDecimalParDeuxEntiersConsecutifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -31,7 +31,7 @@ export default function EncadrerUnDecimalParDeuxEntiersConsecutifs () {
 
   let typesDeQuestionsDisponibles
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     if (this.beta) {
       typesDeQuestionsDisponibles = [0, 1, 2]
     } else {

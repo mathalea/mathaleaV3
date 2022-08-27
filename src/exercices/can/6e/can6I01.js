@@ -1,9 +1,11 @@
 /* eslint-disable camelcase */
 import Exercice from '../../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'
 import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, stringNombre } from '../../../modules/outils.js'
-import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, creerLutin, baisseCrayon, allerA, point, texteParPositionEchelle, tracePoint } from '../../../modules/2d.js'
+import { scratchblock, point, texteParPositionEchelle, tracePoint } from '../../../modules/2d.js'
 import { noteLaCouleur, plateau2dNLC } from '../../../modules/noteLaCouleur.js'
+import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../../modules/2dLutin.js'
 export const titre = 'Noter la couleur (scratch)'
 
 /**
@@ -13,7 +15,7 @@ export const titre = 'Noter la couleur (scratch)'
  * Publié le 11/04/2021
  * @author Jean-Claude Lhote
  */
-export const uuid = '1b651'
+export const uuid = '667d1'
 export const ref = 'can6I01'
 export default function CanNoteLaCouleur6 () {
   'use strict'
@@ -35,7 +37,7 @@ export default function CanNoteLaCouleur6 () {
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     const damier = [
       ['Vert', 'Orange', 'Rose', 'Noir', 'Orange', 'Blanc'],
       ['Noir', 'Rouge', 'Rose', 'Vert', 'Orange', 'Rose'],
@@ -89,7 +91,7 @@ export default function CanNoteLaCouleur6 () {
         ydepart = 10 + randint(1, 4) * 20
 
         pion = noteLaCouleur({ x: xdepart, y: ydepart, orientation: angledepart, plateau: lePlateau.plateauNLC, relatif: this.relatif, nx: 6, ny: 5, pas: 20 })
-        lutin.color = context.isHtml ? 'green' : 'black'
+        lutin.color = context.isHtml ? colorToLatexOrHTML('green') : colorToLatexOrHTML('black')
         lutin.epaisseur = 2
         lutin.pointilles = 2
         allerA(xdepart, ydepart, lutin)

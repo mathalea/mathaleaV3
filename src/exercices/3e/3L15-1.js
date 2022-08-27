@@ -12,7 +12,7 @@ export const interactifType = 'mathLive'
 * @author Jean-Claude Lhote
 * 3L15
 */
-export const uuid = 'f625d'
+export const uuid = '57f44'
 export const ref = '3L15-1'
 export default function ResoudreEquatioeX2EgalA () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -29,7 +29,7 @@ export default function ResoudreEquatioeX2EgalA () {
   this.spacing = 1
   this.tailleDiaporama = 3
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const listeFractions = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],

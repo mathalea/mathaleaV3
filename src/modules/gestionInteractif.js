@@ -8,10 +8,8 @@ import { isUserIdOk } from './interactif/isUserIdOk.js'
 import { gestionCan } from './interactif/gestionCan.js'
 import FractionX from './FractionEtendue.js'
 import Grandeur from './Grandeur.js'
-// import { ComputeEngine } from "@cortex-js/compute-engine"
 import * as pkg from '@cortex-js/compute-engine'
 const { ComputeEngine } = pkg
-
 export function exerciceInteractif (exercice) {
   if (exercice.interactifType === 'qcm')exerciceQcm(exercice)
   if (exercice.interactifType === 'listeDeroulante')exerciceListeDeroulante(exercice)
@@ -46,12 +44,12 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
 
 /**
  * Précise la réponse attendue
- * @param {Exercice} exercice
- * @param {number} i
- * @param {array || number} a
+ * @param {'objet exercice'} exercice
+ * @param {'numero de la question'} i
+ * @param {'array || number'} a
  */
 
-export function setReponse (exercice, i, valeurs, { digits = 0, formatInteractif = 'calcul', decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, aussiCorrect = undefined, digitsNum = undefined, digitsDen = undefined, basePuissance = undefined, exposantPuissance = undefined, baseNbChiffres = undefined, milieuIntervalle = undefined } = {}) {
+export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, aussiCorrect, digitsNum, digitsDen, basePuissance, exposantPuissance, baseNbChiffres, milieuIntervalle, formatInteractif = 'calcul' } = {}) {
   let reponses = []
 
   if (Array.isArray(valeurs)) {
@@ -72,6 +70,7 @@ export function setReponse (exercice, i, valeurs, { digits = 0, formatInteractif
   }
   let laReponseDemandee
   let test
+
   const engine = new ComputeEngine()
   switch (formatInteractif) {
     case 'Num':
@@ -92,23 +91,23 @@ export function setReponse (exercice, i, valeurs, { digits = 0, formatInteractif
       try {
         test = engine.parse(laReponseDemandee).canonical
       } catch (error) {
-        window.notify("setReponse : type \"calcul\" la réponse n'est pas un nombre valide", { reponses, test })
+        window.notify('setReponse : type "calcul" la réponse n\'est pas un nombre valide', { reponses, test })
       }
       break
     case 'nombreDecimal':
       if (isNaN(reponses[0])) window.notify('setReponse : type "nombreDecimal" un nombre est attendu !', { reponses })
       break
     case 'ecritureScientifique':
-      if (!(typeof reponses[0] === 'string')) window.notify("setReponse : type \"ecritureScientifique\" la réponse n'est pas un string !", { reponses })
+      if (!(typeof reponses[0] === 'string')) window.notify('setReponse : type "ecritureScientifique" la réponse n\'est pas un string !', { reponses })
       // ToFix : vérifier que la chaine est au bon format
       break
 
     case 'texte':
-      if (!(typeof reponses[0] === 'string')) window.notify("setReponse : type \"texte\" la réponse n'est pas un string !", { reponses })
+      if (!(typeof reponses[0] === 'string')) window.notify('setReponse : type "texte" la réponse n\'est pas un string !', { reponses })
       break
 
     case 'ignorerCasse':
-      if (!(typeof reponses[0] === 'string')) window.notify("setReponse : type \"ignorerCasse\" la réponse n'est pas un string !", { reponses })
+      if (!(typeof reponses[0] === 'string')) window.notify('setReponse : type "ignorerCasse" la réponse n\'est pas un string !', { reponses })
       break
     case 'fractionPlusSimple':
       if (!(reponses[0] instanceof FractionX)) window.notify('setReponse : type "fractionPlusSimple" une fraction est attendue !', { reponses })
@@ -123,7 +122,7 @@ export function setReponse (exercice, i, valeurs, { digits = 0, formatInteractif
       else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
       break
     case 'longueur': // Pour les exercices où l'on attend une mesure avec une unité au choix
-      if (!(reponses[0] instanceof Grandeur)) window.notify("setReponse : type \"longueur\" la réponse n'est pas une instance de Grandeur !", { reponses })
+      if (!(reponses[0] instanceof Grandeur)) window.notify('setReponse : type "longueur" la réponse n\'est pas une instance de Grandeur !', { reponses })
       break
     case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
     // ToFix : vérifier que la réponse est bien un intervalle valide
@@ -235,7 +234,7 @@ export function exerciceNonInteractif (exercice) {
       const divAffichageExo = document.querySelector(`#exercice${exercice.numeroExercice}`)
 
       const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
-      button.innerHTML = "Voir la correction pour s'auto-corriger"
+      button.innerHTML = 'Voir la correction pour s\'auto-corriger'
       button.style.margin = '1em'
 
       let divMsg = document.querySelector(`#msgExNonIteractif${exercice.numeroExercice}-${exercice.id}`)
@@ -302,7 +301,7 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
     }
   } else {
     // Envoie un message post avec le nombre de réponses correctes
-    window.parent.postMessage({ url: window.location.href, graine: context.graine, titre: exercice.titre, nbBonnesReponses, nbMauvaisesReponses }, '*')
+    window.parent.postMessage({ url: window.location.href, graine: context.graine, titre: exercice.titre, nbBonnesReponses: nbBonnesReponses, nbMauvaisesReponses: nbMauvaisesReponses }, '*')
   }
   if (context.timer) {
     clearInterval(context.timer)

@@ -14,13 +14,13 @@ export const dateDePublication = '04/03:2022' // La date de publication initiale
  * @author Stéphane Guyon
  * Référence
 */
-export const uuid = 'e2fdf'
+export const uuid = '84eaa'
 export const ref = 'can2G15'
 export default function DeterminantVecteur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const vx = randint(-5, 5)
     const vy = randint(-5, 5)
     const ux = randint(-5, 5, 0)

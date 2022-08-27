@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
-import { point, barycentre, vecteur, polygone, carre, nommePolygone, translation, rotation, homothetie, similitude, codageAngleDroit, codageSegments, codageAngle, grille, seyes, mathalea2d } from '../../modules/2d.js'
+import { point, barycentre, vecteur, polygone, carre, nommePolygone, translation, rotation, homothetie, similitude, codageAngleDroit, codageSegments, codageAngle, grille, seyes } from '../../modules/2d.js'
 export const titre = 'Nommer et coder des polygones'
 
 /**
@@ -9,7 +10,7 @@ export const titre = 'Nommer et coder des polygones'
  * Placer les sommets et les égalités de longueur...
  * Référence 6G20
  */
-export const uuid = '005b3'
+export const uuid = '90e1a'
 export const ref = '6G20'
 export default function NommerEtCoderDesPolygones () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -20,7 +21,7 @@ export default function NommerEtCoderDesPolygones () {
   this.nbColsCorr = 2
   this.sup = 3
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

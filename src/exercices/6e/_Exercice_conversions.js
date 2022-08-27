@@ -5,7 +5,7 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { format, evaluate } from 'mathjs'
 
-const math = { format, evaluate }
+const math = { format: format, evaluate: evaluate }
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -33,7 +33,7 @@ export default function ExerciceConversions (niveau = 1) {
   this.spacing = 2
   this.correction_avec_des_fractions = false
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const tabRep = []

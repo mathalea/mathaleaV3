@@ -11,7 +11,7 @@ export const dateDeModifImportante = '08/05/2022'
  * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
  * Publié le 5/4/2021
 */
-export const uuid = 'bfbe1'
+export const uuid = 'af2c2'
 export const ref = '5G40-1'
 export default function ProprietesDesParallelogrammes () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -22,7 +22,7 @@ export default function ProprietesDesParallelogrammes () {
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

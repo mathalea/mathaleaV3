@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
-import { point, segment, crochetD, crochetG, intervalle, mathalea2d } from '../../modules/2d.js'
+import { point, segment, crochetD, crochetG, intervalle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 
 export const titre = 'Associer un intervalle de  $\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée'
@@ -9,7 +10,7 @@ export const titre = 'Associer un intervalle de  $\\mathbb{R}$ à une inéquatio
  * 2N11-1, ex 2N24
  * @Stéphane Guyon
  */
-export const uuid = '6d754'
+export const uuid = '31c01'
 export const ref = '2N11-1'
 export default function IntervallesDeR () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -19,7 +20,7 @@ export default function IntervallesDeR () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]; let typesDeQuestions

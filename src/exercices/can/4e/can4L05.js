@@ -9,7 +9,7 @@ export const amcType = 'AMCNum'
 /*!
  * @author Gilles Mora
  */
-export const uuid = '6719f'
+export const uuid = '56a2d'
 export const ref = 'can4L05'
 export default function DeveloppementNiveau1 () {
   Exercice.call(this)
@@ -17,7 +17,7 @@ export default function DeveloppementNiveau1 () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.date = 1635092507483
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.formatChampTexte = 'largeur15 inline'
     let a, b, k, inconnue
     switch (randint(1, 2)) {

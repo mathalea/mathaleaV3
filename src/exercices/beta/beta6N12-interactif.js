@@ -26,7 +26,7 @@ export default function MultiplierEntierPar101001000 () {
     couleur: 'nombres'
   })
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.boutonAide = modalUrl(numeroExercice, 'https://mathix.org/glisse-nombre/index.html',
       'Glisse-nombre'
     )

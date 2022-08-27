@@ -14,14 +14,14 @@ export const dateDeModifImportante = '18/06/2022'
  * Référence 4C36
  * Reformulation de l'énoncé et ajout de problèmes avec des puissances de 10 par Guillaume Valmont le 18/06/2022
 */
-export const uuid = 'dcfec'
+export const uuid = '975cc'
 export const ref = '4C36'
 export default class nomExercice extends Exercice {
   constructor () {
     super()
     this.titre = titre
     this.nbQuestions = 5
-    this.besoinFormulaireTexte = ['Choix des problèmes', "Nombres séparés par des tirets\n1 : Problèmes ''naturels''\n2 : Problèmes avec des puissances de 10\n3 : Mélange"]
+    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Problèmes \'\'naturels\'\'\n2 : Problèmes avec des puissances de 10\n3 : Mélange']
     this.sup = '3'
   }
 
@@ -42,69 +42,69 @@ export default class nomExercice extends Exercice {
         unite: 'km'
       },
       {
-        intitule: "la hauteur d'un immeuble",
+        intitule: 'la hauteur d\'un immeuble',
         puissanceDe10: 2,
         unite: 'm'
       },
       {
-        intitule: "la longueur d'un smartphone",
+        intitule: 'la longueur d\'un smartphone',
         puissanceDe10: -1,
         unite: 'm'
       },
       {
-        intitule: "la longueur d'une fourmi",
+        intitule: 'la longueur d\'une fourmi',
         puissanceDe10: -3,
         unite: 'm'
       },
       {
-        intitule: "la masse d'un camion",
+        intitule: 'la masse d\'un camion',
         puissanceDe10: 4,
         unite: 'kg'
       },
       {
-        intitule: "la masse d'une voiture",
+        intitule: 'la masse d\'une voiture',
         puissanceDe10: 3,
         unite: 'kg'
       },
       {
-        intitule: "la masse d'une pomme",
+        intitule: 'la masse d\'une pomme',
         puissanceDe10: -1,
         unite: 'kg'
       },
       {
-        intitule: "le volume d'une bouteille d'eau",
+        intitule: 'le volume d\'une bouteille d\'eau',
         puissanceDe10: 0,
         unite: 'L'
       },
       {
-        intitule: "le volume d'une bouteille d'eau",
+        intitule: 'le volume d\'une bouteille d\'eau',
         puissanceDe10: 0,
         unite: 'dm³'
       },
       {
-        intitule: "le volume d'une bouteille d'eau",
+        intitule: 'le volume d\'une bouteille d\'eau',
         puissanceDe10: -3,
         unite: 'm³'
       },
       {
-        intitule: "le volume d'une bouteille d'eau",
+        intitule: 'le volume d\'une bouteille d\'eau',
         puissanceDe10: 3,
         unite: 'mm³'
       },
       {
-        intitule: "la superficie d'une salle de classe",
+        intitule: 'la superficie d\'une salle de classe',
         puissanceDe10: 1,
         unite: 'm²'
       },
       {
-        intitule: "la surface d'une table",
+        intitule: 'la surface d\'une table',
         puissanceDe10: 0,
         unite: 'm²'
       }
     ]
     const problemesDePuissances = [
       {
-        intitule: "la taille d'un tardigrade",
+        intitule: 'la taille d\'un tardigrade',
         puissanceDe10: -4,
         unite: 'm'
       },
@@ -129,17 +129,17 @@ export default class nomExercice extends Exercice {
         unite: 'kg'
       },
       {
-        intitule: "l'épaisseur d'un fil de soie",
+        intitule: 'l\'épaisseur d\'un fil de soie',
         puissanceDe10: -4,
         unite: 'm'
       },
       {
-        intitule: "la taille d'une bactérie",
+        intitule: 'la taille d\'une bactérie',
         puissanceDe10: -6,
         unite: 'm'
       },
       {
-        intitule: "la taille d'un pixel de téléviseur à haute résolution",
+        intitule: 'la taille d\'un pixel de téléviseur à haute résolution',
         puissanceDe10: -4,
         unite: 'm'
       },
@@ -198,7 +198,7 @@ export default class nomExercice extends Exercice {
           break
         case 0:
           puissanceObtenue = probleme.puissanceDe10
-          remarque = "Ce qui correspond bien à l'ordre de grandeur qu'on pouvait attendre"
+          remarque = 'Ce qui correspond bien à l\'ordre de grandeur qu\'on pouvait attendre'
           QCMPossible = true
           QCMImpossible = false
           break
@@ -227,12 +227,12 @@ export default class nomExercice extends Exercice {
         enonce: texte,
         propositions: [
           {
-            texte: "C'est plausible",
+            texte: 'C\'est plausible',
             statut: QCMPossible, // true ou false pour indiquer si c'est une bonne réponse (true)
             feedback: '' // qui s'affichera si la réponse est juste ou s'il n'y a qu'une erreur
           },
           {
-            texte: "C'est impossible",
+            texte: 'C\'est impossible',
             statut: QCMImpossible, // true ou false pour indiquer si c'est une bonne réponse (true)
             feedback: ''
           }

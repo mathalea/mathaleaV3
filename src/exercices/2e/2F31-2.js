@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { tableauDeVariation, mathalea2d } from '../../modules/2d.js'
+import { tableauDeVariation } from '../../modules/2d.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, randint, abs, sp } from '../../modules/outils.js'
 export const titre = 'Utiliser les variations des fonctions de référence pour comparer ou encadrer'
 export const dateDePublication = '31/01/2022'
@@ -9,7 +10,7 @@ export const dateDePublication = '31/01/2022'
  * @author Gilles Mora
  * Référence
 */
-export const uuid = 'c8d0e'
+export const uuid = '1ca05'
 export const ref = '2F31-2'
 export default function EncadrerAvecFctRef () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -24,7 +25,7 @@ export default function EncadrerAvecFctRef () {
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.listePackages = ['tkz-tab']
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typeDeQuestionsDisponibles

@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, arrondi } from '../../modules/outils.js'
-import { number, fraction, add, subtract } from 'mathjs'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { number, fraction } from 'mathjs'
 import { Arbre, texProba } from '../../modules/arbres.js'
-import { mathalea2d } from '../../modules/2d.js'
+
 export const titre = 'Probabilités simples'
 
 /**
@@ -124,7 +125,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     ]
   })
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

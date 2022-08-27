@@ -12,14 +12,14 @@ export const interactifType = 'qcm'
  * Référence can2F03
  * Date de publication 24/10/2021
 */
-export const uuid = 'c6ae9'
+export const uuid = '03b1d'
 export const ref = 'can2F03'
 export default function SigneFonctionAffine () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.date = 1635094684684
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     let texte, texteCorr, monQcm, a, b, n, maFraction

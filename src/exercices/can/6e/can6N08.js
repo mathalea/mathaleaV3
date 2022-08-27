@@ -11,7 +11,7 @@ export const dateDePublication = '02/12/2021'
  * Publié le 02 / 12 / 2021
  * Référence can6N06
  */
-export const uuid = 'df3c7'
+export const uuid = '73d76'
 export const ref = 'can6N08'
 export default function NombreDeDizaines () {
   Exercice.call(this)
@@ -21,7 +21,7 @@ export default function NombreDeDizaines () {
   this.formatChampTexte = 'largeur15 inline'
   this.consigne = ''
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(0, 4)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])

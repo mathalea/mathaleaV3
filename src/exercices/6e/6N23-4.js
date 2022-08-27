@@ -21,7 +21,7 @@ export const dateDeModifImportante = '15/01/2022' // Ajout de paramètres
  * Référence 6N23-4
  * Ajout de paramètres, Interactivité et AMC : Janvier 2022 par EE
  */
-export const uuid = '38b97'
+export const uuid = 'e8e24'
 export const ref = '6N23-4'
 export default function NombreDecimalOraliseDeDifferentesManieres () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -30,7 +30,7 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
   this.besoinFormulaireTexte = ['Type des textes', ' Choix séparés par des tirets\n1 : 3 unités, 5 dixièmes et 8 centièmes\n2 : 3 unités et 5 centièmes\n3 : 5 dixièmes\n4 : 128/10\n5 : 8+5/100+7/100\n6 : Mélange']
   this.sup = 6
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

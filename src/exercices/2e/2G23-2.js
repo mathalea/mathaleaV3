@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../modules/outils.js'
-import { repere, mathalea2d, point, vecteur, nomVecteurParPosition, texteParPosition, longueur, homothetie, latexParPoint } from '../../modules/2d.js'
+import { repere, point, vecteur, nomVecteurParPosition, texteParPosition, longueur, homothetie, latexParPoint } from '../../modules/2d.js'
 
 export const titre = 'Coordonnées de vecteurs et translations.'
 
@@ -9,7 +10,7 @@ export const titre = 'Coordonnées de vecteurs et translations.'
  * @author Stéphane Guyon légèrement modifié par Jean-Claude Lhote
  * Référence 2G23-2
  */
-export const uuid = 'f2340'
+export const uuid = 'fa7b9'
 export const ref = '2G23-2'
 export default function TranslationEtCoordonnes () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -18,7 +19,7 @@ export default function TranslationEtCoordonnes () {
   this.nbCols = 2
   this.nbColsCorr = 2
   this.sup = 1 //
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -59,7 +60,7 @@ export default function TranslationEtCoordonnes () {
       k = vi.representant(O) // Variable qui trace [OI]
       j = vj.representant(O)// Variable qui trace [OJ]
       s.epaisseur = 2// Variable qui grossit le tracé du vecteur AB
-      s.color = 'red'
+      s.color = colorToLatexOrHTML('red')
       k.epaisseur = 2// Variable qui grossit le tracé du vecteur OI
       j.epaisseur = 2// Variable qui grossit le tracé du vecteur OJ
       nomi = nomVecteurParPosition('i', 0.5, -0.7, 1.5, 0)

@@ -14,13 +14,13 @@ export const dateDePublication = '04/03:2022' // La date de publication initiale
  * @author Stéphane Guyon
  * Référence
 */
-export const uuid = 'd8824'
+export const uuid = '0dfad'
 export const ref = 'can2G14'
 export default function TranslationVecteur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const xA = randint(-5, 5)
     const yA = randint(-5, 5)
     const ux = randint(-5, 5, 0)

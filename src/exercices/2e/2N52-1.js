@@ -9,7 +9,7 @@ export const titre = 'Résoudre les équations produit-nul'
 * 2N52-1, ex 2L12
 * publié le 6/02/2021
 */
-export const uuid = 'bb565'
+export const uuid = '53762'
 export const ref = '2N52-1'
 export default function EquationsProduitsNuls2 () {
   'use strict'
@@ -27,7 +27,7 @@ export default function EquationsProduitsNuls2 () {
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []

@@ -12,7 +12,7 @@ export const dateDePublication = '16/11/2021'
  * Date de publication septembre 2021
  * Référence canc3C02
  */
-export const uuid = '24722'
+export const uuid = '42453'
 export const ref = 'canc3N05'
 export default function CompositionDeNombreDecimalC3 () {
   Exercice.call(this)
@@ -20,7 +20,7 @@ export default function CompositionDeNombreDecimalC3 () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])

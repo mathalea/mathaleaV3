@@ -9,7 +9,7 @@ export const titre = 'Calculer des probabilités dans une expérience aléatoire
  * @author Jean-Claude Lhote
  * 3S20
  */
-export const uuid = 'fb74c'
+export const uuid = '04f53'
 export const ref = '3S20'
 export default function FonctionsProbabilite2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -23,14 +23,14 @@ export default function FonctionsProbabilite2 () {
   context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 2
   this.sup = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const indexDisponibles = [0, 1, 2, 3]
     const listeIndex = combinaisonListes(indexDisponibles, this.nbQuestions)
     const qualites = [[]]
     const Initiale = []
-    const Couleurs = ['red', 'green', 'blue', 'gray', 'brown', 'orange', 'magenta', 'pink', 'black', 'lightgray']
+    const Couleurs = ['red', 'green', 'blue', 'gray', 'brown', '#f15929', 'magenta', 'pink', 'black', 'lightgray']
     qualites[0] = ['à la fraise', 'à la vanille', 'à l\'abricot', 'à la cerise', 'à la banane']
     qualites[1] = ['trèfle', 'carreau', 'coeur', 'pique']
     qualites[2] = ['rouges', 'vertes', 'bleues', 'noires', 'blanches']

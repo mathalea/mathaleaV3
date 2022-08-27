@@ -11,7 +11,7 @@ export const amcType = 'AMCNum'
  * Date de publication septembre 2021
  * Référence canc3C01
  */
-export const uuid = '9f9d1'
+export const uuid = '44f8c'
 export const ref = 'canc3N03'
 export default function PlusGrandNombreEntier () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function PlusGrandNombreEntier () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])

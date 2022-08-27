@@ -11,7 +11,7 @@ export const titre = 'Résoudre une équation du second degré'
  * @author Rémi Angot
  * Référence 1E11
 */
-export const uuid = '51bae'
+export const uuid = 'cf78f'
 export const ref = '1E11-2'
 export default function ResoudreEquationDegre2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -22,7 +22,7 @@ export default function ResoudreEquationDegre2 () {
   this.spacingCorr = 3
   this.sup = 1
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

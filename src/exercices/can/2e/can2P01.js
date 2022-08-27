@@ -12,7 +12,7 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can2P01
  */
-export const uuid = 'ba139'
+export const uuid = '763d3'
 export const ref = 'can2P01'
 export default function CalculsDeProbabilites () {
   Exercice.call(this)
@@ -20,7 +20,7 @@ export default function CalculsDeProbabilites () {
   this.nbQuestions = 1
   // this.formatInteractif = 'fraction'
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(2, 4)
     const b = choice([2, 3])
     const c = choice([2, 3, 11, 12])

@@ -14,7 +14,7 @@ export const dateDePublication = '21/06/2022' // La date de publication initiale
      * @author Gilles Mora
      * Référence
     */
-export const uuid = '0f09e'
+export const uuid = 'e794b'
 export const ref = 'can1F12'
 export default function CalculFonctionDeriveeFctRef () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -25,7 +25,7 @@ export default function CalculFonctionDeriveeFctRef () {
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a; let b
     switch (choice([1, 2])) { //
       case 1:// a/x
@@ -34,7 +34,7 @@ export default function CalculFonctionDeriveeFctRef () {
         this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}^*$ par : 
             ${texteCentre(`$f(x)=\\dfrac{${a}}{x}$`)}  
             Déterminer la  dérivée de la fonction $f$.<br>     `
-        if (this.interactif) { this.question += "$f'(x)=$" }
+        if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f(x)=\\dfrac{${a}}{x}=${a}\\times \\dfrac{1}{x}$.<br>
           Or  $x\\longmapsto \\dfrac{1}{x}$ a pour dérivée $x\\longmapsto -\\dfrac{1}{x^2}$.<br>
           Par conséquent, $f'(x)=${a}\\times \\left(-\\dfrac{1}{x^2}\\right)=\\dfrac{${-a}}{x^2}$.`
@@ -48,7 +48,7 @@ export default function CalculFonctionDeriveeFctRef () {
         this.question = `Soit $f$ la fonction définie sur $[0;+\\infty[$ par : 
             ${texteCentre(`$f(x)=${a}\\sqrt{x}$`)}  
             Déterminer la  dérivée de la fonction $f$ pour $x\\in ]0;+\\infty[$ .<br>     `
-        if (this.interactif) { this.question += "$f'(x)=$" }
+        if (this.interactif) { this.question += '$f\'(x)=$' }
         this.correction = `$f(x)=${a}\\sqrt{x}=${a}\\times\\sqrt{x}$.<br>
           Or  $x\\longmapsto \\sqrt{x}$ a pour dérivée $x\\longmapsto \\dfrac{1}{2\\sqrt{x}}$.<br>
           Par conséquent, $f'(x)=${a}\\times \\dfrac{1}{2\\sqrt{x}}=\\dfrac{${a}}{2\\sqrt{x}}=\\dfrac{${texNombre(b, 1)}}{\\sqrt{x}}$.`

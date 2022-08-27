@@ -13,7 +13,7 @@ export const interactifType = 'mathLive'
  * Référence can2F01
  * Date de publication
 */
-export const uuid = '05c1c'
+export const uuid = 'b2c31'
 export const ref = 'can2F01'
 export default function CalculImageSecondDegre () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -22,7 +22,7 @@ export default function CalculImageSecondDegre () {
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let x, a, b, c, d, expression
     switch (choice(['a', 'b', 'c', 'd'])) { //,
       case 'a':

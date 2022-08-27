@@ -1,6 +1,7 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, texNombrec, calcul, texNum } from '../../../modules/outils.js'
-import { mathalea2d, point, segmentAvecExtremites, codageSegments, labelPoint, texteParPosition } from '../../../modules/2d.js'
+import { point, segmentAvecExtremites, codageSegments, labelPoint, texteParPosition } from '../../../modules/2d.js'
 export const titre = 'Calculer l’abscisse d’un milieu'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,14 +12,14 @@ export const interactifType = 'mathLive'
  * Date de publication sptembre 2021
 */
 export const dateDeModifImportante = '06/12/2021'
-export const uuid = '94f54'
+export const uuid = '9ae55'
 export const ref = 'can3C07'
 export default function MilieuEntre1EtFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const a = randint(1, 5)
     const c = randint(1, 9)
     const b = calcul(a + c + randint(1, 9, 5) / 5)
@@ -51,5 +52,3 @@ export default function MilieuEntre1EtFraction () {
     this.reponse = (a + b) / 2
   }
 }
-// fractionParPosition({ x: 8, y: -0.5, fraction: fraction(n, d) })
-// ${texFraction(n, d)}

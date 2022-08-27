@@ -11,7 +11,7 @@ export const dateDeModifImportante = '04/12/2021'
  * Créé pendant l'été 2021
  * Référence can6C18
  */
-export const uuid = '18659'
+export const uuid = 'd02a7'
 export const ref = 'can6C18'
 export default function ResteDivisionEuclidienne () {
   Exercice.call(this)
@@ -19,7 +19,7 @@ export default function ResteDivisionEuclidienne () {
   this.nbQuestions = 1
   this.tailleDiaporama = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let a, b, c, d, q, r
     if (choice([true, false])) {
       a = randint(7, 9)

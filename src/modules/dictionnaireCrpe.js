@@ -1815,7 +1815,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2015/2015-g1-ex3-cor-2.png',
       'assets/crpe/2015/2015-g1-ex3-cor-3.png'
     ],
-    tags: ['Géométrie plane', 'Pythagore', 'Thalès']
+    tags: ['Géométrie plane', 'Pythagore', 'Thalès', ]
   },
   'crpe-2015-g1-pb': {
     typeExercice: 'crpe',

@@ -10,7 +10,7 @@ export const dateDePublication = '25/10/2021'
  * Référence can3L06
  * Date de publication
 */
-export const uuid = '904b1'
+export const uuid = 'ab332'
 export const ref = 'can3L05'
 export default function SolutionsEquationProduit () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -18,7 +18,7 @@ export default function SolutionsEquationProduit () {
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const b = randint(1, 10) // (x+a)(x+b)=0 avec a et b entiers
     const d = randint(1, 10, [b])
     switch (choice([1, 2, 3])) {

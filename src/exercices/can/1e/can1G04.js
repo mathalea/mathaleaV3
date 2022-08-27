@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, texNombre, choisitLettresDifferentes } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, labelPoint, afficheLongueurSegment, afficheMesureAngle, pointAdistance, segment
+  point, labelPoint, afficheLongueurSegment, afficheMesureAngle, pointAdistance, segment
 } from '../../../modules/2d.js'
 import Decimal from 'decimal.js/decimal.mjs'
 import FractionX from '../../../modules/FractionEtendue.js'
@@ -15,7 +16,7 @@ export const dateDePublication = '26/06/2022'
  * Référence can1G04
  *
 */
-export const uuid = 'e7a2b'
+export const uuid = 'df08a'
 export const ref = 'can1G04'
 export default function ProduitScalaireNormesAngles () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -24,7 +25,7 @@ export default function ProduitScalaireNormesAngles () {
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     const choix = choice([true, false])
     const nom = choisitLettresDifferentes(3, 'O', true)
     const A = point(0, 0, nom[0], 'below')
@@ -58,7 +59,7 @@ export default function ProduitScalaireNormesAngles () {
     objets.push(vAB, vAC, labelPoint(A, B, C), a1, a2, a3)
 
     this.question = `Calculer $\\overrightarrow{${nom[0]}${nom[1]}}\\cdot\\overrightarrow{${nom[0]}${nom[2]}}$.<br>`
-    this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 18, mainlevee: false, amplitude: 0.3, scale: 0.7, style: 'margin: auto' }, objets)
+    this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 18, mainlevee: false, amplitude: 0.3, scale: 0.7, style: 'margin: auto' }, objets)
     if (angle[0] === 30) {
       this.correction = `
     $\\begin{aligned}

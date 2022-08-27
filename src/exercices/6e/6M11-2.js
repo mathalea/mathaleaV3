@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenuSansNumero, randint, arrondi, texNombrec, texNombre, texTexte } from '../../modules/outils.js'
-import { afficheLongueurSegment, codageAngleDroit, codageSegments, fixeBordures, mathalea2d, point, polygoneAvecNom, segment } from '../../modules/2d.js'
+import { afficheLongueurSegment, codageAngleDroit, codageSegments, point, polygoneAvecNom, segment } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -22,7 +23,7 @@ export const amcType = 'AMCHybride'
  * @author Rémi Angot
  * Référence 6M11-2
  */
-export const uuid = '76805'
+export const uuid = '5999f'
 export const ref = '6M11-2'
 export default function PerimetreOuAireDeFiguresComposees () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -33,7 +34,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = true
 
-  this.nouvelleVersion = (numeroExercice) => {
+  this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

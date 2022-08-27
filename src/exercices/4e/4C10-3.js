@@ -14,7 +14,7 @@ export const interactifType = 'mathLive'
 * @author Rémi Angot
 * 4C10-3
 */
-export const uuid = '675c4'
+export const uuid = '153b9'
 export const ref = '4C10-3'
 export default function ExerciceMultiplicationsRelatifs (max = 10) {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -26,7 +26,7 @@ export default function ExerciceMultiplicationsRelatifs (max = 10) {
   this.consigne = 'Calculer :'
   this.spacing = 2
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     for (let i = 0, a, b, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles

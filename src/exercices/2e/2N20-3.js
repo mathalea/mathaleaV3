@@ -7,7 +7,7 @@ export const dateDeModifImportante = '29/10/2021'
  * @author Jean-Claude Lhote
  */
 
-export const uuid = '3fdfd'
+export const uuid = '098db'
 export const ref = '2N20-3'
 export default function DivisionEuclidienneMultiplesDiviseursCriteres2nde () {
   DivisionEuclidienneMultiplesDiviseursCriteres.call(this)

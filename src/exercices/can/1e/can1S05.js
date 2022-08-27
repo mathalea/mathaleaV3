@@ -13,7 +13,7 @@ export const dateDePublication = '16/02/2022' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
-export const uuid = '20876'
+export const uuid = '88acd'
 export const ref = 'can1S05'
 export default function NatureSuiteEx () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -21,7 +21,7 @@ export default function NatureSuiteEx () {
   this.tailleDiaporama = 2
   this.spacing = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
 

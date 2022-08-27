@@ -4,7 +4,7 @@ export const titre = 'Donner ou compléter une égalité de Pythagore'
 export const interactifReady = 1
 export const interactifType = 'mathLive'
 
-export const uuid = '5da01'
+export const uuid = '40c47'
 export const ref = '4G20-1'
 export default function EgalitePythagore2D () {
   Pythagore2D.call(this)

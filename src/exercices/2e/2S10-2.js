@@ -24,7 +24,7 @@ export const dateDePublication = '9/12/2021'
 * * ajout de lignes pour l'export AMC par Jean-Claude Lhote
 * 2S10-1
 */
-export const uuid = '1442a'
+export const uuid = '612a5'
 export const ref = '2S10-2'
 export default function Proportions () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -39,7 +39,7 @@ export default function Proportions () {
   this.spacing = 1
   this.spacingCorr = 2
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -250,5 +250,5 @@ export default function Proportions () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, "1 : Déterminer l'effectif d'une sous-population \n2 : Calculer une proportion en pourcentage\n3 : Calculer l'effectif de la population totale \n4 : Mélange"]
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Déterminer l\'effectif d\'une sous-population \n2 : Calculer une proportion en pourcentage\n3 : Calculer l\'effectif de la population totale \n4 : Mélange']
 }

@@ -7,7 +7,7 @@ export const titre = 'Produire une forme littérale en introduisant une lettre p
  * * 4L13-1
  * @author Sébastien Lozano
  */
-export const uuid = 'c80e1'
+export const uuid = '8b18b'
 export const ref = '4L13-1'
 export default function FormeLitteraleIntroduireUneLettre () {
   'use strict'
@@ -31,7 +31,7 @@ export default function FormeLitteraleIntroduireUneLettre () {
 
   let typesDeQuestionsDisponibles
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     if (this.debug) {
       typesDeQuestionsDisponibles = [1]
     } else {

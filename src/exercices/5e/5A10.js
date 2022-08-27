@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
  * Exercice bilan
  * @author Sébastien Lozano & Jean Claude Lhote
  */
-export const uuid = 'b2b8f'
+export const uuid = '4828d'
 export const ref = '5A10'
 export default function ListeDesDiviseurs5e () {
   'use strict'
@@ -32,7 +32,7 @@ export default function ListeDesDiviseurs5e () {
   this.sup2 = '6-6-6'
   this.sup3 = 10
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let typesDeQuestions
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -180,7 +180,7 @@ export default function ListeDesDiviseurs5e () {
           texteCorr += '.'
           break
       };
-      setReponse(this, i, JSON.stringify(listeDiviseurs(M)).replace('[', '').replace(']', ''))
+      setReponse(this, i, JSON.stringify(listeDiviseurs(M)).replace('[', '').replace(']', ''), { formatInteractif: 'texte' })
       texte += ajouteChampTexteMathLive(this, i, 'largeur35 inline', { texte: `<br> Les diviseurs de $${texNombre(M)}$ sont : ` })
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre

@@ -5,7 +5,7 @@ export const titre = 'Traduire une expression par une phrase'
  * @author Jean-Claude Lhote
  * Référence 5L10-3
  */
-export const uuid = '1e2f0'
+export const uuid = '458ae'
 export const ref = '5L10-3'
 export default function TraduireUneExpressionLitteraleParUnePhrase () {
   EcrireUneExpressionNumerique.call(this)

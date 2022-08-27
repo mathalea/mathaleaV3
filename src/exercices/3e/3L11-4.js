@@ -16,7 +16,7 @@ export const amcType = 'AMCOpen'
 * 3L11-4
 * Ajout du paramétrage : Guillaume Valmont 13/08/2021
 */
-export const uuid = '3a73b'
+export const uuid = '5f5a6'
 export const ref = '3L11-4'
 export default function FactoriserParNombreOux () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -28,7 +28,7 @@ export default function FactoriserParNombreOux () {
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Niveau 1\n2 : Niveau 2\n3 : Niveau 3\n4 : Mélange']
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

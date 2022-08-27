@@ -20,7 +20,7 @@ export const dateDePublication = '19/09/2021'
  * Référence 6N10
  * Relecture : Novembre 2021 par EE
 */
-export const uuid = '3e308'
+export const uuid = '0688e'
 export const ref = '6N10'
 export default function EcrirePetitsNombresEntiers () {
   Exercice.call(this)
@@ -38,7 +38,7 @@ export default function EcrirePetitsNombresEntiers () {
   this.tailleDiaporama = 3
   this.video = ''
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     let typeDeConsigne = []
     if (parseInt(this.sup3) === 1) {
       this.consigne = 'Écrire le nombre en lettres.'

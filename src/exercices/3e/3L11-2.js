@@ -15,7 +15,7 @@ export const amcReady = true
 * @author Rémi Angot
 * 3L11-2
 */
-export const uuid = '8a324'
+export const uuid = 'f6853'
 export const ref = '3L11-2'
 export default function ReductionSiPossible () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -27,7 +27,7 @@ export default function ReductionSiPossible () {
   this.spacingCorr = context.isHtml ? 3 : 2
   this.tailleDiaporama = 3
 
-  this.nouvelleVersion = () => {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

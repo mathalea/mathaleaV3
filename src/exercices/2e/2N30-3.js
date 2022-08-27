@@ -11,7 +11,7 @@ export { amcReady, amcType } from '../4e/4C22.js'
  *
  * @author Sébastien LOZANO
  */
-export const uuid = '20951'
+export const uuid = '29919'
 export const ref = '2N30-3'
 export default function ExerciceMultiplierFractions2nde () {
   ExerciceMultiplierFractions.call(this)

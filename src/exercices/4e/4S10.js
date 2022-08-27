@@ -5,7 +5,7 @@ export const titre = 'Construire un diagramme'
  * @author Guillaume Valmont
  * reference 4S10
  */
-export const uuid = '10820'
+export const uuid = '26ea7'
 export const ref = '4S10'
 export default function ConstruireUnDiagramme4e () {
   ConstruireUnDiagramme.call(this)
