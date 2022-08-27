@@ -53,7 +53,7 @@ const clearInput = () => {
 }
 	
 const setInputVal = (ex) => {
-  Mathalea.loadFromId(ex)
+  Mathalea.loadFromUrlWithoutExtension(ex)
 	inputValue = ex
 	filteredExercices = []
 	hiLiteIndex = null

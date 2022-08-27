@@ -168,8 +168,8 @@
             </div>
           <ul class="{(exercice.listeQuestions.length > 1) ? 'list-decimal' : 'list-none'} list-inside mt-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold">
             {#each exercice.listeQuestions as item, i (i)}
-            <li style="line-height: {Math.max(2, exercice.spacing)};" id="exercice${indiceExercice}Q${i}">{@html item.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</li>
-            <div class="bg-gray-200" style="line-height: {exercice.spacingCorr};" id="correction${indiceExercice}Q${i}"> {@html exercice.listeCorrections[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</div>
+            <li style="line-height: {Math.max(3, exercice.spacing * 2)}em;" id="exercice${indiceExercice}Q${i}">{@html item.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</li>
+            <div class="bg-gray-200" style="line-height: {Math.max(3, exercice.spacingCorr * 2)}em;" id="correction${indiceExercice}Q${i}"> {@html exercice.listeCorrections[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</div>
             {/each}
           </ul>
           {:else}
@@ -178,7 +178,7 @@
           </p>
           <ul class="{(exercice.listeQuestions.length > 1) ? 'list-decimal' : 'list-none'} list-inside mt-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold">
             {#each exercice.listeQuestions as item, i (i)}
-              <li style="line-height: {Math.max(2, exercice.spacing)};" id="exercice${indiceExercice}Q${i}">{@html item.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</li>
+              <li style="line-height: {Math.max(3, exercice.spacing * 2)}em;" id="exercice${indiceExercice}Q${i}">{@html item.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</li>
             {/each}
           </ul>
             {/if}
