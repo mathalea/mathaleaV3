@@ -1,19 +1,19 @@
 <script lang="ts">
   import { afterUpdate, onMount, tick } from "svelte"
-  import { randomInt } from "mathjs"
   import seedrandom from "seedrandom"
   import { prepareExerciceCliqueFigure } from "../../interactif/interactif"
   import { loadMathLive } from "../../modules/loaders"
   import { Mathalea } from "../../Mathalea"
   import { exerciceInteractif } from "../../interactif/interactif"
   import { listeExercices } from "../store"
-
+  
   import HeaderExercice from "./HeaderExercice.svelte"
   import Settings from "./Settings.svelte"
+  import { scratchTraductionFr } from "../../modules/scratchBlocksFr";
   export let exercice
   export let indiceExercice
   export let indiceLastExercice
-
+  
   let divExercice: HTMLDivElement
   let divScore: HTMLDivElement
   let buttonScore: HTMLButtonElement
@@ -96,7 +96,7 @@
     updateDisplay();
   }
 
-  function updateDisplay() {
+  async function updateDisplay() {
     if (exercice.typeExercice === 'simple') Mathalea.handleExerciceSimple(exercice, isInteractif)
     if (exercice.seed === undefined)
       exercice.seed = Mathalea.generateSeed({
@@ -111,6 +111,19 @@
     $listeExercices[indiceExercice].i = isInteractif
     exercice.nouvelleVersion(indiceExercice)
     Mathalea.updateUrl($listeExercices)
+    if (exercice.typeExercice === 'Scratch') {
+      await scratchTraductionFr()
+      /* global scratchblocks */
+      scratchblocks.renderMatching('pre.blocks', {
+        style: 'scratch3',
+        languages: ['fr']
+      })
+      scratchblocks.renderMatching('code.b', {
+        inline: true,
+        style: 'scratch3',
+        languages: ['fr']
+      })
+    }
   }
 
   function verifExercice() {

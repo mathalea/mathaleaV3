@@ -11,7 +11,7 @@ import FractionX from './FractionEtendue.js'
 import { elimineDoublons } from './interactif/questionQcm.js'
 import Decimal from 'decimal.js/decimal.mjs'
 
-const math = { format: format, evaluate: evaluate }
+const math = { format, evaluate }
 const epsilon = 0.000001
 
 /**
@@ -2158,7 +2158,7 @@ class Personne {
  * le 14/03/2021
  */
 export function personne ({ prenom = '', genre = '', pronom = '' } = {}) {
-  return new Personne({ prenom: prenom, genre: genre, pronom: pronom })
+  return new Personne({ prenom, genre, pronom })
 }
 
 /**

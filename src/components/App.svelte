@@ -5,7 +5,6 @@
   import Header2 from "./header2/Header2.svelte"
   import Recherche from "./Recherche.svelte"
   import NiveauListeExos from "./sidebar/NiveauListeExos.svelte"
-  import SearchChoiceOptionsRadio from "./sidebar/SearchChoiceOptionsRadio.svelte"
   import { listeExercices, displayOptions } from "./store"
   import codeList from "../json/codeToLevelList.json"
   import referentiel from "../json/referentiel2022.json"
@@ -45,7 +44,6 @@
       isNavBarVisible = true
       isSideMenuVisible = true
     }
-
   }
 
   let refTree: Map = toMap(referentiel)

@@ -212,7 +212,7 @@ function Plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = '
   }
 }
 export function plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = 'black', opacite = 1, opaciteDeRemplissage = 1 } = {}) {
-  return new Plot(x, y, { rayon: rayon, couleur: couleur, couleurDeRemplissage: couleurDeRemplissage, opacite: opacite, opaciteDeRemplissage: opaciteDeRemplissage })
+  return new Plot(x, y, { rayon, couleur, couleurDeRemplissage, opacite, opaciteDeRemplissage })
 }
 /**
  * tracePoint(A) // Place une croix à l'emplacement du point A
@@ -748,7 +748,7 @@ function LabelLatexPoint ({ points = [], color = 'black', taille = 8, largeur = 
  * @author Rémi Angot et Jean-Claude Lhote
  */
 export function labelLatexPoint ({ points, color = 'black', taille = 8, largeur = 10, hauteur = 10, background = '' }) {
-  return new LabelLatexPoint({ points: points, color: color, taille: taille, largeur: largeur, hauteur: hauteur, background: background })
+  return new LabelLatexPoint({ points, color, taille, largeur, hauteur, background })
 }
 
 /**
@@ -2882,7 +2882,7 @@ class Boite {
 }
 
 export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = 'none', opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteOpacite = 0.7, texteMath = false, echelleFigure = 1 } = {}) {
-  return new Boite({ Xmin: Xmin, Ymin: Ymin, Xmax: Xmax, Ymax: Ymax, color: color, colorFill: colorFill, opaciteDeRemplissage: opaciteDeRemplissage, texteIn: texteIn, tailleTexte: tailleTexte, texteColor: texteColor, texteOpacite: texteOpacite, texteMath: texteMath, echelleFigure: echelleFigure })
+  return new Boite({ Xmin, Ymin, Xmax, Ymax, color, colorFill, opaciteDeRemplissage, texteIn, tailleTexte, texteColor, texteOpacite, texteMath, echelleFigure })
 }
 
 /**
@@ -4533,7 +4533,7 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
  */
 // JSDOC Validee par EE Juin 2022
 export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
-  return new CibleCarree({ x: x, y: y, rang: rang, num: num, taille: taille, color: color, opacite: opacite })
+  return new CibleCarree({ x, y, rang, num, taille, color, opacite })
 }
 
 /**  Retourne un couple de coordonnées correspondant au centre d'une cible, connaissant les coordonnées du point réponse et de la cellule dans laquelle on veut qu'il soit
@@ -6858,40 +6858,40 @@ export function droiteGraduee ({
   labelListe = [], Legende = '', LegendePosition = (Max - Min) * Unite + 1.5
 }) {
   return new DroiteGraduee({
-    Unite: Unite,
-    Min: Min,
-    Max: Max,
-    x: x,
-    y: y,
-    axeEpaisseur: axeEpaisseur,
-    axeCouleur: axeCouleur,
-    axeStyle: axeStyle,
-    axeHauteur: axeHauteur,
-    axePosition: axePosition,
-    thickEpaisseur: thickEpaisseur,
-    thickCouleur: thickCouleur,
-    thickDistance: thickDistance,
-    thickOffset: thickOffset,
-    thickSecDist: thickSecDist,
-    thickSec: thickSec,
-    thickTerDist: thickTerDist,
-    thickTer: thickTer,
-    pointListe: pointListe,
-    labelPointTaille: labelPointTaille,
-    labelPointLargeur: labelPointLargeur,
-    pointCouleur: pointCouleur,
-    pointTaille: pointTaille,
-    pointStyle: pointStyle,
-    pointOpacite: pointOpacite,
-    pointEpaisseur: pointEpaisseur,
-    labelsPrincipaux: labelsPrincipaux,
-    labelsSecondaires: labelsSecondaires,
-    step1: step1,
-    step2: step2,
-    labelDistance: labelDistance,
-    labelListe: labelListe,
-    Legende: Legende,
-    LegendePosition: LegendePosition
+    Unite,
+    Min,
+    Max,
+    x,
+    y,
+    axeEpaisseur,
+    axeCouleur,
+    axeStyle,
+    axeHauteur,
+    axePosition,
+    thickEpaisseur,
+    thickCouleur,
+    thickDistance,
+    thickOffset,
+    thickSecDist,
+    thickSec,
+    thickTerDist,
+    thickTer,
+    pointListe,
+    labelPointTaille,
+    labelPointLargeur,
+    pointCouleur,
+    pointTaille,
+    pointStyle,
+    pointOpacite,
+    pointEpaisseur,
+    labelsPrincipaux,
+    labelsSecondaires,
+    step1,
+    step2,
+    labelDistance,
+    labelListe,
+    Legende,
+    LegendePosition
   })
 }
 
@@ -7439,7 +7439,7 @@ function PapierPointe ({
     case 'quad':
       for (let x = xmin; x <= xmax; x += xstep) {
         for (let y = ymin; y <= ymax; y += ystep) {
-          plots.push(plot(x, y, { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+          plots.push(plot(x, y, { rayon: pointRayon, couleur: pointColor, opacite, couleurDeRemplissage: '', opaciteDeRemplissage }))
           this.listeCoords.push([x, y])
         }
       }
@@ -7453,12 +7453,12 @@ function PapierPointe ({
         for (let y = ymin; y <= ymax; y += 1.5 * ystep1) {
           stepper = !stepper
           if (stepper) {
-            plots.push(plot(x, y, { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
-            plots.push(plot(x + xstep1, y + ystep1 / 2, { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
-            plots.push(plot(x + xstep1, y + ystep1 * 1.5, { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            plots.push(plot(x, y, { rayon: pointRayon, couleur: pointColor, opacite, couleurDeRemplissage: '', opaciteDeRemplissage }))
+            plots.push(plot(x + xstep1, y + ystep1 / 2, { rayon: pointRayon, couleur: pointColor, opacite, couleurDeRemplissage: '', opaciteDeRemplissage }))
+            plots.push(plot(x + xstep1, y + ystep1 * 1.5, { rayon: pointRayon, couleur: pointColor, opacite, couleurDeRemplissage: '', opaciteDeRemplissage }))
             this.listeCoords.push([x, y], [x + xstep1, y + ystep1 / 2], [x + xstep1, y + ystep1 * 1.5])
           } else {
-            plots.push(plot(x, y + ystep1 / 2, { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            plots.push(plot(x, y + ystep1 / 2, { rayon: pointRayon, couleur: pointColor, opacite, couleurDeRemplissage: '', opaciteDeRemplissage }))
             this.listeCoords.push([x, y + ystep1 / 2])
           }
         }
@@ -7474,14 +7474,14 @@ function PapierPointe ({
         for (let y = ymin; y <= ymax; y = y + 1.5 * ystep1) {
           stepper = !stepper
           if (stepper) {
-            plots.push(plot(x, y, { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
-            plots.push(plot(x, y + ystep1, { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
-            plots.push(plot(x + xstep1, y + ystep1 / 2, { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
-            plots.push(plot(x + xstep1, y + ystep1 * 1.5, { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            plots.push(plot(x, y, { rayon: pointRayon, couleur: pointColor, opacite, couleurDeRemplissage: '', opaciteDeRemplissage }))
+            plots.push(plot(x, y + ystep1, { rayon: pointRayon, couleur: pointColor, opacite, couleurDeRemplissage: '', opaciteDeRemplissage }))
+            plots.push(plot(x + xstep1, y + ystep1 / 2, { rayon: pointRayon, couleur: pointColor, opacite, couleurDeRemplissage: '', opaciteDeRemplissage }))
+            plots.push(plot(x + xstep1, y + ystep1 * 1.5, { rayon: pointRayon, couleur: pointColor, opacite, couleurDeRemplissage: '', opaciteDeRemplissage }))
             this.listeCoords.push([x, y], [x, y + ystep1], [x + xstep1, y + ystep1 / 2], [x + xstep1, y + ystep1 * 1.5])
           } else {
-            plots.push(plot(x + xstep1, y + ystep1, { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
-            plots.push(plot(x, y + ystep1 / 2, { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            plots.push(plot(x + xstep1, y + ystep1, { rayon: pointRayon, couleur: pointColor, opacite, couleurDeRemplissage: '', opaciteDeRemplissage }))
+            plots.push(plot(x, y + ystep1 / 2, { rayon: pointRayon, couleur: pointColor, opacite, couleurDeRemplissage: '', opaciteDeRemplissage }))
             this.listeCoords.push([x + xstep1, y + ystep1], [x, y + ystep1 / 2])
           }
         }
@@ -7519,17 +7519,17 @@ export function papierPointe ({
   opaciteDeRemplissage = 0.4
 }) {
   return new PapierPointe({
-    xmin: xmin,
-    xmax: xmax,
-    ymin: ymin,
-    ymax: ymax,
-    xstep: xstep,
-    ystep: ystep,
-    type: type,
-    pointColor: pointColor,
-    pointRayon: pointRayon,
-    opacite: opacite,
-    opaciteDeRemplissage: opaciteDeRemplissage
+    xmin,
+    xmax,
+    ymin,
+    ymax,
+    xstep,
+    ystep,
+    type,
+    pointColor,
+    pointRayon,
+    opacite,
+    opaciteDeRemplissage
   })
 }
 
@@ -8981,7 +8981,7 @@ function TableauDeVariation ({ tabInit, tabLines, lgt, escpl, deltacl, colors, h
 // reste à faire les types  'Slope"
 
 export function tableauDeVariation ({ tabInit = ['', ''], tabLines = [], lgt = 3.5, escpl = 5, deltacl = 0.8, colors = [], hauteurLignes = [], colorBackground = 'gray' }) {
-  return new TableauDeVariation({ tabInit: tabInit, tabLines: tabLines, lgt: lgt, escpl: escpl, deltacl: deltacl, colors: colors, hauteurLignes: hauteurLignes, colorBackground: colorBackground })
+  return new TableauDeVariation({ tabInit, tabLines, lgt, escpl, deltacl, colors, hauteurLignes, colorBackground })
 }
 
 /*
@@ -9084,7 +9084,7 @@ function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
   for (let j = 0; j < hauteursBarres.length; j++) {
     const abscisseBarre = j * coeff
     const hauteurBarre = hauteursBarres[j] * hauteurDiagramme / max(hauteursBarres)
-    diagramme.push(traceBarre(abscisseBarre, hauteurBarre, etiquettes[j], { couleurDeRemplissage: couleurDeRemplissage }))
+    diagramme.push(traceBarre(abscisseBarre, hauteurBarre, etiquettes[j], { couleurDeRemplissage }))
     if (reperageTraitPointille) {
       const ligne = segment(-1, hauteurBarre, abscisseBarre, hauteurBarre)
       ligne.pointilles = 5
@@ -9158,7 +9158,7 @@ function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
  * @return {DiagrammeBarres}
  */
 export function diagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false }) {
-  return new DiagrammeBarres(hauteursBarres, etiquettes, { reperageTraitPointille: reperageTraitPointille, couleurDeRemplissage: couleurDeRemplissage, titreAxeVertical: titreAxeVertical, titre: titre, hauteurDiagramme: hauteurDiagramme, coeff: coeff, axeVertical: axeVertical, etiquetteValeur: etiquetteValeur, labelAxeVert: labelAxeVert })
+  return new DiagrammeBarres(hauteursBarres, etiquettes, { reperageTraitPointille, couleurDeRemplissage, titreAxeVertical, titre, hauteurDiagramme, coeff, axeVertical, etiquetteValeur, labelAxeVert })
 }
 
 /** Trace un diagramme circulaire
@@ -9319,7 +9319,7 @@ function DiagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [],
  * @return {DiagrammeCirculaire}
  */
 export function diagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [], semi = false, legendeAffichage = true, legendePosition = 'droite', mesures = [], visibles = [], pourcents = [], valeurs = [], hachures = [], remplissage = [] }) {
-  return new DiagrammeCirculaire({ effectifs: effectifs, x: x, y: y, rayon: rayon, labels: labels, semi: semi, legendeAffichage: legendeAffichage, legendePosition: legendePosition, mesures: mesures, visibles: visibles, pourcents: pourcents, valeurs: valeurs, hachures: hachures, remplissage: remplissage })
+  return new DiagrammeCirculaire({ effectifs, x, y, rayon, labels, semi, legendeAffichage, legendePosition, mesures, visibles, pourcents, valeurs, hachures, remplissage })
 }
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -9600,7 +9600,7 @@ function Courbe (f, {
  */
 // JSDOC Validee par EE Juin 2022
 export function courbe (f, { repere = {}, color = 'black', epaisseur = 2, step = false, xMin, xMax, yMin, yMax, xUnite = 1, yUnite = 1 }) {
-  return new Courbe(f, { repere: repere, color: color, epaisseur: epaisseur, step: step, xMin: xMin, xMax: xMax, yMin: yMin, yMax: yMax, xUnite: xUnite, yUnite: yUnite })
+  return new Courbe(f, { repere, color, epaisseur, step, xMin, xMax, yMin, yMax, xUnite, yUnite })
 }
 
 /**
@@ -9806,7 +9806,7 @@ function CourbeSpline (f, { repere = {}, color = 'black', epaisseur = 2, step = 
  */
 // JSDOC Validee par EE Juin 2022
 export function courbeSpline (f, { repere = {}, color = 'black', epaisseur = 2, step = false, xMin = repere.xMin, xMax = repere.xMax, yMin = repere.yMin, yMax = repere.yMax, xUnite = 1, yUnite = 1, traceNoeuds = true }) {
-  return new CourbeSpline(f, { repere: repere, color: color, epaisseur: epaisseur, step: step, xMin: xMin, xMax: xMax, yMin: yMin, yMax: yMax, xUnite: xUnite, yUnite: yUnite, traceNoeuds: traceNoeuds })
+  return new CourbeSpline(f, { repere, color, epaisseur, step, xMin, xMax, yMin, yMax, xUnite, yUnite, traceNoeuds })
 }
 
 /**
@@ -9893,7 +9893,7 @@ function CourbeInterpolee (
  */
 // JSDOC Validee par EE Juin 2022
 export function courbeInterpolee (tableau, { color = 'black', epaisseur = 1, repere = {}, xMin = -10, xMax = 10 }) {
-  return new CourbeInterpolee(tableau, { color: color, epaisseur: epaisseur, repere: repere, xMin: xMin, xMax: xMax })
+  return new CourbeInterpolee(tableau, { color, epaisseur, repere, xMin, xMax })
 }
 
 function GraphiqueInterpole (
@@ -9916,7 +9916,7 @@ function GraphiqueInterpole (
     let depart, fin
     repere.xMin > x0 ? (depart = repere.xMin) : (depart = x0)
     repere.xMax < x1 ? (fin = repere.xMax) : (fin = x1)
-    const c = courbe(f, { repere: repere, step: step, xMin: depart, xMax: fin, color: color, epaisseur: epaisseur, xUnite: repere.xUnite, yUnite: repere.yUnite, yMin: repere.yMin, yMax: repere.yMax })
+    const c = courbe(f, { repere, step, xMin: depart, xMax: fin, color, epaisseur, xUnite: repere.xUnite, yUnite: repere.yUnite, yMin: repere.yMin, yMax: repere.yMax })
     mesCourbes.push(c)
   }
   this.svg = function (coeff) {
