@@ -3,8 +3,8 @@ import 'katex/dist/katex.min.css'
 import { listeExercices, displayOptions } from './components/store'
 import { get } from 'svelte/store'
 import Exercice from './exercices/Exercice.js'
-import { setReponse } from './modulesv2/gestionInteractif'
-import { ajouteChampTexteMathLive } from './modulesv2/questionMathLive'
+import { setReponse } from './interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from './interactif/questionMathLive'
 import uuidToUrl from './json/uuidsToUrl.json'
 
 // export type Settings = { sup?: boolean | string | number, sup2?: boolean | string | number, sup3?: boolean | string | number, sup4?: boolean | string | number, nbQuestions?: number, seed?: string }
