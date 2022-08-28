@@ -83,6 +83,7 @@ export class Mathalea {
   }
 
   static async loadFromUrlWithoutExtension (urlWithoutExtension) {
+    if (urlWithoutExtension === undefined) return
     const uuid = Object.keys(uuidToUrl).find(key => uuidToUrl[key] === urlWithoutExtension + '.js')
     const newEx = { uuid, id: urlWithoutExtension.split('/')[1] }
     listeExercices.update(l => {
