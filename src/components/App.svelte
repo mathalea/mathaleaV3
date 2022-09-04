@@ -38,11 +38,14 @@
   $: {
     if (isInitialUrlHandled) Mathalea.updateUrl($listeExercices)
     if ($displayOptions.v === 'l') {
-      isNavBarVisible = false
       isSideMenuVisible = false
-    } else {
+      isNavBarVisible = false
+    } else if ($displayOptions.v === 'l2') {
+      isSideMenuVisible = false
       isNavBarVisible = true
+    } else {
       isSideMenuVisible = true
+      isNavBarVisible = true
     }
   }
 
@@ -85,6 +88,12 @@
   let searchOption = 'list'
   function handleSideMenu(event: CustomEvent) {
     isSideMenuVisible = event.detail.isListVisible
+    if (!isSideMenuVisible) {
+      displayOptions.update((params) => {
+              params.v = "l2";
+              return params;
+          })
+    }
   }
   function toggleSearchType(e) {
   }
