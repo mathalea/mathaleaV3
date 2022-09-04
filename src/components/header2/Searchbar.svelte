@@ -1,19 +1,21 @@
 <script lang="ts">
   import Chips from "./Chips.svelte"
   import { listeExercices } from "../store"
-  import data from '../../json/exercicesList.json'
+  import refToUuid from '../../json/refToUuid.json'
   import { Mathalea } from '../../Mathalea'
   
   let input: HTMLInputElement
-  let listeId = []
+  let listeIdPourLesChips = []
   
+  const idExercicesDisponibles = Object.keys(refToUuid)
+
   const exercices = []
   $: {
-    listeId = []
+    listeIdPourLesChips = []
     for (const ex of $listeExercices) {
-      listeId.push(ex.id)
+      listeIdPourLesChips.push(ex.id)
     }
-    listeId = listeId
+    listeIdPourLesChips = listeIdPourLesChips
   }
 
 let filteredExercices = []; 
@@ -22,9 +24,9 @@ const filterEx = () => {
 //construit la liste des codes d'exercices à proposer dans l'input de saisie.
 	let storageArr = []
 	if (inputValue) {
-		data.forEach(ex => {
-			 if (cleanInput(inputValue).every(element => ex.replace('.js','').toLowerCase().includes(element))) {
-				 storageArr = [...storageArr, (ex.replace('.js',''))];
+		idExercicesDisponibles.forEach(ex => {
+			 if (cleanInput(inputValue).every(element => ex.toLowerCase().includes(element))) {
+				 storageArr = [...storageArr, (ex)];
 			 }
 		})
 	}
@@ -53,12 +55,13 @@ const clearInput = () => {
 }
 	
 const setInputVal = (ex) => {
-  Mathalea.loadFromUrlWithoutExtension(ex)
 	inputValue = ex
 	filteredExercices = []
 	hiLiteIndex = null
+  clearInput()
 	const input = document.querySelector('#idInput') as HTMLInputElement
 	input.focus()
+  addExercice(ex)
 }	
 
 const submitValue = () => {
@@ -88,12 +91,20 @@ const navigateList = (e) => {
 function handleChange2() {
   //fonction permettant la mise à jour de la liste d'exercice lorsque le code rentré dans l'input de saisie 
   // correspond à un code complet d'exercice.
-  if (filterEx.length === 1 || inputValue === '') {
+  if (inputValue === '') {
     return
   }
-  let newId = inputValue
-  Mathalea.loadFromUrlWithoutExtension(newId)
+  addExercice(inputValue)
   clearInput()
+}
+
+function addExercice(id) {
+  const newExercise = {
+      id,
+      uuid: refToUuid[id]
+    }
+  listeExercices.update((list) => [...list, newExercise])
+    
 }
 
 
@@ -121,7 +132,7 @@ function handleChange2() {
   </div>
 
 </form>
-  {#each listeId as id, indice (indice)}
+  {#each listeIdPourLesChips as id, indice (indice)}
     <Chips text={id} {indice} />
   {/each}
 </div>

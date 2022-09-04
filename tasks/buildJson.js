@@ -80,10 +80,6 @@ function ajouteExoReferentiel ({ uuid, id, url, name, titre, tags, datePublicati
 }
 
 function ajouteExoMenu ({ uuid, id, level, chap, titre, tags, datePublication, dateModification, menu }) {
-  // if (!(menu instanceof Map)) {
-  //   console.log('référentiel non valide')
-  //   return false
-  // }
   let refLevel = menu[level]
   if (!refLevel) {
     menu[level] = {}
@@ -104,17 +100,6 @@ function ajouteExoDico ({ uuid = '', id = '', url = '', name = '', titre = '', l
     console.log('dictionnaire non valide')
     return false
   }
-  /* let dicoLevel = dico.get(level)
-  if (!dicoLevel) {
-    dico.set(level, new Map())
-    dicoLevel = dico.get(level)
-  }
-  let dicoChap = dicoLevel.get(chap)
-  if (!dicoChap) {
-    dicoLevel.set(chap, new Map())
-    dicoChap = dicoLevel.get(chap)
-  }
-  */
   if (levelsThemesList.get(idTheme) !== undefined) {
     theme = idTheme // ici on ne stocke que la clé... à l'inverse ci-dessous on stocke le titre complet
     // theme = levelsThemesList.get(leTheme).get('titre')
@@ -199,7 +184,7 @@ function mettreAJourFichierReferentiel (dico) {
   }
 }
 function mettreAJourFichierUuidToUrl (dico) {
-  const objDico = toObjet(dico)
+  const objDico = orderObject(toObjet(dico))
   const contenuFichier = JSON.stringify(objDico, null, 2)
   try {
     fs.writeFileSync('./src/json/uuidsToUrl.json', contenuFichier, 'utf-8')
@@ -209,7 +194,7 @@ function mettreAJourFichierUuidToUrl (dico) {
 }
 
 function mettreAJourFichierRefToUuid (dico) {
-  const objDico = toObjet(dico)
+  const objDico = orderObject(toObjet(dico))
   const contenuFichier = JSON.stringify(objDico, null, 2)
   try {
     fs.writeFileSync('./src/json/refToUuid.json', contenuFichier, 'utf-8')
@@ -377,20 +362,4 @@ function orderObject (unordered) {
   return ordered
 }
 
-// main script
 builJsonDictionnaireExercices()
-// buildJsonExercicesOfLevel('1e')
-// buildJsonExercicesOfLevel('2e')
-// buildJsonExercicesOfLevel('3e')
-// buildJsonExercicesOfLevel('4e')
-// buildJsonExercicesOfLevel('5e')
-// buildJsonExercicesOfLevel('6e')
-// buildJsonExercicesOfLevel('techno1')
-// buildJsonExercicesOfLevel('CM')
-// buildJsonExercicesOfLevel('HP')
-// buildJsonExercicesOfLevel('PE')
-// buildJsonExercicesOfLevel('Ex')
-// buildJsonExercicesOfLevel('c3')
-//
-
-// buildJsonExercicesOfLevel('Te')
