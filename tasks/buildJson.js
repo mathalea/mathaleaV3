@@ -7,6 +7,7 @@ let dictionnaire
 let referentiel2022
 let menu2022
 let uuidsToUrl
+let refToUuid
 
 /**
  * Crée une Uuid de 5 caractères hexadécimaux (1M de possibilités)
@@ -206,7 +207,18 @@ function mettreAJourFichierUuidToUrl (dico) {
     console.log('Fichier UuidToUrl non mis à jour')
   }
 }
-function gereModuleJs (module, file, name, dictionnaire, referentiel2022, menu2022, uuidsToUrl, listOfUuids, isCan) {
+
+function mettreAJourFichierRefToUuid (dico) {
+  const objDico = toObjet(dico)
+  const contenuFichier = JSON.stringify(objDico, null, 2)
+  try {
+    fs.writeFileSync('./src/json/refToUuid.json', contenuFichier, 'utf-8')
+  } catch (error) {
+    console.log('Fichier refToUuid non mis à jour')
+  }
+}
+
+function gereModuleJs (module, file, name, dictionnaire, referentiel2022, menu2022, uuidsToUrl, refToUuid, listOfUuids, isCan) {
   let uuid, level, chap, idTheme, idSousTheme
   if (module.uuid === undefined) {
     try {
@@ -263,6 +275,7 @@ function gereModuleJs (module, file, name, dictionnaire, referentiel2022, menu20
   ajouteExoReferentiel({ uuid, id, name, url, titre, tags, datePublication, dateModification, level, chap, referentiel: referentiel2022 })
   ajouteExoMenu({ uuid, id, level, chap, titre, tags, datePublication, dateModification, menu: menu2022 })
   uuidsToUrl.set(uuid, url)
+  refToUuid.set(id, uuid)
   return true
 }
 
@@ -289,6 +302,7 @@ async function builJsonDictionnaireExercices () {
   const listOfUuids = new Map()
   dictionnaire = []
   uuidsToUrl = new Map()
+  refToUuid = new Map()
   referentiel2022 = new Map()
   menu2022 = {}
 
@@ -304,7 +318,7 @@ async function builJsonDictionnaireExercices () {
     file = '../' + file
     const promesse = import(file.replace('\\', '/'))
       .then(
-        (module) => gereModuleJs(module, file, name, dictionnaire, referentiel2022, menu2022, uuidsToUrl, listOfUuids, isCan)
+        (module) => gereModuleJs(module, file, name, dictionnaire, referentiel2022, menu2022, uuidsToUrl, refToUuid, listOfUuids, isCan)
       )
       .catch(error => {
         console.log(file.substring(file.length - 2))
@@ -319,6 +333,7 @@ async function builJsonDictionnaireExercices () {
       mettreAJourFichierMenu(menu2022)
       mettreAJourFichierReferentiel(referentiel2022)
       mettreAJourFichierUuidToUrl(uuidsToUrl)
+      mettreAJourFichierRefToUuid(refToUuid)
     })
     .catch(error => {
       console.log(' Il y a une erreur avec le Promise.All : ', error.message)
