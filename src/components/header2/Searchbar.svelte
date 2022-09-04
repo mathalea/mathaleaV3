@@ -2,7 +2,6 @@
   import Chips from "./Chips.svelte"
   import { listeExercices } from "../store"
   import refToUuid from '../../json/refToUuid.json'
-  import { Mathalea } from '../../Mathalea'
   
   let input: HTMLInputElement
   let listeIdPourLesChips = []
@@ -31,9 +30,10 @@ const filterEx = () => {
 		})
 	}
 	filteredExercices = storageArr
-  if (filteredExercices.length === 1) {
-    handleChange2()
-  }
+  // if (filteredExercices.length === 1) {
+  //   addExercice(filteredExercices[0])
+  //   clearInput()
+  // }
 }	
 
 
@@ -56,18 +56,17 @@ const clearInput = () => {
 	
 const setInputVal = (ex) => {
 	inputValue = ex
-	filteredExercices = []
 	hiLiteIndex = null
+  addExercice(ex)
   clearInput()
 	const input = document.querySelector('#idInput') as HTMLInputElement
 	input.focus()
-  addExercice(ex)
+	filteredExercices = []
 }	
 
 const submitValue = () => {
-	if (inputValue) {
-		setTimeout(clearInput, 1000);
-	} 
+  console.log(inputValue, filteredExercices)
+	
 }
 
 	
@@ -81,24 +80,22 @@ const navigateList = (e) => {
 	} else if (e.key === "ArrowUp" && hiLiteIndex !== null) {
 		hiLiteIndex === 0 ? hiLiteIndex = filteredExercices.length-1 : hiLiteIndex -= 1
 	} else if (e.key === "Enter") {
-		setInputVal(filteredExercices[hiLiteIndex])
+    if (inputValue && (filteredExercices.length === 1)) {
+		addExercice(filteredExercices[0])
+    clearInput()
+	} else {
+		addExercice(filteredExercices[hiLiteIndex])
+    clearInput()
+
+  }
 	} else {
 		return
 	}
 } 
   
 
-function handleChange2() {
-  //fonction permettant la mise à jour de la liste d'exercice lorsque le code rentré dans l'input de saisie 
-  // correspond à un code complet d'exercice.
-  if (inputValue === '') {
-    return
-  }
-  addExercice(inputValue)
-  clearInput()
-}
-
 function addExercice(id) {
+  if (!refToUuid[id]) return
   const newExercise = {
       id,
       uuid: refToUuid[id]
@@ -122,7 +119,6 @@ function addExercice(id) {
 					 bind:this={searchInput}
 					 bind:value={inputValue} 
 					 on:input={filterEx}
-           on:change={handleChange2}
            >
     <datalist id="autocomplete-items-list" class="fixed">
 			{#each filteredExercices as ex, i}
