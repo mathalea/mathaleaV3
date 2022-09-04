@@ -20,6 +20,7 @@ export class Mathalea {
  * @returns {Promise<Exercice>} exercice
  */
   static async load (uuid) {
+    if (uuid === undefined) return undefined
     const url = uuidToUrl[uuid]
     const [filename, directory, isCan] = url.split('/').reverse()
     try {
