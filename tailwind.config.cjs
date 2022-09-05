@@ -22,7 +22,9 @@ const config = {
   },
   plugins: [
     require('daisyui'),
+    // Pour les tooltips
     require('@tailwindcss/forms'),
+    // Pour ???
     plugin(function ({ addUtilities }) {
       addUtilities({
         '.scrollbar-hide': {
