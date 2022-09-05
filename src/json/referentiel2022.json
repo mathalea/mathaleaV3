@@ -460,7 +460,7 @@
         "can6C38": {
           "uuid": "4e198",
           "id": "can6C38",
-          "titre": "Addition à trou Yohaku",
+          "titre": "Trouver une valeur dans un Yohaku (additif)",
           "url": "can/6e/can6C38.js",
           "tags": {
             "AMC": true,
@@ -472,7 +472,7 @@
         "can6C39": {
           "uuid": "892f2",
           "id": "can6C39",
-          "titre": "Multiplication à trou Yohaku",
+          "titre": "Trouver une valeur dans un Yohaku (multiplicatif)",
           "url": "can/6e/can6C39.js",
           "tags": {
             "AMC": true,
@@ -757,7 +757,7 @@
             "Interactif": true,
             "Can": true
           },
-          "datePublication": "03/08/2022"
+          "datePublication": "27/08/2022"
         }
       },
       "can6N": {
@@ -932,6 +932,30 @@
             "Can": true
           },
           "datePublication": "14/08/2022"
+        },
+        "can6N16": {
+          "uuid": "fb7ac",
+          "id": "can6N16",
+          "titre": "Lire une abscisse (entière) sur une droite graduée *",
+          "url": "can/6e/can6N16.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "29/08/2022"
+        },
+        "can6N17": {
+          "uuid": "aa22e",
+          "id": "can6N17",
+          "titre": "Lire une abscisse (décimale) sur une droite graduée*",
+          "url": "can/6e/can6N17.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "29/08/2022"
         }
       },
       "can6P": {
@@ -2711,7 +2735,7 @@
         "can2F13": {
           "uuid": "1afde",
           "id": "can2F13",
-          "titre": "Déterminer l’image d’un nombre par une fonction de référence.",
+          "titre": "Déterminer l’image d’un nombre par une fonction de référence",
           "url": "can/2e/can2F13.js",
           "tags": {
             "AMC": true,
@@ -4365,7 +4389,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Par combien multiplier un nombre pour que le chiffre des unités devienne le chiffre des ...",
+        "titre": "Par combien multiplier un nombre pour que le chiffre des unités devienne le chiffre des ... ?",
         "url": "6e/6C30-6.js",
         "uuid": "18559"
       },
@@ -5349,7 +5373,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Par combien multiplier un entier pour que le chiffre des unités devienne le chiffre des ...",
+        "titre": "Par combien multiplier un entier pour que le chiffre des unités devienne le chiffre des ... ?",
         "url": "6e/6N12-1.js",
         "uuid": "89c0c"
       },
@@ -8550,6 +8574,18 @@
         "url": "3e/3A10-4.js",
         "uuid": "4117b"
       },
+      "3A10-5": {
+        "datePublication": "29/08/2022",
+        "id": "3A10-5",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Recourir à une décomposition en facteurs premiers dans des cas simples",
+        "url": "3e/3A10-5.js",
+        "uuid": "eee79"
+      },
       "3A11": {
         "id": "3A11",
         "tags": {
@@ -8906,7 +8942,7 @@
         "id": "3G23",
         "tags": {
           "AMC": false,
-          "Interactif": false,
+          "Interactif": true,
           "Can": false
         },
         "titre": "Reconnaître des triangles égaux dans différentes configurations",
@@ -9218,7 +9254,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Yoh ku multiplicatif expressions littérales niveau 1",
+        "titre": "Yohaku multiplicatif expressions littérales niveau 1",
         "url": "3e/3L11-8.js",
         "uuid": "1f9b4"
       },
@@ -9227,7 +9263,7 @@
         "id": "3L11-9",
         "tags": {
           "AMC": false,
-          "Interactif": true,
+          "Interactif": false,
           "Can": false
         },
         "titre": "Rose multiplicative littéraux",
@@ -9407,6 +9443,7 @@
         "uuid": "f4b95"
       },
       "3S15": {
+        "dateModification": "31/08/2022",
         "id": "3S15",
         "tags": {
           "AMC": false,
@@ -9453,7 +9490,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Reconnaître une fonction affine.",
+        "titre": "Reconnaître une fonction affine",
         "url": "2e/2F10-1.js",
         "uuid": "90998"
       },
@@ -9486,7 +9523,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Déterminer une fonction affine à partir de deux images.",
+        "titre": "Déterminer une fonction affine à partir de deux images",
         "url": "2e/2F10-4.js",
         "uuid": "ef897"
       },
@@ -9520,7 +9557,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Déterminer l'image d'un nombre par une fonction de référence.",
+        "titre": "Déterminer l'image d'un nombre par une fonction de référence",
         "url": "2e/2F11-1.js",
         "uuid": "b6cc0"
       },
@@ -9532,7 +9569,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Résoudre algébriquement une équation f(x)=k avec une fonction de référence.",
+        "titre": "Résoudre algébriquement une équation f(x)=k avec une fonction de référence",
         "url": "2e/2F12-1.js",
         "uuid": "de0d1"
       }
@@ -9556,7 +9593,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Propriétés graphiques de la parité d'une fonction.",
+        "titre": "Propriétés graphiques de la parité d'une fonction",
         "url": "2e/2F25-1.js",
         "uuid": "6e82d"
       },
@@ -9766,7 +9803,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées.",
+        "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées",
         "url": "2e/2G22-1.js",
         "uuid": "3a3ec"
       },
@@ -9777,7 +9814,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Coordonnées de vecteurs et translations.",
+        "titre": "Coordonnées de vecteurs et translations",
         "url": "2e/2G23-2.js",
         "uuid": "fa7b9"
       },
@@ -9801,7 +9838,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Déterminer le coefficient directeur d'une droite.",
+        "titre": "Déterminer le coefficient directeur d'une droite",
         "url": "2e/2G30-1.js",
         "uuid": "1ea16"
       },
@@ -9823,7 +9860,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Déterminer une équation cartésienne de droite à partir de deux points.",
+        "titre": "Déterminer une équation cartésienne de droite à partir de deux points",
         "url": "2e/2G30-3.js",
         "uuid": "1bb30"
       },
@@ -9834,7 +9871,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Déterminer une équation cartésienne de droite à partir d'un point et d'un vecteur directeur.",
+        "titre": "Déterminer une équation cartésienne de droite à partir d'un point et d'un vecteur directeur",
         "url": "2e/2G30-4.js",
         "uuid": "0ec77"
       },
@@ -9845,7 +9882,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente.",
+        "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente",
         "url": "2e/2G30-5.js",
         "uuid": "d1da3"
       },
@@ -9856,7 +9893,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Alignement de 3 points.",
+        "titre": "Alignement de 3 points",
         "url": "2e/2G33-1.js",
         "uuid": "b1777"
       },
@@ -10316,7 +10353,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Rendre entier le dénominateur d'une fraction.",
+        "titre": "Rendre entier le dénominateur d'une fraction",
         "url": "2e/2N32-7.js",
         "uuid": "4771d"
       }
@@ -10340,7 +10377,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Calculer la valeur d'une expression littérale.",
+        "titre": "Calculer la valeur d'une expression littérale",
         "url": "2e/2N40-2.js",
         "uuid": "98658"
       },
@@ -10608,7 +10645,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Résoudre des équations carrées.",
+        "titre": "Résoudre des équations carrées",
         "url": "2e/2N52-2.js",
         "uuid": "bb6d5"
       },
@@ -10619,7 +10656,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Résoudre des équations se ramenant au produit-nul.",
+        "titre": "Résoudre des équations se ramenant au produit-nul",
         "url": "2e/2N52-4.js",
         "uuid": "93432"
       }
@@ -10790,6 +10827,7 @@
         "uuid": "e1938"
       },
       "2S30-5": {
+        "dateModification": "30/08/2022",
         "datePublication": "28/12/2021",
         "id": "2S30-5",
         "tags": {
@@ -10941,7 +10979,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Résoudre une équation du second degré avec le discriminant.",
+        "titre": "Résoudre une équation du second degré avec le discriminant",
         "url": "1e/1E11-5.js",
         "uuid": "3de81"
       },
