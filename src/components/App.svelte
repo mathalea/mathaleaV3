@@ -93,6 +93,11 @@
               params.v = "l2";
               return params;
           })
+    } else {
+      displayOptions.update((params) => {
+              delete params.v;
+              return params;
+          })
     }
   }
   function toggleSearchType(e) {
