@@ -68,7 +68,10 @@
   };
 
   const submitValue = () => {
-    if (idExercicesDisponibles.includes(inputValue)) addExercice(inputValue)
+    if (idExercicesDisponibles.includes(inputValue)) {
+      addExercice(inputValue)
+      clearInput()
+    } 
   };
 
   let hiLiteIndex = null;
