@@ -456,6 +456,30 @@
             "Can": true
           },
           "datePublication": "01/08/2022"
+        },
+        "can6C38": {
+          "uuid": "4e198",
+          "id": "can6C38",
+          "titre": "Trouver une valeur dans un Yohaku (additif)",
+          "url": "can/6e/can6C38.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "10/08/2022"
+        },
+        "can6C39": {
+          "uuid": "892f2",
+          "id": "can6C39",
+          "titre": "Trouver une valeur dans un Yohaku (multiplicatif)",
+          "url": "can/6e/can6C39.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "10/08/2022"
         }
       },
       "can6D": {
@@ -4033,6 +4057,18 @@
         "url": "6e/6C10.js",
         "uuid": "cfa6a"
       },
+      "6C10-0": {
+        "datePublication": "12/08/2022",
+        "id": "6C10-0",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Rose additive",
+        "url": "6e/6C10-0.js",
+        "uuid": "322a0"
+      },
       "6C10-1": {
         "id": "6C10-1",
         "tags": {
@@ -4087,6 +4123,42 @@
         "titre": "Parcourir un labyrinthe de multiples",
         "url": "6e/6C10-5.js",
         "uuid": "fd4d8"
+      },
+      "6C10-6": {
+        "datePublication": "12/08/2022",
+        "id": "6C10-6",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Rose multiplicative",
+        "url": "6e/6C10-6.js",
+        "uuid": "57502"
+      },
+      "6C10-7a": {
+        "datePublication": "10/08/2022",
+        "id": "6C10-7a",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Yohaku additif niveau 1",
+        "url": "6e/6C10-7a.js",
+        "uuid": "26bb9"
+      },
+      "6C10-7b": {
+        "datePublication": "10/08/2022",
+        "id": "6C10-7b",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Yohaku multiplicatif niveau 1",
+        "url": "6e/6C10-7b.js",
+        "uuid": "08680"
       },
       "6C11": {
         "id": "6C11",
@@ -7033,6 +7105,30 @@
         "url": "5e/5R20-5.js",
         "uuid": "41254"
       },
+      "5R20-6": {
+        "datePublication": "10/08/2022",
+        "id": "5R20-6",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Yohaku additif nombres relatifs niveau 1",
+        "url": "5e/5R20-6.js",
+        "uuid": "598c3"
+      },
+      "5R20-7": {
+        "datePublication": "12/08/2022",
+        "id": "5R20-7",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Rose additive relatifs",
+        "url": "5e/5R20-7.js",
+        "uuid": "3e4d9"
+      },
       "5R21": {
         "dateModification": "11/11/2021",
         "id": "5R21",
@@ -7358,6 +7454,30 @@
         "url": "4e/4C10-7.js",
         "uuid": "0b020"
       },
+      "4C10-8": {
+        "datePublication": "10/08/2022",
+        "id": "4C10-8",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Yohaku multiplicatif nombres relatifs niveau 1",
+        "url": "4e/4C10-8.js",
+        "uuid": "2fbc0"
+      },
+      "4C10-9": {
+        "datePublication": "12/08/2022",
+        "id": "4C10-9",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Rose multiplicative relatifs",
+        "url": "4e/4C10-9.js",
+        "uuid": "9e862"
+      },
       "4C11": {
         "id": "4C11",
         "tags": {
@@ -7427,6 +7547,30 @@
         "url": "4e/4C21-1.js",
         "uuid": "5e8fc"
       },
+      "4C21-2": {
+        "datePublication": "10/08/2022",
+        "id": "4C21-2",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Yohaku additif fractions niveau 1",
+        "url": "4e/4C21-2.js",
+        "uuid": "1a61d"
+      },
+      "4C21-3": {
+        "datePublication": "12/08/2022",
+        "id": "4C21-3",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Rose additive fractions",
+        "url": "4e/4C21-3.js",
+        "uuid": "0576d"
+      },
       "4C22": {
         "dateModification": "09/04/2022",
         "id": "4C22",
@@ -7460,6 +7604,30 @@
         "titre": "Diviser des fractions",
         "url": "4e/4C22-2.js",
         "uuid": "55354"
+      },
+      "4C22-3": {
+        "datePublication": "10/08/2022",
+        "id": "4C22-3",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Yohaku multiplicatif fractions niveau 1",
+        "url": "4e/4C22-3.js",
+        "uuid": "ee808"
+      },
+      "4C22-4": {
+        "datePublication": "12/08/2022",
+        "id": "4C22-4",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Rose multiplicative fractions",
+        "url": "4e/4C22-4.js",
+        "uuid": "4713e"
       },
       "4C23": {
         "id": "4C23",
@@ -8088,6 +8256,30 @@
         "titre": "Donner l'expression littérale d'un Périmètre et d'une aire de quadrilatère",
         "url": "4e/4L10-2.js",
         "uuid": "af8bb"
+      },
+      "4L10-3": {
+        "datePublication": "10/08/2022",
+        "id": "4L10-3",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Yohaku additif expressions littérales niveau 1",
+        "url": "4e/4L10-3.js",
+        "uuid": "4c5da"
+      },
+      "4L10-4": {
+        "datePublication": "12/08/2022",
+        "id": "4L10-4",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Rose additive littéraux",
+        "url": "4e/4L10-4.js",
+        "uuid": "a40d6"
       },
       "4L11": {
         "id": "4L11",
@@ -9053,6 +9245,30 @@
         "titre": "Développer des carrés avec la double distributivité",
         "url": "3e/3L11-7.js",
         "uuid": "7cf81"
+      },
+      "3L11-8": {
+        "datePublication": "10/08/2022",
+        "id": "3L11-8",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Yohaku multiplicatif expressions littérales niveau 1",
+        "url": "3e/3L11-8.js",
+        "uuid": "1f9b4"
+      },
+      "3L11-9": {
+        "datePublication": "12/08/2022",
+        "id": "3L11-9",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Rose multiplicative littéraux",
+        "url": "3e/3L11-9.js",
+        "uuid": "4963b"
       },
       "3L12": {
         "id": "3L12",
