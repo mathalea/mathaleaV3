@@ -37,23 +37,23 @@
   })
 
   afterUpdate(async () => {
-    if (isInteractif) {
-      loadMathLive()
-      // Evènement indispensable pour pointCliquable par exemple
-      const exercicesAffiches = new window.Event("exercicesAffiches", {
-        bubbles: true,
-      });
-      document.dispatchEvent(exercicesAffiches);
-      if (exercice.interactifType === "cliqueFigure") {
-        prepareExerciceCliqueFigure(exercice);
-      }
-      // Ne pas être noté sur un exercice dont on a déjà vu la correction
-      if (window.localStorage.getItem(`${exercice.id}|${exercice.seed}`) && isContentVisible) {
-        newData();
-      }
-    }
     if (exercice) {
       await tick();
+      if (isInteractif) {
+        loadMathLive()
+        // Evènement indispensable pour pointCliquable par exemple
+        const exercicesAffiches = new window.Event("exercicesAffiches", {
+          bubbles: true,
+        });
+        document.dispatchEvent(exercicesAffiches);
+        if (exercice.interactifType === "cliqueFigure") {
+          prepareExerciceCliqueFigure(exercice);
+        }
+        // Ne pas être noté sur un exercice dont on a déjà vu la correction
+        if (window.localStorage.getItem(`${exercice.id}|${exercice.seed}`) && isContentVisible) {
+          newData();
+        }
+      }
       Mathalea.renderDiv(divExercice);
     }
   });

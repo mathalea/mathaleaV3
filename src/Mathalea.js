@@ -165,7 +165,6 @@ export class Mathalea {
    */
   static loadExercicesFromUrl () {
     let v = ''
-    let alea = ''
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     let indiceExercice = -1
@@ -190,7 +189,7 @@ export class Mathalea {
       } else if (entry[0] === 'v') {
         v = entry[1]
       } else if (entry[0] === 'alea') {
-        alea = entry[1]
+        newListeExercice[indiceExercice].alea = entry[1]
       } else if (entry[0] === 'i' && entry[1] === '1') {
         newListeExercice[indiceExercice].interactif = true
       } else {
@@ -200,7 +199,7 @@ export class Mathalea {
     listeExercices.update((l) => {
       return newListeExercice
     })
-    return { v, alea }
+    return { v }
   }
 
   static handleExerciceSimple (exercice, isInteractif) {
