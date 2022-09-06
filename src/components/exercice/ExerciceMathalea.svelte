@@ -100,7 +100,7 @@
     }
     if (event.detail.correctionDetaillee !== undefined) {
       exercice.correctionDetaillee = event.detail.correctionDetaillee;
-      $listeExercices[indiceExercice].correctionDetaillee = exercice.correctionDetaillee;
+      $listeExercices[indiceExercice].cd = exercice.correctionDetaillee ? '1' : '0';
     }
     updateDisplay();
   }

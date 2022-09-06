@@ -93,23 +93,23 @@ export class Mathalea {
     })
   }
 
-  /**
-   * Change les paramètres d'un exercice
-   * Exemple : changeSettingsExercice(exercice2, { sup: true, nbQuestions: 3 })
-   * @param {Promise<Exercice>} promiseExercice
-   * @param {Settings }settings
-   */
-  static async changeSettings (promiseExercice/**  Promise<Exercice> */, settings)/** Promise<void> */ {
-    const exercice = await promiseExercice
-    if (settings !== undefined) {
-      if (settings.sup !== undefined) exercice.sup = settings.sup
-      if (settings.sup2 !== undefined) exercice.sup2 = settings.sup2
-      if (settings.sup3 !== undefined) exercice.sup3 = settings.sup3
-      if (settings.sup4 !== undefined) exercice.sup4 = settings.sup4
-      if (settings.nbQuestions !== undefined) exercice.nbQuestions = settings.nbQuestions
-      if (settings.seed !== undefined) exercice.seed = settings.seed
-    }
-  }
+  // /**
+  //  * Change les paramètres d'un exercice
+  //  * Exemple : changeSettingsExercice(exercice2, { sup: true, nbQuestions: 3 })
+  //  * @param {Promise<Exercice>} promiseExercice
+  //  * @param {Settings }settings
+  //  */
+  // static async changeSettings (promiseExercice/**  Promise<Exercice> */, settings)/** Promise<void> */ {
+  //   const exercice = await promiseExercice
+  //   if (settings !== undefined) {
+  //     if (settings.sup !== undefined) exercice.sup = settings.sup
+  //     if (settings.sup2 !== undefined) exercice.sup2 = settings.sup2
+  //     if (settings.sup3 !== undefined) exercice.sup3 = settings.sup3
+  //     if (settings.sup4 !== undefined) exercice.sup4 = settings.sup4
+  //     if (settings.nbQuestions !== undefined) exercice.nbQuestions = settings.nbQuestions
+  //     if (settings.seed !== undefined) exercice.seed = settings.seed
+  //   }
+  // }
 
   static renderDiv (div/** HTMLDivElement */)/** void */ {
     // KaTeX à remplacer par MathLive ?
@@ -148,8 +148,8 @@ export class Mathalea {
       if (ex.sup4 !== undefined) url.searchParams.append('s4', ex.sup4)
       url.searchParams.append('alea', ex.alea)
       if (ex.i) url.searchParams.append('i', 1)
-      if (ex.correctionDetaillee !== undefined) {
-        url.searchParams.append('cd', ex.correctionDetaillee ? 1 : 0)
+      if (ex.cd !== undefined) {
+        url.searchParams.append('cd', ex.cd)
       }
     }
     const params = get(displayOptions)
@@ -195,8 +195,8 @@ export class Mathalea {
         newListeExercice[indiceExercice].alea = entry[1]
       } else if (entry[0] === 'i' && entry[1] === '1') {
         newListeExercice[indiceExercice].interactif = true
-      } else if (entry[0] === 'cd' && entry[1] === '1') {
-        newListeExercice[indiceExercice].cd = true
+      } else if (entry[0] === 'cd') {
+        newListeExercice[indiceExercice].cd = entry[1]
       } else {
         newListeExercice[indiceExercice][entry[0]] = entry[1]
       }
