@@ -168,7 +168,7 @@ export function propositionsQcm (exercice, i) {
       <div id="feedbackEx${exercice.numeroExercice}Q${i}"></div>
       </div>`
     }
-      texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+    texte += `<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
   }
   return { texte, texteCorr }
 }
