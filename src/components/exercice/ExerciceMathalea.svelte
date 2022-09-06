@@ -94,6 +94,10 @@
       exercice.sup4 = event.detail.sup4;
       $listeExercices[indiceExercice].sup4 = exercice.sup4;
     }
+    if (event.detail.alea !== undefined) {
+      exercice.seed = event.detail.alea;
+      $listeExercices[indiceExercice].alea = exercice.seed;
+    }
     updateDisplay();
   }
 

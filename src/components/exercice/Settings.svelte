@@ -7,6 +7,7 @@
   let sup2: string | boolean
   let sup3: string | boolean
   let sup4: string | boolean
+  let alea: string
   let premierUpdate: boolean = true
 
   // pour récupérer les tooltips de l'exercice
@@ -24,10 +25,6 @@
     consigne: string
     champsDecortiques: any[]
   }
-  let formText1: FormText
-  let formText2: FormText
-  let formText3: FormText
-  let formText4: FormText
 
   afterUpdate(async () => {
     // On ne remplit les champs que la première fois
@@ -42,6 +39,7 @@
       sup2 = exercice.sup2
       sup3 = exercice.sup3
       sup4 = exercice.sup4
+      alea = exercice.seed
     }
   })
 
@@ -54,6 +52,7 @@
       sup2,
       sup3,
       sup4,
+      alea
     })
   }
   /**
@@ -121,19 +120,19 @@
     })
     return { titre, consigne, champsDecortiques }
   }
-  // fabrication des objets correspondant aux paramètres texte.
-  if (exercice.besoinFormulaireTexte) {
-    formText1 = parseFormTexte(exercice.besoinFormulaireTexte)
-  }
-  if (exercice.besoinFormulaire2Texte) {
-    formText2 = parseFormTexte(exercice.besoinFormulaire2Texte)
-  }
-  if (exercice.besoinFormulaire3Texte) {
-    formText3 = parseFormTexte(exercice.besoinFormulaire3Texte)
-  }
-  if (exercice.besoinFormulaire4Texte) {
-    formText4 = parseFormTexte(exercice.besoinFormulaire4Texte)
-  }
+  // // fabrication des objets correspondant aux paramètres texte.
+  // if (exercice.besoinFormulaireTexte) {
+  //   formText1 = parseFormTexte(exercice.besoinFormulaireTexte)
+  // }
+  // if (exercice.besoinFormulaire2Texte) {
+  //   formText2 = parseFormTexte(exercice.besoinFormulaire2Texte)
+  // }
+  // if (exercice.besoinFormulaire3Texte) {
+  //   formText3 = parseFormTexte(exercice.besoinFormulaire3Texte)
+  // }
+  // if (exercice.besoinFormulaire4Texte) {
+  //   formText4 = parseFormTexte(exercice.besoinFormulaire4Texte)
+  // }
 
   /**
    *
@@ -222,14 +221,13 @@
   {/if}
   {#if exercice.besoinFormulaireTexte}
     <div class="tooltip tooltip-left"  data-tip={exercice.besoinFormulaireTexte[1]}>
-      <form id="formText1" name="formText1">
+      <form id="formText1" name="formText1" on:submit|preventDefault={newSettings}>
         <label class="text-coopmaths-lightest" for="formText1">{exercice.besoinFormulaireTexte[0]} :</label>
         <input
           class="border-2 w-full"
           name="formText1"
           type='text' 
           bind:value={sup}
-          on:change={newSettings}
         />
         <!-- <fieldset>
           <legend class="text-coopmaths-lightest">{formText1.titre}</legend>
@@ -291,14 +289,13 @@
   {/if}
   {#if exercice.besoinFormulaire2Texte}
   <div class=" tooltip tooltip-left"  data-tip="{exercice.besoinFormulaire2Texte[1]}">
-    <form id="formText2" name="formText2">
-      <label class="text-coopmaths-lightest" for="formText1">{exercice.besoinFormulaire2Texte[0]} :</label>
+    <form id="formText2" name="formText2" on:submit|preventDefault={newSettings}>
+      <label class="text-coopmaths-lightest" for="formText2">{exercice.besoinFormulaire2Texte[0]} :</label>
       <input
         class="border-2 w-full"
-        name="formText1"
+        name="formText2"
         type='text' 
         bind:value={sup2}
-        on:change={newSettings}
       />
         <!-- <fieldset>
           <legend class="text-coopmaths-lightest">{formText2.titre}</legend>
@@ -360,14 +357,13 @@
   {/if}
   {#if exercice.besoinFormulaire3Texte}
   <div class=" tooltip tooltip-left"  data-tip="{exercice.besoinFormulaire3Texte[1]}">
-    <form id="formText3" name="formText3">
-      <label class="text-coopmaths-lightest" for="formText1">{exercice.besoinFormulaire3Texte[0]} :</label>
+    <form id="formText3" name="formText3" on:submit|preventDefault={newSettings}>
+      <label class="text-coopmaths-lightest" for="formText3">{exercice.besoinFormulaire3Texte[0]} :</label>
       <input
         class="border-2 w-full"
         name="formText3"
         type='text' 
         bind:value={sup3}
-        on:change={newSettings}
       />
     <!-- <div>
       <form id="formText3" name="formText3">
@@ -431,14 +427,13 @@
   {/if}
   {#if exercice.besoinFormulaire4Texte}
   <div class="tooltip tooltip-left"  data-tip="{exercice.besoinFormulaire4Texte[1]}">
-    <form id="formText4" name="formText4">
+    <form id="formText4" name="formText4" on:submit|preventDefault={newSettings}>
       <label class="text-coopmaths-lightest" for="formText4">{exercice.besoinFormulaire4Texte[0]} :</label>
       <input
         class="border-2 w-full"
-        name="formText1"
+        name="formText4"
         type='text' 
         bind:value={sup4}
-        on:change={newSettings}
       />
     </form>
    </div>
@@ -464,4 +459,13 @@
       </form>
     </div> -->
   {/if}
+    <form id="formAlea" name="formAlea" on:submit|preventDefault={newSettings}>
+      <label class="text-coopmaths-lightest" for="formAlea">Série :</label>
+      <input
+        class="border-2 w-full"
+        name="formAlea"
+        type='text' 
+        bind:value={alea}
+      />
+    </form>
 </div>
