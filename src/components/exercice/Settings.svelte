@@ -8,6 +8,7 @@
   let sup3: string | boolean
   let sup4: string | boolean
   let alea: string
+  let correctionDetaillee: boolean
   let premierUpdate: boolean = true
 
   // pour récupérer les tooltips de l'exercice
@@ -40,6 +41,7 @@
       sup3 = exercice.sup3
       sup4 = exercice.sup4
       alea = exercice.seed
+      correctionDetaillee = exercice.correctionDetaillee
     }
   })
 
@@ -52,7 +54,8 @@
       sup2,
       sup3,
       sup4,
-      alea
+      alea,
+      correctionDetaillee
     })
   }
   /**
@@ -458,6 +461,12 @@
         </fieldset>
       </form>
     </div> -->
+  {/if}
+
+  {#if exercice.correctionDetailleeDisponible}
+    <div>
+      <span class="text-coopmaths-lightest">Correction détaillée :</span> <input type="checkbox" class="form-check-input" bind:checked={correctionDetaillee} on:change={newSettings} />
+    </div>
   {/if}
     <form id="formAlea" name="formAlea" on:submit|preventDefault={newSettings}>
       <label class="text-coopmaths-lightest" for="formAlea">Série :</label>

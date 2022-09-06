@@ -98,6 +98,10 @@
       exercice.seed = event.detail.alea;
       $listeExercices[indiceExercice].alea = exercice.seed;
     }
+    if (event.detail.correctionDetaillee !== undefined) {
+      exercice.correctionDetaillee = event.detail.correctionDetaillee;
+      $listeExercices[indiceExercice].correctionDetaillee = exercice.correctionDetaillee;
+    }
     updateDisplay();
   }
 
