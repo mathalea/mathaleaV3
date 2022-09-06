@@ -148,6 +148,9 @@ export class Mathalea {
       if (ex.sup4 !== undefined) url.searchParams.append('s4', ex.sup4)
       url.searchParams.append('alea', ex.alea)
       if (ex.i) url.searchParams.append('i', 1)
+      if (ex.correctionDetaillee !== undefined) {
+        url.searchParams.append('cd', ex.correctionDetaillee ? 1 : 0)
+      }
     }
     const params = get(displayOptions)
     if (params.v) {
@@ -192,6 +195,8 @@ export class Mathalea {
         newListeExercice[indiceExercice].alea = entry[1]
       } else if (entry[0] === 'i' && entry[1] === '1') {
         newListeExercice[indiceExercice].interactif = true
+      } else if (entry[0] === 'cd' && entry[1] === '1') {
+        newListeExercice[indiceExercice].cd = true
       } else {
         newListeExercice[indiceExercice][entry[0]] = entry[1]
       }
