@@ -15,6 +15,8 @@
   import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from '../modules/ElementInstrumenpoche'
 
   import { context } from '../modules/context'
+import MoteurDeRecherche from "./sidebar/MoteurDeRecherche.svelte"
+    import Searchbar from "./header2/Searchbar.svelte";
 
   context.versionMathalea = 3
 
@@ -124,9 +126,8 @@
         <div class="flex-none block overflow-y-scroll overscroll-auto h-full">
           <h2 class="inline-flex items-center font-bold text-xl mb-6">
             <span>Choix des exercices</span>
-            <!-- <SearchChoiceOptionsRadio options={searchOptions} bind:userSelected={searchOption} /> -->
           </h2>
-          {#if searchOption === "list"}
+          <MoteurDeRecherche />
             <ul>
               {#each Array.from(refTree, ([key, obj]) => ({ key, obj })) as item}
                 <li>
@@ -134,9 +135,6 @@
                 </li>
               {/each}
             </ul>
-          {:else}
-            <Recherche />
-          {/if}
         </div>
       </aside>
       <!-- split line -->
