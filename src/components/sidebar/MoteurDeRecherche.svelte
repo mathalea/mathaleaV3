@@ -2,6 +2,9 @@
     import referentiel from "../../json/referentiel2022.json";
     import { listeExercices } from "../store";
 
+    /**
+     * Retourne tous les objets qui ont une clé titre
+     */
     function getAllExercices() {
         const exercices = [];
         function recursiveSearch(object) {
@@ -20,15 +23,18 @@
 
     let listeDesExercices = getAllExercices();
     let filteredList;
-    let isCanPossible;
+    let isCanInclusDansResultats;
 
     $: {
         filteredList = listeDesExercices.filter((exercice) =>
-            filtre(exercice, inputSearch, isCanPossible)
+            filtre(exercice, inputSearch, isCanInclusDansResultats)
         );
     }
     let inputSearch = "";
 
+    /**
+     * Détermine si un exercice est dans les résultats de la recherche ou pas
+     */
     function filtre(exercice, inputSearch, isCanPossible) {
         if (!inputSearch) return false;
         const inputs = inputSearch.split(" ");
@@ -64,7 +70,7 @@
     <div class="mb-4">
         Inclure les courses aux nombres : <input
             type="checkbox"
-            bind:checked={isCanPossible}
+            bind:checked={isCanInclusDansResultats}
         />
     </div>
 {/if}
