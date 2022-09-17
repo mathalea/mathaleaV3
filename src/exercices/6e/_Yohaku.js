@@ -8,7 +8,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import * as pkg from '@cortex-js/compute-engine'
 import { fractionLatexToMathjs } from '../../modules/fonctionsMaths.js'
 const { ComputeEngine } = pkg
-const engine = ComputeEngine
+const engine = new ComputeEngine()
 export const titre = 'Générateur de Yohaku'
 export const interactifReady = true
 export const interactifType = 'custom'
