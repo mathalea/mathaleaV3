@@ -3,7 +3,6 @@
   import NavBar from "./header/NavBar.svelte"
   import Footer from "./Footer.svelte"
   import Header2 from "./header2/Header2.svelte"
-  import Recherche from "./Recherche.svelte"
   import NiveauListeExos from "./sidebar/NiveauListeExos.svelte"
   import { listeExercices, displayOptions } from "./store"
   import codeList from "../json/codeToLevelList.json"
@@ -15,8 +14,7 @@
   import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from '../modules/ElementInstrumenpoche'
 
   import { context } from '../modules/context'
-import MoteurDeRecherche from "./sidebar/MoteurDeRecherche.svelte"
-    import Searchbar from "./header2/Searchbar.svelte";
+  import SearchExercice from "./sidebar/SearchExercice.svelte"
 
   context.versionMathalea = 3
 
@@ -127,7 +125,7 @@ import MoteurDeRecherche from "./sidebar/MoteurDeRecherche.svelte"
           <h2 class="inline-flex items-center font-bold text-xl mb-6">
             <span>Choix des exercices</span>
           </h2>
-          <MoteurDeRecherche />
+          <SearchExercice />
             <ul>
               {#each Array.from(refTree, ([key, obj]) => ({ key, obj })) as item}
                 <li>
