@@ -864,6 +864,29 @@ export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
   }
   return liste
 }
+/** Renvoie une liste exhaustive de tableaux contenant les mêmes élèments que tab mais jamais dans le même ordre
+* Fonction fort utile quand reponse est une suite de nombres par exemple. Voir ligne 111 Exercice 3A10-6.
+* Gros défaut :  Si tab contient plus de 6 éléments, cette fonction est chronophage. A ne pas utiliser
+* @example reponse = diversesReponsesPossibles([3,4,5]) renvoie [[3,4,5],[3,5,4],[4,3,5],[4,5,3],[5,3,4],[5,4,3]]
+* et ensuite pour les tous les i : reponse[i]=reponse[i].join(';') et reponse contient alors toutes les réponses possibles
+* @author Eric Elter
+* Septembre 2022
+*/
+export function diversesReponsesPossibles (tab) {
+  let tab2, tab3
+  const rep = []
+  if (tab.length === 1) return (tab)
+  for (let ee = 0; ee < tab.length; ee++) {
+    tab2 = tab.slice()
+    tab2.splice(ee, 1)
+    tab3 = diversesReponsesPossibles(tab2)
+    for (let k = 0; k < tab3.length; k++) {
+      rep.push([tab[ee]].concat(tab3[k]))
+    }
+  }
+  return rep
+}
+
 /**
 * N'écrit pas un nombre s'il est égal à 1
 * @Example
@@ -1292,13 +1315,15 @@ export function unSiPositifMoinsUnSinon (a) {
   else return 1
 }
 /**
-* Retourne la somme des chiffres d'un nombre en valeur et sous forme de String [valeur, String]
+* Retourne la somme des chiffres (ou d'un tableau de chiffres) d'un nombre en valeur et sous forme de String [valeur, String]
 * @Example
-* sommeDesChiffress(123)
+* sommeDesChiffres(123)
 * // [ 6, '1+2+3']
-* @author Rémi Angot
+* @author Rémi Angot (Rajout Tableau par EE)
 */export function sommeDesChiffres (n) {
-  const nString = n.toString()
+  let nString
+  if (Array.isArray(n)) nString = n.join('').toString()
+  else nString = n.toString()
   let somme = 0
   let sommeString = ''
   for (let i = 0; i < nString.length - 1; i++) {
@@ -1423,13 +1448,13 @@ export function texFractionReduite (n, d) {
 export function produitDeDeuxFractions (num1, den1, num2, den2) {
   let num, den, texProduit
   if (num1 === den2) {
-    texProduit = `\\dfrac{\\cancel{${num1}}\\times ${num2}}{${den1}\\times\\cancel{${den2}}}`
+    texProduit = `\\dfrac{\\cancel{${num1}}\\times ${ecritureParentheseSiNegatif(num2)}}{${den1}\\times\\cancel{${ecritureParentheseSiNegatif(den2)}}}`
     num = num2
     num1 = 1
     den2 = 1
     den = den1
   } else if (num2 === den1) {
-    texProduit = `\\dfrac{${num1}\\times \\cancel{${num2}}}{\\cancel{${den1}}\\times${den2}}`
+    texProduit = `\\dfrac{${num1}\\times \\cancel{${ecritureParentheseSiNegatif(num2)}}}{\\cancel{${den1}}\\times${ecritureParentheseSiNegatif(den2)}}`
     num = num1
     num2 = 1
     den1 = 1
@@ -1437,7 +1462,7 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
   } else {
     num = num1 * num2
     den = den1 * den2
-    texProduit = `\\dfrac{${num1}\\times ${num2}}{${den1}\\times${den2}}`
+    texProduit = `\\dfrac{${num1}\\times ${ecritureParentheseSiNegatif(num2)}}{${den1}\\times${ecritureParentheseSiNegatif(den2)}}`
   }
   return [texFraction(num, den), texProduit, [num1, den1, num2, den2]]
 }
@@ -3083,11 +3108,15 @@ export function premiereLettreEnMajuscule (text) { return (text + '').charAt(0).
 
 /**
 * Renvoie le nombre de chiffres de la partie décimale
+* @param nb : nombre décimal
+* @param except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
 * @author Rémi Angot
 */
-export function nombreDeChiffresDansLaPartieDecimale (nb) {
+export function nombreDeChiffresDansLaPartieDecimale (nb, except = 'aucune') {
+  let sauf = 0
   if (String(nb).indexOf('.') > 0) {
-    return String(nb).split('.')[1].length
+    if (!isNaN(except)) sauf = (String(nb).split('.')[1].split(String(except)).length - 1)
+    return String(nb).split('.')[1].length - sauf
   } else {
     return 0
   }
@@ -3096,25 +3125,29 @@ export function nombreDeChiffresDansLaPartieDecimale (nb) {
  * Renvoie le nombre de chiffres dans la partie entière
  * @author ?
  */
-export function nombreDeChiffresDansLaPartieEntiere (nb) {
-  let nombre
+export function nombreDeChiffresDansLaPartieEntiere (nb, except = 'aucune') {
+  let nombre; let sauf = 0
   if (nb < 0) {
     nombre = -nb
   } else {
     nombre = nb
   }
   if (String(nombre).indexOf('.') > 0) {
-    return String(nombre).split('.')[0].length
+    if (!isNaN(except)) sauf = (String(nombre).split('.')[0].split(String(except)).length - 1)
+    return String(nombre).split('.')[0].length - sauf
   } else {
+    if (!isNaN(except)) sauf = (String(nombre).split(String(except)).length - 1)
     return String(nombre).length
   }
 }
 /**
  * Renvoie le nombre de chiffres d'un nombre décimal
+ * @param nb : nombre décimal
+ * @param except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
  * @author Jean-Claude Lhote
  */
-export function nombreDeChiffresDe (nb) {
-  return nombreDeChiffresDansLaPartieDecimale(nb) + nombreDeChiffresDansLaPartieEntiere(nb)
+export function nombreDeChiffresDe (nb, except) {
+  return nombreDeChiffresDansLaPartieDecimale(nb, except) + nombreDeChiffresDansLaPartieEntiere(nb, except)
 }
 /**
  * Retourne la string LaTeX de la fraction
@@ -6675,7 +6708,8 @@ ${preambulePersonnalise(listePackages)}
 */
 export function introLatexCan (entete = 'Course aux nombres', listePackages = '') {
   if (entete === '') { entete = 'Course aux nombres' }
-  return `\\documentclass[12pt, landscape]{article}
+  // return `\\documentclass[12pt, landscape]{article}
+  return `\\documentclass[12pt]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -6746,15 +6780,87 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 
 \\fancypagestyle{premierePage}
 {
-  \\fancyhead[C]{\\textbf{${entete}}}
-
+  \\fancyhead[C]{\\textsc{${entete}}}
 }
 ${preambulePersonnalise(listePackages)}
 
+% Spécifique sujets CAN
+\\usepackage{longtable}
 
+\\tikzset{
+  mybox/.style={
+    rectangle,
+    drop shadow, 
+    inner sep=17pt,
+    draw=gray,
+    shade,
+    top color=gray,
+    every shadow/.append style={fill=gray!40}, 
+    bottom color=gray!20
+    }
+  }
+  
+  \\newcommand\\MyBox[2][]{%
+    \\tikz\\node[mybox,#1] {#2}; 
+  }
+  \\newcounter{nbEx}
+  \\usepackage{totcount}
+  \\regtotcounter{nbEx}
+  \\def\\checkmark{\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+  
 \\begin{document}
 \\thispagestyle{premierePage}
 
+\\setcounter{nbEx}{1}
+\\vspace*{-10mm}
+\\textsc{Nom} : \\makebox[.35\\linewidth]{\\dotfill} \\hfill \\textsc{Prénom} : \\makebox[.35\\linewidth]{\\dotfill}
+\\begin{minipage}{0.55\\textwidth}
+  \\vspace{10mm}
+  \\textsc{Classe} : \\makebox[.45\\linewidth]{\\dotfill}
+\\end{minipage}
+\\begin{minipage}{0.35\\textwidth} 
+  \\vspace{5mm}
+  \\MyBox{\\Large\\textsc{Score} : \\makebox[.15\\linewidth]{\\dotfill} / \\total{nbEx}}      
+\\end{minipage}
+\\par\\medskip \\hrulefill \\par
+\\checkmark \\textit{\\textbf{Durée : [À compléter dans le code source] minutes}}
+
+\\smallskip
+\\checkmark \\textit{L'épreuve comporte \total{nbEx} questions.}
+
+\\smallskip  
+\\checkmark \\textit{L'usage de la calculatrice et du brouillon sont interdits.}
+
+\\smallskip
+\\checkmark \\textit{Il n'est pas permis d'écrire des calculs intermédiaires.}
+\\par \\hrulefill \\par\\vspace{5mm}
+\\begin{center}
+\\textsc{Sujet niveau NN - Mois Année}
+
+
+\\par\\vspace{5mm}
+\\def\\arete{3}   \\def\\epaisseur{5}   \\def\\rayon{2}
+
+\\newcommand{\\ruban}{(0,0)
+  ++(0:0.57735*\\arete-0.57735*\\epaisseur+2*\\rayon)
+  ++(-30:\\epaisseur-1.73205*\\rayon)
+  arc (60:0:\\rayon)   -- ++(90:\\epaisseur)
+  arc (0:60:\\rayon)   -- ++(150:\\arete)
+  arc (60:120:\\rayon) -- ++(210:\\epaisseur)
+  arc (120:60:\\rayon) -- cycle}
+
+\\begin{tikzpicture}[very thick,top color=white,bottom color=gray,scale=1.3]
+  \\shadedraw \\ruban;
+  \\shadedraw [rotate=120] \\ruban;
+  \\shadedraw [rotate=-120] \\ruban;
+  \\draw (-60:4) node[scale=5,rotate=30]{CAN};
+  \\draw (180:4) node[scale=3,rotate=-90]{MathALEA};
+  \\clip (0,-6) rectangle (6,6); % pour croiser
+  \\shadedraw  \\ruban;
+  \\draw (60:4) node [gray,xscale=-3,yscale=3,rotate=30]{Ti\\textit{k}Z};
+\\end{tikzpicture}
+\\end{center}
+\\clearpage
 `
 }
 

@@ -480,6 +480,18 @@
             "Can": true
           },
           "datePublication": "10/08/2022"
+        },
+        "can6C40": {
+          "uuid": "bfec4",
+          "id": "can6C40",
+          "titre": "Calculer la moitié d’un nombre décimal",
+          "url": "can/6e/can6C40.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "13/09/2022"
         }
       },
       "can6D": {
@@ -1032,6 +1044,18 @@
     },
     "5e": {
       "Annales": {
+        "can5a-2020": {
+          "uuid": "7292b",
+          "id": "can5a-2020",
+          "titre": "CAN 5ième sujet 2020",
+          "url": "can/5e/can5a-2020.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "04/09/2022"
+        },
         "can5a-2021": {
           "uuid": "339a1",
           "id": "can5a-2021",
@@ -1677,6 +1701,18 @@
             "Can": true
           },
           "datePublication": "04/07/2022"
+        },
+        "can4C12": {
+          "uuid": "68ea0",
+          "id": "can4C12",
+          "titre": "Calculer la moitié d’une fraction",
+          "url": "can/4e/can4C12.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "13/09/2022"
         }
       },
       "can4G": {
@@ -2477,7 +2513,7 @@
         "can2C03": {
           "uuid": "b1517",
           "id": "can2C03",
-          "titre": "Calculer avec  des puissances",
+          "titre": "Calculer avec  des puissances*",
           "url": "can/2e/can2C03.js",
           "tags": {
             "AMC": true,
@@ -2586,6 +2622,18 @@
             "Can": true
           },
           "datePublication": "19/12/2021"
+        },
+        "can2C13": {
+          "uuid": "b31eb",
+          "id": "can2C13",
+          "titre": "Calculer avec  des puissances",
+          "url": "can/2e/can2C13.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "15/09/2022"
         }
       },
       "can2F": {
@@ -4194,6 +4242,18 @@
         "url": "6e/6C11-2.js",
         "uuid": "4e35d"
       },
+      "6C11-3": {
+        "datePublication": "09/09/2022",
+        "id": "6C11-3",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Indiquer une égalité à partir d'une division euclidienne",
+        "url": "6e/6C11-3.js",
+        "uuid": "d0cd7"
+      },
       "6C12": {
         "datePublication": "02/11/2021",
         "id": "6C12",
@@ -4634,6 +4694,18 @@
         "titre": "Tracer des parallèles et des perpendiculaires",
         "url": "6e/6G12-1.js",
         "uuid": "d14bc"
+      },
+      "6G13": {
+        "datePublication": "10/09/2022",
+        "id": "6G13",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Tracer des carrés et des rectangles de longueurs données",
+        "url": "6e/6G13.js",
+        "uuid": "2203a"
       },
       "6G14": {
         "id": "6G14",
@@ -5193,6 +5265,7 @@
     },
     "6N1": {
       "6N10": {
+        "dateModification": "14/09/2022",
         "datePublication": "19/09/2021",
         "id": "6N10",
         "tags": {
@@ -5216,7 +5289,7 @@
         "uuid": "6babf"
       },
       "6N10-1": {
-        "dateModification": "07/11/2021",
+        "dateModification": "09/09/2022",
         "id": "6N10-1",
         "tags": {
           "AMC": true,
@@ -5387,6 +5460,18 @@
         "titre": "Convertir des longueurs, masses, capacités, prix ou unités informatiques",
         "url": "6e/6N13.js",
         "uuid": "3eae0"
+      },
+      "6N13-0": {
+        "datePublication": "17/09/2022",
+        "id": "6N13-0",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Connaître les préfixes utilisés dans les unités",
+        "url": "6e/6N13-0.js",
+        "uuid": "5d1e2"
       },
       "6N14": {
         "id": "6N14",
@@ -8586,6 +8671,18 @@
         "url": "3e/3A10-5.js",
         "uuid": "eee79"
       },
+      "3A10-6": {
+        "datePublication": "29/08/2022",
+        "id": "3A10-6",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Trouver un chiffre pour qu'un nombre soit divisible par un autre",
+        "url": "3e/3A10-6.js",
+        "uuid": "5636e"
+      },
       "3A11": {
         "id": "3A11",
         "tags": {
@@ -8629,6 +8726,54 @@
         "titre": "Résoudre des problèmes avec recherche de diviseurs communs",
         "url": "3e/3A12-1.js",
         "uuid": "8c05e"
+      },
+      "3A13-1": {
+        "datePublication": "14/09/2022",
+        "id": "3A13-1",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Poser divisions euclidiennes",
+        "url": "3e/3A13-1.js",
+        "uuid": "8741f"
+      },
+      "3A13-2": {
+        "datePublication": "14/09/2022",
+        "id": "3A13-2",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Déterminer reste et quotient d'une division euclidienne à partir d'une égalité",
+        "url": "3e/3A13-2.js",
+        "uuid": "d8bf2"
+      },
+      "3A13-3": {
+        "datePublication": "14/09/2022",
+        "id": "3A13-3",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne",
+        "url": "3e/3A13-3.js",
+        "uuid": "d9cf3"
+      },
+      "3A13-4": {
+        "datePublication": "14/09/2022",
+        "id": "3A13-4",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Indiquer une égalité à partir d'une division euclidienne",
+        "url": "3e/3A13-4.js",
+        "uuid": "b0cee"
       }
     },
     "3F1": {

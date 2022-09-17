@@ -1,11 +1,9 @@
 // Définit un clavier personnalisé cf https://cortexjs.io/mathlive/guides/virtual-keyboards/
-const collegeKeyboardLayer = {
-  collegeLayer: {
+const college6emeKeyboardLayer = {
+  college6emeLayer: {
     styles: '',
     rows: [
       [
-        { latex: 'a' },
-        { latex: 'x' },
         { class: 'separator w5' },
         { label: '7', key: '7' },
         // Will display the label using the system font. To display
@@ -17,71 +15,39 @@ const collegeKeyboardLayer = {
         { label: '9', key: '9' },
         { latex: '\\div' },
         { class: 'separator w5' },
-        {
-          class: 'small',
-          latex: '\\sqrt{#0}',
-          insert: '$$\\sqrt{#0}$$'
-        },
-        {
-          class: 'tex small',
-          label: '<span><i>x</i>&thinsp;²</span>', // Puissance 2
-          insert: '$$#@^{2}$$'
-        },
-        {
-          class: 'tex small',
-          label: '<span><i>x</i><sup>&thinsp;<i>3</i></sup></span>', // Puissance 3
-          insert: '$$#@^{3}$$'
-        },
-        {
-          class: 'tex small',
-          latex: 'x^{#0}', // Puissance n
-          insert: '$$#@^{#0}$$'
-        },
-        {
-          class: 'small',
-          latex: '\\times10^{#0}',
-          insert: '$$\\times10^#0$$'
-        }
+        { label: '%', key: '%' },
+        { label: '°', latex: '\\operatorname{°}' },
+        { latex: '(' },
+        { latex: ')' },
+        { class: 'separator w5' }
       ],
       [
-        { class: 'tex', latex: 'b' },
-        { class: 'tex', latex: 'y' },
         { class: 'separator w5' },
         { label: '4', latex: '4' },
         { label: '5', key: '5' },
         { label: '6', key: '6' },
         { latex: '\\times' },
-        { class: 'separator w5' },
-        { class: 'small', latex: '\\frac{#0}{#0}' },
-        { label: '=', key: '=' },
-        { latex: 'f' },
-        {
-          class: 'small',
-          latex: '\\widehat{#0}',
-          insert: '$$\\widehat{#0}$$' /// Angle
-        },
+        { class: 'separator w10' },
+        { label: 'oui', key: 'oui' },
+        { label: 'non', key: 'non' },
+        { label: ';', key: ';' },
         { class: 'separator w10' }
       ],
       [
-        { class: 'tex', label: '<i>c</i>' },
-        { class: 'tex', label: '<i>z</i>' },
         { class: 'separator w5' },
         { label: '1', key: '1' },
         { label: '2', key: '2' },
         { label: '3', key: '3' },
         { latex: '-' },
-        { class: 'separator w5' },
-        { label: ';', key: ';' },
-        { label: 'oui', key: 'oui' },
-        { label: 'non', key: 'non' },
-        { label: '%', key: '%' },
-        { label: '°', latex: '\\operatorname{°}' }
+        { class: 'separator w15' },
+        {
+          class: 'w20',
+          label: 'espace', // Espace
+          insert: '\\,'
+        },
+        { class: 'separator w15' }
       ],
       [
-        { latex: '\\lparen' }, // Parenthèses à coder ainsi sinon elles disparaissent lors de certains calculs
-        { latex: '\\rparen' },
-
-        { class: 'separator w5' },
         { label: '0', key: '0' },
         { latex: ',' },
         { latex: '\\pi' },
@@ -106,42 +72,33 @@ const collegeKeyboardLayer = {
           class: 'action font-glyph',
           label: '&#10006;',
           command: ['toggleVirtualKeyboard', 'toggleVirtualKeyboard']
-        },
-        { class: 'separator w10' }
+        }
       ]
     ]
   }
 }
 
-const collegeKeyboard = {
-  collegeKeyboard: {
+const college6emeKeyboard = {
+  college6emeKeyboard: {
     label: 'Maths', // Label displayed in the Virtual Keyboard Switcher
     tooltip: 'Clavier mathématique', // Tooltip when hovering over the label
-    layer: 'collegeLayer'
+    layer: 'college6emeLayer'
   }
 }
 
-export const clavierCollege = {
-  customVirtualKeyboardLayers: collegeKeyboardLayer,
-  customVirtualKeyboards: collegeKeyboard,
-  virtualKeyboards: 'collegeKeyboard roman',
+export const clavierCollege6eme = {
+  customVirtualKeyboardLayers: college6emeKeyboardLayer,
+  customVirtualKeyboards: college6emeKeyboard,
+  virtualKeyboards: 'college6emeKeyboard roman',
+  virtualKeyboardLayout: 'azerty',
+  mathModeSpace: '\\,',
   inlineShortcuts: {
     D: { mode: 'math', value: 'd' },
     '*': { mode: 'math', value: '\\times' },
     '.': { mode: 'math', value: ',' },
-    '%': { mode: 'math', value: '\\%' },
-    '²': { mode: 'math', value: '^2' },
-    '³': { mode: 'math', value: '^3' },
     pi: { mode: 'math', value: '\\pi' },
     ang: { mode: 'math', value: '\\widehat{#0}' },
-    rac: { mode: 'math', value: '\\sqrt{#0}' },
-    frac: { mode: 'math', value: '\\frac{#0}{#1}' },
-    '<': '<',
-    '>': '>',
-    '>=': '\\geq',
-    '<=': '\\leq',
-    '(': '\\lparen',
-    ')': '\\rparen'
+    frac: { mode: 'math', value: '\\frac{#0}{#1}' }
   },
   // virtualKeyboards: 'numeric roman',
   virtualKeyboardMode: 'manual'
