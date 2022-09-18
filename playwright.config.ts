@@ -1,5 +1,5 @@
-import type { PlaywrightTestConfig } from '@playwright/test';
-import { devices } from '@playwright/test';
+import type { PlaywrightTestConfig } from '@playwright/test'
+import { devices } from '@playwright/test'
 
 /**
  * Read environment variables from file.
@@ -39,7 +39,7 @@ const config: PlaywrightTestConfig = {
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: 'on-first-retry'
   },
 
   /* Configure projects for major browsers */
@@ -59,11 +59,11 @@ const config: PlaywrightTestConfig = {
     // },
 
     {
-      name: 'webkit',
+      name: 'chromium',
       use: {
-        ...devices['Desktop Safari'],
-      },
-    },
+        ...devices['Desktop Safari']
+      }
+    }
 
     /* Test against mobile viewports. */
     // {
@@ -92,7 +92,7 @@ const config: PlaywrightTestConfig = {
     //     channel: 'chrome',
     //   },
     // },
-  ],
+  ]
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
   // outputDir: 'test-results/',
@@ -102,6 +102,6 @@ const config: PlaywrightTestConfig = {
   //   command: 'npm run start',
   //   port: 3000,
   // },
-};
+}
 
-export default config;
+export default config
