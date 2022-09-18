@@ -4,3 +4,6 @@ node_modules/
 dist/
 built/
 pnpm-lock.yaml
+/test-results/
+/playwright-report/
+/playwright/.cache/
