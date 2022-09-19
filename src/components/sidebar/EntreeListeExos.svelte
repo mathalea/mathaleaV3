@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { listeExercices } from "../store"
+import { listeExercices } from "../store"
+    import { isRecent } from "../utils/handleDate";
   
   export let exo
   export let nestedLevelCount: number
@@ -80,6 +81,12 @@
   <div class="flex-1 hover:bg-coopmaths-lightest cursor-pointer" on:click={addToList}>
     <div class="ml-[3px] pl-2 bg-gray-200 hover:bg-gray-100 flex-1">
       <span class="font-bold">{exo.get('id')} - </span>{exo.get('titre')}
+      {#if isRecent(exo.get('datePublication'))}
+      <span class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-light text-white text-xs px-1 py-[1px] shadow-sm">NEW</span>
+      {/if}
+      {#if isRecent(exo.get('dateModification'))}
+      <span class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-light text-white text-xs px-1 py-[1px] shadow-sm">MAJ</span>
+      {/if}
     </div>
   </div>
   {#if selectedCount >= 1}
