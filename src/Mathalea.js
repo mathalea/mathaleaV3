@@ -6,6 +6,7 @@ import Exercice from './exercices/Exercice.js'
 import { setReponse } from './interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from './interactif/questionMathLive'
 import uuidToUrl from './json/uuidsToUrl.json'
+import refToUuid from './json/refToUuid.json'
 
 // export type Settings = { sup?: boolean | string | number, sup2?: boolean | string | number, sup3?: boolean | string | number, sup4?: boolean | string | number, nbQuestions?: number, seed?: string }
 
@@ -172,13 +173,23 @@ export class Mathalea {
     const entries = url.searchParams.entries()
     let indiceExercice = -1
     const newListeExercice = []
+    let previousEntryWasUuid = false
     for (const entry of entries) {
       if (entry[0] === 'uuid') {
         indiceExercice++
+        const uuid = entry[1]
+        const id = Object.keys(refToUuid).find(key => refToUuid[key] === uuid)
         if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = {}
-        newListeExercice[indiceExercice].uuid = entry[1] // string
-      } else if (entry[0] === 'id') {
-        newListeExercice[indiceExercice].id = entry[1] // string
+        newListeExercice[indiceExercice].uuid = uuid // string
+        newListeExercice[indiceExercice].id = id // string
+      } else if (entry[0] === 'id' && !previousEntryWasUuid) {
+        // En cas de présence d'un uuid juste avant, on ne tient pas compte de l'id
+        indiceExercice++
+        if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = {}
+        const id = entry[1]
+        const uuid = refToUuid[id]
+        newListeExercice[indiceExercice].id = id // string
+        newListeExercice[indiceExercice].uuid = uuid // string
       } else if (entry[0] === 'n') {
         newListeExercice[indiceExercice].nbQuestions = parseInt(entry[1]) // int
       } else if (entry[0] === 's') {
@@ -198,8 +209,11 @@ export class Mathalea {
       } else if (entry[0] === 'cd') {
         newListeExercice[indiceExercice].cd = entry[1]
       } else {
-        newListeExercice[indiceExercice][entry[0]] = entry[1]
+        if (entry[0] !== 'id') newListeExercice[indiceExercice][entry[0]] = entry[1]
       }
+
+      if (entry[0] === 'uuid') previousEntryWasUuid = true
+      else previousEntryWasUuid = false
     }
     listeExercices.update((l) => {
       return newListeExercice
