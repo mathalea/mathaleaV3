@@ -1,12 +1,16 @@
 import { test, expect } from '@playwright/test'
-import { refToUuid } from '../src/json/refToUuid.js' // Fichier à créer manuellement à partir de ../src/json/refToUuid.json
+// import refToUuid from 'src/json/refToUuid.json' assert { type: 'json' }
+import { readFileSync } from 'fs'
+
+const jsonString = readFileSync('src/json/refToUuid.json', { encoding: 'utf8' })
+const refToUuid = JSON.parse(jsonString)
 
 const ids = Object.keys(refToUuid)
 
 function TestAllPages (ids) {
   for (const id of ids) {
     const uuid = refToUuid[id]
-    if (id === '1E15') break
+    // if (id === '1E15') break
     test(`Exercice avec correction et 10 actualisations ${id}`, async ({ page }) => {
       const messages: string[] = []
       await page.goto(`http://localhost:5173/beta/?uuid=${uuid}`)
