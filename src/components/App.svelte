@@ -22,6 +22,7 @@
   customElements.define('alea-buttoninstrumenpoche', ElementButtonInstrumenpoche)
 
   let isNavBarVisible = true
+  let filtre = 'all'
 
   // ToFix fonction à lier avec bugsnag
   window.notify = (arg) => console.log(arg)
@@ -49,8 +50,34 @@
     }
   }
 
-  let refTree: Map = toMap(referentiel)
-  
+  let filteredReferentiel = referentiel
+  let referentielMap = toMap(filteredReferentiel)
+  let arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
+
+  function updateReferentiel () {
+    let itemsAccepted
+    if (filtre === 'all') {
+      itemsAccepted = ['CAN', 'CM1/CM2', '6e', '5e', '4e', '3e', 'Seconde', 'Première', 'Première technologique', 'Terminal expert', 'Hors-programme (lycée)', 'CRPE', 'Calcul mental']
+    } else if (filtre === 'college') {
+      itemsAccepted = ['6e', '5e', '4e', '3e', 'Calcul mental']
+    } else if (filtre === 'lycee') {
+      itemsAccepted = ['Seconde', 'Première', 'Première technologique', 'Terminal expert']
+    } else if (filtre === 'crpe') {
+      itemsAccepted = ['CRPE']
+    }
+
+    filteredReferentiel = Object.keys(referentiel)
+    .filter(key => itemsAccepted.includes(key))
+    .reduce((obj, key) => {
+      return {
+        ...obj,
+        [key]: referentiel[key]
+      }
+    }, {}) 
+    referentielMap = toMap(filteredReferentiel)
+    arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj })) 
+  }
+
   /**
    * Retrouve le titre d'un niveau basé sur son
    * @param levelId
@@ -100,8 +127,6 @@
           })
     }
   }
-  function toggleSearchType(e) {
-  }
 
   function quitFullScreen() {
       displayOptions.update(params => {
@@ -125,9 +150,15 @@
           <h2 class="inline-flex items-center font-bold text-xl mb-6">
             <span>Choix des exercices</span>
           </h2>
-          <SearchExercice />
+          <select class="flex flex-auto border-2 border-coopmaths w-full mb-2" bind:value={filtre} on:change={updateReferentiel}>
+              <option value="all">Tous les exercices</option>
+              <option value="college">Collège</option>
+              <option value="lycee">Lycée</option>
+              <option value="crpe">CRPE</option>
+          </select>
+          <SearchExercice referentiel = {filteredReferentiel} />
             <ul>
-              {#each Array.from(refTree, ([key, obj]) => ({ key, obj })) as item}
+              {#each arrayReferentielFiltre as item}
                 <li>
                   <NiveauListeExos nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
                 </li>

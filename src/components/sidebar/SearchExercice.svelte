@@ -1,6 +1,6 @@
 <script>
-    import referentiel from "../../json/referentiel2022.json";
-    import { listeExercices } from "../store";
+    import { listeExercices } from "../store"
+    export let referentiel
 
     /**
      * Retourne tous les objets qui ont une clé titre
@@ -26,6 +26,8 @@
     let isCanInclusDansResultats;
 
     $: {
+        referentiel = referentiel
+        listeDesExercices = getAllExercices()
         filteredList = listeDesExercices.filter((exercice) =>
             filtre(exercice, inputSearch, isCanInclusDansResultats)
         );
