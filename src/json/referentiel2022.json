@@ -2634,6 +2634,18 @@
             "Can": true
           },
           "datePublication": "15/09/2022"
+        },
+        "can2C14": {
+          "uuid": "27f5c",
+          "id": "can2C14",
+          "titre": "Calculer avec une racine carrée (définition)",
+          "url": "can/2e/can2C14.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "19/09/2022"
         }
       },
       "can2F": {
@@ -2791,6 +2803,18 @@
             "Can": true
           },
           "datePublication": "18/01/2022"
+        },
+        "can2F14": {
+          "uuid": "1d7cc",
+          "id": "can2F14",
+          "titre": "Calculer une ordonnée à partir de l’abscisse d’un point",
+          "url": "can/2e/can2F14.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "27/09/2022"
         }
       },
       "can2G": {
@@ -3395,6 +3419,42 @@
             "Can": true
           },
           "datePublication": "24/06/2022"
+        },
+        "can1F20": {
+          "uuid": "5283f",
+          "id": "can1F20",
+          "titre": "Résoudre une équation du second degré sans $\\Delta$",
+          "url": "can/1e/can1F20.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "17/09/2022"
+        },
+        "can1F21": {
+          "uuid": "2d459",
+          "id": "can1F21",
+          "titre": "Déterminer l’abscisse ou l’ordonnée du sommet d’une parabole",
+          "url": "can/1e/can1F21.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "21/09/2022"
+        },
+        "can1F22": {
+          "uuid": "6e9df",
+          "id": "can1F22",
+          "titre": "Reconnaître une fonction polynôme du second degré (V/F)",
+          "url": "can/1e/can1F22.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "24/09/2022"
         }
       },
       "can1G": {
@@ -4162,6 +4222,7 @@
         "uuid": "ace0a"
       },
       "6C10-5": {
+        "dateModification": "05/10/2022",
         "id": "6C10-5",
         "tags": {
           "AMC": true,
@@ -4207,6 +4268,17 @@
         "titre": "Yohaku multiplicatif niveau 1",
         "url": "6e/6C10-7b.js",
         "uuid": "08680"
+      },
+      "6C10-8": {
+        "id": "6C10-8",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Message secret à décoder avec les tables de multiplication",
+        "url": "6e/6C10-8.js",
+        "uuid": "fe6e0"
       },
       "6C11": {
         "id": "6C11",
@@ -4662,6 +4734,28 @@
         "url": "6e/6G10-4.js",
         "uuid": "03b49"
       },
+      "6G10-5": {
+        "id": "6G10-5",
+        "tags": {
+          "AMC": true,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Tracer des droites, segments,...",
+        "url": "6e/6G10-5.js",
+        "uuid": "3dbda"
+      },
+      "6G10-6": {
+        "id": "6G10-6",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Appartient ou n'appartient pas",
+        "url": "6e/6G10-6.js",
+        "uuid": "9af23"
+      },
       "6G11": {
         "id": "6G11",
         "tags": {
@@ -5029,6 +5123,44 @@
         "titre": "Trouver le nombre de faces ou d'arêtes d'un solide",
         "url": "6e/6G44.js",
         "uuid": "da6a4"
+      },
+      "6G44-1": {
+        "datePublication": "24/09/2022",
+        "id": "6G44-1",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Reconnaitre des solides",
+        "url": "6e/6G44-1.js",
+        "uuid": "051aa"
+      }
+    },
+    "6G5": {
+      "6G52": {
+        "datePublication": "11/09/2022",
+        "id": "6G52",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Se servir des relations entre perpendicularité et parallélisme",
+        "url": "6e/6G52.js",
+        "uuid": "5bac3"
+      },
+      "6G52-2": {
+        "datePublication": "21/09/2023",
+        "id": "6G52-2",
+        "tags": {
+          "AMC": true,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Utiliser les propriétés des droites perpendiculaires",
+        "url": "6e/6G52-2.js",
+        "uuid": "c46e8"
       }
     },
     "6I1": {
@@ -5269,7 +5401,7 @@
         "datePublication": "19/09/2021",
         "id": "6N10",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": true,
           "Can": false
         },
@@ -5312,6 +5444,7 @@
         "uuid": "6ea89"
       },
       "6N10-3": {
+        "dateModification": "02/10/2022",
         "id": "6N10-3",
         "tags": {
           "AMC": true,
@@ -5325,7 +5458,7 @@
       "6N10-4": {
         "id": "6N10-4",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": false,
           "Can": false
         },
@@ -5334,7 +5467,7 @@
         "uuid": "dc348"
       },
       "6N10-5": {
-        "dateModification": "13/01/2022",
+        "dateModification": "05/10/2022",
         "datePublication": "9/12/2020",
         "id": "6N10-5",
         "tags": {
@@ -5430,8 +5563,8 @@
         "dateModification": "09/08/2022",
         "id": "6N12",
         "tags": {
-          "AMC": false,
-          "Interactif": false,
+          "AMC": true,
+          "Interactif": true,
           "Can": false
         },
         "titre": "Multiplier ou diviser un entier par 10, 100, 1 000... (résultat entier)",
@@ -5587,6 +5720,7 @@
         "uuid": "5eb83"
       },
       "6N23-1": {
+        "dateModification": "25/09/2022",
         "id": "6N23-1",
         "tags": {
           "AMC": true,
@@ -5664,6 +5798,18 @@
         "titre": "Recomposer un nombre décimal représenté par des fractions du cube unité",
         "url": "6e/6N23-7.js",
         "uuid": "63f03"
+      },
+      "6N23-8": {
+        "datePublication": "28/09/22",
+        "id": "6N23-8",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Donner l'écriture décimale d'une fraction décimale",
+        "url": "6e/6N23-8.js",
+        "uuid": "708a9"
       },
       "6N24": {
         "id": "6N24",
@@ -5778,6 +5924,30 @@
         "url": "6e/6N31-4.js",
         "uuid": "b86b9"
       },
+      "6N31-5": {
+        "datePublication": "28/09/22",
+        "id": "6N31-5",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Encadrer un décimal",
+        "url": "6e/6N31-5.js",
+        "uuid": "a8c21"
+      },
+      "6N31-6": {
+        "datePublication": "28/09/22",
+        "id": "6N31-6",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Trouver une valeur approchée ou un arrondi d'un décimal",
+        "url": "6e/6N31-6.js",
+        "uuid": "d2b82"
+      },
       "6N32": {
         "id": "6N32",
         "tags": {
@@ -5869,6 +6039,7 @@
         "uuid": "06633"
       },
       "6N41-1": {
+        "dateModification": "05/10/2022",
         "id": "6N41-1",
         "tags": {
           "AMC": false,
@@ -6080,7 +6251,7 @@
         "uuid": "a55d2"
       },
       "5A11-1": {
-        "dateModification": "14/11/2021",
+        "dateModification": "05/10/2022",
         "id": "5A11-1",
         "tags": {
           "AMC": false,
@@ -6092,6 +6263,7 @@
         "uuid": "a3870"
       },
       "5A11-2": {
+        "dateModification": "05/10/2022",
         "datePublication": "16/11/2021",
         "id": "5A11-2",
         "tags": {
@@ -7439,6 +7611,18 @@
       }
     },
     "4C1": {
+      "4C10": {
+        "datePublication": "23/09/2022",
+        "id": "4C10",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Calculer des produits et des quotients de nombres relatifs",
+        "url": "4e/4C10.js",
+        "uuid": "745ba"
+      },
       "4C10-0": {
         "id": "4C10-0",
         "tags": {
@@ -7664,7 +7848,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Multiplier des fractions",
+        "titre": "Multiplier ou/et diviser des fractions",
         "url": "4e/4C22.js",
         "uuid": "72ce7"
       },
@@ -8323,7 +8507,7 @@
         "id": "4L10-1",
         "tags": {
           "AMC": false,
-          "Interactif": false,
+          "Interactif": true,
           "Can": false
         },
         "titre": "Réduire, si possible, une expression littérale simple",
@@ -8622,7 +8806,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Justifier si des nombres sont premiers ou pas",
+        "titre": "Indiquer si des nombres sont premiers ou pas",
         "url": "3e/3A10-1.js",
         "uuid": "bba55"
       },
@@ -8640,11 +8824,11 @@
       "3A10-3": {
         "id": "3A10-3",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": true,
           "Can": false
         },
-        "titre": "Décomposer un entier en facteurs premiers",
+        "titre": "Décomposer un entier en produit de facteurs premiers",
         "url": "3e/3A10-3.js",
         "uuid": "32f33"
       },
@@ -8694,11 +8878,23 @@
         "url": "3e/3A11.js",
         "uuid": "a6667"
       },
+      "3A11-0": {
+        "datePublication": "28/09/2022",
+        "id": "3A11-0",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Simplifier des fractions à l'aide des nombres premiers",
+        "url": "3e/3A11-0.js",
+        "uuid": "1871d"
+      },
       "3A11-1": {
         "id": "3A11-1",
         "tags": {
-          "AMC": false,
-          "Interactif": false,
+          "AMC": true,
+          "Interactif": true,
           "Can": false
         },
         "titre": "Résoudre des problèmes de conjonction de phénomènes",
@@ -8715,6 +8911,18 @@
         "titre": "Résoudre un exercice d'engrenages",
         "url": "3e/3A12.js",
         "uuid": "ce352"
+      },
+      "3A12-0": {
+        "datePublication": "05/10/2022",
+        "id": "3A12-0",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Problèmes avec des engrenages",
+        "url": "3e/3A12-0.js",
+        "uuid": "6b37f"
       },
       "3A12-1": {
         "id": "3A12-1",
@@ -8820,6 +9028,18 @@
         "titre": "Fonction : calculs d'images (et d'antécédents)",
         "url": "3e/3F10-2.js",
         "uuid": "ba520"
+      },
+      "3F10-3": {
+        "datePublication": "29/09/2022",
+        "id": "3F10-3",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Vocabulaire et notations des fonctions",
+        "url": "3e/3F10-3.js",
+        "uuid": "4daef"
       },
       "3F12": {
         "id": "3F12",
@@ -9232,6 +9452,18 @@
         "url": "3e/3G40.js",
         "uuid": "75ea2"
       },
+      "3G41": {
+        "datePublication": "06/10/22",
+        "id": "3G41",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Dessiner différentes vues d'un empilement de cubes",
+        "url": "3e/3G41.js",
+        "uuid": "136dd"
+      },
       "3G42": {
         "id": "3G42",
         "tags": {
@@ -9263,7 +9495,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Instruction conditionelle (scratch)",
+        "titre": "Instruction conditionnelle (scratch)",
         "url": "3e/3I1.js",
         "uuid": "8cbd6"
       },
@@ -9277,6 +9509,66 @@
         "titre": "Conjecture de Syracuse",
         "url": "3e/3I1-1.js",
         "uuid": "9ff49"
+      },
+      "3I10-1": {
+        "datePublication": "27/09/2022",
+        "id": "3I10-1",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Analyser des scripts Scratch",
+        "url": "3e/3I10-1.js",
+        "uuid": "2ecd9"
+      },
+      "3I12-1": {
+        "datePublication": "20/09/2022",
+        "id": "3I12-1",
+        "tags": {
+          "AMC": true,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Compléter un script Scratch - 1",
+        "url": "3e/3I12-1.js",
+        "uuid": "39a32"
+      },
+      "3I12-2": {
+        "datePublication": "20/09/2022",
+        "id": "3I12-2",
+        "tags": {
+          "AMC": true,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Comprendre un script Scratch - 1",
+        "url": "3e/3I12-2.js",
+        "uuid": "defeb"
+      },
+      "3I12-3": {
+        "datePublication": "22/09/2022",
+        "id": "3I12-3",
+        "tags": {
+          "AMC": true,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Compléter un script Scratch - 2",
+        "url": "3e/3I12-3.js",
+        "uuid": "52c97"
+      },
+      "3I12-4": {
+        "datePublication": "23/09/2022",
+        "id": "3I12-4",
+        "tags": {
+          "AMC": true,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Comprendre un script Scratch - 2",
+        "url": "3e/3I12-4.js",
+        "uuid": "9a1a9"
       }
     },
     "3L1": {
@@ -9694,6 +9986,18 @@
         "url": "2e/2F10-6.js",
         "uuid": "b72b0"
       },
+      "2F10-7": {
+        "datePublication": "01/10/2022",
+        "id": "2F10-7",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Dresser et utiliser le tableau de signes d'une fonction affine en lien avec son sens de variation",
+        "url": "2e/2F10-7.js",
+        "uuid": "46bec"
+      },
       "2F11-1": {
         "datePublication": "18/01/2022",
         "id": "2F11-1",
@@ -9730,6 +10034,18 @@
         "titre": "Montrer qu'un point appartient ou non à une courbe",
         "url": "2e/2F20-1.js",
         "uuid": "36795"
+      },
+      "2F20-2": {
+        "datePublication": "24/09/2022",
+        "id": "2F20-2",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Calculer des coordonnées de points appartenant à une coube connaissant l'abscisse ou l'ordonnée",
+        "url": "2e/2F20-2.js",
+        "uuid": "ec059"
       },
       "2F25-1": {
         "id": "2F25-1",
@@ -10147,6 +10463,18 @@
         "titre": "Encadrer avec des puissances de 10",
         "url": "2e/2N12-2.js",
         "uuid": "8f56e"
+      },
+      "2N12-3": {
+        "datePublication": "28/09/2022",
+        "id": "2N12-3",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Encadrer avec les racines carrées",
+        "url": "2e/2N12-3.js",
+        "uuid": "ed2ee"
       },
       "2N13-1": {
         "dateModification": "27/10/2021",
