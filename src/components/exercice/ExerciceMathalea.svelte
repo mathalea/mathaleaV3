@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { displayOptions } from '../store'
   import { afterUpdate, onMount, tick } from "svelte"
   import seedrandom from "seedrandom"
   import { prepareExerciceCliqueFigure } from "../../interactif/interactif"
@@ -23,14 +24,30 @@
   let isSettingsVisible = false
   let isInteractif = exercice.interactif
 
-  $: {
-    if (isContentVisible && isInteractif && buttonScore) initButtonScore()
+  const headerExerciceProps: {title: string, isInteractif: boolean, settingsReady?: boolean,
+  isSortable?: boolean, isDeletable ?: boolean, isHidable?: boolean } = {
+    title: exercice.titre,
+    isInteractif,
   }
 
-  const headerExerciceProps = {
-    title: exercice.titre,
-    isInteractif
+  $: {
+    if (isContentVisible && isInteractif && buttonScore) initButtonScore()
+
+    if ($displayOptions.v === 'eleve') {
+    headerExerciceProps.settingsReady = false
+    headerExerciceProps.isSortable = false
+    headerExerciceProps.isDeletable = false
+    headerExerciceProps.isHidable = false
+  } else {
+    headerExerciceProps.settingsReady = true
+    headerExerciceProps.isSortable = true
+    headerExerciceProps.isDeletable = true
+    headerExerciceProps.isHidable = true
   }
+    headerExerciceProps = headerExerciceProps
+  }
+
+  
 
   onMount(async () => {
     updateDisplay()

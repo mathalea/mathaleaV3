@@ -11,6 +11,9 @@
   export let indiceExercice: number;
   export let indiceLastExercice: number;
   export let isInteractif = false;
+  export let isSortable = true
+  export let isDeletable = true
+  export let isHidable = true
   let isVisible = true;
   let isSettingsVisible = false;
   let isContentVisible = true;
@@ -118,25 +121,31 @@
       >
         <i class="bx ml-2 {isSettingsVisible ? 'bxs-cog' : 'bx-cog'}" />
       </button>
-      <button
-        type="button"
-        on:click={() => {
-          isVisible = !isVisible;
-          dispatch("clickVisible", { isVisible });
-        }}
-        class="tooltip tooltip-left"
-        data-tip=" {isVisible ? 'Masquer' : 'Montrer'} l'exercice"
-      >
+      {#if isHidable}
+        <button
+          type="button"
+          on:click={() => {
+            isVisible = !isVisible;
+            dispatch("clickVisible", { isVisible });
+          }}
+          class="tooltip tooltip-left"
+          data-tip=" {isVisible ? 'Masquer' : 'Montrer'} l'exercice"
+        >
         <i class="bx ml-2 {isVisible ? 'bx-hide' : 'bx-show'}" />
       </button>
-      <button
-        class="tooltip tooltip-left"
-        data-tip="Supprimer l'exercice"
-        type="button"
-        on:click={remove}><i class="bx bx-trash ml-2" /></button
-      >
-      <BoutonMonter indice={indiceExercice} />
-      <BoutonDescendre indice={indiceExercice} {indiceLastExercice} />
+      {/if}
+      {#if isDeletable}
+        <button
+          class="tooltip tooltip-left"
+          data-tip="Supprimer l'exercice"
+          type="button"
+          on:click={remove}><i class="bx bx-trash ml-2" /></button
+        >
+      {/if}
+      {#if isSortable}
+        <BoutonMonter indice={indiceExercice} />
+        <BoutonDescendre indice={indiceExercice} {indiceLastExercice} />
+      {/if}
     </div>
   </h1>
 </div>
