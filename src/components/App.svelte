@@ -29,11 +29,14 @@
 
   // Récupération des informations de l'URL
   let isInitialUrlHandled = false
-  onMount(() => {
+  function urlToDisplay () {
     const urlOptions = Mathalea.loadExercicesFromUrl()
     displayOptions.update( () => { return urlOptions })
     isInitialUrlHandled = true
-  })
+
+  }
+  onMount(urlToDisplay)
+  addEventListener('popstate', urlToDisplay)
 
   // Mise à jour de l'URL dès que l'on change listeExercices (sauf pour l'URL d'arrivée sur la page)
   $: {
@@ -44,6 +47,9 @@
     } else if ($displayOptions.v === 'l2') {
       isSideMenuVisible = false
       isNavBarVisible = true
+    } else if ($displayOptions.v === 'eleve') {
+      isSideMenuVisible = false
+      isNavBarVisible = false
     } else {
       isSideMenuVisible = true
       isNavBarVisible = true
