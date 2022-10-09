@@ -1,5 +1,5 @@
 <script>
-    import { listeExercices } from "../store"
+    import { exercicesParams } from "../store"
     export let referentiel
 
     /**
@@ -63,7 +63,7 @@
             id: exercice.id,
             uuid: exercice.uuid,
         };
-        listeExercices.update((list) => [...list, newExercise]);
+        exercicesParams.update((list) => [...list, newExercise]);
     }
 </script>
 

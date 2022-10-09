@@ -1,12 +1,13 @@
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
-import 'katex/dist/katex.min.css'
-import { listeExercices, displayOptions } from './components/store'
-import { get } from 'svelte/store'
 import Exercice from './exercices/Exercice.js'
+import seedrandom from 'seedrandom'
+import { exercicesParams, displayOptions } from './components/store'
+import { get } from 'svelte/store'
 import { setReponse } from './interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from './interactif/questionMathLive'
 import uuidToUrl from './json/uuidsToUrl.json'
 import refToUuid from './json/refToUuid.json'
+import 'katex/dist/katex.min.css'
 
 // export type Settings = { sup?: boolean | string | number, sup2?: boolean | string | number, sup3?: boolean | string | number, sup4?: boolean | string | number, nbQuestions?: number, seed?: string }
 
@@ -88,7 +89,7 @@ export class Mathalea {
     if (urlWithoutExtension === undefined) return
     const uuid = Object.keys(uuidToUrl).find(key => uuidToUrl[key] === urlWithoutExtension + '.js')
     const newEx = { uuid, id: urlWithoutExtension.split('/')[1] }
-    listeExercices.update(l => {
+    exercicesParams.update(l => {
       l.push(newEx)
       return l
     })
@@ -137,9 +138,9 @@ export class Mathalea {
     })
   }
 
-  static updateUrl (listeExercices) {
+  static updateUrl (exercicesParams) {
     const url = new URL(window.location.protocol + '//' + window.location.host + window.location.pathname)
-    for (const ex of listeExercices) {
+    for (const ex of exercicesParams) {
       url.searchParams.append('uuid', ex.uuid)
       url.searchParams.append('id', ex.id)
       if (ex.nbQuestions !== undefined) url.searchParams.append('n', ex.nbQuestions)
@@ -215,7 +216,7 @@ export class Mathalea {
       if (entry[0] === 'uuid') previousEntryWasUuid = true
       else previousEntryWasUuid = false
     }
-    listeExercices.update((l) => {
+    exercicesParams.update((l) => {
       return newListeExercice
     })
     return { v }
@@ -227,6 +228,7 @@ export class Mathalea {
     exercice.listeQuestions = []
     exercice.listeCorrections = []
     for (let i = 0, cptSecours = 0; i < exercice.nbQuestions && cptSecours < 50;) {
+      seedrandom(exercice.seed + i, { global: true })
       exercice.nouvelleVersion()
       if (exercice.questionJamaisPosee(i, exercice.question)) {
         setReponse(exercice, i, exercice.reponse, { formatInteractif: exercice.formatInteractif } || {})

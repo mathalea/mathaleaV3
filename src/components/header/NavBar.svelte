@@ -55,7 +55,7 @@ import { displayOptions } from "../store";
       actions: [
         () => displayOptions.update(params => {params.v = "l"; return params}),
         () => displayOptions.update(params => {params.v = "eleve"; return params}),
-        () => {document.location.href = urlV2('diap')},
+        () => displayOptions.update(params => {params.v = "diaporama"; return params}), // () => {document.location.href = urlV2('diap')},
         () => {alert("Non disponible")},
         () => {document.location.href = urlV2('latex')},
         () => {document.location.href = urlV2('moodle')},

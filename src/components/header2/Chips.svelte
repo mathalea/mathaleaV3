@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { listeExercices } from "../store"
+  import { exercicesParams } from "../store"
   export let text = ""
   export let indice: number
 
   function remove() {
-    listeExercices.update((l) => [...l.slice(0, indice), ...l.slice(indice + 1)])
+    exercicesParams.update((l) => [...l.slice(0, indice), ...l.slice(indice + 1)])
   }
 </script>
 

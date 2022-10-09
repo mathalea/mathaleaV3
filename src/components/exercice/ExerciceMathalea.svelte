@@ -6,7 +6,7 @@
   import { loadMathLive } from "../../modules/loaders"
   import { Mathalea } from "../../Mathalea"
   import { exerciceInteractif } from "../../interactif/interactif"
-  import { listeExercices } from "../store"
+  import { exercicesParams } from "../store"
   
   import HeaderExercice from "./HeaderExercice.svelte"
   import Settings from "./Settings.svelte"
@@ -88,31 +88,31 @@
   function handleNewSettings(event: CustomEvent) {
     if (event.detail.nbQuestions) {
       exercice.nbQuestions = event.detail.nbQuestions;
-      $listeExercices[indiceExercice].nbQuestions = exercice.nbQuestions;
+      $exercicesParams[indiceExercice].nbQuestions = exercice.nbQuestions;
     }
     if (event.detail.sup !== undefined) {
       exercice.sup = event.detail.sup;
-      $listeExercices[indiceExercice].sup = exercice.sup;
+      $exercicesParams[indiceExercice].sup = exercice.sup;
     }
     if (event.detail.sup2 !== undefined) {
       exercice.sup2 = event.detail.sup2;
-      $listeExercices[indiceExercice].sup2 = exercice.sup2;
+      $exercicesParams[indiceExercice].sup2 = exercice.sup2;
     }
     if (event.detail.sup3 !== undefined) {
       exercice.sup3 = event.detail.sup3;
-      $listeExercices[indiceExercice].sup3 = exercice.sup3;
+      $exercicesParams[indiceExercice].sup3 = exercice.sup3;
     }
     if (event.detail.sup4 !== undefined) {
       exercice.sup4 = event.detail.sup4;
-      $listeExercices[indiceExercice].sup4 = exercice.sup4;
+      $exercicesParams[indiceExercice].sup4 = exercice.sup4;
     }
     if (event.detail.alea !== undefined) {
       exercice.seed = event.detail.alea;
-      $listeExercices[indiceExercice].alea = exercice.seed;
+      $exercicesParams[indiceExercice].alea = exercice.seed;
     }
     if (event.detail.correctionDetaillee !== undefined) {
       exercice.correctionDetaillee = event.detail.correctionDetaillee;
-      $listeExercices[indiceExercice].cd = exercice.correctionDetaillee ? '1' : '0';
+      $exercicesParams[indiceExercice].cd = exercice.correctionDetaillee ? '1' : '0';
     }
     updateDisplay();
   }
@@ -128,10 +128,10 @@
     })
     seedrandom(exercice.seed, { global: true })
     exercice.interactif = isInteractif
-    $listeExercices[indiceExercice].alea = exercice.seed
-    $listeExercices[indiceExercice].i = isInteractif
+    $exercicesParams[indiceExercice].alea = exercice.seed
+    $exercicesParams[indiceExercice].i = isInteractif
     exercice.nouvelleVersion(indiceExercice)
-    Mathalea.updateUrl($listeExercices)
+    Mathalea.updateUrl($exercicesParams)
     if (exercice.typeExercice === 'Scratch') {
       await scratchTraductionFr()
       /* global scratchblocks */

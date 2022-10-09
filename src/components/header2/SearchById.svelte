@@ -1,6 +1,6 @@
 <script lang="ts">
   import Chips from "./Chips.svelte";
-  import { listeExercices } from "../store";
+  import { exercicesParams } from "../store";
   import refToUuid from "../../json/refToUuid.json";
 
   let input: HTMLInputElement;
@@ -11,7 +11,7 @@
   const exercices = [];
   $: {
     listeIdPourLesChips = [];
-    for (const ex of $listeExercices) {
+    for (const ex of $exercicesParams) {
       listeIdPourLesChips.push(ex.id);
     }
     listeIdPourLesChips = listeIdPourLesChips;
@@ -104,7 +104,7 @@
       id,
       uuid: refToUuid[id],
     };
-    listeExercices.update((list) => [...list, newExercise]);
+    exercicesParams.update((list) => [...list, newExercise]);
   }
 </script>
 

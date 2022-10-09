@@ -1,12 +1,12 @@
 <script lang="ts">
   import SearchById from "./SearchById.svelte"
-  import { displayOptions, listeExercices } from "../store"
+  import { displayOptions, exercicesParams } from "../store"
   import { createEventDispatcher } from "svelte"
   const dispatch = createEventDispatcher()
   export let sideMenuVisible: boolean
   let isListVisible: boolean
   function toggleSideList() {
-    if ($listeExercices.length > 0) {
+    if ($exercicesParams.length > 0) {
       isListVisible = !sideMenuVisible
       dispatch("sideMenuChange", {
         isListVisible,

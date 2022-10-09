@@ -1,5 +1,5 @@
 <script lang="ts">
-import { listeExercices } from "../store"
+import { exercicesParams } from "../store"
     import { isRecent } from "../utils/handleDate";
   
   export let exo
@@ -17,7 +17,7 @@ import { listeExercices } from "../store"
   // de l'exercice dans la liste des sélectionnés
   $: {
     listeCodes = []
-    for (const exo of $listeExercices) {
+    for (const exo of $exercicesParams) {
       listeCodes.push(exo.id)
     }
     listeCodes = listeCodes
@@ -32,7 +32,7 @@ import { listeExercices } from "../store"
       id: exo.get('id'),
       uuid: exo.get('uuid')
     }
-    listeExercices.update((list) => [...list, newExercise])
+    exercicesParams.update((list) => [...list, newExercise])
     
   }
   /**
@@ -41,7 +41,7 @@ import { listeExercices } from "../store"
    */
   function removeFromList() {
     let matchingIndex = listeCodes.findIndex(isPresent)
-    listeExercices.update((list) => [...list.slice(0, matchingIndex), ...list.slice(matchingIndex + 1)])
+    exercicesParams.update((list) => [...list.slice(0, matchingIndex), ...list.slice(matchingIndex + 1)])
   }
 
   /*--------------------------------------------------------------

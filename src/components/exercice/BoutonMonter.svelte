@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { listeExercices, moveExercice } from "../store"
+  import { exercicesParams, moveExercice } from "../store"
   export let indice: number
   function monter() {
-    listeExercices.update((l) => {
+    exercicesParams.update((l) => {
       return moveExercice(l, indice, indice - 1)
     })
   }

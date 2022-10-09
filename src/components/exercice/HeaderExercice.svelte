@@ -2,7 +2,7 @@
   import { createEventDispatcher } from "svelte";
   import BoutonMonter from "./BoutonMonter.svelte";
   import BoutonDescendre from "./BoutonDescendre.svelte";
-  import { listeExercices } from "../store";
+  import { exercicesParams } from "../store";
   export let title: string;
   export let interactifReady = true;
   export let randomReady = true;
@@ -31,7 +31,7 @@
   }
 
   function remove() {
-    listeExercices.update((l) => [
+    exercicesParams.update((l) => [
       ...l.slice(0, indiceExercice),
       ...l.slice(indiceExercice + 1),
     ]);

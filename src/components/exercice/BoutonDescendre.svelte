@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { listeExercices, moveExercice } from "../store"
+  import { exercicesParams, moveExercice } from "../store"
   export let indice: number
   export let indiceLastExercice: number
   function descendre() {
-    listeExercices.update((l) => {
+    exercicesParams.update((l) => {
       return moveExercice(l, indice, indice + 1)
     })
   }
