@@ -54,6 +54,12 @@
       isSideMenuVisible = true
       isNavBarVisible = true
     }
+    // Evènement indispensable pour pointCliquable par exemple
+    const exercicesAffiches = new window.Event("exercicesAffiches", {
+        bubbles: true,
+      });
+    document.dispatchEvent(exercicesAffiches);
+
   }
 
   let filteredReferentiel = referentiel

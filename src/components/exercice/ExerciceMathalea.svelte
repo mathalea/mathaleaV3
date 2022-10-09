@@ -24,7 +24,7 @@
   let isSettingsVisible = false
   let isInteractif = exercice.interactif
 
-  const headerExerciceProps: {title: string, isInteractif: boolean, settingsReady?: boolean,
+  let headerExerciceProps: {title: string, isInteractif: boolean, settingsReady?: boolean,
   isSortable?: boolean, isDeletable ?: boolean, isHidable?: boolean } = {
     title: exercice.titre,
     isInteractif,
@@ -58,11 +58,6 @@
       await tick();
       if (isInteractif) {
         loadMathLive()
-        // Evènement indispensable pour pointCliquable par exemple
-        const exercicesAffiches = new window.Event("exercicesAffiches", {
-          bubbles: true,
-        });
-        document.dispatchEvent(exercicesAffiches);
         if (exercice.interactifType === "cliqueFigure") {
           prepareExerciceCliqueFigure(exercice);
         }
