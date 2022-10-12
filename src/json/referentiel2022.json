@@ -4735,6 +4735,7 @@
         "uuid": "03b49"
       },
       "6G10-5": {
+        "datePublication": "05/10/2022",
         "id": "6G10-5",
         "tags": {
           "AMC": true,
@@ -4746,13 +4747,14 @@
         "uuid": "3dbda"
       },
       "6G10-6": {
+        "datePublication": "05/10/2022",
         "id": "6G10-6",
         "tags": {
           "AMC": false,
           "Interactif": false,
           "Can": false
         },
-        "titre": "Appartient ou n'appartient pas",
+        "titre": "Appartient ou n'appartient pas ?",
         "url": "6e/6G10-6.js",
         "uuid": "9af23"
       },
@@ -4766,6 +4768,17 @@
         "titre": "Tracer des perpendiculaires",
         "url": "6e/6G11.js",
         "uuid": "7ff97"
+      },
+      "6G11-1": {
+        "datePublication": "09/10/2022",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Tracer des perpendiculaires",
+        "url": "6e/6G11-1.js",
+        "uuid": "b46e2"
       },
       "6G12": {
         "id": "6G12",
@@ -6299,6 +6312,18 @@
         "url": "5e/5A12-2.js",
         "uuid": "03d65"
       },
+      "5A12-3": {
+        "datePublication": "12/10/2022",
+        "id": "5A12-3",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Explorer un labyrinthe de nombres premiers",
+        "url": "5e/5A12-3.js",
+        "uuid": "38562"
+      },
       "5A13": {
         "id": "5A13",
         "tags": {
@@ -7564,6 +7589,18 @@
         "url": "4e/4A10.js",
         "uuid": "bdb18"
       },
+      "4A10-1": {
+        "datePublication": "12/10/2022",
+        "id": "4A10-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Explorer un labyrinthe de nombres premiers",
+        "url": "4e/4A10-1.js",
+        "uuid": "4c4d3"
+      },
       "4A11-0": {
         "dateModification": "2/11/2021",
         "id": "4A11-0",
@@ -7599,6 +7636,7 @@
         "uuid": "426f5"
       },
       "4A12": {
+        "dateModification": "10/10/2022",
         "id": "4A12",
         "tags": {
           "AMC": true,
@@ -8867,6 +8905,18 @@
         "url": "3e/3A10-6.js",
         "uuid": "5636e"
       },
+      "3A10-7": {
+        "datePublication": "12/10/2022",
+        "id": "3A10-7",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Explorer un labyrinthe de nombres premiers",
+        "url": "3e/3A10-7.js",
+        "uuid": "980b6"
+      },
       "3A11": {
         "id": "3A11",
         "tags": {
@@ -9453,7 +9503,7 @@
         "uuid": "75ea2"
       },
       "3G41": {
-        "datePublication": "06/10/22",
+        "datePublication": "06/10/2022",
         "id": "3G41",
         "tags": {
           "AMC": false,
@@ -11331,7 +11381,7 @@
       },
       "1AN11": {
         "dateModification": "24/10/2021",
-        "datePublication": "16/12/21",
+        "datePublication": "16/12/2021",
         "id": "1AN11",
         "tags": {
           "AMC": false,

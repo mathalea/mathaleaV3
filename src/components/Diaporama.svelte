@@ -1,5 +1,6 @@
 <script lang='ts'>
   import { afterUpdate, onMount, tick } from 'svelte'
+  import { fly } from 'svelte/transition'
   import { Mathalea } from '../Mathalea'
   import { exercicesParams } from './store'
   import seedrandom from 'seedrandom'
@@ -67,7 +68,11 @@
 <div class="h-screen scrollbar-hide dark:bg-white dark:text-slate-800" >
     {#each listQuestions as question, i (question)  }
         {#if i === currentQuestion}
-          <div bind:this={divDiaporama} style={`font-size: ${1.5 * listSize[i]}rem; line-height: ${2 * listSize[i]}rem;`}>
+          <div bind:this={divDiaporama}
+           style={`font-size: ${1.5 * listSize[i]}rem; line-height: ${2 * listSize[i]}rem;`}
+           in:fly="{{ y: 100, duration: 1000 }}"
+           out:fly="{{ y: -200, duration: 1000 }}"
+           >
               {@html question}
           </div>
         {/if}
