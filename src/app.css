@@ -8,7 +8,9 @@
     @apply appearance-none ml-2 h-4 w-4 border-2 border-gray-400 bg-gray-100 rounded-sm checked:bg-coopmaths-lightest checked:border-coopmaths focus:outline-none transition duration-500 cursor-pointer;
   }
 }
-
+::-webkit-scrollbar {
+  display:none;
+}
 /*
  .d8888b.                                                               
 d88P  Y88b                                                              
