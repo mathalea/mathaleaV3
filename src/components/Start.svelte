@@ -155,7 +155,7 @@
     <Header2 sideMenuVisible={isSideMenuVisible} on:sideMenuChange={handleSideMenu} />
   {/if}
   <!-- Gestion du mode sombre -->
-  <main class="flex h-full dark:bg-white dark:text-slate-800 noscrollbar">
+  <main class="flex h-full dark:bg-white dark:text-slate-800">
     <!-- side menu -->
     {#if isSideMenuVisible || nbExercisesInList === 0}
       <aside class="flex flex-col bg-gray-200 w-1/3 p-4  overflow-hidden h-full transition-width transition-slowest ease duration-500">
