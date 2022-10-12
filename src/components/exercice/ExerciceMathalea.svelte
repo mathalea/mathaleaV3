@@ -18,6 +18,7 @@
   let divExercice: HTMLDivElement
   let divScore: HTMLDivElement
   let buttonScore: HTMLButtonElement
+  let columnsCount = $exercicesParams[indiceExercice].cols || 1
   let isVisible = true
   let isContentVisible = true
   let isCorrectionVisible = false
@@ -45,6 +46,7 @@
     headerExerciceProps.isHidable = true
   }
     headerExerciceProps = headerExerciceProps
+    
   }
 
   
@@ -130,6 +132,7 @@
     exercice.interactif = isInteractif
     $exercicesParams[indiceExercice].alea = exercice.seed
     $exercicesParams[indiceExercice].i = isInteractif
+    $exercicesParams[indiceExercice].cols = (columnsCount > 1) ? columnsCount : undefined
     exercice.nouvelleVersion(indiceExercice)
     Mathalea.updateUrl($exercicesParams)
     if (exercice.typeExercice === 'Scratch') {
@@ -158,6 +161,7 @@
       'transform', 'hover:scale-110', 'hover:bg-coopmaths-dark', 'hover:shadow-lg', 'focus:bg-coopmaths-dark', 'focus:shadow-lg', 'focus:outline-none', 'focus:ring-0', 'active:bg-coopmaths-dark', 'active:shadow-lg', 'transition', 'duration-150', 'ease-in-out', 'checkReponses')
     if (divScore) divScore.innerHTML = ''
   }
+
 </script>
 
 <div class="z-0 flex-1 overflow-hidden" bind:this={divExercice}>
@@ -193,6 +197,21 @@
     <div class="flex flex-col-reverse lg:flex-row">
       <div class="flex flex-col relative {isSettingsVisible ? 'w-full lg:w-3/4' : 'w-full'} duration-500" id="exercice{indiceExercice}">
         <article class="text-2xl lg:text-base">
+          <div class="text-right text-orange-600 text-xs mt-2">
+            {#if columnsCount > 1}
+            <button type="button" on:click={() => {
+              columnsCount--
+              updateDisplay()
+            }
+              } ><i class="bx ml-2 bx-xs bx-minus" /></button>
+            {/if}
+            <i class="bx ml-1 bx-xs bx-columns" />
+            <button type="button" on:click={() => {
+              columnsCount++
+              updateDisplay()
+            }
+            } ><i class="bx ml-1 bx-xs bx-plus" /></button>
+          </div>
           {#if isCorrectionVisible}
           <p class="leading-relaxed mt-2  ml-2 lg:mx-5 text-gray-800">
             {@html exercice.consigne + exercice.introduction}
@@ -200,21 +219,25 @@
             <div class="bg-gray-200 leading-relaxed mt-2  ml-2 lg:mx-5">
               {@html exercice.consigneCorrection}
             </div>
-          <ul class="{(exercice.listeQuestions.length > 1) ? 'list-decimal' : 'list-none'} list-inside mt-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold">
-            {#each exercice.listeQuestions as item, i (i)}
-            <li style="{(i < exercice.listeQuestions.length) ? `margin-bottom: ${exercice.spacing}` : ''}" id="exercice${indiceExercice}Q${i}">{@html item.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</li>
-            <div class="bg-gray-200" style="line-height: {Math.max(3, exercice.spacingCorr * 2)}em;" id="correction${indiceExercice}Q${i}"> {@html exercice.listeCorrections[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</div>
-            {/each}
-          </ul>
+            <div style="columns: {columnsCount.toString()}">
+              <ul class="{(exercice.listeQuestions.length > 1) ? 'list-decimal' : 'list-none'} list-inside mt-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold">
+                {#each exercice.listeQuestions as item, i (i)}
+                <li style="{(i < exercice.listeQuestions.length) ? `margin-bottom: ${exercice.spacing}` : ''}" id="exercice${indiceExercice}Q${i}">{@html item.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</li>
+                <div class="bg-gray-200" style="line-height: {Math.max(3, exercice.spacingCorr * 2)}em;" id="correction${indiceExercice}Q${i}"> {@html exercice.listeCorrections[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</div>
+                {/each}
+              </ul>
+            </div>
           {:else}
           <p class="leading-relaxed mt-2  ml-2 lg:mx-5 text-gray-800">
             {@html exercice.consigne + exercice.introduction}
           </p>
-          <ul class="{(exercice.listeQuestions.length > 1) ? 'list-decimal' : 'list-none'} list-inside mt-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold">
-            {#each exercice.listeQuestions as item, i (i)}
-              <li style="line-height: {Math.max(3, exercice.spacing * 2)}em;" id="exercice${indiceExercice}Q${i}">{@html item.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</li>
-            {/each}
-          </ul>
+          <div  style="columns: {columnsCount.toString()}">
+            <ul class="{(exercice.listeQuestions.length > 1) ? 'list-decimal' : 'list-none'} list-inside mt-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold">
+              {#each exercice.listeQuestions as item, i (i)}
+                <li style="line-height: {Math.max(3, exercice.spacing * 2)}em;" id="exercice${indiceExercice}Q${i}">{@html item.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</li>
+              {/each}
+            </ul>
+          </div>
             {/if}
         </article>
         {#if isInteractif && !isCorrectionVisible && isContentVisible}
