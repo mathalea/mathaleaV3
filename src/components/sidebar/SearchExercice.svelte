@@ -1,5 +1,5 @@
 <script>
-    import { exercicesParams } from "../store"
+    import { exercicesParams } from "../store.ts"
     export let referentiel
 
     /**

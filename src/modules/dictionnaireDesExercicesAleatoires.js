@@ -483,6 +483,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2F10-7": {
+    "titre": "Dresser et utiliser le tableau de signes d'une fonction affine en lien avec son sens de variation",
+    "url": "/exercices/2e/2F10-7.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F10-7",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2F11-1": {
     "titre": "Déterminer l'image d'un nombre par une fonction de référence",
     "url": "/exercices/2e/2F11-1.js",
@@ -2459,7 +2474,7 @@ export default {
     "url": "/exercices/3e/3A11-0.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpen"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -2500,6 +2515,21 @@ export default {
     "name": "3A11",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "3A12-0": {
+    "titre": "Problèmes avec des engrenages",
+    "url": "/exercices/3e/3A12-0.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "3A12-0",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -3324,6 +3354,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "3G41": {
+    "titre": "Dessiner différentes vues d'un empilement de cubes",
+    "url": "/exercices/3e/3G41.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "3G41",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "3G42": {
     "titre": "Volume d'une boule",
     "url": "/exercices/3e/3G42.js",
@@ -4059,7 +4104,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -4537,7 +4582,7 @@ export default {
     "url": "/exercices/4e/4C24.js",
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpen"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -5378,7 +5423,8 @@ export default {
     "titre": "Réduire, si possible, une expression littérale simple",
     "url": "/exercices/4e/4L10-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4L10-1",
     "newEx": {
       "isNew": false,
@@ -5802,7 +5848,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -5817,7 +5863,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -7884,7 +7930,7 @@ export default {
     "interactifType": "mathLive",
     "name": "6C11-3",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -8528,6 +8574,35 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6G10-5": {
+    "titre": "Tracer des droites, segments,...",
+    "url": "/exercices/6e/6G10-5.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": false,
+    "name": "6G10-5",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    }
+  },
+  "6G10-6": {
+    "titre": "Appartient ou n'appartient pas ?",
+    "url": "/exercices/6e/6G10-6.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6G10-6",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6G10": {
     "titre": "Utiliser la notation de droites, segments et demi-droites",
     "url": "/exercices/6e/6G10.js",
@@ -8536,6 +8611,21 @@ export default {
     "name": "6G10",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6G11-1": {
+    "titre": "Tracer des perpendiculaires",
+    "url": "/exercices/6e/6G11-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6G11-1",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -8592,7 +8682,7 @@ export default {
     "interactifReady": false,
     "name": "6G13",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9107,7 +9197,7 @@ export default {
     "interactifReady": false,
     "name": "6G52",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9512,7 +9602,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -10470,7 +10560,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -11704,21 +11794,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta3G15",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "beta3G41": {
-    "titre": "Représentation de solides",
-    "url": "/exercices/beta/beta3G41.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta3G41",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
