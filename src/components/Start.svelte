@@ -11,43 +11,44 @@
   import { flip } from "svelte/animate"
   import { onMount } from "svelte"
   import { toMap } from "./utils/toMap"
-  import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from '../modules/ElementInstrumenpoche'
+  import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from "../modules/ElementInstrumenpoche"
 
-  import { context } from '../modules/context'
+  import { context } from "../modules/context"
   import SearchExercice from "./sidebar/SearchExercice.svelte"
 
   context.versionMathalea = 3
 
-  customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
-  customElements.define('alea-buttoninstrumenpoche', ElementButtonInstrumenpoche)
+  customElements.define("alea-instrumenpoche", ElementInstrumenpoche)
+  customElements.define("alea-buttoninstrumenpoche", ElementButtonInstrumenpoche)
 
   let isNavBarVisible = true
-  let filtre = 'all'
+  let filtre = "all"
 
   // ToFix fonction à lier avec bugsnag
   window.notify = (arg) => console.log(arg)
 
   // Récupération des informations de l'URL
   let isInitialUrlHandled = false
-  function urlToDisplay () {
+  function urlToDisplay() {
     const urlOptions = Mathalea.loadExercicesFromUrl()
-    displayOptions.update( () => { return urlOptions })
+    displayOptions.update(() => {
+      return urlOptions
+    })
     isInitialUrlHandled = true
-
   }
   onMount(urlToDisplay)
-  addEventListener('popstate', urlToDisplay)
+  addEventListener("popstate", urlToDisplay)
 
   // Mise à jour de l'URL dès que l'on change exercicesParams (sauf pour l'URL d'arrivée sur la page)
   $: {
     if (isInitialUrlHandled) Mathalea.updateUrl($exercicesParams)
-    if ($displayOptions.v === 'l') {
+    if ($displayOptions.v === "l") {
       isSideMenuVisible = false
       isNavBarVisible = false
-    } else if ($displayOptions.v === 'l2') {
+    } else if ($displayOptions.v === "l2") {
       isSideMenuVisible = false
       isNavBarVisible = true
-    } else if ($displayOptions.v === 'eleve') {
+    } else if ($displayOptions.v === "eleve") {
       isSideMenuVisible = false
       isNavBarVisible = false
     } else {
@@ -56,38 +57,37 @@
     }
     // Evènement indispensable pour pointCliquable par exemple
     const exercicesAffiches = new window.Event("exercicesAffiches", {
-        bubbles: true,
-      });
-    document.dispatchEvent(exercicesAffiches);
-
+      bubbles: true,
+    })
+    document.dispatchEvent(exercicesAffiches)
   }
 
   let filteredReferentiel = referentiel
   let referentielMap = toMap(filteredReferentiel)
   let arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
 
-  function updateReferentiel () {
+  function updateReferentiel() {
     let itemsAccepted
-    if (filtre === 'all') {
-      itemsAccepted = ['CAN', 'CM1/CM2', '6e', '5e', '4e', '3e', 'Seconde', 'Première', 'Première technologique', 'Terminal expert', 'Hors-programme (lycée)', 'CRPE', 'Calcul mental']
-    } else if (filtre === 'college') {
-      itemsAccepted = ['6e', '5e', '4e', '3e', 'Calcul mental']
-    } else if (filtre === 'lycee') {
-      itemsAccepted = ['Seconde', 'Première', 'Première technologique', 'Terminal expert']
-    } else if (filtre === 'crpe') {
-      itemsAccepted = ['CRPE']
+    if (filtre === "all") {
+      itemsAccepted = ["CAN", "CM1/CM2", "6e", "5e", "4e", "3e", "Seconde", "Première", "Première technologique", "Terminal expert", "Hors-programme (lycée)", "CRPE", "Calcul mental"]
+    } else if (filtre === "college") {
+      itemsAccepted = ["6e", "5e", "4e", "3e", "Calcul mental"]
+    } else if (filtre === "lycee") {
+      itemsAccepted = ["Seconde", "Première", "Première technologique", "Terminal expert"]
+    } else if (filtre === "crpe") {
+      itemsAccepted = ["CRPE"]
     }
 
     filteredReferentiel = Object.keys(referentiel)
-    .filter(key => itemsAccepted.includes(key))
-    .reduce((obj, key) => {
-      return {
-        ...obj,
-        [key]: referentiel[key]
-      }
-    }, {}) 
+      .filter((key) => itemsAccepted.includes(key))
+      .reduce((obj, key) => {
+        return {
+          ...obj,
+          [key]: referentiel[key],
+        }
+      }, {})
     referentielMap = toMap(filteredReferentiel)
-    arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj })) 
+    arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
   }
 
   /**
@@ -124,37 +124,38 @@
       label: "Themes",
     },
   ]
-  let searchOption = 'list'
+  let searchOption = "list"
   function handleSideMenu(event: CustomEvent) {
     isSideMenuVisible = event.detail.isListVisible
     if (!isSideMenuVisible) {
       displayOptions.update((params) => {
-              params.v = "l2";
-              return params;
-          })
+        params.v = "l2"
+        return params
+      })
     } else {
       displayOptions.update((params) => {
-              delete params.v;
-              return params;
-          })
+        delete params.v
+        return params
+      })
     }
   }
 
   function quitFullScreen() {
-      displayOptions.update(params => {
-        delete params.v
-        return params})
+    displayOptions.update((params) => {
+      delete params.v
+      return params
+    })
   }
 </script>
 
 <div class="h-screen  scrollbar-hide">
   <!-- <Header /> -->
   {#if isNavBarVisible}
-  <NavBar />
-  <Header2 sideMenuVisible={isSideMenuVisible} on:sideMenuChange={handleSideMenu} />
+    <NavBar />
+    <Header2 sideMenuVisible={isSideMenuVisible} on:sideMenuChange={handleSideMenu} />
   {/if}
   <!-- Gestion du mode sombre -->
-  <main class="flex h-full dark:bg-white dark:text-slate-800">
+  <main class="flex h-full dark:bg-white dark:text-slate-800 noscrollbar">
     <!-- side menu -->
     {#if isSideMenuVisible || nbExercisesInList === 0}
       <aside class="flex flex-col bg-gray-200 w-1/3 p-4  overflow-hidden h-full transition-width transition-slowest ease duration-500">
@@ -163,29 +164,29 @@
             <span>Choix des exercices</span>
           </h2>
           <select class="flex flex-auto border-2 border-coopmaths w-full mb-2" bind:value={filtre} on:change={updateReferentiel}>
-              <option value="all">Tous les exercices</option>
-              <option value="college">Collège</option>
-              <option value="lycee">Lycée</option>
-              <option value="crpe">CRPE</option>
+            <option value="all">Tous les exercices</option>
+            <option value="college">Collège</option>
+            <option value="lycee">Lycée</option>
+            <option value="crpe">CRPE</option>
           </select>
-          <SearchExercice referentiel = {filteredReferentiel} />
-            <ul>
-              {#each arrayReferentielFiltre as item}
-                <li>
-                  <NiveauListeExos nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
-                </li>
-              {/each}
-            </ul>
+          <SearchExercice referentiel={filteredReferentiel} />
+          <ul>
+            {#each arrayReferentielFiltre as item}
+              <li>
+                <NiveauListeExos nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
+              </li>
+            {/each}
+          </ul>
         </div>
       </aside>
       <!-- split line -->
       <div class="flex w-1 bg-coopmaths-light hover:bg-coopmaths-lightest" />
     {/if}
     <!-- content -->
-    {#if $displayOptions.v === 'l'}
-    <div class="absolute right-10 my-10">
-      <button type="button" on:click={quitFullScreen}><i class="bx ml-2 bx-sm bx-exit-fullscreen" /></button>
-    </div>
+    {#if $displayOptions.v === "l"}
+      <div class="absolute right-10 my-10">
+        <button type="button" on:click={quitFullScreen}><i class="bx ml-2 bx-sm bx-exit-fullscreen" /></button>
+      </div>
     {/if}
     <div class="flex-1 flex flex-col p-6 overflow-hidden h-full mt-10">
       <div class="flex-1 overflow-y-scroll overscroll-auto">

@@ -1,7 +1,6 @@
 <script lang="ts">
-import { Mathalea } from '../../Mathalea'
-import { onMount } from "svelte"
-
+  import { Mathalea } from "../../Mathalea"
+  import { onMount } from "svelte"
 
   // paramsExercice est de type {url, nbQuestions, sup, sup2, sup3, sup4}
   export let paramsExercice
@@ -11,7 +10,6 @@ import { onMount } from "svelte"
   let exercice
   let typeExercice = undefined
   let ComponentExercice
-
 
   onMount(async () => {
     exercice = await Mathalea.load(paramsExercice.uuid)
@@ -23,21 +21,21 @@ import { onMount } from "svelte"
     if (paramsExercice.sup4) exercice.sup4 = paramsExercice.sup4
     if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif
     if (paramsExercice.alea) exercice.seed = paramsExercice.alea
-    if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = (paramsExercice.cd === '1')
+    if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === "1"
     exercice.numeroExercice = indiceExercice
     typeExercice = exercice.typeExercice
     // Chargement dynamique du component correspondant au type d'exercice
-    if (typeExercice === 'simplefdfd') { //ToFix, ce n'est plus utilisé pour simple mais ça pourra l'être pour statique
+    if (typeExercice === "simplefdfd") {
+      //ToFix, ce n'est plus utilisé pour simple mais ça pourra l'être pour statique
       // ComponentExercice = (await import('./ExerciceSimple.svelte')).default
     } else {
-      ComponentExercice = (await import('./ExerciceMathalea.svelte')).default
+      ComponentExercice = (await import("./ExerciceMathalea.svelte")).default
     }
   })
-
 </script>
 
 <div class="z-0 flex-1 overflow-hidden">
-  <svelte:component this={ComponentExercice} {exercice} {indiceExercice} {indiceLastExercice} />  
+  <svelte:component this={ComponentExercice} {exercice} {indiceExercice} {indiceLastExercice} />
 </div>
 
 <style>
