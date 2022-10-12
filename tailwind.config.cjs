@@ -1,4 +1,5 @@
 const plugin = require('tailwindcss/plugin')
+const defaultTheme = require('tailwindcss/defaultTheme')
 const config = {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
@@ -11,6 +12,11 @@ const config = {
           dark: '#D84010',
           darkest: '#BE2600'
         }
+      },
+
+      fontFamily: {
+        sans: ['"Source Sans Pro"', ...defaultTheme.fontFamily.sans],
+        beba: '"Bebas Neue"'
       },
       transitionProperty: {
         width: 'width'
