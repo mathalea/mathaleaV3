@@ -1,16 +1,19 @@
 <script lang="ts">
-  import { afterUpdate, onMount, tick } from "svelte"
-  import { fly } from "svelte/transition"
+  import { onMount, tick } from "svelte"
+  import { displayOptions } from "./store"
   import { Mathalea } from "../Mathalea"
   import { exercicesParams } from "./store"
   import seedrandom from "seedrandom"
   import type { Exercice } from "./utils/typeExercice"
 
-  let divDiaporama: HTMLDivElement
+  let divQuestion: HTMLElement
   let currentQuestion = 0
   let isFullScreen = false
   let isPause = false
+  let isCorrectionVisible = false
+  let zoom = 2
   let listQuestions = [] // Concaténation de toutes les questions des exercices de exercicesParams
+  let listCorrections = []
   let listSize = []
   let ratioTime = 0
   let myInterval
@@ -31,16 +34,12 @@
       if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
       exercice.nouvelleVersion()
       listQuestions = [...listQuestions, ...exercice.listeQuestions]
+      listCorrections = [...listCorrections, ...exercice.listeCorrections]
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
         listSize.push(exercice.tailleDiaporama)
       }
     }
-    timer()
-  })
-  
-  afterUpdate(async () => {
-    await tick()
-    if (divDiaporama) Mathalea.renderDiv(divDiaporama)
+    goToQuestion(0)
   })
 
   function prevQuestion () {
@@ -51,9 +50,48 @@
     if (currentQuestion < listQuestions.length - 1) goToQuestion(currentQuestion + 1)
   }
 
-  function goToQuestion (i: number) {
+  async function goToQuestion (i: number) {
     if (i >= 0 && i < listQuestions.length) currentQuestion = i
-    timer()
+    if (divQuestion) {
+      await tick()
+      setSize()
+      Mathalea.renderDiv(divQuestion)
+    }
+    if (!isPause) timer()
+  }
+
+  function setSize () {
+    if (listSize[currentQuestion]) {
+        const size = zoom * listSize[currentQuestion]
+        divQuestion.style.lineHeight = `${size * 1.2}rem`
+        divQuestion.style.fontSize = `${size}rem`
+        const qcms = document.querySelectorAll('.monQcm')
+        for (const qcm of qcms) {
+          qcm.style.fontSize = `${size}px`
+        }
+        const tables = document.querySelectorAll('#affichage_exercices label') // Pour les propositions des QCM
+        for (const table of tables) {
+          table.style.fontSize = `${size}px`
+        }
+        const figures = document.querySelectorAll('.mathalea2d')
+        for (const figure of figures) {
+          if (!figure.dataset.widthInitiale) figure.dataset.widthInitiale = parseFloat(figure.getAttribute('width'))
+          if (!figure.dataset.heightInitiale) figure.dataset.heightInitiale = parseFloat(figure.getAttribute('height'))
+          figure.setAttribute('height', figure.dataset.heightInitiale * zoom)
+          figure.setAttribute('width', figure.dataset.widthInitiale * zoom)
+        }
+      }
+  }
+
+  function zoomPlus () {
+    zoom += 0.25
+    setSize()
+  }
+
+  function zoomMoins () {
+    if (zoom > 1) zoom -= 0.25
+    else if (zoom > 0.2) zoom -= 0.1
+    setSize()
   }
 
   function switchFullScreen () {
@@ -64,6 +102,12 @@
     } else {
       document.exitFullscreen()
     }
+  }
+
+  async function switchCorrectionVisible () {
+    isCorrectionVisible = !isCorrectionVisible
+    await tick()
+    Mathalea.renderDiv(divQuestion)
   }
 
   function switchPause () {
@@ -87,8 +131,13 @@
     }, timeQuestion * 10)
   }
 
+  function formatExercice (texte: string) {
+    return texte.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')
+  }
+
   const ARROW_LEFT = 37
   const ARROW_RIGHT = 39
+  const SPACE = 32
   function handleShortcut(e) {
     if (e.keyCode === ARROW_LEFT) {
       prevQuestion()
@@ -96,12 +145,15 @@
     if (e.keyCode === ARROW_RIGHT) {
       nextQuestion()
     }
+    if (e.keyCode === SPACE) {
+      switchPause()
+    }
   }
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
 <div id="diap" class="flex flex-col h-screen justify-between scrollbar-hide">
-  <header class="flex flex-col h-20">
+  <header class="flex flex-col h-20 dark:bg-white">
     <div class="flex flex-row h-6 border border-coopmaths">
       <div  class="bg-coopmaths" style="width: {ratioTime}%;" />
       </div>
@@ -114,23 +166,17 @@
       </div>
     </div>
   </header>
-  <main class="flex h-full dark:bg-white dark:text-slate-800 p-10">
-    <div>
-      {#each listQuestions as question, i (question)}
-        {#if i === currentQuestion}
-          <div bind:this={divDiaporama} style={`font-size: ${1.5 * listSize[i]}rem; line-height: ${2 * listSize[i]}rem;`} in:fly={{ y: 100, duration: 1000 }} out:fly={{ y: -200, duration: 1000 }}>
-            {@html question}
-          </div>
-        {/if}
-      {/each}
+  <main class="flex h-full dark:bg-white dark:text-slate-800 p-10" >
+    <div bind:this={divQuestion} class="block">
+      {@html isCorrectionVisible ? listCorrections[currentQuestion] : listQuestions[currentQuestion]}
     </div>
   </main>
-  <footer class="w-full h-20 flex bottom-0 opacity-100">
+  <footer class="w-full h-20 flex bottom-0 opacity-100 dark:bg-white">
     <div class="flex flex-row justify-between w-full text-coopmaths">
       <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
-        <button type="button"><i class="bx ml-2 bx-lg {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}" on:click={switchFullScreen} /></button>
-        <button type="button"><i class="bx ml-2 bx-lg bx-plus" /></button>
-        <button type="button"><i class="bx ml-2 bx-lg bx-minus" /></button>
+        <button type="button" on:click={switchFullScreen} ><i class="bx ml-2 bx-lg {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}"/></button>
+        <button type="button" on:click={zoomPlus}><i class="bx ml-2 bx-lg bx-plus" /></button>
+        <button type="button" on:click={zoomMoins}><i class="bx ml-2 bx-lg bx-minus" /></button>
       </div>
       <div class="flex flex-row justify-center w-[33%] items-center">
         <button type="button" on:click={prevQuestion}><i class="bx ml-2 bx-lg bx-skip-previous" /></button>
@@ -140,8 +186,10 @@
       <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
         <button type="button"><i class="bx ml-2 bx-lg bx-stopwatch" /></button>
         <button type="button"><i class="bx ml-2 bx-lg bx-show" /></button>
-        <button type="button"><i class="bx ml-2 bx-lg bx-bulb" /></button>
-        <button type="button"><i class="bx ml-2 bx-lg bx-power-off" /></button>
+        <button type="button" on:click={switchCorrectionVisible}><i class="bx ml-2 bx-lg {isCorrectionVisible ? 'bxs-bulb' : 'bx-bulb'}" /></button>
+        <button type="button" on:click={() => {
+          displayOptions.update(params => {params.v = "l2"; return params})
+        }}><i class="bx ml-2 bx-lg bx-power-off" /></button>
       </div>
     </div>
   </footer>
