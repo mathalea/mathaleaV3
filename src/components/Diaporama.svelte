@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount, tick } from "svelte"
-  import { displayOptions } from "./store"
   import { Mathalea } from "../Mathalea"
   import { exercicesParams } from "./store"
   import seedrandom from "seedrandom"
@@ -11,7 +10,8 @@
   let isFullScreen = false
   let isPause = false
   let isCorrectionVisible = false
-  let zoom = 3
+  let userZoom = 10
+  let currentZoom = userZoom
   let listQuestions = [] // Concaténation de toutes les questions des exercices de exercicesParams
   let listCorrections = []
   let listSize = []
@@ -56,43 +56,53 @@
     if (i >= 0 && i < listQuestions.length) currentQuestion = i
     if (divQuestion) {
       await tick()
+      currentZoom = userZoom
       setSize()
-      Mathalea.renderDiv(divQuestion)
     }
     if (!isPause) timer()
   }
 
   function setSize () {
     if (listSize[currentQuestion]) {
-        const size = zoom * listSize[currentQuestion]
+        const size = currentZoom * listSize[currentQuestion]
         divQuestion.style.lineHeight = `${size * 1.2}rem`
         divQuestion.style.fontSize = `${size}rem`
         const qcms = document.querySelectorAll('.monQcm')
         for (const qcm of qcms) {
-          qcm.style.fontSize = `${size}px`
+          (qcm as HTMLDivElement).style.fontSize = `${size}px`
         }
         const tables = document.querySelectorAll('#affichage_exercices label') // Pour les propositions des QCM
         for (const table of tables) {
-          table.style.fontSize = `${size}px`
+          (table as HTMLDivElement).style.fontSize = `${size}px`
         }
         const figures = document.querySelectorAll('.mathalea2d')
-        for (const figure of figures) {
-          if (!figure.dataset.widthInitiale) figure.dataset.widthInitiale = parseFloat(figure.getAttribute('width'))
-          if (!figure.dataset.heightInitiale) figure.dataset.heightInitiale = parseFloat(figure.getAttribute('height'))
-          figure.setAttribute('height', figure.dataset.heightInitiale * zoom)
-          figure.setAttribute('width', figure.dataset.widthInitiale * zoom)
-        }
-      }
+        for (const figureElement of figures) {
+          const figure = figureElement as SVGElement
+          if (!figure.dataset.widthInitiale) figure.dataset.widthInitiale = figure.getAttribute('width')
+          if (!figure.dataset.heightInitiale) figure.dataset.heightInitiale = figure.getAttribute('height')
+          figure.setAttribute('height', (Number(figure.dataset.heightInitiale) * currentZoom).toString())
+          figure.setAttribute('width', (Number(figure.dataset.widthInitiale) * currentZoom).toString())
+       }
+       Mathalea.renderDiv(divQuestion)
+       if ((divQuestion.offsetHeight + 180) > window.innerHeight && currentZoom > 0) {
+         currentZoom -= 0.25
+         setSize()
+       } 
+    }
+
+
   }
 
   function zoomPlus () {
-    zoom += 0.25
+    userZoom += 0.25
+    currentZoom = userZoom
     setSize()
   }
 
   function zoomMoins () {
-    if (zoom > 1) zoom -= 0.25
-    else if (zoom > 0.2) zoom -= 0.1
+    if (userZoom > 1) userZoom -= 0.25
+    else if (userZoom > 0.2) userZoom -= 0.1
+    currentZoom = userZoom
     setSize()
   }
 
@@ -173,7 +183,7 @@
       {@html isCorrectionVisible ? listCorrections[currentQuestion] : listQuestions[currentQuestion]}
     </div>
   </main>
-  <footer class="w-full h-20 flex bottom-0 opacity-100 dark:bg-white">
+  <footer class="w-full h-20 bottom-0 opacity-100 dark:bg-white">
     <div class="flex flex-row justify-between w-full text-coopmaths">
       <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
         <button type="button" on:click={switchFullScreen} ><i class="bx ml-2 bx-lg {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}"/></button>
