@@ -11,7 +11,7 @@
   let isFullScreen = false
   let isPause = false
   let isCorrectionVisible = false
-  let zoom = 2
+  let zoom = 3
   let listQuestions = [] // Concaténation de toutes les questions des exercices de exercicesParams
   let listCorrections = []
   let listSize = []
@@ -35,6 +35,8 @@
       exercice.nouvelleVersion()
       listQuestions = [...listQuestions, ...exercice.listeQuestions]
       listCorrections = [...listCorrections, ...exercice.listeCorrections]
+      listQuestions = listQuestions.map(formatExercice)
+      listCorrections = listCorrections.map(formatExercice)
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
         listSize.push(exercice.tailleDiaporama)
       }
@@ -188,7 +190,7 @@
         <button type="button"><i class="bx ml-2 bx-lg bx-show" /></button>
         <button type="button" on:click={switchCorrectionVisible}><i class="bx ml-2 bx-lg {isCorrectionVisible ? 'bxs-bulb' : 'bx-bulb'}" /></button>
         <button type="button" on:click={() => {
-          displayOptions.update(params => {params.v = "l2"; return params})
+          document.location.href = document.location.href.replace('&v=diaporama', '')
         }}><i class="bx ml-2 bx-lg bx-power-off" /></button>
       </div>
     </div>
