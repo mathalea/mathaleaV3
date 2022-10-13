@@ -8,8 +8,12 @@
 
   let divDiaporama: HTMLDivElement
   let currentQuestion = 0
+  let isFullScreen = false
+  let isPause = false
   let listQuestions = [] // Concaténation de toutes les questions des exercices de exercicesParams
   let listSize = []
+  let ratioTime = 0
+  let myInterval
   onMount(async () => {
     Mathalea.updateUrl($exercicesParams)
     for (const paramsExercice of $exercicesParams) {
@@ -31,24 +35,56 @@
         listSize.push(exercice.tailleDiaporama)
       }
     }
-    Mathalea.renderDiv(divDiaporama)
+    timer()
   })
-
+  
   afterUpdate(async () => {
     await tick()
     if (divDiaporama) Mathalea.renderDiv(divDiaporama)
   })
 
-  function prevQuestion() {
+  function prevQuestion () {
     if (currentQuestion > 0) goToQuestion(currentQuestion - 1)
   }
 
-  function nextQuestion() {
+  function nextQuestion () {
     if (currentQuestion < listQuestions.length - 1) goToQuestion(currentQuestion + 1)
   }
 
-  function goToQuestion(i: number) {
+  function goToQuestion (i: number) {
     if (i >= 0 && i < listQuestions.length) currentQuestion = i
+    timer()
+  }
+
+  function switchFullScreen () {
+    isFullScreen = !isFullScreen
+    if (isFullScreen) {
+      const app = document.querySelector('#diap')
+      app.requestFullscreen()
+    } else {
+      document.exitFullscreen()
+    }
+  }
+
+  function switchPause () {
+    if (!isPause) {
+      clearInterval(myInterval)
+      isPause = true
+    } 
+    else timer(undefined, false)
+  }
+
+  function timer (timeQuestion = 5, reset = true) {
+    if (reset) ratioTime = 0
+    isPause = false
+    clearInterval(myInterval)
+    myInterval = setInterval(() => {
+      ratioTime = ratioTime + 1
+      if (ratioTime >= 100)  {
+        clearInterval(myInterval)
+        nextQuestion()
+      }
+    }, timeQuestion * 10)
   }
 
   const ARROW_LEFT = 37
@@ -64,11 +100,11 @@
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
-<div class="flex flex-col h-screen justify-between scrollbar-hide">
+<div id="diap" class="flex flex-col h-screen justify-between scrollbar-hide">
   <header class="flex flex-col h-20">
     <div class="flex flex-row h-6 border border-coopmaths">
-      <div class="basis-[33%] bg-coopmaths" />
-    </div>
+      <div  class="bg-coopmaths" style="width: {ratioTime}%;" />
+      </div>
     <div class="flex flex-row h-full mt-6 w-full">
       <div class="flex flex-row h-2 bg-gray-300 w-full  justify-around items-center">
         {#each listQuestions as question, i }
@@ -92,13 +128,13 @@
   <footer class="w-full h-20 flex bottom-0 opacity-100">
     <div class="flex flex-row justify-between w-full text-coopmaths">
       <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
-        <button type="button"><i class="bx ml-2 bx-lg bx-fullscreen" /></button>
+        <button type="button"><i class="bx ml-2 bx-lg {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}" on:click={switchFullScreen} /></button>
         <button type="button"><i class="bx ml-2 bx-lg bx-plus" /></button>
         <button type="button"><i class="bx ml-2 bx-lg bx-minus" /></button>
       </div>
       <div class="flex flex-row justify-center w-[33%] items-center">
         <button type="button" on:click={prevQuestion}><i class="bx ml-2 bx-lg bx-skip-previous" /></button>
-        <button type="button"><i class="bx ml-2 bx-lg bx-pause" /></button>
+        <button type="button" on:click={switchPause}><i class="bx ml-2 bx-lg {isPause ? 'bx-play' : 'bx-pause'}" /></button>
         <button type="button" on:click={nextQuestion}><i class="bx ml-2 bx-lg bx-skip-next" /></button>
       </div>
       <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
