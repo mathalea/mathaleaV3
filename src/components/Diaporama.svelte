@@ -40,11 +40,15 @@
   })
 
   function prevQuestion() {
-    if (currentQuestion > 0) currentQuestion--
+    if (currentQuestion > 0) goToQuestion(currentQuestion - 1)
   }
 
   function nextQuestion() {
-    if (currentQuestion < listQuestions.length - 1) currentQuestion++
+    if (currentQuestion < listQuestions.length - 1) goToQuestion(currentQuestion + 1)
+  }
+
+  function goToQuestion(i: number) {
+    if (i >= 0 && i < listQuestions.length) currentQuestion = i
   }
 
   const ARROW_LEFT = 37
@@ -67,15 +71,10 @@
     </div>
     <div class="flex flex-row h-full mt-6 w-full">
       <div class="flex flex-row h-2 bg-gray-300 w-full  justify-around items-center">
-        <div class="rounded-full bg-gray-300 w-6 h-6" />
-        <div class="rounded-full bg-gray-300 w-6 h-6" />
-        <div class="rounded-full bg-gray-300 w-6 h-6" />
-        <div class="rounded-full bg-gray-300 w-6 h-6" />
-        <div class="rounded-full bg-gray-300 w-6 h-6" />
-        <div class="rounded-full bg-gray-300 w-6 h-6" />
-        <div class="rounded-full bg-gray-300 w-6 h-6" />
-        <div class="rounded-full bg-gray-300 w-6 h-6" />
-        <div class="rounded-full bg-gray-300 w-6 h-6" />
+        {#each listQuestions as question, i }
+          <div class="rounded-full w-6 h-6 {currentQuestion === i ? 'bg-coopmaths' : 'bg-gray-300'} " on:click={()=> goToQuestion(i)}/>
+        {/each}
+        
       </div>
     </div>
   </header>
@@ -98,9 +97,9 @@
         <button type="button"><i class="bx ml-2 bx-lg bx-minus" /></button>
       </div>
       <div class="flex flex-row justify-center w-[33%] items-center">
-        <button type="button"><i class="bx ml-2 bx-lg bx-skip-previous" /></button>
+        <button type="button" on:click={prevQuestion}><i class="bx ml-2 bx-lg bx-skip-previous" /></button>
         <button type="button"><i class="bx ml-2 bx-lg bx-pause" /></button>
-        <button type="button"><i class="bx ml-2 bx-lg bx-skip-next" /></button>
+        <button type="button" on:click={nextQuestion}><i class="bx ml-2 bx-lg bx-skip-next" /></button>
       </div>
       <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
         <button type="button"><i class="bx ml-2 bx-lg bx-stopwatch" /></button>
