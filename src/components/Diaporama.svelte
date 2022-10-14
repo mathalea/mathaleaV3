@@ -4,6 +4,7 @@
   import { exercicesParams } from "./store"
   import seedrandom from "seedrandom"
   import type { Exercice } from "./utils/typeExercice"
+  import Curseur from "./exercice/Curseur.svelte"
 
   let divQuestion: HTMLElement
   let currentQuestion = 0
@@ -44,15 +45,15 @@
     goToQuestion(0)
   })
 
-  function prevQuestion () {
+  function prevQuestion() {
     if (currentQuestion > 0) goToQuestion(currentQuestion - 1)
   }
 
-  function nextQuestion () {
+  function nextQuestion() {
     if (currentQuestion < listQuestions.length - 1) goToQuestion(currentQuestion + 1)
   }
 
-  async function goToQuestion (i: number) {
+  async function goToQuestion(i: number) {
     if (i >= 0 && i < listQuestions.length) currentQuestion = i
     if (divQuestion) {
       await tick()
@@ -62,89 +63,89 @@
     if (!isPause) timer()
   }
 
-  function setSize () {
+  function setSize() {
     if (listSize[currentQuestion]) {
-        const size = currentZoom * listSize[currentQuestion]
-        divQuestion.style.lineHeight = `${size * 1.2}rem`
-        divQuestion.style.fontSize = `${size}rem`
-        const qcms = document.querySelectorAll('.monQcm')
-        for (const qcm of qcms) {
-          (qcm as HTMLDivElement).style.fontSize = `${size}px`
-        }
-        const tables = document.querySelectorAll('#affichage_exercices label') // Pour les propositions des QCM
-        for (const table of tables) {
-          (table as HTMLDivElement).style.fontSize = `${size}px`
-        }
-        const figures = document.querySelectorAll('.mathalea2d')
-        for (const figureElement of figures) {
-          const figure = figureElement as SVGElement
-          if (!figure.dataset.widthInitiale) figure.dataset.widthInitiale = figure.getAttribute('width')
-          if (!figure.dataset.heightInitiale) figure.dataset.heightInitiale = figure.getAttribute('height')
-          figure.setAttribute('height', (Number(figure.dataset.heightInitiale) * currentZoom).toString())
-          figure.setAttribute('width', (Number(figure.dataset.widthInitiale) * currentZoom).toString())
-       }
-       Mathalea.renderDiv(divQuestion)
-       if ((divQuestion.offsetHeight + 180) > window.innerHeight && currentZoom > 0) {
-         currentZoom -= 0.25
-         setSize()
-       } 
+      const size = currentZoom * listSize[currentQuestion]
+      divQuestion.style.lineHeight = `${size * 1.2}rem`
+      divQuestion.style.fontSize = `${size}rem`
+      const qcms = document.querySelectorAll(".monQcm")
+      for (const qcm of qcms) {
+        ;(qcm as HTMLDivElement).style.fontSize = `${size}px`
+      }
+      const tables = document.querySelectorAll("#affichage_exercices label") // Pour les propositions des QCM
+      for (const table of tables) {
+        ;(table as HTMLDivElement).style.fontSize = `${size}px`
+      }
+      const figures = document.querySelectorAll(".mathalea2d")
+      for (const figureElement of figures) {
+        const figure = figureElement as SVGElement
+        if (!figure.dataset.widthInitiale) figure.dataset.widthInitiale = figure.getAttribute("width")
+        if (!figure.dataset.heightInitiale) figure.dataset.heightInitiale = figure.getAttribute("height")
+        figure.setAttribute("height", (Number(figure.dataset.heightInitiale) * currentZoom).toString())
+        figure.setAttribute("width", (Number(figure.dataset.widthInitiale) * currentZoom).toString())
+      }
+      Mathalea.renderDiv(divQuestion)
+      if (divQuestion.offsetHeight + 180 > window.innerHeight && currentZoom > 0) {
+        currentZoom -= 0.25
+        setSize()
+      }
     }
-
-
   }
 
-  function zoomPlus () {
+  function zoomPlus() {
     userZoom += 0.25
     currentZoom = userZoom
     setSize()
   }
 
-  function zoomMoins () {
+  function zoomMoins() {
     if (userZoom > 1) userZoom -= 0.25
     else if (userZoom > 0.2) userZoom -= 0.1
     currentZoom = userZoom
     setSize()
   }
 
-  function switchFullScreen () {
+  function switchFullScreen() {
     isFullScreen = !isFullScreen
     if (isFullScreen) {
-      const app = document.querySelector('#diap')
+      const app = document.querySelector("#diap")
       app.requestFullscreen()
     } else {
       document.exitFullscreen()
     }
   }
 
-  async function switchCorrectionVisible () {
+  async function switchCorrectionVisible() {
     isCorrectionVisible = !isCorrectionVisible
     await tick()
     Mathalea.renderDiv(divQuestion)
   }
 
-  function switchPause () {
+  function switchPause() {
     if (!isPause) {
       clearInterval(myInterval)
       isPause = true
-    } 
-    else timer(undefined, false)
+    } else timer(undefined, false)
   }
 
-  function timer (timeQuestion = 5, reset = true) {
+  function timer(timeQuestion = 5, reset = true) {
     if (reset) ratioTime = 0
     isPause = false
     clearInterval(myInterval)
     myInterval = setInterval(() => {
       ratioTime = ratioTime + 1
-      if (ratioTime >= 100)  {
+      if (ratioTime >= 100) {
         clearInterval(myInterval)
         nextQuestion()
       }
     }, timeQuestion * 10)
   }
 
-  function formatExercice (texte: string) {
-    return texte.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')
+  function formatExercice(texte: string) {
+    return texte
+      .replace(/\\dotfill/g, "..............................")
+      .replace(/\\not=/g, "≠")
+      .replace(/\\ldots/g, "....")
   }
 
   const ARROW_LEFT = 37
@@ -161,32 +162,39 @@
       switchPause()
     }
   }
+
+  let value = 10
+  /**
+   * Gère la récupération de la valeur du curseur de temps
+   */
+  function handleTimerChange(event) {
+    console.log(event.target.value)
+  }
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
-<div id="diap" class="flex flex-col h-screen justify-between scrollbar-hide">
-  <header class="flex flex-col h-20 dark:bg-white">
+<div id="diap" class="flex flex-col h-screen scrollbar-hide">
+  <header class="flex flex-col h-20 dark:bg-white pb-1">
     <div class="flex flex-row h-6 border border-coopmaths">
-      <div  class="bg-coopmaths" style="width: {ratioTime}%;" />
-      </div>
+      <div class="bg-coopmaths" style="width: {ratioTime}%;" />
+    </div>
     <div class="flex flex-row h-full mt-6 w-full">
       <div class="flex flex-row h-2 bg-gray-300 w-full  justify-around items-center">
-        {#each listQuestions as question, i }
-          <div class="rounded-full w-6 h-6 {currentQuestion === i ? 'bg-coopmaths' : 'bg-gray-300'} " on:click={()=> goToQuestion(i)}/>
+        {#each listQuestions as question, i}
+          <div class="rounded-full w-6 h-6 {currentQuestion === i ? 'bg-coopmaths' : 'bg-gray-300'} " on:click={() => goToQuestion(i)} />
         {/each}
-        
       </div>
     </div>
   </header>
-  <main class="flex h-full dark:bg-white dark:text-slate-800 p-10" >
+  <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-4">
     <div bind:this={divQuestion} class="block">
       {@html isCorrectionVisible ? listCorrections[currentQuestion] : listQuestions[currentQuestion]}
     </div>
   </main>
-  <footer class="w-full h-20 bottom-0 opacity-100 dark:bg-white">
+  <footer class="w-full h-20 py-1 sticky bottom-0 opacity-100 dark:bg-white">
     <div class="flex flex-row justify-between w-full text-coopmaths">
       <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
-        <button type="button" on:click={switchFullScreen} ><i class="bx ml-2 bx-lg {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}"/></button>
+        <button type="button" on:click={switchFullScreen}><i class="bx ml-2 bx-lg {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}" /></button>
         <button type="button" on:click={zoomPlus}><i class="bx ml-2 bx-lg bx-plus" /></button>
         <button type="button" on:click={zoomMoins}><i class="bx ml-2 bx-lg bx-minus" /></button>
       </div>
@@ -196,12 +204,42 @@
         <button type="button" on:click={nextQuestion}><i class="bx ml-2 bx-lg bx-skip-next" /></button>
       </div>
       <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
-        <button type="button"><i class="bx ml-2 bx-lg bx-stopwatch" /></button>
-        <button type="button"><i class="bx ml-2 bx-lg bx-show" /></button>
-        <button type="button" on:click={switchCorrectionVisible}><i class="bx ml-2 bx-lg {isCorrectionVisible ? 'bxs-bulb' : 'bx-bulb'}" /></button>
-        <button type="button" on:click={() => {
-          document.location.href = document.location.href.replace('&v=diaporama', '')
-        }}><i class="bx ml-2 bx-lg bx-power-off" /></button>
+        <label for="timerSettings" class="modal-button"><i class="bx ml-2 bx-lg bx-stopwatch" /></label>
+        <input type="checkbox" id="timerSettings" class="modal-toggle" />
+        <div class="modal modal-bottom sm:modal-middle">
+          <div class="modal-box">
+            <h3 class="font-bold text-lg">Temps par question</h3>
+            <p class="py-4">Régler le temps en secondes</p>
+            <div class="flew-row space-x-2">
+              <div class="flex flex-row justify-start items-center space-x-2">
+                <input
+                  class="w-1/4 h-2 bg-transparent text-coopmaths cursor-pointer"
+                  type="range"
+                  step="0.5"
+                  max="30"
+                  min="0.5"
+                  name="duration"
+                  id="duration"
+                  bind:value
+                  on:change={handleTimerChange}
+                />
+                <label class="w-3/4 text-sm" for="duration">{value} secondes</label>
+              </div>
+            </div>
+            <div class="modal-action">
+              <label for="timerSettings" class="btn btn-coopmaths">Fermer</label>
+            </div>
+          </div>
+        </div>
+        <!-- <button type="button"><i class="bx ml-2 bx-lg bx-stopwatch" /></button> -->
+        <!-- <button type="button"><i class="bx ml-2 bx-lg bx-bulb" /></button> -->
+        <button type="button" on:click={switchCorrectionVisible}><i class="bx ml-2 bx-lg {isCorrectionVisible ? 'bx-hide' : 'bx-show'}" /></button>
+        <button
+          type="button"
+          on:click={() => {
+            document.location.href = document.location.href.replace("&v=diaporama", "")
+          }}><i class="bx ml-2 bx-lg bx-power-off" /></button
+        >
       </div>
     </div>
   </footer>
