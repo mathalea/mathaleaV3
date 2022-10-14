@@ -170,6 +170,16 @@
   function handleTimerChange(event) {
     console.log(event.target.value)
   }
+  /**
+   * Gestion du message dans le modal de réglage de la durée de projection
+   * @param duree valeur de la durée en secondes retournée par le curseur
+   */
+  function setPhraseDuree(duree) {
+    if (duree >= 2) return duree + " secondes"
+    else if (duree === 0) return "Défilement manuel"
+    else return duree + " seconde"
+  }
+  $: messageDuree = setPhraseDuree(value)
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
@@ -209,21 +219,11 @@
         <div class="modal modal-bottom sm:modal-middle">
           <div class="modal-box">
             <h3 class="font-bold text-lg">Temps par question</h3>
-            <p class="py-4">Régler le temps en secondes</p>
+            <p class="py-4 text-black">Régler la durée de projection en secondes</p>
             <div class="flew-row space-x-2">
               <div class="flex flex-row justify-start items-center space-x-2">
-                <input
-                  class="w-1/4 h-2 bg-transparent text-coopmaths cursor-pointer"
-                  type="range"
-                  step="0.5"
-                  max="30"
-                  min="0.5"
-                  name="duration"
-                  id="duration"
-                  bind:value
-                  on:change={handleTimerChange}
-                />
-                <label class="w-3/4 text-sm" for="duration">{value} secondes</label>
+                <input class="w-1/4 h-2 bg-transparent text-coopmaths cursor-pointer" type="range" step="0.5" max="30" min="0" name="duration" id="duration" bind:value on:change={handleTimerChange} />
+                <label class="w-3/4 text-sm text-black" for="duration">{messageDuree}</label>
               </div>
             </div>
             <div class="modal-action">
