@@ -183,17 +183,22 @@
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
-<div id="diap" class="flex flex-col h-screen scrollbar-hide">
+<div id="diap" class="flex flex-col h-screen scrollbar-hide" data-theme="daisytheme">
   <header class="flex flex-col h-20 dark:bg-white pb-1">
     <div class="flex flex-row h-6 border border-coopmaths">
       <div class="bg-coopmaths" style="width: {ratioTime}%;" />
     </div>
     <div class="flex flex-row h-full mt-6 w-full">
-      <div class="flex flex-row h-2 bg-gray-300 w-full  justify-around items-center">
+      <!-- <div class="flex flex-row h-2 bg-gray-300 w-full  justify-around items-center">
         {#each listQuestions as question, i}
           <div class="rounded-full w-6 h-6 {currentQuestion === i ? 'bg-coopmaths' : 'bg-gray-300'} " on:click={() => goToQuestion(i)} />
         {/each}
-      </div>
+      </div> -->
+      <ul class="steps w-11/12">
+        {#each listQuestions as question, i}
+          <li class="step {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => goToQuestion(i)} />
+        {/each}
+      </ul>
     </div>
   </header>
   <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-4">

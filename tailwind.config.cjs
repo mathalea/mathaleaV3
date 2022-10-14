@@ -26,6 +26,23 @@ const config = {
   variants: {
     display: ['group-hover']
   },
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+          primary: '#F15929',
+          secondary: '#FF8C5C',
+          accent: '#D84010',
+          neutral: '#191D24',
+          'base-100': '#FFFF',
+          info: '#3ABFF8',
+          success: '#36D399',
+          warning: '#FBBD23',
+          error: '#F87272'
+        }
+      }
+    ]
+  },
   plugins: [
     require('daisyui'),
     // Pour les tooltips
