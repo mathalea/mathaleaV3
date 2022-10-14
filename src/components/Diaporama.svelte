@@ -11,7 +11,7 @@
   let isFullScreen = false
   let isPause = false
   let isCorrectionVisible = false
-  let userZoom = 10
+  let userZoom = 3
   let currentZoom = userZoom
   let questions = [] // Concaténation de toutes les questions des exercices de exercicesParams
   let corrections = []
