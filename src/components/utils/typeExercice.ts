@@ -7,6 +7,7 @@ export type Exercice = {
   nouvelleVersion?: (numeroExercice?: number) => void
   seed?: string
   typeExercice?: string
+  duration?: number
   boutonAide?: boolean | HTMLButtonElement
   consigne?: string
   consigneCorrection?: string

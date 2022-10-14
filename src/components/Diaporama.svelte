@@ -12,9 +12,12 @@
   let isCorrectionVisible = false
   let userZoom = 10
   let currentZoom = userZoom
-  let listQuestions = [] // Concaténation de toutes les questions des exercices de exercicesParams
-  let listCorrections = []
-  let listSize = []
+  let questions = [] // Concaténation de toutes les questions des exercices de exercicesParams
+  let corrections = []
+  let sizes = []
+  let consignes = []
+  let durations = []
+  let durationGlobal = null
   let ratioTime = 0
   let myInterval
   onMount(async () => {
@@ -33,12 +36,14 @@
       seedrandom(exercice.seed, { global: true })
       if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
       exercice.nouvelleVersion()
-      listQuestions = [...listQuestions, ...exercice.listeQuestions]
-      listCorrections = [...listCorrections, ...exercice.listeCorrections]
-      listQuestions = listQuestions.map(formatExercice)
-      listCorrections = listCorrections.map(formatExercice)
+      questions = [...questions, ...exercice.listeQuestions]
+      corrections = [...corrections, ...exercice.listeCorrections]
+      questions = questions.map(formatExercice)
+      corrections = corrections.map(formatExercice)
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
-        listSize.push(exercice.tailleDiaporama)
+        sizes.push(exercice.tailleDiaporama)
+        consignes.push(exercice.consigne)
+        durations.push(exercice.duration)
       }
     }
     goToQuestion(0)
@@ -48,46 +53,46 @@
     if (currentQuestion > 0) goToQuestion(currentQuestion - 1)
   }
 
-  function nextQuestion () {
-    if (currentQuestion < listQuestions.length - 1) goToQuestion(currentQuestion + 1)
+  function nextQuestion() {
+    if (currentQuestion < questions.length - 1) goToQuestion(currentQuestion + 1)
   }
 
-  async function goToQuestion (i: number) {
-    if (i >= 0 && i < listQuestions.length) currentQuestion = i
+  async function goToQuestion(i: number) {
+    if (i >= 0 && i < questions.length) currentQuestion = i
     if (divQuestion) {
       await tick()
       currentZoom = userZoom
       setSize()
     }
-    if (!isPause) timer()
+    if (!isPause) timer(durationGlobal || durations[currentQuestion] || 10)
   }
 
-  function setSize () {
-    if (listSize[currentQuestion]) {
-        const size = currentZoom * listSize[currentQuestion]
-        divQuestion.style.lineHeight = `${size * 1.2}rem`
-        divQuestion.style.fontSize = `${size}rem`
-        const qcms = document.querySelectorAll('.monQcm')
-        for (const qcm of qcms) {
-          (qcm as HTMLDivElement).style.fontSize = `${size}px`
-        }
-        const tables = document.querySelectorAll('#affichage_exercices label') // Pour les propositions des QCM
-        for (const table of tables) {
-          (table as HTMLDivElement).style.fontSize = `${size}px`
-        }
-        const figures = document.querySelectorAll('.mathalea2d')
-        for (const figureElement of figures) {
-          const figure = figureElement as SVGElement
-          if (!figure.dataset.widthInitiale) figure.dataset.widthInitiale = figure.getAttribute('width')
-          if (!figure.dataset.heightInitiale) figure.dataset.heightInitiale = figure.getAttribute('height')
-          figure.setAttribute('height', (Number(figure.dataset.heightInitiale) * currentZoom).toString())
-          figure.setAttribute('width', (Number(figure.dataset.widthInitiale) * currentZoom).toString())
-       }
-       Mathalea.renderDiv(divQuestion)
-       if ((divQuestion.offsetHeight + 180) > window.innerHeight && currentZoom > 0) {
-         currentZoom -= 0.25
-         setSize()
-       } 
+  function setSize() {
+    if (sizes[currentQuestion]) {
+      const size = currentZoom * sizes[currentQuestion]
+      divQuestion.style.lineHeight = `${size * 1.2}rem`
+      divQuestion.style.fontSize = `${size}rem`
+      const qcms = document.querySelectorAll(".monQcm")
+      for (const qcm of qcms) {
+        ;(qcm as HTMLDivElement).style.fontSize = `${size}px`
+      }
+      const tables = document.querySelectorAll("#affichage_exercices label") // Pour les propositions des QCM
+      for (const table of tables) {
+        ;(table as HTMLDivElement).style.fontSize = `${size}px`
+      }
+      const figures = document.querySelectorAll(".mathalea2d")
+      for (const figureElement of figures) {
+        const figure = figureElement as SVGElement
+        if (!figure.dataset.widthInitiale) figure.dataset.widthInitiale = figure.getAttribute("width")
+        if (!figure.dataset.heightInitiale) figure.dataset.heightInitiale = figure.getAttribute("height")
+        figure.setAttribute("height", (Number(figure.dataset.heightInitiale) * currentZoom).toString())
+        figure.setAttribute("width", (Number(figure.dataset.widthInitiale) * currentZoom).toString())
+      }
+      Mathalea.renderDiv(divQuestion)
+      if (divQuestion.offsetHeight + 180 > window.innerHeight && currentZoom > 0) {
+        currentZoom -= 0.25
+        setSize()
+      }
     }
 
 
@@ -124,10 +129,13 @@
 
   function switchPause () {
     if (!isPause) {
-      clearInterval(myInterval)
-      isPause = true
-    } 
-    else timer(undefined, false)
+      pause()
+    } else timer(durationGlobal || durations[currentQuestion] || 10, false)
+  }
+
+  function pause () {
+    clearInterval(myInterval)
+    isPause = true
   }
 
   function timer (timeQuestion = 5, reset = true) {
@@ -161,6 +169,25 @@
       switchPause()
     }
   }
+
+  let value = 10
+  /**
+   * Gère la récupération de la valeur du curseur de temps
+   */
+  function handleTimerChange(event) {
+    durationGlobal = event.target.value
+    goToQuestion(currentQuestion)
+  }
+  /**
+   * Gestion du message dans le modal de réglage de la durée de projection
+   * @param duree valeur de la durée en secondes retournée par le curseur
+   */
+  function setPhraseDuree(duree) {
+    if (duree >= 2) return duree + " secondes"
+    else if (duree === 0) return "Défilement manuel"
+    else return duree + " seconde"
+  }
+  $: messageDuree = setPhraseDuree(value)
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
@@ -170,17 +197,21 @@
       <div  class="bg-coopmaths" style="width: {ratioTime}%;" />
       </div>
     <div class="flex flex-row h-full mt-6 w-full">
-      <div class="flex flex-row h-2 bg-gray-300 w-full  justify-around items-center">
-        {#each listQuestions as question, i }
-          <div class="rounded-full w-6 h-6 {currentQuestion === i ? 'bg-coopmaths' : 'bg-gray-300'} " on:click={()=> goToQuestion(i)}/>
+      <!-- <div class="flex flex-row h-2 bg-gray-300 w-full  justify-around items-center">
+        {#each listQuestions as question, i}
+          <div class="rounded-full w-6 h-6 {currentQuestion === i ? 'bg-coopmaths' : 'bg-gray-300'} " on:click={() => goToQuestion(i)} />
         {/each}
-        
-      </div>
+      </div> -->
+      <ul class="steps w-11/12">
+        {#each questions as question, i}
+          <li class="step {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => goToQuestion(i)} />
+        {/each}
+     </ul>   
     </div>
   </header>
   <main class="flex h-full dark:bg-white dark:text-slate-800 p-10" >
     <div bind:this={divQuestion} class="block">
-      {@html isCorrectionVisible ? listCorrections[currentQuestion] : listQuestions[currentQuestion]}
+      {@html isCorrectionVisible ? corrections[currentQuestion] : questions[currentQuestion]}
     </div>
   </main>
   <footer class="w-full h-20 bottom-0 opacity-100 dark:bg-white">
@@ -196,12 +227,32 @@
         <button type="button" on:click={nextQuestion}><i class="bx ml-2 bx-lg bx-skip-next" /></button>
       </div>
       <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
-        <button type="button"><i class="bx ml-2 bx-lg bx-stopwatch" /></button>
-        <button type="button"><i class="bx ml-2 bx-lg bx-show" /></button>
-        <button type="button" on:click={switchCorrectionVisible}><i class="bx ml-2 bx-lg {isCorrectionVisible ? 'bxs-bulb' : 'bx-bulb'}" /></button>
-        <button type="button" on:click={() => {
-          document.location.href = document.location.href.replace('&v=diaporama', '')
-        }}><i class="bx ml-2 bx-lg bx-power-off" /></button>
+        <label for="timerSettings" class="modal-button"><i class="bx ml-2 bx-lg bx-stopwatch" on:click={pause} /></label>
+        <input type="checkbox" id="timerSettings" class="modal-toggle" />
+        <div class="modal modal-bottom sm:modal-middle">
+          <div class="modal-box">
+            <h3 class="font-bold text-lg">Temps par question</h3>
+            <p class="py-4 text-black">Régler la durée de projection en secondes</p>
+            <div class="flew-row space-x-2">
+              <div class="flex flex-row justify-start items-center space-x-2">
+                <input class="w-1/4 h-2 bg-transparent text-coopmaths cursor-pointer" type="range" step="0.5" max="30" min="0" name="duration" id="duration" bind:value on:change={handleTimerChange} />
+                <label class="w-3/4 text-sm text-black" for="duration">{messageDuree}</label>
+              </div>
+            </div>
+            <div class="modal-action">
+              <label for="timerSettings" class="btn btn-coopmaths" on:click={switchPause}>Fermer</label>
+            </div>
+          </div>
+        </div>
+        <!-- <button type="button"><i class="bx ml-2 bx-lg bx-stopwatch" /></button> -->
+        <!-- <button type="button"><i class="bx ml-2 bx-lg bx-bulb" /></button> -->
+        <button type="button" on:click={switchCorrectionVisible}><i class="bx ml-2 bx-lg {isCorrectionVisible ? 'bx-hide' : 'bx-show'}" /></button>
+        <button
+          type="button"
+          on:click={() => {
+            document.location.href = document.location.href.replace("&v=diaporama", "")
+          }}><i class="bx ml-2 bx-lg bx-power-off" /></button
+        >
       </div>
     </div>
   </footer>
