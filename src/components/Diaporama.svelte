@@ -4,6 +4,7 @@
   import { exercicesParams } from "./store"
   import seedrandom from "seedrandom"
   import type { Exercice } from "./utils/typeExercice"
+  import Curseur from "./exercice/Curseur.svelte"
 
   let divQuestion: HTMLElement
   let currentQuestion = 0
@@ -49,7 +50,7 @@
     goToQuestion(0)
   })
 
-  function prevQuestion () {
+  function prevQuestion() {
     if (currentQuestion > 0) goToQuestion(currentQuestion - 1)
   }
 
@@ -94,40 +95,38 @@
         setSize()
       }
     }
-
-
   }
 
-  function zoomPlus () {
+  function zoomPlus() {
     userZoom += 0.25
     currentZoom = userZoom
     setSize()
   }
 
-  function zoomMoins () {
+  function zoomMoins() {
     if (userZoom > 1) userZoom -= 0.25
     else if (userZoom > 0.2) userZoom -= 0.1
     currentZoom = userZoom
     setSize()
   }
 
-  function switchFullScreen () {
+  function switchFullScreen() {
     isFullScreen = !isFullScreen
     if (isFullScreen) {
-      const app = document.querySelector('#diap')
+      const app = document.querySelector("#diap")
       app.requestFullscreen()
     } else {
       document.exitFullscreen()
     }
   }
 
-  async function switchCorrectionVisible () {
+  async function switchCorrectionVisible() {
     isCorrectionVisible = !isCorrectionVisible
     await tick()
     Mathalea.renderDiv(divQuestion)
   }
 
-  function switchPause () {
+  function switchPause() {
     if (!isPause) {
       pause()
     } else timer(durationGlobal || durations[currentQuestion] || 10, false)
@@ -138,21 +137,24 @@
     isPause = true
   }
 
-  function timer (timeQuestion = 5, reset = true) {
+  function timer(timeQuestion = 5, reset = true) {
     if (reset) ratioTime = 0
     isPause = false
     clearInterval(myInterval)
     myInterval = setInterval(() => {
       ratioTime = ratioTime + 1
-      if (ratioTime >= 100)  {
+      if (ratioTime >= 100) {
         clearInterval(myInterval)
         nextQuestion()
       }
     }, timeQuestion * 10)
   }
 
-  function formatExercice (texte: string) {
-    return texte.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')
+  function formatExercice(texte: string) {
+    return texte
+      .replace(/\\dotfill/g, "..............................")
+      .replace(/\\not=/g, "≠")
+      .replace(/\\ldots/g, "....")
   }
 
   const ARROW_LEFT = 37
@@ -191,11 +193,11 @@
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
-<div id="diap" class="flex flex-col h-screen justify-between scrollbar-hide">
-  <header class="flex flex-col h-20 dark:bg-white">
+<div id="diap" class="flex flex-col h-screen scrollbar-hide" data-theme="daisytheme">
+  <header class="flex flex-col h-20 dark:bg-white pb-1">
     <div class="flex flex-row h-6 border border-coopmaths">
-      <div  class="bg-coopmaths" style="width: {ratioTime}%;" />
-      </div>
+      <div class="bg-coopmaths" style="width: {ratioTime}%;" />
+    </div>
     <div class="flex flex-row h-full mt-6 w-full">
       <!-- <div class="flex flex-row h-2 bg-gray-300 w-full  justify-around items-center">
         {#each listQuestions as question, i}
@@ -209,15 +211,15 @@
      </ul>   
     </div>
   </header>
-  <main class="flex h-full dark:bg-white dark:text-slate-800 p-10" >
+  <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-4">
     <div bind:this={divQuestion} class="block">
       {@html isCorrectionVisible ? corrections[currentQuestion] : questions[currentQuestion]}
     </div>
   </main>
-  <footer class="w-full h-20 bottom-0 opacity-100 dark:bg-white">
+  <footer class="w-full h-20 py-1 sticky bottom-0 opacity-100 dark:bg-white">
     <div class="flex flex-row justify-between w-full text-coopmaths">
       <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
-        <button type="button" on:click={switchFullScreen} ><i class="bx ml-2 bx-lg {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}"/></button>
+        <button type="button" on:click={switchFullScreen}><i class="bx ml-2 bx-lg {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}" /></button>
         <button type="button" on:click={zoomPlus}><i class="bx ml-2 bx-lg bx-plus" /></button>
         <button type="button" on:click={zoomMoins}><i class="bx ml-2 bx-lg bx-minus" /></button>
       </div>
