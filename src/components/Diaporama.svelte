@@ -169,6 +169,7 @@
    */
   function handleTimerChange(event) {
     console.log(event.target.value)
+    timer(event.target.value)
   }
   /**
    * Gestion du message dans le modal de réglage de la durée de projection
@@ -219,7 +220,7 @@
         <button type="button" on:click={nextQuestion}><i class="bx ml-2 bx-lg bx-skip-next" /></button>
       </div>
       <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
-        <label for="timerSettings" class="modal-button"><i class="bx ml-2 bx-lg bx-stopwatch" /></label>
+        <label for="timerSettings" class="modal-button"><i class="bx ml-2 bx-lg bx-stopwatch" on:click={switchPause} /></label>
         <input type="checkbox" id="timerSettings" class="modal-toggle" />
         <div class="modal modal-bottom sm:modal-middle">
           <div class="modal-box">
@@ -232,7 +233,7 @@
               </div>
             </div>
             <div class="modal-action">
-              <label for="timerSettings" class="btn btn-coopmaths">Fermer</label>
+              <label for="timerSettings" class="btn btn-coopmaths" on:click={switchPause}>Fermer</label>
             </div>
           </div>
         </div>
