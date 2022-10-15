@@ -2,7 +2,7 @@
   import { Mathalea } from "../../Mathalea"
   import { onMount } from "svelte"
 
-  // paramsExercice est de type {url, nbQuestions, sup, sup2, sup3, sup4}
+  // paramsExercice est de type {url, nbQuestions, sup, sup2, sup3, sup4, duration}
   export let paramsExercice
   export let indiceExercice: number
   export let indiceLastExercice: number
@@ -15,6 +15,7 @@
     exercice = await Mathalea.load(paramsExercice.uuid)
     if (exercice === undefined) return
     if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
+    if (paramsExercice.duration) exercice.duree = paramsExercice.duration
     if (paramsExercice.sup) exercice.sup = paramsExercice.sup
     if (paramsExercice.sup2) exercice.sup2 = paramsExercice.sup2
     if (paramsExercice.sup3) exercice.sup3 = paramsExercice.sup3

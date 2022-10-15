@@ -4,7 +4,6 @@
   import { exercicesParams } from "./store"
   import seedrandom from "seedrandom"
   import type { Exercice } from "./utils/typeExercice"
-  import Curseur from "./exercice/Curseur.svelte"
 
   let divQuestion: HTMLElement
   let currentQuestion = 0
@@ -27,6 +26,7 @@
       const exercice: Exercice = await Mathalea.load(paramsExercice.uuid)
       if (exercice === undefined) return
       if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
+      if (paramsExercice.duration) exercice.duration = paramsExercice.duration
       if (paramsExercice.sup) exercice.sup = paramsExercice.sup
       if (paramsExercice.sup2) exercice.sup2 = paramsExercice.sup2
       if (paramsExercice.sup3) exercice.sup3 = paramsExercice.sup3
@@ -65,7 +65,7 @@
       currentZoom = userZoom
       setSize()
     }
-    if (!isPause) timer(durationGlobal || durations[currentQuestion] || 10)
+    if (!isPause) timer(durationGlobal ?? durations[currentQuestion] ?? 10)
   }
 
   function setSize() {
@@ -129,7 +129,7 @@
   function switchPause() {
     if (!isPause) {
       pause()
-    } else timer(durationGlobal || durations[currentQuestion] || 10, false)
+    } else timer(durationGlobal ?? durations[currentQuestion] ?? 10, false)
   }
 
   function pause () {
@@ -137,20 +137,26 @@
     isPause = true
   }
 
-  function timer(timeQuestion = 5, reset = true) {
-    if (reset) ratioTime = 0
-    isPause = false
-    clearInterval(myInterval)
-    myInterval = setInterval(() => {
-      ratioTime = ratioTime + 1
-      if (ratioTime >= 100) {
-        clearInterval(myInterval)
-        nextQuestion()
-      }
-    }, timeQuestion * 10)
+  function timer (timeQuestion = 5, reset = true) {
+    // timeQuestion est le temps de la question exprimé en secondes
+    if (timeQuestion === 0) {
+      pause ()
+      ratioTime = 0
+    } else {
+      if (reset) ratioTime = 0
+      isPause = false
+      clearInterval(myInterval)
+      myInterval = setInterval(() => {
+        ratioTime = ratioTime + 1 // ratioTime est le pourcentage du temps écoulé
+        if (ratioTime >= 100) { 
+          clearInterval(myInterval)
+          nextQuestion()
+        }
+      }, timeQuestion * 10)
+    }
   }
 
-  function formatExercice(texte: string) {
+  function formatExercice (texte: string) {
     return texte
       .replace(/\\dotfill/g, "..............................")
       .replace(/\\not=/g, "≠")
@@ -168,7 +174,7 @@
       nextQuestion()
     }
     if (e.keyCode === SPACE) {
-      switchPause()
+      if (durationGlobal !==0) switchPause()
     }
   }
 
@@ -176,15 +182,15 @@
   /**
    * Gère la récupération de la valeur du curseur de temps
    */
-  function handleTimerChange(event) {
-    durationGlobal = event.target.value
+  function handleTimerChange (event) {
+    durationGlobal = parseInt(event.target.value)
     goToQuestion(currentQuestion)
   }
   /**
    * Gestion du message dans le modal de réglage de la durée de projection
    * @param duree valeur de la durée en secondes retournée par le curseur
    */
-  function setPhraseDuree(duree) {
+  function setPhraseDuree (duree) {
     if (duree >= 2) return duree + " secondes"
     else if (duree === 0) return "Défilement manuel"
     else return duree + " seconde"
@@ -225,7 +231,7 @@
       </div>
       <div class="flex flex-row justify-center w-[33%] items-center">
         <button type="button" on:click={prevQuestion}><i class="bx ml-2 bx-lg bx-skip-previous" /></button>
-        <button type="button" on:click={switchPause}><i class="bx ml-2 bx-lg {isPause ? 'bx-play' : 'bx-pause'}" /></button>
+        <button type="button" on:click={switchPause} class:invisible="{durationGlobal === 0}"><i class="bx ml-2 bx-lg {isPause ? 'bx-play' : 'bx-pause'}" /></button>
         <button type="button" on:click={nextQuestion}><i class="bx ml-2 bx-lg bx-skip-next" /></button>
       </div>
       <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
@@ -237,7 +243,7 @@
             <p class="py-4 text-black">Régler la durée de projection en secondes</p>
             <div class="flew-row space-x-2">
               <div class="flex flex-row justify-start items-center space-x-2">
-                <input class="w-1/4 h-2 bg-transparent text-coopmaths cursor-pointer" type="range" step="0.5" max="30" min="0" name="duration" id="duration" bind:value on:change={handleTimerChange} />
+                <input class="w-1/4 h-2 bg-transparent text-coopmaths cursor-pointer" type="range" max="30" min="0" name="duration" id="duration" bind:value on:change={handleTimerChange} />
                 <label class="w-3/4 text-sm text-black" for="duration">{messageDuree}</label>
               </div>
             </div>

@@ -144,6 +144,7 @@ export class Mathalea {
       url.searchParams.append('uuid', ex.uuid)
       url.searchParams.append('id', ex.id)
       if (ex.nbQuestions !== undefined) url.searchParams.append('n', ex.nbQuestions)
+      if (ex.duration !== undefined) url.searchParams.append('d', ex.duration)
       if (ex.sup !== undefined) url.searchParams.append('s', ex.sup)
       if (ex.sup2 !== undefined) url.searchParams.append('s2', ex.sup2)
       if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
@@ -192,6 +193,8 @@ export class Mathalea {
         newListeExercice[indiceExercice].uuid = uuid // string
       } else if (entry[0] === 'n') {
         newListeExercice[indiceExercice].nbQuestions = parseInt(entry[1]) // int
+      } else if (entry[0] === 'd') {
+        newListeExercice[indiceExercice].duration = parseInt(entry[1]) // int
       } else if (entry[0] === 's') {
         newListeExercice[indiceExercice].sup = _handleStringFromUrl(entry[1]) // string | number | boolean
       } else if (entry[0] === 's2') {

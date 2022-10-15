@@ -3,6 +3,7 @@
 
   export let exercice
   let nbQuestions: number
+  let duration: number
   let sup: string | boolean
   let sup2: string | boolean
   let sup3: string | boolean
@@ -32,6 +33,7 @@
     if (exercice && premierUpdate) {
       premierUpdate = false
       nbQuestions = exercice.nbQuestions
+      duration = exercice.duration || 10
       if (exercice.sup === 'false') {
         sup = false
       } else {
@@ -50,6 +52,7 @@
   function newSettings() {
     dispatch("settings", {
       nbQuestions,
+      duration,
       sup,
       sup2,
       sup3,
@@ -143,7 +146,7 @@
    * @author sylvain chambon
    */
   function submitOnSliderChange(formId: string) {
-    const e: HTMLFormElement = document.getElementById(formId as string)
+    const e = document.getElementById(formId as string) as HTMLFormElement
     const formData = new FormData(e as HTMLFormElement)
     const data: string[] = []
     for (let field of formData) {
@@ -183,7 +186,10 @@
     <div>
       <span class="text-coopmaths-lightest">Nombre de questions :</span> <input type="number" min="1" bind:value={nbQuestions} on:change={newSettings} class="w-full border-2" />
     </div>
-  {/if}
+    {/if}
+    <div>
+      <span class="text-coopmaths-lightest">Durée d'une question pour le diaporama :</span> <input type="number" min="1" bind:value={duration} on:change={newSettings} class="w-full border-2" />
+    </div>
   {#if exercice.besoinFormulaireCaseACocher}
     <div class="form-check">
       <label class="form-check-label text-coopmaths-lightest" for="check1">

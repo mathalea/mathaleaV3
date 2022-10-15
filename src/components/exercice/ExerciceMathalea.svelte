@@ -92,6 +92,10 @@
       exercice.nbQuestions = event.detail.nbQuestions;
       $exercicesParams[indiceExercice].nbQuestions = exercice.nbQuestions;
     }
+    if (event.detail.duration) {
+      exercice.duration = event.detail.duration;
+      $exercicesParams[indiceExercice].duration = exercice.duration;
+    }
     if (event.detail.sup !== undefined) {
       exercice.sup = event.detail.sup;
       $exercicesParams[indiceExercice].sup = exercice.sup;
