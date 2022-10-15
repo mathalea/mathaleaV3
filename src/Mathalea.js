@@ -17,19 +17,20 @@ import 'katex/dist/katex.min.css'
 export class Mathalea {
   /**
  * Charge un exercice
- * Exemple : const exercice = loadExercice('./exercices/6e/6C10')
+ * Exemple : const exercice = loadExercice('3cvng')
  * @param {string} url
  * @returns {Promise<Exercice>} exercice
  */
   static async load (uuid) {
-    if (uuid === undefined) return undefined
-    const url = uuidToUrl[uuid]
-    const [filename, directory, isCan] = url.split('/').reverse()
-    try {
-      // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
-      // cf https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#globs-only-go-one-level-deep
-      // L'extension doit-être visible donc on l'enlève avant de la remettre...
-      if (directory !== 'exercicesStatiques') {
+    if (uuid.substring(0, 5) === 'crpe-' || uuid.substring(0, 4) === 'dnb_' || uuid.substring(0, 4) === 'e3c_') {
+      return this.loadStatic(uuid)
+    } else {
+      const url = uuidToUrl[uuid]
+      const [filename, directory, isCan] = url.split('/').reverse()
+      try {
+        // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
+        // cf https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#globs-only-go-one-level-deep
+        // L'extension doit-être visible donc on l'enlève avant de la remettre...
         let module
         if (isCan) {
           module = await import(`./exercices/can/${directory}/${filename.replace('.js', '')}.js`)
@@ -38,50 +39,17 @@ export class Mathalea {
         }
         const ClasseExercice = module.default
         const exercice /** Promise<Exercice> */= new ClasseExercice()
-        ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach((p) => {
+          ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach((p) => {
           if (module[p] !== undefined) exercice[p] = module[p]
         })
         ;(await exercice).id = filename
         return exercice
-      } else {
-        const exercicePromise /** Exercice */= new Exercice()
-        const exercice = await exercicePromise
-        if (filename.includes('dnb')) {
-          exercice.titre = 'Exercice type DNB'
-        }
-        if (filename.includes('e3c')) {
-          exercice.titre = 'Exercice type E3C'
-        }
-        if (filename.includes('bac')) {
-          exercice.titre = 'Exercice type BAC'
-        }
-        if (filename.includes('crpe')) {
-          exercice.titre = 'Exercice type CRPE'
-        }
-        const cutFilename = filename.split('_')
-        let type, year
-        if (filename.includes('dnb') || filename.includes('e3c') || filename.includes('bac')) {
-          type = cutFilename[0]
-          year = cutFilename[1]
-        }
-        if (filename.includes('crpe')) {
-          type = cutFilename[0]
-          year = cutFilename[1].split('-')[0]
-        }
-
-        const subDir = `${type}/${year}/tex/png`
-        exercice.consigne = `<img src="./src/${directory}/${subDir}/${filename}.png" width="50%"></img>`
-        exercice.consigneCorrection = `<img src="./src/${directory}/${subDir}/${filename}_cor.png" width="50%"></img>`
-        exercice.typeExercice = 'statique'
-        exercice.interactifReady = false
-        exercice.nbQuestionsModifiable = false
+      } catch (error) {
+        console.log(`Chargement de l'exercice ${directory}/${filename} impossible`)
+        const exercice = new Exercice()
+        exercice.contenu = `<h3>La référence ${directory}/${filename} n'existe pas !</h3>`
         return exercice
       }
-    } catch (error) {
-      console.log(`Chargement de l'exercice ${directory}/${filename} impossible`)
-      const exercice = new Exercice()
-      exercice.contenu = `<h3>La référence ${directory}/${filename} n'existe pas !</h3>`
-      return exercice
     }
   }
 
@@ -226,6 +194,14 @@ export class Mathalea {
     return { v }
   }
 
+  static loadStatic (uuid) {
+    const exercice = { typeExercice: 'static', uuid }
+    const promise = new Promise((resolve, reject) => {
+      resolve(exercice)
+    })
+    return promise
+  }
+
   static handleExerciceSimple (exercice, isInteractif) {
     exercice.autoCorrection = []
     exercice.interactif = isInteractif
@@ -297,3 +273,37 @@ function _handleStringFromUrl (txt) {
     return txt
   }
 }
+
+// Ancien code pour le statique
+// const exercicePromise /** Exercice */= new Exercice()
+// const exercice = await exercicePromise
+// if (filename.includes('dnb')) {
+//   exercice.titre = 'Exercice type DNB'
+// }
+// if (filename.includes('e3c')) {
+//   exercice.titre = 'Exercice type E3C'7
+// }
+// if (filename.includes('bac')) {
+//   exercice.titre = 'Exercice type BAC'
+// }
+// if (filename.includes('crpe')) {
+//   exercice.titre = 'Exercice type CRPE'
+// }
+// const cutFilename = filename.split('_')
+// let type, year
+// if (filename.includes('dnb') || filename.includes('e3c') || filename.includes('bac')) {
+//   type = cutFilename[0]
+//   year = cutFilename[1]
+// }
+// if (filename.includes('crpe')) {
+//   type = cutFilename[0]
+//   year = cutFilename[1].split('-')[0]
+// }
+
+// const subDir = `${type}/${year}/tex/png`
+// exercice.consigne = `<img src="./src/${directory}/${subDir}/${filename}.png" width="50%"></img>`
+// exercice.consigneCorrection = `<img src="./src/${directory}/${subDir}/${filename}_cor.png" width="50%"></img>`
+// exercice.typeExercice = 'statique'
+// exercice.interactifReady = false
+// exercice.nbQuestionsModifiable = false
+// return exercice

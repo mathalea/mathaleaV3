@@ -1,0 +1,110 @@
+\subsection*{\hspace{20mm}\textbf{PARTIE A}}
+\begin{enumerate}
+    \item 
+    \begin{enumerate}
+        \item Entre 2009 et 2010, le nombre de marques de la famille « Confitures, gelées ou marmelades allégées » a augmenté de $58,6~\%$.Il faut donc multiplier la valeur de 2009 par 1,586 pour obtenir la valeur de 2010. On obtient : $58\times1,586\approx92$
+        \item Entre 2010 et 2017, le nombre de marques de la famille « Confitures, gelées ou marmelades » a augmenté de $52,7~\%$. Pour calculer, la valeur en 2017 à partir de celle de 2010, il faut multiplier par 1,527. Donc pour calculer la valeur de 2010 à partir de celle de 2017, il faut diviser par 1,527. On obtient ainsi:
+        
+        \medskip
+         $\dfrac{452}{1,527}\approx296$
+        
+    \end{enumerate}
+    \item L'augmentation en pourcentage est donnée par le quotient suivant : 
+    
+    \medskip
+    $\dfrac{\text{valeur finale} - \text{valeur initiale}}{\text{valeur initiale}}=\dfrac{32-11}{11}\approx 1,909$ soit environ $190,9~\%$
+    \item La valeur d'angle en degré correspondant au nombre total de marques est 360° pour 337 marques. « Confitures, gelées ou marmelades » représentent 227 marques. La mesure d'angle correspondante est donc :
+    
+    \medskip
+    $\dfrac{227\times360}{337}\approx242\degree$
+\end{enumerate}
+
+\subsection*{\hspace{20mm}\textbf{PARTIE B}}
+\begin{enumerate}
+    \item On calcule la proportion en pourcentage de sucre ajouté pour chaque préparation.
+    
+    
+    \begin{spacing}{2.5}
+    Préparation 1 : $\dfrac{240}{1240}\approx0,1935$ soit environ $19,35~\%$\\
+    Préparation 2 : $\dfrac{1}{4}=25~\%$\\
+    Préparation 3 : $\dfrac{330}{1500}=0,22=22~\%$\\
+    Il peut choisir les préparations 2 et 3.	
+    \end{spacing}
+    
+    \item
+    \begin{enumerate}
+        \item La masse de sucre ajoutée est trois fois plus petit que la masse de fruits. Donc la masse de sucre à ajouter pour 1 kg de fruits est : $\dfrac{1~kg}{3}\approx0,333~kg$ soit environ 333 g au gramme près.
+        \item On sait que 100g de préparation donneront 83 g de produit fini. On veut 100 g de produit fini. 
+        
+        \medskip
+        La quantité de préparation est donc égale à: $\dfrac{100\times100}{83}~\text{g}$. 
+        
+        \medskip
+        La quantité de fruits est: $\dfrac{3}{4}\times\dfrac{100\times100}{83}~\text{g}\approx90~\text{g}$.
+        
+        \item On peut effectuer le calcul de deux façons.
+        
+        \textbf{Méthode 1} : en utilisant les quantités précédentes. Pour 90 g de fruits, il faut ajouter 30 g de sucre. 90 g de fruits contient $\dfrac{10}{100}\times90~\text{g}=9~\text{g}$ de sucre. Soit 39 g de sucre pour $\dfrac{100\times100}{83}~\text{g}\approx120~\text{g}$ de préparation. La proportion de sucre totale est donc de: $\dfrac{39}{120}=0,325=32,5~\%$
+        
+        \bigskip
+        \textbf{Méthode 2} : en raisonnant sur les proportions.
+        
+        \medskip
+        $\dfrac{1}{4}+\dfrac{10}{100}\times\dfrac{3}{4}=\dfrac{1}{4}+\dfrac{3}{40}=\dfrac{10+3}{40}=\dfrac{13}{40}=0,325=32,5~\%$
+    \end{enumerate}
+\end{enumerate}
+\section*{\hspace{20mm}\textbf{PARTIE C}}
+\begin{enumerate}
+    \item 
+    \begin{enumerate}
+        \item La représentation graphique est une droite qui passe par l’origine du repère, elle est la représentation graphique d’une fonction linéaire.
+        \item Graphiquement, on peut lire que pour 200 pots vendus la recette est de 1000 euros. Chaque pot est vendu au même prix car une fonction linéaire modélise une situation de proportionnalité. Le prix d’un pot est donc $\dfrac{1000}{200}=5$, chaque pot est vendu 5 €.
+    \end{enumerate}
+    \item
+    \begin{enumerate}
+        \item $F(x)=3,25x+500$
+        \item La fonction $F$ est une fonction affine sa représentation graphique est une droite. Pour la tracer il faut connaître les coordonnées de deux points appartenant à cette droite.
+        
+        \medskip
+        Pour $x=0,~F(0)=3,25\times0+500=500$.~La droite passe par le point $A$ de coordonnées $(0 ; 500)$.
+        
+        \medskip
+        Pour $x=400,~F(400)=3,25\times400+500=1~800$.~La droite passe par le point $B$ de coordonnées $(400 ; 1800)$.\\On obtient le graphique suivant:\\ 
+        
+        \begin{tikzpicture}
+           \tkzInit[xmax=1300,ymax=4600, xstep=100, ystep=500]
+           \tkzGrid[sub,subxstep=20,subystep=100]
+           \tkzAxeX[label=]
+           \tkzAxeY[label=]
+           \tkzDefPoints{0/500/A, 400/2000/B, 940/4700/B2, 0/0/O, 1300/4725/A2}
+           \tkzDrawSegments(O,B2 A,A2)
+           \tkzDrawPoint[shape=cross out,size=4, line width = .08 cm](A) 
+           \tkzDrawPoint[shape=cross out,size=4, line width = .08 cm](B)
+           \tkzLabelPoints[below right](A)
+           \tkzLabelPoints[above](B)
+\end{tikzpicture}
+ 
+        
+        \item Le micro-entrepreneur dégage un bénéfice lorsque la recette est supérieure au coût de production. Graphiquement, on peut estimer que cela se produit à partir d'environ 285 pots vendus. 
+        
+        \item On cherche $x$ tel que $R(x)\geq F(x)$; $5x\geq 3,25x+500$ ; $1,75x\geq500$; $x\geq\dfrac{500}{1,75}$. Or,  $\dfrac{500}{1,75}\approx285,71$. 
+        
+        \medskip
+        Donc à partir de 286 pots vendus le micro-entrepreneur réalise un bénéfice. 
+        \end{enumerate}
+ \end{enumerate}    
+ \section*{\hspace{20mm}\textbf{PARTIE D}}
+ \begin{enumerate}
+    \item 
+    \begin{enumerate}
+        \item On calcule le volume du pot n°1:\\ $V_1=B\times h=\pi\times  R^2\times h=\pi\times3,5^2\times8= 98\pi\approx308~\text{cm}^3$ à l'unité près.
+        \item Les pots sont remplis au maximum à $90\%$ de leur volume. Le pot n°1 peut donc contenir au maximum:\\$V'_1=\dfrac{90}{100}\times 98\pi=88,2\pi\approx277~\text{cm}^3$
+    \end{enumerate}
+    \item
+    \begin{enumerate}
+        \item L'hexagone $ABCDEF$ est composé de 6 triangles équilatéraux dont la longueur d'un côté mesure 4 cm. En utilisant la formule donnée dans l'énoncé, l'aire de l'hexagone est:\\ $6\times \dfrac{\sqrt{3}}{4}\times 4^2~\text{cm}^3= 24\sqrt{3}~\text{cm}^3$.
+        
+        \item On calcule le volume du pot n°2:\\$V_2=B\times h= 24\sqrt{3}\times8~\text{cm}^3=192\sqrt{3}~\text{cm}^3\approx333~\text{cm}^3$ à l'unité près.
+        \item Les pots sont remplis au maximum à $90~\%$ de leur volume. Le pot n°2 peut donc contenir au maximum:\\$V'_2=\dfrac{90}{100}\times 192\sqrt{3}~\text{cm}^3=172,8\sqrt{3}~\text{cm}^3\approx299~\text{cm}^3$ à l'unité près.\\(Si pour ce calcul la valeur utilisée est la valeur arrondie $333~\text{cm}^3$, le résultat final arrondi à l'unité est $300~\text{cm}^3$)
+        \end{enumerate}
+\end{enumerate}        

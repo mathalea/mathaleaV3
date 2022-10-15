@@ -12,24 +12,26 @@
   let ComponentExercice
 
   onMount(async () => {
+    lry
+    const uuid = paramsExercice.uuid
     exercice = await Mathalea.load(paramsExercice.uuid)
     if (exercice === undefined) return
-    if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
-    if (paramsExercice.duration) exercice.duree = paramsExercice.duration
-    if (paramsExercice.sup) exercice.sup = paramsExercice.sup
-    if (paramsExercice.sup2) exercice.sup2 = paramsExercice.sup2
-    if (paramsExercice.sup3) exercice.sup3 = paramsExercice.sup3
-    if (paramsExercice.sup4) exercice.sup4 = paramsExercice.sup4
-    if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif
-    if (paramsExercice.alea) exercice.seed = paramsExercice.alea
-    if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === "1"
     exercice.numeroExercice = indiceExercice
     typeExercice = exercice.typeExercice
     // Chargement dynamique du component correspondant au type d'exercice
-    if (typeExercice === "simplefdfd") {
-      //ToFix, ce n'est plus utilisé pour simple mais ça pourra l'être pour statique
-      // ComponentExercice = (await import('./ExerciceSimple.svelte')).default
+    if (typeExercice === "static") {
+      paramsExercice.id = paramsExercice.uuid
+      ComponentExercice = (await import('./ExerciceStatic.svelte')).default
     } else {
+      if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
+      if (paramsExercice.duration) exercice.duree = paramsExercice.duration
+      if (paramsExercice.sup) exercice.sup = paramsExercice.sup
+      if (paramsExercice.sup2) exercice.sup2 = paramsExercice.sup2
+      if (paramsExercice.sup3) exercice.sup3 = paramsExercice.sup3
+      if (paramsExercice.sup4) exercice.sup4 = paramsExercice.sup4
+      if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif
+      if (paramsExercice.alea) exercice.seed = paramsExercice.alea
+      if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === "1"
       ComponentExercice = (await import("./ExerciceMathalea.svelte")).default
     }
   })
