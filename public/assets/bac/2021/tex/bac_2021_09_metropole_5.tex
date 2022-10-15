@@ -1,0 +1,96 @@
+
+\medskip
+
+\begin{tabular}{|l|}\hline
+Principaux domaines abordés:\\
+Fonction logarithme.\\ \hline
+\end{tabular}
+
+\bigskip
+
+\textbf{Partie I}
+
+\medskip
+
+On considère la fonction $h$ définie sur l'intervalle $]0~;~ +\infty[$ par:
+
+\[h(x) = 1 + \dfrac{\ln (x)}{x}.\]
+
+\smallskip
+
+\begin{enumerate}
+\item Déterminer la limite de la fonction $h$ en $0$.
+\item Déterminer la limite de la fonction $h$ en $+\infty$.
+\item On note $h'$ la fonction dérivée de $h$. Démontrer que, pour tout nombre réel $x$ de $]0~;~ +\infty[$, on a:
+
+\[h'(x) = \dfrac{1 - \ln (x)}{x^2}.\]
+
+\smallskip
+
+\item Dresser le tableau de variations de la fonction $h$ sur l'intervalle $]0~;~ +\infty[$.
+\item Démontrer que l'équation $h(x) = 0$ admet une unique solution $\alpha$ dans $]0~;~ +\infty[$. 
+
+Justifier que l'on a : $0,5 < \alpha < 0,6$.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie II}
+
+\medskip
+
+Dans cette partie, on considère les fonctions $f$ et $g$ définies sur $]0~;~ +\infty[$ par : 
+
+\[f(x) = x \ln (x) - x ;\qquad  g(x) = \ln (x).\]
+
+On note $\mathcal{C}_f$ et $\mathcal{C}_g$ les courbes représentant respectivement les fonctions $f$ et $g$ dans un repère orthonormé \Oij.
+
+Pout tout nombre réel $a$ strictement positif, on appelle:
+
+\setlength\parindent{1cm}
+\begin{itemize}
+\item[$\bullet~~$] $T_a$ la tangente à $\mathcal{C}_f$ en son point d'abscisse $a$ ;
+\item[$\bullet~~$] $D_a$ la tangente à $\mathcal{C}_g$ en son point d'abscisse $a$.
+\end{itemize}
+\setlength\parindent{0cm}
+
+Les courbes  $\mathcal{C}_f$ et $\mathcal{C}_g$ ainsi que deux tangentes $T_a$ et $D_a$ sont représentées ci-dessous.
+
+\begin{center}
+\psset{unit=1cm}
+\begin{pspicture*}(-0.6,-2)(7,6)
+\psgrid[gridlabels=0,subgriddiv=1,gridwidth=0.06pt]
+\psaxes[linewidth=1.25pt,labelFontSize=\scriptstyle](0,0)(0,-2)(6.9,5.9)
+\psaxes[linewidth=1.25pt,labelFontSize=\scriptstyle]{->}(0,0)(1,1)
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=red]{0.01}{7}{x ln x mul x sub}
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=blue]{0.01}{7}{x ln}
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=red,linestyle=dashed]{0.01}{7}{1.833 x mul 6.254 sub}
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=blue,linestyle=dashed]{0.01}{7}{0.162 x mul 0.833 add}
+\uput[u](1,1){\blue $D_a$}\uput[r](2.9,-1){\red $T_a$}\uput[l](4.3,2){\red $\mathcal{C}_f$ }
+\uput[r](0.2,-1.8){\blue $\mathcal{C}_g$}
+%\psplotTangent[linecolor=red]{6.25}{4cm}{x ln}
+%\psplotTangent[linecolor=blue]{6.25}{4cm}{1 x div}
+\psline[linestyle=dotted,linewidth=1.25pt](6.25,0)(6.25,5.204)
+\uput[d](6.25,0){$a$}
+\end{pspicture*}
+\end{center}
+
+On recherche d'éventuelles valeurs de $a$ pour lesquelles les droites $T_a$ et $D_a$ sont perpendiculaires. 
+
+Soit $a$ un nombre réel appartenant à l'intervalle $]0~;~ +\infty[$.
+
+
+\medskip
+
+\begin{enumerate}
+\item Justifier que la droite $D_a$ a pour coefficient directeur $\dfrac{1}{a}$.
+\item Justifier que la droite $T_a$ a pour coefficient directeur $\ln (a)$.
+\end{enumerate}
+
+On rappelle que dans un repère orthonormé, deux droites de coefficients directeurs respectifs $m$ et $m'$sont perpendiculaires si et seulement si $mm' = -1$.
+
+\begin{enumerate}[resume]
+\item Démontrer qu'il existe une unique valeur de $a$, que l'on identifiera, pour laquelle les droites $T_a$ et $D_a$ sont perpendiculaires.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%% sujet J2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,101 @@
+\textbf{\large\textsc{Exercice 2} \hfill 5 points}
+
+\textbf{Commun à tous les candidats}
+
+\medskip
+
+Dans tout cet exercice, les probabilités seront arrondies, si nécessaire, à $10^{-3}$.
+
+D'après une étude, les utilisateurs réguliers de transports en commun représentent 17\,\% de la population française. 
+
+Parmi ces utilisateurs réguliers, 32\,\% sont des jeunes âgés de 18 à 24 ans. (Source : TNS-Sofres)
+
+\bigskip
+
+\textbf{Partie A}
+
+\medskip
+ 
+On interroge une personne au hasard et on note :
+
+\setlength\parindent{9mm}
+\begin{itemize}
+\item $R$ l'évènement : \og La personne interrogée utilise régulièrement les transports en commun \fg.
+\item $J$ l'évènement : \og La personne interrogée est âgée de 18 à 24 ans \fg.
+\end{itemize}
+\setlength\parindent{0mm}
+
+%\medskip
+
+\begin{enumerate}
+\item On représente la situation à l'aide de cet arbre pondéré:
+
+\begin{center}
+\bigskip
+\pstree[treemode=R,nodesepB=3pt,nodesepA=0pt,levelsep=3.5cm,nrot=:U]{\TR{}}
+{\pstree[nodesepA=3pt]{\TR{$R$}\naput{$0,17$}}
+		{\TR{$J$}\naput{$0,32$}
+		\TR{$\overline{J}$}\nbput{$\blue 1-0,32=0,68$}
+		}
+\pstree[nodesepA=3pt]{\TR{$\overline{R}$~~}\nbput{$\blue 1-0,17=0,83$}}
+		{\TR{$J$}
+		\TR{$\overline{J}$}
+		}
+}
+\end{center}
+\item $P(R \cap J)= 0,17 \times 0,32 = \np{0,0544}$
+
+\item D'après cette même étude, les jeunes de 18 à 24 ans représentent 11\,\% de la population française, donc $P(J)=0,11$.
+
+La probabilité que la personne interrogée soit un jeune de 18 à 24 ans n'utilisant pas régulièrement les transports en commun est $P\left (\overline{R} \cap J\right )$.
+
+D'après la formule des probabilités totales:
+
+$P(J)= P(R\cap J) + P\left (\overline{R} \cap J\right )$ donc $P\left (\overline{R} \cap J\right ) = P(J) - P(R\cap J) = 0,11-0,0544 = \np{0,0556}$
+
+soit $0,056$ à $10^{-3}$ près.
+
+
+\item $P_{\overline{R}}(J)=\dfrac{P\left (\overline{R}\cap J\right )}{P\left (\overline{R}\right )} = \dfrac{0,056}{0,83} \approx \np{0,0675}$
+
+La proportion de jeunes de 18 à 24 ans parmi les utilisateurs non réguliers des transports en commun est donc d'environ $6,75\,\%$.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie B}
+
+\medskip
+
+Lors d'un recensement sur la population française, un recenseur interroge au hasard 50 personnes en une journée sur leur pratique des transports en commun. 
+La population française est suffisamment importante pour assimiler ce recensement à un tirage avec remise.
+Soit $X$ la variable aléatoire dénombrant les personnes utilisant régulièrement les transports en commun parmi les 50 personnes interrogées.
+
+%\medskip
+
+\begin{enumerate}
+\item %Déterminer, en justifiant, la loi de $X$ et préciser ses paramètres.
+\begin{list}{\textbullet}{}
+\item On interroge une personne au hasard et il n'y a que deux possibilités: elle utilise régulièrement les transports en commun, avec une probabilité $p=0,17$, ou pas, avec une probabilité de $1-p=0,83$.
+\item On réalise $n=50$ fois ce questionnement de façon identique.
+\end{list}
+
+Donc la variable aléatoire $X$ qui donne le nombre de personnes utilisant régulièrement les transports en commun parmi les 50 personnes interrogées suit la loi binomiale de paramètres $n=50$ et $p=0,17$.
+
+\item $P(X = 5) = \ds\binom{50}{5}\times 0,17^5 \times (1-0,17)^{50-5}\approx 0,069$
+% et interpréter le résultat.
+
+Il y a donc une probabilité de $0,069$ que, sur 50 personnes interrogées, exactement 5 prennent régulièrement les transports en commun.
+
+\item Le recenseur indique qu'il y a plus de 95\,\% de chance pour que, parmi les $50$ personnes interrogées, moins de $13$ d'entre elles utilisent régulièrement les transports en commun.
+
+Autrement dit, le recenseur affirme que $P(X<13) \geqslant 0,95$.
+
+Or $P(X<13)= P(X \leqslant 12) \approx  0,929 < 0,95$ donc cette affirmation est fausse.
+
+\item Le nombre moyen de personnes utilisant régulièrement les transports en commun parmi les $50$ personnes interrogées est
+$E(X)=np=50\times 0,17 = 8,5$.
+\end{enumerate}
+
+\bigskip
+

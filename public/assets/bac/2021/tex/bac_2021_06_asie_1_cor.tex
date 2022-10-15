@@ -1,0 +1,94 @@
+
+\textbf{Commun à tous les candidats}
+
+\medskip
+
+En 2020, une influenceuse sur les réseaux sociaux compte \np{1000}~abonnés à son profil. On modélise le nombre d'abonnés ainsi : chaque année, elle perd 10\,\% de ses abonnés auxquels s'ajoutent $250$ nouveaux abonnés.
+
+Pour tout entier naturel $n$, on note $u_n$ le nombre d'abonnés à son profil en l'année $(2020 + n)$, suivant cette modélisation. Ainsi $u_0 = \np{1000}$.
+
+\medskip
+
+\begin{enumerate}
+\item %Calculer $u_1$.
+On a donc $u_1 = \np{1000} \times \left(1 - \dfrac{10}{100}\right) + 250 = \np{1000} \times 0,9 + 250 = 900 + 250 = \np{1150}$.
+\item %Justifier que pour tout entier naturel $n,\,  u_{n+1} = 0,9u_n + 250$.
+
+Enlever 10\,\% c'est multiplier par $1 - \dfrac{10}{100} = 1 - 0,10 = 0,90$.
+
+Le nombre d'abonnés de l'année précédente est donc multiplié par $0,9$ ; on ajoute ensuite chaque année $250$ nouveaux abonnés, donc pour tout naturel $n$ :
+
+\[u_{n+1} = 0,9u_n + 250.\]
+
+\item %La fonction Python nommée \og suite \fg{} est définie ci-dessous. Dans le contexte de l'exercice, interpréter la valeur renvoyée par suite(10).
+
+%\begin{center}
+%\begin{tabular}{|l|}\hline
+%def suite( n) :\\
+%\quad u = \np{1000}\\
+%\quad for i in range(n) :\\
+%\qquad  u = 0,9*u + 250\\
+%\quad return u\\ \hline
+%\end{tabular}
+%\end{center}
+$u(10)$ donne le nombre d'abonnés au bout de $10$ ans ; une calculatrice donne $\approx \np{1977}$.
+\item 
+	\begin{enumerate}
+		\item %Montrer, à l'aide d'un raisonnement par récurrence, que pour tout entier naturel $n$,
+%$u_n \leqslant  \np{2500}$.
+\emph{Initialisation } : on a $u_0 = \np{1000} \leqslant  \np{2500}$ : la relation est vraie au rang $0$ ;
+
+\emph{Hérédité} : on suppose que pour $n \in \N$, on ait $u_n \leqslant \np{2500}$.
+
+La multiplication par $0,9  > 0$ respectant l'ordre, on a donc $0,9u_n \leqslant 0,9 \times \np{2500}$ ou $0,9u_n \leqslant \np{2250}$, puis en ajoutant 250 à chaque membre :
+
+$0,9u_n + 250 \leqslant \np{2250} + 250$, soit $u_{n+1} \leqslant \np{2500}$ : la relation est encore vraie au rang $n+1$.
+
+La relation est vraie au rang $0$ et si elle est vraie au rang $n \in \N$, elle est vraie au rang $n + 1$ : d'après le principe de récurrence : quel que soit $n \in \N$, \, $u_n \leqslant \np{2500}$.
+		\item %Démontrer que la suite $\left(u_n\right)$ est croissante.
+Soit $n \in \N$, on a $u_{n+1} - u_n = 0,9u_n + 250 - u_n = -0,1u_n + 250$.
+
+Or d'après la question précédente : $u_n \leqslant \np{2500}$, puis $0,1u_n \leqslant 0,1 \times \np{2500}$ ou encore 
+
+$0,1u_n \leqslant 250$, soit en prenant les opposés : $- 250 \leqslant - 0,1u_n$ et en ajoutant à chaque membre 250 : $0 \leqslant -0,1u_n + 250$.
+
+On a donc pour $n \in \N$, \, $u_{n+1} - u_n \geqslant 0$ ou $u_{n+1}  \geqslant u_n$ : la suite $\left(u_n\right)$ est croissante.
+		\item %Déduire des questions précédentes que la suite $\left(u_n\right)$ est convergente.
+La suite $\left(u_n\right)$ est croissante (d'après 4. b.) et majorée par \np{2500} (d'après 4. a.) : elle converge donc vers une limite inférieure ou égale à \np{2500}.
+	\end{enumerate}
+\item %Soit $\left(v_n\right)$ la suite définie par $v_n = u_n - \np{2500}$ pour tout entier naturel $n$.
+	\begin{enumerate}
+		\item %Montrer que la suite $\left(v_n\right)$ est une suite géométrique de raison $0,9$ et de terme initial $v_0 = \np{- 1500}$.
+		Pour $n \in \N$, \, $v_{n+1} = u_{n+1} - \np{2500} = 0,9u_n + 250 - \np{2500}$, soit 
+		
+$v_{n+1} = 0,9u_n - \np{2250} = 0,9\left(u_n  - \np{2500} \right) = 0,9v_n$.
+
+L'égalité vraie quel que soit $n \in \N$,\, $v_{n+1} = 0,9v_n$ montre que la suite $\left(v_n\right)$ est une suite géométrique de raison $0,9$ et de terme initial $v_0 = u_0 - \np{2500} = \np{1000} - \np{2500}  =  \np{- 1500}$.
+		\item %Pour tout entier naturel $n$, exprimer $v_n$ en fonction de $n$ et montrer que :
+On sait que quel que soit $n \in \N$, \, $v_n = v_0 \times 0,9^n = - \np{1500}\times 0,9^n$.
+		
+Or $v_n = u_n - \np{2500} \iff u_n = v_n + \np{2500}  = \np{2500} - \np{1500}\times 0,9^n$.
+		
+%\[u_n = - \np{1500} \times  0,9^n + \np{2500}.\]
+		\item %Déterminer la limite de la suite $\left(u_n\right)$ et interpréter dans le contexte de l'exercice.
+		Comme $0 < 0,9 < 1$, on sait que $\displaystyle\lim_{n \to + \infty}0,9^n = 0$ et par suite par produit de limites $\displaystyle\lim_{n \to + \infty}- \np{1500}\times 0,9^n = 0$ et finalement $\displaystyle\lim_{n \to + \infty}u_n = \np{2500}.$
+	\end{enumerate}
+\item Écrire un programme qui permet de déterminer en quelle année le nombre d'abonnés dépassera \np{2200}.
+
+Déterminer cette année.
+\begin{center}
+\begin{tabular}{|l|}\hline
+n = 0\\
+u = \np{1000}\\
+\quad while u < \np{2200} :\\
+\qquad  u = 0,9*u + 250\\
+\qquad n = n+1\\
+\quad return n\\ \hline
+\end{tabular}
+\end{center}
+
+Le programme s'arrêtera la 16\up{e} année.
+\end{enumerate}
+
+\bigskip
+

@@ -1,0 +1,121 @@
+
+\medskip
+
+\begin{tabular}{|l|}\hline
+Principaux domaines abordés :\\
+Fonction logarithme, limites, dérivation.\\ \hline
+\end{tabular}
+
+\medskip
+
+\textbf{Partie 1}
+
+\medskip
+
+%Le graphique ci-dessous donne la représentation graphique dans un repère orthonormé de la fonction $f$
+%définie sur l'intervalle $]0~;~+\infty[$ par:
+
+\[f(x) = \dfrac{2\ln (x) - 1}{x}.\]
+
+\begin{center}
+\psset{unit=1.75cm}
+\begin{pspicture*}(-0.6,-2.2)(5,1)
+\psaxes[linewidth=1.25pt,labelFontSize=\scriptstyle]{->}(0,0)(0,-2.1)(5,1)
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=red]{0.1}{5}{x ln 2 mul 1 sub x div}
+\end{pspicture*}
+\end{center}
+
+\medskip
+
+\begin{enumerate}
+\item %Déterminer par le calcul l'unique solution $\alpha$ de l'équation $f(x) = 0$.
+Dans $]0~;~+\infty[$, \, $f(x) = 0 \iff \dfrac{2\ln (x) - 1}{x} = 0$, on a donc 
+
+$2\ln (x) - 1 = 0 \iff 2\ln (x) = 1 \iff \ln (x) = \dfrac{1}{2} \iff x  = \text{e}^{\frac{1}{2}}$.
+
+$S = \left\{\text{e}^{\frac{1}{2}}\right\}$.
+
+\emph{Rem. } $\text{e}^{\frac{1}{2}} = \sqrt{\text{e}} \approx 1,649 \approx 1,65$ au centième près.
+
+%On donnera la valeur exacte de $\alpha$ ainsi que la valeur arrondie au centième.
+\item %Préciser, par lecture graphique, le signe de $f(x)$ lorsque $x$ varie dans l'intervalle $]0~;~+\infty[$.
+$\bullet~~$Sur $\left]0~;~\text{e}^{\frac{1}{2}}\right[$, on a $f(x) < 0$ ;
+
+$\bullet~~$Sur $\left]\text{e}^{\frac{1}{2}}~;~+ \infty\right[$, on a $f(x) > 0$ ;
+
+$\bullet~~$ $f\left(\text{e}^{\frac{1}{2}}\right) = 0$.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie II}
+
+\medskip
+
+%On considère la fonction $g$ définie sur l'intervalle $]0~;~+\infty[$ par:
+
+\[g(x) = [\ln (x)]^2 - \ln (x).\]
+
+\begin{enumerate}
+\item 
+	\begin{enumerate}
+		\item %Déterminer la limite de la fonction $g$ en $0$.
+On a $\displaystyle\lim_{x \to 0} \ln x = - \infty$, d'où $\displaystyle\lim_{x \to 0} (\ln x)^2 = + \infty$ et $\displaystyle\lim_{x \to 0} (-\ln x) = + \infty$, donc par somme de limites :
+		
+$\displaystyle\lim_{x \to 0} g(x) = + \infty$.
+		\item %Déterminer la limite de la fonction $g$ en $+ \infty$.
+$g(x) = \ln (x) [\ln (x) - 1]$. Comme 
+
+$\displaystyle\lim_{x \to + \infty} \ln (x)  = + \infty$ et $\displaystyle\lim_{x \to + \infty} \ln (x)  - 1 = + \infty$, on obtient par produit :
+
+$\displaystyle\lim_{x \to + \infty} g(x)  = + \infty$.
+	\end{enumerate}
+\item %On note $g'$ la fonction dérivée de la fonction $g$ sur l'intervalle $]0~;~+\infty[$.
+La fonction $g(x) = \ln (x) [\ln (x) - 1]$ est dérivable comme produit de deux fonctions dérivables sur $]0~;~+ \infty[$ et sur cet intervalle :
+
+$g'(x) = \dfrac{1}{x} \times [\ln (x) - 1] + \ln (x) \times \dfrac{1}{x} = \dfrac{1}{x} \left[\ln (x) - 1 + \ln (x)\right] = \dfrac{1}{x}\times (2\ln (x) - 1) = \dfrac{2\ln (x) - 1}{x} = f(x)$.
+%Démontrer que, pour tout nombre réel $x$ de $]0~;~+\infty[$, on a : $g'(x) = f(x)$, où $f$ désigne la fonction définie dans la partie I.
+\item %Dresser le tableau de variations de la fonction $g$ sur l'intervalle $]0~;~+\infty[$.
+
+Le signe de $f(x) = g'(x)$ a été trouvé à la question 2 de la partie I ; on a donc :
+
+$\bullet~~$Sur $\left]0~;~\text{e}^{\frac{1}{2}}\right[$, on a $g'(x) < 0$ : la fonction $g$ est strictement décroissante sur cet intervalle
+
+$\bullet~~$Sur $\left]\text{e}^{\frac{1}{2}}~;~+ \infty\right[$, on a $g'(x) > 0$ : la fonction $g$ est strictement croissante sur cet intervalle
+
+$\bullet~~$ $g'\left(\text{e}^{\frac{1}{2}}\right) = 0$ : $g\left(\text{e}^{\frac{1}{2}}\right) = \dfrac{1}{4} - \dfrac{1}{2} = - \dfrac{1}{4}$ est le minimum de la fonction $g$ sur $]0~;~+\infty[$.
+
+
+\begin{center}
+\psset{unit=1cm}
+\begin{pspicture}(7,3)
+\psframe(7,3)\psline(0,2)(7,2)(7,3)\psline(0,2.5)(7,2.5)\psline(1,0)(1,3)
+\uput[u](0.5,2.4){$x$}~\uput[u](1.15,2.4){$0$}~\uput[u](4,2.4){$\text{e}^{\frac{1}{2}}$}~ \uput[u](6.5,2.4){$+ \infty$}
+\uput[u](0.5,1.9){$g'(x)$}\uput[u](2.5,1.9){$-$}\uput[u](4,1.9){$0$}\uput[u](5.5,1.9){$+$}
+\psline{->}(1.5,1.5)(3.5,0.5)\psline{->}(4.5,0.5)(6.5,1.5)
+\uput[d](1.5,2){$+ \infty$}\uput[u](4,0){$- \frac{1}{4}$}\uput[d](6.5,2){$+ \infty$}
+\rput(0.5,1){$g$}
+\end{pspicture}
+\end{center}
+
+%On fera figurer dans ce tableau les limites de la fonction $g$ en $0$ et en $+\infty$, ainsi que la valeur du minimum de $g$ sur $]0~;~+\infty[$.
+\item %Démontrer que, pour tout nombre réel $m > - 0,25$, l'équation $g(x) = m$ admet exactement deux solutions.
+Comme $- \frac{1}{4} = - 0,25$, le tableau de variations montre que l'équation $g(x) = m$, avec $m > -0,25$ a deux solutions, l'une sur l'intervalle $\left]0~;~\text{e}^{\frac{1}{2}}\right[$, l'autre sur $\left]\text{e}^{\frac{1}{2}}~;~+ \infty\right[$.
+\item %Déterminer par le calcul les deux solutions de l'équation $g(x) = 0$.
+Dans $]0~;~+ \infty[$, \, $g(x) = 0 \iff \ln (x) [\ln (x) - 1] = 0 \iff \left\{\begin{array}{l c l}
+\ln (x)&=&0\\
+\ln (x) - 1&=&0
+\end{array}\right. \iff $
+
+$\left\{\begin{array}{l c l}
+\ln (x)&=&0\\
+\ln (x) &=&1
+\end{array}\right. \iff \left\{\begin{array}{l c l}
+x&=&1\\
+x &=&\text{e}
+\end{array}\right.$
+
+$S = \{1~;~\text{e}\}$.
+\end{enumerate}
+
+

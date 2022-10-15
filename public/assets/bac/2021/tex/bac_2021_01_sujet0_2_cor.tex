@@ -1,0 +1,174 @@
+\textbf{\large\textsc{Exercice 2} \hfill commun à tous les candidats \hfill 5 points}  
+
+\medskip
+
+On considère le cube ABCDEFGH de côté 1, le milieu I de [EF] et J le symétrique de E par rapport à F{}.
+
+\begin{center}
+\psset{xunit=5cm,yunit=5cm}
+\begin{pspicture}(-0.1,-0.1)(2.2,1.5)
+%\psgrid
+\psframe(0,0)(1,1)
+\psline(1,0)(1.35,0.35)
+\psline[linestyle=dashed](0,0)(0.35,0.35)
+\psline[linestyle=dashed](0.35,0.35)(1.35,0.35)
+\psline[linestyle=dashed](0.35,0.35)(0.35,1.35)
+\psline(1.35,0.35)(1.35,1.35)
+\psline(0,1)(0.35,1.35)\psline(0.35,1.35)(1.35,1.35)\psline(1,1)(1.35,1.35)
+\uput[dl](0,0){A} \uput[d](1,0){B}
+\uput[r](1.35,0.35){C} \uput[l](0.35,0.35){D}
+\uput[ul](0.35,1.35){H}
+\uput[ul](0,1){E}
+\uput[ur](1.35,1.35){G}
+\uput[u](0.5,1){I}
+\psdots(0.5,1)(2,1)
+\uput[u](1,1){F}
+\psline[linewidth=0.5pt,linecolor=gray] (1,1)(2,1)
+\uput[r](2,1){J}
+\end{pspicture}
+
+\end{center}
+
+\medskip
+
+Dans tout l'exercice, l'espace est rapporté au repère orthonormé $\left(\text{A}~;~\vv{\text{AB}},~\vv{\text{AD}},~\vv{\text{AE}}\right)$.
+
+Les sommets du cube ont pour coordonnées:
+A\,$\begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}$,
+B\,$\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}$,
+D\,$\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}$,
+E\,$\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}$,
+C\,$\begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix}$,
+F\,$\begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}$,
+H\,$\begin{pmatrix} 0 \\ 1 \\ 1 \end{pmatrix}$ et
+G\,$\begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$.
+
+\medskip
+
+\begin{enumerate}
+\item 
+	\begin{enumerate}
+		\item %Par lecture graphique, donner les coordonnées des points I et J.
+\begin{list}{\textbullet}{}
+\item Le point I est le milieu de [EF] donc I a pour coordonnées
+$\begin{pmatrix} \frac{1}{2} \\ 0 \\ 1 \end{pmatrix}$.
+\item Le point J est le symétrique de E par rapport à F{}, donc J a pour coordonnées
+$\begin{pmatrix} 2 \\ 0 \\ 1 \end{pmatrix}$.
+\end{list}		
+				
+		\item On en déduit les coordonnées des vecteurs 
+		$\vvt{DJ}\,\begin{pmatrix} 2 \\ -1 \\ 1 \end{pmatrix}$,
+		$\vvt{BI}\,\begin{pmatrix} -\frac{1}{2} \\ 0 \\ 1 \end{pmatrix}$ et 
+		$\vvt{BG}\,\begin{pmatrix} 0 \\ 1 \\ 1 \end{pmatrix}$.
+		
+		\item %Montrer que $\vv{\text{DJ}}$ est un vecteur normal au plan (BGI).
+\begin{list}{\textbullet}{}
+\item Les vecteurs $\vvt{BI}$ et $\vvt{BG}$ ne sont pas colinéaires donc ce sont deux vecteurs directeurs du plan (BGI).
+\item $\vvt{DJ}\cdot\vvt{BI} = -1+0+1=0$ donc $\vvt{DJ}\perp\vvt{BI}$.
+\item $\vvt{DJ}\cdot\vvt{BG} = 0-1+1=0$ donc $\vvt{DJ}\perp\vvt{BG}$.
+\end{list}
+
+Donc le vecteur $\vvt{DJ}$ est orthogonal à deux vecteurs non colinéaires du plan (BGI), donc il est normal au plan (BGI).
+		
+		\item %Montrer qu'une équation cartésienne du plan (BGI) est $2x - y + z - 2 = 0$.
+\begin{list}{\textbullet}{}
+\item Le vecteur $\vvt{DJ}\,\begin{pmatrix} 2 \\ -1 \\ 1 \end{pmatrix}$ est normal au plan (BGI) donc le plan (BGI) a une équation de la forme $2x-y+z+d=0$.
+\item Le point B appartient au plan (BGI) donc les coordonnées de B vérifient l'équation du plan; donc $2x_{\text B}-y_{\text B}+z_{\text B}+d=0$, ce qui équivaut à $2-0+0+d=0$, ce qui veut dire que $d=-2$.
+\end{list}		
+
+Donc une équation cartésienne du plan (BGI) est $2x - y + z - 2 = 0$.		
+		
+		
+	\end{enumerate}
+\item On note $d$ la droite passant par F et orthogonale au plan (BGI).
+\begin{enumerate}
+\item %Déterminer une représentation paramétrique de la droite $d$.
+La droite $d$ est orthogonale au plan (BGI), et $\vvt{DJ}$ est un vecteur normal au plan (BGI), donc $\vvt{DJ}$ est un vecteur directeur de la droite $d$.
+
+Le point F appartient à la droite $d$ donc la droite $d$ est l'ensemble des points M de coordonnées $(x~;~y~;~z)$ tels que $\vvt{FM}$ et $\vvt{DJ}$ soient colinéaires.
+
+$\vvt{FM}$ et $\vvt{DJ}$ colinéaires
+$\iff \vvt{FM}=t.\vvt{DJ}
+\iff
+\left\{
+\begin{array}{r !{=} l}
+x-1 & t \times 2\\
+y-0 & t \times (-1)\\
+z-1 & t\times 1
+\end{array}
+\right .$
+
+Donc la droite $d$ a pour équation
+$\left\{
+\begin{array}{r !{=} r}
+x&1+2t\\
+y& -t\\
+z &1+ \hphantom{2}t
+\end{array}
+\right . \,,\, t \in \R$
+
+\item On considère le point L de coordonnées $\left(\frac{2}{3}~;~\frac{1}{6}~;~\frac{5}{6}\right)$.
+
+%Montrer que L est le point d'intersection de la droite $d$ et du plan (BGI).
+
+\begin{list}{\textbullet}{}
+\item Pour prouver que $\text L\in d$, on cherche $t$ pour que
+$\left\{
+\begin{array}{r !{=} r}
+\frac{2}{3}&1+2t\rule[-7pt]{0pt}{0pt}\\
+\frac{1}{6}& -t\rule[-7pt]{0pt}{0pt}\\
+\frac{5}{6} &1+ \hphantom{2}t
+\end{array}
+\right . $
+
+On trouve $t=-\dfrac{1}{6}$ donc $\text L \in d$.
+
+\item Le plan (BGI) a pour équation $2x-y+z-2=0$; 
+or $2x_{\text L}-y_{\text L}+z_{\text L}-2 = \dfrac{4}{3} - \dfrac{1}{6} +\dfrac{5}{6}-2=0$,
+donc $\text L \in \text{(BGI)}$.
+\end{list}
+
+Le point L est donc le point d'intersection de la droite $d$ et du plan (BGI).
+\end{enumerate}
+
+\item %On rappelle que le volume $V$ d'une pyramide est donné par la formule
+%\[V=\dfrac{1}{3}\times \mathcal{B}\times h\] où $\mathcal{B}$ est l'aire d'une base et $h$ la hauteur associée à cette base.
+
+\begin{enumerate}
+\item La pyramide FBGI a pour base le triangle rectangle FBG, et pour hauteur IF.
+
+\begin{list}{\textbullet}{}
+\item $\text{IF} = \dfrac{1}{2}$
+\item Le triangle rectangle FBG a pour aire 
+$\dfrac{\text{FG}\times \text{FB}}{2} = \dfrac{1}{2}$.
+\end{list}
+
+Le volume de la pyramide FBGI est donc $\mathcal{V}=\dfrac{1}{3}\times \dfrac{1}{2}\times \dfrac{1}{2} =\dfrac{1}{12}$.
+
+\item %En déduire l'aire du triangle BGI.
+La droite $d$ est orthogonale au plan (BGI) et coupe ce plan en L. Le point F appartient à la droite $d$, donc on peut dire que la distance FL est la distance du point F au plan (BGI), autrement dit c'est la hauteur de la pyramide FBGI dont le triangle BGI est la base.
+
+$\text{FL}^2 = \left (\dfrac{2}{3} -1\right )^2 + \left (\dfrac{1}{6}-0 \right )^2 + \left (\dfrac{5}{6} -1\right )^2
+= \dfrac{1}{9} + \dfrac{1}{36} + \dfrac{1}{36} = \dfrac{6}{36} = \dfrac{1}{6}$
+donc
+$\text{FL} = \dfrac{1}{\sqrt{6}}$
+
+On appelle $\mathcal{A}$ l'aire du triangle BGI.
+On exprime le volume de la pyramide FBGI:
+
+$\mathcal{V} = \dfrac{1}{3}\times \text{FL}\times \mathcal{A}
+\iff
+\dfrac{1}{12} = \dfrac{1}{3}\times \dfrac{1}{\sqrt{6}} \times \mathcal{A}
+\iff
+\dfrac{3\times \sqrt{6}}{12} = \mathcal{A}
+\iff
+\mathcal{A} = \dfrac{\sqrt{6}}{4}$
+
+L'aire du triangle BGI est égale à $ \dfrac{\sqrt{6}}{4}$.
+
+\end{enumerate}
+
+\end{enumerate}
+
+\bigskip
+

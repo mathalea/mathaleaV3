@@ -1,0 +1,51 @@
+\begin{enumerate}
+    \item 
+    \begin{enumerate}
+        \item La dépense totale de Vincent est de $48,75$~€, en utilisant le tableau, cela correspond à $9$ cartes à $1,25$~€ et $15$ cartes à $2,50$~€.(ligne 9 du tableau)
+        \item 
+        
+        \begin{tabularx}{\linewidth}{|*5{>{\centering\arraybackslash}X|}}
+        \hline
+             Nombres de cartes\newline à 1,25 €&Coût des cartes\newline  à 1,25 €&Nombres de cartes à 2,50 €&Coût des cartes à 2,50 €&Somme totale dépensée (€)\\
+        \hline
+             13&16,25&11&27,50&43,75 \\
+        \hline
+        \end{tabularx}
+        \item Les formules sont les suivantes :\\$B3=1,25*A3$\\$C3=24-A3$\\$D3=2,5*C3$\\$E3=B3+D3$
+    \end{enumerate}
+    \item Explication du raisonnement de l'élève:
+    
+    \begin{itemize}[itemsep=1em, label=$\bullet$]
+    	\item $24\times 2,50~\text{€}=60~\text{€}$ : l'élève calcule le prix des 24 cartes au prix de $2,50~\text{€}$.
+    	
+    	\item $60~\text{€}-48,75~\text{€}=11,25~\text{€}$. L'élève calcule la différence entre ce qu'il aurait dû payer si Vincent n'avait acheté que des cartes à $2,50~\text{€}$ et ce qu'il a effectivement payé.
+    	
+    	\item 1 carte à $2,50~\text{€}=$ 2 cartes à $1,25~\text{€}$: l'élève reformule l'énoncé.
+    	
+    	\item $1125\div125=9$ : l'élève souhaite calculer le quotient de 11,25 par 1,25. Il applique pour cela la propriété qui dit qu'on ne change pas la valeur d'un quotient en multipliant le dividende et le diviseur par un même nombre non nul. Le quotient est le nombre de cartes à $1,25~\text{€}$.
+
+    	\item $24-9=15$ : l'élève calcule le nombre de cartes à $2,50~\text{€}$.
+    	
+    	\item La dernière ligne est la phrase de conclusion.
+    \end{itemize}
+    
+    \item On obtient le système suivant :
+    
+    \medskip
+   $\systeme{x+y=24,1\text{,}25x+2\text{,}5y=48\text{,}75}$\\
+   
+   On peut résoudre ce système de plusieurs façons. Voici deux exemples de résolution :\\
+   
+   \textbf{Méthode 1} : on multiplie la première équation par 5 et la deuxième par 4 (pour ne travailler qu'avec des coefficients entiers pour $x$ et $y$. On obtient alors le système suivant :\\
+   $\systeme{5x+5y=120,5x+10y=195}$
+   
+   \medskip
+   On soustrait membre à membre les deux équations, on obtient alors: $5y=75$ donc $y=\dfrac{75}{5}=15$.
+   
+   On remplace $y$ par 15 dans la première équation du premier système: $x+15=24$ donc $x=24-15=9$. \\Soit 9 cartes à $1,25~\text{€}$ et 15 cartes à $2,50~\text{€}$.\\
+   
+   \textbf{Méthode 2} : on exprime $x$ en fonction de $y$ dans l'équation 1. \\
+   $x=24-y$ et on remplace dans l'équation 2.\\
+   $1,25\times (24-y)+2,5y=48,75$\\$30-1,25y+2,5y=48,75$ d'où $1,25y=18,75$ donc $y=\dfrac{18,75}{1,25}=15$.\\Puis $x=24-y=24-15=9$.
+  
+\end{enumerate}

@@ -1,0 +1,116 @@
+\textbf{EXERCICE 2 commun à tous les candidats \hfill 5 points}
+
+\medskip
+
+%On considère un cube ABCDEFGH d'arête 8 cm et de centre $\Omega$.
+%
+%Les points P, Q et R sont définis par $\vect{\text{AP}} = \dfrac{3}{4}\vect{\text{AB}},\, \vect{\text{AQ}} = ~\dfrac{3}{4}\vect{\text{AE}}$ et $\vect{\text{FR}} = \dfrac{1}{4}\vect{\text{FG}}$.
+%
+%On se place dans le repère orthonormé $\left(\text{A}~;\vect{\imath},~\vect{\jmath},~\vect{k}\right)$ avec : $\vect{\imath} = \dfrac{1}{8}\vect{\text{AB}},\, \vect{\jmath}= \dfrac{1}{8}\vect{\text{AD}}$ et 
+%
+%$\vect{k} = \dfrac{1}{8}\vect{\text{AE}}$.
+
+\begin{center}
+\psset{unit=0.65cm,arrowsize=2pt 4}
+\begin{pspicture}(11,12)
+%\psgrid
+\pspolygon(0,1.7)(6.5,0)(6.5,7.2)(0,8.9)%BCGF
+\uput[d](0,1.7){B}\uput[d](6.5,0){C}\uput[u](6.5,7.2){G}\uput[u](0,8.9){F}
+\psline(6.5,0)(10,2.6)(10,9.8)(6.5,7.2)%CDHG
+\uput[r](10,2.6){D}\uput[u](10,9.8){H}
+\psline(10,9.8)(3.5,11.5)(0,8.9)%HEF
+\uput[u](3.5,11.5){E}
+\psline[linestyle=dashed](0,1.7)(3.5,4.3)(3.5,11.5)%BAE
+\uput[d](3.5,4.3){A}\uput[r](5,5.73){$\Omega$}
+\psline[linestyle=dashed](3.5,4.3)(10,2.6)%AD
+\psline[linestyle=dashed](3.5,4.3)(6.5,7.2)%AG
+\psline[linestyle=dashed](3.5,11.5)(6.5,0)%EC
+\psdots(0.88,2.35)(3.5,9.7)(5,5.73)(1.625,8.475)
+\uput[u](0.88,2.35){P}\uput[l](3.5,9.7){Q}\uput[u](1.625,8.475){R}
+\uput[u](3.0625,3.975){$\vect{\imath}$}\uput[u](4.3125,4.0875){$\vect{\jmath}$}
+\uput[l](3.5,5.2){$\vect{k}$}
+\psline{->}(3.5,4.3)(3.0625,3.975) \psline{->}(3.5,4.3)(4.3125,4.0875) \psline{->}(3.5,4.3)(3.5,5.2)
+\end{pspicture}
+\end{center}
+
+\textbf{Partie I}
+
+\medskip
+
+\begin{enumerate}
+\item %Dans ce repère, on admet que les coordonnées du point R sont (8~;~2~;~8). 
+
+%Donner les coordonnées des points P et Q.
+On a P(6~;~0~;~0) et Q(0~;~0~;~6).
+\item %Montrer que le vecteur $\vect{n}(1~;~-5~;~1)$ est un vecteur normal au plan (PQR).
+On a $\vect{\text{PQ}}\begin{pmatrix}-6\\0\\6\end{pmatrix}$ et $\vect{\text{PR}}\begin{pmatrix}2\\2\\8\end{pmatrix}$.
+
+\starredbullet~$\vect{n} \cdot \vect{\text{PQ}} = - 6  + 0 + 6 = 0$ : les vecteurs $\vect{n}$ et $\vect{\text{PQ}}$ sont orthogonaux ;
+
+
+\starredbullet~$\vect{n} \cdot \vect{\text{PR}} = 2 - 10 + 8 = 0$ : les vecteurs $\vect{n}$ et $\vect{\text{PR}}$ sont orthogonaux.
+
+Conclusion : le vecteur $\vect{n}$ orthogonal à deux vecteurs non colinéaires du plan PQR est normal à ce plan.
+\item %Justifier qu'une équation cartésienne du plan (PQR) est $x - 5y + z - 6 = 0$.
+D'après le résultat précédent :
+
+$M(x~;~y~;~z) \in (\text{PQR}) \iff 1x - 5y + 1z  + d = 0$, avec $d \in \R$.
+
+Or P(6~;~0~;~0) $ \in (\text{PQR}) \iff 1\times 6  - 5\times 0  + 1\times 0  + d = 0 \iff d = - 6$.
+
+Donc $M(x~;~y~;~z) \in (\text{PQR}) \iff x - 5y + z  - 6 = 0$.
+\end{enumerate}
+
+\textbf{Partie II}
+
+\medskip
+
+%On note L le projeté orthogonal du point $\Omega$ sur le plan (PQR).
+%
+%\medskip
+
+\begin{enumerate}
+\item %Justifier que les coordonnées du point $\Omega$ sont (4~;~4~;~4).
+\starredbullet~Les plans (ABCD) et (EFGH) sont parallèles, donc les droites (AC) et (EG) sont parallèles ;
+
+\starredbullet~Les droites (AE) et (CG) sont perpendiculaires au plan (ABCD) , elles sont donc  parallèles.
+
+Le quadrilatère (AEGC) ayant ses côtés opposés parallèles est donc un parallélogramme  ; ses diagonales [AG] et [CE] ont donc le même milieu $\Omega$.
+
+Comme G(8~;~8~;~8), les coordonnées de $\Omega$ sont donc $\left(\dfrac{0 + 8}{2}~;~\dfrac{0 + 8}{2}~;~\dfrac{0 + 8}{2}\right) = (4~;~4~;~4)$.
+\item %Donner une représentation paramétrique de la droite $d$ perpendiculaire au plan (PQR) et passant par $\Omega$.
+La droite (d) a donc pour vecteur directeur $\vect{n}$ et contient $\Omega$, donc :
+
+$M(x~;~y~;~z) \in (d) \iff \vect{\Omega M} = t\vect{n}, \, \text{avec}\, t \in \R$, soit :
+
+$\left\{\begin{array}{l c l}
+x - 4&=&t \times 1\\
+y - 4&=&t \times (- 5)\\
+z - 4&=&t \times 1
+\end{array}\right., t\, \in \R \iff \left\{\begin{array}{l c l}
+x &=&4 + t\\
+y &=&4 - 5t\\
+z &=&4 + t
+\end{array}\right., t \, \in \R $.
+\item %Montrer que les coordonnées du point L sont $\left(\dfrac{14}{3}~;~ \dfrac{2}{3}~;~\dfrac{14}{3}\right)$
+L est le le projeté orthogonal du point $\Omega$ sur le plan (PQR) donc la droite ($\Omega$L) est perpendiculaire au plan (PQR), c'est donc la droite $(d)$.
+
+L est donc le point commun au plan (PQR) et à la droite $(d)$, ses coordonnées vérifient donc le système :
+
+$\left\{\begin{array}{l c l}
+x &=&4 + t\\
+y &=&4 - 5t\\
+z &=&4 + t\\
+ x - 5y + z  - 6 &=& 0
+\end{array}\right., t \in \R \Rightarrow 4 + t  - 5(4 - 5t) + 4 + t - 6 = 0 \iff 2 + 2t - 20 + 25t = 0 \iff 27t = 18 \iff 9 \times 3t = 9 \times 2 \iff 3t = 2 \iff t = \dfrac{2}{3}$.
+
+En reportant cette valeur de $t$ dans les trois premières équations du système, on trouve que L$\left(\dfrac{14}{3}~;~ \dfrac{2}{3}~;~\dfrac{14}{3}\right)$.
+\item %Calculer la distance du point $\Omega$ au plan (PQR).
+Puisque A est l'origine du repère on a AL$^2 = \left(\dfrac{14}{3}\right)^2 + \left(\dfrac{2}{3}\right)^2 + \left(\dfrac{14}{3}\right)^2 =  \dfrac{196 + 4 + 196}{9} = \dfrac{396}{9} = 44$.
+
+On a donc AL$ = \sqrt{44} = \sqrt{4 \times 11} = 2\sqrt{11}$.
+\end{enumerate}
+
+
+\bigskip
+

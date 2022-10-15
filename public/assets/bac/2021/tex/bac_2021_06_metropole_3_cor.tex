@@ -1,0 +1,136 @@
+
+\textbf{Commun à tous les candidats}
+
+%Cécile a invité des amis à déjeuner sur sa terrasse. Elle a prévu en dessert 
+%un assortiment de gâteaux individuels qu'elle a achetés surgelés.
+%
+%Elle sort les gâteaux du congélateur à $-19$~\textcelsius{} et les apporte sur la terrasse où la température est de  $25$~\textcelsius.
+%
+%Au bout de 10 minutes la température des gâteaux est de $1,3$~\textcelsius.
+
+\begin{center}
+\textbf{I~-- Premier modèle}
+\end{center}
+
+%On suppose que la vitesse de décongélation est constante c'est-à-dire que l'augmentation de la température est la même minute après minute.
+%
+%Selon ce modèle, déterminer quelle serait la température des gâteaux 25 minutes après leur sortie du congélateur.
+ 
+%Ce modèle semble-t-il pertinent ? 
+En 10 minutes la température a augmenté de $1,3 - ( - 19) = 1,3 + 19 = 20,3$ soit une augmentation de $2,03$~\textcelsius.
+
+Selon ce premier modèle l'augmentation de la  température serait au bout de 25 minutes de $25 \times 2,03 = 50,75$(\textcelsius).
+
+Les gâteaux seraient donc à une température de $- 19 + 50,75 = 31,75$(\textcelsius) alors que la température ambiante est de 25\textcelsius : c'est impossible, donc ce modèle n'est pas pertinent.
+
+\begin{center}
+\textbf{II~-- Second modèle}
+\end{center}
+
+On note $T_n$ la température des gâteaux  en degré Celsius, au bout de $n$ minutes après leur sortie du congélateur ; ainsi $T_0= - 19$.
+  On admet que pour modéliser l'évolution de la température, on doit avoir la relation suivante:
+ $\text{pour tout } n,\ T_{n+1}-T_n=-\np{0.06}\times \left(T_n - 25\right).$
+
+\begin{enumerate}
+\item %Justifier que, pour tout entier $n$, on a $T_{n+1}=\np{0.94}T_n + \np{1.5}$
+On a: $T_{n+1}-T_n=-\np{0.06}\times \left(T_n - 25\right) \iff T_{n+1}-T_n = -0,06T_n  + 1,5 \\
+\hspace*{1cm}\iff T_{n+1} =  T_n - 0,06T_n  + 1,5 \iff T_{n+1} =  0,94T_n  + 1,5$.
+\item ~%Calculer $T_1$ et $T_2$. On donnera des valeurs arrondies au dixième.
+\starredbullet ~ Avec $n = 0$, la relation  donne $T_1 = 0,94 \times (- 19) + 1,5 = 1,5 - 17,86 = -16,36$ ;
+
+\starredbullet ~ Avec $n = 1$, la relation  donne $T_2 = 0,94 \times (- 16,36) + 1,5 = 1,5 - \np{15,3784} = -\np{13,8784}$.
+\item On démontre par récurrence que, pour tout entier naturel $n$, on a $T_n\leqslant 25$.
+
+%En revenant à la situation étudiée, ce résultat était-il prévisible ?
+\emph{Initialisation} - $T_0 = - 19 \leqslant 25$; l'inégalité est vraie au rang $0$.
+
+\emph{Hérédité} - Supposons que pour $n \in \N$, \, $T_n\leqslant 25$ alors en multipliant par 0,94 :
+
+$0,94T_n \leqslant 0,94 \times 25$, soit $0,94T_n \leqslant  23,5$.
+
+D'où en en ajourant à chaque membre 1,5 :
+
+$0,94T_n  + 1,5 \leqslant 23,5 + 1,5$, soit finalement $T_{n+1} \leqslant 25$ : l'inégalité est vraie au rang $n$.
+
+Conclusion : l'inégalité est vraie au rang $0$ et si elle est vraie au rang $n$, elle l'est aussi au rang $n + 1$.
+
+D'après le principe de récurrence : quel que soit $n \in \N$, \, $T_n \leqslant 25$.
+
+Ceci correspond à une évidence : la température des gâteaux ne peut dépasser la température ambiante.
+\item %Étudier le sens de  variation de la suite $\left(T_n\right)$.
+On sait que quel que soit $n \in \N$, \, $T_{n+1}-T_n = -\np{0.06}\times \left(T_n - 25\right)$.
+
+D'après la question précédente $T_n \leqslant 25$ soit en multipliant par 0,06 :
+
+$0,06T_n \leqslant 0,06 \times 25$, ou $0,06T_n \leqslant 1,5$
+
+et en prenant les opposés : $- 1,5 \leqslant - 0,06T_n$ et enfin en ajoutant à chaque membre 1,5 :
+
+$0 \leqslant - 0,6T_n + 1,5$.
+
+On a donc démontré que quel que soit $n \in \N$, \, $T_{n+1}-T_n  \geqslant 0$ : la suite $\left(T_n\right)$ est donc croissante.
+\item %Démontrer que la suite $\left(T_n\right)$ est convergente.
+On a donc démontré que la suite $\left(T_n\right)$ est croissante et majorée par 25 : d'après le théorème de la convergence monotone, cette suite converge vers une limite $\ell$ telle que $\ell \leqslant 25$.
+\item On pose pour tout entier naturel $n$, $U_n = T_n - 25$.
+\begin{enumerate}
+\item %Montrer que la suite $\left(U_n\right)$ est une suite géométrique dont on précisera la raison et le premier terme $U_0$.
+Quel que soit $n \in \N$, $U_{n+1} = T_{n+1} - 25 = 0,94T_n + 1,5 - 25$ ou encore 
+
+$U_{n+1} = 0,94T_n - 23,5 = 0,94\left(T_n - \dfrac{23,5}{0,94} \right) = 0,94\left(T_n - 25 \right)$, soit finalement $T_{n+1} = 0,94U_n$: cette égalité montre que la suite $\left(U_n\right)$ est une suite géométrique de raison 0,94 et de premier terme $U_0 = T_0 - 25 = - 19 - 25 = - 44$.
+\item %En déduire que pour tout entier naturel $n$, $T_n=-44\times \np{0.94}^n+25$.
+On sait que quel soit $n \in \N$, \, $U_n = U_0 \times 0,94^n$ ou 
+$U_n = - 44 \times 0,94^n$.
+
+Or $U_n = T_n - 25 \iff T_n = U_n + 25$ ou encore $T_n = - 44 \times 0,94^n + 25$, soit finalement :
+
+\[T_n = 25 - 44 \times 0,94^n, \text{quel que soit }\, n \in \N\]
+
+\item %En déduire la limite de la suite $\left(T_n\right)$. Interpréter ce résultat dans le contexte de la situation étudiée.
+Comme $0 < 0,94 < 1$, on sait que $\displaystyle\lim_{n \to + \infty} 0,94^n = 0$, d'où par somme de limites :
+
+\[\displaystyle\lim_{n \to + \infty} T_n = \ell = 25.\]
+
+\end{enumerate}
+\item 
+	\begin{enumerate}
+		\item %Le fabricant conseille de consommer les gâteaux au bout d'une demi-heure à température ambiante après leur sortie du congélateur.
+		 
+%Quelle est alors la température atteinte par les gâteaux ? On donnera une valeur arrondie à l'entier le plus proche.
+On a: $T_{30} = 25 - 44 \times 0,94^{30} \approx 18,12$ soit environ 18\textcelsius au degré près.
+		\item %Cécile est une habituée de ces gâteaux, qu'elle aime déguster lorsqu'ils sont encore frais, à la température de 10~\textcelsius.
+		
+%Donner un encadrement entre deux entiers consécutifs du temps en minutes après lequel Cécile doit déguster son gâteau.
+La calculatrice donne $T_{17} \approx 9,63$ et $T_{18} \approx 10,55$, donc 
+Cécile devra déguster son gâteau entre la 17\up{e} et la 18\up{e} minute après sa sortie.
+\item On complète le programme suivant, écrit en langage Python, qui doit renvoyer après son exécution la plus petite valeur de l'entier $n$ pour laquelle $T_n \geqslant 10$.
+
+%\vspace{0.5cm}
+
+%\begin{minipage}[]{5cm}
+\begin{center}
+\fbox{
+\begin{tabular}[]{p{4.5cm}}
+%\hline
+def seuil() :\\
+\hspace{1.2em}n = 0\\
+\hspace{1.2em}T = $\blue - 19$\\
+\hspace{1.2em}while T $\blue < 10$\\
+\hspace{4em}T = $\blue25 - 0,94\text{T}$\\
+\hspace{4em}n = n+1\\
+\hspace{1.2em}return\\
+%\hline
+\end{tabular}
+}
+\end{center}
+%\end{minipage}
+
+%\hspace{1.5cm}
+%\begin{minipage}[]{5.6cm}
+
+%Recopier ce programme sur la copie
+%et compléter les lignes incomplètes
+%afin que le programme renvoie la valeur attendue.
+%\end{minipage}
+	\end{enumerate}
+\end{enumerate}
+ 

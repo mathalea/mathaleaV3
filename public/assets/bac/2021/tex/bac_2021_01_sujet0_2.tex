@@ -1,0 +1,61 @@
+
+\medskip
+
+On considère le cube ABCDEFGH de côté 1, le milieu I de [EF] et J le symétrique de E par rapport à F{}.
+\begin{center}
+
+\psset{xunit=4cm,yunit=4cm}
+\begin{pspicture}(-0.1,-0.1)(2,1.4)
+%\psgrid
+\psframe(0,0)(1,1)%ABFE
+\psline(1,0)(1.35,0.35)
+\psline[linestyle=dashed](0,0)(0.35,0.35)%AD
+\psline[linestyle=dashed](0.35,0.35)(1.35,0.35)%DC
+\psline[linestyle=dashed](0.35,0.35)(0.35,1.35)%DH
+\psline(1.35,0.35)(1.35,1.35)%CG
+\psline(0,1)(0.35,1.35)%EH
+\psline(0.35,1.35)(1.35,1.35)%HG
+\psline(1,1)(1.35,1.35)%FG
+\uput[dl](0,0){A}\uput[dr](1,0){B}\uput[r](1.35,0.35){C}
+\uput[l](0.35,0.35){D}\uput[l](0,1){E}\uput[ul](1.05,1){F}
+\uput[ur](1.35,1.35){G}\uput[ul](0.35,1.35){H}
+\uput[u](0.5,1){I}
+%\psdots[dotstyle=Bar,dotscale =1.8](0.5,1)(2,1)
+\psline[linewidth=0.8pt,linecolor=lightgray] (1,1)(2,1)\rput(2.05,1){J}
+\psdots(0,0)(1,1)(0,1)(1,0)(1.35,0.35)(0.35,0.35)(0.5,1)(2,1)(1.35,1.35)(0.35,1.35)%AFEBCDIJGH
+\end{pspicture}
+
+\end{center}
+
+\medskip
+
+Dans tout l'exercice, l'espace est rapporté au repère orthonormé $\left(\text{A}~;~\vv{\text{AB}},~\vv{\text{AD}},~\vv{\text{AE}}\right)$.
+
+\medskip
+
+\begin{enumerate}
+\item 
+	\begin{enumerate}
+		\item Par lecture graphique, donner les coordonnées des points I et J.
+		\item En déduire les coordonnées des vecteurs $\vv{\text{DJ}}$ , $\vv{\text{BI}}$ et $\vv{\text{BG}}$.
+		\item Montrer que $\vv{\text{DJ}}$ est un vecteur normal au plan (BGI).
+		\item Montrer qu’une équation cartésienne du plan (BGI) est $2x - y + z - 2 = 0$.
+	\end{enumerate}
+\item On note $d$ la droite passant par F et orthogonale au plan (BGI).
+	\begin{enumerate}
+		\item Déterminer une représentation paramétrique de la droite $d$.
+		\item On considère le point L de coordonnées $\left(\frac{2}{3}~;~\frac{1}{6}~;~\frac{5}{6}\right)$.
+
+Montrer que L est le point d’intersection de la droite $d$ et du plan (BGI).
+	\end{enumerate}
+\item On rappelle que le volume $V$ d'une pyramide est donné par la formule
+\[V=\dfrac{1}{3}\times \mathcal{B}\times h\]
+où $\mathcal{B}$ est l'aire d’une base et $h$ la hauteur associée à cette base.
+\begin{enumerate}
+\item Calculer le volume de la pyramide FBGI.
+\item En déduire l'aire du triangle BGI.
+\end{enumerate}
+\end{enumerate}
+
+\bigskip
+

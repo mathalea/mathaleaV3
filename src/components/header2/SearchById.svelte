@@ -12,7 +12,7 @@
   $: {
     listeIdPourLesChips = [];
     for (const ex of $exercicesParams) {
-      listeIdPourLesChips.push(ex.id);
+      listeIdPourLesChips.push(ex.id ?? ex.uuid);
     }
     listeIdPourLesChips = listeIdPourLesChips;
   }

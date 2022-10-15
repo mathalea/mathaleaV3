@@ -1,0 +1,77 @@
+\subsection*{Partie A}
+\begin{enumerate}
+\item On sait que $ABCD$ est un rectangle de centre $L$.
+
+Si un quadrilatère est un rectangle alors ses diagonales se coupent en leur milieu.
+
+Donc $AL =\dfrac{AC}{2}$. 
+
+On calcule donc la longueur $AC$ :
+
+On sait que $ADC$ est un triangle rectangle en $D$. Donc d’après le théorème de Pythagore :
+
+$AC^2 = AD^2 + CD^2$ donc $AC^2 = 7^2+ 6^2= 85$ d'où $AC = \sqrt{85}~\text{cm}$ et $AL = \dfrac{\sqrt{85}}{2}~\text{cm} \approx 4,6~\text{cm}$.
+
+\item $\phantom{X}$
+
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw (0,5)--(4.6,5);
+\draw (4.6,5)--(4.6,1);
+\draw (4.6,1)--(0,5);
+\draw[color=gray,fill=gray,fill opacity=0.1] (4.4,5) -- (4.4,4.8) -- (4.6,4.8) -- (4.6,5) -- cycle; 
+\begin{scriptsize}
+\draw (-0.1,5.1) node {$A$};
+\draw (2.3,5.1) node {$4,6$};
+\draw (4.7,5.1) node {$L$};
+\draw (4.7,3) node {$4$};
+\draw (4.7,0.9) node {$O$};
+\end{scriptsize}
+\end{tikzpicture}
+
+\item
+\begin{enumerate}
+	\item $V_{\text{pyramide}} = \dfrac{1}{3}\times \text{aire de $ABCD$} \times OL = \dfrac{1}{3}\times 6 \times 7 \times 4~\text{cm}^3=56~\text{cm}^3$
+	\item $V_{\text{pavé creusé}} = V_{\text{pavé droit}} - V_{\text{pyramide}} = 5\times 6\times 7~\text{cm}^3 - 56~\text{cm}^3$
+	
+	$V_{\text{pavé creusé}} =  210~\text{cm}^3 - 56~\text{cm}^3=154~\text{cm}^3$
+\end{enumerate}
+\end{enumerate}
+
+\subsection*{Partie B}
+
+\begin{enumerate}
+\item $V_{\text{pyramide}} = \dfrac{1}{3}\times \text{aire de $ABCD$} \times OL = \dfrac{1}{3}\times 6 \times 7 \times x~\text{cm}^3=14x~\text{cm}^3$
+\item $V_{\text{socle}} = V_{\text{pavé droit}} - V_{\text{pyramide}} = 5\times 6\times 7~\text{cm}^3 - 14x~\text{cm}^3$
+
+$V_{\text{socle}} = 210 - 14x$
+
+\item La pyramide en verre $OEFGH$ est un agrandissement de la pyramide $OABCD$ de rapport $2$. Le volume de la pyramide $OEFGH$ est donc $2^3$ soit $8$ fois plus grand que le volume de la pyramide $OABCD$.
+
+Ainsi, $V_{OEFGH}= 8 \times 14x = 112x$
+
+\item On cherche $x$ tel que :
+\begin{align*}
+112x &=2\times(210-14x)\\
+112x &= 420-28x\\
+140x &= 420\\
+x    &= \dfrac{420}{140}\\
+x    &=3
+\end{align*} 
+\item 
+\begin{enumerate}
+\item $D_2$ est une droite qui passe par l'origine elle est donc la représentation graphique d’une fonction linéaire. $D_2$ représente la fonction $g$ qui est une fonction linéaire.
+
+$D_1$ est une droite qui ne passe par l'origine, elle est donc la représentation graphique d’une fonction affine non linéaire. $D_1$ représente la fonction $f$ qui est une fonction affine non linéaire.
+\item Pour $1,67\leq x \leq 5$, le volume du socle en bois est inférieur au volume de la pyramide en verre.
+\item On cherche x tel que :
+\begin{align*}
+112x &\geq 210-14x\\
+126x &\geq 210\\
+x 	 &\geq \dfrac{210}{126}\\
+x    &\geq \dfrac{5}{3}
+\end{align*} 
+Il est de plus précisé dans l'énoncé que $x$ est un nombre compris entre 0 et 5 donc $x$ est solution du problème si 
+$\dfrac{5}{3}\geq x \geq 5$.
+\end{enumerate}
+\end{enumerate}
+

@@ -1,0 +1,67 @@
+\textbf{EXERCICE 2 commun à tous les candidats \hfill 5 points}
+
+\medskip
+
+On considère un cube ABCDEFGH d'arête 8 cm et de centre $\Omega$.
+
+Les points P, Q et R sont définis par $\vect{\text{AP}} = \dfrac{3}{4}\vect{\text{AB}},\, \vect{\text{AQ}} = ~\dfrac{3}{4}\vect{\text{AE}}$ et $\vect{\text{FR}} = \dfrac{1}{4}\vect{\text{FG}}$.
+
+On se place dans le repère orthonormé $\left(\text{A}~;\vect{\imath},~\vect{\jmath},~\vect{k}\right)$ avec : $\vect{\imath} = \dfrac{1}{8}\vect{\text{AB}},\, \vect{\jmath}= \dfrac{1}{8}\vect{\text{AD}}$ et 
+
+$\vect{k} = \dfrac{1}{8}\vect{\text{AE}}$.
+
+\begin{center}
+\psset{unit=0.85cm,arrowsize=2pt 4}
+\begin{pspicture}(11,12)
+%\psgrid
+\pspolygon(0,1.7)(6.5,0)(6.5,7.2)(0,8.9)%BCGF
+\uput[d](0,1.7){B}\uput[d](6.5,0){C}\uput[u](6.5,7.2){G}\uput[u](0,8.9){F}
+\psline(6.5,0)(10,2.6)(10,9.8)(6.5,7.2)%CDHG
+\uput[r](10,2.6){D}\uput[u](10,9.8){H}
+\psline(10,9.8)(3.5,11.5)(0,8.9)%HEF
+\uput[u](3.5,11.5){E}
+\psline[linestyle=dashed](0,1.7)(3.5,4.3)(3.5,11.5)%BAE
+\uput[d](3.5,4.3){A}\uput[r](5,5.73){$\Omega$}
+\psline[linestyle=dashed](3.5,4.3)(10,2.6)%AD
+\psline[linestyle=dashed](3.5,4.3)(6.5,7.2)%AG
+\psline[linestyle=dashed](3.5,11.5)(6.5,0)%EC
+\psdots(0.88,2.35)(3.5,9.7)(5,5.73)(1.625,8.475)
+\uput[u](0.88,2.35){P}\uput[l](3.5,9.7){Q}\uput[u](1.625,8.475){R}
+\uput[u](3.0625,3.975){$\vect{\imath}$}\uput[u](4.3125,4.0875){$\vect{\jmath}$}
+\uput[l](3.5,5.2){$\vect{k}$}
+\psline{->}(3.5,4.3)(3.0625,3.975) \psline{->}(3.5,4.3)(4.3125,4.0875) \psline{->}(3.5,4.3)(3.5,5.2)
+\end{pspicture}
+\end{center}
+
+\textbf{Partie I}
+
+\medskip
+
+\begin{enumerate}
+\item Dans ce repère, on admet que les coordonnées du point R sont (8~;~2~;~8). 
+
+Donner les coordonnées des points P et Q.
+\item Montrer que le vecteur $\vect{n}(1~;~-5~;~1)$ est un vecteur normal au plan (PQR).
+\item Justifier qu'une équation cartésienne du plan (PQR) est $x - 5y + z - 6 = 0$.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie II}
+
+\medskip
+
+On note L le projeté orthogonal du point $\Omega$ sur le plan (PQR).
+
+\medskip
+
+\begin{enumerate}
+\item Justifier que les coordonnées du point $\Omega$ sont (4~;~4~;~4).
+\item Donner une représentation paramétrique de la droite $d$ perpendiculaire au plan (PQR) et passant par $\Omega$.
+\item Montrer que les coordonnées du point L sont $\left(\dfrac{14}{3}~;~ \dfrac{2}{3}~;~\dfrac{14}{3}\right)$
+\item Calculer la distance du point $\Omega$ au plan (PQR).
+\end{enumerate}
+
+
+\bigskip
+

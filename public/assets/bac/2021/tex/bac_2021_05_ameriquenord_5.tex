@@ -1,0 +1,59 @@
+ 
+\smallskip
+
+\begin{tabular}{|l|}\hline
+Principaux domaines abordés : \\ 
+\hspace{1cm}$\bullet~~$Fonction logarithme népérien\\
+\hspace{1cm}$\bullet~~$Convexité\\ \hline
+\end{tabular}
+
+\medskip
+
+Dans le plan muni d'un repère, on considère ci-dessous la courbe $\mathcal{C}_f$ représentative d'une fonction $f$, deux fois dérivable sur l'intervalle $]0~;~ +\infty[$. 
+
+La courbe $\mathcal{C}_f$ admet une tangente horizontale $T$ au point A(1~;~4).
+
+\begin{center}
+\psset{unit=1.25cm}
+\begin{pspicture*}(-0.5,-0.8)(6.4,4.4)
+\psgrid[gridlabels=0pt,subgriddiv=5,gridcolor=gray](0,-1)(9,5)
+\psaxes[linewidth=1.25pt]{->}(0,0)(0,-0.8)(6.4,4.4)
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=red]{0.1}{6.4}{x ln 1 add 4 mul x div}
+\psline[linewidth=1.25pt](0,4)(6.4,4)\uput[u](5.8,4){$T$}
+\uput[u](5.8,1.9){\red $\mathcal{C}_f$}
+\uput[u](1,4){A}
+\end{pspicture*}
+\end{center}
+
+\medskip
+
+\begin{enumerate}
+\item Préciser les valeurs $f(1)$ et $f'(1)$.
+\end{enumerate}
+
+On admet que la fonction $f$ est définie pour tout réel $x$ de l'intervalle $]0~;~ +\infty[$ par:
+
+\[f(x) = \dfrac{a + b \ln x}{x} \,\, 
+\text{où }\, a \text{ et}\, b \text{ sont deux nombres réels}.\]
+
+\begin{enumerate}[resume]
+\item Démontrer que, pour tout réel $x$ strictement positif, on a :
+
+\[f'(x) = \dfrac{b - a - b\, \ln x}{x^2}.\]
+
+\item En déduire les valeurs des réels $a$ et $b$.
+\end{enumerate}
+
+Dans la suite de l'exercice, on admet que la fonction $f$ est définie pour tout réel $x$ de l'intervalle $]0~;~ +\infty[$ par:
+
+\[f(x) = \dfrac{4 + 4\ln x}{x}.\]
+
+\begin{enumerate}[resume]
+\item Déterminer les limites de $f$ en $0$ et en $+\infty$.
+\item Déterminer le tableau de variations de $f$ sur l'intervalle $]0~;~ +\infty[$. 
+\item Démontrer que, pour tout réel $x$ strictement positif, on a :
+
+\[f''(x) = \dfrac{- 4 + 8\ln x}{x^3}.\]
+
+\item Montrer que la courbe $\mathcal{C}_f$ possède un unique point d'inflexion B dont on précisera les coordonnées.
+\end{enumerate}

@@ -1,0 +1,161 @@
+\textbf{\large Exercice B}
+
+\medskip
+
+\begin{tabularx}{\linewidth}{|X|}\hline
+\textbf{Principaux domaines abordés : Fonction logarithme; convexité}
+\\ \hline
+\end{tabularx}
+
+\medskip
+
+On considère la fonction $f$ définie sur l'intervalle $]0~;~ +\infty[$ par :
+$f(x) = x + 4 - 4\ln (x) - \dfrac{3}{x}$,
+
+où ln désigne la fonction logarithme népérien.
+
+On note $\mathcal{C}$ la représentation graphique de $f$ dans un repère orthonormé.
+
+\medskip
+
+\begin{enumerate}
+\item On détermine la limite de la fonction $f$ en $+\infty$.
+
+$f(x) = x\left ( 1- 4\dfrac{\ln(x)}{x}\right ) + 4 -  \dfrac{3}{x}$
+
+$\left.
+\begin{array}{@{} r}
+\ds\lim_{x\to +\infty} \dfrac{\ln(x)}{x} = 0 \implies \ds\lim_{x\to +\infty}  x\left ( 1- 4\dfrac{\ln(x)}{x}\right ) + 4 = +\infty\\
+\ds\lim_{x\to +\infty} \dfrac{3}{x}= 0
+\end{array}
+\right \rbrace
+\implies
+\ds\lim_{x\to +\infty} f(x) = +\infty$
+
+\item On admet que la fonction $f$ est dérivable sur $]0~;~ +\infty[$ et on note $f'$ sa fonction dérivée.
+
+%Démontrer que, pour tout nombre réel $x > 0$, on a : $f'(x) = \dfrac{x^2 - 4x + 3x^2}{x^2}.$
+$f'(x)= 1 + 0 - \dfrac{4}{x} +\dfrac{3}{x^2} = \dfrac{x^2 - 4x +3}{x^2}$
+
+\item
+	\begin{enumerate}
+		\item %Donner le tableau de variations de la fonction $f$ sur l'intervalle $]0~;~ +\infty[$. 
+		
+%On y fera figurer les valeurs exactes des extremums et les limites de $f$ en $0$ et en $+ \infty$. 
+%		
+%On admettra que $\displaystyle\lim_{x \to 0} f(x) = - \infty$.
+On cherche le signe de $f'(x)$ sur $]0~;~+\infty[$:
+
+$x^2-4x+3 = (x-1)(x-3)$
+
+\begin{center}
+{
+\renewcommand{\arraystretch}{1.5}
+\def\esp{\hspace*{2cm}}
+$\begin{array}{|c | l *{6}{c} |} 
+\hline
+x  & 0 & \esp & 1 & \esp & 3 & \esp & +\infty \\
+\hline
+x^2-4x+3 &  & \pmb{+} &  \vline\hspace{-2.7pt}{0} & \pmb{-} & \vline\hspace{-2.7pt}{0} & \pmb{-} &\\
+\hline
+x^2 & 0  & \pmb{+} &  \vline\hspace{-2.7pt}{\phantom 0} & \pmb{+} & \vline\hspace{-2.7pt}{\phantom 0} & \pmb{+} &\\
+\hline
+f'(x) & \vline\;\vline  & \pmb{+} &  \vline\hspace{-2.7pt}{0} & \pmb{-} & \vline\hspace{-2.7pt}{0} & \pmb{+} & \\
+\hline
+\end{array}$
+}
+\end{center}
+
+$f(1)=1+4-4\ln(1)-\dfrac{3}{1}=2$;
+$f(3) = 3+4-4\ln(3) - \dfrac{3}{3}=6-4\ln(3)\approx 1,69$
+
+On établit le tableau des variations de $f$ en admettant que que $\displaystyle\lim_{x \to 0} f(x) = - \infty$:
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.3}
+\psset{nodesep=3pt,arrowsize=2pt 3}  % paramètres
+\def\esp{\hspace*{1.5cm}}% pour modifier la largeur du tableau
+\def\hauteur{20pt}% mettre au moins 20pt pour augmenter la hauteur
+$\begin{array}{|c|l *5{c} c|}
+\hline
+ x & 0 & \esp & 1 & \esp & 3 & \esp & +\infty \\
+ \hline
+f'(x) & \vline\;\vline\; &  \pmb{+} & \vline\hspace{-2.7pt}0 & \pmb{-} & \vline\hspace{-2.7pt}0 & \pmb{+} & \\  
+\hline
+  & \vline\;\vline\; &  & \Rnode{max1}{2} & & & &  \Rnode{max2}{+\infty} \\
+f (x) &\vline\;\vline\; &  & & & & & \rule{0pt}{\hauteur}\\
+ &\vline\;\vline\; \Rnode{min1}{-\infty} & & & & \Rnode{min2}{6-4\ln(3)\approx 1,61} & & \rule{0pt}{\hauteur} 
+\ncline{->}{min1}{max1} 
+\ncline{->}{max1}{min2}
+\ncline{->}{min2}{max2} \\
+\hline
+\end{array}$
+}
+\end{center}
+
+		\item %Par simple lecture du tableau de variations, préciser le nombre de solutions de l'équation $f(x) = \dfrac{5}{3}$.
+$\bullet~~$$\dfrac{5}{3}\in ]-\infty~;~2]$ donc l'équation $f(x) =\dfrac{5}{3}$ admet une unique solution dans l'intervalle $]0~;~1]$.
+
+$\bullet~~$$\dfrac{5}{3} \approx 1,67$ et $f(3) = 6 - 4\ln 3 \approx 1,61$ donc $\dfrac{5}{3} \in [6 - 4\ln 3~;~2]$, donc l'équation $f(x)=\dfrac{5}{3}$ admet une solution unique dans l'intervalle $]1~;~3[$.
+
+$\bullet~~$$\dfrac{5}{3} \in [6 - 4\ln 3~;~+ \infty[$, donc $f(x) =\dfrac{5}{3}$ admet une unique solution dans l'intervalle $]0~;~1]$.
+
+Conclusion : l'équation $f(x)=\dfrac{5}{3}$ admet donc trois solutions dans $]0~;~+\infty[$.
+
+Voir cidessus les valeurs approchées des solutions.
+	\end{enumerate}
+
+\begin{center}
+\psset{unit=1cm,arrowsize=2pt 3}
+\begin{pspicture*}(-1,-4)(11,5)
+\psgrid[gridlabels=0pt,subgriddiv=1,gridwidth=0.1pt]
+\psaxes[linewidth=1.25pt,labelFontSize=\scriptstyle]{->}(0,0)(-1,-3.95)(11,4.95)
+\psaxes[linewidth=1.25pt,labelFontSize=\scriptstyle](0,0)(-1,-3.95)(11,4.95)
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=red]{0.1}{10}{x 4 add x ln  4 mul sub 3 x div sub}
+\psline[linecolor=blue,linewidth=0.25pt](0,1.6667)(11,1.6667)
+\psline[linewidth=0.5pt,linestyle=dashed,ArrowInside=->]{->}(0,1.667)(0.61,1.667)(0.61,0)
+\psline[linewidth=0.5pt,linestyle=dashed,ArrowInside=->]{->}(0.61,1.667)(2.28,1.667)(2.28,0)
+\psline[linewidth=0.5pt,linestyle=dashed,ArrowInside=->]{->}(2.28,1.667)(3.78,1.667)(3.78,0)
+\uput[d](0.61,0){\footnotesize $\approx 0,61$}\uput[d](2.28,0){\footnotesize $\approx 2,28$}\uput[d](3.78,0){\footnotesize $\approx 3,78$}\uput[u](9.5,1.667){\blue $y = \frac{5}{3}$}
+\uput[u](9.5,4.25){\red $\mathcal{C}_f$}
+\end{pspicture*}
+\end{center}
+\item Pour étudier la convexité de  $f$, on détermine le signe de $f''$, la dérivée seconde de $f$.
+
+%On justifiera que la courbe $\mathcal{C}$ admet un unique point d'inflexion, dont on précisera les coordonnées.
+
+$f'(x)=\dfrac{x^2-4x+3}{x^2}$ donc
+
+$f''(x) = \dfrac{(2x-4)\times x^2 - (x^2-4x+3)\times 2x}{x^4}
+= \dfrac{(2x^2 -4x -2x^2 +8x -6)\times x}{x^4}
+=\dfrac{4x-6}{x^3}$
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\def\esp{\hspace*{2cm}}
+$\begin{array}{|c | l *{4}{c} |} 
+\hline
+x  & 0 & \esp & \frac{3}{2} & \esp  & +\infty \\
+\hline
+4x-6 &  & \pmb{-} &  \vline\hspace{-2.7pt}{0} & \pmb{+} &    \\
+\hline
+x^3 &0  & \pmb{+} &  \vline\hspace{-2.7pt}{\phantom 0} & \pmb{+} &    \\
+\hline
+f''(x) &\vline\;\vline  & \pmb{-} &  \vline\hspace{-2.7pt}{0} & \pmb{+} &    \\
+\hline
+ &\vline\;\vline  & f \text{ concave} &  \vline\hspace{-2.7pt}{\phantom0} & f \text{ convexe} &    \\
+\hline
+\end{array}$
+\renewcommand{\arraystretch}{1}
+\end{center}
+
+La dérivée seconde s'annule et change de signe pour $x=\dfrac{3}{2}$ donc la courbe $\mathcal{C}_f$ admet un unique point d'inflexion d'abscisse $\dfrac{3}{2}$.
+
+$f\left (\dfrac{3}{2}\right) = \dfrac{3}{2} +4 -4\ln\left (\dfrac{3}{2}\right ) -\dfrac{3}{\frac{3}{2}}
+= \dfrac{11}{2} -4\ln\left (\dfrac{3}{2}\right ) -2
+= \dfrac{7}{2} -4\ln\left (\dfrac{3}{2}\right ) $
+
+La courbe $\mathcal{C}$ admet un unique point d'inflexion de coordonnées
+$\left ( \dfrac{3}{2}~;~\dfrac{7}{2} -4\ln\left (\dfrac{3}{2}\right )\right )$.
+ 
+\end{enumerate}

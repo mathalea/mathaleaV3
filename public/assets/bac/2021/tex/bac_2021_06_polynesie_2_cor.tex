@@ -1,0 +1,82 @@
+
+\textbf{Commun à tous les candidats}
+
+\medskip
+
+%Un test est mis au point pour détecter une maladie dans un pays.
+%
+%Selon les autorités sanitaires de ce pays, 7\,\% des habitants sont infectés par cette maladie. 
+%
+%Parmi les individus infectés, 20\,\% sont déclarés négatifs.
+%
+%Parmi les individus sains, 1\,\% sont déclarés positifs.
+%
+%Une personne est choisie au hasard dans la population.
+%
+%On note :
+%
+%\setlength\parindent{9mm}
+%\begin{itemize}
+%\item[$\bullet~~$]$M$ l'évènement : \og la personne est infectée par la maladie\fg{} ;
+%\item[$\bullet~~$]$T$ l'évènement: \og le test est positif \fg.
+%\end{itemize}
+%\setlength\parindent{0mm}
+
+\begin{enumerate}
+\item On construit un arbre pondéré modélisant la situation proposée:
+\begin{center}
+\pstree[treemode=R,nodesepB=3pt,levelsep=2.75cm]{\TR{}}
+{\pstree{\TR{$M~~$}\taput{0,07}}
+	{\TR{$T$} \taput{0,8}
+	\TR{$\overline{T}$}\tbput{0,2} 
+	}
+\pstree{\TR{$\overline{M}~~$}\tbput{0,93}}
+	{\TR{$T$} \taput{0,01}
+	\TR{$\overline{T}$}\tbput{0,99} 
+	}
+}
+\end{center}
+\item 
+	\begin{enumerate}
+		\item %Quelle est la probabilité pour que la personne soit infectée par la maladie et que son test soit positif?
+On a $P(M \cap T) = P(M) \times P_M(T) = 0,07 \times 0,8 = 0,056$.
+		\item %Montrer que la probabilité que son test soit positif est de \np{0,0653}.
+		On a de même $P\left(\overline{M} \cap T\right) = P\left(\overline{M}\right) \times P_{\overline{M}}(T) = 0,93 \times 0,01 = \np{0,0093}$.
+		
+D'après la loi des probabilités totales :
+		
+$P(T) = P(M \cap T) + P\left(\overline{M} \cap T\right) = 0,056 + \np{0,0093} = \np{0,0653}$.
+	\end{enumerate}
+\item On calcule $P_T(M) = \dfrac{P(T \cap M)}{P(T)} = \dfrac{P(M \cap T)}{P(T)} = \dfrac{0,056}{\np{0,0653}} \approx \np{0,85758}$ soit $0,86$ à $10^{-2}$ près.
+%On sait que le test de la personne choisie est positif. 
+
+%Quelle est la probabilité qu'elle soit infectée ?
+
+%On donnera le résultat sous forme approchée à $10^{-2}$ près.
+
+\item %On choisit dix personnes au hasard dans la population. La taille de la population de ce pays permet d'assimiler ce prélèvement à un tirage avec remise.
+
+%On note $X$ la variable aléatoire qui comptabilise le nombre d'individus ayant un test positif parmi les dix personnes.
+	\begin{enumerate}
+		\item %Quelle est la loi de probabilité suivie par $X$ ? Préciser ses paramètres.
+$X$ suit une loi binomiale de paramètres $n = 10$ avec $p = \np{0,0653}$.
+		\item %Déterminer la probabilité pour qu'exactement deux personnes aient un test positif.
+
+%On donnera le résultat sous forme approchée à $10^{-2}$ près.
+On a $P(X = 2) = \binom{10}{2}\times \np{0,0653}^2 \times (1 - \np{0,0653})^{10 - 2} = \binom{10}{2}\times \np{0,0653}^2 \times 0,9347^{8} =$
+
+$ 45 \times \np{0,0653}^2 \times 0,9347^{8} \approx \np{0,1118}$, soit $0,11$ à $10^{-2}$ près.
+	\end{enumerate}
+\item %Déterminer le nombre minimum de personnes à tester dans ce pays pour que la probabilité qu'au moins une de ces personnes ait un test positif, soit supérieure à 99\,\%.
+On a $P(X \geqslant 1) = 1 - P(X = 0) = 1 - \binom{n}{0} \times \np{0,0653}^0 \times (1 - \np{0,0653})^{n} = 1 - \np{0,9347}^n$ et on veut que :
+
+$P(X \geqslant 1) > 0,99 \iff 1 - \np{0,9347}^{n} > 0,99 \iff 0,01 > \np{0,9347}^{n}$ soit en prenant le logarithme népérien :
+
+$\ln 0,01 > n\ln \np{0,9347} \iff \dfrac{\ln 0,01}{\ln \np{0,9347}}< n$.
+
+Or $\dfrac{\ln 0,01}{\ln \np{0,9347}} \approx 68,2$. 
+
+Il faut donc tester au moins 69 personnes au minimum.
+\end{enumerate}
+
+

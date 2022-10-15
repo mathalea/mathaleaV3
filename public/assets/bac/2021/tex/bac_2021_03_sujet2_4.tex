@@ -1,0 +1,52 @@
+
+\medskip
+
+\begin{tabularx}{\linewidth}{|X|}\hline
+\textbf{Principaux domaines abordés: Fonction exponentielle; dérivation.}\\ \hline
+\end{tabularx}
+
+\bigskip
+
+\parbox{0.35\linewidth}{Le graphique ci-contre représente, dans un repère orthogonal, les courbes 
+$\mathcal{C}_f$ et $\mathcal{C}_g$ des fonctions $f$ et $g$ définies sur $\R$ par :
+
+\[f(x) = x^2\text{e}^{-x}\quad \text{et} \quad g(x) = \text{e}^{-x}.\]}
+\hfill \parbox{0.64\linewidth}{\psset{xunit=1.8cm,yunit=0.9cm}
+\begin{pspicture*}(-2.5,-1)(2.5,9)
+\multido{\n=0+2}{5}{\psline[linewidth=0.1pt](-2.5,\n)(2.5,\n)}
+\multido{\n=-2+1}{5}{\psline[linewidth=0.1pt](\n,-1)(\n,9)}
+\psaxes[linewidth=1.25pt,labelFontSize=\scriptstyle,Dy=2]{->}(0,0)(-2.5,-1)(2.5,9)
+\psplot[linewidth=1.25pt,linecolor=blue,plotpoints=2000]{-2.5}{2.5}{x dup mul 2.71828 x exp div}
+\psplot[linewidth=1.25pt,linecolor=red,plotpoints=2000]{-2.5}{2.5}{2.71828 x neg exp}
+\psline[linestyle=dashed,linewidth=1.25pt](-0.6,-1)(-0.6,9)
+\psdots(-0.6,0.656)(-0.6,1.822)
+\uput[r](-0.6,0.656){\footnotesize $N$}\uput[r](-0.6,1.822){\footnotesize $M$}
+\uput[r](-1.4,7){\blue $\mathcal{C}_f$}\uput[l](-2.1,7.4){\red $\mathcal{C}_g$}
+\end{pspicture*}}
+
+\textbf{La question 3 est indépendante des questions 1 et 2.}
+
+\medskip
+
+\begin{enumerate}
+\item 
+	\begin{enumerate}
+		\item Déterminer les coordonnées des points d'intersection de $\mathcal{C}_f$ et $\mathcal{C}_g$.
+		\item Étudier la position relative des courbes $\mathcal{C}_f$ et $\mathcal{C}_g$.
+	\end{enumerate}
+\item  Pour tout nombre réel $x$ de l'intervalle $[-1~;~1]$, on considère les points $M$ de coordonnées $(x~;~f(x))$ et $N$ de coordonnées $(x~;~g(x))$, et on note $d(x)$ la distance $MN$. On admet que : $d(x)= \text{e}^{-x} - x^2\text{e}^{-x}$.
+
+On admet que la fonction $d$ est dérivable sur l'intervalle $[-1~;~1]$ et on note $d'$ sa fonction dérivée.
+	\begin{enumerate}
+		\item Montrer que $d'(x) = \text{e}^{-x}\left(x^2 - 2x - 1\right)$. 
+		\item En déduire les variations de la fonction $d$ sur l'intervalle $[-1~;~1]$.
+		\item Déterminer l'abscisse commune $x_0$ des points $M_0$ et $N_0$ permettant d'obtenir une
+distance $d\left(x_0\right)$ maximale, et donner une valeur approchée à $0,1$ près de la distance $M_0N_0$.
+	\end{enumerate}
+\item  Soit $\Delta$ la droite d'équation $y = x + 2$.
+
+On considère la fonction $h$ dérivable sur $\R$ et définie par: $h(x) = \text{e}^{-x} - x - 2$.
+
+En étudiant le nombre de solutions de l'équation $h(x) = 0$, déterminer le nombre de points d'intersection de la droite $\Delta$ et de la courbe $\mathcal{C}_g$.
+\end{enumerate}
+

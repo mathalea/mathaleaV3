@@ -1,0 +1,80 @@
+\textbf{\large Exercice 2 \hfill 5 points}
+
+\bigskip
+
+Soit $f$ la fonction définie sur $\R$ par $f(x)=(2x+1)\e^{x}$.
+
+Sur le graphique ci-dessous, sont tracées la courbe $\mathcal{C}_f$ représentative de la fonction $f$, et la droite $T$, tangente à cette courbe au point d'abscisse 0.
+
+\begin{center}
+\psset{xunit=0.6cm, yunit=1cm, runit=1cm}
+\def\xmin {-6}   \def\xmax {6} \def\ymin {-2.1}   \def\ymax {4}
+\begin{pspicture*}(\xmin,\ymin)(\xmax,\ymax)
+%\psgrid[subgriddiv=1,  gridlabels=0, gridcolor=lightgray] 
+\psaxes[arrowsize=3pt 2, ticks=none, labels=none]{->}(0,0)(\xmin,\ymin)(\xmax,\ymax)[$x$,-120][$y$,210] 
+\psline(1,-0.1)(1,0.1) \psline(-0.1,1)(0.1,1)
+\uput[dl](0,0){$0$}
+%\psaxes[ linewidth=1.8pt]{->}(0,0)(1,1) 
+%\uput[d](0.5,0){$\vec{\imath}$} \uput[l](0,0.5){$\vec{\jmath}$}
+\uput[d](1,0){1} \uput[l](0,1){1}
+\def\f{2 x mul 1 add 2.7183 x exp mul}                           % définition de la fonction
+\psplot[linecolor=blue,plotpoints=1000,linewidth=1.25pt]{\xmin}{\xmax}{\f}
+\uput[dl](-2,-0.41){\blue $\mathcal{C}_f$}
+\psplot[linecolor=red,plotpoints=1000,linewidth=1pt]{\xmin}{\xmax}{3 x mul 1 add}
+\uput[l](-0.9,-1.7){\red $T$}
+\end{pspicture*}
+\end{center}
+
+\begin{enumerate}
+\item  Les  points d'intersection de la courbe $\mathcal{C}_f$  avec l'axe des abscisses ont pour ordonnées 0 et pour abscisses les solutions de l'équation $f(x)=0$.
+
+Pour tout réel $x$, $\e^{x}>0$ donc $f(x)=0 \iff 2x+1=0 \iff x = -\frac{1}{2}$.
+
+Le point d'intersection de la courbe $\mathcal{C}_f$  avec l'axe des abscisses a pour coordonnées $\left ( -\frac{1}{2}~;~0\right )$.
+
+\item On utilise la formule de dérivation d'un produit: $(uv)'=u'v+uv'$.
+
+Pour tout $x$ réel,  $f'(x)= 2\times \e^{x} + (2x+1)\times \e^{x} = (2+2x+1)\e^{x} = (2x+3)\e^{x}$.
+
+\item On dresser le tableau de signes de $f'(x)$ sur $\R$, puis on va préciser les variations de $f$ sur $\R$.
+
+Pour tout réel $x$, $\e^{x}>0$ donc $f'(x)$ est du signe de $2x+3$ qui s'annule et change de signe pour $x=-\frac{3}{2}$.
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.3}
+\psset{nodesep=3pt,arrowsize=2pt 3}  % paramètres
+\def\esp{\hspace*{2.5cm}}% pour modifier la largeur du tableau
+\def\hauteur{0pt}% mettre au moins 20pt pour augmenter la hauteur
+$\begin{array}{|c| *4{c} c|}
+\hline
+ x &-\infty  & \esp & -\frac{3}{2} & \esp & +\infty \\
+  \hline
+2x+3 &  &  \pmb{-} & \vline\hspace{-2.7pt}0 & \pmb{+} & \\  
+ \hline
+f'(x) &  &  \pmb{-} & \vline\hspace{-2.7pt}0 & \pmb{+} & \\  
+\hline
+ && f \text{ est décroissante} & \vline\hspace{-2.7pt}{\phantom 0} & f \text{ est croissante} & \\
+\hline
+\end{array}$
+}
+\end{center}
+
+\item \begin{enumerate}
+\item La tangente $T$ au point de la courbe d'abscisse 0 a pour équation:
+$y=f(0)+f'(0)\left (x-0\right )$.
+
+$f(x)=(2x+1)\e^{x}$ donc $f(0)=1$, et $f'(x)=(2x+3)\e^{x}$ donc $f'(0)=3$.
+
+L'équation réduite de la tangente $T$ est donc: $y=3x+1$.
+ 
+\item% Justifier graphiquement que, pour tout réel $x$, on a: $(2x+1)\e^{x} \geqslant 3x+1$.
+D'après le graphique, la courbe $\mathcal{C}_f$ est située au dessus de la tangente $T$, sauf en leur point d'intersection de coordonnées $(0~;~1)$.
+
+La courbe $\mathcal{C}_f$ a pour équation $y=(2x+1)\e^{x}$ et  la tangente $T$ a pour équation $y=3x+1$.
+
+Donc, pour tout réel $x$, on a: $(2x+1)\e^{x} \geqslant 3x+1$.
+\end{enumerate}
+\end{enumerate}
+
+\vspace{0,5cm}
+

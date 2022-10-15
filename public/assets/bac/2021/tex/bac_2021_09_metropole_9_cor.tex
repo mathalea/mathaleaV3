@@ -1,0 +1,114 @@
+
+\medskip
+
+\begin{tabular}{|l|}\hline
+Principaux domaines abordés :\\
+Suites numériques ; raisonnement par récurrence.\\ \hline
+\end{tabular}
+
+\medskip
+
+%On considère les suites $\left(u_n\right)$ et $\left(v_n\right)$ définies par:
+
+\[u_0 = 16 \quad ;\quad  v_0 = 5 \;;\]
+
+et pour tout entier naturel $n$ :
+
+\renewcommand\arraystretch{2}
+\[\left\{\begin{array}{l c l}
+u_{n+1}&=&\dfrac{3u_n + 2v_n}{5}\\
+v_{n+1}&=& \dfrac{u_n + v_n}{2}
+\end{array}\right.\]
+\renewcommand\arraystretch{1}
+
+\smallskip
+
+\begin{enumerate}
+\item %Calculer $u_1$ et $v_1$.
+
+$\bullet~~$ $u_1 = \dfrac{3\times 16 + 2 \times 5}{5} = \dfrac{58}{5}$ ;
+
+$\bullet~~$ $v_1 = \dfrac{16 +5}{2} = \dfrac{21}{2}$.
+
+\item On considère la suite $\left(w_n\right)$ définie pour tout entier naturel $n$ par : $w_n = u_n - v_n$.
+	\begin{enumerate}
+		\item %Démontrer que la suite $\left(w_n\right)$ est géométrique de raison 0,1.
+		On a quel que soit $n \in \N$, 
+		
+		$w_{n+1} = u_{n+1} - v_{n+1} = \dfrac{3u_n + 2v_n}{5} - \dfrac{u_n + v_n}{2} = \dfrac{6u_n + 4v_n - 5u_n - 5v_n}{10} = \dfrac{u_n - v_n}{10} = \dfrac{w_n}{10}$.
+		
+Pour tout $n \in \N$,\, l'égalité $w_{n+1} = \dfrac{1}{10}w_n$ montre que la suite $\left(w_n\right)$ est géométrique de raison $\dfrac{1}{10} = 0,1$ et de premier terme $w_0 = u_0 - v_0 = 16 - 5 = 11$.
+		
+%En déduire, pour tout entier naturel $n$, l'expression de $w_n$ en fonction de $n$.
+On sait qu'alors pour tout naturel $n$, \, $w_n = 11 \times (0,1)^n$.
+		\item %Préciser le signe de la suite $\left(w_n\right)$  et la limite de cette suite.
+		Comme $0,1 > 0 \Rightarrow 0,1^n > 0$ et $11 > 0$, donc la suite $\left(w_n\right)$ est une suite de nombres supérieurs à zéro.
+		
+		D'autre part $0 < 0,1 < 1$ entraine que $\displaystyle\lim_{n \to + \infty} 0,1^n = 0$ et donc $\displaystyle\lim_{n \to + \infty} w_n = 0$.% d'où $\displaystyle\lim_{n \to + \infty} u_n = \displaystyle\lim_{n \to + \infty} v_n$.
+	\end{enumerate}
+\item 
+	\begin{enumerate}
+		\item %Démontrer que, pour tout entier naturel $n$, on a : $u_{n+1} - u_n = - 0,4 w_n$.
+		Pour tout entier naturel $n$, on a : $u_{n+1} - u_n = \dfrac{3u_n + 2v_n}{5} - u_n =  \dfrac{3u_n + 2v_n}{5} - \dfrac{5u_n}{u_n} = \dfrac{- 2u_n + 2v_n}{5} = - \dfrac{2}{5}\left(u_n - v_n  \right) = - \dfrac{2}{5}w_n = - \dfrac{4}{10}w_n = - 0,4w_n$
+		\item %En déduire que la suite $\left(u_n\right)$ est décroissante.
+On a vu à la question 2. b. que $w_n > 0$, quel que soit le naturel $n$, donc $- 0,4w_n < 0$ et par conséquent :
+
+$u_{n+1} - u_n < 0 \iff u_{n+1} < u_n$, ce qui montre que la suite $\left(u_n\right)$ est décroissante.
+\end{enumerate}
+		
+On peut démontrer de la même manière que la suite $\left(v_n\right)$ est croissante. On admet ce résultat, et on remarque qu'on a alors: pour tout entier naturel $n$,\, $v_n \geqslant v_0 = 5$.
+\begin{enumerate}[resume]
+		\item  On va démontrer par récurrence que, pour tout entier naturel $n$, on a : $u_n \geqslant 5$. 
+		
+\emph{Initialisation } : On a $u_0 = 16 \geqslant 5$ : la proposition est vraie au rang $n = 0$.
+
+\emph{Hérédité} : on suppose que pour $n \in \N$, \, on a $u_n \geqslant 5$.
+
+On a donc $3u_n \geqslant 15$ (1) et comme on a admis que $v_n \geqslant 5$, on a $2v_n \geqslant 10$ (2).
+
+On peut ajouter membre à membre (1) et (2) pour obtenir :
+
+$3u_n + 2v_n \geqslant 25$ d'où en multipliant par le nombre positif $\dfrac{1}{5}$ :
+
+$\dfrac{3u_n + 2v_n}{5} \geqslant 5$ et finalement $u_{n+1} \geqslant 5$.
+
+\emph{Conclusion } : la minoration par 5 est vraie au rang 0 et si elle vraie au tang $n$, elle l'est aussi au rang $n + 1$ ; d'après le principe de récurrence on a donc quel que soit $n \in \N$, \, $u_n \geqslant 5$.
+
+%En déduire que la suite $\left(u_n\right)$ est convergente. On appelle $\ell$ la limite de $\left(u_n\right)$.
+La suite $\left(u_n\right)$ est décroissante et minorée par 5 : d'après le théorème de la convergence monotone,  elle converge  vers une limite $\ell \geqslant 5$.
+	\end{enumerate}
+\end{enumerate}
+	
+On peut démontrer de la même manière que la suite $\left(v_n\right)$ est convergente. On admet ce résultat, et on appelle $\ell'$ la limite de $\left(v_n\right)$.
+\begin{enumerate}[resume]
+\item 
+	\begin{enumerate}
+		\item %Démontrer que $\ell = \ell'$.
+		On a vu à la question 2.b. que $\displaystyle\lim_{n \to + \infty} w_n = 0$ ou encore que $\displaystyle\lim_{n \to + \infty}\left ( u_n - v_n\right ) = 0$.
+		
+Les deux suites $(u_n)$ et $(v_n)$ étant convergentes, on en déduit que
+$\displaystyle\lim_{n \to + \infty} u_n  = \lim_{n \to + \infty} v_n $		
+		 et donc que  $\ell = \ell'$.
+		\item On considère la suite $\left(c_n\right)$ définie pour tout entier naturel $n$ par : $c_n = 5u_n + 4v_n$.
+		
+%Démontrer que la suite $\left(c_n\right)$ est constante, c'est-à-dire que pour tout entier naturel $n$, on a : $c_{n+1} = c_n$. 
+%Pour tout entier naturel $n$\,  $c_n = 5u_n + 4v_n$
+
+$\text{Donc : }c_{n+1} = 5u_{n+1} + 4v_{n+1} = 3u_n + 2v_n + 2\left(u_n  + v_n \right) = 3u_n + 2v_n + 2u_n  + 2v_n \\
+\phantom{\text{Donc : }c_{n+1}}= 5u_n + 4v_n = c_n$. 
+
+Donc la suite  $\left(c_n\right)$ est constante.
+
+%En déduire que, pour tout entier naturel $n$ ,\, $c_n = 100$.
+Pour tout $n\in\N$,  $c_n = c_0 = 5u_0 + 4v_0 = 5 \times 16 + 4 \times 5 = 80 + 20 = 100$.
+		\item %Déterminer la valeur commune des limites  $\ell$ et $\ell'$.
+Puisque $c_n = 5u_n + 4v_n$ et que $\left(u_n\right)$ et $\left(v_n\right)$ ont même limite $\ell$, on a donc :
+
+$\displaystyle\lim_{n \to + \infty}c_n = \displaystyle\lim_{n \to + \infty}100 = 100 = 5\ell + 4\ell = 9\ell$.
+
+$9\ell = 100$ donc $\ell = \dfrac{100}{9}$.
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+

@@ -1,0 +1,143 @@
+\textbf{\large Exercice 4 \hfill 5 points}
+
+\bigskip
+
+Le plan est rapporté à un repère orthonormé \Oij{} d'unité 1 cm.
+
+On considère la droite $\mathcal D$ d'équation $x+3y-5=0$.
+
+\medskip
+
+\begin{enumerate}
+\item Soit A le point de coordonnées $(2~;~1)$.% appartient à la droite $\mathcal D$ et tracer la droite $\mathcal D$ dans le repère \Oij.
+
+$x_{\text A} +3y_{\text A}-5 = 3\times 2 + 3\times 1 - 5 = 0$ donc A appartient à la droite $\mathcal D$.
+
+On détermine un 2\ieme{} point pour tracer la droite $\mathcal{D}$: si $y=0$ alors $x-5=0$ donc $x=5$. La droite passe par le point de coordonnées $(5~;~0)$.
+
+On trace la droite dans le repère.
+
+\item Soit $\mathcal D'$ la droite passant par le point B\,$(4~;~2)$ et perpendiculaire à la droite $\mathcal D$.
+
+\begin{list}{\textbullet}{}
+\item
+Une droite d'équation $ax+by+c=0$ a pour vecteur directeur le vecteur de coordonnées $(-b~;~a)$ donc le vecteur $\vect v$ de coordonnées $(-3~;~1)$ est un vecteur directeur de la droite $\mathcal{D}$.
+\item
+Les droites $\mathcal{D}$ et $\mathcal{D}'$ sont perpendiculaires, donc un vecteur directeur de l'une est un vecteur normal de l'autre; donc le vecteur $\vect v\,(-3~;~1)$ est un vecteur normal à la droite $\mathcal{D}'$.
+\item
+La droite $\mathcal{D}'$ est donc la droite passant par le point B et de vecteur normal $\vect v$; c'est donc l'ensemble des points M\,$(x~;~y)$ tels que $\vectt{BM}$ soit orthogonal à $\vect v$.
+\item
+Le vecteur $\vectt{BM}$ a pour coordonnées $(x-4~;~y-2)$.
+
+$\vectt{BM} \perp \vect{v} \iff \vectt{BM} \cdot \vect{v}=0
+\iff (x-4)(-3)+(y-2)(1)=0
+\iff -3x+12 +y - 2=0\\
+\phantom{\vectt{BM} \perp \vect{v}}
+\iff -3x+y+10=0
+\iff 3x-y-10=0$
+\end{list}
+
+La droite $\mathcal{D}'$ a pour équation $3x-y-10=0$.
+
+\item Soit H le projeté orthogonal de B sur la droite $\mathcal D$.
+
+Les droites $\mathcal{D}$ et $\mathcal{D}'$ sont perpendiculaires donc le point H est le point d'intersection de ces deux droites; les coordonnées de H sont donc solutions du système:
+$\left \lbrace
+\begin{array}{l !{=} l}
+x+3y-5 & 0\\
+3x-y-10 & 0
+\end{array}
+\right .$
+
+%Déterminer, par le calcul, les coordonnées de H.
+
+On résout ce système:
+
+$\left \lbrace
+\begin{array}{l !{=} l}
+x+3y-5 & 0\\
+3x-y-10 & 0
+\end{array}
+\right .
+\iff
+\left \lbrace
+\begin{array}{r !{=} l}
+x & - 3y+5 \\
+3(-3y+5)-y-10 & 0
+\end{array}
+\right .
+\iff
+\left \lbrace
+\begin{array}{r !{=} l}
+x & - 3y+5 \\
+-10y+5 & 0
+\end{array}
+\right .\\
+\phantom{\left \lbrace
+\begin{array}{l !{=} l}
+x+3y-5 & 0\\
+3x-y-10 & 0
+\end{array}
+\right .}
+\iff
+\left \lbrace
+\begin{array}{r !{=} l}
+x & - 3\times 0,5+5 \\
+y & 0,5
+\end{array}
+\right .
+\iff
+\left \lbrace
+\begin{array}{r !{=} l}
+x & 3,5 \\
+y & 0,5
+\end{array}
+\right .$
+
+Le point H a pour coordonnées $\left (3,5~;~0,5\right )$.
+
+\item On considère le cercle $\mathcal C$ de diamètre [AB] et on note $\Omega$ son centre.
+	\begin{enumerate}
+		\item %Déterminer une équation de $\mathcal C$ ; préciser son rayon et les coordonnées de $\Omega$.
+\begin{list}{\textbullet}{}
+\item Le cercle $\mathcal{C}$ de diamètre [AB] a pour centre le point $\Omega$, milieu du segment [AB]; les coordonnées de $\Omega$ sont $\left (\dfrac{x_{\text A} + x_{\text B} }{2}~;~\dfrac{y_{\text A} + y_{\text B} }{2}\right ) = (3~;~1,5)$.
+\item Le cercle $\mathcal{C}$ de diamètre [AB] a pour rayon
+
+$\dfrac{\text{AB}}{2} = \dfrac{\ds\sqrt{(x_{\text B} - x_{\text A})^2 + (y_{\text B} - y_{\text A})^2}}{2}
+= \dfrac{\ds\sqrt{(4-2)^2 + (2-1)^2}}{2}
+= \dfrac{\sqrt{5}}{2}$
+\end{list}		
+		
+Le cercle $\mathcal{C}$ a donc pour équation
+$(x-3)^2 + (y-1,5)^2 = \left ( \dfrac{\sqrt{5}}{2}\right )^2$ c'est-à-dire\\
+$(x-3)^2 + (y-1,5)^2 = 1,25$.
+			
+		\item D'après les questions précédentes, le triangle ABH est rectangle en H donc il est inscrit dans le cercle de diamètre [AB], appelé $\mathcal{C}$; donc le point H appartient  au cercle $\mathcal C$.
+	\end{enumerate}
+	
+\vspace{1cm}	
+	
+\begin{center}
+\psset{unit=1cm,labelFontSize=\scriptstyle}
+\def\xmin {-2}   \def\xmax {6}
+\def\ymin {-2}   \def\ymax {6}
+\begin{pspicture*}(\xmin,\ymin)(\xmax,\ymax)
+%\psset{yMaxValue=\ymax,yMinValue=\ymin}
+\psgrid[subgriddiv=1,  gridlabels=0, gridcolor=lightgray]
+\psaxes[linewidth=1.8pt]{->}(0,0)(1,1)[$\vec{\imath}$,d][$\vec{\jmath}$,180]
+\psaxes[arrowsize=3pt 2, ticksize=-2pt 2pt,labels=none](0,0)(-3.99,-1.99)(\xmax,\ymax) 
+\uput[dl](0,0){O}
+\psset{linecolor=blue}
+\pscircle(3,1.5){1.118}
+\psplot{\xmin}{\xmax}{5 x sub 3 div}
+\psplot{\xmin}{\xmax}{3 x mul 10 sub}
+\psdots(2,1)(4,2)(3,1.5)(3.5,0.5)
+\blue
+\uput[dl](2,1){A} \uput[r](4,2){B} \uput[ul](3,1.5){$\Omega$} 
+\uput[-70](3.5,0.5){H}
+\uput[ur](-1,2){$\mathcal{D}$} \uput[dr](3,-1){$\mathcal{D}'$} \uput[ul](2,2){$\mathcal{C}$}  
+\end{pspicture*}
+\end{center}
+	
+\end{enumerate}
+

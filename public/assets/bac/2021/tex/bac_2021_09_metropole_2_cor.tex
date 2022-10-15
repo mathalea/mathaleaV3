@@ -1,0 +1,121 @@
+
+\medskip
+
+Soit $f$ la fonction définie sur l'intervalle $\left]-\dfrac{1}{3}~;~+\infty\right[$ par:
+
+\[ f(x) = \dfrac{4x}{1 + 3x}\]
+
+On considère la suite $\left(u_n\right)$ définie par : $u_0 = \dfrac{1}{2}$ et, pour tout entier naturel $n$,\, $u_{n+1} = f\left(u_n\right)$.
+
+\medskip
+
+\begin{enumerate}
+\item %Calculer $u_1$.
+On a donc pour $n = 0$, \, $u_1 = f\left(u_0\right) = f\left(\dfrac{1}{2}\right) = \dfrac{2}{1 + \frac{3}{2}} = \dfrac{2}{\frac{5}{2}} = \dfrac{4}{5}$.
+\item On admet que la fonction $f$ est croissante sur l'intervalle $\left]-\dfrac{1}{3}~;~+\infty\right[$.
+	\begin{enumerate}
+		\item On veut montrer par récurrence que, pour tout entier naturel $n$, on a : 
+		\[\dfrac{1}{2} \leqslant u_n \leqslant u_{n+1} \leqslant 2.\]
+		
+		
+\emph{Initialisation} : on a $u_0=\dfrac{1}{2}$ et $u_1=\dfrac{4}{5}$; de plus $\dfrac{1}{2} \leqslant \dfrac{1}{2} \leqslant \dfrac{4}{5} \leqslant 2$, donc:
+		
+$\dfrac{1}{2} \leqslant u_0 \leqslant u_1\leqslant 2$ : l'encadrement est vrai au rang 0 ;
+
+\emph{Hérédité} : on suppose que pour $n \geqslant 0$,\, $\dfrac{1}{2} \leqslant u_n \leqslant u_{n+1} \leqslant 2$.
+
+La fonction $f$ étant croissante les images des quatre nombres ci-dessus sont rangées dans le même ordre, soit :
+$f\left(\dfrac{1}{2}\right) \leqslant f\left(u_n\right) \leqslant f\left(u_{n+1}\right) \leqslant f(2)$.
+
+Or on a vu que $f\left(\dfrac{1}{2}\right) = \dfrac{4}{5}$ et on a $f(2) = \dfrac{8}{1 + 6} = \dfrac{8}{7}$;
+
+de plus $f(u_{n})= u_{n+1}$ et $f(u_{n+1})= u_{n+2}$ donc 
+$\dfrac{4}{5} \leqslant  u_{n+1} \leqslant u_{n+2} \leqslant \dfrac{8}{7}$.
+
+Or $\dfrac{1}{2} < \dfrac{4}{5}$ et $\dfrac{8}{7} < 2$ ; on a donc finalement :
+
+$\dfrac{1}{2} \leqslant  u_{n+1} \leqslant u_{n+2} \leqslant 2$ : l'encadrement est donc vrai au rang $n + 1$.
+
+\emph{Conclusion} : l'encadrement est vrai au rang $0$ et s'il est vrai au rang $n \geqslant 0$, \, il est vrai au rang $n + 1$ : par le principe de récurrence pour tout entier naturel $n$, on a : $\dfrac{1}{2} \leqslant u_n \leqslant u_{n+1} \leqslant 2$.
+		\item %En déduire que la suite $\left(u_n\right)$ est convergente.
+		La suite $\left(u_n\right)$ est croissante et elle majorée par 2, elle est donc convergente vers une limite $\ell$ telle que: $\dfrac{1}{2} \leqslant \ell \leqslant 2.$
+		\item %On appelle $\ell$ la limite de la suite $\left(u_n\right)$. Déterminer la valeur de $\ell$.
+La fonction $f$ est continue car dérivable au moins sur $\R_+$ donc la limite $\ell$ vérifie l'égalité $f(\ell)=\ell$ ; on résout cette équation:
+
+$f(\ell) = \ell \iff \dfrac{4\ell}{1 + 3\ell} = \ell 
+\iff 4\ell = \ell(1 + 3\ell) 
+\iff 0 = \ell(1 + 3\ell - 4) \\
+\phantom{f(\ell) = \ell}
+\iff \ell(3\ell - 3) = 0 \iff 3\ell(\ell - 1) = 0 \iff 
+\left[\begin{array}{l !{=} l}
+\ell&0 \\
+\multicolumn{2}{c}{\text{ou}}\\
+\ell - 1 & 0
+\end{array}\right. \iff 
+\left[\begin{array}{l !{=} l}
+\ell&0\\
+\multicolumn{2}{c}{\text{ou}}\\
+\ell&1
+\end{array}\right. $	
+\end{enumerate}
+
+Comme $\ell \geqslant \dfrac{1}{2}$, la seule solution possible est 1;
+la suite $\left(u_n\right)$ converge vers 1.
+
+\item 
+	\begin{enumerate}
+		\item On  complète la fonction Python ci-dessous qui, pour tout réel positif $E$, détermine la plus petite valeur $P$ tel que : $1 - u_{P} < E$:
+		
+\begin{center}
+\begin{tabularx}{0.4\linewidth}{|X|}\hline
+def seuil($E$):\\
+\quad $u = 0,5$\\
+\quad $n = 0$ \\
+\quad  while $1 - u > = E$\\
+\quad \quad $u = \blue 4*u/(1 + 3*u)$\\
+\quad \quad $n = \blue n + 1$\\
+\quad return $n$\\ \hline
+\end{tabularx}
+\end{center}
+		\item %Donner la valeur renvoyée par ce programme dans le cas où $E= 10^{-4}$.
+On obtient $u_7 \approx \np{0,999939}$, donc $1 - u_7 < 10^{-4}$. Le programme renvoie $n = 7$.
+	\end{enumerate}
+\item On considère la suite $\left(v_n\right)$ définie, pour tout entier naturel $n$, par :
+
+\[v_n  = \dfrac{u_n}{1 - u_n}\]
+
+	\begin{enumerate}
+		\item %Montrer que la suite $\left(v_n\right)$ est géométrique de raison 4.
+
+Pour tout entier naturel $n$, \, $v_{n+1}  = \dfrac{u_{n+1}}{1 - u_{n+1}}$ soit en utilisant la définition de $u_{n+1}$ :
+
+$v_{n+1}  = \dfrac{\frac{4u_n}{1 + 3u_n}}{1 - \frac{4u_n}{1 + 3u_n}}$ soit en multipliant chaque terme par $1 + 3u_n$ :
+
+$v_{n+1} = \dfrac{4u_n}{1 + 3u_n - 4u_n} = \dfrac{4u_n}{1 - u_n} = 4\dfrac{u_n}{1 - u_n} = 4v_n$.
+
+L'égalité, vraie pour tout naturel $n$, $v_{n+1} = 4v_n$ montre que la suite $\left(v_n\right)$ est géométrique de raison 4, de premier terme $v_0 = \dfrac{u_0}{1 - u_0} = \dfrac{\frac{1}{2}}{1 - \frac{1}{2}} = \dfrac{\frac{1}{2}}{\frac{1}{2}} = 1$.
+	
+%En déduire, pour tout entier naturel $n$, l'expression de $v_n$ en fonction de $n$.
+On sait qu'alors , pour tout entier naturel $n$,\, $v_n = 1 \times 4^n = 4^n$.
+		\item %Démontrer que, pour tout entier naturel $n$, on a : $u_n = \dfrac{v_n}{v_n + 1}$.
+Quel que soit $n \in \N$,
+
+$v_n  = \dfrac{u_n}{1 - u_n}\iff v_n\left( 1 - u_n\right) = u_n \iff v_n - u_nv_n = u_n \iff v_n = u_nv_n + u_n \iff v_n = u_n\left(v_n + 1 \right)$.
+
+Comme $v_n = 4^n, v_n \geqslant 1$, donc $v_n + 1 \geqslant 2$, donc $v_n + 1 \ne 0$ et finalement en multipliant par $\dfrac{1}{v_n + 1}$, on obtient $u_n = \dfrac{v_n}{v_n + 1}$ quel que soit $n \in \N$.
+		\item %Montrer alors que, pour tout entier naturel $n$ , on a : 
+		
+%		\[u_n = \dfrac{1}{1 + 0,25^n}.\]
+On sait que quel que soit $n \in \N$, \, $v_n = 4^n$, d'où en remplaçant dans l'écriture précédente :
+
+$u_n = \dfrac{4^n}{4^n +1}$ et en multipliant par $\dfrac{1}{4^n}$ :
+
+$u_n = \dfrac{1}{1 + \frac{1}{4^n}}$. Or $\dfrac{1}{4^n} = \dfrac{1^n}{4^n} = \left(\dfrac{1}{4}\right)^n = 0,25^n$, d'où $u_n = \dfrac{1}{1 + 0,25^n}$.
+
+%Retrouver par le calcul la limite de la suite $\left(u_n\right)$.
+
+Comme $0 < 0,25 < 1$, on peut dire que $\displaystyle\lim_{n \to + \infty} 0,25^n = 0$, donc $\displaystyle\lim_{n \to + \infty}  u_n = \dfrac{1}{1+0} = 1$.
+	\end{enumerate}
+\end{enumerate}
+
+

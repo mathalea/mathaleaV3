@@ -1,0 +1,102 @@
+
+\textbf{Commun à tous les candidats}
+
+%\medskip
+%
+%\emph{Cet exercice est un questionnaire à choix multiples. Pour chacune des questions suivantes, une seule des quatre réponses proposées est exacte. Une réponse exacte rapporte un point. Une réponse fausse, une réponse multiple ou l'absence de réponse à une question ne rapporte ni n'enlève de point.\\[5pt]
+% Pour répondre, indiquer sur la copie le numéro de la question et la lettre de la réponse choisie. Aucune justification n'est demandée.}
+%
+%\medskip
+%
+%Dans l'espace rapporté à un repère orthonormé \Oijk, on considère les points A(1~;~0~;~2), B(2~;~1~;~0), C(0~;~1~;~2) et la droite $\Delta$ dont une représentation paramétrique est :
+%
+%$\left\{\begin{array}{l c r}
+%x &=& 1 + 2t\\
+%y &=& -2 + t\\ 
+%z&=&4 - t
+%\end{array}\right., t\, \in \R$.
+%
+%\medskip
+%
+\begin{enumerate}
+\item 
+
+%Parmi les points suivants, lequel appartient à la droite $\Delta$ ?
+%\begin{center}
+%\begin{tabularx}{\linewidth}{X X}
+%\textbf{Réponse A :} M$(2~;~1~;~-1)$; & \textbf{Réponse B :} N$(-3~;~-4~;~6)$ ;\\
+%\textbf{Réponse C :} P$(-3~;~-4~;~2)$ ; & \textbf{Réponse D :} Q$(-5~;~-5~;~1)$.
+%\end{tabularx}
+%\end{center}
+Pour $t = - 2$, on trouve les coordonnées de B.
+\item 
+Le vecteur $\vect{\text{AB}}$ admet pour coordonnées : $\begin{pmatrix}2 - 1~;~1 - 0~;~0 - 2\end{pmatrix}$ soit $\begin{pmatrix}1~;~1~;~- 2\end{pmatrix}$
+
+%\begin{center}
+%\begin{tabularx}{\linewidth}{X X}
+%\textbf{Réponse A :} $\begin{pmatrix}1,5\\0,5\\1\end{pmatrix}$;& \textbf{Réponse B :}$\begin{pmatrix}-1\\-1\\2\end{pmatrix}$ ;\\
+%\textbf{Réponse C :} $\begin{pmatrix}1\\1\\-2\end{pmatrix}$& \textbf{Réponse D :} $\begin{pmatrix}3\\1\\2\end{pmatrix}$.
+%\end{tabularx}
+%\end{center}
+
+\item %Une représentation paramétrique de la droite (AB) est :
+
+%\begin{center}
+%\begin{tabularx}{\linewidth}{X X}
+%\textbf{Réponse A :}$\left\{\begin{array}{l c l}x=1+2t\\y = t\\z = 2\end{array}\right., t \in \R$&
+%\textbf{Réponse B :} $\left\{\begin{array}{l c l}x =2 - t\\y = 1 - t\\z = 2t\end{array}\right., t \in \R$\\
+%\textbf{Réponse C :} $\left\{\begin{array}{l c l}x = 2 + t\\y = 1 + t\\z = 2t\end{array}\right., t \in \R$&
+%\textbf{Réponse D :} $\left\{\begin{array}{l c l}x = 1 + t\\y = 1 + t\\z = 2 - 2t\end{array}\right., t \in \R$
+%\end{tabularx}
+%\end{center}
+$M(x~;~y~;~z) \in (\text{AB})$ s'il existe $t \in \R$ tel que $\vect{\text{A}M} = t\vect{\text{AB}}$ soit :
+
+$\left\{\begin{array}{l !{=} l}
+x - 1& 1\times t\\
+y - 0& 1\times t\\
+z - 2& - 2\times t
+\end{array}\right.\, t \in \R \iff 
+\left\{\begin{array}{l !{=} r}
+x & 1 +  t\\
+y &t\\
+z & 2 - 2t
+\end{array}\right.\, t \in \R 
+$.
+
+En posant $t = 1 - u$, on obtient :
+
+$M(x~;~y~;~z) \in (\text{AB}) \iff \left\{\begin{array}{l !{=} r}
+x & 2 - u\\
+y &1 - u\\
+z & 2u
+\end{array}\right.\, u \in \R$. Donc réponse B.
+\item %Une équation cartésienne du plan passant par le point C et orthogonal à la droite $\Delta$ est :
+
+%\begin{center}
+%\begin{tabularx}{\linewidth}{X X}
+%\textbf{Réponse A :} $x - 2y + 4z - 6 = 0$ ;& \textbf{Réponse B :} $2x + y - z + 1 = 0$ ;\\
+%\textbf{Réponse C :} $2x + y - z- 1 = 0$ ;& \textbf{Réponse D :} $y + 2z - 5 = 0$.
+%\end{tabularx}
+%\end{center}
+La droite $\Delta$ a pour vecteur directeur $\delta\begin{pmatrix}2\\1\\-1\end{pmatrix}$
+
+Soit $\mathcal{P}$ le plan dont on cherche une équation.
+
+$M(x~;~y~;~z) \in \mathcal{P} \iff \vect{\text{C}M} \cdot \delta = 0 \iff 2(x - 0) + 1(y - 1) -1(z - 2) = 0 \iff$
+
+$ 2x + y - 1 - z + 2 = 0 \iff 2x + y - z + 1 = 0$.
+\item %On considère le point D défini par la relation vectorielle $\vect{\text{OD}} = 3\vect{\text{OA}} - \vect{\text{OB}} - \vect{\text{OC}}$.
+
+%\begin{center}
+%\begin{tabularx}{\linewidth}{X X}
+%\textbf{Réponse A :} \parbox[t]{4cm}{$\vect{\text{AD}},~ \vect{\text{AB}},~ \vect{\text{AC}}$ sont\\ coplanaires ;} &\textbf{Réponse B :} $\vect{\text{AD}} = \vect{\text{BC}}$ ;\\
+%\textbf{Réponse C :} \parbox[t]{4cm}{D a pour coordonnées\\ $(3~;~-1~;~-1)$ ;} &\textbf{Réponse D :} \parbox[t]{4cm}{les points A, B, C et D\\ sont alignés.}
+%\end{tabularx}
+%\end{center}
+En faisant apparaître le point A dans chaque vecteur (Chasles), on obtient :
+
+$\vect{\text{OA}} + \vect{\text{AD}}  = 3\vect{\text{OA}}  - \vect{\text{OA}}  - \vect{\text{AB}}  - \vect{\text{OA}}  - \vect{\text{AC}} \iff \vect{\text{AD}}  = - \vect{\text{AB}} - \vect{\text{AC}} $ : le vecteur $\vect{\text{AD}}$ est une combinaison linéaire des vecteurs $\vect{\text{AB}}$ et $\vect{\text{AC}}$, ces trois vecteurs sont donc coplanaires.
+\end{enumerate}
+
+\bigskip
+

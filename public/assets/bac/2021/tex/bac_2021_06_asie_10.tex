@@ -1,0 +1,84 @@
+\textbf{EXERCICE -- B}
+
+\medskip
+
+\begin{tabular}{|l|}\hline
+\textbf{Principaux domaines abordés}\\
+-- Suites, étude de fonction\\
+-- Fonction logarithme\\ \hline
+\end{tabular}
+
+\medskip
+
+Soit la fonction $f$ définie sur l'intervalle $]1~;~ +\infty[$ par 
+
+\[f(x) = x - \ln (x - 1).\]
+
+On considère la suite $\left(u_n\right)$ de terme initial $u_0 = 10$ et telle que $u_{n+1} = f\left(u_n\right)$ pour tout entier naturel $n$.
+
+\bigskip
+
+\textbf{Partie I :}
+
+\medskip
+
+La feuille de calcul ci-dessous a permis d'obtenir des valeurs approchées des premiers termes de la suite $\left(u_n\right)$.
+
+\begin{center}
+\begin{tabularx}{0.6\linewidth}{|c|*{2}{>{\centering \arraybackslash}X|}}\hline
+&A &B\\ \hline
+1 &$n$&$u_n$\\ \hline
+2 &0&10\\ \hline
+3& 1&\np{7,80277542}\\ \hline
+4& 2&\np{5,88544474}\\ \hline
+5& 3&\np{4,29918442}\\ \hline
+6& 4&\np{3,10550913}\\ \hline
+7& 5&\np{2,36095182}\\ \hline
+8& 6&\np{2,0527675}\\ \hline
+9& 7&\np{2,00134509}\\ \hline
+10& 8&\np{2,0000009}\\ \hline
+\end{tabularx}
+\end{center}
+
+\medskip
+
+\begin{enumerate}
+\item Quelle formule a été saisie dans la cellule B3 pour permettre le calcul des valeurs approchées de $\left(u_n\right)$ par recopie vers le bas ?
+\item À l'aide de ces valeurs, conjecturer le sens de variation et la limite de la suite $\left(u_n\right)$.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie II :}
+
+\medskip
+
+On rappelle que la fonction $f$ est définie sur l'intervalle $]1~;~ +\infty[$ par 
+
+\[f(x) = x - \ln (x - 1).\]
+
+\medskip
+
+\begin{enumerate}
+\item Calculer $\displaystyle\lim_{x \to 1} f(x)$. On admettra que $\displaystyle\lim_{x \to + \infty} f(x) = + \infty$.
+\item  
+	\begin{enumerate}
+		\item Soit $f'$ la fonction dérivée de $f$. Montrer que pour tout $x \in ]1~;~ +\infty[$,\,  $f'(x) = \dfrac{x - 2}{x - 1}$.
+		\item En déduire le tableau des variations de $f$ sur l'intervalle $]1~;~ +\infty[$, complété par les limites.
+		\item Justifier que pour tout $x
+\geqslant  2$,\,  $f(x) \geqslant  2$.
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie III :}
+
+\medskip
+
+\begin{enumerate}
+\item En utilisant les résultats de la partie II, démontrer par récurrence que $u_n \geqslant  2$ pour tout entier naturel $n$.
+\item Montrer que la suite $\left(u_n\right)$ est décroissante.
+\item En déduire que la suite $\left(u_n\right)$ est convergente. On note $\ell$ sa limite.
+\item On admet que $\ell$ vérifie $f(\ell) = \ell$. Donner la valeur de $\ell$.
+\end{enumerate}

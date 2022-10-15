@@ -1,0 +1,79 @@
+
+\vspace{0.75cm}
+\begin{tabular}[]{|l|}
+\hline
+Principaux domaines abordés :\\
+
+Géométrie de l'espace rapporté  à un repère orthonormé ; orthogonalité dans l'espace\\
+\hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\begin{minipage}[]{7.5cm}
+Dans un repère orthonormé \Oijk {} on considère
+
+\begin{itemize}
+\item [$\bullet$] le point A de coordonnées (1~;~3~;~2),
+
+ \item[$\bullet$]le vecteur $\vv{u}$ de coordonnées $\begin{pmatrix} 1\\1\\0\\\end{pmatrix}$
+
+\item[$\bullet$] la droite $d$ passant par l'origine O du repère et admettant pour vecteur directeur $\vv{u}$. 
+\end{itemize}
+
+Le but de cet exercice est de déterminer le point de $d$ le plus proche du point A et d’étudier quelques propriétés de ce point.
+
+On pourra s’appuyer sur la figure ci-contre pour raisonner au fur et à mesure des questions.
+\end{minipage}
+\begin{minipage}[]{7cm}
+\psset{coorType=2,unit=1.5cm}
+\begin{pspicture}(-2,-5)(4,3)
+\pstThreeDCoor[xMin=0,xMax=3,yMin=-1.5,yMax=3.5,zMin=-1.5,zMax=2.5,IIIDticks]
+\pstThreeDDot(1,3,2)\pstThreeDDot(1,3,0)\pstThreeDDot(2.5,2.5,0)\pstThreeDPut(2.5,2,0){$M_0$}
+\pstThreeDPut(1,3.1,2.2){A}\pstThreeDPut(1,3,-0.3){A'}
+\pstThreeDLine[linewidth=1.25pt]{->}(0,0,0)(1,1,0)\pstThreeDLine[linewidth=0.5pt]{-}(-2,-2,0)(4,4,0)
+\pstThreeDLine[linewidth=1pt]{-}(2.5,2.5,0)(1,3,2)
+\pstThreeDLine[linewidth=1pt]{->}(0,0,0)(1,3,2)
+\pstThreeDLine[linewidth=1pt]{->}(0,0,0)(1,0,0)
+\pstThreeDLine[linewidth=1pt]{-}(1,3,0)(1,3,2)
+\pstThreeDLine[linewidth=1pt]{-}(2.5,2.5,0)(1,3,0)
+\pstThreeDLine[linewidth=1pt,linestyle=dashed]{->}(0,0,0)(1,3,0)
+\pstThreeDLine[linewidth=1pt]{->}(0,0,0)(0,0,1)
+\pstThreeDLine[linewidth=1pt]{->}(0,0,0)(0,1,0)
+\pstThreeDLine[linewidth=1pt,linestyle=dashed]{-}(0,0,0)(0,2.5,0)
+\pstThreeDPut(1,-0.25,0){$\vv{\imath}$}\pstThreeDPut(0,1,0.15){$\vv{\jmath}$}
+\pstThreeDPut(0,-0.2,1){$\vv{k}$}\pstThreeDPut(0,-0.1,-0.15){O}
+\pstThreeDPut(0.9,0.65,0){$\vv{u}$}
+\end{pspicture}
+
+\end{minipage}
+
+
+ \begin{enumerate}
+\item  Déterminer une représentation paramétrique de la droite $d$. 
+
+\item Soit $t$ un nombre réel quelconque, et $M$ un point de la droite $d$, le point $M$ ayant pour coordonnées $(t~;~t~;~0)$. 
+\begin{enumerate}
+\item  On note A$M$ la distance entre les points A et $M$. Démontrer que: 
+
+\[AM^2 = 2t^2 - 8t+ 14.\] 
+
+\item Démontrer que le point $M_0$ de coordonnées $(2~;~2~;~0)$ est le point de la droite $d$ pour lequel la distance $AM$ est minimale. 
+
+On admettra que la distance $AM$ est minimale lorsque son carré $AM^2$ est minimal. 
+\end{enumerate}
+\item Démontrer que les droites $(AM_0)$ et $d$ sont orthogonales. 
+
+\item On appelle $A'$ le projeté orthogonal du point $A$ sur le plan d'équation cartésienne $z = 0$. Le point $A'$ admet donc pour coordonnées $(1~;~3~;~0)$. 
+
+Démontrer que le point $M_0$ est le point du plan $(AA'M_0)$ le plus proche du point O, origine du repère. 
+
+\item Calculer le volume de la pyramide $OM_0A'A$. 
+
+On rappelle que le volume d'une pyramide est donné par: $V = \frac{1}{3}\mathcal{B}h$, où $\mathcal{B}$ est l'aire  
+
+d'une base et $h$ est la hauteur de la pyramide correspondant à cette base. 
+\end{enumerate}
+
+ \vspace{0.75cm}
+ 

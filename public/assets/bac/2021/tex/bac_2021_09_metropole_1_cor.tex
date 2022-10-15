@@ -1,0 +1,99 @@
+
+\textbf{}
+
+\begin{center}
+
+\psset{xunit=1.2cm,yunit=0.25cm}
+\begin{pspicture*}(-5,-4)(1.5,22)
+\psgrid[gridlabels=0pt,subgriddiv=1,gridwidth=0.05pt]
+\psaxes[linewidth=1.25pt,labelFontSize=\scriptstyle,Dy=5]{->}(0,0)(-5,-4)(1.5,22)
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=red]{-5}{1}{10 x mul 5 add 2.71828 x exp mul}
+\psplot[plotpoints=1000,linewidth=1.25pt,linestyle=dotted]{-0.7}{1}{15 x mul 5 add}
+\psplot[plotpoints=1000,linewidth=1.25pt,linestyle=dotted]{-5}{0}{0.82085 x  mul 3.694 add neg}
+\psdots(1,20)(-2.5,-1.6417)(0,5)
+\uput[r](0,5){A}\uput[r](1,20){B}\uput[d](-2.5,-1.6417){C}\uput[l](0.6,19){$\red \mathcal{C}_f$}
+\end{pspicture*}
+\end{center}
+
+\begin{enumerate}
+\item On peut affirmer que:
+	\begin{enumerate}
+		\item $f'(-0,5) = 0$ 
+		
+		Le coefficient directeur de la tangente au point d'abscisse $- 0,5$ est manifestement positif \hfill Faux
+		\item si $x \in ]- \infty~;~-0,5[$, alors $f'(x) < 0$ 
+		
+		Le nombre dérivé s'annule en à peu près en $x = -1,5$ \hfill Faux
+		\item $f'(0) = 15$ 
+		
+		Graphiquement $f'(0) = \dfrac{20 - 5}{1 - 0}= 15$ \hfill Vrai
+		\item la fonction dérivée $f'$ ne change pas de signe sur $\R$ 
+		
+		$f'$ est négative sur $]- \infty~;~- 1,5[$ et positive sur $]- 1,5~;~+ \infty[$ \hfill Faux
+	\end{enumerate}
+\item On admet que la fonction $f$ représentée ci-dessus est définie sur $\R$ par 
+
+$f(x) = (ax + b)\text{e}^x$, où $a$ et $b$ sont deux nombres réels et que sa courbe coupe l'axe des abscisses en son point de coordonnées $(-0,5~;~ 0)$.
+
+On peut affirmer que:
+	\begin{enumerate}
+		\item $a = 10$ et $b = 5$ 
+		\item $a = 2,5$ et $b = -0,5$ 
+		\item $a = -1,5$ et $b = 5$ 
+		\item $a = 0$ et $b = 5$
+	\end{enumerate}
+	
+Graphiquement $f(0) = 5 \iff b\text{e}^0 = 5 \iff b = 5$ ;
+
+D'autre part $f$ est dérivable sur $\R$ et sur cet intervalle :
+
+$f'(x) = a\text{e}^x + (ax + b)\text{e}^x = \text{e}^x(ax + a + b)$.
+
+On a vu que $f'(0) = 15 \iff a + b = 15 \iff a + 5 = 15 \iff a = 10$:  la  \textbf{réponse a.} est vraie.
+\item On admet que la dérivée seconde de la fonction $f$ est définie sur ~ par : 
+
+\[f''(x) = (10x + 25)\text{e}^x.\]
+
+On peut affirmer que :
+	\begin{enumerate}
+		\item La fonction $f$ est convexe sur $\R$
+		\item La fonction $f$ est concave sur $\R$
+		\item Le point C est l'unique point d'inflexion de $\mathcal{C}_f$
+		\item $\mathcal{C}_f$ n'admet pas de point d'inflexion
+	\end{enumerate}
+	
+$f''(x) = 0 \iff (10x + 25)\text{e}^x = 0 \iff 10x + 25 = 0$ (car $\text{e}^x > 0$ quel que soit $x \in \R$) ; donc 
+$f''(x) = 0 \iff x = - 2,5$ : C est donc l'unique point d'inflexion. \hfill \textbf{Réponse c.}
+
+\item On considère deux suites $\left(U_n\right)$ et  $\left(V_n\right)$ définies sur $\N$ telles que : 
+
+\setlength\parindent{1cm}
+\begin{itemize}
+\item[$\bullet~~$] pour tout entier naturel $n$,\, $U_n \leqslant V_n$;
+\item[$\bullet~~$] $\displaystyle\lim_{n \to+ \infty}  V_n= 2$.
+\end{itemize}
+\setlength\parindent{0cm}
+
+On peut affirmer que:
+
+	\begin{enumerate}
+		\item la suite $\left(U_n\right)$ converge
+		
+		Non car par exemple si $U_n = - n$ et $V_n = 2 + \dfrac{1}{n}$ ces deux suites vérifient l'énoncé et la suite $\left(U_n\right)$ diverge;
+		\item pour tout entier naturel $n$,\, $V_n \leqslant 2$ 
+		
+		Non avec $V_n = 2 + \dfrac{1}{n}$ on a $V_n \geqslant 2$ ;	
+		\item la suite $\left(U_n\right)$ diverge
+		
+		Non avec par exemple $U_n = 1 - \dfrac{1}{n}$ et $V_n = 2 + \dfrac{1}{n}$, les deux suites vérifient l'énoncé et la suite $\left(U_n\right)$ converge ;
+		\item la suite $\left(U_n\right)$ est majorée
+		
+On sait, d'après le cours que toute suite convergente est bornée; donc la suite $(V_n)$ est majorée et donc il existe un réel $M$ tel que, pour tout $n\in\N$, on a $V_n\leqslant	 M$.
+
+Or pour tout $n\in\N$ on a $U_n \leqslant V_n$; on en déduit que pour tout $n\in\N$, on a $U_n\leqslant M$ et donc que la suite $(U_n)$ est majorée. \hfill \textbf{Réponse d.}
+		
+%		Oui car il ne reste que cette proposition.\hfill \textbf{Réponse d.}
+	\end{enumerate} 
+\end{enumerate}
+
+

@@ -1,0 +1,99 @@
+
+\medskip
+
+\textbf{Partie A : Détermination d'une fonction $f$ et résolution d'une équation différentielle}
+
+\medskip
+
+%On considère la fonction $f$ définie sur $\R$ par :
+
+\[f(x) = \e^x+ ax + b\e^{-x}\]
+
+%où $a$ et $b$ sont des nombres réels que l'on propose de déterminer dans cette partie.
+
+%Dans le plan muni d'un repère d'origine O, on a représenté ci-dessous la courbe $\mathcal{C}$, représentant la fonction $f$, et la tangente $(T)$ à la courbe $\mathcal{C}$ au point d'abscisse $0$.
+
+\begin{center}
+\psset{unit=1.25cm}
+\begin{pspicture*}(-2.2,-0.6)(3.2,6.6)
+\psgrid[gridlabels=0pt,subgriddiv=5,gridwidth=0.25pt,subgridwidth=0.1pt]
+\psaxes[linewidth=1.25pt,labelFontSize=\scriptstyle]{->}(0,0)(-2.2,-0.4)(3.2,6.6)
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=red]{-2}{2.5}{2.71828 x exp x sub 2 2.71828 x exp div add} \uput[r](2,5){\red $\mathcal{C}$}
+\psplot[linewidth=1.25pt]{-2}{2}{3 2 x mul sub}
+\end{pspicture*}
+\end{center}
+
+\smallskip
+
+\begin{enumerate}
+\item ~%Par lecture graphique, donner les valeurs de $f(0)$ et de $f’(0)$.
+\starredbullet~$f(0) \approx 3$ ;
+
+\starredbullet~$f'(0) \approx - 2$ (coefficient directeur de la tangente)
+\item %En utilisant l'expression de la fonction $f$, exprimer $f(0)$ en fonction de $b$ et en déduire la valeur de $b$.
+On a $f(0) = 1 + b$. Or $1 + b = 3 \iff b = 2$.
+\item On admet que la fonction $f$ est dérivable sur $\R$ et on note $f'$ sa fonction dérivée. 
+	\begin{enumerate}
+		\item %Donner, pour tout réel $x$, l'expression de $f'(x)$.
+Sur $\R$, \, $f'(x) = \e^x + a - b\e^{-x} = \e^x + a - 2\e^{-x}$.
+		\item %Exprimer $f'(0)$ en fonction de $a$.
+Donc $f'(0) = 1 + a - 2 = a - 1$.
+		\item %En utilisant les questions précédentes, déterminer $a$, puis en déduire l'expression de $f(x)$.
+		On a vu que $f'(0) = - 2 = a - 1 \iff a = - 1$, donc finalement :
+		
+		\[f(x) = \e^x - x + 2\e^{-x}\]
+	\end{enumerate}
+\item %On considère l'équation différentielle :
+
+\[(E) : \quad  y' + y = 2\e^x - x - 1\]
+
+	\begin{enumerate}
+		\item %Vérifier que la fonction $g$ définie sur $\R$ par :
+		
+\[g(x) = \e^x - x + 2\e^{-x}.\]
+
+$g$ étant une somme de fonctions dérivables sur $\R$, on a sur cet intervalle :
+
+$g'(x) = \e^x - 1 - 2\e^{-x}$, soit en remplaçant dans l'équation $(E)$ :
+
+$\e^x - 1 - 2\e^{-x} + \e^x - x + 2\e^{-x} = 2\e^x - x - 1$ égalité vraie : $g$ est donc une solution de l'équation différentielle $(E)$.
+%est solution de l'équation $(E)$.
+
+		\item %Résoudre l'équation différentielle $y' + y = 0$.
+$y' + y = 0 \iff y' = - y$ : on sait que les solutions de cette équation différentielle sont les fonctions définies par :
+
+\[ x \longmapsto f(x) = K \e^{- x},\, \text{avec } K \in \R.\]
+
+		\item %En déduire toutes les solutions de l'équation $(E)$.
+D'après les questions précédentes les solutions de l'équation $(E)$ sont les fonctions définies que $\R$ par :
+
+\[ x \longmapsto \e^x - x + 2\e^{-x} + K \e^{- x},\, \text{avec } K \in \R.\]
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie B : Étude de la fonction $g$ sur $[1~;~+\infty[$}
+
+\medskip
+
+\begin{enumerate}
+\item %Vérifier que pour tout réel $x$, on a :
+
+%\[\e^{2x} - \e^x - 2 = \left(\e^x - 2\right)\left(\e^x + 1\right)\]
+En posant $X = \e^x$, on a $X^2 - X - 2$ et ce trinôme a deux solutions évidentes $2$ et $- 1$.
+
+$X^2 - X - 2 = (X - 2)(X + 1)$, donc en revenant à l'écriture initiale :
+
+$\e^{2x} - \e^x - 2 = \left(\e^x - 2\right)\left(\e^x + 1\right)$ pour tout réel $x$.
+\item %En déduire une expression factorisée de $g'(x)$, pour tout réel $x$.
+$g'(x) = \e^x - 1 - 2\e^{-x} = \e^{-x}\left(\e^{2x} - \e^{x} - 2)\right)$, donc d'après la question précédente :
+
+$g'(x) = \e^{-x}\left(\e^x - 2\right)\left(\e^x + 1\right).$
+\item %On admettra que, pour tout $x \in  [1~;~ +\infty[$,\, $\e^x - 2 > 0$.
+Puisque $\e^x - 2 > 0$ (admis), $\e^x + 1 > 1 > 0$  et $\e^{-x} > 0$, donc leur produit $g'(x) > 0$.
+
+Il en résulte que la fonction $g$ est croissante sur $\R$, donc sur $[1~;~ +\infty[$.
+%Étudier le sens de variation de la fonction $g$ sur $[1~;~ +\infty[$.
+\end{enumerate}
+

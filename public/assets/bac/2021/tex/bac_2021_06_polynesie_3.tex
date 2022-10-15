@@ -1,0 +1,98 @@
+
+\textbf{Commun à tous les candidats}
+
+Dans l'espace, on considère le cube ABCDEFGH d'arête de longueur égale à 1.
+
+On munit l'espace du repère orthonormé $\left(\text{A}~;~\vect{\text{AB}},~\vect{\text{AD}},~\vect{\text{AE}}\right)$.
+
+On considère le point M tel que $\vect{\text{BM}} = \dfrac{1}{3}\vect{\text{BH}}$.
+
+\begin{center}
+\psset{unit=1cm}
+\begin{pspicture}(-4,-2.75)(4.5,5.5)
+\psline[linewidth=1.25pt]{->}(0,5.5)\uput[u](0,5.5){$z$}
+\psline[linewidth=1.25pt]{->}(4.5,-1.8)\uput[dr](4.5,-1.8){$y$}
+\psline[linewidth=1.25pt]{->}(-4,-2)\uput[dl](-4,-2){$x$}
+\pspolygon[linewidth=1.25pt](-2.4,-1.16)(0.5,-2.4)(2.85,-1.1)(2.85,2.6)(0,3.6)(-2.4,2.3)%BCDHEF
+\psline[linewidth=1.25pt](-2.4,2.3)(0.5,1.06)(2.85,2.6)%FGH
+\psline[linewidth=1.25pt](0.5,1.06)(0.5,-2.4)%GC
+\psline[linestyle=dashed,linewidth=1.25pt](-2.4,-1.16)(2.85,2.6)
+\psdots(-0.65,0.093) \uput[ul](-0.65,0.093){M}
+\uput[d](-2.4,-1.16){B} \uput[d](0.5,-2.4){C} \uput[d](2.85,-1.1){D} 
+\uput[r](2.85,2.6){H} \uput[ur](0,3.6){E} \uput[l](-2.4,2.3){F} 
+\uput[d](0,0){A} \uput[u](0.5,1.06){G}
+\end{pspicture}
+\end{center}
+
+
+\begin{enumerate}
+\item Par lecture graphique, donner les coordonnées des points B, D, E, G et H.
+\item 
+	\begin{enumerate}
+		\item Quelle est la nature du triangle EGD ? Justifier la réponse.
+		\item On admet que l'aire d'un triangle équilatéral de côté $c$ est égale à $\dfrac{\sqrt{3}}{4}c^2$.
+		
+Montrer que l'aire du triangle EGD est égale à $\dfrac{\sqrt{3}}{2}$.
+	\end{enumerate}
+\item Démontrer que les coordonnées de M sont $\left(~\dfrac{2}{3}~;~\dfrac{1}{3}~; ~\dfrac{1}{3}\right)$.
+\item
+	\begin{enumerate}
+		\item Justifier que le vecteur $\vect{n}(-1~;~1~;~1)$ est normal au plan (EGD).
+		\item En déduire qu'une équation cartésienne du plan (EGD) est: $- x + y + z - 1 = 0$.
+		\item Soit $\mathcal{D}$ la droite orthogonale au plan (EGD) et passant par le point M. 
+		
+Montrer qu'une représentation paramétrique de cette droite est:
+
+\renewcommand\arraystretch{1.7}
+\[\mathcal{D} \, :\, \left\{\begin{array}{l c l}
+x&=&\dfrac{2}{3} - t\\
+y&=&\dfrac{1}{3} + t\\
+z&=&\dfrac{1}{3} + t
+\end{array}\right., \, t \in \R\]
+\renewcommand\arraystretch{1}
+	\end{enumerate}
+\item Le cube ABCDEFGH est représenté ci-dessus selon une vue qui permet de mieux
+percevoir la pyramide GEDM, en gris sur la figure :
+
+\begin{center}
+\psset{unit=1cm}
+\begin{pspicture}(-7,-0.5)(2,6.8)
+\psline[linewidth=2pt,fillstyle=solid,fillcolor=lightgray](-4.2,0.6)(-0.5,2.6)(0,4.2)(-2.9,6.2)%DMEG
+\pspolygon[linestyle=dotted,linewidth=2pt,fillstyle=solid,fillcolor=gray](-2.9,6.2)(-4.2,0.6)(-0.5,2.6)%GDM
+\psline[linewidth=2pt](-4.2,0.6)(0,4.2)(-2.9,6.2)%DEG
+\psline[linewidth=1.25pt]{->}(1.9,2.3)\uput[ur](1.9,2.3){$x$}
+\psline[linewidth=1.25pt]{->}(-6.4,0.9)\uput[ul](-6.4,0.9){$y$}
+\psline[linewidth=1.25pt]{->}(0,6.2)\uput[u](0,6.2){$z$}
+\pspolygon[linewidth=1.25pt](0,0)(1.3,1.55)(1.3,5.8)(-2.9,6.2)(-4.2,4.6)(-4.2,0.6)%ABFGHDA
+\psline[linewidth=1.25pt](-4.2,4.6)(0,4.2)(1.3,5.8)%HEF
+
+\psline[linestyle=dashed,linewidth=1.25pt](1.3,1.55)(-2.9,2.1)(-2.9,6.2)%BCG
+\psline[linestyle=dashed,linewidth=1.25pt](-2.9,2.1)(-4.2,0.6)%CD
+
+\psline[linestyle=dotted,linewidth=2pt](-0.5,2.6)(0,4.2)%ME
+
+\uput[d](-0.5,2.6){M}
+\uput[r](1.3,1.55){B} \uput[ul](-2.9,2.1){C} \uput[d](-4.2,0.6){D} 
+\uput[l](-4.2,4.6){H} \uput[r](0,4.2){E} \uput[r](1.3,5.8){F} 
+\uput[d](0,0){A} \uput[u](-2.9,6.2){G}
+\end{pspicture}
+\end{center}
+
+Le but de cette question est de calculer le volume de la pyramide GEDM.
+
+	\begin{enumerate}
+		\item Soit K, le pied de la hauteur de la pyramide GEDM issue du point M.
+		
+Démontrer que les coordonnées du point K sont $\left(\dfrac{1}{3}~;~\dfrac{2}{3}~;~\dfrac{2}{3}\right)$.
+		\item En déduire le volume de la pyramide GEDM.
+		
+\emph{On rappelle que le volume $V$ d'une pyramide est donné par la formule }
+
+\emph{$V = \dfrac{b \times h}{3}$ où 
+$b$ désigne l'aire d'une base et $h$ la hauteur associée}.
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+
+

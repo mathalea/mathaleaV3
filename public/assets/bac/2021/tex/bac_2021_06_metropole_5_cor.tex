@@ -1,0 +1,107 @@
+
+\vspace{0.5cm}
+
+%\begin{tabular}[]{|l|}
+%\hline
+%Principaux domaines abordés :\\
+%Équations différentielles ; fonction exponentielle.\\
+%\hline
+%\end{tabular}
+%
+%\bigskip
+
+On considère l’équation différentielle  $(E)\quad  y'=  y+ 2 x \e^x$
+ 
+%On cherche l'ensemble des fonctions définies et dérivables sur l'ensemble $\R$ des nombres réels qui sont solutions de cette équation. 
+\smallskip
+
+\begin{enumerate}
+\item %Soit $u$ la fonction définie sur $\R$ par $u(x) = x^2\e^x$. On admet que $u$ est dérivable et on note $u'$ sa fonction dérivée. Démontrer que $u$ est une solution particulière de $(E)$.
+De $u(x) = x^2\e^x$, on déduit que $u'(x) = 2x\e^x +  x^2\e^x =  \e^x\left(x^2 + 2x \right) = x(x + 2)\e^x$.
+
+Donc $u$ solution de $(E)$ si et seulement si :
+
+$u' = u + 2x\e^x \iff 2x\e^x +  x^2\e^x = x^2\e^x + 2 x \e^x$ qui est vraie : $u$ est 
+une solution particulière de $(E)$.
+\item Soit $g(x)=f(x) - u(x)$%$f$ une fonction définie et dérivable sur $\R$. On note $g$ la fonction définie sur $\R$ par : 
+
+
+
+\smallskip
+
+\begin{enumerate}
+\item  %Démontrer que si la fonction $f$ est solution de l'équation différentielle $(E)$ alors la fonction $g$ est solution de l'équation différentielle: $y' =y$. 
+$f$ est solution de l'équation différentielle $(E)$ si et seulement si :
+
+$f'(x) = f(x) + 2x\e^x \quad (1)$.
+
+Or $g(x) = f(x) - u(x) \iff f(x) = g(x) + u(x)$, d'où on déduit, les deux fonctions étant dérivables sur $\R$ : $f'(x) = g'(x) + u'(x)$.
+
+L'égalité (1) devient : $g'(x) + u'(x) = g(x) + u(x) + 2x\e^x \quad (2)$.
+
+Or on a vu dans la question précédente que $u'(x) = u(x) + 2x\e^x$
+
+L'équation (2) devient donc : $g'(x) = g(x)$, ce qui signifie que la fonction $g$ est solution de l'équation différentielle : $y' = y$.
+
+%On admet que la réciproque de cette propriété est également vraie. 
+
+\item %À l'aide de la résolution de l'équation différentielle $y' = y$, résoudre l'équation différentielle $(E)$.
+On sait que les solutions de l'équation différentielle $y' = y$ sont les fonctions définies par $x \longmapsto K\e^x$, \, $K \in \R$.
+
+Donc on a $g(x) = K \e^x, \, K \in \R$ et $f(x) = K \e^x + 2x\e^x$.
+
+Les solutions de l'équation $(E)$ : $f(x) = (K + 2)\e^x$, \, $K \in \R$.
+\end{enumerate}
+\item Étude de la fonction $u $
+	\begin{enumerate}
+		\item %Étudier le signe de $u'(x)$ pour $x$ variant dans $\R$.
+On a $u'(x) = x(x + 2)\e^x$. Comme $\e^x > 0$, quel que soit $x \in \R$, le signe de $u'(x)$ est celui du trinôme $x(x + 2)$ qui a pour racines $- 2$ et $0$.
+
+On sait que ce trinôme est positif, sauf entre les racines :
+
+$u'(x) > 0$ sur $]- \infty~;~-2[ \cup [0~;~+ \infty[$ ;
+
+$u'(x) < 0$ sur $]-2~;~0[$ ;
+
+$u'(- 2) = u'(0) = 0$.
+		\item %Dresser le tableau de variations de la fonction $u$ sur $\R$ (les limites ne sont pas demandées).
+		
+De la question précédente il suit que $u$ est croissante sauf sur $]-2~;~0[$ où elle est décroissante, $u(- 2) = 4\e^{-2}$ et $u(0)  = 0$ étant les deux extremums de la fonction sur $\R$.
+
+\begin{center}
+\psset{unit=1cm}
+\begin{pspicture}(10,2.75)
+\psframe(10,2.75)\psline(0,2)(10,2)\psline(1,0)(1,2.75)
+\uput[u](0.5,2){$x$}\uput[u](1.5,2){$- \infty$}\uput[u](4,2){$- 2$}\uput[u](7,2){$0$}\uput[u](9.5,2){$+\infty$}
+\uput[d](4,2){$4\e^{-2}$}\uput[u](7,0){$0$}
+\rput(0.5,1){$u$}
+\psline{->}(1.5,0.5)(3.5,1.5)\psline{->}(4.5,1.5)(6.5,0.5)\psline{->}(7.5,0.5)(9.5,1.5)
+\end{pspicture}
+\end{center}
+		\item %Déterminer le plus grand intervalle sur lequel la fonction $u$ est concave.
+$u'$ est un produit de fonctions dérivables sur $\R$, donc elle est dérivable sur $\R$: 
+
+$u''(x) = (2x + 2)\e^x + \left(x^2 + 2x\right)\e^x = \e^x\left(x^2 + 4x + 2\right)$.
+
+Comme $\e^x > 0$, quel que soit $x \in \R$, le signe de $u''(x)$ est celui du trinôme $x^2 +4x + 2 = (x + 2)^2 - 4 + 2 = (x + 2)^2 - 2 =  (x + 2)^2 - \left(\sqrt{2}\right)^2 = \left(x + 2 + \sqrt{2} \right)\left(x + 2 - \sqrt{2} \right)$.
+
+Les racines de ce trinôme sont donc $-\sqrt{2} - 2$ et  $-\sqrt{2} + 2$.
+
+Le trinôme donc $u''(x)$ sont négatifs entre les racines.
+
+Conclusion : la fonction est concave sur l'intervalle $\left]- \sqrt{2} - 2~;~+ \sqrt{2} - 2\right[$.
+
+\begin{center}
+\psset{unit=1cm}
+\begin{pspicture*}(-6,-0.6)(2,4)
+\psaxes[linewidth=1.25pt,labelFontSize=\scriptstyle]{->}(0,0)(-6,0)(2,4)
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=red]{-6}{2}{x dup mul 2.71828 x exp mul}
+\uput[d](-3.414,0){\scriptsize \blue $- \sqrt{2} - 2$}
+\uput[d](-0.586,0){\scriptsize \blue $\sqrt{2} - 2$}
+\psline[linewidth=1.75pt,linecolor=blue]{]-[}(-3.414,0)(-0.586,0)
+\end{pspicture*}
+\end{center}
+	\end{enumerate}
+\end{enumerate}
+
+%%%%%%%%%%%%%%% sujet 8 juin %%%%%%%%%%%ù

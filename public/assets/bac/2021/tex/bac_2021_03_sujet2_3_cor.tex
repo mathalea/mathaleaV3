@@ -1,0 +1,111 @@
+\textbf{\large Exercice 3 \hfill Commun à  tous les candidats \hfill 4 points}
+
+\medskip
+
+Dans l'espace rapporté à  un repère orthonormé \Oijk, on considère les points:
+
+\text{A} de coordonnées (2~;~0~;~0), B de coordonnées (0~;~3~;~0) et C de coordonnées (0~;~0~;~1).
+
+\begin{center}
+\psset{unit=0.6cm}
+\begin{pspicture}(-0.5,-0.5)(11,5)
+\pspolygon[fillstyle=solid,fillcolor=gray!20,linestyle=dashed](0,0)(2.4,4.5)(10.4,2)
+%\psgrid
+\psline(0,0)(8,0)(10.4,2)(10.4,4.5)(8,2.5)(8,0)
+\psline(8,2.5)(0,2.5)(0,0)
+\psline(0,2.5)(2.4,4.5)(10.4,4.5)
+\psline[linestyle=dashed](0,0)(2.4,2)(2.4,4.5)
+\psline[linestyle=dashed](2.4,2)(10.4,2)
+\uput[dl](0,0){A}\uput[u](2.4,4.5){C}\uput[r](10.4,2){B}\uput[d](2.5,2){O}
+\end{pspicture}
+\end{center}
+
+\medskip
+
+L'objectif de cet exercice est de calculer l'aire du triangle ABC.
+
+\medskip
+
+\begin{enumerate}
+\item 
+	\begin{enumerate}
+		\item Pour montrer que le vecteur $\vect{n}\begin{pmatrix}3\\2\\6\end{pmatrix}$ est normal au plan (ABC), il suffit de démontrer que ce vecteur est orthogonal à  deux vecteurs directeurs du plan (ABC),  par exemple $\vectt{AB}$ et $\vectt{AC}$.
+		
+$\vectt{AB}$ a pour coordonnées $(-2~;~3~;~0)$ donc $\vectt{AB}\cdot \vect{n}=-2\times 3 + 3\times 2 + 0\times 6 = 0$ donc $\vectt{AB}\perp \vect{n}$.		
+
+$\vectt{AC}$ a pour coordonnées $(-2~;~0~;~1)$ donc $\vectt{AC}\cdot \vect{n}=-2\times 3 + 0\times 2 + 1\times 6 = 0$ donc $\vectt{AC}\perp \vect{n}$.		
+		
+Donc le vecteur $\vect{n}$ est normal au plan (ABC).
+		
+		\item %En déduire qu'une équation cartésienne du plan (ABC) est : $3x + 2y + 6z - 6 = 0$.
+Le plan (ABC) est l'ensemble des points M\,$(x~;~y~;~z)$ tels que $\vectt{AM}\perp \vect{n}$, c'est-à -dire $\vectt{AM}\cdot \vect{n}=0$.
+Or $\vectt{AM}$ a pour coordonnées $(x-2~;~y~;~z)$.
+
+$\vectt{AM}\cdot \vect{n}=0 \iff (x-2)\times 3 + y\times 2 + z\times 6=0 \iff 3x +2y +6z -6=0$
+
+Le plan (ABC) a donc pour équation cartésienne $3x + 2y + 6z - 6 = 0$.
+	\end{enumerate}
+
+\item  On note $d$ la droite passant par O et orthogonale au plan (ABC). 
+	\begin{enumerate}
+		\item% Déterminer une représentation paramétrique de la droite $d$.
+La droite $d$ est orthogonale au plan (ABC) donc elle a pour vecteur directeur le vecteur $\vect{n}$ normal à  (ABC).
+
+De plus elle passe par le point O de coordonnées $(0~;~0~;~0)$.
+
+La droite $d$ a donc pour représentation paramétrique
+$\left \lbrace
+\begin{array}{l !{=} l}
+x & 3k\\
+y & 2k,\quad k\in\R\\
+z & 6k
+\end{array}
+\right .$
+
+		\item La droite $d$ coupe le plan (ABC) au point H.% de coordonnées $\left(\frac{18}{49}~;~\frac{12}{49}~;~\frac{36}{49}\right)$.
+		
+Les coordonnées du point H vérifient le système
+$\left \lbrace
+\begin{array}{r !{=} l}
+x_{\text H} & 3k\\
+y_{\text H} & 2k\\
+z_{\text H} & 6k\\
+3x_{\text H}+2y_{\text H}+6z_{\text H}-6 & 0
+\end{array}
+\right .$		
+
+Donc $3\times 3k+2\times 2k+6\times 6k-6 = 0$ ce qui équivaut à  $9k+4k+36k=6$ ou $49k=6$ donc $k=\frac{6}{49}$.
+
+$x=3k$ donc $x=\frac{18}{49}$, $y=2k$ donc $y=\frac{12}{49}$, et $z=6k$ donc $z=\frac{36}{49}$.
+
+Le point H a donc pour coordonnées $\left(\frac{18}{49}~;~\frac{12}{49}~;~\frac{36}{49}\right)$.
+		
+		\item %Calculer la distance OH.
+OH$^2 = (x_{\text H}	- x_{\text O})^2 + (y_{\text H} - y_{\text O})^2 + (z_{\text H} - z_{\text O})^2 = \left ( \frac{18}{49}\right )^2 + \left ( \frac{12}{49}\right )^2 + \left ( \frac{36}{49}\right )^2 = \frac{18^2+12^2+36^2}{49^2} = \frac{1764}{49^2}$
+
+Donc $\text{OH} = \ds\sqrt{\frac{1764}{49^2}}=\frac{42}{49} = \dfrac{7 \times 6}{7 \times 7} = \dfrac{6}{7}$.
+\end{enumerate}
+
+\item  On rappelle que le volume d'une pyramide est donné par: $V = \dfrac{1}{3}\mathcal{B}h$, où $\mathcal{B}$ est l'aire d'une base et $h$ est la hauteur de la pyramide correspondant à  cette base.
+
+%En calculant de deux façons différentes le volume de la pyramide OABC, déterminer l'aire du triangle ABC.
+
+\begin{list}{\textbullet}{}
+\item En prenant  le triangle OAB pour base de la pyramide OABC, la hauteur est OC, et le volume $\mathcal{V}$ est égal à  
+$\dfrac{1}{3}\times \mathcal{B}\times\text{OC}$ où $\mathcal{B}$ est l'aire du triangle OAB.
+
+$\mathcal{B}= \dfrac{1}{2}\times \text{OA}\times \text{OB} = \dfrac{1}{2}\times 2\times 3 = 3$ et $\text{OC}=1$.
+
+Donc $\mathcal{V}=\dfrac{1}{3}\times 3 \times 1= 1$~(u. a.).
+
+\item En prenant le triangle ABC pour base de la pyramide OABC, la hauteur est OH, et le volume $\mathcal{V}$ est égal à  
+$\dfrac{1}{3}\times \mathcal{B}'\times\text{OH}$ où $\mathcal{B}'$ est l'aire du triangle ABC.
+
+$\text{OH}=\dfrac{6}{7}$ et $\mathcal{V} = 1$ donc $1=\dfrac{1}{3}\times \mathcal{B}' \times \dfrac{6}{7}$ et donc $\mathcal{B}'=\dfrac{49}{14} = \dfrac{7 \times 7}{7 \times 2} = \dfrac{7}{2} = 3,5$.
+\end{list}
+
+L'aire du triangle ABC vaut $\dfrac{7}{2} = 3,5$~(u. a.).
+
+\end{enumerate}
+
+

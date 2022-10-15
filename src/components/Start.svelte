@@ -7,6 +7,7 @@
   import { exercicesParams, displayOptions } from "./store"
   import codeList from "../json/codeToLevelList.json"
   import referentiel from "../json/referentiel2022.json"
+  import referentielStatic from "../json/referentielStatic.json"
   import { Mathalea } from "../Mathalea"
   import { flip } from "svelte/animate"
   import { onMount } from "svelte"
@@ -62,32 +63,43 @@
     document.dispatchEvent(exercicesAffiches)
   }
 
-  let filteredReferentiel = referentiel
+  // Réorganisation du référentiel
+  // Suppression de la rubrique calcul mental
+  // On renomme les chapitres pour la partie statique
+  let filteredReferentiel = {...referentiel, static: {...referentielStatic}}
+  delete filteredReferentiel["Calcul mental"]
+  filteredReferentiel['3e']["Brevet des collèges par thèmes - APMEP"] =  filteredReferentiel["static"]["Brevet des collèges par thèmes - APMEP"]
+  filteredReferentiel['CRPE']["Concours 2022"] =  filteredReferentiel["static"]["CRPE (2022) par année"]
+  filteredReferentiel['CRPE']["Concours 2022 - Par thèmes"] =  filteredReferentiel["static"]["CRPE (2022) par thèmes"]
+  filteredReferentiel['CRPE']["CRPE (2015-2019) par thèmes - COPIRELEM"] =  filteredReferentiel["static"]["CRPE (2015-2019) par thèmes - COPIRELEM"]
+  filteredReferentiel['CRPE']["CRPE (2015-2019) par année - COPIRELEM"] =  filteredReferentiel["static"]["CRPE (2015-2019) par année - COPIRELEM"]
   let referentielMap = toMap(filteredReferentiel)
   let arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
 
   function updateReferentiel() {
     let itemsAccepted
-    if (filtre === "all") {
-      itemsAccepted = ["CAN", "CM1/CM2", "6e", "5e", "4e", "3e", "Seconde", "Première", "Première technologique", "Terminal expert", "Hors-programme (lycée)", "CRPE", "Calcul mental"]
-    } else if (filtre === "college") {
+    if (filtre === "college") {
       itemsAccepted = ["6e", "5e", "4e", "3e", "Calcul mental"]
     } else if (filtre === "lycee") {
-      itemsAccepted = ["Seconde", "Première", "Première technologique", "Terminal expert"]
+      itemsAccepted = ["Seconde", "Première", "Première Technologique", "Terminale exper"]
     } else if (filtre === "crpe") {
       itemsAccepted = ["CRPE"]
     }
 
-    filteredReferentiel = Object.keys(referentiel)
-      .filter((key) => itemsAccepted.includes(key))
-      .reduce((obj, key) => {
-        return {
-          ...obj,
-          [key]: referentiel[key],
-        }
-      }, {})
-    referentielMap = toMap(filteredReferentiel)
-    arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
+    if (filtre === "all") {
+      filteredReferentiel = {...referentiel, static: {...referentielStatic}}
+    } else {
+      filteredReferentiel = Object.keys(referentiel)
+        .filter((key) => itemsAccepted.includes(key))
+        .reduce((obj, key) => {
+          return {
+            ...obj,
+            [key]: referentiel[key],
+          }
+        }, {})
+      }
+      referentielMap = toMap(filteredReferentiel)
+      arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
   }
 
   /**

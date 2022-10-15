@@ -1,0 +1,69 @@
+\textbf{\large Exercice 2 \hfill 5 points}
+
+\bigskip
+
+Une urne contient six jetons rouges dont un est marqué « gagnant » et quatre jetons verts dont trois d'entre eux sont marqués « gagnant ».
+
+\begin{list}{}{On tire au hasard un jeton de l'urne et on note les évènements :}
+\item $R$ : « le jeton tiré est rouge »,
+\item $V$ : « le jeton tiré est vert »,
+\item $G$ : « le jeton tiré est gagnant ».
+\end{list}
+
+\begin{enumerate}
+\item  On modélise la situation à l'aide d'un arbre de probabilité.
+
+\begin{center}
+\bigskip
+  \pstree[treemode=R,nodesepA=0pt,nodesepB=4pt,levelsep=2.5cm,treesep=1.2cm]{\TR{}}
+ {
+ 	\pstree[nodesepA=4pt]{\TR{$R$}\ncput*{$\frac{6}{10}$}}
+ 	  { 
+ 		  \TR{$G$}\ncput*{$\frac{1}{6}$}
+ 		  \TR{$\overline{G}$}\ncput*{$\frac{5}{6}$}	   
+ 	  }
+ 	\pstree[nodesepA=4pt]{\TR{$V$}\ncput*{$\frac{4}{10}$}}
+ 	  {
+ 		  \TR{$G$}\ncput*{$\frac{3}{4}$}
+          \TR{$\overline{G}$}\ncput*{$\frac{1}{4}$} 
+     }
+}
+\bigskip
+\end{center}
+
+\item La probabilité de l'évènement « le jeton tiré est un jeton vert et marqué gagnant » est:
+
+$P(V\cap G) = p(V)\times P_{V}(G)= \dfrac{4}{10}\times \dfrac{3}{4}=\dfrac{3}{10}$.
+
+\item Soit $P(G)$ la probabilité de tirer un jeton gagnant. %Montrer que $P(G)=\dfrac{2}{5}$.
+
+D'après la formule des probabilités totales:
+
+$P(G) = P(R\cap G) + P(V\cap G) = \dfrac{6}{10}\times \dfrac{1}{6}+ \dfrac{3}{10} 
+= \dfrac{1}{10} + \dfrac{3}{10} = \dfrac{4}{10}=\dfrac{2}{5}$.
+
+\item Sachant que le jeton tiré est gagnant, la probabilité qu'il soit de couleur rouge est:
+
+$P_G(R) = \dfrac{P(R\cap G)}{P(G)} = \dfrac{\frac{1}{10}}{\frac{4}{10}} = \dfrac{1}{4}$.
+
+\item On tire maintenant, toujours au hasard et simultanément, deux jetons dans l'urne.
+
+On cherche la probabilité que les deux jetons soient marqués « gagnant ». 
+
+%Expliquer votre démarche.
+
+Il y a en tout 10 jetons dont 4 gagnants.
+
+\begin{list}{\textbullet}{}
+\item Il y a $\ds\binom{10}{2}=45$ façons de tirer 2 jetons parmi 10.
+\item Il y a $\ds\binom{4}{2}= 6$ façons de tirer 2 jetons gagnants parmi les 4 gagnants.
+\item Le tirage se fait au hasard donc il y a équiprobabilité.
+
+\end{list}
+
+La probabilité que les deux jetons soient marqués « gagnant » est donc: $\dfrac{6}{45} = \dfrac{2}{15}$. 
+
+\end{enumerate}
+
+%\vspace{0.5cm}
+

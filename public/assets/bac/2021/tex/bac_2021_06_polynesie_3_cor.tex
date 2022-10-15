@@ -1,0 +1,160 @@
+
+\textbf{Commun à tous les candidats}
+
+%Dans l'espace, on considère le cube ABCDEFGH d'arête de longueur égale à 1.
+%
+%On munit l'espace du repère orthonormé $\left(\text{A}~;~\vect{\text{AB}},~\vect{\text{AD}},~\vect{\text{AE}}\right)$.
+%
+%On considère le point M tel que $\vect{\text{BM}} = \dfrac{1}{3}\vect{\text{BH}}$.
+
+\begin{center}
+\psset{unit=1cm}
+\begin{pspicture}(-4,-2.75)(4.5,5.1)
+\psline[linewidth=1.25pt]{->}(0,5.)\uput[u](0,5){$z$}
+\psline[linewidth=1.25pt]{->}(4.5,-1.8)\uput[dr](4.5,-1.8){$y$}
+\psline[linewidth=1.25pt]{->}(-4,-2)\uput[dl](-4,-2){$x$}
+\pspolygon[linewidth=1.25pt](-2.4,-1.16)(0.5,-2.4)(2.85,-1.1)(2.85,2.6)(0,3.6)(-2.4,2.3)%BCDHEF
+\psline[linewidth=1.25pt](-2.4,2.3)(0.5,1.06)(2.85,2.6)%FGH
+\psline[linewidth=1.25pt](0.5,1.06)(0.5,-2.4)%GC
+\psline[linestyle=dashed,linewidth=1.25pt](-2.4,-1.16)(2.85,2.6)
+\psdots(-0.65,0.093) \uput[ul](-0.65,0.093){M}
+\uput[d](-2.4,-1.16){B} \uput[d](0.5,-2.4){C} \uput[d](2.85,-1.1){D} 
+\uput[r](2.85,2.6){H} \uput[ur](0,3.6){E} \uput[l](-2.4,2.3){F} 
+\uput[d](0,0){A} \uput[u](0.5,1.06){G}
+\end{pspicture}
+\end{center}
+
+
+\begin{enumerate}
+\item %Par lecture graphique, donner les coordonnées des points B, D, E, G et H.
+Dans le repère $\left(\text{A}~;~\vect{\text{AB}},~\vect{\text{AD}},~\vect{\text{AE}}\right)$, on a 
+
+B(1~;~0~;~0), \, D(0~;~1~;~0), \, E(0~;~0~;~1),\, G(1~;~1~;~1), \, H(0~;~1~;~1).
+\item 
+	\begin{enumerate}
+		\item{}  %Quelle est la nature du triangle EGD ? Justifier la réponse.
+[EG], [GD] et [ED] sont les hypoténuses de triangles rectangles isocèles de côté 1, donc EG = GD = ED $= \sqrt{2}$ : le triangle EGD est équilatéral.
+		\item %On admet que l'aire d'un triangle équilatéral de côté $c$ est égale à $\dfrac{\sqrt{3}}{4}c^2$.
+		
+%Montrer que l'aire du triangle EGD est égale à $\dfrac{\sqrt{3}}{2}$.
+Puisque $c = \sqrt{2}$, on a $\mathcal{A}(\text{EGD}) = \dfrac{\sqrt{3}}{4}\times \left(\sqrt{2}\right)^2 = \dfrac{\sqrt{3}}{4}\times 2 = \dfrac{\sqrt{3}}{2}$.
+	\end{enumerate}
+	
+\item %Démontrer que les coordonnées de M sont $\left(\dfrac{2}{3}~;~\dfrac{1}{3}~; ~\dfrac{1}{3}\right)$.
+
+On a $\vect{\text{BH}}\begin{pmatrix}- 1\\1\\1\end{pmatrix}$, donc $\vect{\text{BM}} = \dfrac{1}{3}\vect{\text{BH}}\begin{pmatrix}- \frac{1}{3}\\[3pt]\frac{1}{3}\\[3pt]\frac{1}{3}\end{pmatrix} = \begin{pmatrix}x_{\text{M}} - 1\\y_{\text{M}}- 0\\z_{\text{M}}- 0\end{pmatrix}$.
+
+On a donc : 
+$x_{\text{M}} = 1 - \dfrac{1}{3} = \dfrac{2}{3}$ ;\,
+$y_{\text{M}} = \dfrac{1}{3} $ ; \,
+$z_{\text{M}} = \dfrac{1}{3}$.
+
+Conclusion : M a pour coordonnées $\left(\dfrac{2}{3}~;~\dfrac{1}{3}~; ~\dfrac{1}{3}\right)$.
+\item
+	\begin{enumerate}
+		\item %Justifier que le vecteur $\vect{n}(-1~;~1~;~1)$ est normal au plan (EGD).
+		
+On a $\vect{\text{EG}}\begin{pmatrix}1\\1\\0\end{pmatrix}$ : donc $\vect{n} \cdot \vect{\text{EG}} = - 1 +1 + 0 = 0$ :
+
+$\vect{\text{ED}}\begin{pmatrix}0\\1\\-1\end{pmatrix}$ : donc $\vect{n} \cdot \vect{\text{ED}} =  0 + 1 - 1  = 0$.
+
+Conclusion : $\vect{n}$ est orthogonal à deux vecteurs non colinéaires du plan (EGD) : c'est un vecteur normal à ce plan.
+		\item %En déduire qu'une équation cartésienne du plan (EGD) est: $- x + y + z - 1 = 0$.
+		On sait qu'un plan d'équation $ax + by + cz + d = 0$ a un vecteur normal de coordonnées $(a~;~b~;~c)$, donc :
+		
+$P(x~;~y~;~z) \in (\text{EGD})  \iff -x + y + z + d = 0$.
+
+Comme E(0~;~0~;~1)$\in (\text{EGD}) \iff 0 + 0 + 1 + d = 0 \iff d = - 1$.
+
+Finalement : le plan (EGD) a pour équation $-x + y + z - 1 = 0$.
+		\item %Soit $\mathcal{D}$ la droite orthogonale au plan (EGD) et passant par le point M. 
+		
+%Montrer qu'une représentation paramétrique de cette droite est:
+
+%\renewcommand\arraystretch{1.7}
+%\[\mathcal{D} \, :\, \left\{\begin{array}{l c l}
+%x&=&\dfrac{2}{3} - t\\
+%y&=&\dfrac{1}{3} + t\\
+%z&=&\dfrac{1}{3} + t
+%\end{array}\right., \, t \in \R\]
+%\renewcommand\arraystretch{1}
+La droite $\mathcal{D}$ contient M et a pour vecteur directeur $\vect{n}$ vecteur normal au plan (EGD), donc avec $\vect{\text{M}P}\begin{pmatrix}x - \frac{2}{3}\\[3pt]y - \frac{2}{3}\\[3pt]z - \frac{1}{3}\end{pmatrix}$:
+
+$P(x~;~y~;~z) \in \mathcal{D} \iff \vect{\text{M}P} = t \vect{n}$, avec $t \in \R$, soit :
+
+$\left\{\begin{array}{l c l}
+x - \frac{2}{3}&=& - t\\[3pt]
+y - \frac{1}{3}&=&t\\[3pt]
+z - \frac{1}{3}&=&t
+\end{array}\right., \, t \in \R \iff \left\{\begin{array}{l c l}
+x	&=&\frac{2}{3} - t\\[3pt]
+y	&=&\frac{1}{3} + t\\[3pt]
+z 	&=&\frac{1}{3} + t
+\end{array}\right., \, t \in \R$. 
+	\end{enumerate}
+\item Le cube ABCDEFGH est représenté ci-dessus selon une vue qui permet de mieux percevoir la pyramide GEDM, en gris sur la figure :
+
+\begin{center}
+\psset{unit=1cm}
+\begin{pspicture}(-7,-0.5)(2,6.8)
+\psline[linewidth=2pt,fillstyle=solid,fillcolor=lightgray](-4.2,0.6)(-0.5,2.6)(0,4.2)(-2.9,6.2)%DMEG
+\pspolygon[linestyle=dotted,linewidth=2pt,fillstyle=solid,fillcolor=gray](-2.9,6.2)(-4.2,0.6)(-0.5,2.6)%GDM
+\psline[linewidth=2pt](-4.2,0.6)(0,4.2)(-2.9,6.2)%DEG
+\psline[linewidth=1.25pt]{->}(1.9,2.3)\uput[ur](1.9,2.3){$x$}
+\psline[linewidth=1.25pt]{->}(-6.4,0.9)\uput[ul](-6.4,0.9){$y$}
+\psline[linewidth=1.25pt]{->}(0,6.2)\uput[u](0,6.2){$z$}
+\pspolygon[linewidth=1.25pt](0,0)(1.3,1.55)(1.3,5.8)(-2.9,6.2)(-4.2,4.6)(-4.2,0.6)%ABFGHDA
+\psline[linewidth=1.25pt](-4.2,4.6)(0,4.2)(1.3,5.8)%HEF
+
+\psline[linestyle=dashed,linewidth=1.25pt](1.3,1.55)(-2.9,2.1)(-2.9,6.2)%BCG
+\psline[linestyle=dashed,linewidth=1.25pt](-2.9,2.1)(-4.2,0.6)%CD
+
+\psline[linestyle=dotted,linewidth=2pt](-0.5,2.6)(0,4.2)%ME
+
+\uput[d](-0.5,2.6){M}
+\uput[r](1.3,1.55){B} \uput[ul](-2.9,2.1){C} \uput[d](-4.2,0.6){D} 
+\uput[l](-4.2,4.6){H} \uput[r](0,4.2){E} \uput[r](1.3,5.8){F} 
+\uput[d](0,0){A} \uput[u](-2.9,6.2){G}
+\end{pspicture}
+\end{center}
+
+%Le but de cette question est de calculer le volume de la pyramide GEDM.
+
+	\begin{enumerate}
+		\item %Soit K, le pied de la hauteur de la pyramide GEDM issue du point M.
+		
+%Démontrer que les coordonnées du point K sont $\left(\dfrac{1}{3}~;~\dfrac{2}{3}~;~\dfrac{2}{3}\right)$.
+On a vu que la droite $\mathcal{D}$ contient M et est perpendiculaire au plan (EBD) : c'est donc la hauteur de la pyramide GEDM issue de M. Le pied de cette hauteur K appartient donc à $\mathcal{D}$ et au plan (EGD) ; ses coordonnées vérifient donc les équations :
+
+$\left\{\begin{array}{l c l}
+x	&=&\frac{2}{3} - t\\[3pt]
+y	&=&\frac{1}{3} + t\\[3pt]
+z 	&=&\frac{1}{3} + t\\[3pt]
+- x + y + z - 1&=&0
+\end{array}\right.\Rightarrow -\left(\frac{2}{3} - t \right) + \frac{1}{3} + t + \frac{1}{3} + t - 1 = 0 \iff 3t = 1 \iff t = \frac{1}{3}$.
+
+En remplaçant $t$ par $\frac{1}{3}$ dans l'équation paramétrique de $\mathcal{D}$, on obtient :
+
+$\left\{\begin{array}{l c l}
+x	&=&\frac{2}{3} - \frac{1}{3} = \frac{1}{3}\\[3pt]
+y	&=&\frac{1}{3} + \frac{1}{3} = \frac{2}{3}\\[3pt]
+z 	&=&\frac{1}{3} + \frac{1}{3} = \frac{2}{3}
+\end{array}\right.$
+
+Conclusion : K a pour coordonnées $\left(\dfrac{1}{3}~;~\dfrac{2}{3}~;~\dfrac{2}{3} \right)$.
+		\item %En déduire le volume de la pyramide GEDM.
+On en déduit $\vect{\text{KM}}\begin{pmatrix}\frac{1}{3}\\[3pt]- \frac{1}{3}\\[3pt]- \frac{1}{3}\end{pmatrix}$.
+
+D'où KM$^2 = \dfrac{1}{9} + \dfrac{1}{9} + \dfrac{1}{9} = \dfrac{3}{9}$ ; on en déduit KM$ = \dfrac{\sqrt{3}}{3}$.
+		
+%\emph{On rappelle que le volume $V$ d'une pyramide est donné par la formule }
+%
+%\emph{$V = \dfrac{b \times h}{3}$ où 
+%$b$ désigne l'aire d'une base et $h$ la hauteur associée}.
+Comme $\mathcal{A}(\text{EGD}) = \frac{\sqrt{3}}{2}$, le volume de la pyramide GEDM est  : $\dfrac{\frac{\sqrt{3}}{2}\times \frac{\sqrt{3}}{3}}{3} = \dfrac{1}{6}$.
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+
+

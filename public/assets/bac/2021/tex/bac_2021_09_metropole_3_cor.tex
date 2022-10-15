@@ -1,0 +1,143 @@
+
+\medskip
+
+%Dans le parc national des Pyrénées, un chercheur travaille sur le déclin d'une espèce protégée dans les lacs de haute-montagne : le \og crapaud accoucheur \fg.
+%
+Les parties I et II peuvent être abordées de façon indépendante.
+
+\begin{center}\textbf{Partie I : Effet de l'introduction d'une nouvelle espèce.}\end{center}
+
+%Dans certains lacs des Pyrénées, des truites ont été introduites par l'homme afin de permettre des activités de pêche en montagne. Le chercheur a étudié l'impact de cette introduction sur la
+%population de crapauds accoucheurs d'un lac.
+%
+%Ses études précédentes l'amènent à modéliser l'évolution de cette population en fonction du temps par la fonction $f$ suivante : 
+
+Soit $f$ la fonction définie pour   $t \in [0~;~120]$ par:
+
+\[f(t) = \left(0,04t^2 - 8t + 400\right)\text{e}^{\frac{t}{50}} + 40.\]
+
+La variable $t$ représente le temps écoulé, en jour, à partir de l'introduction à l'instant $t = 0$ des truites dans le lac, et $f(t)$ modélise le nombre de crapauds à l'instant $t$.
+
+\medskip
+
+\begin{enumerate}
+\item %Déterminer le nombre de crapauds présents dans le lac lors de l'introduction des truites.
+Pour $t = 0$,\, $f(0) = 400 \e^{0} + 40 = 440$~(crapauds)
+\item %On admet que la fonction $f$ est dérivable sur l'intervalle [0~;~120] et on note $f'$ sa fonction dérivée.
+
+%Montrer, en faisant apparaitre les étapes du calcul, que pour tout nombre réel $t$ appartenant à 
+%l'intervalle [0~;~120] on a : 
+Sur l'intervalle [0~;~120] en dérivant le produit :
+
+$f'(t) = (0,08t - 8)\text{e}^{\frac{t}{50}} + \dfrac{1}{50}\left(0,04t^2 - 8t + 400\right)\text{e}^{\frac{t}{50}} = \text{e}^{\frac{t}{50}}\left[(0,08t - 8) + \dfrac{1}{50}\left(0,04t^2 - 8t + 400\right)\right]\\
+\phantom{f'(t)} 
+= \text{e}^{\frac{t}{50}}\left(0,08t - 8 + \np{0,0008}t^2 - 0,16 t + 8 \right)
+= \text{e}^{\frac{t}{50}}\left(-0,08t + \np{0,0008}t^2\right) \\
+\phantom{f'(t)} 
+= \np{0,0008}\left(t^2 - 100t\right)\text{e}^{\frac{t}{50}} 
+= t(t - 100)\text{e}^{\frac{t}{50}} \times 8 \times 10^{-4}.$
+
+%\[f'(t) = t(t - 100)\text{e}^{\frac{t}{50}} \times 8 \times 10^{-4}.\]
+
+\item %Étudier les variations de la fonction $f$ sur l'intervalle [0~;~120], puis dresser le tableau de variations de $f$ sur cet intervalle (on donnera des valeurs approchées au centième).
+On sait que quel que soit $t \in [0~;~120]$, $\text{e}^{\frac{t}{50}} > 0$ : le signe de $f'(t)$ est donc celui du trinôme $t(t - 100)$ qui est positif sauf sur l'intervalle $]0~;~100[$ (entre les racines du trinôme). %Donc :
+
+$f(0) = 480$, $f(100) = (400 - 800 + 400)\text{e}^{\frac{100}{50}}  + 40 = 0 + 40 = 40$ et \\
+$f(120) = 576  - 960 + 400)\text{e}^{\frac{120}{50}} + 40 = 16 \text{e}^{2,4} + 40 \approx 216,37$.
+
+On dresse le tableau de variations de $f$ sur l'intervalle $[0~;~120]$:
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.3}
+\psset{nodesep=3pt,arrowsize=2pt 3}  % paramètres
+\def\esp{\hspace*{1.5cm}}% pour modifier la largeur du tableau
+\def\hauteur{0pt}% mettre au moins 20pt pour augmenter la hauteur
+$\begin{array}{|c|l *3{c} c|}
+\hline
+ t & 0 & \esp & 100 & \esp & 120 \\
+ \hline
+t(t-100) & 0 &  \pmb{-} & \vline\hspace{-2.7pt}0 & \pmb{+} & \\  
+ \hline
+f'(t) &  0 &  \pmb{-} & \vline\hspace{-2.7pt}0 & \pmb{+} & \\  
+\hline
+  & \Rnode{max1}{440}  &  &  &  & \Rnode{max2}{216,37}   \\
+f & &  & & &  \rule{0pt}{\hauteur} \\
+ &  & &   \Rnode{min}{40} & & \rule{0pt}{\hauteur}
+\ncline{->}{max1}{min} \ncline{->}{min}{max2}\\
+\hline
+\end{array}$
+}
+\end{center}
+
+
+ \item Selon cette modélisation:
+	\begin{enumerate}
+		\item %Déterminer le nombre de jours $J$ nécessaires afin que le nombre de crapauds atteigne son minimum. Quel est ce nombre minimum ?
+On a vu dans la question précédente que $f(100) = 40$ est le minimum de la fonction $f$, on a donc $J = 100$.
+		\item %Justifier que, après avoir atteint son minimum, le nombre de crapauds dépassera un jour $140$ individus.
+		On a aussi vu que de 100 jours à 120 jours le nombre de crapauds croît strictement de 40 à environ 216 : il dépassera donc 140 individus.
+		\item %À l'aide de la calculatrice, déterminer la durée en jour à partir de laquelle le nombre de crapauds dépassera $140$ individus.
+		
+Soit $J_{140}$ la durée en jour à partir de laquelle le nombre de crapauds dépassera $140$ individus. La calculatrice donne :
+		
+		$f(115) \approx 130<140$ et $f(116) \approx 144>140$, donc $J_{140} = 116$.
+	\end{enumerate}
+\end{enumerate}
+
+
+\begin{center}\textbf{Partie II : Effet de la Chytridiomycose sur une population de têtards}\end{center}
+
+%Une des principales causes du déclin de cette espèce de crapaud en haute montagne est une maladie, la \og Chytridiomycose \fg, provoquée par un champignon.
+%
+%Le chercheur considère que :
+%
+%\begin{itemize}
+%\item[$\bullet~~$]Les trois quarts des lacs de montagne des Pyrénées ne sont pas infectés par le champignon, c'est-à-dire qu'ils ne contiennent aucun têtard (larve du crapaud) contaminé.
+%\item[$\bullet~~$]Dans les lacs restants, la probabilité qu'un têtard soit contaminé est de $0,74$.
+%\end{itemize}
+%
+%Le chercheur choisit au hasard un lac des Pyrénées, et y procède à des prélèvements.
+%
+%\emph{Pour la suite de l'exercice, les résultats seront arrondis au millième lorsque cela est nécessaire.}
+%
+%Le chercheur prélève au hasard un têtard du lac choisi afin d'effectuer un test avant de le relâcher.
+% 
+%On notera $T$ l'évènement \og Le têtard est contaminé par la maladie\fg{} et $L$ l'évènement \og Le lac est infecté par le champignon \fg.
+%
+%On notera $\overline{L}$ l'évènement contraire de $L$ et $\overline{T}$ l'évènement contraire de $T$.
+
+\medskip
+
+\begin{enumerate}
+\item On complète l'arbre de probabilité suivant en utilisant les données de l'énoncé:
+
+\begin{center}
+\pstree[treemode=R,nodesepB=3pt,levelsep=2.75cm]{\TR{}}
+{\pstree{\TR{$L$~~}\taput{0,25}}
+	{\TR{$T$}\taput{0,74}
+	\TR{$\overline{T}$}\tbput{0,24}
+	}
+\pstree{\TR{$\overline{L}$~~}\tbput{0,75}}
+	{\TR{$T$}\taput{0}
+	\TR{$\overline{T}$}\tbput{1}
+	}	
+}
+\end{center}
+
+\item %Montrer que la probabilité $P(T)$ que le têtard prélevé soit contaminé est de $0,185$.
+D'après la loi des probabilités totales : 
+
+$P(T) = P(L \cap T) + P\left(\overline{L} \cap T\right) 
+= P(L) \times P_L(T) + P\left(\overline{L}\right) \times P_{\overline{L}}(T) 
+= 0,25 \times 0,74 + 0,75 \times 0 
+= 0,185$
+
+\item Le têtard n'est pas contaminé. La probabilité que le lac soit infecté est:
+
+$P_{\overline{T}}(L) 
+%= \dfrac{P\left(\overline{T} \cap L\right)}{P\left(\overline{T}\right)}
+ = \dfrac{P\left(L \cap \overline{T}\right)}{P\left(\overline{T}\right)} = \dfrac{0,25 \times 0,26}{1 - 0,185} = \dfrac{0,065}{0,815}  \approx 0,0797$, soit $0,080$ au millième près.
+\end{enumerate}
+
+\medskip
+

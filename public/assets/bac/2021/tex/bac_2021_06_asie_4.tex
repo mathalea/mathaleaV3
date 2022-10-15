@@ -1,0 +1,74 @@
+\textbf{EXERCICE -- A}
+
+\medskip
+
+\begin{tabular}{|l|}\hline
+\textbf{Principaux domaines abordés}\\
+-- convexité\\
+-- fonction logarithme\\ \hline
+\end{tabular}
+
+\bigskip
+
+\textbf{Partie I : lectures graphiques}
+
+\medskip
+
+$f$ désigne une fonction définie et dérivable sur $\R$.
+
+On donne ci-dessous la courbe représentative de la fonction dérivée $f'$.
+
+\begin{center}
+\psset{xunit=0.9cm,yunit=3cm}
+\begin{pspicture}(-7,-0.8)(7,1.2)
+\multido{\n=-7+1}{15}{\psline[linestyle=dashed,linewidth=0.1pt](\n,-0.8)(\n,1.2)}
+\multido{\n=-0.8+0.2}{11}{\psline[linestyle=dashed,linewidth=0.1pt](-7,\n)(7,\n)}
+\psaxes[linewidth=1.25pt,labelFontSize=\scriptstyle]{->}(0,0)(-7,-0.8)(7,1.2)
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=red]{-7}{7}{x 2 mul 1 add x dup mul x add 2.5 add div}
+\uput[u](0,1){\red Courbe de la fonction dérivée $f'$}
+\end{pspicture}
+\end{center}
+
+\medskip
+
+\emph{Avec la précision permise par le graphique, répondre aux questions suivantes}
+
+\medskip
+
+\begin{enumerate}
+\item Déterminer le coefficient directeur de la tangente à la courbe de la fonction $f$ en $0$.
+\item 
+	\begin{enumerate}
+		\item Donner les variations de la fonction dérivée $f'$.
+		\item En déduire un intervalle sur lequel $f$ est convexe.
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie II : étude de fonction}
+
+\medskip
+
+La fonction $f$ est définie sur $\R$ par 
+
+\[f(x) = \ln \left(x^2 + x + \dfrac{5}{2}\right).\]
+
+\medskip
+
+\begin{enumerate}
+\item Calculer les limites de la fonction $f$ en $+\infty$ et en $-\infty$.
+\item Déterminer une expression $f'(x)$ de la fonction dérivée de $f$ pour tout $x \in \R$.
+\item En déduire le tableau des variations de $f$. On veillera à placer les limites dans ce tableau.
+\item 
+	\begin{enumerate}
+		\item Justifier que l'équation $f(x) = 2$ a une unique solution $\alpha$ dans l'intervalle $\left[-\dfrac{1}{2}~;~+ \infty\right[$. 
+		\item Donner une valeur approchée de $\alpha$ à $10^{-1}$ près.
+ 	\end{enumerate}
+\item La fonction $f'$ est dérivable sur $\R$. On admet que, pour tout $x \in  \R$,\,  $f''(x) = \dfrac{-2x^2 - 2x + 4}{\left(x^2 + x + \dfrac{5}{2}\right)^2}$.
+
+Déterminer le nombre de points d'inflexion de la courbe représentative de $f$.
+\end{enumerate}
+
+\bigskip
+

@@ -1,0 +1,97 @@
+\textbf{\large Exercice 3 \hfill 5 points}
+
+\bigskip
+
+Dans une école d'ingénieurs, certains étudiants s'occupent de la gestion des associations
+comme par exemple le BDS (bureau des sports).
+
+Sur les cinq années d'études, le cycle \og licence \fg{}  dure les trois premières années, et les deux
+dernières années sont celles du cycle de \og   spécialisation \fg{}.
+
+On constate que, dans cette école, il y a 40\,\% d'étudiants dans le cycle \og licence \fg{} et 60\,\%
+dans le cycle de \og spécialisation \fg.
+
+\begin{list}{\textbullet}{}
+\item Parmi les étudiants du cycle \og licence \fg, 8\,\% sont membres du BDS ;
+\item Parmi les étudiants du cycle de \og spécialisation \fg, 10\,\% sont membres du BDS.
+\end{list}
+
+On considère un étudiant de cette école choisi au hasard, et on considère les évènements suivants:
+
+\begin{list}{}{}
+\item $L$: \og L'étudiant est dans le cycle  licence \fg; $\overline{L}$ est son évènement contraire.
+\item $B$: \og L'étudiant est membre du BDS \fg; $\overline{B}$ est son évènement contraire.
+\end{list}
+ 
+La probabilité d'un évènement $A$ est notée $P(A)$.
+
+\bigskip
+
+\textbf{Partie A}
+
+\medskip
+
+\begin{enumerate}
+\item On complète l'arbre pondéré modélisant la situation.
+
+\begin{center}
+\bigskip
+  \pstree[treemode=R,nodesepA=0pt,nodesepB=4pt,levelsep=2.5cm,nrot=:U]{\TR{}}
+ {
+ 	\pstree[nodesepA=4pt]{\TR{$L$}\naput{$0,4$}}
+ 	  { 
+ 		  \TR{$B$}\naput{$\blue 0,08$}
+ 		  \TR{$\overline{B}$}\nbput{$\blue 0,92$}	   
+ 	  }
+ 	\pstree[nodesepA=4pt]{\TR{$\overline{L}$}\nbput{$\blue 0,6$}}
+ 	  {
+ 		  \TR{$B$}\naput{$\blue 0,10$}
+ 		  \TR{$\overline{B}$}\nbput{$\blue 0,90$}	   
+     }
+}
+\bigskip
+\end{center}
+
+\item La probabilité que l'étudiant choisi soit en cycle \og licence \fg{} et membre du BDS est:
+
+$P(L\cap B)=0,4\times 0,08 = 0,032$.
+
+\item $P(B)=  P(L\cap B) + P(\overline L\cap B) = 0,032 + 0,6\times 0,1 = 0,092$.
+\end{enumerate}
+
+\medskip
+
+\textbf{Partie B}
+
+\medskip
+
+Le BDS décide d'organiser une randonnée en montagne. Cette sortie est proposée à tous les étudiants de cette école mais le prix qu'ils auront à payer pour y participer est variable. Il est de 60~\euro{ pour les étudiants qui ne sont pas membres du BDS, et de 20~\euro{} pour les étudiants qui sont membres du BDS.
+
+On désigne par $X$ la variable aléatoire donnant la somme à payer pour un étudiant qui désire
+faire cette randonnée.
+
+\begin{enumerate}
+\item Les valeurs prises par $X$ sont 20~\euro{} et 60~\euro{}.
+
+\item% Donner la loi de probabilité de $X$, et calculer l'espérance de $X$.
+La somme à payer est de 20~\euro{} si l'étudiant est membre du BDS, c'est-à-dire avec une probabilité de $0,092$, ou de 50~\euro{} si l'étudiant n'est pas membre du BDS, c'est-à-dire avec une probabilité de $1-0,092 = 0,908$. D'où la loi de probabilité de la variable aléatoire $X$:
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|*{2}{>{\centering\arraybackslash}p{1cm}|}}
+\hline
+$x_i$ en euro & 20 & 60\\
+\hline
+$p_i = P(X=x_i)$ & $0,092$  & $0,908$\\
+\hline
+\end{tabular}}
+\end{center}
+
+L'espérance mathématique de la variable aléatoire $X$ est:
+
+$E(X) = \sum (x_i\times p_i) = 20\times 0,092 + 60\times 0,908 = 56,32$~\euro.
+
+\end{enumerate}
+
+\vspace{0,5cm}
+

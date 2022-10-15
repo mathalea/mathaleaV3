@@ -1,0 +1,69 @@
+
+\smallskip
+
+\begin{tabular}{|l|}\hline
+Principaux domaines abordés :\\
+Fonction exponentielle; dérivation; convexité\\ \hline
+\end{tabular}
+
+\begin{center}\textbf{Partie 1}\end{center}
+
+On donne ci-dessous, dans le plan rapporté à un repère orthonormé, la courbe représentant la
+fonction dérivée $f'$ d'une fonction $f$ dérivable sur $\R$.
+
+À l'aide de cette courbe, conjecturer, en justifiant les réponses : 
+
+\medskip
+
+\begin{enumerate}
+\item Le sens de variation de la fonction $f$ sur $\R$.
+\item La convexité de la fonction $f$ sur $\R$.
+\end{enumerate}
+
+\begin{center}
+\psset{unit=1cm,arrowsize=2pt 3}
+\begin{pspicture*}(-3.25,-2)(5.25,4.5)
+\psgrid[gridlabels=0pt,subgriddiv=1,gridwidth=0.15pt](-2,-1)(4,4.5)
+\psaxes[linewidth=1.25pt](0,0)(-2,-1.25)(4,4.5)
+\psaxes[linewidth=1.25pt]{->}(0,0)(1,1)
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=red]{-2}{4}{1 x add 2.71828 x exp div  neg}
+\rput(1,-1.5){Courbe représentant la \textbf{dérivée} $f'$ de la fonction $f$.}
+\end{pspicture*}
+\end{center}
+
+\smallskip
+
+\begin{center}\textbf{Partie 2}\end{center}
+
+\smallskip
+
+On admet que la fonction $f$ mentionnée dans la Partie 1 est définie sur $\R$ par :
+
+\[f(x) = (x + 2)\e^{-x}.\]
+
+On note $\mathcal{C}$ la courbe représentative de $f$ dans un repère orthonormé \Oij.
+
+On admet que la fonction $f$ est deux fois dérivable sur $\R$, et on note $f'$ et $f''$ les fonctions dérivées première et seconde de $f$ respectivement.
+
+\medskip
+
+\begin{enumerate}
+\item Montrer que, pour tout nombre réel $x$,
+
+\[f(x) = \dfrac{x}{\e^{x}}+ 2\e^{-x}.\]
+
+En déduire la limite de $f$ en $+ \infty$.
+
+Justifier que la courbe $\mathcal{C}$ admet une asymptote que l'on précisera.
+
+On admet que $\displaystyle\lim_{x \to - \infty} f(x) = - \infty$.
+\item 
+	\begin{enumerate}
+		\item Montrer que, pour tout nombre réel $x$,\, $f'(x) = (- x - 1)\e^{-x}$.
+		\item Étudier les variations sur $\R$ de la fonction $f$ et dresser son tableau de variations.
+		\item Montrer que l'équation $f(x) = 2$ admet une unique solution $\alpha$ sur l'intervalle $[-2~;~-1]$ dont on donnera une valeur approchée à $10^{-1}$ près.
+	\end{enumerate}
+\item Déterminer, pour tout nombre réel $x$, l'expression de $f''(x)$ et étudier la convexité de la fonction~$f$. 
+
+Que représente pour la courbe $\mathcal{C}$ son point A d'abscisse $0$ ?
+\end{enumerate}

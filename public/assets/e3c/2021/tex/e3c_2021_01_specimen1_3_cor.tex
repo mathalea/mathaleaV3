@@ -1,0 +1,145 @@
+\textbf{\large Exercice 3 \hfill 5 points}
+
+\bigskip
+
+On considère la fonction $f$ définie sur $\R$ par $f(x)=x^3 + 7x^2 +11x - 19$.
+
+On note $\mathcal{C}$ sa courbe représentative dans un repère \Oij{} du plan.
+
+\begin{enumerate}
+\item On note $f'$ la fonction dérivée de la fonction $f$ sur $\R$. %Déterminer l'expression de $f'(x)$.
+
+$f'(x) = 3x^2 +7\times 2x +11\times 1 = 3x^2+14x+11$.
+
+\item On résout dans $\R$ l'inéquation $3x^2+14x+11 > 0$.
+
+On cherche d'abord si le polynôme admet des racines dans $\R$.
+
+$\Delta = b^2-4ac = 14^2 - 4\times 3 \times 11 = 196-132=64=8^2$
+
+Le discriminant est positif donc le polynôme admet deux racines réelles:
+
+$x'=\dfrac{-b-\sqrt{\delta}}{2a} = \dfrac{-14-8}{6} = \dfrac{-22}{6}=\dfrac{-11}{3}$
+et
+$x''=\dfrac{-b+\sqrt{\delta}}{2a} = \dfrac{-14+8}{6} = \dfrac{-6}{6}=-1$.
+
+On en déduit le signe du polynôme $3x^2+14x+11$ qui est du signe de $a=3$ donc positif, à l'extérieur des racines:
+
+\begin{center}
+{
+\renewcommand{\arraystretch}{1.5}
+\def\esp{\hspace*{1.5cm}}
+$\begin{array}{|c | *{7}{c} |} 
+\hline
+x  & -\infty & \esp & -\frac{11}{3} & \esp & -1 & \esp & +\infty \\
+\hline
+3x^2+14x+11 &  & \pmb{+} &  \vline\hspace{-2.7pt}{0} & \pmb{-} & \vline\hspace{-2.7pt}{0} & \pmb{+} &\\
+\hline
+\end{array}$
+}
+\end{center}
+
+L'ensemble solution de l'inéquation $3x^2+14x+11 > 0$ est donc $S=\left ]-\infty~;~-\dfrac{11}{3} \right [ \cup \left ] -1~;~+\infty\vphantom{\dfrac{11}{3}} \right [$.
+
+On cherche les extrémums:
+$f\left ( -\frac{11}{3}\right )=-\frac{392}{27}\approx -14,52$ et $f(-1) = -24$.
+
+On établit le tableau de variations de la fonction $f$.
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.3}
+\psset{nodesep=3pt,arrowsize=2pt 3}  % paramètres
+\def\esp{\hspace*{1.5cm}}% pour modifier la largeur du tableau
+\def\hauteur{20pt}% mettre au moins 20pt pour augmenter la hauteur
+$\begin{array}{|c| *6{c} c|}
+\hline
+ x & -\infty & \esp & -\frac{11}{3} & \esp & -1 & \esp & +\infty \\
+ \hline
+f'(x) &  &  \pmb{+} & \vline\hspace{-2.7pt}0 & \pmb{-} & \vline\hspace{-2.7pt}0 & \pmb{+} & \\  
+\hline
+  &  &  & \Rnode{max1}{\approx -14,52} & & & &  \Rnode{max2}{~} \\
+f (x) & &  & & & & & \rule{0pt}{\hauteur}\\
+ & \Rnode{min1}{~} & & & & \Rnode{min2}{-24} & & \rule{0pt}{\hauteur} 
+\ncline{->}{min1}{max1} 
+\ncline{->}{max1}{min2}
+\ncline{->}{min2}{max2} \\
+\hline
+\end{array}$
+}
+\end{center}
+
+
+\item La tangente à la courbe $\mathcal{C}$ au point d'abscisse $0$ a pour équation
+$y=f(0) + f'(0)\left (x-0\right )$.
+
+$f(x)=x^3 + 7x^2 +11x - 19 $ donc $f(0)=-19$; $f'(x)=3x^2+14x+11$ donc $f'(0)=11$.
+
+La tangente a pour équation: $y = -19 + 11\left (x-0\right )$ c'est-à-dire $y = 11x-19$.
+
+\item Soit l'équation $x^3 + 7x^2 +11x - 19 = 0$.
+
+$1^3 +7\times 1^2 +11\times 1 - 19 = 19-19=0$ donc 1 est solution de l'équation $x^3 + 7x^2 +11x - 19 = 0$.
+
+\smallskip
+
+Pour tout $x\in\R$, $(x-1)(x^2+8x+19) = x^3+8x^2+19x -x^2 -8x-19=x^3 +7x^2 +11x-19 = f(x)$.
+
+%Vérifier que pour tout réel $x$: $f(x)=(x-1)(x^2+8x+19)$.
+
+\item Étudier le signe de la fonction $f$ revient à étudier le signe de $f(x)=(x-1)(x^2+8x+19)$, donc le signe de chacun des facteurs.
+
+\begin{list}{\textbullet}{}
+\item $x-1>0 \iff x>1$
+\item Pour étudier le signe de $x^2+8x+19$, on cherche si ce polynôme a des racines.
+
+$\Delta = 8^2 - 4\times 1\times 19 = -12<0$ donc le polynôme n'a pas de racine, il garde donc un signe constant, celui du coefficient de $x^2$; il est donc toujours positif.
+\end{list}
+
+On établit le tableau de signes de la fonction $f$:
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.5}
+\def\esp{\hspace*{3cm}}
+$\begin{array}{|c | *{5}{c} |} 
+\hline
+x  & -\infty & \esp & 1 & \esp  & +\infty \\
+\hline
+x-1 &  & \pmb{-} &  \vline\hspace{-2.7pt}{0} & \pmb{+} &   \\
+\hline
+x^2+8x+19 &  & \pmb{+} &  \vline\hspace{-2.7pt}{\phantom 0} & \pmb{+} &   \\
+\hline
+f(x) &  & \pmb{-} &  \vline\hspace{-2.7pt}{0} & \pmb{+} &   \\
+\hline
+\end{array}$
+}
+\end{center}
+
+
+\end{enumerate}
+\begin{center}
+	\large \textbf{Figures (non demandées)}
+	\end{center}
+	
+	\bigskip	
+
+	
+	\begin{center}
+	\psset{xunit=1cm,yunit=0.2cm,labelFontSize=\scriptstyle}
+	\def\xmin {-6}   \def\xmax {4}
+	\def\ymin {-40}   \def\ymax {10}
+	\begin{pspicture*}(\xmin,\ymin)(\xmax,\ymax)
+	%\psset{yMaxValue=\ymax,yMinValue=\ymin}
+	\psgrid[unit=1cm,subgriddiv=1,  gridlabels=0, gridcolor=lightgray](-6,-8)(4,2)
+	%\psaxes[linewidth=1.8pt]{->}(0,0)(1,1)[$\vec{\imath}$,d][$\vec{\jmath}$,180]
+	\psaxes[arrowsize=3pt 2, ticksize=-2pt 2pt,Dy=5]{->}(0,0)(-5.99,-39.99)(\xmax,\ymax) 
+	\uput[dl](0,0){O}
+	\psplot[linecolor=blue,plotpoints=5000]{\xmin}{\xmax}{x x x 7 add mul 11 add mul 19 sub}
+	\psplot[linecolor=red,plotpoints=5000]{\xmin}{\xmax}{x 11 mul 19 sub}
+	\psline[linecolor=blue,linestyle=dashed](-3.667,0)(-3.667,-14.5185)
+	\uput[u](-3.667,0){\blue $-\frac{11}{3}$}
+	\psline[linecolor=blue,linestyle=dashed](-1,0)(-1,-24)
+	\end{pspicture*}
+	\end{center}
+
+%\vspace{0.5cm}
+

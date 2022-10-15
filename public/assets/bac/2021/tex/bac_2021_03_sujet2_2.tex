@@ -1,0 +1,72 @@
+
+\medskip
+
+On considère les suites $\left(u_n\right)$ et $\left(v_n\right)$ définies pour tout entier naturel $n$ par : 
+
+\[\left\{\begin{array}{l !{=} l}
+u_0		& v_0 = 1\\
+u_{n+1}	&  u_n +v_n\\
+v_{n+1}	&  2u_n + v_n
+\end{array}\right.\]
+
+Dans toute la suite de l'exercice, on \textbf{admet} que les suites $\left(u_n\right)$ et $\left(v_n\right)$ \textbf{sont strictement positives}.
+
+\medskip
+
+\begin{enumerate}
+\item 
+	\begin{enumerate}
+		\item Calculez $u_1$ et $v_1$.
+		\item Démontrer que la suite $\left(v_n\right)$ est strictement croissante, puis en déduire que, pour tout entier naturel $n$,\: $v_n \geqslant 1$.
+		\item Démontrer par récurrence que, pour tout entier naturel $n$, on a : $u_n \geqslant  n + 1$.
+		\item En déduire la limite de la suite $\left(u_n\right)$.
+	\end{enumerate}
+\item On pose, pour tout entier naturel $n$ :
+
+\[r_n = \dfrac{v_n}{u_n}.\]
+
+On admet que:
+
+\[r_n^2 = 2 + \dfrac{(- 1)^{n+1}}{u_n^2}\]
+
+	\begin{enumerate}
+		\item Démontrer que pour tout entier naturel $n$ :
+
+\[- \dfrac{1}{u_n^2} \leqslant \dfrac{(- 1)^{n+1}}{u_n^2} \leqslant \dfrac{1}{u_n^2}.\]
+		\item En déduire :
+
+\[\displaystyle\lim_{n \to + \infty} \dfrac{(- 1)^{n+1}}{u_n^2}.\]
+
+		\item Déterminer la limite de la suite $\left(r_n^2\right)$ et en déduire que $\left(r_n\right)$ converge vers $\sqrt{2}$.
+		\item  Démontrer que pour tout entier naturel $n$,
+
+\[r_{n+1} = \dfrac{2 + r_n}{1 + r_n}.\]
+
+		\item On considère le programme suivant écrit en langage Python :
+		
+\begin{center}
+\fbox{
+\begin{tabularx}{0.5\linewidth}{X}
+\textbf{def seuil()}:\\
+\qquad  n = 0\\
+\qquad  r = 1\\
+\qquad \textbf{while} abs(r-sqrt(2)) > 10**(-4) :\\
+\quad \qquad r = (2+r)/(1+r)\\
+\quad \qquad n = n+1\\
+\qquad \textbf{return} n\\ 
+\end{tabularx}
+}
+\end{center}
+
+\smallskip
+
+(abs désigne la valeur absolue, sqrt la racine carrée et 10** (-4) représente $10^{-4}$).
+
+La valeur de $n$ renvoyée par ce programme est 5.
+
+ À quoi correspond-elle ?
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+

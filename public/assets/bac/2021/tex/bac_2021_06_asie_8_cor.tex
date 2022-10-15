@@ -1,0 +1,51 @@
+
+\textbf{Commun à tous les candidats}
+
+\medskip
+
+%Une société de jeu en ligne propose une nouvelle application pour smartphone nommée \og Tickets coeurs! \fg.
+%
+%Chaque participant génère sur son smartphone un ticket comportant une grille de taille $3 \times 3$ sur laquelle sont placés trois cœurs répartis au hasard, comme par exemple ci-dessous.
+%
+%\begin{center}
+%\psset{unit=1cm}
+%\begin{pspicture}(3,3)
+%\multido{\n=0+1}{4}{\psline(\n,0)(\n,3)}
+%\multido{\n=0+1}{4}{\psline(0,\n)(3,\n)}
+%\rput(1.5,2.5){$\heartsuit$}\rput(0.5,1.5){$\heartsuit$}\rput(2.5,0.5){$\heartsuit$}
+%\end{pspicture}
+%\end{center}
+%
+%Le ticket est gagnant si les trois cœurs sont positionnés côte à côte sur une même ligne, sur une
+%même colonne ou sur une même diagonale.
+
+\medskip
+
+\begin{enumerate}
+\item %Justifier qu'il y a exactement $84$ façons différentes de positionner les trois cœurs sur une grille.
+Il y a C$_9^3 = \dfrac{9!}{3! \times (9 - 3)!} = \dfrac{9 \times 8 \times 7}{3 \times 2}3 \times 4 \times 7 = 84$ façons différentes de choisir 3 cases différentes parmi 9.
+\item %Montrer que la probabilité qu'un ticket soit gagnant est égale à $\dfrac{2}{21}$.
+Il y a 3 lignes, 3 colonnes et 2 diagonales donc 8 combinaisons gagnantes.
+
+La probabilité qu'un ticket soit gagnant est égale à $\dfrac{8}{84} = \dfrac{4\times 2}{4 \times 21} = \dfrac{2}{21}$.
+\item %Lorsqu'un joueur génère un ticket, la société prélève 1~\euro{}sur son compte en banque. Si le ticket est gagnant, la société verse alors au joueur $5$~\euro. Le jeu est-il favorable au joueur ?
+Soit $X$ la variable aléatoire égale au montant algébrique de la somme gagnée.
+
+On a $P(X  = 4) = \dfrac{2}{21}$ et $P(X = - 1) = \dfrac{19}{21}$.
+
+On a donc $E(X) = 4 \times \dfrac{2}{21} + (- 1) \times \dfrac{19}{21} = \dfrac{8 - 19}{21} = - \dfrac{11}{21} \approx - 0,524$.
+
+En moyenne sur un grand nombre de parties un joueur perd 58 centimes d'euro par partie. Le jeu est défavorable au joueur.
+\item %Un joueur décide de générer $20$ tickets sur cette application. On suppose que les générations des tickets sont indépendantes entre elles.
+	\begin{enumerate}
+		\item %Donner la loi de probabilité de la variable aléatoire $X$ qui compte le nombre de tickets gagnants parmi les $20$ tickets générés.
+La variable aléatoire $X$ qui compte le nombre de tickets gagnants parmi les $20$ tickets générés suit une loi binomiale de paramètres $n = 20$ et $p = \dfrac{2}{21}$.
+		\item %Calculer la probabilité, arrondie à $10^{-3}$, de l'évènement ($X  =  5$).
+On a $p(X = 5) = \binom{20}{5}\times \left(\dfrac{2}{21}\right)^5\times \left(\dfrac{19}{21}\right)^{20-5} \approx 0,0271$, soit 0,027 à $10^{-3}$ près.
+		\item %Calculer la probabilité, arrondie à $10^{-3}$, de l'évènement $(X \geqslant 1)$ et interpréter le résultat dans le contexte de l'exercice.
+On a $p(X \geqslant 1) = 1 - p(X = 0) = 1 - \left(\dfrac{2}{21}\right)^{0}\times \left(\dfrac{19}{21}\right)^{20}  \approx (1 - \np{0,1351}) \approx \np{0,8649}$ soit 0,865 à $10^{-3}$ près.
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+

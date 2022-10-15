@@ -1,0 +1,92 @@
+\textbf{\large\textsc{Exercice 3} \hfill 5 points}
+
+\textbf{Commun à tous les candidats}
+
+\medskip
+
+Soit la suite $\left(u_n\right)$ définie par : $u_0 = 1$ et, pour $n$,
+$ u_{n+1}  = \dfrac{4u_n}{u_n + 4}.$
+
+\smallskip
+
+\begin{enumerate}
+\item
+%\parbox{0.7\linewidth}{
+%La copie d'écran ci-contre présente les valeurs, calculées à l'aide d'un tableur, des
+%termes de la suite $\left(u_n\right)$ pour $n$ variant de 0 à 12, ainsi que celles du quotient 
+%$\dfrac{4}{u_n}$,  (avec, pour les valeurs de $u_n$, affichage de deux
+%chiffres pour les parties décimales).
+%
+%À l'aide de ces valeurs, conjecturer l'expression de $\dfrac{4}{u_n}$  en fonction de $n$.
+%
+%Le but de cet exercice est de démontrer cette conjecture (question \textbf{5.}), et d'en déduire la limite de la suite $\left(u_n\right)$ (question \textbf{6.}).}\hfill
+%\parbox{0.25\linewidth}{
+%$\begin{array}{|*{3}{c|}}\hline
+%n&u_n&\dfrac{4}{u_n}\\ \hline
+%0 &1,00 &4\\ \hline
+%1 &0,80 &5\\ \hline
+%2 &0,67 &6\\ \hline
+%3 &0,57 &7\\ \hline
+%4 &0,50 &8\\ \hline
+%5 &0,44 &9\\ \hline
+%6 &0,40 &10\\ \hline
+%7 &0,36 &11\\ \hline
+%8 &0,33 &12\\ \hline
+%9 &0,31 &13\\ \hline
+%10 &0,29& 14 \\ \hline
+%11 &0,27& 15 \\ \hline
+%12 &0,25 &16\\ \hline
+%\end{array}$}
+On peut conjecturer que quel que soit $n$, \, $\dfrac{4}{u_n} = n + 4$.
+\item On veut démontrer par récurrence que, pour tout entier naturel $n$, on a : $u_n > 0$.
+
+\emph{Initialisation} : $u_0 = 1 > 0$ : la proposition est vraie au rang $0$.
+
+\emph{Hérédité} : supposons qu'il existe $n \in \N$ tel que $u_n > 0$.
+
+Alors $u_n + 4  >4 > 0$ donc : $ \dfrac{1}{u_n + 4} >0$ et donc $ \dfrac{4}{u_n + 4} >0$
+
+Or $u_n>0$ (hypothèse de récurrence) donc $\dfrac{4u_n}{u_n + 4}>0$.
+
+Soit finalement : $u_{n+1} >0$.; la proposition est vraie au rang $n + 1$.
+
+La proposition est vraie au rang $0$ et si elle est vraie au rang $n \in \N$, elle est vraie au rang $n + 1$.
+
+D'après le principe de récurrence on a démontré que pour tout $n \in \N$, \, $u_n > 0$.
+\item %Démontrer que la suite $\left(u_n\right)$ est décroissante.
+Quel que soit $n \in \N$, \, $u_{n+1} - u_n = \dfrac{4u_n}{u_n + 4} - u_n = \dfrac{4u_n - u_n^2 - 4u_n}{u_n + 4} = - \dfrac{u_n^2}{u_n + 4}$.
+
+Comme $u_n + 4 > 4 > 0$ d'où l'inverse $\dfrac{1}{u_n + 4} > 0$ et comme $u_n^2 > 0$, $\dfrac{u_n^2}{u_n + 4} > 0$ et finalement 
+
+$- \dfrac{u_n^2}{u_n + 4} < 0$.
+
+On a donc quel que soit $n \in \N$, \, $u_{n+1} - u_n < 0$ : la suite $\left(u_n\right)$ est décroissante.
+\item %Que peut-on conclure des questions \textbf{2.} et \textbf{3.} concernant la suite $\left(u_n\right)$ ?
+La suite $\left(u_n\right)$ est décroissante et minorée par $0$ : d'après le théorème de la convergence monotone, la suite est convergente vers un réel $\ell \geqslant 0$
+
+\item %On considère la suite $\left(v_n\right)$ définie pour tout entier naturel $n$ par : $v_n = \dfrac{4}{u_n}$.
+
+%Démontrer que $\left(v_n\right)$ est une suite arithmétique. 
+
+%Préciser sa raison et son premier terme. 
+
+%En déduire, pour tout entier naturel $n$, l'expression de $v_n$ en fonction de $n$.
+On a pour $n \in \N$, \\$v_{n+1} - v_n = \dfrac{4}{u_{n+1}} - \dfrac{4}{u_n} = \dfrac{4}{\frac{4u_n}{u_n + 4}} - \dfrac{4}{u_n} = \dfrac{4\left(u_n + 4 \right)}{4u_n} - \dfrac{4}{u_n} = \dfrac{u_n + 4}{u_n} - \dfrac{4}{u_n} = \dfrac{u_n + 4 - 4}{u_n} = \dfrac{u_n}{u_n} = 1$.
+
+$v_{n+1} - v_n = 1$, quel que soit $n \in \N$ montre que la suite $\left(v_n\right)$ est une suite arithmétique de raison $r = 1$.
+
+Son premier terme est $v_0 = \dfrac{4}{u_0} = \dfrac{4}{1} = 4$.
+
+\item %Déterminer, pour tout entier naturel $n$, l'expression de $u_n$ en fonction de $n$.
+On sait qu'alors pour $n \in \N$, \, $v_n = v_0 + nr = 4 + n$.
+
+Or $v_n = \dfrac{4}{u_n} \iff u_n = \dfrac{4}{v_n}$ donc $u_n = \dfrac{4}{4 + n}$ quel que soit $n \in \N$.
+
+$u_n = \dfrac{1}{1 + \frac{n}{4}}$, donc comme $\displaystyle\lim_{n \to + \infty} 1 + \frac{n}{4} = + \infty$, \, $\displaystyle\lim_{n \to + \infty} u_n = 0$.
+
+%En déduire la limite de la suite $\left(u_n\right)$.
+La limite de la suite $\left(u_n\right)$ est donc $0$.
+\end{enumerate}
+
+\bigskip
+

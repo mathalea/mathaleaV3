@@ -1,0 +1,99 @@
+ 
+\smallskip
+
+%\begin{tabular}{|l|}\hline
+%Principaux domaines abordés : \\ 
+%\hspace{1cm}$\bullet~~$Fonction logarithme népérien\\
+%\hspace{1cm}$\bullet~~$Convexité\\ \hline
+%\end{tabular}
+%
+%\medskip
+%
+%Dans le plan muni d'un repère, on considère ci-dessous la courbe $\mathcal{C}_f$ représentative d'une fonction $f$, deux fois dérivable sur l'intervalle $]0~;~ +\infty[$. 
+%
+%La courbe $\mathcal{C}_f$ admet une tangente horizontale $T$ au point A(1~;~4).
+
+\begin{center}
+\psset{unit=1.25cm,arrowsize=2pt 3}
+\begin{pspicture*}(-0.5,-0.8)(6.4,4.4)
+\psgrid[gridlabels=0pt,subgriddiv=5,gridcolor=gray](0,-1)(9,5)
+\psaxes[linewidth=1.25pt]{->}(0,0)(0,-0.8)(6.4,4.4)
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=red]{0.1}{6.4}{x ln 1 add 4 mul x div}
+\psline[linewidth=1.25pt](0,4)(6.4,4)\uput[u](5.8,4){$T$}
+\uput[u](5.8,1.9){\red $\mathcal{C}_f$}
+\uput[ur](1,4){A}
+\psplotTangent[arrows=<->]{1.649}{1}{x ln 1 add 4 mul x div}
+\psline[ArrowInside=->]{->}(1.639,0)(1.639,3.639)(0,3.639)
+\uput[ur](1.649,3.639){B}
+\end{pspicture*}
+\end{center}
+
+\medskip
+
+\begin{enumerate}
+\item %Préciser les valeurs $f(1)$ et $f'(1)$.
+A$(1~;~4) \in \mathcal{C}_f$, donc  $f(1) = 4$ et la courbe $\mathcal{C}_f$ admet une tangente horizontale $T$ au point A(1~;~4); le coefficient directeur de cette tangente en ce point est nul ou encore le nombre dérivé est nul : $f'(1) = 0$.
+\end{enumerate}
+
+%On admet que la fonction $f$ est définie pour tout réel $x$ de l'intervalle $]0~;~ +\infty[$ par:
+
+\[f(x) = \dfrac{a + b \ln x}{x} \,\, 
+\text{où }\, a \text{ et}\, b \text{ sont deux nombres réels}.\]
+
+\begin{enumerate}[resume]
+\item %Démontrer que, pour tout réel $x$ strictement positif, on a :
+$f$ est une fonction quotient de fonctions dérivables sur $]0~;~ +\infty[$, le dénominateur ne s'annulant pas et sur cet intervalle :
+
+$f'(x) = \dfrac{\frac{b}{x} \times x - 1(a + b\ln x)}{x^2} = \dfrac{b - a - b\ln x}{x^2}$.
+
+\item %En déduire les valeurs des réels $a$ et $b$.
+En utilisant les résultats du \textbf{1.} :
+
+$f(1) = \dfrac{a + b \ln 1}{1} = 4 \iff a = 4$ ;
+
+$f'(1) = \dfrac{b - 4 - b\ln 1}{1^2} = 0 \iff b - 4 = 0 \iff b = 4$.
+\end{enumerate}
+
+Dans la suite de l'exercice, on admet que la fonction $f$ est définie pour tout réel $x$ de l'intervalle $]0~;~ +\infty[$ par:
+
+\[f(x) = \dfrac{4 + 4\ln x}{x}.\]
+
+\begin{enumerate}[resume]
+\item ~%Déterminer les limites de $f$ en $0$ et en $+\infty$.
+$\bullet~~$On sait que $\displaystyle\lim_{x \to 0} \dfrac{\ln x}{x} = - \infty$, donc 
+$\displaystyle\lim_{x \to 0} f(x) = - \infty$ ;
+
+$\bullet~~$On a $f(x) = \dfrac{4}{x} + \dfrac{4\ln x}{x}$.
+
+On a $\displaystyle\lim_{x \to + \infty}\dfrac{4}{x} = 0$ et on sait que $\displaystyle\lim_{x \to + \infty}\dfrac{4\ln x}{x} = 0$, donc par somme de limites : 
+
+$\displaystyle\lim_{x \to + \infty}f(x) = 0$.
+\item %Déterminer le tableau de variations de $f$ sur l'intervalle $]0~;~ +\infty[$.
+On a donc sur $]0~;~+ \infty[$, \, $f'(x) = \dfrac{-4\ln x}{x^2}$ qui a pour signe celui de $-4\ln x$.
+
+On sait que sur $]0~;~1[$, \, $\ln x < 0$, donc $f'(x) > 0$ sur ]0~;~1[ ;
+
+Par contre sur $]1~;~+ \infty[$, \, $\ln x > 0$, donc $f'(x) < 0$ sur $]1~;~+ \infty[$ ;
+
+$f'(1) = 0$, donc le point de coordonnées (1~;~4) est le maximum de la fonction sur $]0~;~+ \infty[$.
+
+La fonction $f$ est donc croissante sur ]0~;~1[ de $- \infty$ à 4, puis décroissante sur $[1~;~+ \infty[$ de 4 à 0 avec un maximum 4 pour $x = 1$.
+\item %Démontrer que, pour tout réel $x$ strictement positif, on a :
+$f'$étant une fonction quotient de fonctions dérivables sur $]0~;~+ \infty[$, le dénominateur ne s'annulant pas est dérivable et sur cet intervalle :
+
+$f''(x) = \dfrac{-4 \times \frac{1}{x} \times x^2 - 2x \times (- 4\ln x)}{x^4} = \dfrac{- 4x + 8x\ln x}{x^4} = \dfrac{- 4 + 8\ln x}{x^3}.$
+
+\item %Montrer que la courbe $\mathcal{C}_f$ possède un unique point d'inflexion B dont on précisera les coordonnées.
+La courbe présente un point d'inflexion lorsque la dérivée seconde s'annule. Or :
+
+$f''(x) = 0 \iff \dfrac{- 4 + 8\ln x}{x^3} = 0 \iff - 4 + 8\ln x = 0 \iff -1 + 2\ln x= 0 \iff \ln x= \dfrac{1}{2} \iff x = \text{e}^{\frac{1}{2}} \approx 1,649$ $\left(\text{ou}\, \sqrt{\text{e}} \right)$.
+
+L'ordonnée de ce point unique d'inflexion est $f\left(\text{e}^{\frac{1}{2}}\right) = \dfrac{4 + 4\times \frac{1}{2}}{\text{e}^{\frac{1}{2}}} = \dfrac{6}{\text{e}^{\frac{1}{2}}} = \dfrac{6} {\sqrt{\text{e}}} \approx 3,639$.
+
+Ce point d'inflexion et la tangente en ce point sont indiqués sur la figure ci-dessus.
+\end{enumerate}
+
+\begin{center}{\fontencoding{U}\fontfamily{futs}\fontsize{18}{18}\selectfont m} 
+
+%{\fontencoding{U}\fontfamily{futs}\fontsize{14}{14}\selectfont a}{\fontencoding{U}\fontfamily{futs}\fontsize{14}{14}\selectfont z}
+\end{center}

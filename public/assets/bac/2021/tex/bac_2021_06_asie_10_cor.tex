@@ -1,0 +1,134 @@
+\textbf{EXERCICE -- B}
+
+\medskip
+
+\begin{tabular}{|l|}\hline
+\textbf{Principaux domaines abordés}\\
+-- Suites, étude de fonction\\
+-- Fonction logarithme\\ \hline
+\end{tabular}
+
+\medskip
+
+%Soit la fonction $f$ définie sur l'intervalle $]1~;~ +\infty[$ par 
+
+\[f(x) = x - \ln (x - 1).\]
+
+On considère la suite $\left(u_n\right)$ de terme initial $u_0 = 10$ et telle que $u_{n+1} = f\left(u_n\right)$ pour tout entier naturel $n$.
+
+\bigskip
+
+\textbf{Partie I :}
+
+\medskip
+
+%La feuille de calcul ci-dessous a permis d'obtenir des valeurs approchées des premiers termes de la suite $\left(u_n\right)$.
+%
+%\begin{center}
+%\begin{tabularx}{0.6\linewidth}{|c|*{2}{>{\centering \arraybackslash}X|}}\hline
+%&A &B\\ \hline
+%1 &$n$&$u_n$\\ \hline
+%2 &0&10\\ \hline
+%3& 1&\np{7,80277542}\\ \hline
+%4& 2&\np{5,88544474}\\ \hline
+%5& 3&\np{4,29918442}\\ \hline
+%6& 4&\np{3,10550913}\\ \hline
+%7& 5&\np{2,36095182}\\ \hline
+%8& 6&\np{2,0527675}\\ \hline
+%9& 7&\np{2,00134509}\\ \hline
+%10& 8&\np{2,0000009}\\ \hline
+%\end{tabularx}
+%\end{center}
+%
+%\medskip
+
+\begin{enumerate}
+\item %Quelle formule a été saisie dans la cellule B3 pour permettre le calcul des valeurs approchées de $\left(u_n\right)$ par recopie vers le bas ?
+Il faut écrire dans la cellule B3 : $\fbox{=B2 - ln(B2 - 1)}$.
+\item %À l'aide de ces valeurs, conjecturer le sens de variation et la limite de la suite $\left(u_n\right)$.
+On peut penser que la suite est décroissante et a pour limite $2$.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie II :}
+
+\medskip
+
+%On rappelle que la fonction $f$ est définie sur l'intervalle $]1~;~ +\infty[$ par 
+%
+%\[f(x) = x - \ln (x - 1).\]
+%
+%\medskip
+
+\begin{enumerate}
+\item %Calculer $\displaystyle\lim_{x \to 1} f(x)$. On admettra que $\displaystyle\lim_{x \to + \infty} f(x) = + \infty$.
+On a $\displaystyle\lim_{x \to 1} x - 1 = 0$, donc $\displaystyle\lim_{x \to 1} \ln (x - 1) = - \infty$ et enfin par somme de limites $\displaystyle\lim_{x \to 1} f(x) = + \infty$.
+
+\emph{Rem.} : la droite d'équation $x = 1$ est asymptote verticale à la représentation graphique de la fonction $f$.
+\item  
+	\begin{enumerate}
+		\item %Soit $f'$ la fonction dérivée de $f$. Montrer que pour tout $x \in ]1~;~ +\infty[$,\,  $f'(x) = \dfrac{x - 2}{x - 1}$.
+		Sachant que $\left(\ln u\right)' = \dfrac{u'}{u}$, $u(x)$ étant une fonction de $x$ ne s'annulant pas sur l'intervalle $]1~;~ +\infty[$, on a donc :
+		
+$f'(x) = 1 - \dfrac{1}{x - 1} = \dfrac{x - 1 - 1}{x - 1} = \dfrac{x - 2}{x - 1}$ sur l'intervalle $]1~;~ +\infty[$.
+		\item %En déduire le tableau des variations de $f$ sur l'intervalle $]1~;~ +\infty[$, complété par les limites.
+Sur l'intervalle $]1~;~ +\infty[$ on a bien entendu $ x > 1$, donc le signe de $f'(x)$ est celui du dénominateur $x - 2$ :
+
+\starredbullet~$x - 2 > 0 \iff x > 2$ : $f'(x) > 0$ sur $]2~;~+ \infty[$ ; la fonction $f$ est croissante sur $]2~;~+ \infty[$ ;
+
+\starredbullet~$x - 2 < 0 \iff x < 2$ : $f'(x) > 0$ sur $]1~;~2[$ ; la fonction $f$ est décroissante sur $]1~;~2[$ ;
+
+\starredbullet~$x - 2 = 0 \iff x = 2$ : $f'(2) = 0$ la fonction $f$ a un minimum $f(2) = 2 - \ln 1 = 2 - 0 = 2$ sur $]1~;~+ \infty[$. D'où le tableau de variations :
+
+\begin{center}
+\psset{unit=1cm}
+\begin{pspicture}(6,3)
+\psframe(6,3)\psline(0,2)(6,2)\psline(0,2.5)(6,2.5)\psline(1,0)(1,3)
+\uput[u](0.5,2.4){$x$} \uput[u](2.25,2.4){$1$} \uput[u](3.5,2.4){$2$} \uput[u](5.5,2.4){$+ \infty$} 
+\uput[u](0.5,1.9){$f'(x)$} \uput[u](2.25,1.9){$-$} \uput[u](3.5,1.9){$0$} \uput[u](4.75,1.9){$+$} 
+\psline{->}(1.5,1.5)(3,0.5)\psline{->}(4,0.5)(5.5,1.5)
+\uput[d](1.5,2){$+\infty$}\uput[u](3.5,0){$2$}\uput[d](5.5,2){$+\infty$}
+\rput(0.5,1){$f$}
+\end{pspicture}
+\end{center}
+		\item %Justifier que pour tout $x \geqslant  2$,\,  $f(x) \geqslant  2$.
+La question précédente a montré que $f(2)= 2$ est le minimum de la fonction $f$ sur l'intervalle $]1~;~+ \infty[$, donc a fortiori sur l'intervalle $]1~;~+ \infty[$.
+		
+On a donc pour tout $x \geqslant  2$,\,  $f(x) \geqslant  2$.
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie III :}
+
+\medskip
+
+\begin{enumerate}
+\item %En utilisant les résultats de la partie II, démontrer par récurrence que $u_n \geqslant  2$ pour tout entier naturel $n$.
+\emph{Initialisation} : on a $u_0 = 10 \geqslant 2$
+ : la proposition est vraie au rang $0$.
+
+\emph{Hérédité} : supposons que pour $n \in \N$, on ait : $u_n \geqslant 2$.
+
+Par croissance de la fonction $f$, on a donc $f\left(u_n\right) \geqslant f(2)$, c'est-à-dire :
+
+$u_{n+1} \geqslant 2$ : la proposition est donc vraie au rang $n + 1$.
+
+Conclusion : La proposition est vraie au rang $0$ et si elle est vraie au rang $n \in \N$ elle est vraie au rang $n + 1$ : d'après le principe de récurrence la proposition :
+
+\og $u_n \geqslant  2$ pour tout entier naturel $n$\fg{} est vraie.
+ \item %Montrer que la suite $\left(u_n\right)$ est décroissante.
+Pour $n \in \N$, calculons $u_{n+1} - u_n  = f\left(u_n \right) - u_n = u_n - \ln \left(u_n - 1 \right) - u_n = - \ln \left(u_n - 1 \right)$.
+
+Or d'après la question précédente, quel que soit $n \in \N$, \, $u_n \geqslant 2$, donc $u_n - 1 \geqslant 2 - 1$, ou $u_n - 1 \geqslant 1$, donc $\ln \left(u_n - 1 \right) \geqslant 0$ et enfin $- \ln \left(u_n - 1 \right) \leqslant 0$.
+
+Conclusion : quel que soit $n \in \N$, \, $u_{n+1} - u_n \leqslant 0$ ou $_{n+1} \leqslant u_n$ : la suite $\left(u_n\right)$ est décroissante.
+\item %En déduire que la suite $\left(u_n\right)$ est convergente. On note $\ell$ sa limite.
+On a donc démontré dans les deux questions précédentes que la suite $\left(u_n\right)$ est décroissante et minorée par 2 : elle converge donc vers une limite $\ell$, telle $\ell \geqslant 2$.
+\item %On admet que $\ell$ vérifie $f(\ell) = \ell$. Donner la valeur de $\ell$.
+$f(\ell) = \ell \iff \ell - \ln (\ell - 1) = \ell \iff 0 = \ln (\ell- 1) \iff 1 = \ell - 1$ (par croissance de la fonction logarithme népérien), d'où $2 = \ell$.
+
+La suite $\left(u_n\right)$ converge vers le nombre $2$.
+\end{enumerate}

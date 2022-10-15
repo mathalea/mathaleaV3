@@ -1,0 +1,123 @@
+
+\smallskip
+
+\begin{tabular}{|l|}\hline
+Principaux domaines abordés :\\
+Fonction logarithme; dérivation\\ \hline
+\end{tabular}
+
+\begin{center}\textbf{Partie 1}\end{center}
+
+Soit $h$ la fonction définie sur l'intervalle $]0~;~ +\infty[$ par:
+$h(x) = 1 + \dfrac{\ln (x)}{x^2}.$
+
+%On admet que la fonction $h$ est dérivable sur $]0~;~ +\infty[$ et on note $h'$ sa fonction dérivée.
+
+\medskip
+
+\begin{enumerate}
+\item %Déterminez les limites de $h$ en $0$ et en $+ \infty$.
+\starredbullet~Limite en $0$ : $h(x) = 1 + \dfrac{1}{x} \times \dfrac{\ln (x)}{x}$.
+
+On sait que $\displaystyle\lim_{x \to 0} \dfrac{1}{x} = + \infty$ et que $\displaystyle\lim_{x \to 0} \dfrac{\ln (x)}{x} = - \infty$ ; donc par produit de limites $\displaystyle\lim_{x \to 0} h(x) = - \infty$.
+
+\starredbullet~Limite en $+ \infty$ : on sait que $\displaystyle\lim_{x \to + \infty} \dfrac{1}{x} = 0$ et que $\displaystyle\lim_{x \to 0} \dfrac{\ln x}{x} = 0$, donc par produit et somme de limites : $\displaystyle\lim_{x \to 0} h(x) = 1$. ( La droite d'équation $y = 1$ est asymptote horizontale à la représentation graphique de $h$ en $+\infty$.)
+  
+\item %Montrer que, pour tout nombre réel $x$ de $]0~;~ +\infty[$,\, $h'(x) = \dfrac{1 - 2\ln (x)}{x^3}$.
+La fonction est dérivable (admis) sur $]0~;~ +\infty[$ et sur cet intervalle :
+
+$h'(x) = \dfrac{\frac{1}{x} \times x^2 - 2x\ln (x)}{x^4} = \dfrac{x - 2x\ln (x)}{x^4}  = \dfrac{1 - 2\ln (x)}{x^3}$.
+\item %En déduire les variations de la fonction $h$ sur l'intervalle $]0~;~ +\infty[$.
+Sur $]0~;~ +\infty[$, \, $x > 0$ donc $x^3 > 0$ : le signe de $h'(x)$ est donc celui du numérateur $1 - 2\ln x$.
+
+\starredbullet~$1 - 2\ln x > 0 \iff 1 > 2\ln x \iff \dfrac{1}{2} > \ln x \iff  \ln x < \dfrac{1}{2}$, soit finalement $x < \e^{\frac{1}{2}}$ \, $\left(\text{ou encore }\, x < \sqrt{\e} \right)$
+
+\item %Montrer que l'équation $h(x) = 0$ admet une solution unique $\alpha$ appartenant à $]0~;~+\infty[$ et vérifier que : $\dfrac{1}{2} < \alpha < 1$.
+D'après les résultats précédents, on établit le tableau de variations de $h$ sur $]0~;~+\infty[$.
+
+$h\left ( \e^{\frac{1}{2}}\right ) = 1+\dfrac{\ln\left (\e^{\frac{1}{2}}\right )}{\left (\e^{\frac{1}{2}}\right )^2}= 1+\dfrac{\frac{1}{2}}{\e}= 1+\dfrac{1}{2\e}\approx 1,18$
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.5}
+\psset{nodesep=3pt,arrowsize=2pt 3}%  paramètres
+\def\esp{\hspace*{2.5cm}}% pour modifier la largeur du tableau
+\def\hauteur{20pt}% mettre au moins 20pt pour augmenter la hauteur
+$\begin{array}{|c|l*4{c}|}
+\hline
+x & 0  & \esp & \e^{\frac{1}{2}} & \esp & +\infty \\ 
+\hline
+h'(x) &  \vline\;\vline  &   \pmb{+} & \vline\hspace{-2.7pt}0 & \pmb{-} & \\ 
+\hline
+ & \vline\;\vline &  &   \Rnode{max}{1+\dfrac{1}{2\e}}  &  &  \rule{0pt}{\hauteur} \\  
+h(x) &  \vline\;\vline &     &  &  &  \rule{0pt}{\hauteur} \\ 
+ & \vline\;\vline \Rnode{min1}{-\infty} &   &  &  &   \Rnode{min2}{1} \rule{0pt}{\hauteur}    
+ \ncline{->}{min1}{max} 
+ \ncline{->}{max}{min2} 
+ \\ 
+\hline
+\end{array} $
+}
+\end{center}	
+
+D'après ce tableau de variations, l'équation $h(x)=0$ admet une solution unique  dans l'intervalle $\left  ] 0~;~\e^{\frac{1}{2}}\right [$.
+
+On appelle $\alpha$ cette solution; $h\left (\dfrac{1}{2}\right ) \approx -1,8<0$ et $h(1)=1>0$ donc $\dfrac{1}{2} < \alpha < 1$.
+
+\item D'après les questions précédentes, on peut établir le tableau  signes de $h(x)$ pour $x$ appartenant à $]0~;~ +\infty[$:
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.5}
+\psset{nodesep=3pt,arrowsize=2pt 3}%  paramètres
+\def\esp{\hspace*{1.5cm}}% pour modifier la largeur du tableau
+\def\hauteur{20pt}% mettre au moins 20pt pour augmenter la hauteur
+$\begin{array}{|c|l*4{c}|}
+\hline
+x & 0  & \esp & \alpha & \esp \esp & +\infty \\ 
+\hline
+h(x) &  \vline\;\vline  &   \pmb{-} & \vline\hspace{-2.7pt}0 & \pmb{+} & \\ 
+\hline
+\end{array} $
+}
+\end{center}	
+
+\end{enumerate}
+
+\bigskip
+
+\begin{center}\textbf{Partie 2}\end{center}
+
+On désigne par $f_1$ et $f_2$ les fonctions définies sur $]0~;~ +\infty[$ par :
+$f_1(x) = x-1 - \dfrac{\ln (x)}{x^2}\text{et  }f_2(x) = x - 2 - \dfrac{2\ln (x)}{x^2}.$
+
+On note $\mathcal{C}_1$ et $\mathcal{C}_2$ les représentations graphiques respectives de $f_1$ et $f_2$ dans un repère \Oij.
+
+\medskip
+
+\begin{enumerate}
+\item Pour tout nombre réel $x$ appartenant à $]0~;~ +\infty[$, on a : 
+
+$f_1(x) -f_2(x) = x-1 - \dfrac{\ln (x)}{x^2} - \left ( x - 2 - \dfrac{2\ln (x)}{x^2}\right )
+= x-1 - \dfrac{\ln (x)}{x^2} - x + 2 + \dfrac{2\ln (x)}{x^2}
+= 1 + \dfrac{\ln(x)}{x^2}= h(x)$
+
+\item %Déduire des résultats de la Partie 1 la position relative des courbes $\mathcal{C}_1$ et $\mathcal{C}_2$.
+%
+%On justifiera que leur unique point d'intersection a pour coordonnées $(\alpha~;~\alpha)$.
+%
+%On rappelle que $\alpha$ est l'unique solution de l'équation $h(x) = 0$.
+\begin{list}{\textbullet}{}
+\item On a vu que $h(x)<0$ sur $]0~;~\alpha[$, donc sur cet intervalle $f_1(x)<f_2(x)$ donc $\mathcal{C}_1$ est en dessous de $\mathcal{C}_2$.
+
+\item On a vu que $h(x)>0$ sur $]\alpha~;~+\infty[$, donc sur cet intervalle $f_1(x)>f_2(x)$ donc $\mathcal{C}_1$ est au dessus de $\mathcal{C}_2$.
+
+\item $h(\alpha)=0$ donc $f_1(\alpha)=f_2(\alpha)$; donc $\alpha$ est l'abscisse du point d'intersection de $\mathcal{C}_1$ et $\mathcal{C}_2$.
+
+\item L'ordonnée de ce point d'intersection est $f(\alpha) = \alpha - 1 - \dfrac{\ln(\alpha)}{\alpha^2} = \alpha  -\left ( 1+\dfrac{\ln(\alpha)}{\alpha^2}\right )= \alpha -h(\alpha) = \alpha$. 
+
+\item Les deux courbes se coupent donc au point de coordonnées $(\alpha~;~\alpha)$.
+
+\end{list}
+\end{enumerate}
+
+\bigskip
+

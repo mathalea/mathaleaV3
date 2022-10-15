@@ -1,0 +1,145 @@
+\textbf{\large\textsc{Exercice 3} \hfill 5 points}
+
+\textbf{Commun à tous les candidats}
+
+\medskip
+
+En mai 2020, une entreprise fait le choix de développer le télétravail afin de s'inscrire dans une démarche écoresponsable.
+Elle propose alors à ses \np{5000}~collaborateurs en France de choisir entre le télétravail et le travail au sein des locaux de l'entreprise.
+
+En mai 2020, seuls $200$ d'entre eux ont choisi le télétravail.
+
+Chaque mois, depuis la mise en place de cette mesure, les dirigeants de l'entreprise constatent que $85$\,\% de ceux qui avaient choisi le télétravail le mois précédent choisissent de continuer, et que, chaque mois, $450$ collaborateurs supplémentaires choisissent le télétravail.
+
+On modélise le nombre de collaborateurs de cette entreprise en télétravail par la suite $\left(a_n\right)$.
+
+Le terme $a_n$ désigne ainsi une estimation du nombre de collaborateurs en télétravail le $n$-ième mois après le mois de mai 2020. Ainsi $a_0 = 200$.
+
+\bigskip
+
+\textbf{Partie A}
+
+\medskip
+
+\begin{enumerate}
+\item $a_1 = a_0 \times \dfrac{85}{100}+ 450 = 200 \times \dfrac{85}{100}+ 450 = 620$
+
+\item Prendre les 85\,\% du nombre de collaborateurs en télétravail revient à multiplier par $0,85$; puis on ajoute 450 donc, pour tout entier naturel $n$, on a:
+$a_{n+1} = 0,85a_n + 450$.
+
+\item On considère la suite $\left(v_n\right)$ définie pour tout entier naturel n par: $v_n = a_n - \np{3000}$; on en déduit que $a_n=v_n+\np{3000}$.
+
+	\begin{enumerate}
+		\item %Démontrer que la suite $\left(v_n\right)$ est une suite géométrique de raison $0,85$. 
+\begin{list}{\textbullet}{}
+\item $v_{n+1} = u_{n+1} - \np{3000} = 0,85 u_n + 450 - \np{3000} = 0,85\left (v_n + \np{3000}\right ) -\np{2550} \\
+\phantom{v_{n+1}}
+= 0,85 v_n  + \np{2550} - \np{2550} = 0,85 v_n$
+\item $v_0=u_0 - \np{3000} = 200 - \np{3000} = -\np{2800}$
+\end{list}		
+		
+Donc la suite $(v_n)$ est géométrique de raison $q=0,85$ et de premier terme $v_0=-\np{2800}$.		
+	
+		\item On en déduit que, pour tout $n$, on a $v_n=v_0\times q^n = -\np{2800}\times 0,85^n$.
+		
+		\item Or $u_n=v_n+\np{3000}$ donc, pour tout entier naturel $n$,\,
+$a_n = \np{- 2800} \times  0,85^n + \np{3000}$.
+	\end{enumerate}
+	
+\item Le nombre de mois au bout duquel le nombre de télétravailleurs sera strictement supérieur à \np{2500}, après la mise en place de cette mesure dans l'entreprise est le nombre entier $n$ tel que $a_n>\np{2500}$; on résout cette inéquation:
+
+$a_n>\np{2500}
+\iff \np{- 2800} \times  0,85^n + \np{3000} > \np{2500}
+\iff 500 > \np{2800} \times  0,85^n
+\iff \dfrac{500}{\np{2800}} > 0,85^n\\[5pt]
+\phantom{a_n>\np{2500}}
+\iff \ln\left ( \dfrac{500}{\np{2800}} \right ) > \ln \left (0;85^n\right )
+\iff \ln\left ( \dfrac{5}{28} \right ) > n\times \ln \left (0;85\right )
+\iff \dfrac{\ln\left ( \frac{5}{28} \right )}{\ln \left (0,85\right )} <n$
+
+Or $\dfrac{\ln\left ( \frac{5}{28} \right )}{\ln \left (0,85\right )}\approx 10,6$, donc le nombre de mois au bout duquel le nombre de télétravailleurs sera strictement supérieur à \np{2500} est 11.
+
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie B }
+
+\medskip
+
+Afin d'évaluer l'impact de cette mesure sur son personnel, les dirigeants de l'entreprise sont parvenus à modéliser le nombre de collaborateurs satisfaits par ce dispositif à l'aide de la suite 
+$\left(u_n\right)$ définie par $u_0 = 1$ et, pour tout entier naturel $n$,
+
+\[u_{n+1}  = \dfrac{5u_n + 4}{u_n + 2}\]
+
+où $u_n$ désigne le nombre de milliers de collaborateurs satisfaits par cette nouvelle mesure au bout de $n$ mois après le mois de mai 2020.
+
+\medskip
+
+\begin{enumerate}
+\item Soit $f$ la fonction  définie pour tout $x \in  [0~;~+\infty[$ par $f(x) = \dfrac{5x+4}{x+2}$.
+
+$f$ est une fonction rationnelle définie sur $[0~,~+\infty[$ donc elle est dérivable sur $[0~;~+\infty[$.
+
+$f'(x)= \dfrac{5\times (x+2) - (5x+4)\times 1}{(x+2)^2} 
+= \dfrac{5x+10 -5x-4)\times 1}{(x+2)^2} 
+ = \dfrac{6}{(x+2)^2}$
+
+$f'(x)>0$ sur $[0~,~+\infty[$, donc la fonction $f$ est strictement croissante sur $[0~;~+\infty[$.
+
+\item 
+	\begin{enumerate}
+		\item Soit $\mathcal P$ la propriété $0 \leqslant u_n \leqslant  u_{n+1}  \leqslant  4$.
+		
+\begin{list}{\textbullet}{}
+\item \textbf{Initialisation}
+
+$u_0 = 1$ et $u_1 = \dfrac{5\times u_0 +4}{u_0+1} = \dfrac{5\times 1+4}{1+2} = \dfrac{9}{3} = 3$
+
+$0\leqslant 1 \leqslant 3 \leqslant 4$, soit $0\leqslant u_0 \leqslant u_1 \leqslant 4$, donc la propriété est vraie pour $n=0$.
+
+\item \textbf{Hérédité}
+
+On suppose la propriété vraie au rang $n\geqslant 0$, c'est-à-dire $0 \leqslant u_n \leqslant  u_{n+1}  \leqslant  4$.
+
+La fonction $f$ est strictement croissante sur $[0~;~+\infty[$ donc sur $[0~;~4[$, donc de la relation $0 \leqslant u_n \leqslant  u_{n+1}  \leqslant  4$, on déduit $f(0) \leqslant f(u_n) \leqslant  f(u_{n+1} ) \leqslant  f(4)$.
+
+$f(0)=\dfrac{4}{2}= 2 \geqslant 0$; $f(u_n)=u_{n+1}$; $f(u_{n+1})=u_{n+2}$ et $f(4)=\dfrac{24}{6}=4$
+
+On a donc: $0\leqslant u_{n+1} \leqslant u_{n+2} \leqslant 4$, donc la propriété est vraie au rang $n+1$.
+
+\item \textbf{Conclusion}
+
+La propriété est vraie au rang 0, et elle est héréditaire pour tout $n\geqslant 0$, donc, d'après le principe de récurrence, la propriété est vraie pour tout $n\geqslant 0$.
+
+\end{list}		
+
+On a donc démontré que pour tout $n$, on a: $0 \leqslant u_n \leqslant  u_{n+1}  \leqslant  4$.
+		
+		\item %Justifier que la suite $\left(u_n\right)$ est convergente.
+\begin{list}{\textbullet}{}
+\item Pour tout $n$, on a; $u_n \leqslant u_{n+1}$ donc la suite $(u_n)$ est croissante.
+\item Pour tout $n$, on a; $u_n \leqslant 4$ donc la suite $(u_n)$ est majorée.
+\end{list}
+
+La suite $(u_n)$ est croissante et majorée donc, d'après le théorème de la convergence monotone, la suite $(u_n)$ est convergente.
+
+	\end{enumerate}
+	
+\item On admet que pour tout entier naturel $n$,
+$0  \leqslant 4 - u_n \leqslant 3 \times \left(\dfrac{1}{2}\right)^n$.
+
+La suite $ \left (3 \times \left(\dfrac{1}{2}\right)^n\right )$ est géométrique de raison $q=\dfrac{1}{2}$; or $-1<\dfrac{1}{2}<1$ donc la suite $ \left (3 \times \left(\dfrac{1}{2}\right)^n\right )$ converge vers 0.
+
+D'après le théorème des gendarmes, on déduit
+$\ds\lim_{n \to +\infty} \left (4 - u_n \right )=0$
+et donc $\ds\lim_{n \to +\infty} \left ( u_n \right )=4$.
+
+%En déduire la limite de la suite $\left(u_n\right)$ et l'interpréter dans le contexte de la modélisation.
+
+Cela signifie que le nombre de collaborateurs satisfaits va tendre vers 4 milliers sur les \np{5000} que compte l'entreprise.
+
+\end{enumerate}
+
+\bigskip
+

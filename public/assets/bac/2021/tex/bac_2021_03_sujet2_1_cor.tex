@@ -1,0 +1,162 @@
+\textbf{\large Exercice 1 \hfill Commun à  tous les candidats \hfill 5 points}
+
+\medskip
+
+%\emph{Cet exercice est un questionnaire à  choix multiples. Pour chacune des questions suivantes, une seule des quatre réponses proposées est exacte.\\ Une réponse exacte rapporte un point. Une réponse fausse, une réponse multiple ou l'absence de réponse à  une question ne rapporte ni n'enlève de point.\\ Pour répondre, indiquer sur la copie le numéro de la question et la lettre de la réponse choisie.\\ Aucune justification n'est demandée.}
+%
+%\bigskip
+
+\textbf{PARTIE I}
+
+\medskip
+
+Dans un centre de traitement du courrier, une machine est équipée d'un lecteur optique automatique de reconnaissance de l'adresse postale. Ce système de lecture permet de reconnaître convenablement 97\,\% des adresses; le reste du courrier, que l'on qualifiera d'illisible pour la machine, est orienté vers un employé du centre chargé de lire les adresses. 
+
+Cette machine vient d'effectuer la lecture de neuf adresses. On note $X$ la variable aléatoire qui donne le nombre d'adresses illisibles parmi ces neuf adresses.
+
+On admet que $X$ suit la loi binomiale de paramètres $n = 9$ et $p = 0,03$.
+
+\medskip
+
+\begin{enumerate}
+\item La probabilité qu'aucune des neuf adresses soit illisible est égale, au centième près, à  :
+\begin{center}
+\begin{tabularx}{\linewidth}{*{4}{X}}
+\textbf{a.~} 0 &\textbf{b.~} 1 &\textbf{c.~} $0,24$ &\fbox{\textbf{d.~} $0,76$}
+\end{tabularx}
+\end{center}
+
+\begin{tabular}{@{\hspace*{0.05\linewidth}} | p{0.93\linewidth}}
+On cherche $P(X=0)$ qui vaut 
+$\ds\binom{9}{0} \times 0,03^0 \times 0,97^9 \approx 0,76$.
+
+\smallskip
+
+\textbf{Réponse d.}
+\end{tabular}
+
+\bigskip
+
+\item  La probabilité qu'exactement deux des neuf adresses soient illisibles pour la machine est:
+\begin{center}
+\begin{tabularx}{\linewidth}{*{2}{X}}
+\textbf{a.~} $\ds\binom{9}{2} \times  0,97^2 \times 0,03^7$ &\textbf{b.~} $\ds\binom{7}{2} \times  0,97^2 \times 0,03^7$\rule[-15pt]{0pt}{0pt}\\
+\fbox{\textbf{c.~} $\ds\binom{9}{2} \times 0,97^7 \times  0,03^2$} &\textbf{d.~} $\ds\binom{7}{2} \times 0,97^7 \times 0,03^2$
+\end{tabularx}
+\end{center}
+
+\begin{tabular}{@{\hspace*{0.05\linewidth}} | p{0.93\linewidth}}
+On cherche $P(X=2)$ qui vaut 
+$\ds\binom{9}{2} \times 0,03^2 \times 0,97^7$.
+
+\smallskip
+
+\textbf{Réponse c.}
+\end{tabular}
+
+\bigskip
+
+\item  La probabilité qu'au moins une des neuf adresses soit illisible pour la machine est:
+\begin{center}
+\begin{tabularx}{\linewidth}{*{4}{X}}
+\textbf{a.~} $P(X < 1)$ &\textbf{b.~} $P(X \leqslant 1)$ &\textbf{c.~} $P(X \geqslant 2)$ &\fbox{\textbf{b.~} $1- P(X = 0)$} 
+\end{tabularx}
+\end{center}
+
+\begin{tabular}{@{\hspace*{0.05\linewidth}} | p{0.93\linewidth}}
+On cherche $P(X\geqslant 1)$  qui vaut $1 - P(X=0)$.
+
+\smallskip
+
+\textbf{Réponse d.}
+\end{tabular}
+
+\end{enumerate}
+
+\bigskip
+
+\textbf{PARTIE II}
+
+\medskip
+
+Une urne contient 5 boules vertes et 3 boules blanches, indiscernables au toucher. 
+
+On tire au hasard successivement et sans remise deux boules de l'urne.
+
+On considère les évènements suivants:
+
+\setlength\parindent{1cm}
+\begin{itemize}
+\item[$\bullet~~$] $V_1$ : \og la première boule tirée est verte \fg{} ;
+\item[$\bullet~~$] $B_1$ : \og la première boule tirée est blanche \fg{} ;
+\item[$\bullet~~$] $V_2$ : \og la seconde boule tirée est verte \fg{} ;
+\item[$\bullet~~$] $B_2$ : \og la seconde boule tirée est blanche \fg.
+\end{itemize}
+\setlength\parindent{0cm}
+
+Au départ, il y a 8 boules dans l'urne.
+
+Après le premier tirage, il en reste 7. Si la boule du 1\ier{} tirage est verte, il reste 4 boules vertes et 3 boules blanches; si la boule du 1\ier{} tirage est blanche, il reste 5 boules vertes et 2 boules blanches.
+
+On construit un arbre de probabilités résumant la situation:
+
+\begin{center}
+{%\bigskip
+\psset{levelsep=3cm,nodesepB=4pt, treesep=10mm}
+\pstree[treemode=R,nodesepA=0pt]% R pour Right
+       {\TR{}}
+       {
+       \pstree[nodesepA=4pt]{\TR{$V_1$}\ncput*{$\frac{5}{8}$}}
+	                        {
+	                        \TR{$V_2$}\ncput*{$\frac{4}{7}$}
+			                \TR{$B_2$}\ncput*{$\frac{3}{7}$}
+	                        }
+       \pstree[nodesepA=4pt]{\TR{$B_1$}\ncput*{$\frac{3}{8}$}}
+	                        {
+	                        \TR{$V_2$}\ncput*{$\frac{5}{7}$}
+			                \TR{$B_2$}\ncput*{$\frac{2}{7}$}
+	                        }
+      }
+}
+%\bigskip
+\end{center}
+
+\begin{enumerate}[resume]
+\item  La probabilité de $V_2$ sachant que $V_1$ est réalisé, notée $P_{V_1}\left(V_2\right)$, est égale à  :
+\begin{center}
+\begin{tabularx}{\linewidth}{*{4}{X}}
+\textbf{a.~}$\dfrac{5}{8}$&\fbox{\textbf{b.~} $\dfrac{4}{7}$} &\textbf{c.~} $\dfrac{5}{14}$&\textbf{d.~}
+$\dfrac{20}{56}$ 
+\end{tabularx}
+\end{center}
+
+\begin{tabular}{@{\hspace*{0.05\linewidth}} | p{0.93\linewidth}}
+D'après l'arbre, $P_{V_1}\left(V_2\right) = \dfrac{4}{7}$.
+
+\textbf{Réponse b.}
+\end{tabular}
+
+\bigskip
+
+\item La probabilité de l'évènement $V_2$ est égale à  :
+\begin{center}
+\begin{tabularx}{\linewidth}{*{4}{X}}
+\fbox{\textbf{a.~}$\dfrac{5}{8}$} &\textbf{b.~} $\dfrac{5}{7}$&\textbf{c.~} $\dfrac{3}{28}$&\textbf{d.~}
+$\dfrac{9}{7}$ 
+\end{tabularx}
+\end{center}
+
+\begin{tabular}{@{\hspace*{0.05\linewidth}} | p{0.93\linewidth}}
+D'après la formule des probabilités totales:
+
+$P\left (V_2\right ) = P\left (V_1\cap V_2\right ) + P\left (B_1\cap V_2\right )
+= \dfrac{5}{8}\times \dfrac{4}{7} + \dfrac{3}{8}\times \dfrac{5}{7}
+= \dfrac{20}{56}+\dfrac{15}{56} = \dfrac{35}{56}=\dfrac{5}{8}$
+
+\textbf{Réponse a.}
+\end{tabular}
+
+\end{enumerate}
+
+\bigskip
+

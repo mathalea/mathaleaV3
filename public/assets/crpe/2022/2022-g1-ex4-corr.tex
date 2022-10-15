@@ -1,0 +1,66 @@
+\begin{enumerate}
+	\item On obtient la figure suivante : 
+	
+	\begin{tikzpicture}
+		\tkzDefPoints{0/0/A,5/0/B}
+		\tkzDefPointBy[rotation= center B angle -135](A)
+		\tkzGetPoint{C}
+		\tkzDefPointBy[rotation= center A angle 45](B)
+		\tkzGetPoint{D}
+		\tkzDrawPolygon(A,B,C,D)
+		\tkzLabelPoints[below right](C)
+		\tkzLabelPoints[below](B)
+		\tkzLabelPoints[above](D)
+		\tkzLabelPoints[above left](A)
+		\tkzDrawLine[add=0 and .6, dashed](C,D)
+		\tkzDrawLine[add=0 and .6, dashed](B,C)
+		\tkzDrawLine[add=0 and .6, dashed](A,B)
+		\tkzDrawLine[add=0 and .6, dashed](D,A)
+		\tkzDrawSector[R, fill=gray!50](A, 0.5 cm)(-135, 0)
+		\tkzDrawSector[R, fill=gray!50](B, 0.5 cm)(0, 45)
+		\tkzDrawSector[R, fill=gray!50](C, 0.5 cm)(45, 180)
+		\tkzDrawSector[R, fill=gray!50](D, 0.5 cm)(180, 225)
+		\tkzText[above left= .5 and .1](C){$135\degree$}
+		\tkzText[below left = .1 and .5](D){$45\degree$}
+		\tkzText[below right=.5 and .1](A){$135\degree$}
+		\tkzText[above right = .1 and .5](B){$45\degree$}
+	\end{tikzpicture}
+	
+	
+	
+	\item La figure obtenue est un losange.
+	
+	\bigskip
+	\textbf{Justification} : 
+
+    \textit{Le lutin trace 4 segments et tourne au total de $2\times45^{\circ}+2\times135\degree=360\degree$, on peut donc supposer qu'il trace un quadrilatère fermé}.
+    
+    \bigskip
+    Les 4 côtés du quadrilatère ont la même longueur donc c'est un losange (on pouvait aussi le justifier car ses angles opposés sont de même longueur et il possède deux côtés consécutifs de même longueur).
+    
+    \item
+    \begin{enumerate}
+	    \item On peut observer qu'il y a 4 losanges donc $N=4$ et $A=45\degree$.
+
+	    \item La valeur de $C$ est : $C = 30 + 4 \times 30 = 150$.
+	    \textit{Attention la valeur de $C$ demandée n'est pas celle pour la réalisation du dernier losange mais celle à la fin de l'exécution du programme.}
+	\end{enumerate}	
+	
+	\item
+	
+	\begin{scratch}
+	
+	\blockinit{quand \greenflag est cliqué}
+	\blockmove{aller à x: \ovalnum{0} y: \ovalnum{0}}
+	\blockmove{s'orienter à \ovalnum{90}}
+	\blockpen{effacer tout}
+	\blockpen{stylo en position d'écriture}
+	\blockvariable{mettre \selectmenu{c} à \ovalnum{30}}
+	\blockrepeat{répéter \ovalnum{4} fois}
+		{
+		\blockmoreblocks{motif}
+		\blockmove{tourner \turnleft de \ovalnum{90} degrés}
+		}	
+	\end{scratch}
+
+\end{enumerate}

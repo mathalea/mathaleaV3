@@ -1,0 +1,123 @@
+
+\textbf{Commun à tous les candidats}
+
+\medskip
+
+%Au 1\up{er} janvier 2020, la centrale solaire de Big Sun possédait \np{10560} panneaux solaires.
+%
+%On observe, chaque année, que 2\,\% des panneaux se sont détériorés et nécessitent d'être retirés tandis que 250 nouveaux panneaux solaires sont installés.
+%
+%\bigskip
+
+\textbf{Partie A - Modélisation à l'aide d'une suite}
+
+\medskip
+
+%On modélise l'évolution du nombre de panneaux solaires par la suite $\left(u_n\right)$ définie par $u_0 = \np{10560}$ et, pour tout entier naturel $n$,\, $u_{n+1} = 0,98u_n +250$, où $u_n$  est le nombre de panneaux solaires au 1\up{er} janvier de l'année $2020 +n$.
+
+\medskip
+
+\begin{enumerate}
+\item 
+	\begin{enumerate}
+		\item  %Expliquer en quoi cette modélisation correspond à la situation étudiée.
+Retrancher 2\,\% c'est multiplier par $1 - \dfrac{2}{100} = 1 - 0,02 = 0,98$.
+
+D'une année sur l'autre on multiplie le nombre de panneaux par 0,98 puis on augment de nombre de panneaux de 250.
+		\item  %On souhaite savoir au bout de combien d'années le nombre de panneaux solaires sera strictement supérieur à \np{12000}.
+		
+%À l'aide de la calculatrice, donner la réponse à ce problème.
+Avec la calculatrice il suffit de taper \np{10560} Entrée puis $\times 0,98 + 50$.
+
+Entrée donne $u_1 \approx \np{10599}$, les appuis successifs de Entrée donnent $u_2$, \, $u_3$, etc.
+
+On obtient $u_{68} \approx \np{12009}$.
+
+le nombre de panneaux dépassera \np{12000} au bout de 68 ans soit en 2088.
+		\item  Recopier et compléter le programme en Python ci-dessous de sorte que la valeur
+cherchée à la question précédente soit stockée dans la variable n à l'issue de l'exécution de ce dernier.
+\begin{center}
+\begin{tabular}{|l|}\hline
+u $= \np{10560}$\\
+n$ =0$\\
+while  u $\leqslant \np{12000}$ :\\
+\qquad u $= 0,98*\text{u} + 250$  \\
+\qquad n $= \text{n} + 1$\\ \hline
+\end{tabular}
+\end{center}
+
+	\end{enumerate}
+\item %Démontrer par récurrence que, pour tout entier naturel $n$, on a $u_n \leqslant \np{12500}$.
+\emph{Initialisation }: $u_0 = \np{10560} \leqslant \np{12500}$ : la proposition est vraie au rang 0.
+
+\emph{Hérédité} : soit $n \in \N$ tel que $u_n \leqslant \np{12500}$ soit en multipliant par 0,98 :
+
+$0,98u_n \leqslant 0,98 \times \np{12500}$ et en ajoutant 250 à chaque membre :
+
+$0,98u_n + 250  \leqslant 0,98 \times \np{12500} + 250$ ou $u_{n+1}  \leqslant \np{12250} + 250 $ et finalement $u_{n+1} \leqslant \np{12500}$ : la proposition est vraie au r	ng $n + 1$.
+
+La proposition est vraie au rang 0 et si elle est vraie au rang $n \in \N$ elle est vraie au rang $n + 1$ : d'après le principe de la récurrence la proposition $u_n \leqslant \np{12500}$ est vraie pur tout naturel $n \in \N$.
+\item %Démontrer que la suite $\left(u_n\right)$ est croissante.
+On a pour $n \in \N$, \, $u_{n+1} - u_n = 0,98u_n + 250 - u_n = 250  - 0,02u_n$.
+
+Or d'après le résultat précédent :
+
+$u_n \leqslant \np{12500} \Rightarrow 0,02u_n \leqslant 0,02 \times \np{12500}$ ou encore $0,02u_n \leqslant 250$ ou en ajoutant à chaque membre $- 0,02u_n$ :
+
+$0 \leqslant 250 - 0,02u_n$ ; on a donc démontré que $u_{n+1} - u_n  \geqslant 0$, ce qui signifie que la suite $\left(u_n\right)$ est croissante.
+\item %En déduire que la suite $\left(u_n\right)$ converge. Il n'est pas demandé, ici, de calculer sa limite.
+La suite $\left(u_n\right)$ est croissante et majorée par \np{12500} : elle est donc convergente vers une limite $\ell$, telle que $\ell \leqslant \np{2500}$.
+\item %On définit la suite $\left(v_n\right)$  par $v_n = u_n - \np{12500}$, pour tout entier naturel $n$.
+	\begin{enumerate}
+		\item %Démontrer que la suite $\left(v_n\right)$ est une suite géométrique de raison $0,98$ dont on précisera le premier terme.
+		Quel que soit $n \in \N$, \, $v_{n+1} = u_{n+1} - \np{12500} = 0,98u_n + 250 - \np{12500}$, soit 
+		
+		$v_{n+1}  = 0,98u_n - \np{12250} = 0,98u_n - \np{12250}\times \frac{0,98}{0,98} = 0,98u_n - \np{12500} \times 0,98 = 0,98\left(u_n - \np{12500}\right)$ soit enfin $v_{n+1} = 0,98v_n$ : cette relation vraie quel que soit $n \in \N$ montre que la suite $\left(v_n\right)$ est une suite géométrique de raison $0,98$ de premier terme $v_0 = u_0 - \np{12500} = \np{10560} - \np{12500} = - \np{1940}$.
+		\item %Exprimer, pour tout entier naturel $n$,\, $v_n$ en fonction de $n$.
+		On sait qu'alors quel que soit $n \in \N$, \, $v_n = v_0 \times 0,98^n$, soit $v_n = - \np{1940} \times 0,98^n$.
+		\item %En déduire, pour tout entier naturel $n$,\, $u_n$ en fonction de $n$.
+Pour tout entier naturel $n$,\,$v_n = u_n - \np{12500} \iff u_n = v_n + \np{12500} = \np{12500} - \np{1940} \times 0,98^n$.
+		\item %Déterminer la limite de la suite $\left(u_n\right)$.
+		
+Comme $0 < 0,98 < 1$, on sait que $\displaystyle\lim_{n \to + \infty} 0,98^n = 0$, donc 
+		
+$\displaystyle\lim_{n \to + \infty} u_n = \np{12500}$
+		
+Interpréter ce résultat dans le contexte du modèle.
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie B - Modélisation à l'aide d'une fonction}
+
+%\medskip
+%
+%Une modélisation plus précise a permis d'estimer le nombre de panneaux solaires de la centrale à l'aide de la fonction $f$ définie pour tout $x \in [0~;~ +\infty[$ par 
+%
+%$f(x) = \np{12500} - 500 \e^{-0,02x + 1,4}$, où $x$ représente le nombre d'années écoulées depuis le 1\up{er} janvier 2020.
+
+\medskip
+
+\begin{enumerate}
+\item % Étudier le sens de variation de la fonction $f$.
+La fonction $f$ est une somme de fonctions dérivables sur $[0~;~ +\infty[$ et sur cet intervalle :
+
+$f'(x) = - 0,02 \times (- 500)\e^{-0,02x+1,4} = 10\e^{-0,02x+1,4}$.
+
+Comme la fonction exponentielle est strictement positive, on en déduit que $f'(x) > 0$ : la fonction est donc strictement croissante sur $[0~;~ +\infty[$ 
+\item %Déterminer la limite de la fonction $f$ en $+\infty$.
+On sait que $\displaystyle\lim_{n \to + \infty} \e^{-0,02x+1,4} = 0$, donc $\displaystyle\lim_{n \to + \infty} 500 \e^{-0,02x+1,4} = 0$ et $\displaystyle\lim_{n \to + \infty} f(x) = \np{12500}$.
+\item %En utilisant ce modèle, déterminer au bout de combien d'années le nombre de panneaux solaires dépassera \np{12000}.
+Il faut résoudre l'inéquation :
+
+$\np{12500} - 500 \e^{-0,02x+1,4} > \np{12000} \iff 500 > 500\e^{-0,02x+1,4} \iff 1 >\e^{-0,02x+1,4} \iff \e^0 \geqslant \e^{-0,02x+1,4}$, soit par croissance de la fonction exponentielle :
+
+$0 > - 0,02x + 1,4 \iff 0,02x > 1,4$ et en multipliant chaque membre par 50 : 
+
+$x > 70$ :il faut donc attendre 71 ans pour que le nombre de panneaux dépasse \np{12000}, soit en 2091.
+
+\end{enumerate}
+
+\bigskip
+
