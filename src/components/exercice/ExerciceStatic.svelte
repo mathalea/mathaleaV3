@@ -1,6 +1,6 @@
 <script lang="ts">
   import HeaderExercice from './HeaderExercice.svelte'
-  export let uuid
+  export let uuid: string
   export let indiceExercice
   export let indiceLastExercice
 
@@ -10,10 +10,11 @@
   let isCorrectionVisible = false
   let isContentVisible = true
   
-  const exerciceStatic = dictionnaireCrpe[uuid]
+  const exercice = dictionnaireCrpe[uuid]
 
-  const headerExerciceProps = { title: 'CRPE', isInteractif: false, settingsReady: false, interactifReady: false, randomReady: false, indiceExercice, indiceLastExercice }
+  let headerExerciceProps = {title: '', isInteractif: false, settingsReady: false, interactifReady: false, randomReady: false, indiceExercice, indiceLastExercice }
 
+  if (uuid.substring(0,5) === 'crpe-') headerExerciceProps.title = `CRPE - ${exercice.annee} - ${exercice.lieu} - ${exercice.numeroInitial}`
 </script>
 
 <HeaderExercice {...headerExerciceProps}
@@ -27,12 +28,12 @@
 ></HeaderExercice>
 
 {#if isCorrectionVisible}
-  {#each exerciceStatic.pngCor as url }
+  {#each exercice.pngCor as url }
     <img src={url} width="100%" alt="énoncé">
   {/each}
 {/if} 
 {#if isContentVisible}
-  {#each exerciceStatic.png as url }
+  {#each exercice.png as url }
     <img src={url} width="100%" alt="correction">
   {/each}
 {/if} 
