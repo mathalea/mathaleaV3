@@ -1,0 +1,93 @@
+\textbf{EXERCICE 3 commun à tous les candidats \hfill 5 points}
+
+\medskip
+
+%Un sac contient les huit lettres suivantes: A B C D E F G H (2 voyelles et 6 consonnes).
+%
+%Un jeu consiste à tirer simultanément au hasard deux lettres dans ce sac. 
+%
+%On gagne si le tirage est constitué d'une voyelle \textbf{et} d'une consonne.
+%
+%\medskip
+
+\begin{enumerate}
+\item %Un joueur extrait simultanément deux lettres du sac.
+	\begin{enumerate}
+		\item %Déterminer le nombre de tirages possibles.
+Il y a 7 tirages contenant la lettre A, puis 
+
+6 tirages contenant la lettre B (le tirage AB étant le même que le tirage BA), 
+
+5 tirages contenant la lettre C, etc.
+
+Il y a donc : $7 + 6 + 5 + 4 + 3 + 2 + 1 = \dfrac{7 \times 8}{2}= 7 \times 4 = 28$ tirages différents.
+		\item %Déterminer la probabilité que le joueur gagne à ce jeu.
+Les tirages gagnant sont les 6 tirages contenant la lettre A et une consonne et les 6 contenanr la lettre E et une consonne : il y a donc $6 + 6 = 12$ tirages gagants.
+
+La probabilité que le joueur gagne à ce jeu est donc égale à $\dfrac{12}{28} = \dfrac{4\times 3}{4 \times 7} = \dfrac{3}{7}$.
+	\end{enumerate}
+\end{enumerate}
+	
+%Les questions 2 et 3 de cet exercice sont indépendantes.
+%
+%Pour la suite de l'exercice, on admet que la probabilité que le joueur gagne est égale à $\dfrac{3}{7}$.
+
+\begin{enumerate}[resume]
+\item %Pour jouer, le joueur doit payer $k$ euros, $k$ désignant un entier naturel non nul. 
+
+%Si le joueur gagne, il remporte la somme de $10$ euros, sinon il ne remporte rien.
+
+%On note $G$ la variable aléatoire égale au gain algébrique d'un joueur (c'est-à-dire la somme remportée à laquelle on soustrait la somme payée).
+
+	\begin{enumerate}
+		\item %Déterminer la loi de probabilité de $G$.
+On a $P(G = 10 - k) = \dfrac{3}{7}$ et $P(G = -k) = \dfrac{4}{7}$. D'où le tableau :
+
+\begin{center}
+$\begin{array}{|*{3}{c|}}\hline
+G				&- k			&10 - k\\ \hline
+P(G = ...)		&\dfrac{4}{7}	&\dfrac{3}{7}\rule[-3mm]{0mm}{9mm}\\ \hline
+\end{array}$
+\end{center}
+		\item %Quelle doit être la valeur maximale de la somme payée au départ pour que le jeu reste favorable au joueur ?
+L'espérance mathématique de la variable aléatoire $G$ est égale à 
+		
+$E(G) = - k \times \dfrac{4}{7} + (10 - k) \times \dfrac{3}{7} = \dfrac{-4k + 30 - 3k}{7} = \dfrac{30 - 7k}{7}$.
+
+Le jeu est favorable au joueur si :
+
+$E(G) > 0 \iff \dfrac{30 - 7k}{7} \iff 30 - 7k > 0 \iff 7k < 30 \iff k < \dfrac{30}{7}$.
+
+$\dfrac{30}{7} \approx 4,3$.
+
+La somme payée au départ pour que le jeu reste favorable au joueur ne doit pas dépasser 4~\euro.	
+	\end{enumerate}
+\item %Dix joueurs font chacun une partie. Les lettres tirées sont remises dans le sac après chaque partie.
+
+%On note $X$ la variable aléatoire égale au nombre de joueurs gagnants.
+	\begin{enumerate}
+		\item %Justifier que $X$ suit une loi binomiale et donner ses paramètres.
+Le tirage par un joueur est indépendant de celui des autres et chacun a une probabilité de gagner de $\dfrac{3}{7}$ ; $X$ suit donc une loi binomiale de paramètres $n = 10$ et $p = \dfrac{3}{7}$.
+		\item %Calculer la probabilité, arrondie à $10^{-3}$, qu'il y ait exactement quatre joueurs gagnants.
+On a $p(X = 4) = \binom{10}{4}\left(\dfrac{3}{7}\right)^4\left( 1 - \dfrac{3}{7}  \right)^{10-4} = 210 \times\left(\dfrac{3}{7}\right)^4 \times \left(\dfrac{4}{7}\right)^6 \approx \np{0,2466}$, soit 0,247 au millième près.
+		\item  %Calculer $P(X \geqslant 5)$ en arrondissant à $10^{-3}$. Donner une interprétation du résultat obtenu.
+La calculatrice donne $p(X\leqslant 4) \approx 0,560$ donc 
+
+$p(X\geqslant 5) = 1 - p(X\leqslant 4) \approx (1 - 0,560)$.
+
+Finalement : $p(X\geqslant 5) \approx 0,440$.
+		
+La probabilité qu'il y ait au moins 5 gagnants sur 10 joueurs est d'environ 0,440.
+		\item %Déterminer le plus petit entier naturel $n$ tel que $P(X \leqslant n) \geqslant 0,9$.
+La calculatrice donne :
+		
+$p(X \leqslant 5) \approx 0,782$ et $p(X \leqslant 6) \approx 0,921$, donc 
+le plus petit entier $n$ tel que 
+
+$P(X \leqslant n) \geqslant 0,9$ est donc $n = 6$.
+	\end{enumerate}
+\end{enumerate}
+
+
+\medskip
+

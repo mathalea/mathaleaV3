@@ -1,0 +1,117 @@
+\textbf{EXERCICE A}
+
+\medskip
+
+%\begin{tabularx}{\linewidth}{|X|}\hline
+%\textbf{Principaux domaines abordés : Fonction exponentielle, convexité, dérivation, }\\ \textbf{équations différentielles}\\ \hline
+%\end{tabularx}
+%
+%\medskip
+
+%Cet exercice est composé de trois parties indépendantes.
+
+\medskip
+
+%On a représenté ci-dessous, dans un repère orthonormé, une portion de la courbe
+%représentative $\mathcal{C}$ d'une fonction $f$ définie sur $\R$ :
+
+\begin{center}
+\psset{unit=1.25cm}
+\begin{pspicture*}(-3,-0.95)(3.5,3.5)
+\psgrid[gridlabels=0pt,subgriddiv=1,griddots=8]
+\psaxes[linewidth=1.25pt,labelFontSize=\scriptstyle]{->}(0,0)(-3,-0.95)(3.5,3.5)
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=red]{-2.25}{3.5}{x 2 add 2.71828 x exp div}
+\psplot[plotpoints=200,linewidth=1.5pt,linestyle=dotted]{-1.5}{2.5}{ 2 x sub}
+\uput[ul](-1.6,2){\red $\mathcal{C}$}\uput[ur](0,2){A}\uput[ur](2,0){B}
+\uput[d](3.4,0){\small $x$}\uput[l](0,3.4){\small $y$}
+\end{pspicture*}
+\end{center}
+
+%On considère les points A(0~;~2) et B(2~;~0).
+
+\bigskip
+
+\begin{center}\textbf{Partie 1}\end{center}
+
+%Sachant que la courbe $\mathcal{C}$ passe par A et que la droite (AB) est la tangente à la courbe $\mathcal{C}$ au point A, donner par lecture graphique :
+
+\medskip
+
+\begin{enumerate}
+\item $\bullet~~$A a pour ordonnée $f(0) = 2$ ;
+
+%La valeur de $f(0)$ et celle de $f'(0)$.
+$\bullet~~$Le nombre dérivé $f'(0) = \dfrac{y_{\text{B}} - y_{\text{A}}}{x_{\text{B}} - x_{\text{A}}} = \dfrac{0 - 2}{2 - 0} = \dfrac{-2}{2} = - 1$.
+\item %Un intervalle sur lequel la fonction $f$ semble convexe.
+La fonction $f$ semble convexe sur l'intervalle $[0 ~;~+\infty[$.
+\end{enumerate}
+
+\bigskip
+
+\begin{center}\textbf{Partie 2}\end{center}
+
+On note $(E)$ l'équation différentielle : $y' = -y + \text{e}^{-x}$.
+
+%On admet que $g :\,  x \longmapsto  x\text{e}^{-x}$ est une solution particulière de $(E)$.
+
+\medskip
+
+\begin{enumerate}
+\item %Donner toutes les solutions sur $\R$ de l'équation différentielle $(H)$ : 
+%$y' = -y$.
+On sait que les solutions de l'équation $(H)\,:\, y'=-y$ sont les fonctions $x \longmapsto K\text{e}^{-x}$, avec $K \in \R$.
+\item %En déduire toutes les solutions sur $\R$ de l'équation différentielle $(E)$.
+Les solutions de l'équation $(E)$ sont donc les fonctions 
+
+\[x \longmapsto x\text{e}^{-x} + K\text{e}^{-x} = (x + K)\text{e}^{-x},\, K \in \R.\]
+
+\item %Sachant que la fonction $f$ est la solution particulière de $(E)$ qui vérifie $f(0) = 2$, déterminer une expression de $f(x)$ en fonction de $x$.
+Avec $f(x) = (x + K)\text{e}^{-x}$ et 
+$f(0) = 2$, on a: $(0+K)\text{e}^{-0} = 2 \iff K = 2$.
+
+Conclusion : $f(x) = (x + 2)\text{e}^{-x}$.
+\end{enumerate}
+
+\bigskip
+
+\begin{center}\textbf{Partie 3}\end{center}
+
+%On admet que pour tout nombre réel $x$,\, $f(x) = (x + 2)\text{e}^{-x}$.
+
+\medskip
+
+\begin{enumerate}
+\item %On rappelle que $f'$ désigne la fonction dérivée de la fonction $f$.
+	\begin{enumerate}
+		\item %Montrer que pour tout $x \in \R,\, f'(x) = (- x - 1) \text{e}^{-x}$.
+Puisque $f$ est solution de l'équation différentielle $(E)$; on a donc 
+		
+$f'(x) = - f(x) + \text{e}^{-x} = -(x+2)\text{e}^{-x} + \text{e}^{-x} = \text{e}^{-x}(- x - 2 + 1) = (- x - 1)\text{e}^{-x}$.
+		\item %Étudier le signe de $f'(x)$ pour tout $x \in \R$ et dresser le tableau des variations de $f$ sur $\R$.
+
+%On ne précisera ni la limite de $f$ en $- \infty$ ni la limite de $f$ en $+ \infty$.
+
+%On calculera la valeur exacte de l'extremum de $f$ sur $\R$.
+Comme quel que soit $x \in \R$, \, $\text{e}^{-x} > 0$, le signe de $f'(x)$ est celui de $- x - 1$. Donc :
+
+$- x - 1 > 0 \iff - 1 > x \iff x < - 1$ ; 
+
+$- x - 1 < 0 \iff - 1 < x \iff x > - 1$ ;
+
+$- x - 1 = 0 \iff - 1 = x $.
+
+La fonction est donc croissante sur $]- \infty~;~-1[$, décroissante sur $]- 1~;~+ \infty[$ et a donc un maximum $f(- 1) = (- 1 + 2)\text{e}^{-(-1)} = \text{e}$.
+	\end{enumerate}
+\item %On rappelle que $f''$ désigne la fonction dérivée seconde de la fonction $f$.
+	\begin{enumerate}
+		\item %Calculer pour tout $x \in \R,\, f''(x)$.
+		De $f'(x) = -f(x) + \text{e}^{-x}$, on obtient en dérivant :
+		
+		$f''(x) = - f'(x) - \text{e}^{-x} = - (- x - 1)\text{e}^{-x} - \text{e}^{-x} = \text{e}^{-x}(x + 1 - 1) = x\text{e}^{-x}$.
+		\item %Peut-on affirmer que $f$ est convexe sur l'intervalle $[0~;~+\infty[$?
+D'après le résultat précédent sur $[0~;~+\infty[$, \, $x \geqslant  0$ et $\text{e}^{-x} > 0$, donc le produit $x \text{e}^{-x} \geqslant 0$ : la dérivée seconde est positive, la fonction $f$ est convexe sur $[0~;~+\infty[$.
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+

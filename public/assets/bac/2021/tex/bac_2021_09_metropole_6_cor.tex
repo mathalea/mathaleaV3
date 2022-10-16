@@ -1,0 +1,77 @@
+
+\textbf{Commun à tous les candidats}
+
+\medskip
+
+%Une entreprise reçoit quotidiennement de nombreux courriels (courriers électroniques).
+%
+%Parmi ces courriels, 8\,\% sont du \og spam \fg, c'est-à-dire des courriers à intention publicitaire, voire malveillante, qu'il est souhaitable de ne pas ouvrir.
+%
+%On choisit au hasard un courriel reçu par l'entreprise.
+%
+%Les propriétés du logiciel de messagerie utilisé dans l'entreprise permettent d'affirmer que :
+%
+%\setlength\parindent{1cm}
+%\begin{itemize}
+%\item[$\bullet~~$]La probabilité que le courriel choisi soit classé comme \og indésirable\fg{} sachant que c'est un spam est égale à $0,9$.
+%\item[$\bullet~~$]La probabilité que le courriel choisi soit classé comme \og indésirable\fg{} sachant que ce n'est pas un spam est égale à $0,01$.
+%\end{itemize}
+%\setlength\parindent{0cm}
+%
+%On note :
+%
+%\setlength\parindent{1cm}
+%\begin{itemize}
+%\item[$\bullet~~$]$S$ l'évènement \og le courriel choisi est un spam \fg ;
+%\item[$\bullet~~$]$I$ l'évènement \og le courriel choisi est classé comme indésirable par le logiciel de messagerie \fg.
+%\item[$\bullet~~$]$\overline{S}$ et $\overline{I}$ les évènements contraires de $S$ et $I$ respectivement.
+%\end{itemize}
+%\setlength\parindent{0cm}
+%
+%\medskip
+
+\begin{enumerate}
+\item ~%Modéliser la situation étudiée par un arbre pondéré, sur lequel on fera apparaître les probabilités associées à chaque branche.
+
+\begin{center}
+\pstree[treemode=R,nodesepB=3pt,levelsep=2.75cm]{\TR{}}
+{\pstree{\TR{$S$~~}\taput{0,08}}
+	{\TR{$I$}\taput{0,9}
+	\TR{$\overline{I}$}\tbput{0,1}
+	}
+\pstree{\TR{$\overline{S}$~~}\tbput{0,92}}
+	{\TR{$I$}\taput{0,01}
+	\TR{$\overline{I}$}\tbput{0,99}
+	}	
+}
+\end{center}
+\item 
+	\begin{enumerate}
+		\item %Démontrer que la probabilité que le courriel choisi soit un message de spam et qu'il soit classé indésirable est égale à $0,072$.
+On a $P(S \cap I) = P(S) \times P_S(I) = 0,08 \times 0,9 = 0,072$
+		\item %Calculer la probabilité que le message choisi soit classé indésirable.
+On a de même $P\left(\overline{S} \cap I\right) = P\left(\overline{S}\right) \times P_{\overline{S}}(I) = 0,92 \times 0,01 = \np{0,0092}$.
+
+D'après la loi des probabilités totales :
+
+$P(I) = P(S \cap I) + P\left(\overline{S} \cap I\right) = 0,072 + \np{0,0092} = \np{0,0812}$.
+		\item %Le message choisi est classé comme indésirable. Quelle est la probabilité que ce soit effectivement un message de spam ? On donnera un résultat arrondi au centième.
+Il faut calculer $P_I(S) = \dfrac{P(I \cap S)}{P(I)}  = \dfrac{0,072}{\np{0,0812}}\approx 0,887$ soit 0,89 au centième près.
+	\end{enumerate}
+\item %On choisit au hasard $50$ courriels parmi ceux reçus par l'entreprise. On admet que ce choix se ramène à un tirage au hasard avec remise de $50$ courriels parmi l'ensemble des courriels reçus par l'entreprise.
+
+%On appelle $Z$ la variable aléatoire dénombrant les courriels de spam parmi les $50$ choisis.
+	\begin{enumerate}
+		\item %Quelle est la loi de probabilité suivie par la variable aléatoire $Z$, et quels sont ses paramètres ?
+		Les tirages étant indépendants les uns des autres et étant assez nombreux on peut considérer que la variable $Z$ suit une loi binomiale de paramètres $n = 50$ et $p = 0,08$.
+		\item %Quelle est la probabilité que, parmi les 50 courriels choisis, deux au moins soient du spam ? On donnera un résultat arrondi au centième.
+		On a $P(Z = 0) = 0,08^0 \times 0,92^{50} \approx \np{0,015466}$ ;
+		
+		$P(Z = 1) = \binom{50}{1} \times 0,08 \times 0,92^{49} \approx \np{0,067426}$ , donc 
+		
+		$P(Z \geqslant 2) = 1 - [P(Z = 0) + P(Z = 1)]  = 1 - (\np{0,015466} + \np{0,067426}) \approx \np{0,917}$, soit $0,92$ au centième près.
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+

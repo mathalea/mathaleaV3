@@ -1,0 +1,117 @@
+
+\medskip
+
+\begin{tabular}{|l|}\hline
+Principaux domaines abordés :\\
+Géométrie de l'espace rapporté à un repère orthonormé.\\ \hline
+\end{tabular}
+
+\bigskip
+
+%On considère le cube ABCDEFGH donné en annexe. 
+%
+%On donne trois points I, J et K vérifiant :
+%
+%\[\vect{\text{RI}} = \dfrac{1}{4} \vect{\text{EH}},\qquad   \vect{\text{EJ}} = \dfrac{1}{4}  \vect{\text{EF}}, \qquad  \vect{\text{BK}} = \dfrac{1}{4}  \vect{\text{BF}}\]
+%
+%Les points I, J et K sont représentés sur la figure donnée en annexe, à compléter et à rendre avec la copie.
+%
+%On se place dans le repère orthonormé $\left(\text{A}~;~\vect{\text{AB}},~\vect{\text{AD}},~\vect{\text{AE}}\right)$.
+%
+%\medskip
+
+\begin{enumerate}
+\item %Donner sans justification les coordonnées des points I, J et K.
+Dans le repère orthonormé $\left(\text{A}~;~\vect{\text{AB}},~\vect{\text{AD}},~\vect{\text{AE}}\right)$ : 
+I\,$\left(0~;~\dfrac{1}{4}~;~1 \right)$, \, J\,$\left(\dfrac{1}{4}~;~0~;~1 \right)$,\, K\,$\left(1~;~0~;~\dfrac{1}{4}\right)$.
+\item %Démontrer que le vecteur $\vect{\text{AG}}$ est normal au plan (IJK).
+On a $\vect{\text{AG}} \left (1~;~1~;~1\right )$,\, $\vect{\text{IJ}}\begin{pmatrix}\dfrac{1}{4}~;~- \dfrac{1}{4}~;~0\end{pmatrix}$, \, $\vect{\text{IK}}\begin{pmatrix}1~;~- \dfrac{1}{4}~;~-\dfrac{3}{4}\end{pmatrix}$.
+
+Or $\vect{\text{AG}} \cdot \vect{\text{IJ}} =  \dfrac{1}{4} - \dfrac{1}{4} + 0 = 0$ et $\vect{\text{AG}} \cdot \vect{\text{IK}} = 1 - \dfrac{1}{4} - \dfrac{3}{4} = 0$.
+
+Less vecteurs $\vect{\text{IJ}}$ et $\vect{\text{IK}}$ ne sont manifestement pas colinéaires, donc le vecteur $\vect{\text{AG}}$ étant orthogonal à deux vecteurs non colinéaires du plan (IJK) est normal à ce plan.
+\item %Montrer qu'une équation cartésienne du plan (IJK) est $4x + 4y + 4z - 5 = 0$.
+D'après la question précédente on sait que :
+$M(x~;~y~;~z) \in (\text{IJK}) \iff 1x + 1y + 1z + d = 0$.
+
+Or par exemple I$\left(0~;~\dfrac{1}{4}~;~1 \right) \in (\text{IJK}) \iff 0 + \dfrac{1}{4} + 1\times 1 + d = 0 \iff 1 + 4 + 4d = 0 \iff 4d = - 5 \iff d = - \dfrac{5}{4}$.
+
+Finalement :
+$M(x~;~y~;~z) \in (\text{IJK}) \iff x + y + z - \dfrac{5}{4} = 0 \iff 4x + 4y + 4z - 5 = 0$.
+
+Le plan (IJK) a pour équation cartésienne $4x + 4y + 4z - 5 = 0$.
+
+\item %Déterminer une représentation paramétrique de la droite (BC).
+On a $\vect{\text{BC}}\left (0~;~1~;~0 \right  )$. Donc :
+
+$M(x~;~y~;~z) \in (\text{BC}) \iff  \vect{\text{B}M} = t\vect{\text{BC}} \;(\text{avec }t\in\R) 
+\iff \left\{\begin{array}{l !{=} l}
+x - 1&t \times 0\\
+y - 0&t \times 1,\\
+z - 0 &t \times 0
+\end{array}\right.\, t \in \R \\
+\iff 
+\left\{\begin{array}{l !{=} l}
+x &1\\
+y &t,\\
+z &0
+\end{array}\right.\, t \in \R$.
+
+La droite (BC) a pour représentation paramétrique
+$\left\{\begin{array}{l !{=} l}
+x &1\\
+y &t,\\
+z &0
+\end{array}\right.\, t \in \R$.
+
+\item %En déduire les coordonnées du point L, point d'intersection de la droite (BC) avec le plan (IJK).
+Les coordonnées de L$(x~;~y~;~z)$ vérifient l'équation de (BC) et l'équation du plan (IJK) donc le système :
+$\left\{\begin{array}{r !{=} l}
+x &1\\
+y &t\\
+z &0\\
+4x + 4y + 4z - 5 & 0
+\end{array}\right.$ 
+
+ce qui donne en remplaçant $x$, \, $y$ et $z$ par leurs valeurs en fonction de $t$ dans la dernière équation :
+
+$4 \times  1 +  4t + 4 \times 0 - 5 = 0 \iff 4t + 4 - 5 = 0 \iff 4t - 1 = 0 \iff t = \dfrac{1}{4}$.
+
+Les coordonnées de L sont donc $\left(1~;~\dfrac{1}{4}~;~0\right)$.
+\item %Sur la figure en annexe, placer le point L et construire l'intersection du plan (IJK) avec la face (BCGF).
+Voir l'annexe. 
+
+L'intersection du plan (IJK) avec la face (BCGF) est le segment [KL].
+
+L'intersection du plan (IJK) et du cube a été dessinée en tirets rouge.
+\item Soit M$\left(\frac{1}{4}~;~1~;~0\right)$.% Montrer que les points I, J, L et M sont coplanaires.
+
+Comme L $\in (\text{IJK})$, il suffit de vérifier que M est aussi un point de ce plan, soit d'après le résultat de la question 4. :
+
+%$\text{M}\left(\frac{1}{4}~;~1~;~0\right) \in (\text{IJK}) \iff 4\times \frac{1}{4} + 4 \times 1 + 4 \times 0 - 5= 0 \iff 4 + 1 - 5 = 0$ qui est bien vraie.
+
+$4 x_{\text{M}} + 4 y_{\text{M}} + 4 z_{\text{M}} - 5 = 4\times \frac{1}{4} + 4 \times 1 + 4 \times 0 - 5=  4 + 1 - 5 = 0$ donc $\text{M}\left(\frac{1}{4}~;~1~;~0\right) \in (\text{IJK})$.
+
+Conclusion : les points I, J, K, L et M sont coplanaires.
+\end{enumerate}
+
+\begin{center}
+	\textbf{\Large ANNEXE À COMPLÉTER ET À RENDRE AVEC LA COPIE}
+	
+	\psset{unit=1cm}
+	\begin{pspicture}(9.5,9.5)
+	\psframe[linewidth=1.25pt](0.5,0.5)(6,6)%BCGF
+	\psline[linewidth=1.25pt](6,0.5)(8.7,3.2)(8.7,8.7)(6,6)%CDHG
+	\psline[linewidth=1.25pt](8.7,8.7)(3.2,8.7)(0.5,6)%HEF
+	\psline[linewidth=1pt,linestyle=dashed](0.5,0.5)(3.2,3.2)(8.7,3.2)%BAD
+	\psline[linewidth=1pt,linestyle=dashed](3.2,3.2)(3.2,8.7)%AE
+	\uput[d](3.2,3.2){A} \uput[d](0.5,0.5){B} \uput[d](6,0.5){C} \uput[dr](8.7,3.2){D} 
+	\uput[u](3.2,8.7){E} \uput[ul](0.5,6){F} \uput[u](6,6){G} \uput[ur](8.7,8.7){H} 
+	\uput[u](2.525,8.025){J} \uput[ul](4.575,8.7){I} \uput[l](0.5,1.875){K}\uput[d](1.875,0.5){L}\uput[r](8.025,2.525){M}
+	\psdots(3.2,3.2)(0.5,0.5)(6,0.5)(8.7,3.2)(3.2,8.7)(0.5,6)(6,6)(8.7,8.7)(2.525,8.025)(4.575,8.7)(0.5,1.875)(1.875,0.5)(8.025,2.525)(8.7,4.575)
+	\pspolygon[linestyle=dashed,linecolor=red](4.575,8.7)(2.525,8.025)(0.5,1.875)(1.875,0.5)(8.025,2.525)(8.7,4.575)
+	\end{pspicture}
+	\end{center}
+
+\bigskip
+

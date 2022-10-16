@@ -1,0 +1,74 @@
+
+\textbf{Commun à tous les candidats}
+
+\medskip
+
+Dans cet exercice, les résultats des probabilités demandées seront, si nécessaire, arrondis au millième.
+
+La leucose féline est une maladie touchant les chats ; elle est provoquée par un virus.
+
+Dans un grand centre vétérinaire, on estime à 40\,\% la proportion de chats porteurs de la maladie.
+
+On réalise un test de dépistage de la maladie parmi les chats présents dans ce centre vétérinaire.
+
+Ce test possède les caractéristiques suivantes.
+
+\setlength\parindent{9mm}
+\begin{itemize}
+\item[$\bullet~~$] Lorsque le chat est porteur de la maladie, son test est positif dans 90\,\% des cas.
+\item[$\bullet~~$] Lorsque le chat n'est pas porteur de la maladie, son test est négatif dans 85\,\% des cas.
+\end{itemize}
+\setlength\parindent{0mm}
+
+On choisit un chat au hasard dans le centre vétérinaire et on considère les évènements suivants :
+
+\setlength\parindent{9mm}
+\begin{itemize}
+\item[$\bullet~~$] $M$ : \og Le chat est porteur de la maladie\fg{} ;
+\item[$\bullet~~$] $T$ : \og Le test du chat est positif\fg ;
+\item[$\bullet~~$] $\overline{M}$ et $\overline{T}$ désignent les évènements contraires des évènements $M$ et $T$ respectivement.
+\end{itemize}
+\setlength\parindent{0mm}
+
+\medskip
+
+\begin{enumerate}
+\item 
+	\begin{enumerate}
+		\item Traduire la situation par un arbre pondéré.
+		\item Calculer la probabilité que le chat soit porteur de la maladie et que son test soit positif.
+		\item Montrer que la probabilité que le test du chat soit positif est égale à $0,45$.
+		\item On choisit un chat parmi ceux dont le test est positif. Calculer la probabilité qu'il soit porteur de la maladie.
+	\end{enumerate}
+\item On choisit dans le centre vétérinaire un échantillon de $20$ chats au hasard. On admet que l'on peut assimiler ce choix à un tirage avec remise.
+
+On note $X$ la variable aléatoire donnant le nombre de chats présentant un test positif dans l'échantillon choisi.
+	\begin{enumerate}
+		\item Déterminer, en justifiant, la loi suivie par la variable aléatoire $X$.
+		\item Calculer la probabilité qu'il y ait dans l'échantillon exactement $5$ chats présentant un test positif.
+		\item Calculer la probabilité qu'il y ait dans l'échantillon au plus $8$ chats présentant un test positif.
+		\item Déterminer l'espérance de la variable aléatoire $X$ et interpréter le résultat dans le contexte de l'exercice.
+	\end{enumerate}		
+\item Dans cette question, on choisit un échantillon de $n$ chats dans le centre, qu'on assimile encore à un tirage avec remise. On note $p_n$ la probabilité qu'il y ait au moins un chat présentant un test positif dans cet échantillon.
+	\begin{enumerate}
+		\item Montrer que $p_n = 1 - 0,55^n$.
+		\item ~
+		
+\begin{minipage}{6cm}Décrire le rôle du programme ci-contre écrit en langage Python, dans lequel la variable $n$ est un entier naturel et la variable $P$ un nombre réel.
+\end{minipage} \hfill \begin{minipage}{6cm}
+\begin{tabular}{|l|}\hline
+def seuil():\\
+\qquad $n=0$\\
+\qquad $P=0$\\
+\qquad while $P< 0,99$ :\\
+\qquad \quad $n = n+1$\\
+\qquad \quad $P=1 - 0,55**n$\\
+\qquad return $n$\\ \hline
+\end{tabular}
+\end{minipage}
+		\item Déterminer, en précisant la méthode employée, la valeur renvoyée par ce programme.
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+

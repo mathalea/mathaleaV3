@@ -1,0 +1,177 @@
+\textbf{\large Exercice 2 \hfill Commun à tous les candidats \hfill 5 points}
+
+\medskip
+
+Soit $f$ la fonction définie sur l'intervalle $]0~;~ +\infty[$ par :
+$f(x) = \dfrac{\e^x}{x}$.
+
+On note $\mathcal{C}_f$ la courbe représentative de la fonction $f$ dans un repère orthonormé. 
+
+%\medskip
+
+\begin{enumerate}
+\item 
+	\begin{enumerate}
+		\item D'après le cours, la limite de la fonction $f$ en $+ \infty$ est $+\infty$.
+		
+		\item On cherche la limite de $f$ en 0:
+		
+$\left.
+\begin{array}{@{} r}
+\ds\lim_{x\to 0} \e^{x} = 1\\[7pt]
+\ds\lim_{x\to 0\atop x>0} \dfrac{1}{x}= +\infty
+\end{array}
+\right \rbrace
+\implies
+\ds\lim_{x\to 0 \atop x>0} \dfrac{\e^{x}}{x}  = +\infty$		
+		
+Donc l'axe des ordonnées est asymptote verticale à la courbe $\mathcal{C}_f$.
+	\end{enumerate}
+\item Pour tout réel $x$ de l'intervalle $]0~;~ +\infty[$, on a :
+$f'(x)=\dfrac{\e^{x}\times x - \e^{x}\times 1}{x^2} = \dfrac{\e^{x} (x-1)}{x^2}$.
+
+\item Pour déterminer les variations de la fonction $f$ sur l'intervalle $]0~;~ +\infty[$, on cherche le signe de $f'(x)$.
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.5}
+\def\esp{\hspace*{2cm}}
+$\begin{array}{|c | *{5}{c} |} 
+\hline
+x  & 0 & \esp & 1 & \esp  & +\infty \\
+\hline
+x-1 &  & \pmb{-} &  \vline\hspace{-2.7pt}{0} & \pmb{+} &   \\
+\hline
+\e^{x} &  & \pmb{+} &  \vline\hspace{-2.7pt}{\phantom 0} & \pmb{+} &   \\
+\hline
+x^2 & 0 \hfill{} & \pmb{+} &  \vline\hspace{-2.7pt}{\phantom 0} & \pmb{+} &   \\
+\hline
+f'(x) &  \vline\;\vline\hfill{} & \pmb{-} &  \vline\hspace{-2.7pt}{0} & \pmb{+} &   \\
+\hline
+\end{array}$
+}
+\end{center}
+
+$f(1)=\dfrac{\e^{1}}{1}=\e$
+
+On établit le tableau de variations de la fonction $f$:
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.3}
+\psset{nodesep=3pt,arrowsize=2pt 3}  % paramètres
+\def\esp{\hspace*{1.5cm}}% pour modifier la largeur du tableau
+\def\hauteur{0pt}% mettre au moins 20pt pour augmenter la hauteur
+$\begin{array}{|c| l *3{c} c|}
+\hline
+ x & 0 & \esp & 1 & \esp & +\infty \\
+\hline
+f'(x) &  \vline\;\vline\;  &  \pmb{-} & \vline\hspace{-2.7pt}0 & \pmb{+} & \\  
+\hline
+  & \vline\;\vline\;  \Rnode{max1}{+\infty}  &  &  &  & \Rnode{max2}{+\infty}   \\
+f(x) & \vline\;\vline\;  &  & & &  \rule{0pt}{\hauteur} \\
+ &  \vline\;\vline\;  & &   \Rnode{min}{\e} & & \rule{0pt}{\hauteur}
+\ncline{->}{max1}{min} \ncline{->}{min}{max2}\\
+\hline
+\end{array}$
+}
+\end{center}		
+ 
+\item Soit $m$ un nombre réel. On cherche, en fonction des valeurs du nombre réel $m$, le nombre de solutions de l'équation $f(x) = m$.
+
+Cela revient à chercher le nombre de points d'intersection de la courbe $\mathcal{C}_f$ et de la droite horizontale d'équation $y=m$.
+
+\begin{list}{\textbullet}{D'après le tableau de variations:}
+\item si $m<\e$, l'équation $f(x)=m$ n'admet pas de solution;
+\item si $m=\e$, l'équation $f(x)=m$ admet une solution unique $x=1$;
+\item si $m>\e$, l'équation $f(x)=m$ admet deux solutions.
+\end{list}
+
+\item  On note $\Delta$ la droite d'équation $y = -x$.
+
+On note A un éventuel point de $\mathcal{C}_f$ d'abscisse $a$ en lequel la tangente à la courbe $\mathcal{C}_f$ est parallèle à la droite $\Delta$.
+	\begin{enumerate}
+		\item %Montrer que $a$ est solution de l'équation $\text{e}^x(x - 1) + x^2  = 0$.
+La tangente en $a$ est parallèle à la droite $\Delta$ si et seulement si le coefficient directeur de la tangente est égal à $-1$, autrement dit quand $f'(a)=-1$.
+
+$f'(a)=-1 \iff \dfrac{\e^{a} (a-1)}{a^2}=-1 \iff \e^{a} (x-1) = -a^2 \iff \e^{a}(x-1)+a^2=0$
+
+ce qui veut dire que le nombre $a$ est solution de l'équation $\e^x(x - 1) + x^2  = 0$.
+			\end{enumerate}
+		
+On note $g$ la fonction définie sur $]0~;~ +\infty[$ par $g(x) = \e^x(x - 1) + x^2 $.
+
+On admet que la fonction $g$ est dérivable et on note $g'$ sa fonction dérivée.
+
+\begin{enumerate}[resume]
+		\item %Calculer $g'(x)$ pour tout nombre réel $x$ de l'intervalle $[0~;~ +\infty[$, puis dresser le tableau de variations de $g$ sur $]0~;~+\infty[$.
+$g'(x)= \e^{x}\times (x-1) + \e^{x}\times 1 + 2x = x\e^{x}+2x$
+
+Sur $\R$, $\e^{x}>0$ donc sur $[0~;~+\infty[$, $x\e^{x}+2x \geqslant 0$ donc $g'(x)\geqslant 0$.
+
+$\left.
+\begin{array}{@{} r}
+\ds\lim_{x\to +\infty} \e^{x} = +\infty\\
+\ds\lim_{x\to +\infty} x-1= +\infty\\
+\ds\lim_{x\to +\infty} x^2 = +\infty
+\end{array}
+\right \rbrace
+\implies
+\ds\lim_{x\to +\infty} g(x) = +\infty$
+
+$g(0)=\e^{0}(0-1)+0=-1$
+
+On dresse le tableau de variations de la fonction $g$ sur $[0~;~+\infty[$:
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.3}
+     % augmentation de la hauteur de toutes les lignes
+\psset{nodesep=3pt,arrowsize=2pt 3}
+     % paramètres
+\def\esp{\hspace*{3cm}}
+     % pour modifier la largeur du tableau
+\def\hauteur{0pt}
+     % mettre au moins 12pt pour augmenter la hauteur
+$\begin{array}{|c| *3{c}|}
+\hline
+ x & 0   & \esp & +\infty \\
+ \hline
+g'(x) & 0   & \pmb{+} & \\  
+\hline
+  &   &    & \Rnode{max}{+\infty}   \\
+g(x) & &  &  \rule{0pt}{\hauteur} \\
+ &     \Rnode{min}{-1} & & \rule{0pt}{\hauteur}
+\ncline{->}{min}{max}
+\ncline[linestyle=dotted, linecolor=red]{alpha}{zero}\\
+\hline
+\end{array}$
+}
+\end{center}
+
+		\item% Montrer qu'il existe un unique point $A$ en lequel la tangente à $\mathcal{C}_f$ est parallèle à la droite $\Delta$.
+On complète le tableau de variations de $g$:
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.3}
+\def\esp{\hspace*{3cm}}
+\psset{nodesep=3pt,arrowsize=2pt 3}  % paramètres
+$\begin{array}{|c| *3{c}|}
+\hline
+ x & 0   & \esp & +\infty \\
+ \hline
+  &   &    & \Rnode{max}{+\infty}   \\
+g(x) & &  &  \\
+ &     \Rnode{min}{-1} & & 
+\ncline{->}{min}{max}
+\rput*(-2,0.65){\Rnode{zero}{\blue 0}}
+\rput(-2,1.75){\Rnode{alpha}{\blue a}}
+\ncline[linestyle=dotted, linecolor=blue]{alpha}{zero}\\
+\hline
+\end{array}$
+}
+\end{center}
+
+D'après ce tableau, l'équation $g(x)=0$ admet une solution unique $a$ sur $[0~;~+\infty[$, donc il existe un unique point A en lequel la tangente à $\mathcal{C}_f$ est parallèle à la droite $\Delta$. 
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+

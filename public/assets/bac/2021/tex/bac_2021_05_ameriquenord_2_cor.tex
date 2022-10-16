@@ -1,0 +1,118 @@
+
+\medskip
+
+%Un biologiste s'intéresse à l'évolution de la population d'une espèce animale sur une île du Pacifique.
+%
+%Au début de l'année 2020, cette population comptait $600$ individus. On considère que l'espèce sera menacée d'extinction sur cette île si sa population devient inférieure ou égale à 20 individus.
+
+%\smallskip
+
+%Le biologiste modélise le nombre d'individus par la suite $\left(u_n\right)$ définie par : 
+
+\[\left\{\begin{array}{l c l}
+u_0		&=	&0,6\\
+u_{n+1}	&=	&0,75 u_n\left(1 - 0,15 u_n\right)
+\end{array}\right.\]
+
+où pour tout entier naturel $n$, $u_n$ désigne le nombre d'individus, en milliers, au début de l'année $2020 + n$.
+
+\medskip
+
+\begin{enumerate}
+\item ~
+$\bullet~~$2021 correspond à $n = 1$, donc $u_1 = 0,75u_0 \times \left(1 - 0,15u_0\right) = 0,75 \times 0,6\times (1 - 0,15 \times 0,6) = 0,45 \times (1 - 0,09) = 0,45 \times0,91 = \np{0,4095}$ soit environ $410$ individus.
+
+$\bullet~~$2022 correspond à $n = 2$, donc $u_2 = 0,75u_1 \times \left(1 - 0,15u_1\right) = 0,75 \times \np{0,4095}\times (1 - 0,15 \times \np{0,4095}) = \np{0,307125} \times (1 - \np{0,061425}) = \np{0,307125} \times \np{0,938575}) \approx \np{0,2282}$ soit environ 228~individus.
+%Estimer, selon ce modèle, le nombre d'individus présents sur l'île au début de l'année 2021 puis au début de l'année 2022.
+\end{enumerate}
+
+Soit $f$ la fonction définie sur l'intervalle [0~;~1] par 
+
+\[f(x) = 0,75x (1 - 0,15x).\]
+
+\begin{enumerate}[resume]
+\item %Montrer que la fonction $f$ est croissante sur l'intervalle [0~;~1] et dresser son tableau de variations.
+$f$ est une fonction polynôme dérivable sur $\R$, donc sur [0~;~1] et sur cet intervalle :
+
+$f'(x)  = 0,75(1 - 0,15x) - 0,75x \times 0,15 = 0,75 - \np{0,1125}x - \np{0,1125}x = 0,75 - 0,225x$.
+
+Or $0 \leqslant x \leqslant 1 \Rightarrow 0 \leqslant 0,225x \leqslant 0,225 \Rightarrow - 0,225 \leqslant -0,225x \leqslant 0 \Rightarrow $
+
+$0,75 - 0,225 \leqslant 0,75 - 0,225x \leqslant 0,75$ ou enfin $0,525 \leqslant f'(x) \leqslant 0,75$.
+
+Sur [0~;~1], $f'(x) > 0$, donc $f$est strictement croissante de $f(0) = 0$ à $f(1) = 0,75 \times 0,85 = \np{0,6375}$.
+\item %Résoudre dans l'intervalle [0~;~1] l'équation $f(x) = x$.
+
+Sur [0~;~1], \, $f(x) = x \iff 0,75x (1 - 0,15x) = x \iff 0,75x(1 - 0,15x) - x = 0 \iff x[0,75(1 - 0,15x) - 1] = 0 \iff x(0,75 - \np{0,1125}x - 1) = 0 \iff x(- 0,25 - \np{0,1125}x) = 0 \iff \left\{\begin{array}{l c l}
+x&=&0\,\text{ou}\\
+-0,25 - \np{0,1125}x&=0&
+\end{array}\right. \iff \left\{\begin{array}{l c l}
+x&=&0\,\text{ou}\\
+-0,25 &=&\np{0,1125}x
+\end{array}\right. \iff \left\{\begin{array}{l c l}
+x&=&0\,\text{ou}\\
+-\frac{0,25}{{0,1125}}&=&x
+\end{array}\right. $.
+
+Or $-\frac{0,25}{{0,1125}} < 0$ donc dans [0~;~1], \, $S = \{0\}$.
+\end{enumerate}
+
+On remarquera pour la suite de l'exercice que, pour tout entier naturel $n$,\, $u_{n+1} = f\left(u_n\right)$.
+
+\begin{enumerate}[resume]
+\item 
+	\begin{enumerate}
+		\item ~%Démontrer par récurrence que pour tout entier naturel $n$,\, $0 \leqslant u_{n+1} \leqslant  u_n \leqslant 1$.
+\emph{Initialisation} : on a vu que $0 \leqslant \np{0,4095} \leqslant 0,6 \leqslant 1$, soit $0 \leqslant u_1 \leqslant u_0\leqslant 1$ : la relation est vraie au rang $0$ ;
+
+\emph{Hérédité} : Supposons que pour $n \in \N$, on ait :
+
+$0 \leqslant u_{n+1} \leqslant  u_n \leqslant 1$ ; la fonction $f$ étant strictement croissante sur [0~;~1], on a donc :
+$f(0) \leqslant f\left(u_{n+1}\right) \leqslant f\left(u_n\right) \leqslant f(1)$, 
+
+soit puisque $f(0) = 0$ et $f(1) = 0,75 \times (1 - 0,15) = \np{0,6375} \leqslant 1$ :
+
+$0 \leqslant u_{n+2} \leqslant u_{n+1} \leqslant  1$ : la relation est donc vraie au rang $n + 1$.
+
+\textbf{Conclusion :} la relation est vraie au rang 0 et si elle est vraie au rang $n$ naturel quelconque, elle est vraie au rang $n+1$ : d'après le principe de récurrence :
+
+Pour tout entier naturel $n$,\, $0 \leqslant u_{n+1} \leqslant  u_n \leqslant 1$.	
+		
+		\item %En déduire que la suite $\left(u_n\right)$ est convergente.
+La suite $\left(u_n\right)$ est d'après la question précédente décroissante et minorée par $0$ ; elle est donc est convergente.
+		\item %Déterminer la limite $\ell$ de la suite $\left(u_n\right)$.
+Le résultat précédent montre que la suite $\left(u_n\right)$ converge vers un nombre $\ell \geqslant 0$ et ce nombre $\ell$ vérifie l'équation $f(x) = x$, dont on a vu à la question \textbf{3.} qu'elle n'avait que $0$ comme solution.
+		
+Conclusion : $\displaystyle\lim_{n \to + \infty} u_n = \ell = 0$.
+	\end{enumerate}
+\item %Le biologiste a l'intuition que l'espèce sera tôt ou tard menacée d'extinction.
+	\begin{enumerate}
+		\item %Justifier que, selon ce modèle, le biologiste a raison.
+L'étude précédente a montré que le nombre d'individus décroit, donc le biologiste a raison puisque la limite de la suite du nombre d'individus est égale à zéro.
+		\item %Le biologiste a programmé en langage Python la fonction \textbf{menace()} ci-dessous:
+
+%\begin{center}
+%\fbox{
+%\begin{tabular}{l}%\hline
+%def menace()\\
+%\quad u = 0,6\\
+%\quad n = 0\\
+%\quad while u > 0,02\\
+%\hspace{1cm} u = 0,75*u*(1-0,15*u)\\
+%\hspace{1cm} n = n+1\\
+%\quad return n\\ %\hline
+%\end{tabular}
+%}
+%\end{center}
+%
+%Donner la valeur numérique renvoyée lorsqu'on appelle la fonction menace(). 
+L'algorithme calcule les termes de la suite tant que ceux-ci sont supérieurs à 0,02
+
+Il s'arrête à $n = 11$ car $u_{10} \approx 0,019$
+
+L'espèce sera donc menacée d'extinction en 2031.
+%Interpréter ce résultat dans le contexte de l'exercice.
+	\end{enumerate}
+\end{enumerate}
+
+

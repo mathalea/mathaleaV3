@@ -1,0 +1,121 @@
+\textbf{EXERCICE B}
+
+\medskip
+
+%\fbox{\textbf{Principaux domaines abordés: Fonction logarithme népérien, dérivation}}
+%
+%\medskip
+%
+%Cet exercice est composé de deux parties.
+%
+%\medskip
+%
+%Certains résultats de la première partie seront utilisés dans la deuxième.
+%
+%\medskip
+
+\begin{center}\textbf{Partie 1 : Étude d'une fonction auxiliaire}\end{center}
+
+\begin{center}
+Soit la fonction $f$ définie sur l'intervalle [1~;~4] par : 
+$f(x) = - 30x + 50 + 35\ln x.$
+\end{center}
+
+\begin{enumerate}
+\item %On rappelle que $f'$ désigne la fonction dérivée de la fonction $f$.
+	\begin{enumerate}
+		\item %Pour tout nombre réel $x$ de l'intervalle [1~;~4], montrer que: 
+Sur l'intervalle [1~;~4], \, $f'(x) = - 30 + \dfrac{35}{x} = \dfrac{- 30x + 35}{x} = \dfrac{35- 30x}{x}$.		
+%\[f'(x) = \dfrac{35- 30x}{x}.\]
+
+		\item %Dresser le tableau de signe de $f'(x)$ sur l'intervalle [1~;~4].
+Puisque $1 \leqslant x \leqslant 4$, \, $ x > 0$, donc le signe de $f'(x)$ est celui du numérateur $35 - 30x = 5(7 - 6x)$ donc du facteur $7 - 6x$.
+
+$7 - 6x > 0 \iff 7 > 6x \iff \dfrac{7}{6} > x \iff x < \dfrac{7}{6}$ ;
+
+$7 - 6x < 0 \iff 7 < 6x \iff \dfrac{7}{6} <> x \iff x > \dfrac{7}{6}$ ;
+
+$7 - 6x = 0 \iff 7 = 6x \iff \dfrac{7}{6} = x \iff x = \dfrac{7}{6}$.
+		\item %En déduire les variations de $f$ sur ce même intervalle.
+La fonction $f$ est donc croissante sur $\left[1~;~\dfrac{7}{6}\right]$, décroissante sur $\left[\dfrac{7}{6}~;~4\right]$ et a donc un maximum : $f\left(\dfrac{7}{6}\right) = - 30 \times \dfrac{7}{6} + 50 + 35 \ln \dfrac{7}{6} = - 35 + 50 + 35 \ln \dfrac{7}{6} = 15 + 35 \ln \dfrac{7}{6} \approx 20,4$.
+	\end{enumerate}
+\item %Justifier que l'équation $f(x) = 0$ admet une unique solution, notée $\alpha$, sur l'intervalle [1~;~4] puis donner une valeur approchée de $\alpha$ à $10^{-3}$ près.
+$f$ décroit sur $\left[\dfrac{7}{6}~;~4\right]$ de $f\left(\dfrac{7}{6}\right) =15 + 35 \ln \dfrac{7}{6} \approx 20,4$ à $f(4) = - 120 + 50 + 35 \ln 4 = 35\ln 4 - 70 \approx - 21,5$.
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.3}
+\psset{nodesep=3pt,arrowsize=2pt 3}%  paramètres
+\def\esp{\hspace*{2.5cm}}% pour modifier la largeur du tableau
+\def\hauteur{20pt}% mettre au moins 20pt pour augmenter la hauteur
+$\begin{array}{|c|*5{c}|}
+\hline
+x & 1  & \esp & \frac{7}{6} & \esp & 4 \\ 
+%\hline
+%f'(x) &  &   \pmb{+} & \vline\hspace{-2.7pt}0 & \pmb{-} & \\ 
+\hline
+ & &  & \Rnode{max}{\approx 20,4} & &  \\  
+f & & &  &  &  \rule{0pt}{\hauteur} \\ 
+ & \Rnode{min1}{20} &   &  &  &   \Rnode{min2}{\approx -21,4} \rule{0pt}{\hauteur}    
+ \ncline{->}{min1}{max} 
+ \ncline{->}{max}{min2} 
+\rput*(-2.5,0.9){\Rnode{zero2}{\blue 0}}
+\rput(-2.5,2.5){\Rnode{beta}{\blue \alpha}}
+\ncline[linestyle=dotted, linecolor=red]{beta}{zero2}
+ \\ 
+\hline
+\end{array} $
+}
+\end{center}	
+
+Sur l'intervalle $\left[\dfrac{7}{6}~;~4\right]$, $f$ est continue et strictement décroissante.
+
+Comme $0 \in \left[f\left(\frac{7}{6}\right)~;~f(4)\right]$, il existe d'après le théorème des valeurs intermédiaires, un réel unique $\alpha$ de cet intervalle tel que $f(\alpha) = 0$.
+
+$\bullet~~$On a $f(2) \approx 14,26$ et $f(3)\approx -1,54$, donc $2 < \alpha < 3$ ;
+
+$\bullet~~$On a $f(2,9) \approx 0,26$ et $f(3,0)\approx -1,54$, donc $2,9 < \alpha < 3,0$ ;
+
+$\bullet~~$On a $f(2,91) \approx 0,09$ et $f(2,92)\approx -0,09$, donc $2,91 < \alpha < 2,92$ ;
+
+$\bullet~~$On a $f(2,914) \approx 0,0013$ et $f(2,915)\approx -0,005$, donc $2,914 < \alpha < 2,915$.
+\item  %Dresser le tableau de signe de $f(x)$ pour $x \in [1~;~4]$.
+On a donc $f(x) \geqslant 0$ sur $[1~;~\alpha]$ et $f(x) \leqslant 0$ sur $[\alpha~;~4]$.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie 2 : Optimisation}
+
+\medskip
+
+%Une entreprise vend du jus de fruits. Pour $x$ milliers de litres vendus, avec $x$ nombre réel de l'intervalle [1~;~4], l'analyse des ventes conduit à modéliser le bénéfice $B(x)$ par l'expression donnée en milliers d'euros par :
+
+\[B(x) = - 15x^2 + 15x +35x \ln x.\]
+
+\begin{enumerate}
+\item %D'après le modèle, calculer le bénéfice réalisé par l'entreprise lorsqu'elle vend \np{2500}~litres de jus de fruits.
+
+%On donnera une valeur approchée à l'euro près de ce bénéfice.
+\np{2500}~litres correspondent à $x = 2,5$ et $B(2,5) = - 15 \times 2,5^2 + 15 \times 2,5 + 35 \times 2,5 \times \ln 2,5 \approx \np{23,9254}$ soit environ \np{23925}~\euro.
+\item %Pour tout $x$ de l'intervalle [1~;~4], montrer que $B'(x) = f(x)$ où $B'$ désigne la fonction dérivée de $B$.
+La fonction $B$ est dérivable sur [1~;~4] et sur cet intervalle :
+
+$B'(x) = - 30x + 15 + 35\ln x + 35x \times \dfrac{1}{x} = 50 - 30x + 35\ln x = f(x)$.
+\item 
+	\begin{enumerate}
+		\item %À l'aide des résultats de la \textbf{partie 1}, donner les variations de la fonction $B$ sur l'intervalle [1~;~4].
+D'après la partie 1, $f(x) = B'(x) \geqslant  0$ sur $[1~;~\alpha]$ : la fonction $B$ est donc croissante sur $[1~;~\alpha]$.
+
+De même $f(x) = B'(x) \leqslant  0$ sur $[\alpha~;~4]$ : la fonction $B$ est donc décroissante sur $[1~;~\alpha]$.
+
+Conclusion : $B(\alpha)$ est le maximum de la fonction $B$ sur l'intervalle [1~;~4].
+		\item %En déduire la quantité de jus de fruits, au litre près, que l'entreprise doit vendre afin de réaliser un bénéfice maximal.
+$B(\alpha) = - 15\alpha^2 + 15\alpha + 35\alpha \ln \alpha$.
+
+En utilisant la valeur approchée de $\alpha$ trouvée dans la partie 1, on a :
+
+$B(\alpha) \approx - 15 \times 2,914^2 + 15 \times 2,914 + 35 \times 2,914 \times \ln 2,914 \approx 25,4201$, soit environ \np{25420}~\euro{} à l'euro près.
+
+Il faut donc que l'entreprise vende \np{2914}~litres de jus de fruits pour faire un bénéficie maximal.
+	\end{enumerate}
+\end{enumerate}

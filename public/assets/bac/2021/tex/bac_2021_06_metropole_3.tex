@@ -1,0 +1,86 @@
+
+\textbf{Commun à tous les candidats}
+
+\vspace{0.5cm}
+
+Cécile a invité des amis à déjeuner sur sa terrasse. Elle a prévu en dessert 
+un assortiment de gâteaux individuels qu'elle a achetés surgelés.
+
+Elle sort les gâteaux du congélateur à $-19$~\textcelsius{} et les apporte sur la terrasse où la température est de  $25$~\textcelsius.
+
+Au bout de 10 minutes la température des gâteaux est de $1,3$~\textcelsius.
+
+\begin{center}
+\textbf{I~-- Premier modèle}
+\end{center}
+
+On suppose que la vitesse de décongélation est constante c'est-à-dire que l'augmentation de la température est la même minute après minute.
+
+Selon ce modèle, déterminer quelle serait la température des gâteaux 25 minutes après leur sortie du congélateur.
+
+Ce modèle semble-t-il pertinent ? 
+
+\medskip
+
+\begin{center}
+\textbf{II~-- Second modèle}
+\end{center}
+\medskip
+
+On note $T_n$ la température des gâteaux  en degré Celsius, au bout de $n$ minutes après leur sortie du congélateur ; ainsi $T_0 = - 19$.
+
+On admet que pour modéliser l'évolution de la température, on doit avoir la relation suivante 
+
+\[\text{Pour tout entier naturel } n,\ T_{n+1}-T_n=-\np{0.06}\times \left(T_n - 25\right).\]
+\begin{enumerate}
+\item Justifier que, pour tout entier $n$, on a $T_{n+1}=\np{0.94}T_n + \np{1.5}$
+\item Calculer $T_1$ et $T_2$. On donnera des valeurs arrondies au dixième.
+\item Démontrer par récurrence que, pour tout entier naturel $n$, on a $T_n\leqslant 25$.
+
+En revenant à la situation étudiée, ce résultat était-il prévisible ?
+\item Étudier le sens de  variation de la suite $\left(T_n\right)$.
+\item Démontrer que la suite $\left(T_n\right)$ est convergente.
+\item On pose pour tout entier naturel $n$, $U_n = T_n - 25$.
+\begin{enumerate}
+\item Montrer que la suite $\left(U_n\right)$ est une suite géométrique dont on précisera la raison et le premier terme $U_0$.
+\item En déduire que pour tout entier naturel $n$, $T_n=-44\times \np{0.94}^n+25$.
+\item En déduire la limite de la suite $\left(T_n\right)$. Interpréter ce résultat dans le contexte de la situation étudiée.
+\end{enumerate}
+\item 
+	\begin{enumerate}
+		\item Le fabricant conseille de consommer les gâteaux au bout d'une demi-heure à température ambiante après leur sortie du congélateur.
+		 
+Quelle est alors la température atteinte par les gâteaux ? On donnera une valeur arrondie à l'entier le plus proche.
+		\item Cécile est une habituée de ces gâteaux, qu'elle aime déguster lorsqu'ils sont encore frais, à la température de 10~\textcelsius.
+Donner un encadrement entre deux entiers consécutifs du temps en minutes après lequel Cécile doit déguster son gâteau.
+
+\item Le programme suivant, écrit en langage Python, doit renvoyer après son exécution
+la plus petite valeur de l'entier $n$ pour laquelle $T_n \geqslant 10$.
+
+\vspace{0.5cm}
+
+\begin{minipage}[]{5cm}
+\begin{tabular}[]{|p{4.5cm}|}
+\hline
+def seuil() :\\
+\hspace{1.2em}n=0\\
+\hspace{1.2em}T= \dotfill\\
+\hspace{1.2em}while T\dotfill\\
+\hspace{4em}T= \dotfill\\
+\hspace{4em}n=n+1\\
+\hspace{1.2em}return\\
+\hline
+\end{tabular}
+\end{minipage}
+\hspace{1.5cm}
+\begin{minipage}[]{5.6cm}
+Recopier ce programme sur la copie
+et compléter les lignes incomplètes
+afin que le programme renvoie la valeur attendue.
+\end{minipage}
+\end{enumerate}
+\end{enumerate}
+
+
+ \vspace{0.5cm}
+ 

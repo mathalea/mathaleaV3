@@ -1,0 +1,67 @@
+ 
+\textbf{Commun à tous les candidats}
+
+\smallskip
+
+\textbf{Les questions 1. à 5. de cet exercice peuvent être traitées de façon indépendante}
+
+\medskip
+
+On considère un cube ABCDEFGH. Le point I est le milieu du segment [EF], le point J est le milieu du segment [BC] et le point K est le milieu du segment [AE].
+
+
+\begin{center}
+\psset{unit=0.9cm}
+\begin{pspicture}(6,7)
+\pspolygon(0.5,0.4)(5.5,0)(5.5,5)(0.5,5.4)%ABFE
+\uput[dl](0.5,0.4){A} \uput[dr](5.5,0){B} \uput[u](5.5,5){F} \uput[ul](0.5,5.4){E}
+\psline(5.5,0)(8.5,1.4)(8.5,6.4)(5.5,5)%BCGF
+\uput[r](8.5,1.4){C} \uput[ur](8.5,6.4){G} 
+\psline(8.5,6.4)(3.5,6.8)(0.5,5.4)%GHE 
+\uput[u](3.5,6.8){H} \uput[u](3,5.2){I}\uput[dr](7,0.7){J}\uput[l](0.5,2.9){K}
+\psline[linewidth=1.6pt](0.5,0.4)(3,5.2)%AI
+\psline[linestyle=dashed,linewidth=1.6pt](3,5.2)(7,0.7)%IJ
+\psline[linestyle=dashed,linewidth=1.6pt](0.5,2.9)(3.5,6.8)%KH
+\psline[linestyle=dashed](0.5,0.4)(3.5,1.8)(3.5,6.8)%ADH
+\uput[ur](3.5,1.8){D}
+\psline[linestyle=dashed](3.5,1.8)(8.5,1.4)%DC
+\end{pspicture}
+\end{center}
+
+\begin{enumerate}
+\item 
+Les droites (AI) et (KH) sont-elles parallèles ? Justifier votre réponse,
+\end{enumerate}
+
+Dans la suite, on se place dans le repère orthonormé $\left(\text{A}~;~\vect{\text{AB}},~ \vect{\text{AD}},~ \vect{\text{AE}}\right)$.
+
+\begin{enumerate}[resume]
+\item 
+	\begin{enumerate}
+		\item Donner les coordonnées des points I et J.
+		\item Montrer que les vecteurs $\vect{\text{IJ}},~\vect{\text{AE}}$ et $\vect{\text{AC}}$ sont coplanaires.
+	\end{enumerate}
+\end{enumerate}
+	
+On considère le plan $\mathcal P$ d'équation $x + 3y - 2z + 2 = 0$ ainsi que les droites $d_1$ et $d_2$ définies par les représentations paramétriques ci-dessous:
+
+\[d_1  : \left\{\begin{array}{l c l}
+x	&=&3 + t\\
+y 	&=& 8 - 2t\\
+z	&=& - 2 + 3t\\
+\end{array}\right. , t \in \R\quad \text{et}\quad 
+d_2  : \left\{\begin{array}{l c l}
+x	&=&4 + t\\
+y 	&=&1 + t\\
+z	&=&8 + 2t\\
+\end{array}\right. , t \in \R.\]
+
+\begin{enumerate}[resume]
+\item Les droites $d_1$ et $d_2$ sont-elles parallèles ? Justifier votre réponse.
+\item Montrer que la droite $d_2$ est parallèle au plan $\mathcal P$.
+\item Montrer que le point L(4~;~0~;~3) est le projeté orthogonal du point M(5~;~3~;~1) sur le plan $\mathcal P$.
+\end{enumerate}
+
+
+\bigskip
+

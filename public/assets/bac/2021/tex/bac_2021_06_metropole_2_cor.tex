@@ -1,0 +1,104 @@
+
+\textbf{Commun à tous les candidats}
+\medskip
+
+%Une chaîne de fabrication produit des pièces mécaniques. On estime que 5\,\% des pièces
+%produites par cette chaîne sont défectueuses.
+%
+%Un ingénieur a mis au point un test à appliquer aux pièces. Ce test a deux résultats possibles :
+%
+%\og positif \fg{} ou bien \og négatif \fg.
+%
+%On applique ce test à une pièce choisie au hasard dans la production de la chaîne.
+%
+%On note $p(E)$ la probabilité d'un évènement $E$.
+%
+%On considère les évènements suivants :
+%
+%\begin{itemize}
+%\item $D$ : \og la pièce est défectueuse \fg{} ;
+%\item $T$ : \og la pièce présente un test positif \fg {};
+%\item $\overline{D}$ et $\overline{T}$ désignent respectivement les évènements contraires de $D$ et $T$.
+%\end{itemize}
+%
+%Compte tenu des caractéristiques du test, on sait que :
+%\begin{itemize}
+%\item La probabilité qu'une pièce présente un test positif sachant qu'elle défectueuse est
+%égale à $0,98$ ;
+%\item la probabilité qu'une pièce présente un test négatif sachant qu'elle n'est pas
+%défectueuse est égale à $0,97$.
+%\end{itemize}
+%\medskip
+%\begin{center}
+%\textbf{Les parties I et II peuvent être traitées de façon indépendante.}
+%\end{center}
+
+\medskip
+
+\textbf{PARTIE I}
+
+\medskip
+
+\begin{enumerate}
+\item On traduit la situation à l'aide d'un arbre pondéré:
+\begin{center}
+\pstree[treemode=R,nodesepB=3pt,levelsep=2.75cm]{\TR{}}
+{\pstree{\TR{$D$~~}\taput{0,05}}
+	{\TR{$T$}\taput{0,98}
+	\TR{$\overline{T}$}\tbput{0,02}
+	}
+\pstree{\TR{$\overline{D}$~~}\tbput{0,95}}
+	{\TR{$T$}\taput{0,03}
+	\TR{$\overline{T}$}\tbput{0,97}
+	}	
+}
+\end{center}
+
+\item \begin{enumerate}
+\item %Déterminer la probabilité qu'une pièce choisie au hasard dans la production de lachaîne soit défectueuse et présente un test positif.
+On a: $P(D \cap T) = P(D) \times P_D(T) = 0,05 \times 0,98 = 0,049$.
+\item %Démontrer que: $p(T) = \np{0.0775}$.
+On a de même : $P\left(\overline{D} \cap T\right) = P\left(\overline{D}\right)  \times P_{\overline{D}}(T) = 0,95 \times 0,3 = \np{0,0285}$.
+
+D'après la loi des probabilités totales :
+
+$P(T) = P(D \cap T) + P\left(\overline{D} \cap T\right) = 0,049 + \np{0,0285} = \np{0,0775}$.
+\end{enumerate}
+\item %On appelle \textbf{valeur prédictive positive} du test la probabilité qu'une pièce soit défectueuse sachant que le test est positif. On considère que pour être efficace, un test doit avoir une valeur prédictive positive supérieure à $0,95$.
+
+%Calculer la valeur prédictive positive de ce test et préciser s'il est efficace.
+La valeur prédictive positive du test est égale à :
+
+$P_T(D) = \dfrac{P(T \cap D)}{P(T)} = \dfrac{P(D \cap T)}{P(T)} = \dfrac{0,049}{\np{0,0775}} \approx \np{0,6322}$, soit 0,632 au millième près.
+
+Comme $0,632 < 0,95$ on peut en déduire que le test n'est pas efficace.
+\end{enumerate}
+\medskip
+
+\textbf{PARTIE II}
+
+\medskip
+
+%On choisit un échantillon de $20$ pièces dans la production de la chaîne, en assimilant ce choix à un tirage avec remise. On note $X$ la variable aléatoire qui donne le nombre de pièces défectueuses dans cet échantillon.
+%
+%On rappelle que: $p(D) = 0,05$.
+%
+%\medskip
+
+\begin{enumerate}
+\item %Justifier que $X$ suit une loi binomiale et déterminer les paramètres de cette loi.
+Le choix de l'échantillon étant assimilé à un tirage avec remise et avec une probabilité constante de choisir un produit défectueux égale à $ 0,05$, on peut donc dire que la variable aléatoire $X$ suit une loi binomiale de paramètres $n = 10$ et $p  = 0,05$.
+\item %Calculer la probabilité que cet échantillon contienne au moins une pièce défectueuse.
+
+%On donnera un résultat arrondi au centième.
+On a: $p(X = 0) = 0,05^0 \times 0,95^{20}$.
+
+Donc la probabilité cherchée est $p(X \geqslant 1) = 1 -p(X =0) = 1 - 0,95^{20} \approx 0,642$, soit 0,64 au centième près.
+\item %Calculer l'espérance de la variable aléatoire $X$ et interpréter le résultat obtenu.
+On a: $E = n \times p = 20 \times 0,05 = 1$.
+
+Cela signifie que sur un grand nombre de tirages d'échantillons on trouvera 1 pièce défectueuse sur 20 pièces tirées.
+\end{enumerate}
+
+\vspace{0,5cm}
+

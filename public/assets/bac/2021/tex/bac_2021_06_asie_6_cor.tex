@@ -1,0 +1,104 @@
+
+\textbf{Commun à tous les candidats}
+
+\medskip
+
+%\textbf{Cet exercice est un questionnaire à choix multiples (QCM)}
+%
+%\medskip
+
+%\emph{Pour chaque question, trois affirmations sont proposées, une seule de ces affirmations est exacte.\\
+%Le candidat recopiera sur sa copie le numéro de chaque question et la lettre de la réponse choisie pour celle-ci.\\
+% AUCUNE JUSTIFICATION n'est demandée. Une réponse fausse ou l'absence de réponse n'enlève aucun point.}
+%
+%\medskip
+
+\begin{enumerate}
+\item %On considère la fonction $f$ définie sur $\R$ par 
+
+\[f(x) = \left(x^2 - 2x - 1\right)\e^x.\]
+
+%\textbf{A.} La fonction dérivée de $f$ est la fonction définie par $f'(x) = (2x - 2)\e^x$.
+%
+%\textbf{B.} La fonction $f$ est décroissante sur l'intervalle $]-\infty~;~2]$.
+%
+%\textbf{C.} $\displaystyle\lim_{x \to - \infty} f(x) = 0$.
+On a $f(x) = x^2\e^x - 2x\e^x - \e^x$.
+
+\starredbullet~ On sait que $\displaystyle\lim_{x \to - \infty} \e^x = 0$, puis que 
+
+\starredbullet~$\displaystyle\lim_{x \to - \infty} 2x\e^x = 0$
+
+\starredbullet~$\displaystyle\lim_{x \to - \infty} x^2\e^x = 0$, d'où par somme de limites : $\displaystyle\lim_{x \to - \infty} f(x) = 0$. Réponse C.
+\item  On considère la fonction $f$ définie sur $\R$ par $f(x) = \dfrac{3}{5 + \e^x}$.
+
+%Sa courbe représentative dans un repère admet :
+%
+%\textbf{A.} une seule asymptote horizontale;
+%
+%\textbf{B.} une asymptote horizontale et une asymptote verticale; 
+%
+%\textbf{C.} deux asymptotes horizontales.
+
+\starredbullet~On a $\displaystyle\lim_{x \to - \infty} f(x) = \dfrac{3}{5}$ : la droite d'équation $y = \dfrac{3}{5}$ est asymptote horizontale au voisinage de moins l'infini ;
+
+\starredbullet~On a $\displaystyle\lim_{x \to + \infty} f(x) = 0$ : l'axe des abscisses est asymptote horizontale au voisinage de plus l'infini. Réponse C.
+\item  %On donne ci-dessous la courbe $\mathcal{C}_{f''}$ représentant la fonction dérivée seconde $f''$  d'une fonction $f$ définie et deux fois dérivable sur l'intervalle $[-3,5~;~6]$.
+
+%\begin{center}
+%\psset{unit=1cm}
+%\begin{pspicture}(-4,-3)(7,5)
+%\psgrid[gridlabels=0pt,subgriddiv=1,gridwidth=0.1pt]
+%\psaxes[linewidth=1.25pt,labelFontSize=\scriptstyle]{->}(0,0)(-4,-3)(7,5)
+%\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=blue]{-3.5}{6}{x 3 exp 0.1 mul  x dup mul 0.4 mul sub 1.1 x mul sub 3 add}
+%\uput[u](6.8,0){$x$} \uput[r](0,4.8){$y$}
+%\uput[u](1.5,4){Courbe de la fonction dérivée seconde $f''$}
+%\end{pspicture}
+%\end{center}
+%\textbf{A.} La fonction $f$ est convexe sur l'intervalle $[-3~;~3]$.
+%
+%\textbf{B.}  La fonction $f$ admet trois points d'inflexion.
+%
+%\textbf{C.} La fonction dérivée $f'$ de $f$ est décroissante sur l'intervalle [0~;~2].
+On voit sur la figure que $f''(- 3) = f''(2) = f''(5) = 0$ : la dérivée seconde s'annule trois fois donc la fonction $f$ admet trois points d'inflexion. Réponse B.
+
+%\item On considère la suite $\left(u_n\right)$ définie pour tout entier naturel $n$ par $u_n = n^2 - 17n + 20$. 
+%
+%\textbf{A.} La suite $\left(u_n\right)$ est minorée.
+%
+%\textbf{B.} La suite $\left(u_n\right)$ est décroissante.
+%
+%\textbf{C.} L'un des termes de la suite $\left(u_n\right)$ est égal à \np{2021}.
+$n^2 - 17n + 20 = \left(n - \frac{17}{2} \right)^2 - \left(\frac{17}{2}\right)^2 + 20 = \left(n - \frac{17}{2} \right)^2 - \frac{289}{4} + \frac{80}{4} = \left(n - \frac{17}{2} \right)^2 - \frac{209}{4} = \left(n - \frac{17 - \sqrt{209}}{2} \right)\left(n - \frac{17 + \sqrt{209}}{2}\right).$
+
+On a donc quel que soit $n$, \, $u_n \geqslant - \frac{209}{4}$ : la suite est donc minorée. Réponse A.
+\item %On considère la suite $\left(u_n\right)$ définie par $u_0 = 2$ et, pour tout entier naturel $n$,\,
+
+%$u_{n+1} = 0,75u_n +5$.
+%
+%On considère la fonction \og seuil \fg{} suivante écrite en Python :
+%
+%\begin{center}
+%\begin{tabular}{|l|}\hline
+%def seuil {} :\\
+%\quad u = 2\\
+%\quad n = 0\\
+%\quad while u < 45 :\\
+%\qquad u = 0,75*u + 5\\
+%\qquad n = n+1\\
+%\quad return n\\ \hline
+%\end{tabular}
+%\end{center}
+%
+%Cette fonction renvoie :
+%
+%\textbf{A.} la plus petite valeur de $n$ telle que $u_n \geqslant  45$ ;
+% 
+%\textbf{B.} la plus petite valeur de $n$ telle que $u_n  < 45$ ;
+% 
+%\textbf{C.} la plus grande valeur de $n$ telle que $u_n \geqslant 45$.
+Réponse A.
+\end{enumerate}
+
+\bigskip
+

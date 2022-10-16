@@ -1,0 +1,77 @@
+
+\textbf{Commun à tous les candidats}
+
+\medskip
+
+Au 1\up{er} janvier 2020, la centrale solaire de Big Sun possédait \np{10560} panneaux solaires.
+
+On observe, chaque année, que 2\,\% des panneaux se sont détériorés et nécessitent d'être retirés tandis que 250 nouveaux panneaux solaires sont installés.
+
+\bigskip
+
+\textbf{Partie A - Modélisation à l'aide d'une suite}
+
+\medskip
+
+On modélise l'évolution du nombre de panneaux solaires par la suite $\left(u_n\right)$ définie par $u_0 = \np{10560}$ et, pour tout entier naturel $n$,\, $u_{n+1} = 0,98u_n +250$, où $u_n$  est le nombre de panneaux solaires au 1\up{er} janvier de l'année $2020 +n$.
+
+\medskip
+
+\begin{enumerate}
+\item 
+	\begin{enumerate}
+		\item  Expliquer en quoi cette modélisation correspond à la situation étudiée.
+		\item  On souhaite savoir au bout de combien d'années le nombre de panneaux solaires sera strictement supérieur à \np{12000}.
+		
+À l'aide de la calculatrice, donner la réponse à ce
+problème.
+		\item  Recopier et compléter le programme en Python ci-dessous de sorte que la valeur
+cherchée à la question précédente soit stockée dans la variable n à l'issue de l'exécution de ce dernier.
+\begin{center}
+\begin{tabular}{|l|}\hline
+u $= \np{10560}$\\
+n$ =0$\\
+while  \ldots \ldots :\\
+\qquad u $= \ldots \ldots$ \\
+\qquad n $= \ldots \ldots$\\ \hline
+\end{tabular}
+\end{center}
+
+	\end{enumerate}
+\item Démontrer par récurrence que, pour tout entier naturel $n$, on a $u_n \leqslant \np{12500}$.
+\item Démontrer que la suite $\left(u_n\right)$ est croissante.
+\item En déduire que la suite $\left(u_n\right)$ converge. Il n'est pas demandé, ici, de calculer sa limite.
+\item On définit la suite $\left(v_n\right)$  par $v_n = u_n - \np{12500}$, pour tout entier naturel $n$.
+	\begin{enumerate}
+		\item Démontrer que la suite $\left(v_n\right)$ est une suite géométrique de raison $0,98$ dont on précisera le premier terme.
+		\item Exprimer, pour tout entier naturel $n$,\, $v_n$ en fonction de $n$.
+		\item En déduire, pour tout entier naturel $n$,\, $u_n$ en fonction de $n$.
+		\item Déterminer la limite de la suite $\left(u_n\right)$. 
+		
+Interpréter ce résultat dans le contexte du modèle.
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie B - Modélisation à l'aide d'une fonction}
+
+\medskip
+
+Une modélisation plus précise a permis d'estimer le nombre de panneaux solaires de la centrale à l'aide de la fonction $f$ définie pour tout $x \in [0~;~ +\infty[$ par 
+
+\[f(x) = \np{12500} - 500 \e^{-0,02x+1,4},\]
+
+ où $x$ représente le nombre d'années écoulées depuis le 1\up{er} janvier 2020.
+
+\medskip
+
+\begin{enumerate}
+\item Étudier le sens de variation de la fonction $f$.
+\item Déterminer la limite de la fonction $f$ en $+\infty$.
+\item En utilisant ce modèle, déterminer au bout de combien d'années le nombre de panneaux
+solaires dépassera \np{12000}.
+\end{enumerate}
+
+\bigskip
+

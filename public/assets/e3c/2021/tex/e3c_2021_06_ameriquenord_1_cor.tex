@@ -1,0 +1,85 @@
+
+\medskip
+
+%Ce QCM comprend 5 questions.
+%
+%\emph{Pour chacune des questions, une seule des quatre réponses proposées est correcte.
+%Les questions sont indépendantes.\\
+%Pour chaque question, indiquer le numéro de la question et recopier sur la copie la lettre correspondante à la réponse choisie.\\
+%Aucune justification n'est demandée mais il peut être nécessaire d'effectuer des recherches au
+%brouillon pour aider à déterminer votre réponse.\\
+%Chaque réponse correcte rapporte $1$ point. Une réponse incorrecte ou une question sans réponse n'apporte ni ne retire de point.}
+%
+%\medskip
+
+\begin{tabularx}{\linewidth}{|c|X|X|X|X|}\hline
+\textbf{1.} &\multicolumn{4}{|l|}{Pour tout réel $x$,\, $\text{e}^{2x} + \text{e}^{4x}$ est égal à}
+\\ \hline
+ &\textbf{a.} $\text{e}^{6x}$ &\textbf{b.} $\text{e}^{2x}\left(1 + \text{e}^{2}\right)$ &\textbf{c.} $\text{e}^{3x}\left(\text{e}^{x} + \text{e}^{-x} \right)$ &\textbf{d.} $\text{e}^{8x^2}$
+ \\ \hline
+\textbf{2.} &\multicolumn{4}{l|}{Dans le plan muni d'un repère orthonormé \Oij, on considère les }\\
+& \multicolumn{4}{l|}{vecteurs $\vect{u}(-5~;~2)$ et $\vect{v}(4~;~10)$  et la droite $(d)$ d'équation : $5x + 2y + 3 = 0$.}
+\\ \hline
+&\textbf{a.} $\vect{u}$ et $\vect{v}$ sont\newline colinéaires&\textbf{b.}  $\vect{u}$ est un\newline  vecteur normal à la droite $(d)$ &\textbf{c.} $\vect{u}$ et $\vect{v}$ sont\newline   orthogonaux&\textbf{d.} $\vect{u}$ est un\newline  vecteur directeur de $(d)$\\ 
+\hline
+\textbf{3.} & \multicolumn{4}{p{8cm}|}{La dérivée $f'$ de la fonction $f$ définie sur $\R$ par $f(x) = (2x - 1)\e^{-x}$ est :} \\ \hline
+&\textbf{a.} \small $2x\e^{-x}$ &\textbf{b.} \small $- 2\e^{-x}$ &\textbf{c.} \small $(- 2x + 3)\e^{- x}$ &\textbf{d.} \small $2\e^{-x} + (2x - 1)\e^{-x}$\\ 
+\hline
+\textbf{4.} &\multicolumn{4}{l|}{Pour tout réel $x$, on a $\sin(\pi + x) =$}\\ \hline
+&\textbf{a.} $-\sin (x)$&\textbf{b.} $\cos (x)$ &\textbf{c.} $ \sin (x)$&\textbf{d.} $-\cos (x)$
+\\ \hline
+\begin{pspicture*}(0,0)(0.4,5.25) \uput[r](-0.1,4.8){\textbf{5.}} \end{pspicture*}
+&\multicolumn{2}{p{5cm}|}{
+\vspace{-4cm}Soit $f$ une fonction définie et dérivable sur $\R$ dont la courbe représentative est donnée ci-contre.
+La tangente à la courbe au point A est la droite $T$.}&
+\multicolumn{2}{|l|}{
+\psset{unit=0.75cm}
+\begin{pspicture*}(-1,-2.5)(6,4.5)
+\psgrid[subgriddiv=1,gridcolor=lightgray](-1,-3)(6,4)
+\psaxes[linewidth=1.25pt,labelFontSize=\scriptstyle]{->}(0,0)(-0.99,-3)(6,4)
+\psplot[plotpoints=500]{-0.2}{1.5}{3 x 5 mul sub}
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=blue]{-0.2}{6}{0.9 x  sub 3.3333 mul 2.71828  x 0.45 mul  exp div}
+\uput[l](1,-2){$(T)$} \uput[u](3.5,-1.9){$\blue \mathcal{C}_f$} 
+\end{pspicture*}
+}
+\\ \hline
+&\textbf{a.} $f'(0) = 3$ &\textbf{b.} $f'(0) =\dfrac{1}{5}$\rule[-12pt]{0pt}{30pt} &\textbf{c.} $f'(0) = 5$ &\textbf{d.} 
+$f'(0) = - 5$\\ \hline
+\end{tabularx}
+
+\bigskip
+
+\textbf{Solutions}
+
+\smallskip
+
+\textbf{1. c.}
+
+$\e^{3x}\left (\e^{x}+\e^{-x}\right ) = \e^{4x}+\e^{2x}$
+
+\medskip
+
+\textbf{2. c.}
+
+$\vect{u}\cdot\vect{v} = -4\times 5 + 2\times 10 = -20+20=0$ donc $\vect u \perp \vect v$
+
+\medskip
+
+\textbf{3. c.}
+
+$f(x) = (2x - 1)\e^{-x}$ donc $f'(x)= 2\times \e^{-x} + (2x-1) \times (-1)\e^{-x} = (2 - 2x +1)\e^{-x} = (-2x+3)\e^{-x}$
+
+\medskip
+
+\textbf{4. a.}
+
+Les points correspondant à $x$ et $\pi+x$ sur le cercle trigonométrique sont diamétralement opposés  donc $\sin(\pi+x) = - \sin(x)$.
+
+\medskip
+
+\textbf{5. d.}
+
+$f'(0)$ est le coefficient directeur de la tangente $T$ qui passe par les points de coordonnées $(0~,~3)$ et $(1~,~-2)$; donc $f'(0) = \dfrac{-2-3}{1-0}=-5$.
+
+\bigskip
+

@@ -1,0 +1,115 @@
+
+\textbf{Commun à tous les candidats}
+
+%\medskip
+%
+%
+%Les probabilités demandées dans cet exercice seront arrondies à $10^{-3}$.
+%
+%\medskip
+%
+%Un laboratoire pharmaceutique vient d'élaborer un nouveau test anti-dopage. 
+
+\bigskip
+
+\textbf{Partie A}
+
+\medskip
+
+%Une étude sur ce nouveau test donne les résultats suivants:
+%
+%\setlength\parindent{9mm}
+%\begin{itemize}
+%\item[$\bullet~~$] si un athlète est dopé, la probabilité que le résultat du test soit positif est $0,98$ (sensibilité du test) ;
+%\item[$\bullet~~$]si un athlète n'est pas dopé, la probabilité que le résultat du test soit négatif est $0,995$ (spécificité du test).
+%\end{itemize}
+%\setlength\parindent{0mm}
+%
+%\smallskip
+%
+%On fait subir le test à un athlète sélectionné au hasard au sein des participants à une compétition d'athlétisme. 
+%
+%On note $D$ l'évènement \og l'athlète est dopé \fg{} et $T$ l'évènement \og le test est positif \fg. 
+%
+%On admet que la probabilité de l'évènement $D$ est égale à 0,08.
+%
+%\medskip
+
+\begin{enumerate}
+\item ~%Traduire la situation sous la forme d'un arbre pondéré.
+\begin{center}
+\pstree[treemode=R,nodesepB=3pt,levelsep=2.75cm]{\TR{}}
+{\pstree{\TR{$D$~~}\taput{0,08}}
+	{\TR{$T$}\taput{0,98}
+	\Tr{$\overline{T}$}\tbput{0,02}
+	}
+\pstree{\TR{$\overline{D}$~~}\tbput{0,92}}
+	{\TR{$T$}\taput{0,005}
+	\Tr{$\overline{T}$}\tbput{0,995}
+	}	
+}
+\end{center}
+
+\item %Démontrer que $P(T) = 0,083$.
+D'après la loi des probabilités totales :
+
+$P(T) = P(D \cap T) + P\left(\overline{D} \cap T \right)$ : or
+
+$P(D \cap T) = P(D) \times P_D(T) =  0,08 \times 0,98 = \np{0,0784}$ et 
+
+$P\left(\overline{D} \cap T \right) = P\left(\overline{D}  \right) \times P_{\overline{D}}(T) = 0,92 \times 0,005 = \np{0,00460}$. Donc :
+
+$P(T)  = \np{0,0784} + \np{0,0046} = 0,083$.
+\item 
+	\begin{enumerate}
+		\item %Sachant qu'un athlète présente un test positif, quelle est la probabilité qu'il soit dopé ?
+La probabilité conditionnelle $P_T(D) = \dfrac{P(T \cap D)}{P(T)} = \dfrac{P(D \cap T)}{P(T)} = \dfrac{\np{0,0784}}{0,083} \approx \np{0,9445}$, soit 0,945 au millième près.
+		\item %Le laboratoire décide de commercialiser le test si la probabilité de l'évènement \og un athlète présentant un test positif est dopé \fg{} est supérieure ou égale à $0,95$.
+D'après la question précédente $0,945 < 0,95$, donc le test ne sera pas commercialisé.
+
+%Le test proposé par le laboratoire sera-t-il commercialisé ? Justifier.
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie B}
+
+\medskip
+
+%Dans une compétition sportive, on admet que la probabilité qu'un athlète contrôlé présente un test positif est $0,103$.
+
+\medskip
+
+\begin{enumerate}
+\item %Dans cette question \textbf{1.} on suppose que les organisateurs décident de contrôler $5$ ~athlètes au hasard parmi les athlètes de cette compétition. 
+
+%On note $X$ la variable aléatoire égale au nombre d'athlètes présentant un test positif parmi les $5$ athlètes contrôlés.
+	\begin{enumerate}
+		\item %Donner la loi suivie par la variable aléatoire $X$. Préciser ses paramètres.
+		Quel que soit l'athlète choisi la probabilité que cet  athlète présente un test positif est $0,103$. La variable aléatoire $X$ suit donc une loi binomiale de paramètres $n = 5$ et $p = 0,103$.
+		\item %Calculer l'espérance $E(X)$ et interpréter le résultat dans le contexte de l'exercice.
+On sait que $E = n \times p = 5 \times 0,103 = 0,515$ : ceci montre que sur un grand nombre de contrôles, il y aura à peu près 1 athlète sur 10 contrôlé positif.
+		\item %Quelle est la probabilité qu'au moins un des 5 athlètes contrôlés présente un test positif ?
+La probabilité qu'aucun athlète ne soit contrôlé positif est :
+
+$0,103^0 \times (1 - 0,103)^5 = 0,897^5 \approx \np{0,5807}$ soit environ 0,581 au millième près.
+
+Donc la probabilité qu'au moins un des 5 athlètes contrôlés présente un test positif est :
+
+$1 - 0,581$, soit 0,419 au millième près.
+	\end{enumerate}
+\item %Combien d'athlètes faut-il contrôler au minimum pour que la probabilité de l'évènement \og au moins un athlète contrôlé présente un test positif\fg{} soit supérieure ou égale à $0,75$ ? Justifier.
+On a pour $n$ athlètes contrôlés, $P(X = 0) = 0,103^0 \times 0,897^n = 0,897^n$.
+
+Il faut donc trouver $n$ tel que :
+
+$1 - 0,897^n \geqslant 0,75 \iff 1 - 0,75 \geqslant 0,897^n \iff 0,25 \geqslant 0,897^n$.
+
+La calculatrice donne le plus petit $n \in \N$ vérifiant cette inéquation : pour $n = 13$, on a $0,897^{13} \approx 0,243$.
+
+Il faut donc contrôler 13 athlètes en moyenne pour en trouver un positif.
+\end{enumerate}
+\vspace{0,5cm}
+\bigskip
+

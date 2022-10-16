@@ -1,0 +1,116 @@
+
+\bigskip
+
+\textbf{Partie A :}
+
+\medskip
+
+%Dans un pays, une maladie touche la population avec une probabilité de $0,05$. 
+%
+%On possède un test de dépistage de cette maladie.
+%
+%On considère un échantillon de $n$ personnes ($n \geqslant 20$) prises au hasard dans la population assimilé à un tirage avec remise.
+%
+%On teste l'échantillon suivant cette méthode : on mélange le sang de ces $n$ individus, on teste le mélange. 
+%
+%Si le test est positif, on effectue une analyse individuelle de chaque personne.
+%
+%Soit $X_n$ la variable aléatoire qui donne le nombre d'analyses effectuées.
+%
+%\medskip
+
+\begin{enumerate}
+\item %Montrer $X_n$ prend les valeurs 1 et $(n + 1)$.
+\starredbullet~Si le test est négatif on aura fait un test : $X_n = 1$ ;
+
+\starredbullet~~Si le test est positif il faudra faire le test des $n$ personnes plus le test global : $X_n = 1 + n$.
+\item %Prouver que $P\left(X_n = 1\right) = 0,95^n$.
+$P\left(X_n = 1\right)$ est la probabilité que l'on ne fasse qu'un test : le test des $n$ personnes et que celui-ci soit négatif donc que les $n$ personnes ne soient pas malades.
+
+La probabilité qu'une personne soit malade est égale à 0,05, donc qu'une personne soit saine $1 - 0,05 = 0,95$ et donc que $n$ personnes soient saines est égale à $0,95^n$. Donc $P\left(X_n = 1\right) = 0,95^n$.
+
+%Établir la loi de $X_n$ en recopiant sur la copie et en complétant le tableau suivant: 
+
+On a donc $P\left(X_n = n + 1\right) = 1 - 0,95^n$
+\begin{center}
+\begin{tabularx}{0.6\linewidth}{|*{3}{>{\centering \arraybackslash}X|}}\hline
+$x_i$						& 1 &$n + 1$\\ \hline
+$P\left(X_n = x_i\right)$	&$0,95^n$	&$1 - 0,95^n$\\ \hline
+\end{tabularx}
+\end{center}
+
+\item %Que représente l'espérance de $X_n$ dans le cadre de l'expérience ?
+
+On a $E\left(X_n\right) = 1 \times 0,95^n + (n + 1) \times \left(1 - 0,95^n \right) = 0,95^n + (n + 1) -0,95^n(n + 1) = 0,95^n + n + 1 - n \times 0,95^n  - 0,95^n = n + 1 - n \times  0,95^n$.
+%Montrer que $E\left(X_n\right) = n +1 - n \times  0,95^n$. 
+
+Cette espérance représente le nombre moyen d'analyses à effectuer pour un échantillon $n$ personnes : cette espérance est voisine de $n$.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie B :}
+
+\medskip
+
+\begin{enumerate}
+\item %On considère la fonction $f$ définie sur $[20~;~ +\infty[$ par 
+
+$f(x) = \ln (x) + x \ln (0,95)$.
+
+$f$ est une somme de fonctions dérivables sur $[20~;~ +\infty[$ et sur cet intervalle :
+
+$f'(x) = \dfrac{1}{x} + \ln (0,95)$.
+
+%Montrer que $f$ est décroissante sur $[20~;~ +\infty[$.
+
+Or $20 \leqslant x \Rightarrow \dfrac{1}{x} \leqslant \dfrac{1}{20} \Rightarrow \dfrac{1}{x} + \ln 0,95\leqslant \dfrac{1}{20} + \ln 0,95$.
+
+Or $\dfrac{1}{20} + \ln 0,95 \approx - 0,001$ ; il en résulte que $f'(x) \leqslant 0$ : la fonction $f$ est décroissante sur $[20~;~ +\infty[$.
+\item On rappelle que $\displaystyle\lim_{x \to + \infty} \dfrac{\ln x}{x} = 0$. 
+
+%Montrer que $\displaystyle\lim_{x \to + \infty} f(x) = - \infty$.
+On a puisque $x \ne 0$, \, $f(x) = x\left(\dfrac{\ln x}{x} + \ln 0,95 \right)$.
+
+Puisque  $\displaystyle\lim_{x \to + \infty} \dfrac{\ln x}{x} = 0$, alors  $\displaystyle\lim_{x \to + \infty} \dfrac{\ln x}{x} + \ln 0,95 = \ln 0,95 < 0$.
+
+Finalement par produit de limites puisque $\displaystyle\lim_{x \to + \infty} x = + \infty$ et que $\displaystyle\lim_{x \to + \infty} \dfrac{\ln x}{x} + \ln 0,95 = 0,95 < 0$, on a 
+
+$\displaystyle\lim_{x \to + \infty}f(x) = - \infty$.
+\item %Montrer que $f(x) = 0$ admet une unique solution $a$ sur $[20~;~ +\infty[$. 
+La question précédente montre que $f$ est décroissante de $f(20) = \ln 20 + 20\ln 0,95 \approx 1,97$ à moins l'infini.
+
+$f$ est continue car dérivable sur $[20~;~ +\infty[$ et prend ses valeurs dans les l'intervalle 
+$]- \infty~;~f(20)]$\, avec $f(20) \approx 1,97$.
+
+Comme $0 \in ]- \infty~;~f(20)]$, et que $f$ est décroissante sur cet intervalle  il existe donc un réel unique $\alpha$ tel que $f(\alpha) = 0$.
+
+La calculatrice donne $f(87,0) \approx 0,003$ et $f(87,1) \approx \np{- 0,0005}$, donc 
+$87,0 < \alpha 87,1$.
+%Donner un encadrement à 0,1 près de cette solution.
+\item %En déduire le signe de $f$ sur $[20~;~ +\infty[$.
+D'après la question précédente :
+
+$f(x) > 0$ sur $[20~;~\alpha[$ et $f(x) < 0$ sur $]\alpha~;~+ \infty[$. 
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie C :}
+
+\medskip
+
+%On cherche à comparer deux types de dépistages. 
+%
+%La première méthode est décrite dans la partie A, la seconde, plus classique, consiste à tester tous les individus. 
+%
+%La première méthode permet de diminuer le nombre d'analyses dès que $E\left(X_n\right)  < n$.
+%
+%En utilisant la partie B, montrer que la première méthode diminue le nombre d'analyses pour des échantillons comportant $87$ personnes maximum.
+On a $E\left(X_n\right)  < n \iff n + 1 - n \times 0,95^n < n \iff 1 < n \times 0,95^n$ ou en prenant le logarithme népérien $0 < \ln n + \ln \left(0,95^n\right) \iff 0 < \ln n + n \ln 0,95 \iff 0 < f(n) \iff f(n) > 0$.
+
+Or on a vu à la fin de la partie B que la fonction $f$ est positive sur l'intervalle [20~;~87].
+
+Conclusion : tester toutes les personnes conduira à moins d'analyses qu'avec la méthode 1 avec des échantillons de 20 à 87 personnes au maximum. Au delà il vaut mieux utiliser la première méthode.
+\bigskip
+

@@ -1,0 +1,111 @@
+\textbf{EXERCICE -- A}
+
+\medskip
+
+\begin{tabular}{|l|}\hline
+\textbf{Principaux domaines abordés}\\
+-- Suites\\
+-- Équations différentielles\\ \hline
+\end{tabular}
+
+%\medskip
+
+%Dans cet exercice, on s'intéresse à la croissance du bambou Moso de taille maximale 20 mètres. 
+%
+%Le modèle de croissance de Ludwig von Bertalanffy suppose que la vitesse de croissance pour un tel bambou est proportionnelle à l'écart entre sa taille et la taille maximale.
+
+\bigskip
+
+\textbf{Partie I : modèle discret}
+
+\medskip
+
+%Dans cette partie, on observe un bambou de taille initiale $1$~mètre.
+%
+%Pour tout entier naturel $n$, on note $u_n$ la taille, en mètre, du bambou $n$ jours après le début de l'observation. On a ainsi $u_0 = 1$.
+%
+%Le modèle de von Bertalanffy pour la croissance du bambou entre deux jours consécutifs se traduit par l'égalité :
+%
+%\[u_{n+1} = u_n + 0,05\left(20 - u_n\right)\,  \text{pour tout entier naturel}\,  n.\]
+
+\medskip
+
+\begin{enumerate}
+\item %Vérifier que $u_1 = 1,95$.
+On a pour $n = 0$, \, $u_1 = u_0 + 0,05(20 - u_0) = 1 + 0,05 \times 19 = 1 + 0,95 = 1,95$.
+\item 
+	\begin{enumerate}
+		\item %Montrer que pour tout entier naturel $n$,\,  $u_{n+1} = 0,95u_n + 1$.
+Pour tout naturel $n$, \, $u_{n+1} = u_n + 0,05\left(20 - u_n\right) = u_n  + 1 - 0,05u_n = u_n(1 - 0,05) + 1 = 0,95u_n + 1$.
+		\item %On pose pour tout entier naturel $n$,\,  $v_n = 20 - u_n$. 
+		
+%Démontrer que la suite $\left(v_n\right)$ est une suite géométrique dont on précisera le terme initial $v_0$ et la raison.
+Pour tout naturel $n$, \, $v_{n+1} = 20 - u_{n+1} = 20 - \left(0,95u_n + 1\right) = 20 - 0,95u_n - 1 = $
+
+$19 - 0,95u_n = 0,95 \times  20 - 0,95u_n = 0,95\left(20 - u_n \right) = 0,95v_n$.
+
+Conclusion : pour tout naturel $n$,\, $v_{n+1} = 0,95v_n$ : cette égalité montre que la suite $\left(v_n\right)$ est une suite géométrique de terme initial $v_0 =  20 - u_0 =  20 - 1 = 19$ et de raison 0,95.
+		\item %En déduire que, pour tout entier naturel $n$,\,  $u_n = 20 - 19 \times 0,95^n$.
+On sait que pour tout $n \in n\N$, \, $v_n = v_0 \times q^n$, $q$ étant la raison, soit $v_n = 19  \times 0,95^n$.
+
+Or $v_n = 20 - u_n \iff u_n = 20 - v_n = 20 - 19 \times 0,95^n$.
+	\end{enumerate}
+\item %Déterminer la limite de la suite $\left(u_n\right)$.
+On vient de démontrer que pour tout naturel $n$, \, $u_n = 20 - 19\times 0,95^n$.
+
+Comme $0 < 0,95 < 1$, on sait que $\displaystyle\lim_{n \to + \infty} 0,95^n = 0$, d'où par somme de limites :
+
+\[\displaystyle\lim_{n \to + \infty} u_n = 20.\]
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie II : modèle continu}
+
+\medskip
+
+%Dans cette partie, on souhaite modéliser la taille du même bambou Moso par une fonction donnant sa taille, en mètre, en fonction du temps $t$ exprimé en jour. 
+%
+%D'après le modèle de von Bertalanffy, cette fonction est solution de l'équation différentielle
+
+\[(E) \qquad y' = 0,05(20 - y)\]
+
+%où $y$ désigne une fonction de la variable $t$, définie et dérivable sur $[0~;~+\infty[$ et $y'$ désigne sa fonction dérivée.
+%
+%Soit la fonction $L$ définie sur l'intervalle $[0~;~+\infty[$ par 
+%
+%\[L(t) = 20 - 19\e^{-0,05t}.\]
+%
+%\smallskip
+
+\begin{enumerate}
+\item %Vérifier que la fonction $L$ est une solution de (E) et qu'on a également $L(O) = 1$.
+$L$ est la somme  de fonctions dérivables sur $[0~;~+\infty[$ et sur cet intervalle :
+
+$L'(t) = - 0,05 \times \left(- 19\e^{-0,05t}\right) = 0,95\e^{-0,05t}$.
+
+Donc $L$ est solution de $(E)$ si :
+
+$y' = 0,05(20 - y) \iff 0,95\e^{-0,05t} = 0,05\left(20 - (\left(20 - 19\e^{-0,05t}\right)\right) \iff  0,95\e^{-0,05t}  = 0,05\left (19\e^{-0,05t}\right) \iff  0,95\e^{-0,05t}  =  0,95\e^{-0,05t}$ qui est vraie.
+
+De plus $L(0) = 20 - 19\e^{-0,05\times 0} = 20 - 19\times 1 = 1$.
+\item %On prend cette fonction $L$ comme modèle et on admet que, si on note $L'$ sa fonction dérivée, $L'(t)$ représente la vitesse de croissance du bambou à l'instant $t$.
+	\begin{enumerate}
+		\item %Comparer $L'(0)$ et $L'(5)$.
+		
+\starredbullet~$L'(0) = 0,95\e^{-0,05\times 0} =  0,95 \times 1 =  0,95$.
+
+\starredbullet~$L'(5) = 0,95\e^{-0,05\times 5} =  0,95 \times \e^{-0,25}  \approx  0,74$.
+
+Donc $L'(0) > L'(5)$.
+		\item %Calculer la limite de la fonction dérivée $L'$ en $+\infty$. 
+		
+%Ce résultat est-il en cohérence avec la description du modèle de croissance exposé au début de l'exercice ?
+On sait que $\displaystyle\lim_{t \to + \infty} \e^{-0,05t} = 0$, donc $\displaystyle\lim_{t \to + \infty} L'(t) = 0$.
+
+Ce résultat est bien en cohérence avec la description du modèle de croissance du bambou : celui-ci a une taille croissante ($L'(t) > 0$) de 1~m (taille initiale)  à 20~m (taille finale), la dérivée  donc la vitesse de croissance se rapprochant de zéro.
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+

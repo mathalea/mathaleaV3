@@ -1,0 +1,143 @@
+
+\bigskip 
+
+\textbf{Partie A}
+
+\medskip
+
+Soit $g$ la fonction définie sur $\R$ par :
+$g(x) = 2\e^{\frac{-1}{3}x} + \dfrac{2}{3}x - 2.$
+
+\smallskip
+
+\begin{enumerate}
+\item On admet que la fonction $g$ est dérivable sur $\R$ et on note $g'$ sa fonction dérivée.
+
+%Montrer que, pour tout réel $x$ :
+$g’(x) = 2\times \left ( -\dfrac{1}{3}\right ) \e^{\frac{-1}{3}x} + \dfrac{2}{3} = \dfrac{-2}{3}\text{e}^{- \frac{1}{3}x} + \dfrac{2}{3}$
+
+\item %En déduire le sens de variations de la fonction $g$ sur $\R$.
+$g'(x)=\dfrac{2}{3}\left ( 1- \e^{\frac{-1}{3}x}\right ) $
+
+$g'(x)>0 
+\iff 1- \e^{\frac{-1}{3}x} >0
+\iff 1> \e^{\frac{-1}{3}x}
+\iff \ln(1) > \dfrac{-1}{3}x
+\iff 0 > \dfrac{-1}{3}x
+\iff x > 0$
+
+$g(0)=2\e^{0}- 0 - 2 = 0$ 
+
+On en déduit les variations de la fonction $g$:
+
+\begin{center}
+%{\renewcommand{\arraystretch}{1.3}
+%\psset{nodesep=3pt,arrowsize=2pt 3}%  paramètres
+%\def\esp{\hspace*{2.5cm}}% pour modifier la largeur du tableau
+%\def\hauteur{0pt}% mettre au moins 20pt pour augmenter la hauteur
+%$\begin{array}{|c|*5{c}|}\hline
+%x 		& -\infty 	& \esp 			& 0 				&\esp 	& +\infty \\ \hline
+%g'(x) 	& 			& \pmb{+} 		&\vline\hspace{-2.7pt}0 	& \pmb{-} & \\ \hline
+%		& 			& 				&\Rnode{min}{0}		&  			&\\
+%g(x) 	& 			&				& 					&  		&  \rule{0pt}{\hauteur} \\ 
+%		& \Rnode{max1}{\phantom{8}}	&					&		&			&\Rnode{max2}{\phantom{8}} \rule{0pt}{\hauteur}
+%\ncline{->}{max}{min1} 
+%\ncline{->}{min2}{max} 
+%\\
+%\hline
+%\end{array} $
+%}
+\psset{unit=1cm}
+\begin{pspicture}(7,3)
+\psframe(7,3)\psline(0,2)(7,2)\psline(0,2.5)(7,2.5)\psline(1,0)(1,3)
+\psline{->}(1.5,1.5)(3.5,0.5)\psline{->}(4.5,0.5)(6.5,1.5)
+\uput[u](0.5,2.4){$x$} \uput[u](1.5,2.4){$-\infty$} \uput[u](4,2.4){$0$} \uput[u](6.5,2.4){$+ \infty$} 
+\uput[u](0.5,1.9){$g'(x)$} \uput[u](2.5,1.9){$-$} \uput[u](4,1.9){$0$} \uput[u](5.5,1.9){$+$} \uput[u](4,0){$0$}
+\rput(0.5,1){$g(x)$}
+\end{pspicture}
+\end{center}	
+
+\item %Déterminer le signe de $g(x)$, pour tout $x$ réel.
+D'après le tableau de variations de $g$, on a : $g(x)\geqslant 0$ pour tout réel $x$.
+\end{enumerate}
+
+Un tracé de la courbe représentative sur la calculatrice le confirme.
+\begin{center}
+\psset{unit=1cm}
+\begin{pspicture}(-5,-1)(5,4)
+\psaxes[linewidth=1.25pt,labelFontSize=\scriptstyle]{->}(0,0)(-5,0)(5,4)
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=red]{-4.5}{5}{2 x mul 3 div 2 sub 2.71828 x 3 div neg exp 2 mul add}
+\end{pspicture}
+\end{center}
+\bigskip
+
+\textbf{Partie B}
+
+\medskip
+
+\begin{enumerate}
+\item On considère l'équation différentielle
+$\qquad (E) :\qquad  3y' + y = 0.$
+
+%Résoudre l'équation différentielle $(E)$.
+
+$(E) \iff y'+\dfrac{1}{3}y=0$ qui a pour solutions d'après le cours, les fonctions $h$ définies par $h(x)=C\times \e^{\frac{-1}{3}x}$, où $C\in\R$.
+
+\item La solution particulière dont la courbe représentative, dans un repère du plan, passe par le point M(0~;~2) vérifie $h(0)=2$, c'est-à-dire $C\e^{0}=2$, donc $C=2$.
+
+La solution particulière cherchée est la fonction $h$ définie par $h(x)=2\e^{\frac{-1}{3}x}$.
+
+\item Soit $f$ la fonction définie sur $\R$ par :
+$f(x) = 2\text{e}^{- \frac{1}{3}x}$
+ et $\mathcal{C}_f$ sa courbe représentative.
+ 
+	\begin{enumerate}
+		\item La tangente $\left(\Delta_0\right)$ à la courbe $\mathcal{C}_f$ en M(0~;~2) a pour équation:
+		
+$y=f'(0)\left (x-0\right ) + f(0)$		
+
+$f(x)=2\e^{\frac{-1}{3}x}$ donc $f(0)=2$
+
+$f'(x)= 2\times \left ( -\dfrac{1}{3} \right ) \e^{\frac{-1}{3}x} = -\dfrac{2}{3}\e^{\frac{-1}{3}x}$ donc $f'(0)=-\dfrac{2}{3}$
+		
+$\left(\Delta_0\right)$ a donc pour équation $y= - \dfrac{2}{3}x + 2$.
+
+		\item Pour étudier, sur $\R$, la position de cette courbe  $\mathcal{C}_f$ par rapport à la tangente $\left(\Delta_0\right)$, on étudie le signe de $f(x)-\left ( -\dfrac{2}{3}x +2\right )$.
+		
+$f(x)-\left ( -\dfrac{2}{3}x +2\right ) = 2\e^{\frac{-1}{3}x} +\dfrac{2}{3}x - 2 = g(x)$; on sait d'après la partie A, que $g(x)\leqslant 0$ sur $\R$, donc la courbe $\mathcal{C}_f$ est toujours en dessous de la tangente $\Delta_0$.		
+		
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie C}
+
+\medskip
+
+\begin{enumerate}
+
+\item Soit A le point de la courbe $\mathcal{C}_f$ d'abscisse $a$,\, $a$ réel quelconque.
+
+La tangente $\left(\Delta_a\right)$ à la courbe $\mathcal{C}_f$ au point A a pour équation
+$y=f'(a) \left (x-a\right )+f(a)$ c'est-à-dire 
+$y=-\dfrac{2}{3}\e^{\frac{-1}{3}x}\left (x-a\right )+2\e^{\frac{-1}{3}a}$.
+
+Elle coupe l'axe des abscisses en un point P dont l'abscisse est solution de l'équation \\
+$-\dfrac{2}{3}\e^{\frac{-1}{3}a}\left (x-a\right )+2\e^{\frac{-1}{3}a} = 0$.
+On résout cette équation:
+
+$-\dfrac{2}{3}\e^{\frac{-1}{3}a}\left (x-a\right )+2\e^{\frac{-1}{3}a} = 0
+\iff  2\e^{\frac{-1}{3}a} = \dfrac{2}{3}\e^{\frac{-1}{3}a}\left (x-a\right )
+\iff \dfrac{2\e^{\frac{-1}{3}a}}{\frac{2}{3}\e^{\frac{-1}{3}a}}=x-a\\
+\phantom{-\dfrac{2}{3}\e^{\frac{-1}{3}a}\left (x-a\right )+2\e^{\frac{-1}{3}a} = 0}
+\iff 3 = x-a \iff x=a+3$
+
+Donc $\left(\Delta_a\right)$ coupe l'axe des abscisses en un point P de coordonnées $(a + 3~;~0)$.
+
+\item La tangente $\left(\Delta_{-2}\right)$  à la courbe $\mathcal{C}_f$ au point B d'abscisse $- 2$ coupe l'axe des abscisses au point P de coordonnées $(-2+3~;~0)$ soit $(1~;~0)$.
+
+La tangente $\left(\Delta_{-2}\right)$ est donc la droite (BP).
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%% sujetr 10 juin %%%%%%%%%%%%%%ù

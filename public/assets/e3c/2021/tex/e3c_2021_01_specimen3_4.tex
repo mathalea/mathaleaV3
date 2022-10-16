@@ -1,0 +1,44 @@
+\textbf{\large Exercice 4 \hfill 5 points}
+
+\bigskip
+
+Bob s'est fixé un objectif : participer à un marathon qui aura lieu très bientôt dans sa ville.
+
+Pour cela, il désire programmer sa préparation au marathon de la manière suivante :
+
+\begin{list}{\textbullet}{}
+\item lors du premier entraînement, il décide de courir 20 km ;
+\item il augmente ensuite, à chaque entraînement, la distance à courir de 5\,\%.
+\end{list}
+
+On peut modéliser la distance parcourue lors de ses entraînements par une suite $(d_n)$, où, pour tout entier naturel $n$ non nul, le nombre $d_n$ désigne la distance à courir en kilomètre, lors de son $n$-ième entraînement.
+
+On a ainsi $d_1 = 20$.
+
+\begin{enumerate}
+\item Calculer $d_2$, puis vérifier que $d_3=22,05$.
+\item Pour tout entier naturel $n$ non nul, exprimer $d_{n+1}$ en fonction de $d_n$.
+\item Justifier que, pour tout entier naturel $n \geqslant 1$, $d_n= 20\times 1,05^{n-1}$.
+\item Quelle distance, arrondie à 1 m près, va courir Bob lors de son 10\ieme{} entraînement ?
+\item La distance à courir lors d'un marathon est de $42,195$ km. Bob estime qu'il sera prêt pour la
+course, s'il parvient à courir au moins 43 km lors d'un de ses entraînements.
+
+Recopier et compléter le script suivant, écrit en langage Python, dont la valeur de $n$, après exécution de ce script, est le nombre minimal d'entraînements permettant à Bob d'être prêt pour le marathon.
+
+
+\begin{center}
+\fbox{\tt
+\begin{tabular}{l}
+n = 1\\
+d = 20\\
+while ......... :\\
+\quad n = ......\\
+\quad d = 1.05*d
+\end{tabular}
+}
+\end{center}
+
+\end{enumerate}
+
+
+

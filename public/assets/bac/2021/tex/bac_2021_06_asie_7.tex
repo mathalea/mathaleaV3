@@ -1,0 +1,64 @@
+
+\textbf{Commun à tous les candidats}
+
+\medskip
+
+On considère un pavé droit ABCDEFGH tel que AB = AD = 1 et AE = 2, représenté ci- dessous.
+
+Le point I est le milieu du segment [AE]. Le point K est le milieu du segment [DC]. Le point L
+est défini par: $\vect{\text{DL}} = \dfrac{3}{2}\vect{\text{AI}}$. N est le projeté orthogonal du point D sur le plan (AKL).
+
+\begin{center}
+\psset{unit=1cm,arrowsize=2pt 4}
+\begin{pspicture}(6,10)
+\pspolygon(0.5,0.5)(4,0)(4,7.2)(0.5,7.7)%BCGF
+\uput[d](0.5,0.5){B} \uput[d](4,0){C} \uput[ul](4,7.2){G} \uput[ul](0.5,7.7){F} 
+\psline(4,0)(5,1.4)(5,8.6)(4,7.2)%CDHG
+\uput[r](5,1.4){D} \uput[ur](5,8.6){H} \uput[d](1.5,1.9){A} \uput[dr](4.5,0.7){K}\uput[l](1.5,5.5){I}
+\uput[r](5,7.3){L}
+\psline(5,8.6)(1.5,9.1)(0.5,7.7)%HEF
+\uput[u](1.5,9.1){E}
+\psline[linestyle=dashed]{->}(1.5,1.9)(1.5,5.5)%AI
+\psline[linestyle=dashed]{->}(1.5,1.9)(0.5,0.5)%AB
+\psline[linestyle=dashed]{->}(1.5,1.9)(5,1.4)%AD
+\psline[linestyle=dashed](4.5,0.7)(1.5,1.9)(5,7.3)%KAL
+\psline[linestyle=dashed](1.5,5.5)(1.5,9.1)
+\psline(4.5,0.7)(5,7.3)
+\end{pspicture}
+\end{center}
+
+\bigskip
+
+On se place dans le repère orthonormé $\left(\text{A}~;~\vect{\text{AB}},~\vect{\text{AD}},~\vect{\text{AI}}\right)$. 
+
+On admet que le point L a pour coordonnées $\left(0~;~1~;~\dfrac{3}{2}\right)$.
+
+\medskip
+
+\begin{enumerate}
+\item Déterminer les coordonnées des vecteurs $\vect{\text{AK}}$ et $\vect{\text{AL}}$.
+\item  
+	\begin{enumerate}
+		\item Démontrer que le vecteur $\vect{n}$ de coordonnées $(6~;~-3~;~2)$ est un vecteur normal au plan (AKL).
+		\item En déduire une équation cartésienne du plan (AKL).
+		\item Déterminer un système d'équations paramétriques de la droite $\Delta$ passant par D et
+perpendiculaire au plan (AKL).
+		\item En déduire que le point N de coordonnées $\left(\dfrac{18}{49}~;~\dfrac{40}{49}~;~\dfrac{6}{49}\right)$ est le projeté orthogonal du point D sur le plan (AKL).
+	\end{enumerate}
+\end{enumerate}
+
+On rappelle que le volume $\mathcal{V}$ d'un tétraèdre est donné par la formule : 
+
+\[\mathcal{V} = \dfrac{1}{3}\times  (\text{aire de la base}) \times \text{hauteur}.\]
+
+\begin{enumerate}[resume]
+\item 
+	\begin{enumerate}
+		\item Calculer le volume du tétraèdre ADKL en utilisant le triangle ADK comme base. 
+		\item Calculer la distance du point D au plan (AKL).
+		\item Déduire des questions précédentes l'aire du triangle AKL.
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+

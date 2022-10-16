@@ -1,0 +1,120 @@
+
+\textbf{Commun à tous les candidats}
+
+\medskip
+
+%On considère un pavé droit ABCDEFGH tel que AB = AD = 1 et AE = 2, représenté ci- dessous.
+%
+%Le point I est le milieu du segment [AE]. Le point K est le milieu du segment [DC]. Le point L
+%est défini par: $\vect{\text{DL}} = \dfrac{3}{2}\vect{\text{AI}}$. N est le projeté orthogonal du point D sur le plan (AKL).
+
+\begin{center}
+\psset{unit=0.5cm,arrowsize=2pt 4}
+\begin{pspicture}(6,10)
+\pspolygon(0.5,0.5)(4,0)(4,7.2)(0.5,7.7)%BCGF
+\uput[d](0.5,0.5){B} \uput[d](4,0){C} \uput[ul](4,7.2){G} \uput[ul](0.5,7.7){F} 
+\psline(4,0)(5,1.4)(5,8.6)(4,7.2)%CDHG
+\uput[r](5,1.4){D} \uput[ur](5,8.6){H} \uput[d](1.5,1.9){A} \uput[dr](4.5,0.7){K}\uput[l](1.5,5.5){I}
+\uput[r](5,7.3){L}
+\psline(5,8.6)(1.5,9.1)(0.5,7.7)%HEF
+\uput[u](1.5,9.1){E}
+\psline[linestyle=dashed]{->}(1.5,1.9)(1.5,5.5)%AI
+\psline[linestyle=dashed]{->}(1.5,1.9)(0.5,0.5)%AB
+\psline[linestyle=dashed]{->}(1.5,1.9)(5,1.4)%AD
+\psline[linestyle=dashed](4.5,0.7)(1.5,1.9)(5,7.3)%KAL
+\psline[linestyle=dashed](1.5,5.5)(1.5,9.1)
+\psline(4.5,0.7)(5,7.3)
+\end{pspicture}
+\end{center}
+
+\bigskip
+
+%On se place dans le repère orthonormé $\left(\text{A}~;~\vect{\text{AB}},~\vect{\text{AD}},~\vect{\text{AI}}\right)$. 
+%
+%On admet que le point L a pour coordonnées $\left(0~;~1~;~\dfrac{3}{2}\right)$.
+%
+%\medskip
+
+\begin{enumerate}
+\item %Déterminer les coordonnées des vecteurs $\vect{\text{AK}}$ et $\vect{\text{AL}}$.
+Avec C(1~;~1~;~0) et D(0~;~1~;~0), on obtient K$\left(\frac{1}{2}~;~1~;~0\right)$, donc $\vect{\text{AK}}\left(\frac{1}{2}~;~1~;~0\right)$ et on a $\vect{\text{AL}}\left(0~;~1~;~\dfrac{3}{2}\right)$.
+\item  
+	\begin{enumerate}
+		\item %Démontrer que le vecteur $\vect{n}$ de coordonnées $(6~;~-3~;~2)$ est un vecteur normal au plan (AKL).
+\starredbullet~$\vect{n} \cdot \vect{\text{AK}} = 3 - 3 + 0 = 0$ ;
+
+\starredbullet~$\vect{n} \cdot \vect{\text{AL}} = 0 - 3 + 3 = 0$ : le vecteur $\vect{n}$ est donc orthogonal à deux vecteurs non colinéaires du plan AKL, il est donc orthogonal à ce plan ; c'est donc un vecteur normal à ce plan.
+		\item %En déduire une équation cartésienne du plan (AKL).
+On a donc $M(x~;~y~;~z) \in (\text{AKL}) \iff \vect{\text{A}M} \cdot \vect{n} = 0 \iff 6x - 3y + 2z + d = 0$, \, avec $d \in \R$  et comme A appartient à ce plan on a : $ 0 + 0 + 0 + d = 0$.
+
+Conclusion : $M(x~;~y~;~z) \in (\text{AKL}) \iff 6x - 3y + 2z = 0$.
+		\item %Déterminer un système d'équations paramétriques de la droite $\Delta$ passant par D et perpendiculaire au plan (AKL).
+La droite $\Delta$ contient D et a pour vecteur directeur $\vect{n}$, donc :
+
+$M(x~;~y~;~z) \in \Delta \iff \text{il existe }\, t \in \R, \, \vect{\text{D}M} = t\vect{n} \iff \left\{\begin{array}{l c r}
+x		&=&6t\\
+y - 1	&=&-3t\\
+z		&=&2t
+\end{array}\right.,\, t \in \R \iff \left\{\begin{array}{l c r}
+x		&=&6t\\
+y		&=&1-3t\\
+z		&=&2t
+\end{array}\right.,\, t \in \R$.
+		\item %En déduire que le point N de coordonnées $\left(\dfrac{18}{49}~;~\dfrac{40}{49}~;~\dfrac{6}{49}\right)$ est le projeté orthogonal du point D sur le plan (AKL).
+		Le point N est donc le point commun au plan (AKL) et à la droite $\Delta$, donc ses coordonnées $(x~;~y~;~z)$ vérifient le système :
+		
+		$\left\{\begin{array}{l c r}
+x		&=&6t\\
+y		&=&1-3t\\
+z		&=&2t\\
+6x - 3y + 2z = 0
+\end{array}\right.,\, t \in \R \Rightarrow 6 \times 6t + (-3)\times (1 - 3t) + 2\times 2t = 0 \iff$
+
+$36t - 3 + 9t + 4t = 0 \iff 49t = 3 \iff t = \dfrac{3}{49}$ ; en remplaçant dans les trois premières équations du système, on obtient :
+
+\renewcommand\arraystretch{1.8}
+$\left\{\begin{array}{l c r}
+x		&=&6\times \dfrac{3}{49}\\
+y		&=&1-3\times\dfrac{3}{49}\\
+z		&=&2\times \dfrac{3}{49}
+\end{array}\right. \iff \left\{\begin{array}{l c r}
+x		&=&\dfrac{18}{49}\\
+y		&=&\dfrac{40}{49}\\
+z		&=&\dfrac{6}{49}
+\end{array}\right.$.
+\renewcommand\arraystretch{1}
+Conclusion : N$\left(\dfrac{18}{49}~;~\dfrac{40}{49}~;~\dfrac{6}{49} \right)$.
+	\end{enumerate}
+
+%On rappelle que le volume $\mathcal{V}$ d'un tétraèdre est donné par la formule : 
+%
+%\[\mathcal{V} = \dfrac{1}{3}\times  (\text{aire de la base}) \times \text{hauteur}.\]
+%
+%\begin{enumerate}[resume]
+
+\item %Calculer le volume du tétraèdre ADKL en utilisant le triangle ADK comme base.
+	\begin{enumerate}
+		\item Le triangle ADK est rectangle en D ; on a par définition AD = 1 et DK $=  \frac{1}{2}$.
+
+Donc $\mathcal{A}(\text{ADK}) = \dfrac{\text{AD} \times \text{DK}}{2} = \frac{1}{4}$.
+
+D'autre part $\text{DL} = \frac{3}{2}$, donc 
+
+$\mathcal{V}(\text{ADKL}) = \dfrac{\frac{1}{4} \times \frac{3}{2}}{3} = \dfrac{1}{8}$.
+		\item %Calculer la distance du point D au plan (AKL).
+On a $\vect{\text{DN}}\left(\frac{18}{49}~;~\frac{40}{49} - 1~;~\dfrac{6}{49} \right)$, soit  $\vect{\text{DN}}\left(\frac{18}{49}~;~\frac{- 9}{49}~;~\frac{6}{49} \right)$, donc :
+
+$\text{DN}^2 = \left(\frac{18}{49}\right)^2 + \left(\frac{-9}{49}\right)^2  + \left(\frac{6}{49}\right)^2 = \frac{18^2 + 9^2 + 6^2}{49^2} = \frac{324 + 81 + 36}{49^2} = \frac{441}{49^2} = \frac{21^2}{49^2} = \left(\frac{21}{49}\right)^2$. 
+
+Donc DN $ = \dfrac{21}{49} = \dfrac{3}{7}$.
+		\item %Déduire des questions précédentes l'aire du triangle AKL.
+	En prenant comme base le triangle AKL, on a :
+	
+$\mathcal{V}(\text{ADKL}) = \dfrac{\mathcal{A}(\text{AKL}) \times \text{DN}}{3}$, soit $\dfrac{1}{8} = \dfrac{\mathcal{A}(\text{AKL}) \times \frac{3}{7}}{3}$, d'où 
+
+$\mathcal{A}(\text{AKL}) = 7 \times \dfrac{1}{8} = \dfrac{7}{8}$~(u. a.).
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+

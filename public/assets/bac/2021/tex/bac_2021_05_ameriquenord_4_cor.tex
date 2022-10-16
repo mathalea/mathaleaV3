@@ -1,0 +1,70 @@
+
+\smallskip
+
+%\begin{tabular}{|l|}\hline
+%Principaux domaines abordés :\\
+%\hspace{1.25cm}$\bullet~~$Fonction exponentielle\\
+%\hspace{1.25cm}$\bullet~~$Convexité\\ \hline
+%\end{tabular}
+%
+%\medskip
+
+%Pour chacune des affirmations suivantes, indiquer si elle est vraie ou fausse. 
+
+%On justifiera chaque réponse. 
+
+\medskip
+
+\textbf{Affirmation 1 :} Pour tous réels $a$ et $b$,\, $\left(\text{e}^{a+b}\right)^2 =
+ \text{e}^{2(a + b)} =  \text{e}^{2a + 2b} = \text{e}^{2a} \times \text{e}^{2b}$. Donc l'affirmation est fausse.
+
+\smallskip
+\textbf{Affirmation 2 :}  %Dans le plan muni d'un repère, la tangente au point A d'abscisse 0 à la courbe représentative de la fonction $f$ définie sur $\R$ par $f(x) = - 2 + (3 - x)\text{e}^x$ admet pour équation réduite $y = 2x + 1$.
+Une équation de la tangente $t$ au point A d'abscisse 0 à la courbe représentative de la fonction $f$ définie sur $\R$ par $f(x) = - 2 + (3 - x)\text{e}^x$ est :
+
+$M(x~;~y) \in t \iff y - f(0) = f'(0)(x - 0)$.
+
+Or $f(0) = - 2 + 3\text{e}^0 = - 2 + 3 = 1$ et 
+
+$f'(x) = -\text{e}^x + (3 - x)\text{e}^x = (2 - x)\text{e}^x$, d'où $f'(0) = 2\text{e}^0 = 2$.
+
+Donc $M(x~;~y) \in t \iff y - 1 = 2(x - 0) \iff y = 2x + 1$. L'affirmation est vraie.
+
+\smallskip
+
+\textbf{Affirmation 3 :} %$\displaystyle\lim_{x \to + \infty} \text{e}^{2x} - \text{e}^{x} + \dfrac{3}{x}= 0$.
+On a quel que soit le réel $x$ : $\text{e}^{2x} - \text{e}^{x} + \dfrac{3}{x}= \text{e}^{x}\left(\text{e}^{x} - 1 + \dfrac{3}{x\text{e}^{x}}\right)$.
+
+On a $\displaystyle\lim_{x \to + \infty} x\text{e}^{x} = + \infty$, donc $\displaystyle\lim_{x \to + \infty} \dfrac{3}{x\text{e}^{x}} = 0$.
+
+Par somme de limites $\displaystyle\lim_{x \to + \infty}\text{e}^{x} - 1 + \dfrac{3}{x\text{e}^{x}} = + \infty$ et par produit de limites :
+
+$\displaystyle\lim_{x \to + \infty}\text{e}^{x}\left(\text{e}^{x} - 1 + \dfrac{3}{x\text{e}^{x}}\right) = + \infty$. L'affirmation est fausse.
+
+\smallskip
+
+\textbf{Affirmation 4 :} %L'équation $1 - x + \text{e}^{-x} = 0$ admet une seule solution appartenant à l'intervalle [0~;~2].
+Soit la fonction $f$ définie sur $\R$ par $f(x) = 1 - x + \text{e}^{-x}$
+
+$f$ somme de fonctions dérivables sur $\R$ est dérivable et sur cet intervalle :
+
+$f'(x) = - 1 - \text{e}^{-x} = - \left(1 + \text{e}^{-x} \right) < 0$ car quel que soit le réel $x$, \, $\text{e}^{-x}  > 0$, donc $1 + \text{e}^{-x} > 1$ puis $- \left(1 + \text{e}^{-x} \right) < - 1 < 0$.
+
+La fonction $f$ est strictement décroissante sur $\R$.
+
+%$f(x) = \text{e}^{-x}\left(\text{e}^{x} - x \text{e}^{x} + 1 \right)$
+
+On a $\displaystyle\lim_{x \to - \infty} \text{e}^{-x} = + \infty$, et $\displaystyle\lim_{x \to - \infty} - x = + \infty$\, donc par somme de limites  $\displaystyle\lim_{x \to - \infty} f(x) = + \infty$.
+
+De même $\displaystyle\lim_{x \to + \infty} - x = - \infty$ et $\displaystyle\lim_{x \to + \infty} \text{e}^{- x} = 0$, d'où par somme de limites : $\displaystyle\lim_{x \to + \infty} f(x) = - \infty$.
+
+D'après le théorème des valeurs intermédiaires il existe donc $x_0 \in \R$ tel que $f\left(x_0\right) = 0$.
+
+Comme $f(0) = 1 + 1 = 2 > 0$ et $f(2) = 1 - 2 + \text{e}^{-2} \approx - 0,86 < 0$, on a bien $0 < x_0 < 2$. L'affirmation est vraie.
+\smallskip
+
+\textbf{Affirmation 5 :} %La fonction $g$ définie sur $\R$ par $g(x) = x^2 - 5x + \text{e}^x$ est convexe.
+On a $g'(x) = 2x - 5 + \text{e}^x$ et $g''(x) = 2 + \text{e}^x > 0$ comme somme de deux termes supérieurs à zéro. la fonction $g$ est donc convexe sur $\R$. L'affirmation est vraie.
+
+\bigskip
+

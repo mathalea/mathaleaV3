@@ -12,7 +12,7 @@
   let optionsComponent
 
   onMount(async () => {
-    if (paramsExercice.uuid.substring(0, 5) === 'crpe-' || paramsExercice.uuid.substring(0, 4) === 'dnb_' || paramsExercice.uuid.substring(0, 4) === 'e3c_') {
+    if (paramsExercice.uuid.substring(0, 5) === 'crpe-' || paramsExercice.uuid.substring(0, 4) === 'dnb_' || paramsExercice.uuid.substring(0, 4) === 'e3c_' || paramsExercice.uuid.substring(0, 4) === 'bac_') {
       optionsComponent = {uuid: paramsExercice.uuid, indiceExercice, indiceLastExercice}
       ComponentExercice = (await import('./ExerciceStatic.svelte')).default
     } else {

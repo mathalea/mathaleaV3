@@ -1,26 +1,26 @@
 <script lang="ts">
   import HeaderExercice from './HeaderExercice.svelte'
   import referentielStatic from '../../json/referentielStatic.json'
-  import { getAllExercices } from '../utils/getAllExercices'
   export let uuid: string
   export let indiceExercice
   export let indiceLastExercice
 
+  function getExerciceByUuid (uuid) {
+    for (const examen in referentielStatic) {
+      for (const anneOuTag in referentielStatic[examen]) {
+        for (const exercice in referentielStatic[examen][anneOuTag])
+        if (referentielStatic[examen][anneOuTag][exercice].uuid === uuid) {
+          return referentielStatic[examen][anneOuTag][exercice]
+        }
+      }
+    }
+  } 
 
-
-  const exercices = getAllExercices(referentielStatic)
-  const dictionnaire = {}
-
-  for (const exercice of exercices) {
-    dictionnaire[exercice.uuid] = {...exercice}
-  }
-
-
+  const exercice = getExerciceByUuid(uuid)
+  
   let isCorrectionVisible = false
   let isContentVisible = true
   
-  const exercice = dictionnaire[uuid]
-
   if (typeof exercice.png === 'string') exercice.png = [exercice.png]
   if (typeof exercice.pngCor === 'string') exercice.pngCor = [exercice.pngCor]
 

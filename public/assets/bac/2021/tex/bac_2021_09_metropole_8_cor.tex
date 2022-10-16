@@ -1,0 +1,140 @@
+
+\textbf{Commun à tous les candidats}
+
+\medskip
+
+\begin{center}\textbf{Partie I}\end{center}
+
+On considère la fonction $f$ définie sur $\R$ par 
+
+\[f(x) = x - \text{e}^{-2x}.\]
+
+On appelle $\Gamma$ la courbe représentative de la fonction $f$ dans un repère orthonormé \Oij.
+
+\medskip
+
+\begin{enumerate}
+\item ~%Déterminer les limites de la fonction $f$ en $- \infty$ et en $+ \infty$.
+$\bullet~~$On a $\displaystyle\lim_{x \to - \infty} x = - \infty$ et $\displaystyle\lim_{x \to - \infty}\text{e}^{-2x} = + \infty$ et donc $\displaystyle\lim_{x \to - \infty}-\text{e}^{-2x} = - \infty$ ; donc par somme de limites :
+
+$\displaystyle\lim_{x \to - \infty}f(x) = - \infty$.
+
+$\bullet~~$On a $\displaystyle\lim_{x \to + \infty} x  = + \infty$ et $\displaystyle\lim_{x \to + \infty}\text{e}^{-2x} = 0$ ; donc par somme de limites  $\displaystyle\lim_{x \to - \infty}f(x) = + \infty$.
+\item %Étudier le sens de variation de la fonction $f$ sur $\R$ et dresser son tableau de variation.
+la fonction $f$ est dérivable comme somme de fonctions dérivables sur $\R$ et sur cet intervalle :
+
+$f'(x) = 1 - (- 2)\text{e}^{-2x} = 1 + 2\text{e}^{-2x}$.
+
+On sait que quel que soit $x \in \R$, \, $\text{e}^{-2x} > 0$, donc $ 1 + 2\text{e}^{-2x} > 1 > 0$.
+La dérivée est positive donc la fonction $f$ est strictement croissante de moins l'infini à plus l'infini.
+\item %Montrer que l'équation $f(x) = 0$ admet une unique solution $\alpha$ sur $\R$, dont on donnera une valeur approchée à $10^{-2}$ près.
+La fonction $f$ est continue car dérivable et strictement croissante; comme $0 \in \R$, d'après le corollaire du théorème des valeurs intermédiaires, il existe un réel unique $\alpha \in \R$ telle que $f(\alpha) = 0$.
+
+La calculatrice donne  :
+
+$f(0) = - 1$ et $f(1) \approx 0,865$, donc $0 < \alpha < 1$ ;
+
+$f(0,4) \approx - 0,05$ et $f(0,5) \approx 0,13$, donc $0,4 < \alpha < 0,5$ ;
+
+$f(0,42) \approx - 0,01$ et $f(0,43) \approx 0,007$, donc $0,42 < \alpha < 0,43$.
+\item %Déduire des questions précédentes le signe de $f(x)$ suivant les valeurs de $x$.
+On a donc :
+
+$\bullet~~$sur $]- \infty~;~\alpha[, \, f(x) < 0$ ;
+
+$\bullet~~$sur $]\alpha~;~+ \infty[, \, f(x) > 0$ ;
+
+$\bullet~~$et $f(\alpha) = 0$.
+\end{enumerate}
+
+\begin{center}\textbf{Partie II}\end{center}
+
+
+%Dans le repère orthonormé \Oij, on appelle $\mathcal{C}$ la courbe représentative de la fonction $g$ définie sur $\R$ par:
+%
+%\[g(x) = \text{e}^{-x}.\]
+%
+%La courbes $\mathcal{C}$ et la courbe $\Gamma$ (qui représente la fonction $f$ de la Partie I) sont tracées sur le \textbf{graphique donné en annexe qui est à compléter et à rendre avec la copie.}
+
+%\smallskip
+%
+%Le but de cette partie est de déterminer le point de la courbe $\mathcal{C}$ le plus proche de l'origine O du repère et d'étudier la tangente à $\mathcal{C}$ en ce point.
+%
+%\medskip
+
+\begin{enumerate}
+\item %Pour tout nombre réel $t$, on note $M$ le point de coordonnées $\left(t~;~\text{e}^{-t}\right)$ de la courbe $\mathcal{C}$.
+
+%On considère la fonction $h$ qui, au nombre réel $t$, associe la distance O$M$.
+
+%On a donc: $h(t) = \text{O}M$, c'est-à-dire :
+
+\[h(t) = \sqrt{t^2 + \text{e}^{-2t}}\]
+
+	\begin{enumerate}
+		\item %Montrer que, pour tout nombre réel $t$,
+Soit $u(t) = t^2 + \text{e}^{-2t}$, donc $h(t) = \sqrt{u(t)}$ fonction dérivable car composée de deux fonctions \og racine \fg{}  et $h$ dérivables.
+
+Donc $h'(t) = \dfrac{u'(t)}{2\sqrt{u(t)}} = \dfrac{2t - 2\text{e}^{-2t}}{2\sqrt{t^2 + \text{e}^{-2t}}} = \dfrac{t - \text{e}^{-2t}}{\sqrt{t^2 + \text{e}^{-2t}}} = \dfrac{f(t)}{\sqrt{t^2 + \text{e}^{-2t}}}$.
+%\[h'(t) = \dfrac{f(t)}{\sqrt{t^2 + \text{e}^{-2t}}}.\]
+
+%où $f$ désigne la fonction étudiée dans la \textbf{Partie I}.
+		\item %Démontrer que le point A de coordonnées $\left(\alpha~;~\text{e}^{-\alpha}\right)$ est le point de la courbe $\mathcal{C}$ pour lequel la longueur O$M$ est minimale.
+		
+Le dénominateur étant positif, le signe de $h'(t)$ est celui du numérateur soit $f(t)$ dont on a vu le signe dans la partie I.
+
+Donc :
+
+$\bullet~~$sur $]- \infty~;~\alpha[, \, f(t) < 0$ donc $h'(t) < 0$ : la fonction est strictement décroissante sur cet intervalle ;
+
+$\bullet~~$sur $]\alpha~;~+ \infty[, \, f(x) > 0$ donc $h'(t) > 0$ : la fonction est strictement croissante sur cet intervalle ;
+
+$\bullet~~$et $f(\alpha) = 0$, donc $h(\alpha)$ est le minimum de la fonction $h$.
+
+La distance O$M$ est donc minimale pour $t = \alpha$ et l'ordonnée de $M$ est alors $\text{e}^{- \alpha}$.
+
+Le point de la courbe le plus proche de l'origine est donc le point A$\left(\alpha~;~\text{e}^{-\alpha}\right)$.
+
+%Placer ce point sur le \textbf{graphique donné en annexe, à rendre avec la copie}.
+$\alpha$ est l'abscisse du point d'intersection de $\Gamma$ avec l'axe des abscisses. Il suffit de tracer la parallèle à l'axe des ordonnées passant par ce point, elle coupe $\mathcal{C}$ au point A
+	\end{enumerate}
+\item %On appelle $T$ la tangente en A à la courbe $\mathcal{C}$.
+	\begin{enumerate}
+		\item %Exprimer en fonction de $\alpha$ le coefficient directeur de la tangente $T$.
+Le coefficient directeur de la tangente $T$ au point d'abscisse $\alpha$ est $g'(\alpha) = - \text{e}^{- \alpha}$		
+%On rappelle que le coefficient directeur de la droite (OA) est égal à $\dfrac{\text{e}^{-\alpha}}{\alpha}$.
+%
+%On rappelle également le résultat suivant qui pourra être utilisé sans démonstration:
+%
+%\emph{Dans un repère orthonormé du plan, deux droites $D$ et $D'$ de coefficients directeurs respectifs $m$ et $m'$ sont perpendiculaires si, et seulement si le produit $mm'$ est égal à $-1$.}
+
+		\item %Démontrer que la droite (OA) et la tangente $T$ sont perpendiculaires. 
+D'après le rappel le produit des coefficients directeurs est $- \text{e }^{-\alpha} \times \dfrac{\text{e}^{-\alpha}}{\alpha} = -\dfrac{\text{e }^{-2\alpha}}{\alpha}$.
+
+or on sait que $f(\alpha) = 0 \iff \alpha - \text{e}^{-2\alpha} = 0 \iff \alpha = \text{e}^{-2\alpha} \iff \dfrac{\text{e }^{-2\alpha}}{\alpha} = 1$, donc finalement le produit des coefficients directeurs est égal à $- 1$. La droite (OA) et la tangente $T$ sont perpendiculaires.
+
+Voir à la fin.
+%Tracer ces droites sur le \textbf{graphique donné en annexe, à rendre avec la copie.}
+	\end{enumerate}
+\end{enumerate}
+
+\begin{center}
+
+	\textbf{\large Annexe à compléter et à rendre avec la copie}
+	
+	\psset{unit=3.25cm,comma=true}
+	\begin{pspicture*}(-1,-0.75)(3.25,2.6)
+	\psgrid[gridlabels=0pt,subgriddiv=2,gridwidth=0.08pt](-1,-1)(4,3)
+	\psaxes[linewidth=1.25pt,Dx=0.5,Dy=0.5]{->}(0,0)(-0.99,-0.75)(3.25,2.6)
+	\uput[l](1.5,1.5){\red $\Gamma$}\uput[ur](-0.75,2){\blue $\mathcal{C}$}
+	\psplot[plotpoints=2000,linecolor=red,linewidth=1.25pt]{-1}{3.25}{x 1 2.71828 2 x mul exp div sub}
+	\psplot[plotpoints=2000,linecolor=blue,linewidth=1.25pt]{-1}{3.25}{1 2.71828  x  exp div}
+	\psline[linestyle=dashed,linewidth=1.25pt](0.43,0)(0.43,0.65)(0,0.65)
+	\uput[ur](0.43,0.65){\blue A}\uput[ul](0.43,0){\red $\alpha$}
+	\psplotTangent[linecolor=blue]{0.43}{4}{2.71828 x neg exp}
+	\psplot[plotpoints=200,linewidth=1.25pt]{0}{0.43}{x 1.5128 mul}
+	\uput[dl](0,0){O}
+	\end{pspicture*}
+	\end{center}
+
+	

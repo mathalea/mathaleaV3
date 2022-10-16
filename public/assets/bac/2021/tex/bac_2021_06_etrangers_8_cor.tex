@@ -1,0 +1,146 @@
+
+\textbf{Commun à tous les candidats}
+
+\medskip
+
+ABCDEFGH est un cube. I est le centre de la face ADHE et J est un point du segment [CG].
+
+Il existe donc $a \in [0~;~1]$ tel que $\vect{\text{CJ}} =a \vect{\text{CG}}$.
+
+On note $(d)$ la droite passant par I et parallèle à (FJ).
+
+On note K et L les points d'intersection de la droite $(d)$ et des droites (AE) et (DH).
+
+On se place dans le repère $\left(\text{A}~;~\vect{\text{AB}},\,\vect{\text{AD}},\, \vect{\text{AE}}\right)$. 
+
+\bigskip
+
+\textbf{Partie A : Dans cette partie} \boldmath $a = \dfrac{2}{3}$ \unboldmath
+
+\begin{center}
+\psset{unit=1cm}
+\begin{pspicture}(-0.5,0)(9.5,7.5)
+\pspolygon[fillstyle=solid,fillcolor=lightgray](2,3.65)(4.2,4.05)(8.9,5.6)(6.8,5.2)%KLJF
+\psframe(2,0.5)(6.8,5.2)%ABFE
+\psline(6.8,0.5)(8.9,2.4)(8.9,7.2)(6.8,5.2)%BCGF
+\psline(8.9,7.2)(4.2,7.2)(2,5.1)%GHE
+\psline[linestyle=dashed](2,0.5)(4.2,2.4)(4.2,7.2)%ADH
+\psline[linestyle=dashed](8.9,2.4)(4.2,2.4)
+\psdots(2,0.5)(6.8,0.5)(8.9,2.4)(4.2,2.4)%ABCD
+\uput[dl](2,0.5){A} \uput[d](6.8,0.5){B} \uput[r](8.9,2.4){C} \uput[ul](4.2,2.4){D} 
+\psdots(2,5.2)(6.8,5.2)(8.9,7.2)(4.2,7.2)(8.9,2.4)(8.9,4)(8.9,5.6)(3.1,3.85)%EFGHPJI
+\uput[l](2,5.2){E} \uput[u](6.8,5.2){F} \uput[ur](8.9,7.2){G} \uput[u](4.2,7.2){H} \uput[r](8.9,4){P} 
+\uput[r](8.9,5.6){J}\uput[d](3.1,3.85){I}
+\psline(2,3.65)(6.8,5.2)(8.9,5.6)(4.2,4.05)%KFJL
+\psline(-0.2,3.25)(2,3.65)(4.2,4.05)%KL
+\psdots(2,3.65)(4.2,4.05)%KL
+\uput[ul](2,3.65){K}\uput[dr](4.2,4.05){L}
+\psline[linestyle=dashed](4.2,4.05)(8.9,4.9)
+\psdots[dotstyle=+,dotangle=45,dotscale=1.8](8.9,3.2)(8.9,4.8)(8.9,6.4)
+\end{pspicture}
+\end{center}
+\medskip
+
+\begin{enumerate}
+\item %Donner les coordonnées des points F{}, I et J.
+Dans le repère $\left(\text{A}~;~\vect{\text{AB}},\,\vect{\text{AD}},\, \vect{\text{AE}}\right)$, \, F(1~;~0~;~1), \, I milieu de [AH] et de de [DE], donc I$\left(0~;~\frac{1}{2}~;~\frac{1}{2}\right)$ et J$\left(1~;~1~;~\frac{2}{3}\right)$
+
+\item %Déterminer une représentation paramétrique de la droite $(d)$.
+On a $M(x~;~y~;~z) \in (d) \iff \text{il existe } t \in \R,\, \text{tel que}\, \vect{\text{I}M} = t\vect{\text{FJ}}$.
+
+Avec $\vect{\text{I}M}\begin{pmatrix}x - 0\\y - \frac{1}{2}\\z - \frac{1}{2}\end{pmatrix}$ et 
+$\vect{\text{FJ}}\begin{pmatrix}0\\1\\-\frac{1}{3}\end{pmatrix}$, on a donc 
+
+$M(x~;~y~;~z) \in (d) \iff \left\{\begin{array}{l c l}
+x&=&t \times 0\\
+y - \frac{1}{2}&=&t \times 1\\
+z - \frac{1}{2}&=&t \times \left( -\frac{1}{3}\right)
+\end{array}\right. \iff \left\{\begin{array}{l c l}
+x&=&0\\
+y &=&\frac{1}{2} + t \\
+z &=&\frac{1}{2} -\frac{t}{3}
+\end{array}\right.\, t \in \R$.
+\item 
+	\begin{enumerate}
+		\item %Montrer que le point de coordonnées $\left(0~;~ 0~;~\dfrac{2}{3}\right)$ est le point K.
+Le point K est le point de $(d)$ d'ordonnée nulle, soit $t + \frac{1}{2} = 0 \iff t = - \frac{1}{2}$. Sa cote est donc $z = \frac{1}{2} - \frac{- \frac{1}{2}}{3} = - \frac{1}{2} + \frac{1}{6} = \frac{3}{6} + \frac{1}{6} = \frac{4}{6} = \frac{2}{3}$.
+		
+Donc K$\left(0~;~ 0~;~\dfrac{2}{3}\right)$.
+		\item %Déterminer les coordonnées du point L, intersection des droites $(d)$ et (DH).
+		Tous les points de (DH) ont une ordonnée égale à 1.
+
+Or un point de $(d)$ a une ordonnée égale à $\frac{1}{2} + t = 1 \iff t = \frac{1}{2} $.
+
+Enfin L a une cote égale à $z = \frac{1}{2} - \frac{t}{3} = \frac{1}{2} - \frac{1}{6}  = \frac{3}{6} - \frac{1}{6} = \frac{2}{6} = \frac{1}{3}$.
+
+L$\left(0~;~1~;~ \frac{1}{3}\right)$.
+	\end{enumerate}
+\item
+	\begin{enumerate}
+		\item %Démontrer que le quadrilatère FJLK est un parallélogramme.
+Le milieu de [FL] a pour coordonnées $\left(\dfrac{1 + 0}{2}~;~\dfrac{0 + 1}{2}~;~\dfrac{1 + \frac{1}{3}}{2} \right)$, soit $\left(\dfrac{1}{2}~;~\dfrac{1}{2}~;~\dfrac{2}{3} \right)$.
+
+Le milieu de [JK] a pour coordonnées $\left(\dfrac{0 + 1}{2}~;~\dfrac{1 + 0}{2}~;~\dfrac{\frac{2}{3} + \frac{2}{3}}{2} \right)$, soit $\left(\dfrac{1}{2}~;~\dfrac{1}{2}~;~\dfrac{2}{3} \right)$.
+
+Conclusion : les diagonales de FJLK ont le même milieu : FJLK est un parallélogramme.
+		\item %Démontrer que le quadrilatère FJLK est un losange.
+		On a $\vect{\text{FL}}\begin{pmatrix}-1\\1\\- \dfrac{2}{3}\end{pmatrix}$ et  $\vect{\text{JK}}\begin{pmatrix}-1\\-1\\ 0\end{pmatrix}$.
+	
+	Donc $\vect{\text{FL}} \cdot \vect{\text{JK}} = 1 - 1 + 0 = 0$ : les vecteurs sont orthogonaux, les diagonales du parallélogramme sont perpendiculaires, don FJLK est un losange.
+		\item %Le quadrilatère FJLK est-il un carré ?
+		On a $\vect{\text{KF}}\begin{pmatrix}1\\0\\\dfrac{1}{3}\end{pmatrix}$ et $\vect{\text{FJ}}\begin{pmatrix}0\\1\\-\dfrac{1}{3}\end{pmatrix}$, donc $\vect{\text{KF}} \cdot \vect{\text{FJ}} = 0 + 0 - \dfrac{1}{9} \ne 0$ : les vecteurs ne sont pas orthogonaux, donc les côtés consécutifs [KF] et [FJ] ne sont pas perpendiculaires, donc FJLK n'est pas un rectangle, donc pas un carré.
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie B : Cas général}
+
+\medskip
+
+On admet que les coordonnées des points K et L sont : K$\left(0~;~0~;~1- \dfrac{a}{2}\right)$ et L$\left(0~;~1~;~\dfrac{a}{2}\right)$.
+
+On rappelle que $a \in [0~;~1]$.
+
+\medskip
+
+\begin{enumerate}
+\item %Déterminer les coordonnées de J en fonction de $a$.
+On sait que J est défini par $\vect{\text{CJ}} = a \vect{\text{CG}}$.
+
+On a avec G(1~;~1~;~1), \, $\vect{\text{CG}}\begin{pmatrix}0\\0\\ 1\end{pmatrix}$; donc $a \vect{\text{CG}}\begin{pmatrix}0\\0\\a\end{pmatrix}$, donc $\vect{\text{CJ}}\begin{pmatrix}0\\0\\a\end{pmatrix}$ et comme C a pour coordonnées (1~;~1~;~0), on en déduit que J a pour coordonnées $(1~;~1~;~a)$.
+\item %Montrer que le quadrilatère FJLK est un parallélogramme.
+On a $\vect{\text{FJ}}\begin{pmatrix}0\\1\\a - 1\end{pmatrix}$ et $\vect{\text{KL}}\begin{pmatrix}0\\1\\a - 1\end{pmatrix}$.
+
+Donc $\vect{\text{FJ}} = \vect{\text{KL}} \iff $ FJLK est un parallélogramme.
+\item %Existe-t-il des valeurs de $a$ telles que le quadrilatère FJLK soit un losange ? Justifier.
+On a $\vect{\text{FL}}\begin{pmatrix}-1\\1\\\dfrac{a}{2} - 1\end{pmatrix}$ et $\vect{\text{JK}}\begin{pmatrix}- 1\\-1\\1 - \dfrac{3a}{2} \end{pmatrix}$.
+
+Donc $\vect{\text{FL}} \cdot \vect{\text{JK}} = 1 - 1 + 
+\left(\dfrac{a}{2} - 1 \right)\left(1 - \dfrac{3a}{2} \right) = \left(\dfrac{a}{2} - 1 \right)\left(1 - \dfrac{3a}{2} \right)$.
+
+On a $\vect{\text{FL}} \cdot \vect{\text{JK}} = 0 \iff 
+\left\{\begin{array}{l c l}
+\dfrac{a}{2} - 1 &=&0\\
+&\text{ou}&\\
+1 - \dfrac{3a}{2}&=&0
+\end{array}\right. \iff \left\{\begin{array}{l c l}
+\dfrac{a}{2}  &=&1\\
+&\text{ou}&\\
+1 &=&\dfrac{3a}{2}
+\end{array}\right. \iff \left\{\begin{array}{l c l}
+a&=&2\\
+&\text{ou}&\\
+\dfrac{2}{3}&=&a
+\end{array}\right.$
+
+La seule solution de l'intervalle [0~;~1] est $\dfrac{2}{3}$, la valeur particulière de la partie A.
+
+Dans ce cas le produit scalaires étant nul, les vecteurs sont orthogonaux, donc les droites sont particulières : les diagonales du parallélogramme étant perpendiculaires, le quadrilatère FJLK est un losange.
+\item %Existe-t-il des valeurs de $a$ telles que le quadrilatère FJLK soit un carré ? Justifier.
+On a vu dans la question précédente que seule la valeur $\dfrac{2}{3}$ de $a$ donnait un losange FJLK et dans la question \textbf{4. c.} on  a vu qu'alors le losange n'était pas un carré.
+
+\end{enumerate}
+
+\medskip
+

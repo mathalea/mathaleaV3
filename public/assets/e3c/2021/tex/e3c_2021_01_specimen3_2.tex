@@ -1,0 +1,39 @@
+\textbf{\large Exercice 2 \hfill 5 points}
+
+\bigskip
+
+Soit $f$ la fonction définie sur $\R$ par $f(x)=(2x+1)\e^{x}$.
+
+Sur le graphique ci-dessous, sont tracées la courbe $\mathcal{C}_f$ représentative de la fonction $f$, et la droite $T$, tangente à cette courbe au point d'abscisse 0.
+
+\begin{center}
+\psset{xunit=0.6cm, yunit=1cm, runit=1cm}
+\def\xmin {-6}   \def\xmax {6} \def\ymin {-2.1}   \def\ymax {4}
+\begin{pspicture*}(\xmin,\ymin)(\xmax,\ymax)
+%\psgrid[subgriddiv=1,  gridlabels=0, gridcolor=lightgray] 
+\psaxes[arrowsize=3pt 2, ticks=none, labels=none]{->}(0,0)(\xmin,\ymin)(\xmax,\ymax)[$x$,-120][$y$,210] 
+\psline(1,-0.1)(1,0.1) \psline(-0.1,1)(0.1,1)
+\uput[dl](0,0){$0$}
+%\psaxes[ linewidth=1.8pt]{->}(0,0)(1,1) 
+%\uput[d](0.5,0){$\vec{\imath}$} \uput[l](0,0.5){$\vec{\jmath}$}
+\uput[d](1,0){1} \uput[l](0,1){1}
+\def\f{2 x mul 1 add 2.7183 x exp mul}                           % définition de la fonction
+\psplot[linecolor=blue,plotpoints=1000,linewidth=1.25pt]{\xmin}{\xmax}{\f}
+\uput[dl](-2,-0.41){\blue $\mathcal{C}_f$}
+\psplot[linecolor=red,plotpoints=1000,linewidth=1pt]{\xmin}{\xmax}{3 x mul 1 add}
+\uput[l](-0.9,-1.7){\red $T$}
+\end{pspicture*}
+\end{center}
+
+\begin{enumerate}
+\item  Déterminer les coordonnées des éventuels points d'intersection de la courbe $\mathcal{C}_f$  avec l’axe des abscisses.
+\item Montrer que, pour tout $x$ réel, que $f'(x)=(2x+3)\e^{x}$.
+\item Dresser le tableau de signes de $f'(x)$ sur $\R$, puis préciser les variations de $f$ sur $\R$.
+\item \begin{enumerate}
+\item Déterminer l'équation réduite de la tangente $T$.
+\item Justifier graphiquement que, pour tout réel $x$, on a: $(2x+1)\e^{x} \geqslant 3x+1$.
+\end{enumerate}
+\end{enumerate}
+
+\vspace{0,5cm}
+

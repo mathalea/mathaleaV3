@@ -1,0 +1,62 @@
+
+\medskip
+
+\begin{tabularx}{\linewidth}{|X|}\hline
+\textbf{Principaux domaines abordés : Suites numériques; raisonnement par récurrence ; suites géométriques.}\\ \hline
+\end{tabularx}
+
+\medskip
+
+La suite $\left(u_n\right)$ est définie sur $\N$ par $u_0 = 1$ et pour tout entier naturel $n$, 
+
+\[u_{n+1} = \dfrac{3}{4}u_n + \dfrac{1}{4}n + 1.\]
+
+
+\smallskip
+
+\begin{enumerate}
+\item Calculer, en détaillant les calculs, $u_1$ et $u_2$ sous forme de fraction irréductible.
+\end{enumerate}
+
+\medskip
+
+\parbox{0.5\linewidth}{L'extrait, reproduit ci-contre, d'une feuille de calcul réalisée avec un tableur présente les valeurs des premiers termes de la suite $\left(u_n\right)$.} \hfill
+\parbox{0.35\linewidth}{
+\begin{tabularx}{\linewidth}{|c|*{2}{>{\centering \arraybackslash}X|}}\hline
+\cellcolor{lightgray}{} 	& \cellcolor{lightgray}A&\cellcolor{lightgray}B \\ \hline
+\cellcolor{lightgray}1	&$n$&$u_n$\\ \hline
+\cellcolor{lightgray}2 	&0	&1\\ \hline
+\cellcolor{lightgray}3 	&1	&1,75\\ \hline
+\cellcolor{lightgray}4 	&2	&\np{2,5625}\\ \hline
+\cellcolor{lightgray}5 	&3	&\np{3,421875}\\ \hline
+\cellcolor{lightgray}6 	&4	&\np{4,31640625}\\ \hline
+\end{tabularx}}
+
+\medskip
+
+
+\begin{enumerate}[resume]
+\item
+	\begin{enumerate}
+		\item Quelle formule, étirée ensuite vers le bas, peut-on écrire dans la cellule B3 de la feuille de calcul pour obtenir les termes successifs de $\left(u_n\right)$ dans la colonne B ?
+		\item Conjecturer le sens de variation de la suite $\left(u_n\right)$.
+	\end{enumerate}
+\item
+	\begin{enumerate}
+		\item Démontrer par récurrence que, pour tout entier naturel $n$, on a : $n \leqslant u_n \leqslant n + 1$.
+		\item En déduire, en justifiant la réponse, le sens de variation et la limite de la suite 
+		$\left(u_n\right)$.
+		\item Démontrer que :
+		
+\[\displaystyle\lim_{n \to + \infty} \dfrac{u_n}{n} = 1.\]
+
+	\end{enumerate}
+\item  On désigne par $\left(v_n\right)$ la suite définie sur $\N$ par $v_n = u_n - n$
+	\begin{enumerate}
+		\item Démontrer que la suite $\left(v_n\right)$ est géométrique de raison $\dfrac{3}{4}$.
+		\item En déduire que, pour tout entier naturel $n$,on a : $u_n = \left(\dfrac{3}{4}\right)^n + n$.
+	\end{enumerate}
+\end{enumerate}
+
+\bigskip
+

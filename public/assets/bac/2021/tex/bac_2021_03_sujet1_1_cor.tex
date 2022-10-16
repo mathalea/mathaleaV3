@@ -1,0 +1,120 @@
+\textbf{\large Exercice 1 \hfill Commun à tous les candidats \hfill 5 points}
+
+\medskip
+
+Dans une école de statistique, après étude des dossiers des candidats, le recrutement se fait de deux façons :
+
+\setlength\parindent{1cm}
+\begin{itemize}
+\item[$\bullet~~$] 10\,\% des candidats sont sélectionnés sur dossier. Ces candidats doivent ensuite passer un oral à l'issue duquel 60\,\% d'entre eux sont finalement admis à l'école.
+\item[$\bullet~~$] Les candidats n'ayant pas été sélectionnés sur dossier passent une épreuve écrite à l'issue de laquelle 20\,\% d'entre eux sont admis à l'école.
+\end{itemize}
+\setlength\parindent{0cm}
+
+%\bigskip
+
+\begin{center}
+\textbf{Partie I}
+\end{center}
+
+On choisit au hasard un candidat à ce concours de recrutement. On notera:
+
+\setlength\parindent{1cm}
+\begin{itemize}
+\item[$\bullet~~$] $D$ l'évènement \og le candidat a été sélectionné sur dossier \fg{} ;
+\item[$\bullet~~$] $A$ l'évènement \og le candidat a été admis à l'école \fg{} ;
+\item[$\bullet~~$] $\overline{D}$ et $\overline{A}$ les évènements contraires des évènement $D$ et $A$ respectivement.
+\end{itemize}
+\setlength\parindent{0cm}
+
+\medskip
+
+\begin{enumerate}
+\item On traduit la situation par un arbre pondéré:
+
+\begin{center}
+{%\bigskip
+\psset{levelsep=3cm,nodesepB=4pt, treesep=10mm}
+\pstree[treemode=R,nodesepA=0pt]% R pour Right
+       {\TR{}}
+       {
+       \pstree[nodesepA=4pt]{\TR{$D$}\naput{$0,1$}}
+	                        {
+	                        \TR{$A$}\naput{$0,6$}
+			                \TR{$\overline{A}$}\nbput{$0,4$}
+	                        }
+       \pstree[nodesepA=4pt]{\TR{$\overline{D}$}\nbput{$0,9$}}
+	                        {
+	                        \TR{$A$}\naput{$0,2$}
+			                \TR{$\overline{A}$}\nbput{$0,8$}
+	                        }
+      }
+}
+\bigskip
+\end{center}
+
+\item La probabilité que le candidat soit sélectionné sur dossier et admis à l'école est:
+
+$P(D\cap A)=0,1\times 0,6=0,06$.
+
+\item La probabilité de l'évènement  $A$ est $P(A)$.
+
+D'après la formule des probabilités totales:
+
+$P(A) = P(D\cap A) + P(\overline{D}\cap A) = 0,06 + 0,9\times 0,2 = 0,24$.
+
+\item On choisit au hasard un candidat admis à l'école. La probabilité que son dossier n'ait pas été sélectionné est:
+
+$P_A(\overline{D}) = \dfrac{P(\overline{D}\cap A)}{P(A)} = \dfrac{0,18}{0,24}=0,75$.
+\end{enumerate}
+
+%\bigskip
+
+\begin{center}
+\textbf{Partie II}
+\end{center}
+
+\begin{enumerate}
+\item On admet que la probabilité pour un candidat d'être admis à l'école est égale à $0,24$.
+
+On considère un échantillon de sept candidats choisis au hasard, en assimilant ce choix à un tirage au sort avec remise. On désigne par $X$ la variable aléatoire dénombrant les candidats admis à l'école parmi les sept tirés au sort.
+	\begin{enumerate}
+		\item On admet que la variable aléatoire $X$ suit une loi binomiale. %Quels sont les paramètres de cette loi?
+		
+La probabilité pour un candidat d'être admis à l'école est égale à $p=0,24$, et on choisit un échantillon de 7 candidats donc $n=7$.
+
+La variable aléatoire $X$ suit donc la loi binomiale $\mathcal{B}\left (7\,;\,0,24\right )$.
+		
+		\item La probabilité qu'un seul des sept candidats tirés au sort soit admis à l'école est:
+		
+$P(X=1)= \ds\binom{7}{1}\times 0,24^1 \times (1-0,24)^{7-1} \approx 0,32$.		
+		
+		\item La probabilité qu'au moins deux des sept candidats tirés au sort soient admis à cette école est: $P(X\geqslant 2) = 1-P(X\leqslant 1) = 1-0,47=0,53$.		
+		
+	\end{enumerate}
+	
+\item  Un lycée présente $n$ candidats au recrutement dans cette école, où $n$ est un entier naturel non nul.
+
+On admet que la probabilité pour un candidat quelconque du lycée d'être admis à l'école est égale à $0,24$ et que les résultats des candidats sont indépendants les uns des autres.
+
+	\begin{enumerate}
+		\item La variable aléatoire $Y$ qui donne le nombre d'admis parmi les $n$ candidats présentés suit la loi binomiale $\mathcal{B}\left (n\;;\;0,24\right )$.
+		
+		 La probabilité qu'aucun candidat issu de ce lycée ne soit admis à l'école est:
+		
+$P(Y=0) = \ds\binom{n}{0}\times 0,24^0 \times 0,76^n=0,76^n$.		
+		
+		\item On cherche à partir de quelle valeur de l'entier $n$ la probabilité qu'au moins un élève de ce lycée soit admis à l'école est supérieure ou égale à $0,99$.
+		
+On veut donc que $P(Y\geqslant 1) \geqslant 0,99$ c'est-à-dire $1-P(Y=0) \geqslant 0,99$ ou encore\\ $P(Y=0) \leqslant 0,01$. On résout l'inéquation d'inconnue $n$: $0,76^n \leqslant 0,01$:		
+		
+$0,76^n \leqslant 0,01 \iff \ln\left (0,76^n\right ) \leqslant \ln\left (0,01\right )
+\iff n \times \ln\left (0,76\right ) \leqslant \ln\left (0,01\right )
+\iff n \geqslant \dfrac{\ln\left (0,01\right )}{\ln\left (0,76\right )}$
+
+Or $\dfrac{\ln\left (0,01\right )}{\ln\left (0,76\right )}\approx 16,8$ donc c'est à partir de 17 élèves que la probabilité qu'au moins un élève de ce lycée soit admis à l'école est supérieure ou égale à $0,99$.
+\end{enumerate}
+\end{enumerate}
+
+\bigskip
+

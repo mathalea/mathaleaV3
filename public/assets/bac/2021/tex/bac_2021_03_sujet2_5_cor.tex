@@ -1,0 +1,212 @@
+\textbf{\large Exercice B}
+
+\medskip
+
+\begin{tabularx}{\linewidth}{|X|}\hline
+\textbf{Principaux domaines abordés :
+Fonction logarithme ; dérivation.}\\ \hline
+\end{tabularx}
+
+\bigskip
+
+\textbf{Partie I: étude d'une fonction auxiliaire}
+
+\medskip
+
+Soit $g$ la fonction définie sur $]0~;~+\infty[$ par: $g(x) = \ln(x) + 2x - 2$.
+
+\smallskip
+
+\begin{enumerate}
+\item On détermine les limites de $g$ en $+\infty$ et $0$.
+
+$\left.
+\begin{array}{@{} r}
+\ds\lim_{x\to +\infty} \ln (x) = +\infty\\
+\ds\lim_{x\to +\infty} 2x -2= +\infty
+\end{array}
+\right \rbrace
+\implies
+\ds\lim_{x\to +\infty} g(x) = +\infty$
+
+$\left.
+\begin{array}{@{} r}
+\ds\lim_{x\to 0\atop x>0} \ln (x) = -\infty\\
+\ds\lim_{x\to 0} 2x-2 = -2
+\end{array}
+\right \rbrace
+\implies
+\ds\lim_{x\to 0\atop x>0} g(x) = -\infty$
+
+\item La fonction $g$ est dérivable sur $]0~;~ +\infty[$, et $g'(x)=\dfrac{1}{x}+2>0$; donc la fonction $g$ est strictement croissante sur $]0~;~ +\infty[$.
+
+\item %Démontrer que l'équation $g(x) = 0$ admet une unique solution $\alpha$ sur $]0~;~ +\infty[$. 
+On établit le tableau des variations de la fonction $g$:
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.3}
+\def\esp{\hspace*{3cm}}
+\psset{nodesep=3pt,arrowsize=2pt 3}  % paramètres
+$\begin{array}{|c|l *2{c}|}
+\hline
+ x & 0   & \esp & +\infty \\
+ \hline
+  & \vline\;\vline\:  &    & \Rnode{max}{+\infty}   \\
+g(x) & \vline\;\vline\: &  &  \\
+ &   \vline\;\vline\:  \Rnode{min}{-\infty} & & 
+\ncline{->}{min}{max}
+\rput*(-2,0.68){\Rnode{zero}{\blue 0}}
+\rput(-2,1.7){\Rnode{alpha}{\blue \alpha}}
+\ncline[linestyle=dotted, linecolor=blue]{alpha}{zero}\\
+\hline
+\end{array}$
+}
+\end{center}
+
+D'après ce tableau de variations, on peut dire que l'équation $g(x) = 0$ admet une unique solution $\alpha$ sur $]0~;~ +\infty[$. 
+
+\item $g(1)=0$ donc $\alpha=1$.% puis déterminer le signe de $g$ sur $]0~;~ +\infty[$.
+
+On en déduit que $g(x)<0$ sur $]0~;~1[$, et que $g(x) >0$ sur $]1~;~+\infty[$.
+
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie II : étude d'une fonction } \boldmath $f$\unboldmath
+
+\medskip
+
+On considère la fonction $f$, définie sur $]0~;~ +\infty[$par: $f(x) = \left(2 - \dfrac{1}{x}\right)[\ln (x) - 1]$.
+
+\begin{enumerate}
+\item 
+	\begin{enumerate}
+		\item On admet que la fonction $f$ est dérivable sur $]0~;~ +\infty[$ et on note $f'$ sa dérivée.
+
+%Démontrer que, pour tout $x$ de $]0~;~ +\infty[$, on a :  $f'(x) = \dfrac{g(x)}{x^2}$.
+
+Pour tout $x$ de $]0~;~ +\infty[$, on a:
+
+$f'(x) = \left (\dfrac{1}{x^2}\right )\left (\ln(x)-1\right ) + \left (2-\dfrac{1}{x}\right )\left (\dfrac{1}{x}\right )
+= \dfrac{\ln(x)-1 +2x-1}{x^2}
+= \dfrac{\ln(x)+2x-2}{x^2}
+=\dfrac{g(x)}{x^2}$
+
+		\item %Dresser le tableau de variation de la fonction $f$ sur $]0~;~ +\infty[$. Le calcul des limites n'est pas demandé.
+Sur $]0~;~ +\infty[$, $x^2>0$ donc $f'(x)$ est du signe de $g(x)$ qui s'annule pour $x=1$.
+
+$f(1) = \left (2-\dfrac{1}{1}\right )\left (\ln(1)-1\right ) = -1$
+
+On dresse le tableau de variations de $f$:
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.3}
+\psset{nodesep=3pt,arrowsize=2pt 3}  % paramètres
+\def\esp{\hspace*{1.5cm}}% pour modifier la largeur du tableau
+\def\hauteur{0pt}% mettre au moins 20pt pour augmenter la hauteur
+$\begin{array}{|c| l *3{c} c|}
+\hline
+ x & 0 & \esp & 1 & \esp & +\infty \\
+ \hline
+g(x) & \vline\;\vline\; &  \pmb{-} & \vline\hspace{-2.7pt}0 & \pmb{+} & \\  
+\hline
+f'(x) &  \vline\;\vline\;  &  \pmb{-} & \vline\hspace{-2.7pt}0 & \pmb{+} & \\  
+\hline
+  & \vline\;\vline\;  \Rnode{max1}{}  &  &  &  & \Rnode{max2}{}   \\
+f(x) & \vline\;\vline\;  &  & & &  \rule{0pt}{\hauteur} \\
+ &  \vline\;\vline\;  & &   \Rnode{min}{-1} & & \rule{0pt}{\hauteur}
+\ncline{->}{max1}{min} \ncline{->}{min}{max2}\\
+\hline
+\end{array}$
+}
+\end{center}		
+		
+	\end{enumerate}
+\item  %Résoudre l'équation $f(x) = 0$ sur $]0~;~ +\infty[$ puis dresser le tableau de signes de $f$ sur l'intervalle $]0~;~ +\infty[$.
+$f(x)=0 \iff \left (2-\dfrac{1}{x}\right )\left ( \ln(x)-1\right )=0
+\iff 2-\dfrac{1}{x}=0 \text{ ou } \ln(x)-1=0\\[5pt]
+\phantom{f(x)=0}
+\iff 2=\dfrac{1}{x} \text{ ou } \ln(x)=1
+\iff x=\dfrac{1}{2} \text{ ou } x=\e$
+
+L'équation $f(x) = 0$ admet donc deux solutions sur $]0~;~ +\infty[$: $x=\dfrac{1}{2}$ et $x=\e$.
+
+On complète le tableau de variations de $f$ en intégrant les solutions de l'équation $f(x)=0$:
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.3}
+\psset{nodesep=3pt,arrowsize=2pt 3}  % paramètres
+\def\esp{\hspace*{1.5cm}}% pour modifier la largeur du tableau
+\def\hauteur{0pt}% mettre au moins 20pt pour augmenter la hauteur
+$\begin{array}{|c| l *3{c} c|}
+\hline
+ x & 0 & \esp & 1 & \esp & +\infty \\
+\hline
+  & \vline\;\vline\; \Rnode{max1}{}  &  &  &  & \Rnode{max2}{}   \\
+f(x) &  \vline\;\vline\;  &  & & &  \rule{0pt}{\hauteur} \\
+ &  \vline\;\vline\;  &  &   \Rnode{min}{-1} & & \rule{0pt}{\hauteur}
+\ncline{->}{max1}{min} \ncline{->}{min}{max2}
+\rput*(-3.7,0.55){\Rnode{zero}{\blue 0}}
+\rput(-3.7,1.78){\Rnode{alpha}{\blue \frac{1}{2}}}
+\ncline[linestyle=dotted, linecolor=blue]{alpha}{zero}
+\rput*(-1.3,0.65){\Rnode{zero2}{\red 0}}
+\rput(-1.3,1.78){\Rnode{beta}{\red \e}}
+\ncline[linestyle=dotted, linecolor=red]{beta}{zero2}
+\\
+\hline
+\end{array}$
+}
+\end{center}
+
+On en déduit le tableau de signes de la fonction $f$ sur $]0~;~ +\infty[$:
+
+\begin{center}
+{
+\renewcommand{\arraystretch}{1.5}
+\def\esp{\hspace*{2cm}}
+$\begin{array}{|c |l *{6}{c} |} 
+\hline
+x  & 0 & \esp & \frac{1}{2} & \esp & \e & \esp & +\infty \\
+\hline
+f(x) & \vline\;\vline\; & \pmb{+} &  \vline\hspace{-2.7pt}{0} & \pmb{-} & \vline\hspace{-2.7pt}{0} & \pmb{+} &\\
+\hline
+\end{array}$
+}
+\end{center}
+
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie III : étude d'une fonction \boldmath $F$\unboldmath{} admettant pour dérivée la fonction \boldmath $f$\unboldmath}
+
+\medskip
+
+On admet qu'il existe une fonction $F$ dérivable sur $]0~;~+\infty[$ dont la dérivée $F'$ est la fonction $f$.
+Ainsi, on a : $F' = f$.
+On note $\mathcal{C}_F$ la courbe représentative de la fonction $F$ dans un repère orthonormé \Oij. %On ne cherchera pas à  déterminer une expression de $F(x)$.
+
+\begin{enumerate}
+\item %à‰tudier les variations de $F$ sur $]0~;~ +\infty[$.
+Par définition $F'= f$, donc le signe de $F'(x)$ est celui de $f(x)$. On en déduit les variations de la fonction $F$ sur $]0~;~ +\infty[$:
+
+\begin{center}
+{
+\renewcommand{\arraystretch}{1.5}
+\def\esp{\hspace*{2cm}}
+$\begin{array}{|c |l *{6}{c} |} 
+\hline
+x  & 0 & \esp & \frac{1}{2} & \esp & \e & \esp & +\infty \\
+\hline
+F'(x)=f(x) & \vline\;\vline\; & \pmb{+} &  \vline\hspace{-2.7pt}{0} & \pmb{-} & \vline\hspace{-2.7pt}{0} & \pmb{+} &\\
+\hline
+F & \vline\;\vline\; & F \text{ croissante} &  \vline\hspace{-2.7pt}{\phantom 0} & F \text{ décroissante} & \vline\hspace{-2.7pt}{\phantom 0} & F \text{ croissante} &\\
+\hline
+\end{array}$
+}
+\end{center}
+\item Le coefficient directeur de la tangente en $x=a$ à  la courbe $\mathcal{C}_F$ représentative  de $F$ est $F'(a)$ soit $f(a)$. Pour que $\mathcal{C}_F$ admette des tangentes parallèles à l'axe des abscisses, il faut trouver des valeurs de $x$ pour lesquelles $F'(x)=0$ c'est-à -dire $f(x)=0$.
+
+D'après les questions précédentes, on peut dire  $\mathcal{C}_F$ admet deux tangentes parallèles à  l'axe des abscisses, en $x=\frac{1}{2}$ et en $x=\e$.
+\end{enumerate}

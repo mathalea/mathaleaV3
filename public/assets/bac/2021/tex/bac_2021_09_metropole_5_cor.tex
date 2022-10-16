@@ -1,0 +1,158 @@
+
+\medskip
+
+\begin{tabular}{|l|}\hline
+Principaux domaines abordés:\\
+Fonction logarithme.\\ \hline
+\end{tabular}
+
+\bigskip
+
+\textbf{Partie I}
+
+\medskip
+
+On considère la fonction $h$ définie sur l'intervalle $]0~;~ +\infty[$ par:
+$h(x) = 1 + \dfrac{\ln (x)}{x}.$
+
+\smallskip
+
+\begin{enumerate}
+\item %Déterminer la limite de la fonction $h$ en $0$.
+$\displaystyle\lim_{x \to 0 \atop x>0} \ln x = - \infty$, et $\displaystyle\lim_{x \to 0 \atop x>0} \dfrac{1}{x} = + \infty$.
+
+Par produit on déduit que $\displaystyle\lim_{x \to 0 \atop x>0} \dfrac{\ln x}{x} = - \infty$ et donc que $\displaystyle\lim_{x \to 0 \atop x>0} h(x) = - \infty$.
+
+\item %Déterminer la limite de la fonction $h$ en $+\infty$.
+On sait que $\displaystyle\lim_{x \to + \infty}\dfrac{\ln x}{x} = 0$, donc $\displaystyle\lim_{x \to + \infty} h(x) = 1$
+\item %On note $h'$ la fonction dérivée de $h$. Démontrer que, pour tout nombre réel $x$ de $]0~;~ +\infty[$, on a:
+La fonction $h$ est dérivable comme quotient de fonctions dérivables sur $]0~;~ +\infty[$ et sur cet intervalle :
+$h'(x) = \dfrac{\frac{1}{x} \times x - 1 \times \ln x}{x^2} = \dfrac{1 - \ln x}{x^2}$.
+%\[h'(x) = \dfrac{1 - \ln (x)}{x^2}.\]
+
+\smallskip
+
+\item %Dresser le tableau de variations de la fonction $h$ sur l'intervalle $]0~;~ +\infty[$.
+Comme $x^2 > 0$ pour $x \in ]0~;~+ \infty[$ le signe de $h'(x)$ est celui du numérateur $1 - \ln x$ :
+
+\begin{list}{\textbullet}{}
+\item $1 - \ln x > 0 \iff 1 > \ln x \iff \text{e} > x$ : \\
+la fonction $h$ est donc strictement croissante sur $]0~;~\text{e}[$ ;
+
+\item $1 - \ln x < 0 \iff 1 < \ln x \iff \text{e} < x$ :\\
+ la fonction $h$ est donc strictement décroissante sur $]\text{e}~;~+ \infty[$ ;
+
+\item $1 - \ln x = 0 \iff 1 = \ln x \iff \text{e} = x$ : \\
+la fonction $h$ a un maximum $f(\text{e}) = 1 + \dfrac{\ln \text{e}}{\text{e}} = 1 + \dfrac{1}{\text{e}}$.
+\end{list}
+
+D'où le tableau de variations de $h$ :
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.3}
+\psset{nodesep=3pt,arrowsize=2pt 3}%  paramètres
+\def\esp{\hspace*{2.5cm}}% pour modifier la largeur du tableau
+\def\hauteur{0pt}% mettre au moins 20pt pour augmenter la hauteur
+$\begin{array}{|c|l*4{c}|}
+\hline
+x & 0  & \esp & \e\, & \esp & +\infty \\ 
+\hline
+h'(x) & \vline\;\vline &   \pmb{+} & \vline\hspace{-2.7pt}0 & \pmb{-} & \\ 
+\hline
+ &  \vline\;\vline & &   \Rnode{max}{1+\frac{1}{\e}}  &  &   \\  
+h &\vline\;\vline &     &  &  &  \rule{0pt}{\hauteur} \\ 
+ &\vline\;\vline \Rnode{min1}{~-\infty} &   &  &  &   \Rnode{min2}{1} \rule{0pt}{\hauteur}    
+ \ncline{->}{min1}{max} 
+ \ncline{->}{max}{min2} 
+ \\ 
+\hline
+\end{array} $
+}
+\end{center}	
+
+\item %Démontrer que l'équation $h(x) = 0$ admet une unique solution $\alpha$ dans $]0~;~ +\infty[$.
+Comme $1 + \frac{1}{\text{e}} > 1 > 0$, le tableau de variations montre que l'équation $h(x) = 0$ admet une solution unique $\alpha \in ]0~;~\text{e}[$.
+
+On a $f(1) = 1 + \dfrac{0}{1} = 1$, donc $0 < \alpha < 1$ ;
+
+La calculatrice donne :
+$f(0,5) \approx - 0,4$ et $f(0,6) \approx 0,15$, donc $0,5 < \alpha < 0,6$.
+%Justifier que l'on a : $0,5 < \alpha < 0,6$.
+\end{enumerate}
+
+\bigskip
+
+\textbf{Partie II}
+
+\medskip
+
+Soit les fonctions $f$ et $g$ définies sur $]0~;~ +\infty[$ par
+$f(x) = x \ln (x) - x$ et $g(x) = \ln (x).$
+
+%On note $\mathcal{C}_f$ et $\mathcal{C}_g$ les courbes représentant respectivement les fonctions $f$ et $g$ dans un repère orthonormé \Oij.
+%
+%Pout tout nombre réel $a$ strictement positif, on appelle:
+%
+%\setlength\parindent{1cm}
+%\begin{itemize}
+%\item[$\bullet~~$] $T_a$ la tangente à $\mathcal{C}_f$ en son point d'abscisse $a$ ;
+%\item[$\bullet~~$] $D_a$ la tangente à $\mathcal{C}_g$ en son point d'abscisse $a$.
+%\end{itemize}
+%\setlength\parindent{0cm}
+%
+%Les courbes  $\mathcal{C}_f$ et $\mathcal{C}_g$ ainsi que deux tangentes $T_a$ et $D_a$ sont représentées ci-dessous.
+
+\begin{center}
+\psset{unit=1cm}
+\begin{pspicture*}(-0.6,-2)(7,6)
+\psgrid[gridlabels=0pt,subgriddiv=1,gridwidth=0.06pt]
+\psaxes[linewidth=1.25pt,labelFontSize=\scriptstyle](0,0)(0,-1.95)(6.9,5.9)
+\psaxes[linewidth=1.25pt,labelFontSize=\scriptstyle]{->}(0,0)(1,1)
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=red]{0.01}{7}{x ln x mul x sub}
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=blue]{0.01}{7}{x ln}
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=red,linestyle=dashed]{0.01}{7}{1.833 x mul 6.254 sub}
+\psplot[plotpoints=2000,linewidth=1.25pt,linecolor=blue,linestyle=dashed]{0.01}{7}{0.162 x mul 0.833 add}
+\uput[u](1,1){\blue $D_a$}\uput[r](2.9,-1){\red $T_a$}\uput[l](4.3,2){\red $\mathcal{C}_f$ }
+\uput[r](0.2,-1.8){\blue $\mathcal{C}_g$}
+\psplotTangent[linecolor=red]{0.566}{4}{x ln x mul x sub}
+\psplotTangent[linecolor=blue]{0.566}{4}{x ln}
+\psline[linestyle=dotted,linewidth=1.25pt](6.25,0)(6.25,5.204)
+\uput[d](6.25,0){$a$}
+\end{pspicture*}
+\end{center}
+
+%On recherche d'éventuelles valeurs de $a$ pour lesquelles les droites $T_a$ et $D_a$ sont perpendiculaires. 
+%
+%Soit $a$ un nombre réel appartenant à l'intervalle $]0~;~ +\infty[$.
+
+
+\medskip
+
+\begin{enumerate}
+\item %Justifier que la droite $D_a$ a pour coefficient directeur $\dfrac{1}{a}$.
+La fonction $f$ est dérivable sur $]0~;~ +\infty[$  et sur cet intervalle :
+
+$f'(x) = \ln (x) + x \times \dfrac{1}{x} - 1 = \ln (x) + 1 - 1  = \ln (x)$
+
+Donc le coefficient directeur de la tangente à $\mathcal{C}_f$ au point de la courbe d'abscisse $a$ est égal à $f'(a) = \ln (a)$.
+
+\item %Justifier que la droite $T_a$ a pour coefficient directeur $\ln (a)$.
+La fonction $g$ est dérivable sur $]0~;~ +\infty[$  et sur cet intervalle :
+$g'(x) = \dfrac{1}{x}$.
+
+Donc le coefficient directeur de la tangente à $\mathcal{C}_g$ au point de la courbe d'abscisse $a$ est égal à $g'(a) = \dfrac{1}{a}$.
+\end{enumerate}
+
+%On rappelle que dans un repère orthonormé, deux droites de coefficients directeurs respectifs $m$ et $m'$sont perpendiculaires si et seulement si $mm' = -1$.
+
+\begin{enumerate}[resume]
+\item %Démontrer qu'il existe une unique valeur de $a$, que l'on identifiera, pour laquelle les droites $T_a$ et $D_a$ sont perpendiculaires.
+Le produit des coefficients directeurs est égal à $- 1$, soit :
+
+$\ln (a) \times \dfrac{1}{a} = - 1 \iff \dfrac{\ln (a)}{a} = - 1 \iff 1 + \dfrac{\ln (a)}{a} = 0 \iff h(a) = 0$
+
+ et on a vu à la fin de la partie I que cette équation n'avait qu'une solution $a = \alpha$ : il existe une seule valeur de $a$ telle que les droites $T_a$ et $D_a$ sont perpendiculaires : $a = \alpha$. Voir la figure.
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%% SUJET J2 %%%%%%%%%%%%%%%%%%%ù
