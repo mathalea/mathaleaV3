@@ -7,3 +7,8 @@ pnpm-lock.yaml
 /test-results/
 /playwright-report/
 /playwright/.cache/
+/public/assets/bac
+/public/assets/crpe
+/public/assets/dnb
+/public/assets/e3c
+
