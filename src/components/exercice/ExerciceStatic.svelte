@@ -1,14 +1,20 @@
 <script lang="ts">
   import HeaderExercice from './HeaderExercice.svelte'
+  import referentielStatic from '../../json/referentielStatic.json'
+  import { getAllExercices } from '../utils/getAllExercices'
   export let uuid: string
   export let indiceExercice
   export let indiceLastExercice
 
 
-  import { dictionnaireCrpe } from '../../modules/dictionnaireCrpe'
-  import { dictionnaireDNB } from '../../modules/dictionnaireDNB'
 
-  const dictionnaire = {...dictionnaireCrpe, ...dictionnaireDNB}
+  const exercices = getAllExercices(referentielStatic)
+  const dictionnaire = {}
+
+  for (const exercice of exercices) {
+    dictionnaire[exercice.uuid] = {...exercice}
+  }
+
 
   let isCorrectionVisible = false
   let isContentVisible = true
