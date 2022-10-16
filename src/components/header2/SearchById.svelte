@@ -128,9 +128,11 @@
       </datalist>
     </div>
   </form>
-  {#each listeIdPourLesChips as id, indice (indice)}
-    <Chips text={id} {indice} />
-  {/each}
+  <div class="overflow-x-auto whitespace-nowrap space-x-2">
+    {#each listeIdPourLesChips as id, indice (indice)}
+      <Chips text={id} {indice} />
+    {/each}
+  </div>
 </div>
 
 <style>
