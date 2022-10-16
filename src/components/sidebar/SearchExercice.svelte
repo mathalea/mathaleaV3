@@ -1,33 +1,17 @@
 <script>
     import { exercicesParams } from "../store.ts"
+    import { getAllExercices } from "../utils/getAllExercices"
     export let referentiel
 
-    /**
-     * Retourne tous les objets qui ont une clé titre
-     */
-    function getAllExercices() {
-        const exercices = [];
-        function recursiveSearch(object) {
-            Object.keys(object).forEach((key) => {
-                const value = object[key];
-                if (key === "titre" && typeof value !== "object") {
-                    exercices.push(object);
-                } else if (typeof value === "object") {
-                    recursiveSearch(value);
-                }
-            });
-        }
-        recursiveSearch(referentiel);
-        return exercices;
-    }
+    
 
-    let listeDesExercices = getAllExercices();
+    let listeDesExercices = getAllExercices(referentiel);
     let filteredList;
     let isCanInclusDansResultats;
 
     $: {
         referentiel = referentiel
-        listeDesExercices = getAllExercices()
+        listeDesExercices = getAllExercices(referentiel)
         filteredList = listeDesExercices.filter((exercice) =>
             filtre(exercice, inputSearch, isCanInclusDansResultats)
         );
