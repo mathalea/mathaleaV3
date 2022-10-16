@@ -63,24 +63,6 @@ export class Mathalea {
     })
   }
 
-  // /**
-  //  * Change les paramètres d'un exercice
-  //  * Exemple : changeSettingsExercice(exercice2, { sup: true, nbQuestions: 3 })
-  //  * @param {Promise<Exercice>} promiseExercice
-  //  * @param {Settings }settings
-  //  */
-  // static async changeSettings (promiseExercice/**  Promise<Exercice> */, settings)/** Promise<void> */ {
-  //   const exercice = await promiseExercice
-  //   if (settings !== undefined) {
-  //     if (settings.sup !== undefined) exercice.sup = settings.sup
-  //     if (settings.sup2 !== undefined) exercice.sup2 = settings.sup2
-  //     if (settings.sup3 !== undefined) exercice.sup3 = settings.sup3
-  //     if (settings.sup4 !== undefined) exercice.sup4 = settings.sup4
-  //     if (settings.nbQuestions !== undefined) exercice.nbQuestions = settings.nbQuestions
-  //     if (settings.seed !== undefined) exercice.seed = settings.seed
-  //   }
-  // }
-
   static renderDiv (div/** HTMLDivElement */)/** void */ {
     // KaTeX à remplacer par MathLive ?
     // renderMathInElement(div, {
@@ -273,37 +255,3 @@ function _handleStringFromUrl (txt) {
     return txt
   }
 }
-
-// Ancien code pour le statique
-// const exercicePromise /** Exercice */= new Exercice()
-// const exercice = await exercicePromise
-// if (filename.includes('dnb')) {
-//   exercice.titre = 'Exercice type DNB'
-// }
-// if (filename.includes('e3c')) {
-//   exercice.titre = 'Exercice type E3C'7
-// }
-// if (filename.includes('bac')) {
-//   exercice.titre = 'Exercice type BAC'
-// }
-// if (filename.includes('crpe')) {
-//   exercice.titre = 'Exercice type CRPE'
-// }
-// const cutFilename = filename.split('_')
-// let type, year
-// if (filename.includes('dnb') || filename.includes('e3c') || filename.includes('bac')) {
-//   type = cutFilename[0]
-//   year = cutFilename[1]
-// }
-// if (filename.includes('crpe')) {
-//   type = cutFilename[0]
-//   year = cutFilename[1].split('-')[0]
-// }
-
-// const subDir = `${type}/${year}/tex/png`
-// exercice.consigne = `<img src="./src/${directory}/${subDir}/${filename}.png" width="50%"></img>`
-// exercice.consigneCorrection = `<img src="./src/${directory}/${subDir}/${filename}_cor.png" width="50%"></img>`
-// exercice.typeExercice = 'statique'
-// exercice.interactifReady = false
-// exercice.nbQuestionsModifiable = false
-// return exercice
