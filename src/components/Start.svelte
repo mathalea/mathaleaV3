@@ -7,6 +7,7 @@
   import { exercicesParams, displayOptions } from "./store"
   import codeList from "../json/codeToLevelList.json"
   import referentiel from "../json/referentiel2022.json"
+  import referentielStatic from "../json/referentielStatic.json"
   import { Mathalea } from "../Mathalea"
   import { flip } from "svelte/animate"
   import { onMount } from "svelte"
@@ -62,7 +63,7 @@
     document.dispatchEvent(exercicesAffiches)
   }
 
-  let filteredReferentiel = referentiel
+  let filteredReferentiel = {...referentiel, static: {...referentielStatic}}
   let referentielMap = toMap(filteredReferentiel)
   let arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
 
