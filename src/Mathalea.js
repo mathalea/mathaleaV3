@@ -22,34 +22,30 @@ export class Mathalea {
  * @returns {Promise<Exercice>} exercice
  */
   static async load (uuid) {
-    if (uuid.substring(0, 5) === 'crpe-' || uuid.substring(0, 4) === 'dnb_' || uuid.substring(0, 4) === 'e3c_') {
-      return this.loadStatic(uuid)
-    } else {
-      const url = uuidToUrl[uuid]
-      const [filename, directory, isCan] = url.split('/').reverse()
-      try {
-        // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
-        // cf https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#globs-only-go-one-level-deep
-        // L'extension doit-être visible donc on l'enlève avant de la remettre...
-        let module
-        if (isCan) {
-          module = await import(`./exercices/can/${directory}/${filename.replace('.js', '')}.js`)
-        } else {
-          module = await import(`./exercices/${directory}/${filename.replace('.js', '')}.js`)
-        }
-        const ClasseExercice = module.default
-        const exercice /** Promise<Exercice> */= new ClasseExercice()
-          ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach((p) => {
-          if (module[p] !== undefined) exercice[p] = module[p]
-        })
-        ;(await exercice).id = filename
-        return exercice
-      } catch (error) {
-        console.log(`Chargement de l'exercice ${directory}/${filename} impossible`)
-        const exercice = new Exercice()
-        exercice.contenu = `<h3>La référence ${directory}/${filename} n'existe pas !</h3>`
-        return exercice
+    const url = uuidToUrl[uuid]
+    const [filename, directory, isCan] = url.split('/').reverse()
+    try {
+      // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
+      // cf https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#globs-only-go-one-level-deep
+      // L'extension doit-être visible donc on l'enlève avant de la remettre...
+      let module
+      if (isCan) {
+        module = await import(`./exercices/can/${directory}/${filename.replace('.js', '')}.js`)
+      } else {
+        module = await import(`./exercices/${directory}/${filename.replace('.js', '')}.js`)
       }
+      const ClasseExercice = module.default
+      const exercice /** Promise<Exercice> */= new ClasseExercice()
+          ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach((p) => {
+        if (module[p] !== undefined) exercice[p] = module[p]
+      })
+      ;(await exercice).id = filename
+      return exercice
+    } catch (error) {
+      console.log(`Chargement de l'exercice ${directory}/${filename} impossible`)
+      const exercice = new Exercice()
+      exercice.contenu = `<h3>La référence ${directory}/${filename} n'existe pas !</h3>`
+      return exercice
     }
   }
 
@@ -174,14 +170,6 @@ export class Mathalea {
       return newListeExercice
     })
     return { v }
-  }
-
-  static loadStatic (uuid) {
-    const exercice = { typeExercice: 'static', uuid }
-    const promise = new Promise((resolve, reject) => {
-      resolve(exercice)
-    })
-    return promise
   }
 
   static handleExerciceSimple (exercice, isInteractif) {

@@ -2,15 +2,16 @@
 import { exercicesParams } from "../store"
     import { isRecent } from "../utils/handleDate";
   
-  export let exo
+  export let exercice
   export let nestedLevelCount: number
 
   /*--------------------------------------------------------------
     Gestions des exercices via la liste
    ---------------------------------------------------------------*/
   const isPresent = (code) => {
-    return code === exo.get('id')
+    return code === exercice.get('uuid')
   }
+  const tags = exercice.get('tags')
   let selectedCount = 0
   let listeCodes = []
   // on compte réactivement le nombre d'occurences
@@ -18,7 +19,7 @@ import { exercicesParams } from "../store"
   $: {
     listeCodes = []
     for (const exo of $exercicesParams) {
-      listeCodes.push(exo.id)
+      listeCodes.push(exo.uuid)
     }
     listeCodes = listeCodes
     selectedCount = listeCodes.filter(isPresent).length
@@ -28,9 +29,9 @@ import { exercicesParams } from "../store"
    */
   function addToList() {
     const newExercise = {
-      url: exo.get('url'),
-      id: exo.get('id'),
-      uuid: exo.get('uuid')
+      url: exercice.get('url'),
+      id: exercice.get('id'),
+      uuid: exercice.get('uuid')
     }
     exercicesParams.update((list) => [...list, newExercise])
     
@@ -80,12 +81,21 @@ import { exercicesParams } from "../store"
 <div class="relative flex flex-row items-center text-sm text-gray-600 bg-gray-400 ml-{nestedLevelCount * 2}">
   <div class="flex-1 hover:bg-coopmaths-lightest cursor-pointer" on:click={addToList}>
     <div class="ml-[3px] pl-2 bg-gray-200 hover:bg-gray-100 flex-1">
-      <span class="font-bold">{exo.get('id')} - </span>{exo.get('titre')}
-      {#if isRecent(exo.get('datePublication'))}
-      <span class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-light text-white text-xs px-1 py-[1px] shadow-sm">NEW</span>
-      {/if}
-      {#if isRecent(exo.get('dateModification'))}
-      <span class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-light text-white text-xs px-1 py-[1px] shadow-sm">MAJ</span>
+      {#if exercice.has('lieu')}
+      <span class="font-bold">{exercice.get('typeExercice').toUpperCase()} {exercice.get('annee')} - {exercice.get('lieu')} - {exercice.get('numeroInitial')}</span>
+        <div>
+          {#each tags as tag }
+            <span class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-light text-white text-xs px-1 py-[1px] shadow-sm mr-1">{tag}</span>
+          {/each}
+        </div>
+      {:else}
+        <span class="font-bold">{exercice.get('id')} - </span>{exercice.get('titre')}
+        {#if isRecent(exercice.get('datePublication'))}
+        <span class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-light text-white text-xs px-1 py-[1px] shadow-sm">NEW</span>
+        {/if}
+        {#if isRecent(exercice.get('dateModification'))}
+        <span class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-light text-white text-xs px-1 py-[1px] shadow-sm">MAJ</span>
+        {/if}
       {/if}
     </div>
   </div>

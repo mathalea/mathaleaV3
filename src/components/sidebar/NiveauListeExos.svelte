@@ -9,7 +9,6 @@
   export let pathToThisNode: string[]
   export let nestedLevelCount: number
 
-
   import themesList from "../../json/levelsThemesList.json"
   const themes = toMap(themesList)
   /**
@@ -61,9 +60,9 @@
 {#if expanded}
   <ul transition:slide={{ duration: 500 }}>
     {#each Array.from(items, ([key, obj]) => ({ key, obj })) as item}
-      <li>
+    <li>
         {#if item.obj.has('uuid')}
-          <EntreeListeExos nestedLevelCount={nestedLevelCount + 1} exo={item.obj} />
+          <EntreeListeExos nestedLevelCount={nestedLevelCount + 1} exercice={item.obj} />
         {:else}
           <svelte:self nestedLevelCount={nestedLevelCount + 1} pathToThisNode={[...pathToThisNode, item.key]} levelTitle={item.key} items={item.obj} />
         {/if}

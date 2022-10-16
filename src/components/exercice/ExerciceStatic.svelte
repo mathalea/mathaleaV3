@@ -6,15 +6,21 @@
 
 
   import { dictionnaireCrpe } from '../../modules/dictionnaireCrpe'
+  import { dictionnaireDNB } from '../../modules/dictionnaireDNB'
+
+  const dictionnaire = {...dictionnaireCrpe, ...dictionnaireDNB}
 
   let isCorrectionVisible = false
   let isContentVisible = true
   
-  const exercice = dictionnaireCrpe[uuid]
+  const exercice = dictionnaire[uuid]
+
+  if (typeof exercice.png === 'string') exercice.png = [exercice.png]
+  if (typeof exercice.pngCor === 'string') exercice.pngCor = [exercice.pngCor]
 
   let headerExerciceProps = {title: '', isInteractif: false, settingsReady: false, interactifReady: false, randomReady: false, indiceExercice, indiceLastExercice }
 
-  if (uuid.substring(0,5) === 'crpe-') headerExerciceProps.title = `CRPE - ${exercice.annee} - ${exercice.lieu} - ${exercice.numeroInitial}`
+  headerExerciceProps.title = `${exercice.typeExercice.toUpperCase()} - ${exercice.annee} - ${exercice.lieu} - ${exercice.numeroInitial}`
 </script>
 
 <HeaderExercice {...headerExerciceProps}
@@ -29,11 +35,11 @@
 
 {#if isCorrectionVisible}
   {#each exercice.pngCor as url }
-    <img src={url} width="100%" alt="énoncé">
+    <img src={url} width="100%" alt="correction">
   {/each}
 {/if} 
 {#if isContentVisible}
   {#each exercice.png as url }
-    <img src={url} width="100%" alt="correction">
+    <img src={url} width="100%" alt="énoncé">
   {/each}
 {/if} 

@@ -1,5 +1,6 @@
 import fs from 'fs'
 import { dictionnaireCrpe } from '../src/modules/dictionnaireCrpe.js'
+import { dictionnaireDNB } from '../src/modules/dictionnaireDNB.js'
 
 const referentiel = {}
 referentiel.crpeCopirelem = {}
@@ -28,6 +29,36 @@ for (const tag of tagsCrpeCopirelem) {
   for (const ex in dictionnaireCrpe) {
     if (dictionnaireCrpe[ex].tags.includes(tag)) {
       referentiel.crpeCopirelemTags[tag][ex] = { uuid: ex, ...dictionnaireCrpe[ex] }
+    }
+  }
+}
+
+referentiel.DNB = {}
+referentiel.DNBTags = {}
+const setTagsDNB = new Set()
+
+for (const ex in dictionnaireDNB) {
+  dictionnaireDNB[ex].tags.forEach(e => {
+    setTagsDNB.add(e)
+  })
+}
+
+const tagsDNB = [...setTagsDNB].sort((a, b) => { return a.localeCompare(b) })
+
+for (const annee of ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022']) {
+  referentiel.DNB[annee] = {}
+  for (const ex in dictionnaireDNB) {
+    if (dictionnaireDNB[ex].annee === annee) {
+      referentiel.DNB[annee][ex] = { uuid: ex, ...dictionnaireDNB[ex] }
+    }
+  }
+}
+
+for (const tag of tagsDNB) {
+  referentiel.DNBTags[tag] = {}
+  for (const ex in dictionnaireDNB) {
+    if (dictionnaireDNB[ex].tags.includes(tag)) {
+      referentiel.DNBTags[tag][ex] = { uuid: ex, ...dictionnaireDNB[ex] }
     }
   }
 }

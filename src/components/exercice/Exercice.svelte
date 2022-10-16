@@ -8,18 +8,16 @@
   export let indiceLastExercice: number
 
   let exercice
-  let typeExercice = undefined
   let ComponentExercice
   let optionsComponent
 
   onMount(async () => {
-    exercice = await Mathalea.load(paramsExercice.uuid)
-    if (exercice === undefined) return
-    // Chargement dynamique du component correspondant au type d'exercice
-    if (exercice.typeExercice === "static") {
+    if (paramsExercice.uuid.substring(0, 5) === 'crpe-' || paramsExercice.uuid.substring(0, 4) === 'dnb_' || paramsExercice.uuid.substring(0, 4) === 'e3c_') {
       optionsComponent = {uuid: paramsExercice.uuid, indiceExercice, indiceLastExercice}
       ComponentExercice = (await import('./ExerciceStatic.svelte')).default
     } else {
+      exercice = await Mathalea.load(paramsExercice.uuid)
+      if (exercice === undefined) return
       exercice.numeroExercice = indiceExercice
       if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
       if (paramsExercice.duration) exercice.duree = paramsExercice.duration
