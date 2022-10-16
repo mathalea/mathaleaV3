@@ -10,19 +10,17 @@
   let exercice
   let typeExercice = undefined
   let ComponentExercice
+  let optionsComponent
 
   onMount(async () => {
-    lry
-    const uuid = paramsExercice.uuid
     exercice = await Mathalea.load(paramsExercice.uuid)
     if (exercice === undefined) return
-    exercice.numeroExercice = indiceExercice
-    typeExercice = exercice.typeExercice
     // Chargement dynamique du component correspondant au type d'exercice
-    if (typeExercice === "static") {
-      paramsExercice.id = paramsExercice.uuid
+    if (exercice.typeExercice === "static") {
+      optionsComponent = {uuid: paramsExercice.uuid, indiceExercice, indiceLastExercice}
       ComponentExercice = (await import('./ExerciceStatic.svelte')).default
     } else {
+      exercice.numeroExercice = indiceExercice
       if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
       if (paramsExercice.duration) exercice.duree = paramsExercice.duration
       if (paramsExercice.sup) exercice.sup = paramsExercice.sup
@@ -32,13 +30,14 @@
       if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif
       if (paramsExercice.alea) exercice.seed = paramsExercice.alea
       if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === "1"
+      optionsComponent = {exercice, indiceExercice, indiceLastExercice}
       ComponentExercice = (await import("./ExerciceMathalea.svelte")).default
     }
   })
 </script>
 
 <div class="z-0 flex-1 overflow-hidden">
-  <svelte:component this={ComponentExercice} {exercice} {indiceExercice} {indiceLastExercice} />
+  <svelte:component this={ComponentExercice} {...optionsComponent} />
 </div>
 
 <style>

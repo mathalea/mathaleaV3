@@ -1,17 +1,16 @@
 <script lang="ts">
   import HeaderExercice from './HeaderExercice.svelte'
-  export let exercice
+  export let uuid
   export let indiceExercice
   export let indiceLastExercice
 
-  console.log(exercice)
 
   import { dictionnaireCrpe } from '../../modules/dictionnaireCrpe'
 
   let isCorrectionVisible = false
   let isContentVisible = true
   
-  const exerciceStatic = dictionnaireCrpe[exercice.uuid]
+  const exerciceStatic = dictionnaireCrpe[uuid]
 
   const headerExerciceProps = { title: 'CRPE', isInteractif: false, settingsReady: false, interactifReady: false, randomReady: false, indiceExercice, indiceLastExercice }
 
@@ -34,7 +33,6 @@
 {/if} 
 {#if isContentVisible}
   {#each exerciceStatic.png as url }
-    {url}
     <img src={url} width="100%" alt="correction">
   {/each}
 {/if} 
