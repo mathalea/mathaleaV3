@@ -20,6 +20,7 @@
   let durationGlobal = null
   let ratioTime = 0
   let myInterval
+  let currentDuration
   onMount(async () => {
     Mathalea.updateUrl($exercicesParams)
     for (const paramsExercice of $exercicesParams) {
@@ -66,6 +67,7 @@
       setSize()
     }
     if (!isPause) timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+    currentDuration = durationGlobal ?? durations[currentQuestion] ?? 10
   }
 
   function setSize() {
@@ -196,6 +198,10 @@
     else return duree + " seconde"
   }
   $: messageDuree = setPhraseDuree(value)
+
+  $: displayCurrentDuration = () => {
+    return currentDuration === 0 ? "Manuel" : currentDuration + "s"
+  }
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
@@ -233,7 +239,11 @@
       </div>
       <!-- boutons timers correction quitter -->
       <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
-        <label for="timerSettings" class="modal-button"><i class="bx ml-2 bx-lg bx-stopwatch" on:click={pause} /></label>
+        <label for="timerSettings" class="modal-button"
+          ><i class="relative bx ml-2 bx-lg bx-stopwatch" on:click={pause}>
+            <div class="absolute -bottom-[12px] left-1/2 -translate-x-1/2 text-sm font-sans text-coopmaths">{displayCurrentDuration()}</div></i
+          ></label
+        >
         <input type="checkbox" id="timerSettings" class="modal-toggle" />
         <div class="modal modal-bottom sm:modal-middle">
           <div class="modal-box">
