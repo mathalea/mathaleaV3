@@ -206,6 +206,11 @@
   $: displayCurrentDuration = () => {
     return currentDuration === 0 ? "Manuel" : currentDuration + "s"
   }
+
+  function returnToStart() {
+    durationGlobal = 0
+    goToQuestion(0)
+  }
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
@@ -282,7 +287,7 @@
     <div class="flex flex-row items-center justify-center w-full text-[300px] font-extrabold m-10">Fin !</div>
     <div class="flex flex-row items-center justify-center w-full mx-10 my-4">
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Début du diaporama">
-        <button type="button" class="m-2 text-coopmaths"><i class="bx text-[100px] bx-arrow-back" /></button>
+        <button type="button" class="m-2 text-coopmaths" on:click={returnToStart}><i class="bx text-[100px] bx-arrow-back" /></button>
       </div>
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Questions + Réponses">
         <button type="button" class="mx-12 my-2 text-coopmaths"><i class="bx text-[100px] bx-detail" /></button>
