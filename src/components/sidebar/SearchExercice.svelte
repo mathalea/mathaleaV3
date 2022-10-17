@@ -54,11 +54,6 @@
         } 
         return results.every((value) => value === true)
     }
-    if (!isCanPossible) {
-      results.push(!exercice.id.includes("can"))
-    }
-    return results.every((value) => value === true)
-  }
 
   /**
    * Ajouter l'exercice courant à la liste
