@@ -176,7 +176,7 @@
             <span>Choix des exercices</span>
           </h2>
           <div class="flex flex-auto   mb-2 mx-2">
-            <select class="border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 w-full" bind:value={filtre} on:change={updateReferentiel}>
+            <select class="bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 w-full" bind:value={filtre} on:change={updateReferentiel}>
               <option value="all">Tous les exercices</option>
               <option value="college">Collège</option>
               <option value="lycee">Lycée</option>

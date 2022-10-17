@@ -64,7 +64,7 @@
 
 <div class="mb-2 items-center font-bold text-large">Recherche</div>
 <div class="ml-2 mb-4">
-  <input type="text" class="focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2" bind:value={inputSearch} />
+  <input type="text" class="border-2 border-transparent focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 bg-gray-100" bind:value={inputSearch} />
 </div>
 {#if inputSearch.length > 0}
   <div class="mb-4">
@@ -73,9 +73,9 @@
 {/if}
 
 {#each filteredList as exercice}
-  <div class="relative flex flex-row items-center text-sm text-gray-600 bg-gray-400 ml-1">
+  <div class="relative flex flex-row items-center text-sm text-gray-600 bg-gray-100 ml-1">
     <div class="flex-1 hover:bg-coopmaths-lightest cursor-pointer" on:click={() => addToList(exercice)}>
-      <div class="ml-[3px] pl-2 bg-gray-200 hover:bg-gray-100 flex-1">
+      <div class="ml-[3px] pl-2 bg-gray-100 hover:bg-gray-100 flex-1">
         <span class="font-bold">{exercice.id} - </span>{exercice.titre}
       </div>
     </div>
@@ -84,8 +84,7 @@
 
 <style>
   input {
-    border: 1px solid transparent;
-    background-color: #f1f1f1;
+    border: 2px solid transparent;
     padding: 4px;
     font-size: 12px;
     margin: 0;
