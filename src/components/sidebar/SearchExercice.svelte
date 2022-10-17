@@ -43,14 +43,17 @@
         const inputs = inputSearch.split(" ");
         let results = [];
         for (const input of inputs) {
-            if (!exercice.id) console.log(exercice)
+            // if (!exercice.id) console.log(exercice)
+            // Pour les exercices statiques exercice.titre n'existe pas
             results.push(
-                exercice.titre.toLowerCase().includes(input.toLowerCase()) ||
-                    exercice.id.toLowerCase().includes(input.toLowerCase())
+                exercice.titre && 
+                (exercice.titre.toLowerCase().includes(input.toLowerCase()) ||
+                    exercice.id.toLowerCase().includes(input.toLowerCase()))
             );
         }
         if (!isCanPossible) {
-            results.push(!exercice.id.includes("can"))
+            // Pour les exercices statiques exercice.id n'existe pas
+            results.push(exercice.id && !exercice.id.includes("can"))
         } 
         return results.every((value) => value === true)
     }

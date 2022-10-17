@@ -26,7 +26,7 @@
       idExercicesDisponibles.forEach((ex) => {
         if (
           cleanInput(inputValue).every((element) =>
-            ex.toLowerCase().includes(element)
+            ex && ex.toLowerCase().includes(element)
           )
         ) {
           storageArr = [...storageArr, ex];
