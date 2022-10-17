@@ -66,13 +66,13 @@
   // Réorganisation du référentiel
   // Suppression de la rubrique calcul mental
   // On renomme les chapitres pour la partie statique
-  let filteredReferentiel = {...referentiel, static: {...referentielStatic}}
+  let filteredReferentiel = { ...referentiel, static: { ...referentielStatic } }
   delete filteredReferentiel["Calcul mental"]
-  filteredReferentiel['3e']["Brevet des collèges par thèmes - APMEP"] =  filteredReferentiel["static"]["Brevet des collèges par thèmes - APMEP"]
-  filteredReferentiel['CRPE']["Concours 2022"] =  filteredReferentiel["static"]["CRPE (2022) par année"]
-  filteredReferentiel['CRPE']["Concours 2022 - Par thèmes"] =  filteredReferentiel["static"]["CRPE (2022) par thèmes"]
-  filteredReferentiel['CRPE']["CRPE (2015-2019) par thèmes - COPIRELEM"] =  filteredReferentiel["static"]["CRPE (2015-2019) par thèmes - COPIRELEM"]
-  filteredReferentiel['CRPE']["CRPE (2015-2019) par année - COPIRELEM"] =  filteredReferentiel["static"]["CRPE (2015-2019) par année - COPIRELEM"]
+  filteredReferentiel["3e"]["Brevet des collèges par thèmes - APMEP"] = filteredReferentiel["static"]["Brevet des collèges par thèmes - APMEP"]
+  filteredReferentiel["CRPE"]["Concours 2022"] = filteredReferentiel["static"]["CRPE (2022) par année"]
+  filteredReferentiel["CRPE"]["Concours 2022 - Par thèmes"] = filteredReferentiel["static"]["CRPE (2022) par thèmes"]
+  filteredReferentiel["CRPE"]["CRPE (2015-2019) par thèmes - COPIRELEM"] = filteredReferentiel["static"]["CRPE (2015-2019) par thèmes - COPIRELEM"]
+  filteredReferentiel["CRPE"]["CRPE (2015-2019) par année - COPIRELEM"] = filteredReferentiel["static"]["CRPE (2015-2019) par année - COPIRELEM"]
   let referentielMap = toMap(filteredReferentiel)
   let arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
 
@@ -87,7 +87,7 @@
     }
 
     if (filtre === "all") {
-      filteredReferentiel = {...referentiel, static: {...referentielStatic}}
+      filteredReferentiel = { ...referentiel, static: { ...referentielStatic } }
     } else {
       filteredReferentiel = Object.keys(referentiel)
         .filter((key) => itemsAccepted.includes(key))
@@ -97,9 +97,9 @@
             [key]: referentiel[key],
           }
         }, {})
-      }
-      referentielMap = toMap(filteredReferentiel)
-      arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
+    }
+    referentielMap = toMap(filteredReferentiel)
+    arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
   }
 
   /**
@@ -175,12 +175,14 @@
           <h2 class="inline-flex items-center font-bold text-xl mb-6">
             <span>Choix des exercices</span>
           </h2>
-          <select class="flex flex-auto border-2 border-coopmaths w-full mb-2" bind:value={filtre} on:change={updateReferentiel}>
-            <option value="all">Tous les exercices</option>
-            <option value="college">Collège</option>
-            <option value="lycee">Lycée</option>
-            <option value="crpe">CRPE</option>
-          </select>
+          <div class="flex flex-auto   mb-2 mx-2">
+            <select class="border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 w-full" bind:value={filtre} on:change={updateReferentiel}>
+              <option value="all">Tous les exercices</option>
+              <option value="college">Collège</option>
+              <option value="lycee">Lycée</option>
+              <option value="crpe">CRPE</option>
+            </select>
+          </div>
           <SearchExercice referentiel={filteredReferentiel} />
           <ul>
             {#each arrayReferentielFiltre as item}
