@@ -20,6 +20,7 @@
   let durationGlobal = null
   let ratioTime = 0
   let myInterval
+  let currentDuration
   onMount(async () => {
     Mathalea.updateUrl($exercicesParams)
     for (const paramsExercice of $exercicesParams) {
@@ -66,6 +67,7 @@
       setSize()
     }
     if (!isPause) timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+    currentDuration = durationGlobal ?? durations[currentQuestion] ?? 10
   }
 
   function setSize() {
@@ -132,15 +134,15 @@
     } else timer(durationGlobal ?? durations[currentQuestion] ?? 10, false)
   }
 
-  function pause () {
+  function pause() {
     clearInterval(myInterval)
     isPause = true
   }
 
-  function timer (timeQuestion = 5, reset = true) {
+  function timer(timeQuestion = 5, reset = true) {
     // timeQuestion est le temps de la question exprimé en secondes
     if (timeQuestion === 0) {
-      pause ()
+      pause()
       ratioTime = 0
     } else {
       if (reset) ratioTime = 0
@@ -148,7 +150,7 @@
       clearInterval(myInterval)
       myInterval = setInterval(() => {
         ratioTime = ratioTime + 1 // ratioTime est le pourcentage du temps écoulé
-        if (ratioTime >= 100) { 
+        if (ratioTime >= 100) {
           clearInterval(myInterval)
           nextQuestion()
         }
@@ -156,7 +158,7 @@
     }
   }
 
-  function formatExercice (texte: string) {
+  function formatExercice(texte: string) {
     return texte
       .replace(/\\dotfill/g, "..............................")
       .replace(/\\not=/g, "≠")
@@ -174,7 +176,7 @@
       nextQuestion()
     }
     if (e.keyCode === SPACE) {
-      if (durationGlobal !==0) switchPause()
+      if (durationGlobal !== 0) switchPause()
     }
   }
 
@@ -182,7 +184,7 @@
   /**
    * Gère la récupération de la valeur du curseur de temps
    */
-  function handleTimerChange (event) {
+  function handleTimerChange(event) {
     durationGlobal = parseInt(event.target.value)
     goToQuestion(currentQuestion)
   }
@@ -190,31 +192,30 @@
    * Gestion du message dans le modal de réglage de la durée de projection
    * @param duree valeur de la durée en secondes retournée par le curseur
    */
-  function setPhraseDuree (duree) {
+  function setPhraseDuree(duree) {
     if (duree >= 2) return duree + " secondes"
     else if (duree === 0) return "Défilement manuel"
     else return duree + " seconde"
   }
   $: messageDuree = setPhraseDuree(value)
+
+  $: displayCurrentDuration = () => {
+    return currentDuration === 0 ? "Manuel" : currentDuration + "s"
+  }
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
 <div id="diap" class="flex flex-col h-screen scrollbar-hide" data-theme="daisytheme">
   <header class="flex flex-col h-20 dark:bg-white pb-1">
-    <div class="flex flex-row h-6 border border-coopmaths">
+    <div class:invisible={durationGlobal === 0} class="flex flex-row h-6 border border-coopmaths">
       <div class="bg-coopmaths" style="width: {ratioTime}%;" />
     </div>
     <div class="flex flex-row h-full mt-6 w-full">
-      <!-- <div class="flex flex-row h-2 bg-gray-300 w-full  justify-around items-center">
-        {#each listQuestions as question, i}
-          <div class="rounded-full w-6 h-6 {currentQuestion === i ? 'bg-coopmaths' : 'bg-gray-300'} " on:click={() => goToQuestion(i)} />
-        {/each}
-      </div> -->
       <ul class="steps w-11/12">
         {#each questions as question, i}
           <li class="step {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => goToQuestion(i)} />
         {/each}
-     </ul>   
+      </ul>
     </div>
   </header>
   <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-4">
@@ -224,18 +225,25 @@
   </main>
   <footer class="w-full h-20 py-1 sticky bottom-0 opacity-100 dark:bg-white">
     <div class="flex flex-row justify-between w-full text-coopmaths">
+      <!-- boutons réglagles zoom -->
       <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
         <button type="button" on:click={switchFullScreen}><i class="bx ml-2 bx-lg {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}" /></button>
         <button type="button" on:click={zoomPlus}><i class="bx ml-2 bx-lg bx-plus" /></button>
         <button type="button" on:click={zoomMoins}><i class="bx ml-2 bx-lg bx-minus" /></button>
       </div>
+      <!-- boutons contrôle défilement -->
       <div class="flex flex-row justify-center w-[33%] items-center">
         <button type="button" on:click={prevQuestion}><i class="bx ml-2 bx-lg bx-skip-previous" /></button>
-        <button type="button" on:click={switchPause} class:invisible="{durationGlobal === 0}"><i class="bx ml-2 bx-lg {isPause ? 'bx-play' : 'bx-pause'}" /></button>
+        <button type="button" on:click={switchPause} class:invisible={durationGlobal === 0}><i class="bx ml-2 bx-lg {isPause ? 'bx-play' : 'bx-pause'}" /></button>
         <button type="button" on:click={nextQuestion}><i class="bx ml-2 bx-lg bx-skip-next" /></button>
       </div>
+      <!-- boutons timers correction quitter -->
       <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
-        <label for="timerSettings" class="modal-button"><i class="bx ml-2 bx-lg bx-stopwatch" on:click={pause} /></label>
+        <label for="timerSettings" class="modal-button"
+          ><i class="relative bx ml-2 bx-lg bx-stopwatch" on:click={pause}>
+            <div class="absolute -bottom-[12px] left-1/2 -translate-x-1/2 text-sm font-sans text-coopmaths">{displayCurrentDuration()}</div></i
+          ></label
+        >
         <input type="checkbox" id="timerSettings" class="modal-toggle" />
         <div class="modal modal-bottom sm:modal-middle">
           <div class="modal-box">
@@ -252,8 +260,6 @@
             </div>
           </div>
         </div>
-        <!-- <button type="button"><i class="bx ml-2 bx-lg bx-stopwatch" /></button> -->
-        <!-- <button type="button"><i class="bx ml-2 bx-lg bx-bulb" /></button> -->
         <button type="button" on:click={switchCorrectionVisible}><i class="bx ml-2 bx-lg {isCorrectionVisible ? 'bx-hide' : 'bx-show'}" /></button>
         <button
           type="button"
