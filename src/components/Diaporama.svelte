@@ -7,6 +7,7 @@
 
   let divQuestion: HTMLElement
   let currentQuestion = 0
+  let nbOfQuestionsDisplayed = 0
   let isFullScreen = false
   let isPause = false
   let isCorrectionVisible = false
@@ -52,14 +53,17 @@
   })
 
   function prevQuestion() {
+    nbOfQuestionsDisplayed -= 1
     if (currentQuestion > 0) goToQuestion(currentQuestion - 1)
   }
 
   function nextQuestion() {
+    nbOfQuestionsDisplayed += 1
     if (currentQuestion < questions.length - 1) goToQuestion(currentQuestion + 1)
   }
 
   async function goToQuestion(i: number) {
+    if (i === 0) nbOfQuestionsDisplayed = 1
     if (i >= 0 && i < questions.length) currentQuestion = i
     if (divQuestion) {
       await tick()
@@ -205,72 +209,98 @@
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
-<div id="diap" class="flex flex-col h-screen scrollbar-hide" data-theme="daisytheme">
-  <header class="flex flex-col h-20 dark:bg-white pb-1">
-    <div class:invisible={durationGlobal === 0} class="flex flex-row h-6 border border-coopmaths">
-      <div class="bg-coopmaths" style="width: {ratioTime}%;" />
-    </div>
-    <div class="flex flex-row h-full mt-6 w-full">
-      <ul class="steps w-11/12">
-        {#each questions as question, i}
-          <li class="step {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => goToQuestion(i)} />
-        {/each}
-      </ul>
-    </div>
-  </header>
-  <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-4">
-    <div bind:this={divQuestion} class="block">
-      {@html isCorrectionVisible ? corrections[currentQuestion] : questions[currentQuestion]}
-    </div>
-  </main>
-  <footer class="w-full h-20 py-1 sticky bottom-0 opacity-100 dark:bg-white">
-    <div class="flex flex-row justify-between w-full text-coopmaths">
-      <!-- boutons réglagles zoom -->
-      <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
-        <button type="button" on:click={switchFullScreen}><i class="bx ml-2 bx-lg {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}" /></button>
-        <button type="button" on:click={zoomPlus}><i class="bx ml-2 bx-lg bx-plus" /></button>
-        <button type="button" on:click={zoomMoins}><i class="bx ml-2 bx-lg bx-minus" /></button>
+{#if nbOfQuestionsDisplayed > 0 && nbOfQuestionsDisplayed <= questions.length}
+  <div id="diap" class="flex flex-col h-screen scrollbar-hide" data-theme="daisytheme">
+    <header class="flex flex-col h-20 dark:bg-white pb-1">
+      <div class:invisible={durationGlobal === 0} class="flex flex-row h-6 border border-coopmaths">
+        <div class="bg-coopmaths" style="width: {ratioTime}%;" />
       </div>
-      <!-- boutons contrôle défilement -->
-      <div class="flex flex-row justify-center w-[33%] items-center">
-        <button type="button" on:click={prevQuestion}><i class="bx ml-2 bx-lg bx-skip-previous" /></button>
-        <button type="button" on:click={switchPause} class:invisible={durationGlobal === 0}><i class="bx ml-2 bx-lg {isPause ? 'bx-play' : 'bx-pause'}" /></button>
-        <button type="button" on:click={nextQuestion}><i class="bx ml-2 bx-lg bx-skip-next" /></button>
+      <div class="flex flex-row h-full mt-6 w-full">
+        <ul class="steps w-11/12">
+          {#each questions as question, i}
+            <li class="step {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => goToQuestion(i)} />
+          {/each}
+        </ul>
       </div>
-      <!-- boutons timers correction quitter -->
-      <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
-        <label for="timerSettings" class="modal-button"
-          ><i class="relative bx ml-2 bx-lg bx-stopwatch" on:click={pause}>
-            <div class="absolute -bottom-[12px] left-1/2 -translate-x-1/2 text-sm font-sans text-coopmaths">{displayCurrentDuration()}</div></i
-          ></label
-        >
-        <input type="checkbox" id="timerSettings" class="modal-toggle" />
-        <div class="modal modal-bottom sm:modal-middle">
-          <div class="modal-box">
-            <h3 class="font-bold text-lg">Temps par question</h3>
-            <p class="py-4 text-black">Régler la durée de projection en secondes</p>
-            <div class="flew-row space-x-2">
-              <div class="flex flex-row justify-start items-center space-x-2">
-                <input class="w-1/4 h-2 bg-transparent text-coopmaths cursor-pointer" type="range" max="30" min="0" name="duration" id="duration" bind:value on:change={handleTimerChange} />
-                <label class="w-3/4 text-sm text-black" for="duration">{messageDuree}</label>
+    </header>
+    <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-4">
+      <div bind:this={divQuestion} class="block">
+        {@html isCorrectionVisible ? corrections[currentQuestion] : questions[currentQuestion]}
+      </div>
+    </main>
+    <footer class="w-full h-20 py-1 sticky bottom-0 opacity-100 dark:bg-white">
+      <div class="flex flex-row justify-between w-full text-coopmaths">
+        <!-- boutons réglagles zoom -->
+        <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
+          <button type="button" on:click={switchFullScreen}><i class="bx ml-2 bx-lg {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}" /></button>
+          <button type="button" on:click={zoomPlus}><i class="bx ml-2 bx-lg bx-plus" /></button>
+          <button type="button" on:click={zoomMoins}><i class="bx ml-2 bx-lg bx-minus" /></button>
+        </div>
+        <!-- boutons contrôle défilement -->
+        <div class="flex flex-row justify-center w-[33%] items-center">
+          <button type="button" on:click={prevQuestion}><i class="bx ml-2 bx-lg bx-skip-previous" /></button>
+          <button type="button" on:click={switchPause} class:invisible={durationGlobal === 0}><i class="bx ml-2 bx-lg {isPause ? 'bx-play' : 'bx-pause'}" /></button>
+          <button type="button" on:click={nextQuestion}><i class="bx ml-2 bx-lg bx-skip-next" /></button>
+        </div>
+        <!-- boutons timers correction quitter -->
+        <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
+          <label for="timerSettings" class="modal-button"
+            ><i class="relative bx ml-2 bx-lg bx-stopwatch" on:click={pause}>
+              <div class="absolute -bottom-[12px] left-1/2 -translate-x-1/2 text-sm font-sans text-coopmaths">{displayCurrentDuration()}</div></i
+            ></label
+          >
+          <input type="checkbox" id="timerSettings" class="modal-toggle" />
+          <div class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box">
+              <h3 class="font-bold text-lg">Temps par question</h3>
+              <p class="py-4 text-black">Régler la durée de projection en secondes</p>
+              <div class="flew-row space-x-2">
+                <div class="flex flex-row justify-start items-center space-x-2">
+                  <input class="w-1/4 h-2 bg-transparent text-coopmaths cursor-pointer" type="range" max="30" min="0" name="duration" id="duration" bind:value on:change={handleTimerChange} />
+                  <label class="w-3/4 text-sm text-black" for="duration">{messageDuree}</label>
+                </div>
+              </div>
+              <div class="modal-action">
+                <label for="timerSettings" class="btn btn-coopmaths" on:click={switchPause}>Fermer</label>
               </div>
             </div>
-            <div class="modal-action">
-              <label for="timerSettings" class="btn btn-coopmaths" on:click={switchPause}>Fermer</label>
-            </div>
           </div>
+          <button type="button" on:click={switchCorrectionVisible}><i class="bx ml-2 bx-lg {isCorrectionVisible ? 'bx-hide' : 'bx-show'}" /></button>
+          <button
+            type="button"
+            on:click={() => {
+              document.location.href = document.location.href.replace("&v=diaporama", "")
+            }}><i class="bx ml-2 bx-lg bx-power-off" /></button
+          >
         </div>
-        <button type="button" on:click={switchCorrectionVisible}><i class="bx ml-2 bx-lg {isCorrectionVisible ? 'bx-hide' : 'bx-show'}" /></button>
+      </div>
+    </footer>
+  </div>
+{/if}
+{#if nbOfQuestionsDisplayed > questions.length}
+  <div id="fin" class="flex flex-col h-screen scrollbar-hide justify-center text-coopmaths" data-theme="daisytheme">
+    <div class="flex flex-row items-center justify-center w-full text-[300px] font-extrabold m-10">Fin !</div>
+    <div class="flex flex-row items-center justify-center w-full mx-10 my-4">
+      <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Début du diaporama">
+        <button type="button" class="m-2 text-coopmaths"><i class="bx text-[100px] bx-arrow-back" /></button>
+      </div>
+      <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Questions + Réponses">
+        <button type="button" class="mx-12 my-2 text-coopmaths"><i class="bx text-[100px] bx-detail" /></button>
+      </div>
+      <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Sortir du diaporama">
         <button
           type="button"
+          class="m-2 text-coopmaths"
           on:click={() => {
             document.location.href = document.location.href.replace("&v=diaporama", "")
-          }}><i class="bx ml-2 bx-lg bx-power-off" /></button
+          }}
         >
+          <i class="bx text-[100px] bx-home-alt-2" />
+        </button>
       </div>
     </div>
-  </footer>
-</div>
+  </div>
+{/if}
 
 <style>
 </style>
