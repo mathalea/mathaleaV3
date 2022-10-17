@@ -13,7 +13,7 @@
 
   onMount(async () => {
     if (paramsExercice.uuid.substring(0, 5) === 'crpe-' || paramsExercice.uuid.substring(0, 4) === 'dnb_' || paramsExercice.uuid.substring(0, 4) === 'e3c_' || paramsExercice.uuid.substring(0, 4) === 'bac_') {
-      optionsComponent = {uuid: paramsExercice.uuid, indiceExercice, indiceLastExercice}
+      optionsComponent = {uuid: paramsExercice.uuid}
       ComponentExercice = (await import('./ExerciceStatic.svelte')).default
     } else {
       exercice = await Mathalea.load(paramsExercice.uuid)
@@ -28,14 +28,14 @@
       if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif
       if (paramsExercice.alea) exercice.seed = paramsExercice.alea
       if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === "1"
-      optionsComponent = {exercice, indiceExercice, indiceLastExercice}
+      optionsComponent = {exercice}
       ComponentExercice = (await import("./ExerciceMathalea.svelte")).default
     }
   })
 </script>
 
 <div class="z-0 flex-1 overflow-hidden">
-  <svelte:component this={ComponentExercice} {...optionsComponent} />
+  <svelte:component this={ComponentExercice} {...optionsComponent} {indiceExercice} {indiceLastExercice} />
 </div>
 
 <style>
