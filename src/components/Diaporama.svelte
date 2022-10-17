@@ -207,9 +207,21 @@
     return currentDuration === 0 ? "Manuel" : currentDuration + "s"
   }
 
+  /**
+   * Pour le bouton de retour de la page de fin
+   */
   function returnToStart() {
     durationGlobal = 0
     goToQuestion(0)
+  }
+
+  /**
+   * Gestion du click sur l'étape dans la progression
+   * @param {number} index index de l'étape
+   */
+  function clickOnStep(index) {
+    nbOfQuestionsDisplayed = index + 1
+    goToQuestion(index)
   }
 </script>
 
@@ -223,7 +235,7 @@
       <div class="flex flex-row h-full mt-6 w-full">
         <ul class="steps w-11/12">
           {#each questions as question, i}
-            <li class="step {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => goToQuestion(i)} />
+            <li class="step {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => clickOnStep(i)} />
           {/each}
         </ul>
       </div>
@@ -261,7 +273,16 @@
               <p class="py-4 text-black">Régler la durée de projection en secondes</p>
               <div class="flew-row space-x-2">
                 <div class="flex flex-row justify-start items-center space-x-2">
-                  <input class="w-1/4 h-2 bg-transparent text-coopmaths cursor-pointer" type="range" max="30" min="0" name="duration" id="duration" bind:value={valueCursorTime} on:change={handleTimerChange} />
+                  <input
+                    class="w-1/4 h-2 bg-transparent text-coopmaths cursor-pointer"
+                    type="range"
+                    max="30"
+                    min="0"
+                    name="duration"
+                    id="duration"
+                    bind:value={valueCursorTime}
+                    on:change={handleTimerChange}
+                  />
                   <label class="w-3/4 text-sm text-black" for="duration">{messageDuree}</label>
                 </div>
               </div>
