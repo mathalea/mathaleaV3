@@ -65,8 +65,8 @@
   async function goToQuestion(i: number) {
     if (i === 0) nbOfQuestionsDisplayed = 1
     if (i >= 0 && i < questions.length) currentQuestion = i
+    await tick()
     if (divQuestion) {
-      await tick()
       currentZoom = userZoom
       setSize()
     }
@@ -184,7 +184,7 @@
     }
   }
 
-  let value = 10
+  let valueCursorTime = 10
   /**
    * Gère la récupération de la valeur du curseur de temps
    */
@@ -201,7 +201,7 @@
     else if (duree === 0) return "Défilement manuel"
     else return duree + " seconde"
   }
-  $: messageDuree = setPhraseDuree(value)
+  $: messageDuree = setPhraseDuree(valueCursorTime)
 
   $: displayCurrentDuration = () => {
     return currentDuration === 0 ? "Manuel" : currentDuration + "s"
@@ -261,7 +261,7 @@
               <p class="py-4 text-black">Régler la durée de projection en secondes</p>
               <div class="flew-row space-x-2">
                 <div class="flex flex-row justify-start items-center space-x-2">
-                  <input class="w-1/4 h-2 bg-transparent text-coopmaths cursor-pointer" type="range" max="30" min="0" name="duration" id="duration" bind:value on:change={handleTimerChange} />
+                  <input class="w-1/4 h-2 bg-transparent text-coopmaths cursor-pointer" type="range" max="30" min="0" name="duration" id="duration" bind:value={valueCursorTime} on:change={handleTimerChange} />
                   <label class="w-3/4 text-sm text-black" for="duration">{messageDuree}</label>
                 </div>
               </div>
