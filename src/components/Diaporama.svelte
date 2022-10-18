@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from "svelte"
   import { Mathalea } from "../Mathalea"
-  import DiaporamaVue from "./DiaporamaVue.svelte"
+  // import DiaporamaVue from "./DiaporamaVue.svelte"
   import { exercicesParams } from "./store"
   import type { Exercice } from "./utils/typeExercice"
 
@@ -221,9 +221,8 @@
     <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-4">
       <div bind:this={divQuestion} class="block">
         <!-- {@html isCorrectionVisible ? corrections[currentQuestion] : questions[currentQuestion]} -->
-        <DiaporamaVue vue={1} {currentQuestion} {isCorrectionVisible} ></DiaporamaVue>
-        <DiaporamaVue vue={2} {currentQuestion} {isCorrectionVisible} ></DiaporamaVue>
-
+        <DiaporamaVue vue={1} {currentQuestion} {isCorrectionVisible} />
+        <DiaporamaVue vue={2} {currentQuestion} {isCorrectionVisible} />
       </div>
     </main>
     <footer class="w-full h-20 py-1 sticky bottom-0 opacity-100 dark:bg-white">
@@ -254,7 +253,16 @@
               <p class="py-4 text-black">Régler la durée de projection en secondes</p>
               <div class="flew-row space-x-2">
                 <div class="flex flex-row justify-start items-center space-x-2">
-                  <input class="w-1/4 h-2 bg-transparent text-coopmaths cursor-pointer" type="range" max="30" min="0" name="duration" id="duration" bind:value={valueCursorTime} on:change={handleTimerChange} />
+                  <input
+                    class="w-1/4 h-2 bg-transparent text-coopmaths cursor-pointer"
+                    type="range"
+                    max="30"
+                    min="0"
+                    name="duration"
+                    id="duration"
+                    bind:value={valueCursorTime}
+                    on:change={handleTimerChange}
+                  />
                   <label class="w-3/4 text-sm text-black" for="duration">{messageDuree}</label>
                 </div>
               </div>
