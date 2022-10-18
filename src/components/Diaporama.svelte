@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount, tick } from "svelte"
   import { Mathalea } from "../Mathalea"
+  import DiaporamaVue from "./DiaporamaVue.svelte"
   import { exercicesParams } from "./store"
-  import seedrandom from "seedrandom"
   import type { Exercice } from "./utils/typeExercice"
 
   let divQuestion: HTMLElement
@@ -14,7 +14,7 @@
   let userZoom = 3
   let currentZoom = userZoom
   let questions = [] // Concaténation de toutes les questions des exercices de exercicesParams
-  let corrections = []
+  let nbQuestions = 0
   let sizes = []
   let consignes = []
   let durations = []
@@ -29,21 +29,11 @@
       if (exercice === undefined) return
       if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
       if (paramsExercice.duration) exercice.duration = paramsExercice.duration
-      if (paramsExercice.sup) exercice.sup = paramsExercice.sup
-      if (paramsExercice.sup2) exercice.sup2 = paramsExercice.sup2
-      if (paramsExercice.sup3) exercice.sup3 = paramsExercice.sup3
-      if (paramsExercice.sup4) exercice.sup4 = paramsExercice.sup4
-      if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif
-      if (paramsExercice.alea) exercice.seed = paramsExercice.alea
-      if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === "1"
-      seedrandom(exercice.seed, { global: true })
       if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
       exercice.nouvelleVersion()
       questions = [...questions, ...exercice.listeQuestions]
-      corrections = [...corrections, ...exercice.listeCorrections]
-      questions = questions.map(formatExercice)
-      corrections = corrections.map(formatExercice)
-      for (let i = 0; i < exercice.listeQuestions.length; i++) {
+      console.log(questions)
+      for (let i = 0; i < exercice.nbQuestions; i++) {
         sizes.push(exercice.tailleDiaporama)
         consignes.push(exercice.consigne)
         durations.push(exercice.duration)
@@ -230,7 +220,10 @@
     </header>
     <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-4">
       <div bind:this={divQuestion} class="block">
-        {@html isCorrectionVisible ? corrections[currentQuestion] : questions[currentQuestion]}
+        <!-- {@html isCorrectionVisible ? corrections[currentQuestion] : questions[currentQuestion]} -->
+        <DiaporamaVue vue={1} {currentQuestion} {isCorrectionVisible} ></DiaporamaVue>
+        <DiaporamaVue vue={2} {currentQuestion} {isCorrectionVisible} ></DiaporamaVue>
+
       </div>
     </main>
     <footer class="w-full h-20 py-1 sticky bottom-0 opacity-100 dark:bg-white">
