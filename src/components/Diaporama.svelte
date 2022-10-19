@@ -233,7 +233,7 @@
   }
 
   /**
-   * Gestion du click sur l'étape dans la progression
+   * Gestion du clic sur l'étape dans la progression
    * @param {number} index index de l'étape
    */
   function clickOnStep(index) {
@@ -241,6 +241,10 @@
     goToQuestion(index)
   }
 
+  /**
+   * Calcule la durée totale du diaporama
+   * (durée par question x nombre de questions)
+   */
   function getTotalDuration() {
     let sum = 0
     for (let exercice of exercices) {
@@ -248,6 +252,23 @@
     }
     return sum
   }
+
+  /**
+   * Calcule le nombre total de questions
+   */
+  $: getTotalNbOfQuestions = () => {
+    let sum = 0
+    for (let exercice of exercices) {
+      sum += exercice.nbQuestions
+    }
+    return sum
+  }
+
+  /**
+   * Retourne une chaîne formattée pour afficher une durée en (XXh XXmin XXs)
+   * @param {number} nbOfSeconds durée en secondes
+   * @return {string} durée en h min s
+   */
   function formattedTimeStamp(nbOfSeconds) {
     const nbOfHours = Math.floor(nbOfSeconds / 3600)
     const nbOfMinutes = Math.floor((nbOfSeconds - nbOfHours * 3600) / 60)
@@ -256,7 +277,11 @@
       return `${nbOfHours}h ${nbOfMinutes}min ${nbOfSecondsLeft}s`
     } else {
       if (nbOfMinutes > 0) {
-        return `${nbOfMinutes}min ${nbOfSecondsLeft}s`
+        if (nbOfSecondsLeft === 0) {
+          return `${nbOfMinutes}min`
+        } else {
+          return `${nbOfMinutes}min ${nbOfSecondsLeft}s`
+        }
       } else {
         return `${nbOfSecondsLeft}s`
       }
@@ -336,18 +361,21 @@
       </div>
       <div class="flex flex-col w-3/6 justify-start">
         <div class="flex text-lg font-bold mb-8">Durées</div>
-        <div class="flex flex-row justify-between px-4 pb-4">
-          <div class="inline-flex">Durée totale du diaporama : {formattedTimeStamp(totalDuration)}</div>
-          <div class="flex items-start mb-4">
-            <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="bg-gray-50 border-gray-300 text-coopmaths focus:ring-3 focus:ring-coopmaths h-4 w-4 rounded" checked="" />
-            <label for="checkbox-1" class="ml-3 font-medium text-gray-900"
-              >Même durée pour toutes les questions <input
-                type="number"
-                min="1"
-                bind:value={durationGlobal}
-                class="ml-3 w-20 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0"
-              /></label
-            >
+        <div class="flex flex-row px-4 pb-4 w-full justify between">
+          <div class="grid grid-cols-7">
+            <div class="inline-flex col-span-2">Durée totale : <span class="font-bold ml-1"> {formattedTimeStamp(totalDuration)}</span></div>
+            <div class="inline-flex col-span-2">Nombre total de questions : <span class="font-bold ml-1"> {getTotalNbOfQuestions()}</span></div>
+            <div class="flex items-center mb-4 col-span-3 justify-self-end">
+              <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="bg-gray-50 border-gray-300 text-coopmaths focus:ring-3 focus:ring-coopmaths h-4 w-4 rounded" checked="" />
+              <label for="checkbox-1" class="ml-3 font-medium text-gray-900"
+                >Même durée pour toutes les questions <input
+                  type="number"
+                  min="1"
+                  bind:value={durationGlobal}
+                  class="ml-3 w-20 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0"
+                /></label
+              >
+            </div>
           </div>
         </div>
 
@@ -355,9 +383,9 @@
           <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
             <table class="table-fixed min-w-full divide-y divide-gray-300">
               <thead class="bg-gray-100">
-                <th scope="col" class="py-3.5 pl-4 pr-3 w-4/6 text-left text-sm font-semibold text-gray-900 sm:pl">Exercice</th>
-                <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">Durée par question (s)</th>
-                <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">Nombre de questions</th>
+                <th scope="col" class="py-3.5 pl-4 pr-3 w-4/6 text-left text-sm font-semibold text-gray-900 sm:pl">Exercices</th>
+                <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">Durées par question (s)</th>
+                <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">Nombres de questions</th>
               </thead>
 
               {#each exercices as exercice}
