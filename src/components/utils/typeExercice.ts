@@ -1,5 +1,6 @@
 export type Exercice = {
   titre?: string
+  id?: string
   sup?: boolean | string | number
   sup2?: boolean | string | number
   sup3?: boolean | string | number

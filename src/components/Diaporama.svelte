@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onMount, tick } from "svelte"
   import { Mathalea } from "../Mathalea"
-  import DiaporamaVue from "./DiaporamaVue.svelte"
   import { exercicesParams } from "./store"
   import type { Exercice } from "./utils/typeExercice"
+  import seedrandom from 'seedrandom'
 
   let divQuestion: HTMLElement
   let currentQuestion = 0
@@ -14,7 +14,7 @@
   let userZoom = 3
   let currentZoom = userZoom
   let questions = [] // Concaténation de toutes les questions des exercices de exercicesParams
-  let nbQuestions = 0
+  let corrections = [] 
   let sizes = []
   let consignes = []
   let durations = []
@@ -32,7 +32,7 @@
       if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
       if (paramsExercice.duration) exercice.duration = paramsExercice.duration
       if (paramsExercice.titre) exercice.titre = paramsExercice.titre
-      if (paramsExercice.ref) exercice.ref = paramsExercice.ref
+      if (paramsExercice.id) exercice.id = paramsExercice.id
       if (paramsExercice.sup) exercice.sup = paramsExercice.sup
       if (paramsExercice.sup2) exercice.sup2 = paramsExercice.sup2
       if (paramsExercice.sup3) exercice.sup3 = paramsExercice.sup3
@@ -45,7 +45,7 @@
       exercice.nouvelleVersion()
       questions = [...questions, ...exercice.listeQuestions]
       corrections = [...corrections, ...exercice.listeCorrections]
-      exercices = [...exercices, { titre: exercice.titre, ref: exercice.ref, duration: exercice.duration, nbQuestions: exercice.nbQuestions }]
+      exercices = [...exercices, { titre: exercice.titre, id: exercice.id, duration: exercice.duration, nbQuestions: exercice.nbQuestions }]
       questions = questions.map(formatExercice)
       corrections = corrections.map(formatExercice)
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
@@ -334,7 +334,7 @@
 
               {#each exercices as exo}
                 <tr>
-                  <td class="whitespace-normal px-3 py-4 text-sm">{exo.ref} - {exo.titre}</td>
+                  <td class="whitespace-normal px-3 py-4 text-sm">{exo.id} - {exo.titre}</td>
                   <td class="whitespace-normal px-3 py-4 text-sm"
                     ><span class="flex justify-center"
                       ><input
@@ -381,10 +381,7 @@
     </header>
     <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-4">
       <div bind:this={divQuestion} class="block">
-        <!-- {@html isCorrectionVisible ? corrections[currentQuestion] : questions[currentQuestion]} -->
-        <DiaporamaVue vue={1} {currentQuestion} {isCorrectionVisible} ></DiaporamaVue>
-        <DiaporamaVue vue={2} {currentQuestion} {isCorrectionVisible} ></DiaporamaVue>
-
+        {@html isCorrectionVisible ? corrections[currentQuestion] : questions[currentQuestion]}
       </div>
     </main>
     <footer class="w-full h-20 py-1 sticky bottom-0 opacity-100 dark:bg-white">
