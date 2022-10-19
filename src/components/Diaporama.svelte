@@ -13,16 +13,17 @@
   let isCorrectionVisible = false
   let userZoom = 3
   let currentZoom = userZoom
+  let exercices = []
   let questions = [] // Concaténation de toutes les questions des exercices de exercicesParams
   let corrections = [] 
   let sizes = []
   let consignes = []
   let durations = []
-  let exercices = []
   let durationGlobal = null
   let ratioTime = 0
   let myInterval
   let currentDuration
+  let totalDuration = null
 
   onMount(async () => {
     Mathalea.updateUrl($exercicesParams)
@@ -30,7 +31,7 @@
       const exercice: Exercice = await Mathalea.load(paramsExercice.uuid)
       if (exercice === undefined) return
       if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
-      if (paramsExercice.duration) exercice.duration = paramsExercice.duration
+      exercice.duration = paramsExercice.duration ?? 10
       if (paramsExercice.titre) exercice.titre = paramsExercice.titre
       if (paramsExercice.id) exercice.id = paramsExercice.id
       if (paramsExercice.sup) exercice.sup = paramsExercice.sup
@@ -40,12 +41,24 @@
       if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif
       if (paramsExercice.alea) exercice.seed = paramsExercice.alea
       if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === "1"
+      exercices.push(exercice)
+    }
+    exercices = exercices
+    updateExercices ()
+  })
+
+  function updateExercices () {
+    questions = []
+    corrections = []
+    consignes = []
+    sizes = []
+    durations = []
+    for (const exercice of exercices) {
       seedrandom(exercice.seed, { global: true })
       if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
       exercice.nouvelleVersion()
       questions = [...questions, ...exercice.listeQuestions]
       corrections = [...corrections, ...exercice.listeCorrections]
-      exercices = [...exercices, { titre: exercice.titre, id: exercice.id, duration: exercice.duration, nbQuestions: exercice.nbQuestions }]
       questions = questions.map(formatExercice)
       corrections = corrections.map(formatExercice)
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
@@ -54,7 +67,8 @@
         durations.push(exercice.duration)
       }
     }
-  })
+    totalDuration = getTotalDuration()
+  }
   function prevQuestion() {
     nbOfQuestionsDisplayed -= 1
     if (currentQuestion > 0) goToQuestion(currentQuestion - 1)
@@ -227,10 +241,10 @@
     goToQuestion(index)
   }
 
-  $: getTotalDuration = () => {
+  function getTotalDuration () {
     let sum = 0
-    for (let exo of exercices) {
-      sum += exo.duration * exo.nbQuestions
+    for (let exercice of exercices) {
+      sum += exercice.duration * exercice.nbQuestions
     }
     return sum
   }
@@ -309,7 +323,7 @@
       <div class="flex flex-col w-3/6 justify-start">
         <div class="flex text-lg font-bold mb-8">Durées</div>
         <div class="flex flex-row justify-between px-4 pb-4">
-          <div class="inline-flex">Durée totale du diaporama : {getTotalDuration()}s</div>
+          <div class="inline-flex">Durée totale du diaporama : {totalDuration}s</div>
           <div class="flex items-center items-start mb-4">
             <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="bg-gray-50 border-gray-300 text-coopmaths focus:ring-3 focus:ring-coopmaths h-4 w-4 rounded" checked="" />
             <label for="checkbox-1" class="ml-3 font-medium text-gray-900"
@@ -332,15 +346,16 @@
                 <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">Nombre de questions</th>
               </thead>
 
-              {#each exercices as exo}
+              {#each exercices as exercice}
                 <tr>
-                  <td class="whitespace-normal px-3 py-4 text-sm">{exo.id} - {exo.titre}</td>
+                  <td class="whitespace-normal px-3 py-4 text-sm">{exercice.id} - {exercice.titre}</td>
                   <td class="whitespace-normal px-3 py-4 text-sm"
                     ><span class="flex justify-center"
                       ><input
                         type="number"
                         min="1"
-                        bind:value={exo.duration}
+                        on:change={updateExercices}
+                        bind:value={exercice.duration}
                         class="ml-3 w-16 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0"
                       /></span
                     ></td
@@ -350,7 +365,8 @@
                       ><input
                         type="number"
                         min="1"
-                        bind:value={exo.nbQuestions}
+                        bind:value={exercice.nbQuestions}
+                        on:change={updateExercices}
                         class="ml-3 w-16 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0"
                       /></span
                     ></td
