@@ -425,6 +425,7 @@
 <!-- Diaporama lui-même -->
 {#if nbOfQuestionsDisplayed > 0 && nbOfQuestionsDisplayed <= questions.length}
   <div id="diap" class="flex flex-col h-screen scrollbar-hide" data-theme="daisytheme">
+    <!-- Steps -->
     <header class="flex flex-col h-20 dark:bg-white pb-1">
       <div class:invisible={durationGlobal === 0} class="flex flex-row h-6 border border-coopmaths">
         <div class="bg-coopmaths" style="width: {ratioTime}%;" />
@@ -437,11 +438,14 @@
         </ul>
       </div>
     </header>
-    <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-4">
-      <div bind:this={divQuestion} class="block">
-        {@html isCorrectionVisible ? corrections[currentQuestion] : questions[currentQuestion]}
+    <!-- Question -->
+    <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-10">
+      <div bind:this={divQuestion} class="flex flex-col justify-center p-8">
+        <div class="inline-flex font-light mb-8">{consignes[currentQuestion]}</div>
+        <div class="inline-flex">{@html isCorrectionVisible ? corrections[currentQuestion] : questions[currentQuestion]}</div>
       </div>
     </main>
+    <!-- Boutons de réglages -->
     <footer class="w-full h-20 py-1 sticky bottom-0 opacity-100 dark:bg-white">
       <div class="flex flex-row justify-between w-full text-coopmaths">
         <!-- boutons réglagles zoom -->
