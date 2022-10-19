@@ -3,7 +3,7 @@
   import { Mathalea } from "../Mathalea"
   import { exercicesParams } from "./store"
   import type { Exercice } from "./utils/typeExercice"
-  import seedrandom from 'seedrandom'
+  import seedrandom from "seedrandom"
 
   let divQuestion: HTMLElement
   let currentQuestion = 0
@@ -15,7 +15,7 @@
   let currentZoom = userZoom
   let exercices = []
   let questions = [] // Concaténation de toutes les questions des exercices de exercicesParams
-  let corrections = [] 
+  let corrections = []
   let sizes = []
   let consignes = []
   let durations = []
@@ -44,10 +44,10 @@
       exercices.push(exercice)
     }
     exercices = exercices
-    updateExercices ()
+    updateExercices()
   })
 
-  function updateExercices () {
+  function updateExercices() {
     questions = []
     corrections = []
     consignes = []
@@ -241,12 +241,26 @@
     goToQuestion(index)
   }
 
-  function getTotalDuration () {
+  function getTotalDuration() {
     let sum = 0
     for (let exercice of exercices) {
       sum += exercice.duration * exercice.nbQuestions
     }
     return sum
+  }
+  function formattedTimeStamp(nbOfSeconds) {
+    const nbOfHours = Math.floor(nbOfSeconds / 3600)
+    const nbOfMinutes = Math.floor((nbOfSeconds - nbOfHours * 3600) / 60)
+    const nbOfSecondsLeft = nbOfSeconds - nbOfHours * 3600 - nbOfMinutes * 60
+    if (nbOfHours > 0) {
+      return `${nbOfHours}h ${nbOfMinutes}min ${nbOfSecondsLeft}s`
+    } else {
+      if (nbOfMinutes > 0) {
+        return `${nbOfMinutes}min ${nbOfSecondsLeft}s`
+      } else {
+        return `${nbOfSecondsLeft}s`
+      }
+    }
   }
 </script>
 
@@ -323,8 +337,8 @@
       <div class="flex flex-col w-3/6 justify-start">
         <div class="flex text-lg font-bold mb-8">Durées</div>
         <div class="flex flex-row justify-between px-4 pb-4">
-          <div class="inline-flex">Durée totale du diaporama : {totalDuration}s</div>
-          <div class="flex items-center items-start mb-4">
+          <div class="inline-flex">Durée totale du diaporama : {formattedTimeStamp(totalDuration)}</div>
+          <div class="flex items-start mb-4">
             <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="bg-gray-50 border-gray-300 text-coopmaths focus:ring-3 focus:ring-coopmaths h-4 w-4 rounded" checked="" />
             <label for="checkbox-1" class="ml-3 font-medium text-gray-900"
               >Même durée pour toutes les questions <input
