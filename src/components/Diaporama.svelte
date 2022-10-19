@@ -11,19 +11,20 @@
   let isFullScreen = false
   let isPause = false
   let isCorrectionVisible = false
+  let isSameDurationForAll = false
   let userZoom = 3
   let currentZoom = userZoom
-  let exercices = []
-  let questions = [] // Concaténation de toutes les questions des exercices de exercicesParams
-  let corrections = []
-  let sizes = []
-  let consignes = []
-  let durations = []
-  let durationGlobal = null
-  let ratioTime = 0
-  let myInterval
-  let currentDuration
-  let totalDuration = null
+  let exercices: Exercice[] = []
+  let questions: string[] = [] // Concaténation de toutes les questions des exercices de exercicesParams
+  let corrections: string[] = []
+  let sizes: number[] = []
+  let consignes: string[] = []
+  let durations: number[] = []
+  let durationGlobal: number = null
+  let ratioTime: number = 0 // Pourcentage du temps écoulé (entre 1 et 100)
+  let myInterval: number
+  let currentDuration: number
+  let totalDuration: number = null
 
   onMount(async () => {
     Mathalea.updateUrl($exercicesParams)
@@ -169,7 +170,7 @@
       if (reset) ratioTime = 0
       isPause = false
       clearInterval(myInterval)
-      myInterval = setInterval(() => {
+      myInterval = window.setInterval(() => {
         ratioTime = ratioTime + 1 // ratioTime est le pourcentage du temps écoulé
         if (ratioTime >= 100) {
           clearInterval(myInterval)
@@ -287,6 +288,14 @@
       }
     }
   }
+
+  $: {
+    if (isSameDurationForAll && durationGlobal === null) {
+      durationGlobal = 10
+    } else if (!isSameDurationForAll){
+      durationGlobal = null
+    }
+  }
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
@@ -331,48 +340,52 @@
             </div>
             <div class="form-check">
               <input
-                class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-coopmaths checked:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                class="form-check-input disabled:opacity-30 appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-coopmaths checked:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                 type="radio"
                 name="multivueRadio2"
                 id="multivueRadio2"
+                disabled
               />
-              <label class="form-check-label inline-block text-gray-800" for="multivueRadio2"> Deux vues </label>
+              <label class="form-check-label inline-block text-gray-800 opacity-30" for="multivueRadio2"> Deux vues </label>
             </div>
             <div class="form-check">
               <input
-                class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-coopmaths checked:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                class="disabled:opacity-30 form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-coopmaths checked:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                 type="radio"
                 name="multivueRadio3"
                 id="multivueRadio3"
+                disabled
               />
-              <label class="form-check-label inline-block text-gray-800" for="multivueRadio3"> Trois vues </label>
+              <label class="form-check-label inline-block text-gray-800 opacity-30" for="multivueRadio3"> Trois vues </label>
             </div>
             <div class="form-check">
               <input
-                class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-coopmaths checked:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                class="disabled:opacity-30 form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-coopmaths checked:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                 type="radio"
                 name="multivueRadio4"
                 id="multivueRadio4"
+                disabled
               />
-              <label class="form-check-label inline-block text-gray-800" for="multivueRadio4"> Quatre vues </label>
+              <label class="form-check-label inline-block text-gray-800 opacity-30" for="multivueRadio4"> Quatre vues </label>
             </div>
           </div>
         </div>
       </div>
-      <div class="flex flex-col w-3/6 justify-start">
-        <div class="flex text-lg font-bold mb-8">Durées</div>
+      <div class="flex flex-col w-4/6 justify-start">
+        <div class="flex text-lg font-bold mb-8">Durées et nombres de questions</div>
         <div class="flex flex-row px-4 pb-4 w-full justify between">
-          <div class="grid grid-cols-7">
+          <div class="grid grid-cols-8">
             <div class="inline-flex col-span-2">Durée totale : <span class="font-bold ml-1"> {formattedTimeStamp(totalDuration)}</span></div>
-            <div class="inline-flex col-span-2">Nombre total de questions : <span class="font-bold ml-1"> {getTotalNbOfQuestions()}</span></div>
-            <div class="flex items-center mb-4 col-span-3 justify-self-end">
-              <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="bg-gray-50 border-gray-300 text-coopmaths focus:ring-3 focus:ring-coopmaths h-4 w-4 rounded" checked="" />
+            <div class="inline-flex col-span-2">Nombre de questions : <span class="font-bold ml-1"> {getTotalNbOfQuestions()}</span></div>
+            <div class="flex items-center mb-4 col-span-4 justify-self-end">
+              <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="bg-gray-50 border-gray-300 text-coopmaths focus:ring-3 focus:ring-coopmaths h-4 w-4 rounded" bind:checked={isSameDurationForAll} />
               <label for="checkbox-1" class="ml-3 font-medium text-gray-900"
                 >Même durée pour toutes les questions <input
                   type="number"
                   min="1"
                   bind:value={durationGlobal}
-                  class="ml-3 w-20 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0"
+                  class="ml-3 w-20 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
+                  disabled={!isSameDurationForAll}
                 /></label
               >
             </div>
@@ -398,7 +411,8 @@
                         min="1"
                         on:change={updateExercices}
                         bind:value={exercice.duration}
-                        class="ml-3 w-16 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0"
+                        class="ml-3 w-16 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
+                        disabled={isSameDurationForAll}
                       /></span
                     ></td
                   >
