@@ -6,6 +6,7 @@
   import seedrandom from "seedrandom"
 
   let divQuestion: HTMLElement
+  let stepsUl: HTMLUListElement
   let currentQuestion = 0
   let nbOfQuestionsDisplayed = 0
   let isFullScreen = false
@@ -295,7 +296,11 @@
     } else if (!isSameDurationForAll){
       durationGlobal = null
     }
+    let steps: NodeListOf<HTMLLIElement>
+    if (stepsUl) steps = stepsUl.querySelectorAll('li')
+    if (steps) steps[currentQuestion].scrollIntoView()
   }
+
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
@@ -445,7 +450,7 @@
         <div class="bg-coopmaths" style="width: {ratioTime}%;" />
       </div>
       <div class="flex flex-row h-full mt-6 w-full">
-        <ul class="steps w-11/12">
+        <ul class="steps w-11/12" bind:this={stepsUl}>
           {#each questions as question, i}
             <li class="step {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => clickOnStep(i)} />
           {/each}
@@ -454,9 +459,9 @@
     </header>
     <!-- Question -->
     <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-10">
-      <div bind:this={divQuestion} class="flex flex-col justify-center p-8">
-        <div class="inline-flex font-light mb-8">{consignes[currentQuestion]}</div>
-        <div class="inline-flex">{@html isCorrectionVisible ? corrections[currentQuestion] : questions[currentQuestion]}</div>
+      <div bind:this={divQuestion} class="justify-center p-8">
+        <div class="font-light mb-8">{consignes[currentQuestion]}</div>
+        <div>{@html isCorrectionVisible ? corrections[currentQuestion] : questions[currentQuestion]}</div>
       </div>
     </main>
     <!-- Boutons de réglages -->
