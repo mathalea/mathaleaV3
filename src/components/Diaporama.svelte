@@ -247,10 +247,10 @@
    * Calcule la durée totale du diaporama
    * (durée par question x nombre de questions)
    */
-  function getTotalDuration() {
+  $: getTotalDuration = () => {
     let sum = 0
     for (let exercice of exercices) {
-      sum += exercice.duration * exercice.nbQuestions
+      sum += (isSameDurationForAll ? durationGlobal : exercice.duration) * exercice.nbQuestions
     }
     return sum
   }
@@ -407,7 +407,7 @@
                 <th scope="col" class="py-3.5 pl-4 pr-3 w-4/6 text-left text-sm font-semibold text-gray-900 sm:pl">Exercices</th>
                 <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">
                   <div>Durées par question (s)</div>
-                  <div class="text-coopmaths text-xs">Durée diapo :<span class="font-bold ml-1">{formattedTimeStamp(totalDuration)}</span></div>
+                  <div class="text-coopmaths text-xs">Durée diapo :<span class="font-bold ml-1">{formattedTimeStamp(getTotalDuration())}</span></div>
                 </th>
                 <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">
                   <div>Nombres de questions</div>
