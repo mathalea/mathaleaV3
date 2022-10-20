@@ -298,7 +298,7 @@
     }
     let steps: NodeListOf<HTMLLIElement>
     if (stepsUl) steps = stepsUl.querySelectorAll('li')
-    if (steps) steps[currentQuestion].scrollIntoView()
+    if (steps && steps[currentQuestion + 5]) steps[currentQuestion + 5].scrollIntoView()
   }
 
 </script>
