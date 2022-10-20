@@ -293,14 +293,13 @@
   $: {
     if (isSameDurationForAll && durationGlobal === null) {
       durationGlobal = 10
-    } else if (!isSameDurationForAll){
+    } else if (!isSameDurationForAll) {
       durationGlobal = null
     }
     let steps: NodeListOf<HTMLLIElement>
-    if (stepsUl) steps = stepsUl.querySelectorAll('li')
+    if (stepsUl) steps = stepsUl.querySelectorAll("li")
     if (steps && steps[currentQuestion + 5]) steps[currentQuestion + 5].scrollIntoView()
   }
-
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
@@ -329,6 +328,7 @@
       </button>
     </div>
     <div class="flex flex-row w-full justify-center items-start mx-20">
+      <!-- Multivue -->
       <div class="flex flex-col w-1/6 justify-start">
         <div class="flex text-lg font-bold mb-8">Multivue</div>
         <div class="flex px-4 pb-4">
@@ -376,24 +376,27 @@
           </div>
         </div>
       </div>
+      <!-- Tableau réglages -->
       <div class="flex flex-col w-4/6 justify-start">
-        <div class="flex text-lg font-bold mb-8">Durées et nombres de questions</div>
-        <div class="flex flex-row px-4 pb-4 w-full justify between">
-          <div class="grid grid-cols-8">
-            <div class="inline-flex col-span-2">Durée totale : <span class="font-bold ml-1"> {formattedTimeStamp(totalDuration)}</span></div>
-            <div class="inline-flex col-span-2">Nombre de questions : <span class="font-bold ml-1"> {getTotalNbOfQuestions()}</span></div>
-            <div class="flex items-center mb-4 col-span-4 justify-self-end">
-              <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="bg-gray-50 border-gray-300 text-coopmaths focus:ring-3 focus:ring-coopmaths h-4 w-4 rounded" bind:checked={isSameDurationForAll} />
-              <label for="checkbox-1" class="ml-3 font-medium text-gray-900"
-                >Même durée pour toutes les questions <input
-                  type="number"
-                  min="1"
-                  bind:value={durationGlobal}
-                  class="ml-3 w-20 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
-                  disabled={!isSameDurationForAll}
-                /></label
-              >
-            </div>
+        <div class="flex flex-col lg:flex-row px-4 pb-4 w-full justify-start lg:justify-between lg:items-center">
+          <div class="flex text-lg font-bold">Durées et nombres de questions</div>
+          <div class="flex items-center">
+            <input
+              id="checkbox-1"
+              aria-describedby="checkbox-1"
+              type="checkbox"
+              class="bg-gray-50 border-gray-300 text-coopmaths focus:ring-3 focus:ring-coopmaths h-4 w-4 rounded"
+              bind:checked={isSameDurationForAll}
+            />
+            <label for="checkbox-1" class="ml-3 font-medium text-gray-900"
+              >Même durée pour toutes les questions <input
+                type="number"
+                min="1"
+                bind:value={durationGlobal}
+                class="ml-3 w-20 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
+                disabled={!isSameDurationForAll}
+              /></label
+            >
           </div>
         </div>
 
@@ -402,8 +405,14 @@
             <table class="table-fixed min-w-full divide-y divide-gray-300">
               <thead class="bg-gray-100">
                 <th scope="col" class="py-3.5 pl-4 pr-3 w-4/6 text-left text-sm font-semibold text-gray-900 sm:pl">Exercices</th>
-                <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">Durées par question (s)</th>
-                <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">Nombres de questions</th>
+                <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">
+                  <div>Durées par question (s)</div>
+                  <div class="text-coopmaths text-xs">Durée diapo :<span class="font-bold ml-1">{formattedTimeStamp(totalDuration)}</span></div>
+                </th>
+                <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">
+                  <div>Nombres de questions</div>
+                  <div class="text-coopmaths text-xs">Total :<span class="font-bold ml-1">{getTotalNbOfQuestions()}</span></div>
+                </th>
               </thead>
 
               {#each exercices as exercice}
