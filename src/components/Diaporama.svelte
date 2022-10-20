@@ -26,6 +26,7 @@
   let myInterval: number
   let currentDuration: number
   let totalDuration: number = null
+  let nbOfVues = 1
 
   onMount(async () => {
     Mathalea.updateUrl($exercicesParams)
@@ -335,43 +336,47 @@
           <div>
             <div class="form-check">
               <input
-                class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-coopmaths checked:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
                 type="radio"
-                name="multivueRadio1"
+                name="multivue"
                 id="multivueRadio1"
-                checked
+                bind:group={nbOfVues}
+                value={1}
               />
               <label class="form-check-label inline-block text-gray-800" for="multivueRadio1"> Pas de multivue </label>
             </div>
             <div class="form-check">
               <input
-                class="form-check-input disabled:opacity-30 appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-coopmaths checked:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
                 type="radio"
-                name="multivueRadio2"
+                name="multivue"
                 id="multivueRadio2"
-                disabled
+                bind:group={nbOfVues}
+                value={2}
               />
-              <label class="form-check-label inline-block text-gray-800 opacity-30" for="multivueRadio2"> Deux vues </label>
+              <label class="form-check-label inline-block text-gray-800" for="multivueRadio2"> Deux vues </label>
             </div>
             <div class="form-check">
               <input
-                class="disabled:opacity-30 form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-coopmaths checked:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
                 type="radio"
-                name="multivueRadio3"
+                name="multivue"
                 id="multivueRadio3"
-                disabled
+                bind:group={nbOfVues}
+                value={3}
               />
-              <label class="form-check-label inline-block text-gray-800 opacity-30" for="multivueRadio3"> Trois vues </label>
+              <label class="form-check-label inline-block text-gray-800" for="multivueRadio3"> Trois vues </label>
             </div>
             <div class="form-check">
               <input
-                class="disabled:opacity-30 form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-coopmaths checked:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
                 type="radio"
-                name="multivueRadio4"
+                name="multivue"
                 id="multivueRadio4"
-                disabled
+                bind:group={nbOfVues}
+                value={4}
               />
-              <label class="form-check-label inline-block text-gray-800 opacity-30" for="multivueRadio4"> Quatre vues </label>
+              <label class="form-check-label inline-block text-gray-800" for="multivueRadio4"> Quatre vues </label>
             </div>
           </div>
         </div>
@@ -400,10 +405,10 @@
           </div>
         </div>
 
-        <div class="inline-block min-w-full px-4 align-middle">
-          <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+        <div class="flex flex-col min-w-full px-4 align-middle">
+          <div class="table-wrp block max-h-[300px] shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
             <table class="table-fixed min-w-full divide-y divide-gray-300">
-              <thead class="bg-gray-100">
+              <thead class="bg-gray-100 sticky top-0">
                 <th scope="col" class="py-3.5 pl-4 pr-3 w-4/6 text-left text-sm font-semibold text-gray-900 sm:pl">Exercices</th>
                 <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">
                   <div>Durées par question (s)</div>
@@ -414,35 +419,36 @@
                   <div class="text-coopmaths text-xs">Total :<span class="font-bold ml-1">{getTotalNbOfQuestions()}</span></div>
                 </th>
               </thead>
-
-              {#each exercices as exercice}
-                <tr>
-                  <td class="whitespace-normal px-3 py-4 text-sm">{exercice.id} - {exercice.titre}</td>
-                  <td class="whitespace-normal px-3 py-4 text-sm"
-                    ><span class="flex justify-center"
-                      ><input
-                        type="number"
-                        min="1"
-                        on:change={updateExercices}
-                        bind:value={exercice.duration}
-                        class="ml-3 w-16 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
-                        disabled={isSameDurationForAll}
-                      /></span
-                    ></td
-                  >
-                  <td class="whitespace-normal px-3 py-4 text-sm"
-                    ><span class="flex justify-center"
-                      ><input
-                        type="number"
-                        min="1"
-                        bind:value={exercice.nbQuestions}
-                        on:change={updateExercices}
-                        class="ml-3 w-16 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0"
-                      /></span
-                    ></td
-                  >
-                </tr>
-              {/each}
+              <tbody class="max-h-[300px] overflow-y-auto">
+                {#each exercices as exercice}
+                  <tr>
+                    <td class="whitespace-normal px-3 py-4 text-sm">{exercice.id} - {exercice.titre}</td>
+                    <td class="whitespace-normal px-3 py-4 text-sm"
+                      ><span class="flex justify-center"
+                        ><input
+                          type="number"
+                          min="1"
+                          on:change={updateExercices}
+                          bind:value={exercice.duration}
+                          class="ml-3 w-16 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
+                          disabled={isSameDurationForAll}
+                        /></span
+                      ></td
+                    >
+                    <td class="whitespace-normal px-3 py-4 text-sm"
+                      ><span class="flex justify-center"
+                        ><input
+                          type="number"
+                          min="1"
+                          bind:value={exercice.nbQuestions}
+                          on:change={updateExercices}
+                          class="ml-3 w-16 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0"
+                        /></span
+                      ></td
+                    >
+                  </tr>
+                {/each}
+              </tbody>
             </table>
           </div>
         </div>
@@ -458,7 +464,7 @@
       <div class:invisible={durationGlobal === 0} class="flex flex-row h-6 border border-coopmaths">
         <div class="bg-coopmaths" style="width: {ratioTime}%;" />
       </div>
-      <div class="flex flex-row h-full mt-6 w-full">
+      <div class="flex flex-row h-full mt-6 w-full justify-center">
         <ul class="steps w-11/12" bind:this={stepsUl}>
           {#each questions as question, i}
             <li class="step {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => clickOnStep(i)} />
@@ -468,9 +474,13 @@
     </header>
     <!-- Question -->
     <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-10">
-      <div bind:this={divQuestion} class="flex flex-col justify-center p-8">
-        <div class="font-light mb-8">{consignes[currentQuestion]}</div>
-        <div>{@html isCorrectionVisible ? corrections[currentQuestion] : questions[currentQuestion]}</div>
+      <div class="grid grid-cols-2 place-content-stretch justify-items-center gap-0 w-full">
+        {#each Array(nbOfVues) as _, i (i)}
+          <div bind:this={divQuestion} class="flex flex-col justify-center justify-self-stretch p-8">
+            <div class="font-light mb-8">{consignes[currentQuestion]}</div>
+            <div>{@html isCorrectionVisible ? corrections[currentQuestion] : questions[currentQuestion]}</div>
+          </div>
+        {/each}
       </div>
     </main>
     <!-- Boutons de réglages -->
@@ -559,4 +569,13 @@
 {/if}
 
 <style>
+  .table-wrp {
+    max-height: 300px;
+    overflow-y: auto;
+    display: block;
+  }
+  thead {
+    position: sticky;
+    top: 0;
+  }
 </style>
