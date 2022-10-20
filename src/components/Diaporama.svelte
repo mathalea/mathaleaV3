@@ -468,7 +468,7 @@
     </header>
     <!-- Question -->
     <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-10">
-      <div bind:this={divQuestion} class="justify-center p-8">
+      <div bind:this={divQuestion} class="flex flex-col justify-center p-8">
         <div class="font-light mb-8">{consignes[currentQuestion]}</div>
         <div>{@html isCorrectionVisible ? corrections[currentQuestion] : questions[currentQuestion]}</div>
       </div>
