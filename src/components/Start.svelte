@@ -183,7 +183,6 @@
     if (!expanding) return
     sidebarWidth = event.pageX
   }
-  $: largeurMenu = sidebarWidth
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
@@ -191,13 +190,13 @@
   <!-- <Header /> -->
   {#if isNavBarVisible}
     <NavBar />
-    <Header2 si`deMenuVisible={isSideMenuVisible} on:sideMenuChange={handleSideMenu} />
+    <Header2 sideMenuVisible={isSideMenuVisible} on:sideMenuChange={handleSideMenu} />
   {/if}
   <!-- Gestion du mode sombre -->
   <main class="flex h-full dark:bg-white dark:text-slate-800" on:mousemove={resizing}>
     <!-- side menu -->
     {#if isSideMenuVisible || nbExercisesInList === 0}
-      <aside style="width:{largeurMenu}px" class="flex flex-col bg-gray-200  p-4  overflow-hidden h-full transition-width transition-slowest ease duration-500">
+      <aside style="width:{sidebarWidth}px" class="flex flex-col bg-gray-200  p-4  overflow-hidden h-full transition-width transition-slowest ease duration-500">
         <div class="flex-none block overflow-y-scroll overscroll-auto h-full">
           <h2 class="inline-flex items-center font-bold text-xl mb-6">
             <span>Choix des exercices</span>
@@ -233,6 +232,7 @@
         {/if}
         {#if $displayOptions.v !== "l"}
           <div class="flex flex-row justify-end items-center space-x-2 text-slate-500">
+            <button type="button" class="hover:text-coopmaths-dark"><i class="bx bx-sm bx-refresh" /></button>
             <button type="button" class="hover:text-coopmaths-dark"><i class="bx bx-sm bx-code-curly" /></button>
             <button
               type="button"
