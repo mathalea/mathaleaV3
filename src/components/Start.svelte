@@ -158,6 +158,13 @@
       return params
     })
   }
+
+  function fullScreen() {
+    displayOptions.update((params) => {
+      params.v = "l"
+      return params
+    })
+  }
 </script>
 
 <div class="h-screen  scrollbar-hide">
@@ -197,12 +204,35 @@
       <div class="flex w-1 bg-coopmaths-light hover:bg-coopmaths-lightest" />
     {/if}
     <!-- content -->
-    {#if $displayOptions.v === "l"}
-      <div class="absolute right-10 my-10">
-        <button type="button" on:click={quitFullScreen}><i class="bx ml-2 bx-sm bx-exit-fullscreen" /></button>
-      </div>
-    {/if}
-    <div class="flex-1 flex flex-col p-6 overflow-hidden h-full mt-10">
+    <div class="flex-1 flex flex-col p-6 overflow-hidden h-full">
+      {#if $displayOptions.v === "l"}
+        <div class="flex flex-row justify-end items-center">
+          <button type="button" on:click={quitFullScreen}><i class="bx ml-2 bx-sm bx-exit-fullscreen" /></button>
+        </div>
+      {/if}
+      {#if $displayOptions.v !== "l"}
+        <div class="flex flex-row justify-end items-center space-x-2 text-slate-500">
+          <button type="button" class="hover:text-coopmaths-dark"><i class="bx bx-sm bx-code-curly" /></button>
+          <button
+            type="button"
+            class="hover:text-coopmaths-dark"
+            on:click={() =>
+              displayOptions.update((params) => {
+                params.v = "diaporama"
+                return params
+              })}><i class="bx bx-sm bx-slideshow" /></button
+          >
+          <button
+            type="button"
+            class="hover:text-coopmaths-dark"
+            on:click={() =>
+              displayOptions.update((params) => {
+                params.v = "l"
+                return params
+              })}><i class="bx bx-sm bx-fullscreen" /></button
+          >
+        </div>
+      {/if}
       <div class="flex-1 overflow-y-scroll overscroll-auto">
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <div animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
