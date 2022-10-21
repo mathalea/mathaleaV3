@@ -1,110 +1,104 @@
 <script lang="ts">
-  import Chips from "./Chips.svelte";
-  import { exercicesParams } from "../store";
-  import refToUuid from "../../json/refToUuid.json";
+  import Chips from "./Chips.svelte"
+  import { exercicesParams } from "../store"
+  import refToUuid from "../../json/refToUuid.json"
 
-  let input: HTMLInputElement;
-  let listeIdPourLesChips = [];
+  let input: HTMLInputElement
+  let listeIdPourLesChips = []
 
-  const idExercicesDisponibles = Object.keys(refToUuid);
+  const idExercicesDisponibles = Object.keys(refToUuid)
 
-  const exercices = [];
+  const exercices = []
   $: {
-    listeIdPourLesChips = [];
+    listeIdPourLesChips = []
     for (const ex of $exercicesParams) {
-      listeIdPourLesChips.push(ex.id ?? ex.uuid);
+      listeIdPourLesChips.push(ex.id ?? ex.uuid)
     }
-    listeIdPourLesChips = listeIdPourLesChips;
+    listeIdPourLesChips = listeIdPourLesChips
   }
 
-  let filteredExercices = [];
+  let filteredExercices = []
 
   const filterEx = () => {
     //construit la liste des codes d'exercices à proposer dans l'input de saisie.
-    let storageArr = [];
+    let storageArr = []
     if (inputValue) {
       idExercicesDisponibles.forEach((ex) => {
-        if (
-          cleanInput(inputValue).every((element) =>
-            ex && ex.toLowerCase().includes(element)
-          )
-        ) {
-          storageArr = [...storageArr, ex];
+        if (cleanInput(inputValue).every((element) => ex && ex.toLowerCase().includes(element))) {
+          storageArr = [...storageArr, ex]
         }
-      });
+      })
     }
-    filteredExercices = storageArr;
+    filteredExercices = storageArr
     // if (filteredExercices.length === 1) {
     //   addExercice(filteredExercices[0])
     //   clearInput()
     // }
-  };
+  }
 
-  let searchInput;
-  let inputValue = "";
+  let searchInput
+  let inputValue = ""
 
   $: if (!inputValue) {
-    filteredExercices = [];
-    hiLiteIndex = null;
+    filteredExercices = []
+    hiLiteIndex = null
   }
 
   const cleanInput = (str) => {
-    return str.toLowerCase().split(" ").filter(Boolean);
-  };
+    return str.toLowerCase().split(" ").filter(Boolean)
+  }
 
   const clearInput = () => {
-    inputValue = "";
-    searchInput.focus();
-  };
+    inputValue = ""
+    searchInput.focus()
+  }
 
   const setInputVal = (ex) => {
-    inputValue = ex;
-    hiLiteIndex = null;
-    addExercice(ex);
-    clearInput();
-    const input = document.querySelector("#idInput") as HTMLInputElement;
-    input.focus();
-    filteredExercices = [];
-  };
+    inputValue = ex
+    hiLiteIndex = null
+    addExercice(ex)
+    clearInput()
+    const input = document.querySelector("#idInput") as HTMLInputElement
+    input.focus()
+    filteredExercices = []
+  }
 
   const submitValue = () => {
     if (idExercicesDisponibles.includes(inputValue)) {
       addExercice(inputValue)
       clearInput()
-    } 
-  };
+    }
+  }
 
-  let hiLiteIndex = null;
-  $: filteredExercices[hiLiteIndex];
+  let hiLiteIndex = null
+  $: filteredExercices[hiLiteIndex]
 
   const navigateList = (e) => {
     // Pour naviguer dans la liste proposée avec les flèches.
     if (e.key === "ArrowDown" && hiLiteIndex <= filteredExercices.length - 1) {
-      hiLiteIndex === null ? (hiLiteIndex = 0) : (hiLiteIndex += 1);
+      hiLiteIndex === null ? (hiLiteIndex = 0) : (hiLiteIndex += 1)
     } else if (e.key === "ArrowUp" && hiLiteIndex !== null) {
-      hiLiteIndex === 0
-        ? (hiLiteIndex = filteredExercices.length - 1)
-        : (hiLiteIndex -= 1);
+      hiLiteIndex === 0 ? (hiLiteIndex = filteredExercices.length - 1) : (hiLiteIndex -= 1)
     } else if (e.key === "Enter") {
       if (inputValue && filteredExercices.length === 1) {
-        addExercice(filteredExercices[0]);
-        clearInput();
+        addExercice(filteredExercices[0])
+        clearInput()
       } else if (hiLiteIndex) {
-        addExercice(filteredExercices[hiLiteIndex]);
-        clearInput();
-      } 
+        addExercice(filteredExercices[hiLiteIndex])
+        clearInput()
+      }
     } else {
-      return;
+      return
     }
-  };
+  }
 
   function addExercice(id) {
-    if (!refToUuid[id]) return;
+    if (!refToUuid[id]) return
     const newExercise = {
       id,
       uuid: refToUuid[id],
-    };
-    exercicesParams.update((list) => [...list, newExercise]);
+    }
+    exercicesParams.update((list) => [...list, newExercise])
   }
 </script>
 
@@ -112,15 +106,7 @@
 <div class="inline-flex space-x-2">
   <form autocomplete="off" on:submit|preventDefault={submitValue}>
     <div class="autocomplete">
-      <input
-        id="idInput"
-        type="text"
-        list="autocomplete-items-list"
-        placeholder="Identifiant d'exercice"
-        bind:this={searchInput}
-        bind:value={inputValue}
-        on:input={filterEx}
-      />
+      <input id="idInput" type="text" list="autocomplete-items-list" placeholder="Identifiant d'exercice" bind:this={searchInput} bind:value={inputValue} on:input={filterEx} />
       <datalist id="autocomplete-items-list" class="fixed">
         {#each filteredExercices as ex, i}
           <option value={ex} />
@@ -128,7 +114,7 @@
       </datalist>
     </div>
   </form>
-  <div class="overflow-x-auto whitespace-nowrap space-x-2">
+  <div class="flex flex-row p-0 items-center overflow-x-auto whitespace-nowrap space-x-2">
     {#each listeIdPourLesChips as id, indice (indice)}
       <Chips text={id} {indice} />
     {/each}

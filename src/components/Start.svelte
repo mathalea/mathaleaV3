@@ -204,43 +204,52 @@
       <div class="flex w-1 bg-coopmaths-light hover:bg-coopmaths-lightest" />
     {/if}
     <!-- content -->
-    <div class="flex-1 flex flex-col p-6 overflow-hidden h-full">
-      {#if $displayOptions.v === "l"}
-        <div class="flex flex-row justify-end items-center">
-          <button type="button" on:click={quitFullScreen}><i class="bx ml-2 bx-sm bx-exit-fullscreen" /></button>
-        </div>
-      {/if}
-      {#if $displayOptions.v !== "l"}
-        <div class="flex flex-row justify-end items-center space-x-2 text-slate-500">
-          <button type="button" class="hover:text-coopmaths-dark"><i class="bx bx-sm bx-code-curly" /></button>
-          <button
-            type="button"
-            class="hover:text-coopmaths-dark"
-            on:click={() =>
-              displayOptions.update((params) => {
-                params.v = "diaporama"
-                return params
-              })}><i class="bx bx-sm bx-slideshow" /></button
-          >
-          <button
-            type="button"
-            class="hover:text-coopmaths-dark"
-            on:click={() =>
-              displayOptions.update((params) => {
-                params.v = "l"
-                return params
-              })}><i class="bx bx-sm bx-fullscreen" /></button
-          >
-        </div>
-      {/if}
-      <div class="flex-1 overflow-y-scroll overscroll-auto">
-        {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-          <div animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
-            <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
+    {#if $exercicesParams.length !== 0}
+      <div class="flex-1 flex flex-col p-6 overflow-hidden h-full">
+        {#if $displayOptions.v === "l"}
+          <div class="flex flex-row justify-end items-center">
+            <button type="button" on:click={quitFullScreen}><i class="bx ml-2 bx-sm bx-exit-fullscreen" /></button>
           </div>
-        {/each}
+        {/if}
+        {#if $displayOptions.v !== "l"}
+          <div class="flex flex-row justify-end items-center space-x-2 text-slate-500">
+            <button type="button" class="hover:text-coopmaths-dark"><i class="bx bx-sm bx-code-curly" /></button>
+            <button
+              type="button"
+              class="hover:text-coopmaths-dark"
+              on:click={() =>
+                displayOptions.update((params) => {
+                  params.v = "diaporama"
+                  return params
+                })}><i class="bx bx-sm bx-slideshow" /></button
+            >
+            <button
+              type="button"
+              class="hover:text-coopmaths-dark"
+              on:click={() =>
+                displayOptions.update((params) => {
+                  params.v = "l"
+                  return params
+                })}><i class="bx bx-sm bx-fullscreen" /></button
+            >
+          </div>
+        {/if}
+        <div class="flex-1 overflow-y-scroll overscroll-auto">
+          {#each $exercicesParams as paramsExercice, i (paramsExercice)}
+            <div animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
+              <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
+            </div>
+          {/each}
+        </div>
       </div>
-    </div>
+    {:else}
+      <div class="flex flex-col justify-start text-slate-400 px-10 py-40">
+        <div class="animate-pulse flex flex-row justify-start space-x-10 items-center">
+          <div><i class="bx bxs-chevron-left text-[50px]" /></div>
+          <div class="font-extralight text-[50px]">Sélectionner les exercices</div>
+        </div>
+      </div>
+    {/if}
   </main>
   <!-- Modals ne sont pas utilisés pour le moment
   <Modals>
