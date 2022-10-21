@@ -165,24 +165,44 @@
       return params
     })
   }
+
+  /**
+   * Gestion du redimentionnement des colonnes
+   */
+  let expanding = null
+  let sidebarWidth = 600
+  function stopResizing() {
+    expanding = null
+  }
+
+  function startResizing(type, event) {
+    expanding = type
+  }
+
+  function resizing(event) {
+    if (!expanding) return
+    sidebarWidth = event.pageX
+  }
+  $: largeurMenu = sidebarWidth
 </script>
 
+<svelte:window on:mouseup={stopResizing} />
 <div class="h-screen  scrollbar-hide">
   <!-- <Header /> -->
   {#if isNavBarVisible}
     <NavBar />
-    <Header2 sideMenuVisible={isSideMenuVisible} on:sideMenuChange={handleSideMenu} />
+    <Header2 si`deMenuVisible={isSideMenuVisible} on:sideMenuChange={handleSideMenu} />
   {/if}
   <!-- Gestion du mode sombre -->
-  <main class="flex h-full dark:bg-white dark:text-slate-800">
+  <main class="flex h-full dark:bg-white dark:text-slate-800" on:mousemove={resizing}>
     <!-- side menu -->
     {#if isSideMenuVisible || nbExercisesInList === 0}
-      <aside class="flex flex-col bg-gray-200 w-1/3 p-4  overflow-hidden h-full transition-width transition-slowest ease duration-500">
+      <aside style="width:{largeurMenu}px" class="flex flex-col bg-gray-200  p-4  overflow-hidden h-full transition-width transition-slowest ease duration-500">
         <div class="flex-none block overflow-y-scroll overscroll-auto h-full">
           <h2 class="inline-flex items-center font-bold text-xl mb-6">
             <span>Choix des exercices</span>
           </h2>
-          <div class="flex flex-auto   mb-2 mx-2">
+          <div class="flex flex-auto mb-2 mx-2">
             <select class="bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 w-full" bind:value={filtre} on:change={updateReferentiel}>
               <option value="all">Tous les exercices</option>
               <option value="college">Collège</option>
@@ -200,8 +220,8 @@
           </ul>
         </div>
       </aside>
-      <!-- split line -->
-      <div class="flex w-1 bg-coopmaths-light hover:bg-coopmaths-lightest" />
+      <!-- drag bar -->
+      <div id="dragbar" class="flex w-[4px] bg-coopmaths-light hover:bg-coopmaths-lightest hover:cursor-col-resize" on:mousedown={startResizing.bind(this, "moving")} />
     {/if}
     <!-- content -->
     {#if $exercicesParams.length !== 0}
@@ -244,8 +264,8 @@
       </div>
     {:else}
       <div class="flex flex-col justify-start text-slate-400 px-10 py-40">
-        <div class="animate-pulse flex flex-row justify-start space-x-10 items-center">
-          <div><i class="bx bxs-chevron-left text-[50px]" /></div>
+        <div class="animate-pulse flex flex-row justify-start space-x-6 items-center">
+          <div class="mt-[10px]"><i class="bx bx-chevron-left text-[50px]" /></div>
           <div class="font-extralight text-[50px]">Sélectionner les exercices</div>
         </div>
       </div>
