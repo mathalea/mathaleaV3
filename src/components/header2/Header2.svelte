@@ -26,6 +26,11 @@
   <button type="button" on:click={toggleSideList}><i class="bx bx-menu-alt-left" /></button>
   <div class="text-gray-600 font-normal text-xs ml-8 w-15 max-h-15">
     <SearchById />
-    <!-- <button type="button" on:click={fullScreen}><i class="bx absolute right-10 text-white -my-5 bx-sm bx-fullscreen"/></button> -->
+    <button
+      type="button"
+      on:click={() => {
+        $exercicesParams.length = 0
+      }}><i class="bx absolute right-10 text-white -my-5 bx-sm bx-trash" /></button
+    >
   </div>
 </h1>
