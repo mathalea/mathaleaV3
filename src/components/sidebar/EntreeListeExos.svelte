@@ -79,7 +79,7 @@ import { exercicesParams } from "../store"
   
  -->
 <div class="relative flex flex-row items-center text-sm text-gray-600 bg-gray-400 ml-{nestedLevelCount * 2}">
-  <div class="flex-1 hover:bg-coopmaths-lightest cursor-pointer" on:click={addToList}>
+  <div class="flex-1 hover:bg-coopmaths-lightest cursor-pointer" on:click={addToList} on:keydown={addToList}>
     <div class="ml-[3px] pl-2 bg-gray-200 hover:bg-gray-100 flex-1">
       {#if exercice.has('lieu')}
       <span class="font-bold">{exercice.get('typeExercice').toUpperCase()} {exercice.get('annee')} - {exercice.get('lieu')} - {exercice.get('numeroInitial')}</span>
@@ -100,7 +100,7 @@ import { exercicesParams } from "../store"
     </div>
   </div>
   {#if selectedCount >= 1}
-    <button type="button" class="absolute -left-4" on:mouseover={handleMouseOver} on:mouseout={handleMouseOut} on:click={removeFromList}
+    <button type="button" class="absolute -left-4" on:mouseover={handleMouseOver} on:focus={handleMouseOver} on:mouseout={handleMouseOut} on:blur={handleMouseOut} on:click={removeFromList} on:keydown={removeFromList}
       ><i class="text-coopmaths-lightest text-base bx {icon} {rotation}" /></button
     >
   {/if}
