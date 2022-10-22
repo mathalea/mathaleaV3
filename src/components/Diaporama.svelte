@@ -359,8 +359,9 @@
                 id="multivueRadio2"
                 bind:group={nbOfVues}
                 value={2}
+                disabled
               />
-              <label class="form-check-label inline-block text-gray-800" for="multivueRadio2"> Deux vues </label>
+              <label class=" form-check-label inline-block text-gray-800" for="multivueRadio2"> Deux vues </label>
             </div>
             <div class="form-check">
               <input
@@ -370,6 +371,7 @@
                 id="multivueRadio3"
                 bind:group={nbOfVues}
                 value={3}
+                disabled
               />
               <label class="form-check-label inline-block text-gray-800" for="multivueRadio3"> Trois vues </label>
             </div>
@@ -381,6 +383,7 @@
                 id="multivueRadio4"
                 bind:group={nbOfVues}
                 value={4}
+                disabled
               />
               <label class="form-check-label inline-block text-gray-800" for="multivueRadio4"> Quatre vues </label>
             </div>
@@ -480,7 +483,7 @@
     </header>
     <!-- Question -->
     <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-10">
-      <div class="grid grid-cols-2 place-content-stretch justify-items-center gap-0 w-full">
+      <div class="{nbOfVues > 1 ? 'grid grid-cols-2' : ''} place-content-stretch justify-items-center gap-0 w-full">
         {#each Array(nbOfVues) as _, i (i)}
           <div bind:this={divQuestion} class="flex flex-col justify-center justify-self-stretch p-8">
             <div class="font-light mb-8">{consignes[currentQuestion]}</div>
