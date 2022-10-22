@@ -49,6 +49,7 @@
 
   onMount(async () => {
     updateDisplay()
+    document.addEventListener('newDataForAll', newData)
   })
 
   afterUpdate(async () => {
@@ -64,7 +65,6 @@
           newData()
         }
       }
-      Mathalea.renderDiv(divExercice)
     }
   })
 
@@ -148,6 +148,8 @@
         languages: ["fr"],
       })
     }
+    await tick()
+    Mathalea.renderDiv(divExercice)
   }
 
   function verifExercice() {
@@ -190,7 +192,7 @@
   }
 </script>
 
-<div class="z-0 flex-1 overflow-hidden" bind:this={divExercice}>
+<div class="z-0 flex-1 overflow-hidden">
   <HeaderExercice
     on:clickVisible={(event) => {
       isVisible = event.detail.isVisible
@@ -221,7 +223,7 @@
   />
 
   {#if isVisible}
-    <div class="flex flex-col-reverse lg:flex-row">
+    <div class="flex flex-col-reverse lg:flex-row" bind:this={divExercice}>
       <div class="flex flex-col relative {isSettingsVisible ? 'w-full lg:w-3/4' : 'w-full'} duration-500" id="exercice{indiceExercice}">
         <article class="text-2xl lg:text-base">
           <div class="text-right text-orange-600 text-xs mt-2">
@@ -269,6 +271,7 @@
               </ul>
             </div>
           {:else}
+          <div>
             <p class="leading-relaxed mt-2  ml-2 lg:mx-5  text-gray-800">
               {@html exercice.consigne + exercice.introduction}
             </p>
@@ -284,6 +287,7 @@
                 {/each}
               </ul>
             </div>
+          </div>
           {/if}
         </article>
         {#if isInteractif && !isCorrectionVisible && isContentVisible}
