@@ -62,8 +62,8 @@
       exercice.nouvelleVersion()
       questions = [...questions, ...exercice.listeQuestions]
       corrections = [...corrections, ...exercice.listeCorrections]
-      questions = questions.map(formatExercice)
-      corrections = corrections.map(formatExercice)
+      questions = questions.map(Mathalea.formatExercice)
+      corrections = corrections.map(Mathalea.formatExercice)
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
         sizes.push(exercice.tailleDiaporama)
         consignes.push(exercice.consigne)
@@ -180,13 +180,6 @@
         }
       }, timeQuestion * 10)
     }
-  }
-
-  function formatExercice(texte: string) {
-    return texte
-      .replace(/\\dotfill/g, "..............................")
-      .replace(/\\not=/g, "≠")
-      .replace(/\\ldots/g, "....")
   }
 
   const ARROW_LEFT = 37
