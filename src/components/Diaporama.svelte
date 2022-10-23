@@ -62,8 +62,8 @@
       exercice.nouvelleVersion()
       questions = [...questions, ...exercice.listeQuestions]
       corrections = [...corrections, ...exercice.listeCorrections]
-      questions = questions.map(formatExercice)
-      corrections = corrections.map(formatExercice)
+      questions = questions.map(Mathalea.formatExercice)
+      corrections = corrections.map(Mathalea.formatExercice)
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
         sizes.push(exercice.tailleDiaporama)
         consignes.push(exercice.consigne)
@@ -180,13 +180,6 @@
         }
       }, timeQuestion * 10)
     }
-  }
-
-  function formatExercice(texte: string) {
-    return texte
-      .replace(/\\dotfill/g, "..............................")
-      .replace(/\\not=/g, "≠")
-      .replace(/\\ldots/g, "....")
   }
 
   const ARROW_LEFT = 37
@@ -314,6 +307,9 @@
           on:click={() => {
             document.location.href = document.location.href.replace("&v=diaporama", "")
           }}
+          on:keydown={() => {
+            document.location.href = document.location.href.replace("&v=diaporama", "")
+          }}
         /></button
       >
     </div>
@@ -322,6 +318,9 @@
         type="button"
         class="inline-flex items-center justify-center shadow-2xl w-1/3 bg-coopmaths hover:bg-coopmaths-dark text-[100px] font-extrabold text-white py-6 px-12 rounded-lg"
         on:click={() => {
+          goToQuestion(0)
+        }}
+        on:keydown={() => {
           goToQuestion(0)
         }}
       >
@@ -353,8 +352,9 @@
                 id="multivueRadio2"
                 bind:group={nbOfVues}
                 value={2}
+                disabled
               />
-              <label class="form-check-label inline-block text-gray-800" for="multivueRadio2"> Deux vues </label>
+              <label class=" form-check-label inline-block text-gray-800" for="multivueRadio2"> Deux vues </label>
             </div>
             <div class="form-check">
               <input
@@ -364,6 +364,7 @@
                 id="multivueRadio3"
                 bind:group={nbOfVues}
                 value={3}
+                disabled
               />
               <label class="form-check-label inline-block text-gray-800" for="multivueRadio3"> Trois vues </label>
             </div>
@@ -375,6 +376,7 @@
                 id="multivueRadio4"
                 bind:group={nbOfVues}
                 value={4}
+                disabled
               />
               <label class="form-check-label inline-block text-gray-800" for="multivueRadio4"> Quatre vues </label>
             </div>
@@ -467,14 +469,14 @@
       <div class="flex flex-row h-full mt-6 w-full justify-center">
         <ul class="steps w-11/12" bind:this={stepsUl}>
           {#each questions as question, i}
-            <li class="step {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => clickOnStep(i)} />
+            <li class="step {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => clickOnStep(i)} on:keydown={() => clickOnStep(i)} />
           {/each}
         </ul>
       </div>
     </header>
     <!-- Question -->
     <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-10">
-      <div class="grid grid-cols-2 place-content-stretch justify-items-center gap-0 w-full">
+      <div class="{nbOfVues > 1 ? 'grid grid-cols-2' : ''} place-content-stretch justify-items-center gap-0 w-full">
         {#each Array(nbOfVues) as _, i (i)}
           <div bind:this={divQuestion} class="flex flex-col justify-center justify-self-stretch p-8">
             <div class="font-light mb-8">{consignes[currentQuestion]}</div>
@@ -501,7 +503,7 @@
         <!-- boutons timers correction quitter -->
         <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
           <label for="timerSettings" class="modal-button"
-            ><i class="relative bx ml-2 bx-lg bx-stopwatch" on:click={pause}>
+            ><i class="relative bx ml-2 bx-lg bx-stopwatch" on:click={pause} on:keydown={pause}>
               <div class="absolute -bottom-[12px] left-1/2 -translate-x-1/2 text-sm font-sans text-coopmaths">{displayCurrentDuration()}</div></i
             ></label
           >
@@ -526,7 +528,7 @@
                 </div>
               </div>
               <div class="modal-action">
-                <label for="timerSettings" class="btn btn-coopmaths" on:click={switchPause}>Fermer</label>
+                <label for="timerSettings" class="btn btn-coopmaths" on:click={switchPause} on:keydown={switchPause}>Fermer</label>
               </div>
             </div>
           </div>
@@ -535,7 +537,11 @@
             type="button"
             on:click={() => {
               document.location.href = document.location.href.replace("&v=diaporama", "")
-            }}><i class="bx ml-2 bx-lg bx-power-off" /></button
+            }}
+            on:keydown={() => {
+              document.location.href = document.location.href.replace("&v=diaporama", "")
+            }}
+            ><i class="bx ml-2 bx-lg bx-power-off" /></button
           >
         </div>
       </div>
@@ -548,7 +554,7 @@
     <div class="flex flex-row items-center justify-center w-full text-[300px] font-extrabold m-10">Fin !</div>
     <div class="flex flex-row items-center justify-center w-full mx-10 my-4">
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Début du diaporama">
-        <button type="button" class="m-2 text-coopmaths" on:click={returnToStart}><i class="bx text-[100px] bx-arrow-back" /></button>
+        <button type="button" class="m-2 text-coopmaths" on:click={returnToStart} on:keydown={returnToStart}><i class="bx text-[100px] bx-arrow-back" /></button>
       </div>
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Questions + Réponses">
         <button type="button" class="mx-12 my-2 text-coopmaths"><i class="bx text-[100px] bx-detail" /></button>

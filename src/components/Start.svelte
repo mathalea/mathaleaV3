@@ -183,6 +183,13 @@
     if (!expanding) return
     sidebarWidth = event.pageX
   }
+
+  function newDataForAll () {
+    const newDataForAll = new window.Event("newDataForAll", {
+      bubbles: true,
+    })
+    document.dispatchEvent(newDataForAll)
+  }
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
@@ -232,8 +239,8 @@
         {/if}
         {#if $displayOptions.v !== "l"}
           <div class="flex flex-row justify-end items-center space-x-2 text-slate-500">
-            <button type="button" class="hover:text-coopmaths-dark"><i class="bx bx-sm bx-refresh" /></button>
-            <button type="button" class="hover:text-coopmaths-dark"><i class="bx bx-sm bx-code-curly" /></button>
+            <button type="button" class="hover:text-coopmaths-dark" on:click={newDataForAll} ><i class="bx bx-sm bx-refresh" /></button>
+            <!-- <button type="button" class="hover:text-coopmaths-dark"><i class="bx bx-sm bx-code-curly" /></button> -->
             <button
               type="button"
               class="hover:text-coopmaths-dark"

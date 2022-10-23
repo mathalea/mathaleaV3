@@ -232,6 +232,18 @@ export class Mathalea {
     }
     return c
   }
+
+  /**
+   * Pour la sortie HTML, il faut modifier certains codages LaTeX non pris en charge par KaTeX
+   * @param {string} texte
+   * @returns string
+   */
+  static formatExercice (texte) {
+    return texte
+      .replace(/\\dotfill/g, '..............................')
+      .replace(/\\not=/g, '≠')
+      .replace(/\\ldots/g, '....')
+  }
 }
 
 function _handleStringFromUrl (txt) {
