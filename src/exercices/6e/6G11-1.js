@@ -11,7 +11,7 @@ export const dateDePublication = '09/10/2022'
  * @author Mickael Guironnet
  */
 
-export const uuid = 'b46e2'
+export const uuid = 'df825'
 export const ref = '6G11-1'
 export default class constructionPerpendiculaires extends Exercice {
 //  'use strict'

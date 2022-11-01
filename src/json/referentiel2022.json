@@ -630,7 +630,7 @@
           "url": "can/6e/can6I01.js",
           "tags": {
             "AMC": false,
-            "Interactif": false,
+            "Interactif": true,
             "Can": true
           }
         }
@@ -1340,6 +1340,18 @@
             "Can": true
           },
           "datePublication": "11/05/2022"
+        },
+        "can5C22": {
+          "uuid": "67f09",
+          "id": "can5C22",
+          "titre": "Passer d'un décimal à une fraction",
+          "url": "can/5e/can5C22.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "31/10/2022"
         }
       },
       "can5D": {
@@ -2131,6 +2143,18 @@
             "Can": true
           },
           "datePublication": "09/05/2022"
+        },
+        "can3C14": {
+          "uuid": "3f875",
+          "id": "can3C14",
+          "titre": "Passer d'un décimal à une fraction irréductible",
+          "url": "can/3e/can3C14.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "31/10/2022"
         }
       },
       "can3F": {
@@ -2154,7 +2178,8 @@
             "AMC": true,
             "Interactif": true,
             "Can": true
-          }
+          },
+          "dateModification": "13/10/2022"
         },
         "can3F03": {
           "uuid": "cf55d",
@@ -2165,7 +2190,8 @@
             "AMC": true,
             "Interactif": true,
             "Can": true
-          }
+          },
+          "dateModification": "13/10/2022"
         },
         "can3F04": {
           "uuid": "4b600",
@@ -2176,7 +2202,8 @@
             "AMC": true,
             "Interactif": true,
             "Can": true
-          }
+          },
+          "dateModification": "13/10/2022"
         },
         "can3F05": {
           "uuid": "83a8a",
@@ -2187,7 +2214,8 @@
             "AMC": true,
             "Interactif": true,
             "Can": true
-          }
+          },
+          "dateModification": "13/10/2022"
         },
         "can3F06": {
           "uuid": "17987",
@@ -3553,6 +3581,30 @@
             "Can": true
           },
           "datePublication": "08/07/2022"
+        },
+        "can1G09": {
+          "uuid": "aa661",
+          "id": "can1G09",
+          "titre": "Associer un point à un réel sur un cercle trigonométrique ",
+          "url": "can/1e/can1G09.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "31/10/2022"
+        },
+        "can1G10": {
+          "uuid": "33ae8",
+          "id": "can1G10",
+          "titre": "Associer une mesure d'angle à un  point du cercle trigonométrique ",
+          "url": "can/1e/can1G10.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "31/10/2022"
         }
       },
       "can1L": {
@@ -4384,6 +4436,17 @@
         "titre": "Traduire des phrases en calculs et réciproquement",
         "url": "6e/6C13.js",
         "uuid": "ed0ea"
+      },
+      "6C13-1": {
+        "id": "6C13-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Vocabulaires liés aux 4 opérations",
+        "url": "6e/6C13-1.js",
+        "uuid": "32e02"
       }
     },
     "6C2": {
@@ -4681,7 +4744,7 @@
       "6G10": {
         "id": "6G10",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": false,
           "Can": false
         },
@@ -4770,8 +4833,8 @@
         "uuid": "7ff97"
       },
       "6G11-1": {
-        "id": "6G11-1",
         "datePublication": "09/10/2022",
+        "id": "6G11-1",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -4779,7 +4842,7 @@
         },
         "titre": "Tracer des perpendiculaires",
         "url": "6e/6G11-1.js",
-        "uuid": "b46e2"
+        "uuid": "df825"
       },
       "6G12": {
         "id": "6G12",
@@ -4849,6 +4912,18 @@
         "titre": "Utiliser le vocabulaire des triangles",
         "url": "6e/6G20-2.js",
         "uuid": "b5eaf"
+      },
+      "6G20-3": {
+        "datePublication": "21/10/2022",
+        "id": "6G20-3",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Connaitre le vocabulaire de base des polygones",
+        "url": "6e/6G20-3.js",
+        "uuid": "18672"
       },
       "6G21": {
         "id": "6G21",
@@ -6323,7 +6398,7 @@
         },
         "titre": "Explorer un labyrinthe de nombres premiers",
         "url": "5e/5A12-3.js",
-        "uuid": "38562"
+        "uuid": "05079"
       },
       "5A13": {
         "id": "5A13",
@@ -6837,7 +6912,7 @@
         "uuid": "fefa0"
       },
       "5L10-2": {
-        "dateModification": "11/05/2022",
+        "dateModification": "15/10/2022",
         "id": "5L10-2",
         "tags": {
           "AMC": true,
@@ -7600,7 +7675,7 @@
         },
         "titre": "Explorer un labyrinthe de nombres premiers",
         "url": "4e/4A10-1.js",
-        "uuid": "4c4d3"
+        "uuid": "50663"
       },
       "4A11-0": {
         "dateModification": "2/11/2021",
@@ -8916,7 +8991,7 @@
         },
         "titre": "Explorer un labyrinthe de nombres premiers",
         "url": "3e/3A10-7.js",
-        "uuid": "980b6"
+        "uuid": "9552d"
       },
       "3A11": {
         "id": "3A11",
@@ -11453,6 +11528,7 @@
         "uuid": "0fbd1"
       },
       "1E11-1": {
+        "dateModification": "26/10/2022",
         "id": "1E11-1",
         "tags": {
           "AMC": true,
@@ -11529,6 +11605,18 @@
         "url": "1e/1E12-1.js",
         "uuid": "a896e"
       },
+      "1E12-2": {
+        "datePublication": "27/10/2022",
+        "id": "1E12-2",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Étude complète de paraboles",
+        "url": "1e/1E12-2.js",
+        "uuid": "e6718"
+      },
       "1E13": {
         "id": "1E13",
         "tags": {
@@ -11573,6 +11661,30 @@
         "titre": "Résoudre une inéquation du second degré",
         "url": "1e/1E16.js",
         "uuid": "77bcc"
+      },
+      "1E17": {
+        "datePublication": "27/10/2022",
+        "id": "1E17",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Utiliser les différentes formes d'un polynôme du second degré",
+        "url": "1e/1E17.js",
+        "uuid": "8fde1"
+      },
+      "1E18": {
+        "datePublication": "28/10/2022",
+        "id": "1E18",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Équations et inéquations du second degré",
+        "url": "1e/1E18.js",
+        "uuid": "b9252"
       }
     },
     "1F1": {
