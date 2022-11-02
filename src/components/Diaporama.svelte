@@ -78,7 +78,7 @@
   }
   function prevQuestion() {
     nbOfQuestionsDisplayed -= 1
-    if (currentQuestion > 0) goToQuestion(currentQuestion - 1)
+    if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
   }
 
   function nextQuestion() {
@@ -88,7 +88,8 @@
 
   async function goToQuestion(i: number) {
     if (i === 0) nbOfQuestionsDisplayed = 1
-    if (i >= 0 && i < questions.length) currentQuestion = i
+    if (i >= -1 && i < questions.length) currentQuestion = i
+    if ( i === -1) pause()
     await tick()
     if (divQuestion) {
       currentZoom = userZoom
@@ -207,6 +208,7 @@
    */
   function handleTimerChange(event) {
     durationGlobal = parseInt(event.target.value)
+    isSameDurationForAll = true
     goToQuestion(currentQuestion)
   }
   /**
@@ -329,9 +331,11 @@
         class="inline-flex items-center justify-center shadow-2xl w-1/3 bg-coopmaths hover:bg-coopmaths-dark text-[100px] font-extrabold text-white py-6 px-12 rounded-lg"
         on:click={() => {
           goToQuestion(0)
+          timer(durationGlobal ?? durations[currentQuestion] ?? 10)
         }}
         on:keydown={() => {
           goToQuestion(0)
+          timer(durationGlobal ?? durations[currentQuestion] ?? 10)
         }}
       >
         Play <i class="bx text-[100px] text-white bx-play" />
