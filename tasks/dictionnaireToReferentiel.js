@@ -1,6 +1,6 @@
 import fs from 'fs'
-import { dictionnaireCrpeCopirelem } from '../src/modules/dictionnaireCrpeCopirelem.js'
 import { dictionnaireCrpe } from '../src/modules/dictionnaireCrpe.js'
+import { dictionnaireCrpeCoop } from '../src/modules/dictionnaireCrpeCoop.js'
 import { dictionnaireDNB } from '../src/modules/dictionnaireDNB.js'
 import { dictionnaireBAC } from '../src/modules/dictionnaireBAC.js'
 import { dictionnaireE3C } from '../src/modules/dictionnaireE3C.js'
@@ -19,8 +19,7 @@ for (const ex in dictionnaireDNB) {
 }
 
 const tagsDNB = [...setTagsDNB].sort((a, b) => { return a.localeCompare(b) })
-
-for (const annee of ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022']) {
+for (const annee of ['2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
   referentiel.DNB[annee] = {}
   for (const ex in dictionnaireDNB) {
     if (dictionnaireDNB[ex].annee === annee) {
@@ -104,17 +103,17 @@ for (const tag of tagsE3C) {
 referentiel.crpe = {}
 const setThemesCrpe = new Set()
 
-for (const ex in dictionnaireCrpe) {
-  dictionnaireCrpe[ex].tags.forEach(e => {
+for (const ex in dictionnaireCrpeCoop) {
+  dictionnaireCrpeCoop[ex].tags.forEach(e => {
     setThemesCrpe.add(e)
   })
 }
 
 for (const annee of ['2022']) {
   referentiel.crpe[annee] = {}
-  for (const ex in dictionnaireCrpe) {
-    if (dictionnaireCrpe[ex].annee === annee) {
-      referentiel.crpe[annee][ex] = { uuid: ex, ...dictionnaireCrpe[ex] }
+  for (const ex in dictionnaireCrpeCoop) {
+    if (dictionnaireCrpeCoop[ex].annee === annee) {
+      referentiel.crpe[annee][ex] = { uuid: ex, ...dictionnaireCrpeCoop[ex] }
     }
   }
 }
@@ -124,9 +123,9 @@ referentiel.crpeTags = {}
 
 for (const tag of tagsCrpe) {
   referentiel.crpeTags[tag] = {}
-  for (const ex in dictionnaireCrpe) {
-    if (dictionnaireCrpe[ex].tags.includes(tag)) {
-      referentiel.crpeTags[tag][ex] = { uuid: ex, ...dictionnaireCrpe[ex] }
+  for (const ex in dictionnaireCrpeCoop) {
+    if (dictionnaireCrpeCoop[ex].tags.includes(tag)) {
+      referentiel.crpeTags[tag][ex] = { uuid: ex, ...dictionnaireCrpeCoop[ex] }
     }
   }
 }
@@ -135,17 +134,17 @@ for (const tag of tagsCrpe) {
 referentiel.crpeCopirelem = {}
 const setThemesCrpeCopirelem = new Set()
 
-for (const ex in dictionnaireCrpeCopirelem) {
-  dictionnaireCrpeCopirelem[ex].tags.forEach(e => {
+for (const ex in dictionnaireCrpe) {
+  dictionnaireCrpe[ex].tags.forEach(e => {
     setThemesCrpeCopirelem.add(e)
   })
 }
 
-for (const annee of ['2015', '2016', '2017', '2018', '2019']) {
+for (const annee of ['2019', '2018', '2017', '2016', '2015']) {
   referentiel.crpeCopirelem[annee] = {}
-  for (const ex in dictionnaireCrpeCopirelem) {
-    if (dictionnaireCrpeCopirelem[ex].annee === annee) {
-      referentiel.crpeCopirelem[annee][ex] = { uuid: ex, ...dictionnaireCrpeCopirelem[ex] }
+  for (const ex in dictionnaireCrpe) {
+    if (dictionnaireCrpe[ex].annee === annee) {
+      referentiel.crpeCopirelem[annee][ex] = { uuid: ex, ...dictionnaireCrpe[ex] }
     }
   }
 }
@@ -155,9 +154,9 @@ referentiel.crpeCopirelemTags = {}
 
 for (const tag of tagsCrpeCopirelem) {
   referentiel.crpeCopirelemTags[tag] = {}
-  for (const ex in dictionnaireCrpeCopirelem) {
-    if (dictionnaireCrpeCopirelem[ex].tags.includes(tag)) {
-      referentiel.crpeCopirelemTags[tag][ex] = { uuid: ex, ...dictionnaireCrpeCopirelem[ex] }
+  for (const ex in dictionnaireCrpe) {
+    if (dictionnaireCrpe[ex].tags.includes(tag)) {
+      referentiel.crpeCopirelemTags[tag][ex] = { uuid: ex, ...dictionnaireCrpe[ex] }
     }
   }
 }

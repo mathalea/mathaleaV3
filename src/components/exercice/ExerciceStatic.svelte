@@ -26,7 +26,7 @@
 
   let headerExerciceProps = {title: '', isInteractif: false, settingsReady: false, interactifReady: false, randomReady: false, indiceExercice, indiceLastExercice }
 
-  headerExerciceProps.title = `${exercice.typeExercice.toUpperCase()} - ${exercice.annee} - ${exercice.lieu} - ${exercice.numeroInitial}`
+  headerExerciceProps.title = `${exercice.typeExercice.toUpperCase()} - ${exercice.mois || ''} ${exercice.annee} - ${exercice.lieu} - ${exercice.numeroInitial}`
 </script>
 
 <HeaderExercice {...headerExerciceProps}
