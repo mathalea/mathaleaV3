@@ -17,8 +17,8 @@
   let userZoom = 3
   let currentZoom = userZoom
   let exercices: Exercice[] = []
-  let questions: string[] = [] // Concaténation de toutes les questions des exercices de exercicesParams
-  let corrections: string[] = []
+  let questions: [string[], string[], string[], string[]] = [[], [], [], []] // Concaténation de toutes les questions des exercices de exercicesParams, vue par vue
+  let corrections: [string[], string[], string[], string[]] = [[], [], [], []]
   let sizes: number[] = []
   let consignes: string[] = []
   let durations: number[] = []
@@ -54,19 +54,26 @@
   })
 
   function updateExercices() {
-    questions = []
-    corrections = []
+    questions = [[], [], [], []]
+    corrections = [[], [], [], []]
     consignes = []
     sizes = []
     durations = []
+    for (let idVue = 0; idVue < nbOfVues; idVue++) {
+      questions[idVue] = []
+      corrections[idVue] = []
+      for (const exercice of exercices) {
+        if (idVue > 0) exercice.seed = exercice.seed + idVue
+        if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
+        seedrandom(idVue, { global: true })
+        exercice.nouvelleVersion()
+        questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
+        corrections[idVue] = [...corrections[idVue], ...exercice.listeCorrections]
+        questions[idVue] = questions[idVue].map(Mathalea.formatExercice)
+        corrections[idVue] = corrections[idVue].map(Mathalea.formatExercice)
+      }
+    }
     for (const exercice of exercices) {
-      seedrandom(exercice.seed, { global: true })
-      if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
-      exercice.nouvelleVersion()
-      questions = [...questions, ...exercice.listeQuestions]
-      corrections = [...corrections, ...exercice.listeCorrections]
-      questions = questions.map(Mathalea.formatExercice)
-      corrections = corrections.map(Mathalea.formatExercice)
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
         sizes.push(exercice.tailleDiaporama)
         consignes.push(exercice.consigne)
@@ -83,13 +90,13 @@
 
   function nextQuestion() {
     nbOfQuestionsDisplayed += 1
-    if (currentQuestion < questions.length - 1) goToQuestion(currentQuestion + 1)
+    if (currentQuestion < questions[0].length) goToQuestion(currentQuestion + 1)
   }
 
   async function goToQuestion(i: number) {
     if (i === 0) nbOfQuestionsDisplayed = 1
-    if (i >= -1 && i < questions.length) currentQuestion = i
-    if ( i === -1) pause()
+    if (i >= -1 && i <= questions[0].length) currentQuestion = i
+    if ( i === -1 || i === questions[0].length) pause()
     await tick()
     if (divQuestion) {
       currentZoom = userZoom
@@ -354,6 +361,7 @@
                 name="multivue"
                 id="multivueRadio1"
                 bind:group={nbOfVues}
+                on:change={updateExercices}
                 value={1}
               />
               <label class="form-check-label inline-block text-gray-800" for="multivueRadio1"> Pas de multivue </label>
@@ -365,8 +373,8 @@
                 name="multivue"
                 id="multivueRadio2"
                 bind:group={nbOfVues}
+                on:change={updateExercices}
                 value={2}
-                disabled
               />
               <label class=" form-check-label inline-block text-gray-800" for="multivueRadio2"> Deux vues </label>
             </div>
@@ -377,8 +385,8 @@
                 name="multivue"
                 id="multivueRadio3"
                 bind:group={nbOfVues}
+                on:change={updateExercices}
                 value={3}
-                disabled
               />
               <label class="form-check-label inline-block text-gray-800" for="multivueRadio3"> Trois vues </label>
             </div>
@@ -389,8 +397,8 @@
                 name="multivue"
                 id="multivueRadio4"
                 bind:group={nbOfVues}
+                on:change={updateExercices}
                 value={4}
-                disabled
               />
               <label class="form-check-label inline-block text-gray-800" for="multivueRadio4"> Quatre vues </label>
             </div>
@@ -473,7 +481,7 @@
   </div>
 {/if}
 <!-- Diaporama lui-même -->
-{#if nbOfQuestionsDisplayed > 0 && nbOfQuestionsDisplayed <= questions.length}
+{#if nbOfQuestionsDisplayed > 0 && nbOfQuestionsDisplayed <= questions[0].length}
   <div id="diap" class="flex flex-col h-screen scrollbar-hide" data-theme="daisytheme">
     <!-- Steps -->
     <header class="flex flex-col h-20 dark:bg-white pb-1">
@@ -482,7 +490,7 @@
       </div>
       <div class="flex flex-row h-full mt-6 w-full justify-center">
         <ul class="steps w-11/12" bind:this={stepsUl}>
-          {#each questions as question, i}
+          {#each questions[0] as question, i}
             <li class="step {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => clickOnStep(i)} on:keydown={() => clickOnStep(i)} />
           {/each}
         </ul>
@@ -490,11 +498,11 @@
     </header>
     <!-- Question -->
     <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-10">
-      <div class="{nbOfVues > 1 ? 'grid grid-cols-2' : ''} place-content-stretch justify-items-center gap-0 w-full">
+      <div bind:this={divQuestion} class="{nbOfVues > 1 ? 'grid grid-cols-2' : ''} place-content-stretch justify-items-center gap-0 w-full">
         {#each Array(nbOfVues) as _, i (i)}
-          <div bind:this={divQuestion} class="flex flex-col justify-center justify-self-stretch p-8">
+          <div class="flex flex-col justify-center justify-self-stretch p-8">
             <div class="font-light mb-8">{consignes[currentQuestion]}</div>
-            <div>{@html isCorrectionVisible ? corrections[currentQuestion] : questions[currentQuestion]}</div>
+            <div>{@html isCorrectionVisible ? corrections[i][currentQuestion] : questions[i][currentQuestion]}</div>
           </div>
         {/each}
       </div>
@@ -563,7 +571,7 @@
   </div>
 {/if}
 <!-- Fin du diaporama -->
-{#if nbOfQuestionsDisplayed > questions.length}
+{#if nbOfQuestionsDisplayed > questions[0].length}
   <div id="end" class="flex flex-col h-screen scrollbar-hide justify-center text-coopmaths" data-theme="daisytheme">
     <div class="flex flex-row items-center justify-center w-full text-[300px] font-extrabold m-10">Fin !</div>
     <div class="flex flex-row items-center justify-center w-full mx-10 my-4">
