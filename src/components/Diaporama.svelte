@@ -6,8 +6,9 @@
   import seedrandom from "seedrandom"
 
   let divQuestion: HTMLElement
+  let divTableDurationsQuestions: HTMLElement
   let stepsUl: HTMLUListElement
-  let currentQuestion = 0
+  let currentQuestion = -1
   let nbOfQuestionsDisplayed = 0
   let isFullScreen = false
   let isPause = false
@@ -48,6 +49,8 @@
     }
     exercices = exercices
     updateExercices()
+    await tick()
+    if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
   })
 
   function updateExercices() {
@@ -71,6 +74,7 @@
       }
     }
     totalDuration = getTotalDuration()
+    if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
   }
   function prevQuestion() {
     nbOfQuestionsDisplayed -= 1
@@ -182,17 +186,17 @@
     }
   }
 
-  const ARROW_LEFT = 37
-  const ARROW_RIGHT = 39
-  const SPACE = 32
-  function handleShortcut(e) {
-    if (e.keyCode === ARROW_LEFT) {
+  function handleShortcut(e:KeyboardEvent) {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault()
       prevQuestion()
     }
-    if (e.keyCode === ARROW_RIGHT) {
+    if (e.key === 'ArrowRight') {
+      e.preventDefault()
       nextQuestion()
     }
-    if (e.keyCode === SPACE) {
+    if (e.key === 'Space') {
+      e.preventDefault()
       if (durationGlobal !== 0) switchPause()
     }
   }
@@ -225,6 +229,7 @@
    */
   function returnToStart() {
     durationGlobal = 0
+    pause()
     goToQuestion(0)
   }
 
@@ -258,6 +263,10 @@
       sum += exercice.nbQuestions
     }
     return sum
+  }
+
+  $: {
+    if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
   }
 
   /**
@@ -294,6 +303,7 @@
     if (stepsUl) steps = stepsUl.querySelectorAll("li")
     if (steps && steps[currentQuestion + 5]) steps[currentQuestion + 5].scrollIntoView()
   }
+
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
@@ -407,7 +417,7 @@
           </div>
         </div>
 
-        <div class="flex flex-col min-w-full px-4 align-middle">
+        <div class="flex flex-col min-w-full px-4 align-middle" bind:this={divTableDurationsQuestions}>
           <div class="table-wrp block max-h-[300px] shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
             <table class="table-fixed min-w-full divide-y divide-gray-300">
               <thead class="bg-gray-100 sticky top-0">
