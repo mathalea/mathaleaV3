@@ -10,8 +10,7 @@
   let divQuestion: HTMLElement
   let divTableDurationsQuestions: HTMLElement
   let stepsUl: HTMLUListElement
-  let currentQuestion = -1
-  let nbOfQuestionsDisplayed = 0
+  let currentQuestion = -1 // -1 pour l'intro et questions[0].length pour l'outro
   let isFullScreen = false
   let isPause = false
   let isCorrectionVisible = false
@@ -90,17 +89,14 @@
     if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
   }
   function prevQuestion() {
-    nbOfQuestionsDisplayed -= 1
     if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
   }
 
   function nextQuestion() {
-    nbOfQuestionsDisplayed += 1
     if (currentQuestion < questions[0].length) goToQuestion(currentQuestion + 1)
   }
 
   async function goToQuestion(i: number) {
-    if (i === 0) nbOfQuestionsDisplayed = 1
     if (i >= -1 && i <= questions[0].length) currentQuestion = i
     if ( i === -1 || i === questions[0].length) pause()
     await tick()
@@ -253,7 +249,6 @@
    * @param {number} index index de l'étape
    */
   function clickOnStep(index) {
-    nbOfQuestionsDisplayed = index + 1
     goToQuestion(index)
   }
 
@@ -323,7 +318,7 @@
 
 <svelte:window on:keyup={handleShortcut} />
 <!-- Page d'accueil du diapo -->
-{#if nbOfQuestionsDisplayed === 0}
+{#if currentQuestion === -1}
   <div id="start" class="flex flex-col h-screen scrollbar-hide" data-theme="daisytheme">
     <div class="flex flex-row justify-end p-6">
       <button type="button"
@@ -487,7 +482,7 @@
   </div>
 {/if}
 <!-- Diaporama lui-même -->
-{#if nbOfQuestionsDisplayed > 0 && nbOfQuestionsDisplayed <= questions[0].length}
+{#if currentQuestion > -1 && currentQuestion < questions[0].length}
   <div id="diap" class="flex flex-col h-screen scrollbar-hide" data-theme="daisytheme">
     <!-- Steps -->
     <header class="flex flex-col h-20 dark:bg-white pb-1">
@@ -577,7 +572,7 @@
   </div>
 {/if}
 <!-- Fin du diaporama -->
-{#if nbOfQuestionsDisplayed > questions[0].length}
+{#if currentQuestion === questions[0].length}
   <div id="end" class="flex flex-col h-screen scrollbar-hide justify-center text-coopmaths" data-theme="daisytheme">
     <div class="flex flex-row items-center justify-center w-full text-[300px] font-extrabold m-10">Fin !</div>
     <div class="flex flex-row items-center justify-center w-full mx-10 my-4">
