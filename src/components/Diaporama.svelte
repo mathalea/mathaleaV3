@@ -4,6 +4,8 @@
   import { exercicesParams } from "./store"
   import type { Exercice } from "./utils/typeExercice"
   import seedrandom from "seedrandom"
+  import { tweened } from "svelte/motion"
+	import { cubicOut } from "svelte/easing"
 
   let divQuestion: HTMLElement
   let divTableDurationsQuestions: HTMLElement
@@ -23,7 +25,11 @@
   let consignes: string[] = []
   let durations: number[] = []
   let durationGlobal: number = null
-  let ratioTime: number = 0 // Pourcentage du temps écoulé (entre 1 et 100)
+  let ratioTime = 0 // Pourcentage du temps écoulé (entre 1 et 100)
+  let progress = tweened(0, {
+		duration: durationGlobal ?? durations[currentQuestion] ?? 10,
+		easing: cubicOut
+	}) 
   let myInterval: number
   let currentDuration: number
   let totalDuration: number = null
@@ -203,7 +209,7 @@
       e.preventDefault()
       nextQuestion()
     }
-    if (e.key === 'Space') {
+    if (e.key === ' ') {
       e.preventDefault()
       if (durationGlobal !== 0) switchPause()
     }
