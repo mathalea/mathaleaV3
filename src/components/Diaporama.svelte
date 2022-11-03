@@ -580,7 +580,9 @@
         <button type="button" class="m-2 text-coopmaths" on:click={returnToStart} on:keydown={returnToStart}><i class="bx text-[100px] bx-arrow-back" /></button>
       </div>
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Questions + Réponses">
-        <button type="button" class="mx-12 my-2 text-coopmaths"><i class="bx text-[100px] bx-detail" /></button>
+        <button type="button" class="mx-12 my-2 text-coopmaths"on:click={() => {
+          document.location.href = document.location.href.replace("&v=diaporama", "&v=can")
+        }}><i class="bx text-[100px] bx-detail" /></button>
       </div>
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Sortir du diaporama">
         <button
