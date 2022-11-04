@@ -8,9 +8,11 @@
   export let items: any
   export let pathToThisNode: string[]
   export let nestedLevelCount: number
-
   import themesList from "../../json/levelsThemesList.json"
+  import { Mathalea } from "../../Mathalea"
+
   const themes = toMap(themesList)
+  let listeExercices: HTMLUListElement
   /**
    * Recherche dans la liste des thèmes si le thème est référencé
    * et si oui, renvoie son intitulé
@@ -33,6 +35,10 @@
     const item = Array.from(items, ([key, obj]) => ({ key, obj }))
     expanded = !expanded
   }
+
+  $: {
+    if (listeExercices) Mathalea.renderDiv(listeExercices)
+  } 
 </script>
 
 <!-- 
@@ -57,7 +63,7 @@
   <i class=" text-xl bg-transparent bx {expanded ? 'bx-plus rotate-[225deg]' : 'bx-plus'} transition-transform duration-500 ease-in-out" />
 </div>
 {#if expanded}
-  <ul transition:slide={{ duration: 500 }}>
+  <ul transition:slide={{ duration: 500 }} bind:this={listeExercices}>
     {#each Array.from(items, ([key, obj]) => ({ key, obj })) as item}
       <li>
         {#if item.obj.has("uuid")}

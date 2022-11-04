@@ -4,11 +4,13 @@
   import { exercicesParams } from "./store"
   import type { Exercice } from "./utils/typeExercice"
   import seedrandom from "seedrandom"
+  import { tweened } from "svelte/motion"
+	import { cubicOut } from "svelte/easing"
 
   let divQuestion: HTMLElement
+  let divTableDurationsQuestions: HTMLElement
   let stepsUl: HTMLUListElement
-  let currentQuestion = 0
-  let nbOfQuestionsDisplayed = 0
+  let currentQuestion = -1 // -1 pour l'intro et questions[0].length pour l'outro
   let isFullScreen = false
   let isPause = false
   let isCorrectionVisible = false
@@ -16,13 +18,17 @@
   let userZoom = 3
   let currentZoom = userZoom
   let exercices: Exercice[] = []
-  let questions: string[] = [] // Concaténation de toutes les questions des exercices de exercicesParams
-  let corrections: string[] = []
+  let questions: [string[], string[], string[], string[]] = [[], [], [], []] // Concaténation de toutes les questions des exercices de exercicesParams, vue par vue
+  let corrections: [string[], string[], string[], string[]] = [[], [], [], []]
   let sizes: number[] = []
   let consignes: string[] = []
   let durations: number[] = []
   let durationGlobal: number = null
-  let ratioTime: number = 0 // Pourcentage du temps écoulé (entre 1 et 100)
+  let ratioTime = 0 // Pourcentage du temps écoulé (entre 1 et 100)
+  let progress = tweened(0, {
+		duration: durationGlobal ?? durations[currentQuestion] ?? 10,
+		easing: cubicOut
+	}) 
   let myInterval: number
   let currentDuration: number
   let totalDuration: number = null
@@ -48,22 +54,31 @@
     }
     exercices = exercices
     updateExercices()
+    await tick()
+    if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
   })
 
   function updateExercices() {
-    questions = []
-    corrections = []
+    questions = [[], [], [], []]
+    corrections = [[], [], [], []]
     consignes = []
     sizes = []
     durations = []
+    for (let idVue = 0; idVue < nbOfVues; idVue++) {
+      questions[idVue] = []
+      corrections[idVue] = []
+      for (const exercice of exercices) {
+        if (idVue > 0) exercice.seed = exercice.seed + idVue
+        if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
+        seedrandom(idVue, { global: true })
+        exercice.nouvelleVersion()
+        questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
+        corrections[idVue] = [...corrections[idVue], ...exercice.listeCorrections]
+        questions[idVue] = questions[idVue].map(Mathalea.formatExercice)
+        corrections[idVue] = corrections[idVue].map(Mathalea.formatExercice)
+      }
+    }
     for (const exercice of exercices) {
-      seedrandom(exercice.seed, { global: true })
-      if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
-      exercice.nouvelleVersion()
-      questions = [...questions, ...exercice.listeQuestions]
-      corrections = [...corrections, ...exercice.listeCorrections]
-      questions = questions.map(Mathalea.formatExercice)
-      corrections = corrections.map(Mathalea.formatExercice)
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
         sizes.push(exercice.tailleDiaporama)
         consignes.push(exercice.consigne)
@@ -71,20 +86,19 @@
       }
     }
     totalDuration = getTotalDuration()
+    if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
   }
   function prevQuestion() {
-    nbOfQuestionsDisplayed -= 1
-    if (currentQuestion > 0) goToQuestion(currentQuestion - 1)
+    if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
   }
 
   function nextQuestion() {
-    nbOfQuestionsDisplayed += 1
-    if (currentQuestion < questions.length - 1) goToQuestion(currentQuestion + 1)
+    if (currentQuestion < questions[0].length) goToQuestion(currentQuestion + 1)
   }
 
   async function goToQuestion(i: number) {
-    if (i === 0) nbOfQuestionsDisplayed = 1
-    if (i >= 0 && i < questions.length) currentQuestion = i
+    if (i >= -1 && i <= questions[0].length) currentQuestion = i
+    if ( i === -1 || i === questions[0].length) pause()
     await tick()
     if (divQuestion) {
       currentZoom = userZoom
@@ -182,17 +196,17 @@
     }
   }
 
-  const ARROW_LEFT = 37
-  const ARROW_RIGHT = 39
-  const SPACE = 32
-  function handleShortcut(e) {
-    if (e.keyCode === ARROW_LEFT) {
+  function handleShortcut(e:KeyboardEvent) {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault()
       prevQuestion()
     }
-    if (e.keyCode === ARROW_RIGHT) {
+    if (e.key === 'ArrowRight') {
+      e.preventDefault()
       nextQuestion()
     }
-    if (e.keyCode === SPACE) {
+    if (e.key === ' ') {
+      e.preventDefault()
       if (durationGlobal !== 0) switchPause()
     }
   }
@@ -203,6 +217,7 @@
    */
   function handleTimerChange(event) {
     durationGlobal = parseInt(event.target.value)
+    isSameDurationForAll = true
     goToQuestion(currentQuestion)
   }
   /**
@@ -225,6 +240,7 @@
    */
   function returnToStart() {
     durationGlobal = 0
+    pause()
     goToQuestion(0)
   }
 
@@ -233,7 +249,6 @@
    * @param {number} index index de l'étape
    */
   function clickOnStep(index) {
-    nbOfQuestionsDisplayed = index + 1
     goToQuestion(index)
   }
 
@@ -258,6 +273,10 @@
       sum += exercice.nbQuestions
     }
     return sum
+  }
+
+  $: {
+    if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
   }
 
   /**
@@ -294,11 +313,12 @@
     if (stepsUl) steps = stepsUl.querySelectorAll("li")
     if (steps && steps[currentQuestion + 5]) steps[currentQuestion + 5].scrollIntoView()
   }
+
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
 <!-- Page d'accueil du diapo -->
-{#if nbOfQuestionsDisplayed === 0}
+{#if currentQuestion === -1}
   <div id="start" class="flex flex-col h-screen scrollbar-hide" data-theme="daisytheme">
     <div class="flex flex-row justify-end p-6">
       <button type="button"
@@ -319,9 +339,11 @@
         class="inline-flex items-center justify-center shadow-2xl w-1/3 bg-coopmaths hover:bg-coopmaths-dark text-[100px] font-extrabold text-white py-6 px-12 rounded-lg"
         on:click={() => {
           goToQuestion(0)
+          timer(durationGlobal ?? durations[currentQuestion] ?? 10)
         }}
         on:keydown={() => {
           goToQuestion(0)
+          timer(durationGlobal ?? durations[currentQuestion] ?? 10)
         }}
       >
         Play <i class="bx text-[100px] text-white bx-play" />
@@ -340,6 +362,7 @@
                 name="multivue"
                 id="multivueRadio1"
                 bind:group={nbOfVues}
+                on:change={updateExercices}
                 value={1}
               />
               <label class="form-check-label inline-block text-gray-800" for="multivueRadio1"> Pas de multivue </label>
@@ -351,8 +374,8 @@
                 name="multivue"
                 id="multivueRadio2"
                 bind:group={nbOfVues}
+                on:change={updateExercices}
                 value={2}
-                disabled
               />
               <label class=" form-check-label inline-block text-gray-800" for="multivueRadio2"> Deux vues </label>
             </div>
@@ -363,8 +386,8 @@
                 name="multivue"
                 id="multivueRadio3"
                 bind:group={nbOfVues}
+                on:change={updateExercices}
                 value={3}
-                disabled
               />
               <label class="form-check-label inline-block text-gray-800" for="multivueRadio3"> Trois vues </label>
             </div>
@@ -375,8 +398,8 @@
                 name="multivue"
                 id="multivueRadio4"
                 bind:group={nbOfVues}
+                on:change={updateExercices}
                 value={4}
-                disabled
               />
               <label class="form-check-label inline-block text-gray-800" for="multivueRadio4"> Quatre vues </label>
             </div>
@@ -407,7 +430,7 @@
           </div>
         </div>
 
-        <div class="flex flex-col min-w-full px-4 align-middle">
+        <div class="flex flex-col min-w-full px-4 align-middle" bind:this={divTableDurationsQuestions}>
           <div class="table-wrp block max-h-[300px] shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
             <table class="table-fixed min-w-full divide-y divide-gray-300">
               <thead class="bg-gray-100 sticky top-0">
@@ -459,7 +482,7 @@
   </div>
 {/if}
 <!-- Diaporama lui-même -->
-{#if nbOfQuestionsDisplayed > 0 && nbOfQuestionsDisplayed <= questions.length}
+{#if currentQuestion > -1 && currentQuestion < questions[0].length}
   <div id="diap" class="flex flex-col h-screen scrollbar-hide" data-theme="daisytheme">
     <!-- Steps -->
     <header class="flex flex-col h-20 dark:bg-white pb-1">
@@ -468,7 +491,7 @@
       </div>
       <div class="flex flex-row h-full mt-6 w-full justify-center">
         <ul class="steps w-11/12" bind:this={stepsUl}>
-          {#each questions as question, i}
+          {#each questions[0] as question, i}
             <li class="step {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => clickOnStep(i)} on:keydown={() => clickOnStep(i)} />
           {/each}
         </ul>
@@ -476,11 +499,11 @@
     </header>
     <!-- Question -->
     <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-10">
-      <div class="{nbOfVues > 1 ? 'grid grid-cols-2' : ''} place-content-stretch justify-items-center gap-0 w-full">
+      <div bind:this={divQuestion} class="{nbOfVues > 1 ? 'grid grid-cols-2' : ''} place-content-stretch justify-items-center gap-0 w-full">
         {#each Array(nbOfVues) as _, i (i)}
-          <div bind:this={divQuestion} class="flex flex-col justify-center justify-self-stretch p-8">
+          <div class="flex flex-col justify-center justify-self-stretch p-8">
             <div class="font-light mb-8">{consignes[currentQuestion]}</div>
-            <div>{@html isCorrectionVisible ? corrections[currentQuestion] : questions[currentQuestion]}</div>
+            <div>{@html isCorrectionVisible ? corrections[i][currentQuestion] : questions[i][currentQuestion]}</div>
           </div>
         {/each}
       </div>
@@ -549,7 +572,7 @@
   </div>
 {/if}
 <!-- Fin du diaporama -->
-{#if nbOfQuestionsDisplayed > questions.length}
+{#if currentQuestion === questions[0].length}
   <div id="end" class="flex flex-col h-screen scrollbar-hide justify-center text-coopmaths" data-theme="daisytheme">
     <div class="flex flex-row items-center justify-center w-full text-[300px] font-extrabold m-10">Fin !</div>
     <div class="flex flex-row items-center justify-center w-full mx-10 my-4">
@@ -557,7 +580,9 @@
         <button type="button" class="m-2 text-coopmaths" on:click={returnToStart} on:keydown={returnToStart}><i class="bx text-[100px] bx-arrow-back" /></button>
       </div>
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Questions + Réponses">
-        <button type="button" class="mx-12 my-2 text-coopmaths"><i class="bx text-[100px] bx-detail" /></button>
+        <button type="button" class="mx-12 my-2 text-coopmaths"on:click={() => {
+          document.location.href = document.location.href.replace("&v=diaporama", "&v=can")
+        }}><i class="bx text-[100px] bx-detail" /></button>
       </div>
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Sortir du diaporama">
         <button

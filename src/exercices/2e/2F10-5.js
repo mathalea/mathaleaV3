@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, texFractionReduite, itemize, obtenirListeFacteursPremiers, texNombre2, arrondi } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, texFractionReduite, itemize, obtenirListeFacteursPremiers, texNombre2 } from '../../modules/outils.js'
 import { resoudre } from '../../modules/outilsMathjs.js'
 import { tableauDeVariation, labelPoint, point, tracePoint, courbe, repere } from '../../modules/2d.js'
 import { create, all } from 'mathjs'
@@ -60,7 +60,7 @@ export default function Signefonctionaffine () {
           // On détermine le code latex de la solution qui sera soit une fraction, soit un nombre decimal
           const math = create(all)
 
-          solution = math.fraction(arrondi(-b / a), 10)
+          solution = math.fraction(math.evaluate(-b / a))
 
           // On regarde si le résultat a un nombre fini de chiffres après la virgule et n'est pas un entier
           if (solution.d !== 1 && !obtenirListeFacteursPremiers(solution.d).some(x => x !== 2 && x !== 5)) {
@@ -146,6 +146,6 @@ export default function Signefonctionaffine () {
     listeQuestionsToContenu(this)
   }
   // this.besoinFormulaireNumerique = ['Types de question ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires.']
-  // this.sup === 2 n'est pas géré
+  // Le cas this.sup === 2 n'a pas été programmé
   this.besoinFormulaire2CaseACocher = ['Correction alternative']
 }
