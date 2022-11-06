@@ -230,26 +230,26 @@
   {#if isVisible}
     <div class="flex flex-col-reverse lg:flex-row">
       <div class="flex flex-col relative {isSettingsVisible ? 'w-full lg:w-3/4' : 'w-full'} duration-500" id="exercice{indiceExercice}">
-        <article class="text-2xl lg:text-base">
-          <div class="text-right text-orange-600 text-xs mt-2">
-            {#if columnsCount > 1}
-              <button
-                type="button"
-                on:click={() => {
-                  columnsCount--
-                  updateDisplay()
-                }}><i class="bx ml-2 bx-xs bx-minus" /></button
-              >
-            {/if}
-            <i class="bx ml-1 bx-xs bx-columns" />
+        <div class="text-right text-orange-600 text-xs mt-2">
+          {#if columnsCount > 1}
             <button
               type="button"
               on:click={() => {
-                columnsCount++
+                columnsCount--
                 updateDisplay()
-              }}><i class="bx ml-1 bx-xs bx-plus" /></button
+              }}><i class="bx ml-2 bx-xs bx-minus" /></button
             >
-          </div>
+          {/if}
+          <i class="bx ml-1 bx-xs bx-columns" />
+          <button
+            type="button"
+            on:click={() => {
+              columnsCount++
+              updateDisplay()
+            }}><i class="bx ml-1 bx-xs bx-plus" /></button
+          >
+        </div>
+        <article class="lg:text-base" style="font-size: {($displayOptions.z || 1).toString()}rem" >
           {#if isCorrectionVisible}
             <p class="leading-relaxed mt-2  ml-2 lg:mx-5 text-gray-800">
               {@html exercice.consigne + exercice.introduction}
@@ -273,7 +273,7 @@
                     </li>
                     <div
                       class="bg-gray-200"
-                      style="line-height: {Math.max(3, exercice.spacingCorr * 2)}em;"
+                      style="line-height: {exercice.spacingCorr};"
                       id="correction${indiceExercice}Q${i}"
                     >
                       {@html Mathalea.formatExercice(exercice.listeCorrections[i])}
@@ -294,7 +294,7 @@
               >
                 {#each exercice.listeQuestions as item, i (i)}
                   <div>
-                    <li style="line-height: {Math.max(3, exercice.spacing * 2)}em;" id="exercice{indiceExercice}Q${i}">
+                    <li style="line-height: {exercice.spacing};" id="exercice{indiceExercice}Q${i}">
                       {@html Mathalea.formatExercice(item)}
                     </li>
                   </div>

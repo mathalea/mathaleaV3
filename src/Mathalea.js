@@ -82,6 +82,25 @@ export class Mathalea {
       strict: 'warn',
       trust: false
     })
+    const params = get(displayOptions)
+    const zoom = Number(params.z)
+
+    const qcms = div.querySelectorAll('.monQcm')
+    for (const qcm of qcms) {
+      ;(qcm).style.fontSize = `${zoom}px`
+    }
+    const tables = div.querySelectorAll('#affichage_exercices label') // Pour les propositions des QCM
+    for (const table of tables) {
+      ;(table).style.fontSize = `${zoom}px`
+    }
+    const figures = div.querySelectorAll('.mathalea2d')
+    for (const figureElement of figures) {
+      const figure = figureElement
+      if (!figure.dataset.widthInitiale) figure.dataset.widthInitiale = figure.getAttribute('width')
+      if (!figure.dataset.heightInitiale) figure.dataset.heightInitiale = figure.getAttribute('height')
+      figure.setAttribute('height', (Number(figure.dataset.heightInitiale) * zoom).toString())
+      figure.setAttribute('width', (Number(figure.dataset.widthInitiale) * zoom).toString())
+    }
   }
 
   static updateUrl (exercicesParams) {
@@ -106,6 +125,11 @@ export class Mathalea {
     } else {
       url.searchParams.delete('v')
     }
+    if (params.z && params.z !== '1') {
+      url.searchParams.append('z', params.z)
+    } else {
+      url.searchParams.delete('z')
+    }
     window.history.pushState({}, '', url)
   }
 
@@ -116,6 +140,7 @@ export class Mathalea {
    */
   static loadExercicesFromUrl () {
     let v = ''
+    let z = '1'
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     let indiceExercice = -1
@@ -151,6 +176,8 @@ export class Mathalea {
         newListeExercice[indiceExercice].sup4 = _handleStringFromUrl(entry[1])
       } else if (entry[0] === 'v') {
         v = entry[1]
+      } else if (entry[0] === 'z') {
+        z = entry[1]
       } else if (entry[0] === 'alea') {
         newListeExercice[indiceExercice].alea = entry[1]
       } else if (entry[0] === 'i' && entry[1] === '1') {
@@ -169,7 +196,7 @@ export class Mathalea {
     exercicesParams.update((l) => {
       return newListeExercice
     })
-    return { v }
+    return { v, z }
   }
 
   static handleExerciceSimple (exercice, isInteractif) {

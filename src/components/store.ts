@@ -10,7 +10,7 @@ export const exercicesParams = writable([])
  * displayOptions est utilisé dans Mathalea.updateUrl() et dans Mathalea.loadExercicesFromUrl()
  * Il permet de sauvegarder le type de vue (v=...)
  */
-export const displayOptions = writable({ v: null })
+export const displayOptions = writable({ v: '', z: '1' } as {v?: string, z?: string})
 
 /**
  *
