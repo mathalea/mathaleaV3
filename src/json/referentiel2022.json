@@ -2264,6 +2264,17 @@
             "Can": true
           },
           "datePublication": "25/10/2021"
+        },
+        "can3F10": {
+          "uuid": "6abd6",
+          "titre": "Déterminer une ordonnée/abscisse avec une fonction linéaire",
+          "url": "can/3e/can3F10.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "02/11/2022"
         }
       },
       "can3G": {
@@ -3605,6 +3616,17 @@
             "Can": true
           },
           "datePublication": "31/10/2022"
+        },
+        "can1G11": {
+          "uuid": "09c95",
+          "titre": "Donner la mesure d'un angle à partir des cosinus et sinus ",
+          "url": "can/1e/can1G11.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "02/11/2022"
         }
       },
       "can1L": {
@@ -9568,9 +9590,10 @@
     },
     "3G4": {
       "3G40": {
+        "dateModification": "02/11/2022",
         "id": "3G40",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": false,
           "Can": false
         },
@@ -9582,7 +9605,7 @@
         "datePublication": "06/10/2022",
         "id": "3G41",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": false,
           "Can": false
         },
@@ -9756,7 +9779,7 @@
       "3L11-3": {
         "id": "3L11-3",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": true,
           "Can": false
         },
