@@ -266,7 +266,7 @@
                   : 'list-none'} list-inside mt-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold"
               >
                 {#each exercice.listeQuestions as item, i (i)}
-                  <div>
+                  <div style="break-inside:avoid">
                     <li
                       style={i < exercice.listeQuestions.length ? `margin-bottom: ${exercice.spacing}` : ''}
                       id="exercice{indiceExercice}Q${i}"
