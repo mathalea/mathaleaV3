@@ -252,3 +252,118 @@ input[type="radio"]:checked {
        url('/fonts/source-sans-pro-v21-latin-900italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
        url('/fonts/source-sans-pro-v21-latin-900italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
+/* NeoRetroDraw - latin */
+@font-face {
+    font-family: 'neoretrodrawregular';
+    src: url('/fonts/neord___-webfont.woff2') format('woff2'),
+         url('/fonts/neord___-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/* Geometry Soft Pro Bold - latin */
+@font-face {
+    font-family: 'geometry_soft_probold_n';
+    src: url('/fonts/geometry_soft_pro-bold_n-webfont.woff2') format('woff2'),
+         url('/fonts/geometry_soft_pro-bold_n-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/* fredoka-one-regular - latin */
+@font-face {
+  font-family: 'Fredoka One';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('/fonts/fredoka-one-v13-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('/fonts/fredoka-one-v13-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* bebas-neue-regular - latin */
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('/fonts/bebas-neue-v9-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('/fonts/bebas-neue-v9-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* frente-h1-regular */
+@font-face {
+    font-family: 'Frente H1';
+    src: url('/fonts/frenteh1-regular-webfont.woff2') format('woff2'),
+         url('/fonts/frenteh1-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+/*colortube - latin */
+@font-face {
+    font-family: 'colortuberegular';
+    src: url('/fonts/colortube-regular-webfont.woff2') format('woff2'),
+         url('/fonts/colortube-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+/* cabin-sketch-regular - latin */
+@font-face {
+font-family: 'Cabin Sketch';
+font-style: normal;
+font-weight: 400;
+src: local(''),
+	url('/fonts/cabin-sketch-v19-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+	url('/fonts/cabin-sketch-v19-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* cabin-sketch-700 - latin */
+@font-face {
+font-family: 'Cabin Sketch';
+font-style: normal;
+font-weight: 700;
+src: local(''),
+	url('/fonts/cabin-sketch-v19-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+	url('/fonts/cabin-sketch-v19-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* fredericka-the-great-regular - latin */
+@font-face {
+  font-family: 'Fredericka the Great';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+       url('/fonts/fredericka-the-great-v15-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('/fonts/fredericka-the-great-v15-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* jelleebold - latin */
+@font-face {
+  font-family: 'jelleebold';
+  src: local(''),
+    url('/fonts/jellee-roman-webfont.woff2') format('woff2'),
+    url('/fonts/jellee-roman-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+/*league gothic condensed - latin */
+@font-face {
+    font-family: 'League Gothic Condensed';
+    src: local(''),
+      url('/fonts/leaguegothic-condensedregular-webfont.woff2') format('woff2'),
+      url('/fonts/leaguegothic-condensedregular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/* fff-tusj-bold - latin */
+@font-face {
+    font-family: 'FFF Tusj';
+    src: local(''),
+      url('/fonts/fff_tusj-webfont.woff2') format('woff2'),
+      url('/fonts/fff_tusj-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+/* days-regular - latin */
+@font-face {
+    font-family: 'Days';
+    src: local(''),
+      url('/fonts/days-webfont.woff2') format('woff2'),
+      url('/fonts/days-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

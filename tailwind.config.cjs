@@ -13,10 +13,20 @@ const config = {
           darkest: '#BE2600'
         }
       },
-
       fontFamily: {
         sans: ['"Source Sans Pro"', ...defaultTheme.fontFamily.sans],
-        beba: '"Bebas Neue"'
+        logo1: 'neoretrodrawregular',
+        logo2: 'geometry_soft_probold_n',
+        logo3: '"Fredoka One"',
+        logo4: '"Bebas Neue"',
+        logo5: '"Frente H1"',
+        logo6: 'colortuberegular',
+        logo7: '"Cabin Sketch"',
+        logo8: '"Fredericka the Great"',
+        logo9: 'jelleebold',
+        logo10: '"League Gothic Condensed"',
+        logo11: '"FFF Tusj"',
+        logo12: 'Days'
       },
       transitionProperty: {
         width: 'width'

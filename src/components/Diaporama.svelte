@@ -5,7 +5,7 @@
   import type { Exercice } from "./utils/typeExercice"
   import seedrandom from "seedrandom"
   import { tweened } from "svelte/motion"
-	import { cubicOut } from "svelte/easing"
+  import { cubicOut } from "svelte/easing"
 
   let divQuestion: HTMLElement
   let divTableDurationsQuestions: HTMLElement
@@ -26,9 +26,9 @@
   let durationGlobal: number = null
   let ratioTime = 0 // Pourcentage du temps écoulé (entre 1 et 100)
   let progress = tweened(0, {
-		duration: durationGlobal ?? durations[currentQuestion] ?? 10,
-		easing: cubicOut
-	}) 
+    duration: durationGlobal ?? durations[currentQuestion] ?? 10,
+    easing: cubicOut,
+  })
   let myInterval: number
   let currentDuration: number
   let totalDuration: number = null
@@ -98,7 +98,7 @@
 
   async function goToQuestion(i: number) {
     if (i >= -1 && i <= questions[0].length) currentQuestion = i
-    if ( i === -1 || i === questions[0].length) pause()
+    if (i === -1 || i === questions[0].length) pause()
     await tick()
     if (divQuestion) {
       currentZoom = userZoom
@@ -196,16 +196,16 @@
     }
   }
 
-  function handleShortcut(e:KeyboardEvent) {
-    if (e.key === 'ArrowLeft') {
+  function handleShortcut(e: KeyboardEvent) {
+    if (e.key === "ArrowLeft") {
       e.preventDefault()
       prevQuestion()
     }
-    if (e.key === 'ArrowRight') {
+    if (e.key === "ArrowRight") {
       e.preventDefault()
       nextQuestion()
     }
-    if (e.key === ' ') {
+    if (e.key === " ") {
       e.preventDefault()
       if (durationGlobal !== 0) switchPause()
     }
@@ -313,7 +313,6 @@
     if (stepsUl) steps = stepsUl.querySelectorAll("li")
     if (steps && steps[currentQuestion + 5]) steps[currentQuestion + 5].scrollIntoView()
   }
-
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
@@ -352,8 +351,8 @@
     <div class="flex flex-row w-full justify-center items-start mx-20">
       <!-- Multivue -->
       <div class="flex flex-col w-1/6 justify-start">
-        <div class="flex text-lg font-bold mb-8">Multivue</div>
-        <div class="flex px-4 pb-4">
+        <div class="flex text-lg font-bold mb-6">Multivue</div>
+        <div class="flex px-4 pb-8">
           <div>
             <div class="form-check">
               <input
@@ -403,6 +402,19 @@
               />
               <label class="form-check-label inline-block text-gray-800" for="multivueRadio4"> Quatre vues </label>
             </div>
+          </div>
+        </div>
+        <div class="flex text-lg font-bold mb-2">Liens</div>
+        <div class="flex flex-row px-4 justify-start">
+          <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Lien du diaporama">
+            <button type="button" class="mr-4 my-2 text-coopmaths">
+              <i class="bx text-2xl bx-link" />
+            </button>
+          </div>
+          <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
+            <button type="button" class="mx-4 my-2 text-coopmaths">
+              <i class="bx text-2xl bx-qr" />
+            </button>
           </div>
         </div>
       </div>
@@ -499,10 +511,13 @@
     </header>
     <!-- Question -->
     <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-10">
-      <div bind:this={divQuestion} class="{nbOfVues > 1 ? 'grid grid-cols-2' : ''} place-content-stretch justify-items-center gap-0 w-full">
-        {#each Array(nbOfVues) as _, i (i)}
-          <div class="flex flex-col justify-center justify-self-stretch p-8">
+      <div bind:this={divQuestion} class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : ''} place-content-stretch justify-items-center w-full">
+        {#each Array(nbOfVues) as _, i}
+          <div class="relative flex flex-col justify-center justify-self-stretch p-8 {nbOfVues > 1 ? 'bg-gray-300' : ''} text-center">
             <div class="font-light mb-8">{consignes[currentQuestion]}</div>
+            {#if nbOfVues > 1}
+              <div class="absolute bg-coopmaths text-white font-black -top-1 -left-1 rounded-tl-2xl w-1/12 h-1/12">{i + 1}</div>
+            {/if}
             <div>{@html isCorrectionVisible ? corrections[i][currentQuestion] : questions[i][currentQuestion]}</div>
           </div>
         {/each}
@@ -563,8 +578,7 @@
             }}
             on:keydown={() => {
               document.location.href = document.location.href.replace("&v=diaporama", "")
-            }}
-            ><i class="bx ml-2 bx-lg bx-power-off" /></button
+            }}><i class="bx ml-2 bx-lg bx-power-off" /></button
           >
         </div>
       </div>
@@ -577,17 +591,31 @@
     <div class="flex flex-row items-center justify-center w-full text-[300px] font-extrabold m-10">Fin !</div>
     <div class="flex flex-row items-center justify-center w-full mx-10 my-4">
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Début du diaporama">
-        <button type="button" class="m-2 text-coopmaths" on:click={returnToStart} on:keydown={returnToStart}><i class="bx text-[100px] bx-arrow-back" /></button>
+        <button type="button" class="mx-12 my-2 text-coopmaths" on:click={returnToStart} on:keydown={returnToStart}><i class="bx text-[100px] bx-arrow-back" /></button>
       </div>
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Questions + Réponses">
-        <button type="button" class="mx-12 my-2 text-coopmaths"on:click={() => {
-          document.location.href = document.location.href.replace("&v=diaporama", "&v=can")
-        }}><i class="bx text-[100px] bx-detail" /></button>
+        <button
+          type="button"
+          class="mx-12 my-2 text-coopmaths"
+          on:click={() => {
+            document.location.href = document.location.href.replace("&v=diaporama", "&v=can")
+          }}><i class="bx text-[100px] bx-detail" /></button
+        >
+      </div>
+      <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Lien du diaporama">
+        <button type="button" class="mx-12 my-2 text-coopmaths">
+          <i class="bx text-[100px] bx-link" />
+        </button>
+      </div>
+      <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
+        <button type="button" class="mx-12 my-2 text-coopmaths">
+          <i class="bx text-[100px] bx-qr" />
+        </button>
       </div>
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Sortir du diaporama">
         <button
           type="button"
-          class="m-2 text-coopmaths"
+          class="mx-12 my-2 text-coopmaths"
           on:click={() => {
             document.location.href = document.location.href.replace("&v=diaporama", "")
           }}
