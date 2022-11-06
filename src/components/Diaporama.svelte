@@ -5,7 +5,7 @@
   import type { Exercice } from "./utils/typeExercice"
   import seedrandom from "seedrandom"
   import { tweened } from "svelte/motion"
-	import { cubicOut } from "svelte/easing"
+  import { cubicOut } from "svelte/easing"
 
   let divQuestion: HTMLElement
   let divTableDurationsQuestions: HTMLElement
@@ -26,9 +26,9 @@
   let durationGlobal: number = null
   let ratioTime = 0 // Pourcentage du temps écoulé (entre 1 et 100)
   let progress = tweened(0, {
-		duration: durationGlobal ?? durations[currentQuestion] ?? 10,
-		easing: cubicOut
-	}) 
+    duration: durationGlobal ?? durations[currentQuestion] ?? 10,
+    easing: cubicOut,
+  })
   let myInterval: number
   let currentDuration: number
   let totalDuration: number = null
@@ -98,7 +98,7 @@
 
   async function goToQuestion(i: number) {
     if (i >= -1 && i <= questions[0].length) currentQuestion = i
-    if ( i === -1 || i === questions[0].length) pause()
+    if (i === -1 || i === questions[0].length) pause()
     await tick()
     if (divQuestion) {
       currentZoom = userZoom
@@ -196,16 +196,16 @@
     }
   }
 
-  function handleShortcut(e:KeyboardEvent) {
-    if (e.key === 'ArrowLeft') {
+  function handleShortcut(e: KeyboardEvent) {
+    if (e.key === "ArrowLeft") {
       e.preventDefault()
       prevQuestion()
     }
-    if (e.key === 'ArrowRight') {
+    if (e.key === "ArrowRight") {
       e.preventDefault()
       nextQuestion()
     }
-    if (e.key === ' ') {
+    if (e.key === " ") {
       e.preventDefault()
       if (durationGlobal !== 0) switchPause()
     }
@@ -313,7 +313,6 @@
     if (stepsUl) steps = stepsUl.querySelectorAll("li")
     if (steps && steps[currentQuestion + 5]) steps[currentQuestion + 5].scrollIntoView()
   }
-
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
@@ -499,9 +498,9 @@
     </header>
     <!-- Question -->
     <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-10">
-      <div bind:this={divQuestion} class="{nbOfVues > 1 ? 'grid grid-cols-2' : ''} place-content-stretch justify-items-center gap-0 w-full">
+      <div bind:this={divQuestion} class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : ''} place-content-stretch justify-items-center w-full">
         {#each Array(nbOfVues) as _, i (i)}
-          <div class="flex flex-col justify-center justify-self-stretch p-8">
+          <div class="flex flex-col justify-center justify-self-stretch p-8 bg-gray-300">
             <div class="font-light mb-8">{consignes[currentQuestion]}</div>
             <div>{@html isCorrectionVisible ? corrections[i][currentQuestion] : questions[i][currentQuestion]}</div>
           </div>
@@ -563,8 +562,7 @@
             }}
             on:keydown={() => {
               document.location.href = document.location.href.replace("&v=diaporama", "")
-            }}
-            ><i class="bx ml-2 bx-lg bx-power-off" /></button
+            }}><i class="bx ml-2 bx-lg bx-power-off" /></button
           >
         </div>
       </div>
@@ -580,9 +578,13 @@
         <button type="button" class="m-2 text-coopmaths" on:click={returnToStart} on:keydown={returnToStart}><i class="bx text-[100px] bx-arrow-back" /></button>
       </div>
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Questions + Réponses">
-        <button type="button" class="mx-12 my-2 text-coopmaths"on:click={() => {
-          document.location.href = document.location.href.replace("&v=diaporama", "&v=can")
-        }}><i class="bx text-[100px] bx-detail" /></button>
+        <button
+          type="button"
+          class="mx-12 my-2 text-coopmaths"
+          on:click={() => {
+            document.location.href = document.location.href.replace("&v=diaporama", "&v=can")
+          }}><i class="bx text-[100px] bx-detail" /></button
+        >
       </div>
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Sortir du diaporama">
         <button
