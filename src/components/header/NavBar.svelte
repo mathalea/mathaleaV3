@@ -99,7 +99,7 @@
         <i class="bx bx-menu" />
       </button>
       <!-- logo -->
-      <a href={"#"} class="inline-flex p-2 text-3xl font-logo1 text-white uppercase tracking-wider">Coopmaths</a>
+      <a href={"#"} class="inline-flex p-2 text-2xl font-logo6 text-white uppercase tracking-wider">Coopmaths</a>
     </div>
     <!-- menu -->
     <div class="flex flex-col mt-2 lg:inline-flex lg:grow lg:flex-row lg:mt-0 {isNavBarVisible ? 'flex' : 'hidden'}">
