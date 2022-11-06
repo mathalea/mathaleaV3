@@ -351,8 +351,8 @@
     <div class="flex flex-row w-full justify-center items-start mx-20">
       <!-- Multivue -->
       <div class="flex flex-col w-1/6 justify-start">
-        <div class="flex text-lg font-bold mb-8">Multivue</div>
-        <div class="flex px-4 pb-4">
+        <div class="flex text-lg font-bold mb-6">Multivue</div>
+        <div class="flex px-4 pb-8">
           <div>
             <div class="form-check">
               <input
@@ -402,6 +402,19 @@
               />
               <label class="form-check-label inline-block text-gray-800" for="multivueRadio4"> Quatre vues </label>
             </div>
+          </div>
+        </div>
+        <div class="flex text-lg font-bold mb-2">Liens</div>
+        <div class="flex flex-row px-4 justify-start">
+          <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Lien du diaporama">
+            <button type="button" class="mr-4 my-2 text-coopmaths">
+              <i class="bx text-2xl bx-link" />
+            </button>
+          </div>
+          <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
+            <button type="button" class="mx-4 my-2 text-coopmaths">
+              <i class="bx text-2xl bx-qr" />
+            </button>
           </div>
         </div>
       </div>
@@ -578,7 +591,7 @@
     <div class="flex flex-row items-center justify-center w-full text-[300px] font-extrabold m-10">Fin !</div>
     <div class="flex flex-row items-center justify-center w-full mx-10 my-4">
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Début du diaporama">
-        <button type="button" class="m-2 text-coopmaths" on:click={returnToStart} on:keydown={returnToStart}><i class="bx text-[100px] bx-arrow-back" /></button>
+        <button type="button" class="mx-12 my-2 text-coopmaths" on:click={returnToStart} on:keydown={returnToStart}><i class="bx text-[100px] bx-arrow-back" /></button>
       </div>
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Questions + Réponses">
         <button
@@ -589,10 +602,20 @@
           }}><i class="bx text-[100px] bx-detail" /></button
         >
       </div>
+      <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Lien du diaporama">
+        <button type="button" class="mx-12 my-2 text-coopmaths">
+          <i class="bx text-[100px] bx-link" />
+        </button>
+      </div>
+      <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
+        <button type="button" class="mx-12 my-2 text-coopmaths">
+          <i class="bx text-[100px] bx-qr" />
+        </button>
+      </div>
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Sortir du diaporama">
         <button
           type="button"
-          class="m-2 text-coopmaths"
+          class="mx-12 my-2 text-coopmaths"
           on:click={() => {
             document.location.href = document.location.href.replace("&v=diaporama", "")
           }}
