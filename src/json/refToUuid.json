@@ -739,6 +739,7 @@
   "can1G08": "e7919",
   "can1G09": "aa661",
   "can1G10": "33ae8",
+  "can1G11": "18b46",
   "can1L01": "d0042",
   "can1L02": "c74ea",
   "can1L03": "a23a1",
@@ -851,6 +852,7 @@
   "can3F07": "82f73",
   "can3F08": "f554f",
   "can3F09": "b60f4",
+  "can3F10": "bf9f2",
   "can3G01": "dcc68",
   "can3G02": "8e651",
   "can3G03": "14145",
@@ -990,6 +992,10 @@
   "can6C38": "4e198",
   "can6C39": "892f2",
   "can6C40": "bfec4",
+  "can6C41": "99b96",
+  "can6C42": "b0fc5",
+  "can6C43": "f3b31",
+  "can6C44": "16c8e",
   "can6D01": "1db82",
   "can6D02": "46e66",
   "can6D03": "05b2e",
@@ -1059,6 +1065,7 @@
   "canc3D03": "e3b7d",
   "canc3M01": "d0314",
   "canc3M02": "cb91f",
+  "canc3M03": "85e82",
   "canc3N01": "f7ad2",
   "canc3N02": "fc190",
   "canc3N03": "44f8c",
@@ -1072,6 +1079,5 @@
   "techno1P3": "c7270",
   "techno1P4": "f0c23",
   "techno1P5": "5b5c0",
-  "techno1P8": "1aad3",
-  "undefined": "09c95"
+  "techno1P8": "1aad3"
 }

@@ -16,7 +16,7 @@ export const dateDePublication = '02/11/2022'
  *
 */
 
-export const uuid = '6abd6'
+export const uuid = 'bf9f2'
 export const ref = 'can3F10'
 export default function OrdonneeAbscisseFonctionLineaire () {
   Exercice.call(this) // Héritage de la classe Exercice()

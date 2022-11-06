@@ -492,6 +492,54 @@
             "Can": true
           },
           "datePublication": "13/09/2022"
+        },
+        "can6C41": {
+          "uuid": "99b96",
+          "id": "can6C41",
+          "titre": "Comparer des fractions de même dénominateur/numérateur",
+          "url": "can/6e/can6C41.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "04/11/2022"
+        },
+        "can6C42": {
+          "uuid": "b0fc5",
+          "id": "can6C42",
+          "titre": "Comparer une fraction avec 1",
+          "url": "can/6e/can6C42.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "04/11/2022"
+        },
+        "can6C43": {
+          "uuid": "f3b31",
+          "id": "can6C43",
+          "titre": "Comprarer deux fractions (dénominateurs multiples)",
+          "url": "can/6e/can6C43.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "04/11/2022"
+        },
+        "can6C44": {
+          "uuid": "16c8e",
+          "id": "can6C44",
+          "titre": "Comparer deux fractions*",
+          "url": "can/6e/can6C44.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "04/11/2022"
         }
       },
       "can6D": {
@@ -2266,7 +2314,8 @@
           "datePublication": "25/10/2021"
         },
         "can3F10": {
-          "uuid": "6abd6",
+          "uuid": "bf9f2",
+          "id": "can3F10",
           "titre": "Déterminer une ordonnée/abscisse avec une fonction linéaire",
           "url": "can/3e/can3F10.js",
           "tags": {
@@ -3618,7 +3667,8 @@
           "datePublication": "31/10/2022"
         },
         "can1G11": {
-          "uuid": "09c95",
+          "uuid": "18b46",
+          "id": "can1G11",
           "titre": "Donner la mesure d'un angle à partir des cosinus et sinus ",
           "url": "can/1e/can1G11.js",
           "tags": {
