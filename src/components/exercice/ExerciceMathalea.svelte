@@ -25,6 +25,8 @@
   let isSettingsVisible = false
   let isInteractif = exercice.interactif
 
+  const title = exercice.id ? `${exercice.id.replace('.js', '')} - ${exercice.titre}` : exercice.titre
+
   let headerExerciceProps: {
     title: string
     isInteractif: boolean
@@ -33,7 +35,7 @@
     isDeletable?: boolean
     isHidable?: boolean
   } = {
-    title: exercice.titre,
+    title,
     isInteractif,
   }
 
@@ -273,7 +275,7 @@
                     </li>
                     <div
                       class="bg-gray-200"
-                      style="line-height: {exercice.spacingCorr};"
+                      style="line-height: {exercice.spacingCorr}; break-inside:avoid"
                       id="correction${indiceExercice}Q${i}"
                     >
                       {@html Mathalea.formatExercice(exercice.listeCorrections[i])}
@@ -316,3 +318,9 @@
     </div>
   {/if}
 </div>
+
+<style>
+  li {
+    break-inside: avoid;
+  }
+</style>
