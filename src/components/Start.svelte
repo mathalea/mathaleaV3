@@ -24,6 +24,8 @@
 
   let isNavBarVisible = true
   let filtre = "all"
+  let divExercices: HTMLDivElement
+  let zoom = 1
 
   // ToFix fonction à lier avec bugsnag
   window.notify = (arg) => console.log(arg)
@@ -36,6 +38,7 @@
       return urlOptions
     })
     isInitialUrlHandled = true
+    zoom = Number(urlOptions.z)
   }
   onMount(urlToDisplay)
   addEventListener("popstate", urlToDisplay)
@@ -191,6 +194,23 @@
     })
     document.dispatchEvent(newDataForAll)
   }
+
+  function zoomMinus () {
+    zoom -= 0.25
+    updateSize()
+  }
+
+  function zoomPlus () {
+    zoom += 0.25
+    updateSize()
+  }
+
+  function updateSize () {
+    displayOptions.update((params) => {
+      params.z = zoom.toString()
+      return params
+    })
+  }
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
@@ -232,16 +252,11 @@
     {/if}
     <!-- content -->
     {#if $exercicesParams.length !== 0}
-      <div class="flex-1 flex flex-col p-6 overflow-hidden h-full">
-        {#if $displayOptions.v === "l"}
-          <div class="flex flex-row justify-end items-center">
-            <button type="button" on:click={quitFullScreen}><i class="bx ml-2 bx-sm bx-exit-fullscreen" /></button>
-          </div>
-        {/if}
-        {#if $displayOptions.v !== "l"}
+      <div class="flex-1 flex flex-col p-6 overflow-hidden h-full" bind:this={divExercices}>
           <div class="flex flex-row justify-end items-center space-x-2 text-slate-500">
+            <button type="button" class="hover:text-coopmaths-dark" on:click={zoomMinus} ><i class="bx bx-sm bx-minus" /></button>
+            <button type="button" class="hover:text-coopmaths-dark" on:click={zoomPlus} ><i class="bx bx-sm bx-plus" /></button>
             <button type="button" class="hover:text-coopmaths-dark" on:click={newDataForAll} ><i class="bx bx-sm bx-refresh" /></button>
-            <!-- <button type="button" class="hover:text-coopmaths-dark"><i class="bx bx-sm bx-code-curly" /></button> -->
             <button
               type="button"
               class="hover:text-coopmaths-dark"
@@ -251,6 +266,12 @@
                   return params
                 })}><i class="bx bx-sm bx-slideshow" /></button
             >
+            {#if $displayOptions.v === "l"}
+          <div class="flex flex-row justify-end items-center">
+            <button type="button" on:click={quitFullScreen}><i class="bx ml-2 bx-sm bx-exit-fullscreen" /></button>
+          </div>
+        {/if}
+        {#if $displayOptions.v !== "l"}
             <button
               type="button"
               class="hover:text-coopmaths-dark"
@@ -258,10 +279,10 @@
                 displayOptions.update((params) => {
                   params.v = "l"
                   return params
-                })}><i class="bx bx-sm bx-fullscreen" /></button
-            >
-          </div>
+                })}><i class="bx bx-sm bx-fullscreen" />
+            </button>
         {/if}
+        </div>
         <div class="flex-1 overflow-y-scroll overscroll-auto">
           {#each $exercicesParams as paramsExercice, i (paramsExercice)}
             <div animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
