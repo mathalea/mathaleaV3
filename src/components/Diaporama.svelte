@@ -6,6 +6,7 @@
   import seedrandom from "seedrandom"
   import { tweened } from "svelte/motion"
   import { cubicOut } from "svelte/easing"
+  import QRCode from "qrcode"
 
   let divQuestion: HTMLElement
   let divTableDurationsQuestions: HTMLElement
@@ -320,8 +321,8 @@
    * @author sylvain
    */
   function copyLinkToClipboard() {
-    const text = document.URL
-    navigator.clipboard.writeText(text).then(
+    const url = document.URL
+    navigator.clipboard.writeText(url).then(
       () => {
         const dialog = document.getElementById("linkCopiedDialog-1") ?? document.getElementById("linkCopiedDialog-2")
         dialog.showModal()
@@ -333,6 +334,71 @@
         console.error("Async: Could not copy text: ", err)
       }
     )
+  }
+
+  /**
+   * Generate QR-Code from current URL and display it in canvas as png image
+   * @author sylvain
+   */
+  function urlToQRCodeDisplay() {
+    const diapoURL = document.URL
+    const canvas = document.getElementById("QRCodeCanvas-1") ?? document.getElementById("QRCodeCanvas-2")
+    const options = {
+      errorCorrectionLevel: "H",
+      type: "image/png",
+      quality: 0.3,
+      margin: 1,
+      color: {
+        dark: "#000",
+        light: "#fff",
+      },
+    }
+    QRCode.toDataURL(canvas, diapoURL, options)
+  }
+
+  /**
+   * Copy image of QR-Code contained in approriate canvas to clipboard as png image
+   * and displayed that the image has been copied
+   * @author sylvain
+   */
+  function copyCanvasImageToClipboard() {
+    const canvas = document.getElementById("QRCodeCanvas-1") ?? document.getElementById("QRCodeCanvas-2")
+    canvas.toBlob(function (blob) {
+      const item = new ClipboardItem({ "image/png": blob })
+      navigator.clipboard.write([item]).then(
+        () => {
+          const dialog = document.getElementById("QRCodeDialog-1") ?? document.getElementById("QRCodeDialog-2")
+          dialog.showModal()
+          setTimeout(() => {
+            dialog.close()
+          }, 1500)
+        },
+        (err) => {
+          console.error("Async: Could not copy image: ", err)
+        }
+      )
+    })
+  }
+
+  /**
+   * Download image of QR-Code contained in approriate canvas to clipboard as png image
+   * (timestamp is added to the file name)
+   * @author sylvain
+   */
+  function downloadCanvasImage() {
+    let downloadLink = document.createElement("a")
+    let date = new Date()
+    const year = date.getFullYear()
+    const month = ("0" + (date.getMonth() + 1)).slice(-2)
+    const day = ("0" + date.getDate()).slice(-2)
+    const timestamp = `${year}${month}${day}`
+    downloadLink.setAttribute("download", "qrcode_diaporama_" + timestamp + ".png")
+    const canvas = document.getElementById("QRCodeCanvas-1") ?? document.getElementById("QRCodeCanvas-2")
+    canvas.toBlob(function (blob) {
+      let url = URL.createObjectURL(blob)
+      downloadLink.setAttribute("href", url)
+      downloadLink.click()
+    })
   }
 </script>
 
@@ -431,12 +497,40 @@
             <button type="button" class="mr-4 my-2 text-coopmaths" on:click={copyLinkToClipboard}>
               <i class="bx text-2xl bx-link" />
             </button>
-            <dialog class="rounded-xl" id="linkCopiedDialog-1">Lien copié !</dialog>
+            <dialog class="rounded-xl" id="linkCopiedDialog-1">Le lien est copié dans le presse-papier !</dialog>
           </div>
-          <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
-            <button type="button" class="mx-4 my-2 text-coopmaths">
-              <i class="bx text-2xl bx-qr" />
-            </button>
+          <label for="QRCodeModal-1" class="btn bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
+            <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
+              <i class="bx text-2xl text-coopmaths bx-qr" on:click={urlToQRCodeDisplay} />
+            </div>
+          </label>
+          <input type="checkbox" id="QRCodeModal-1" class="modal-toggle" />
+          <div class="modal">
+            <div class="modal-box relative">
+              <dialog class="rounded-xl" id="QRCodeDialog-1">Le QR-Code est copié dans le presse-papier !</dialog>
+              <label for="QRCodeModal-1" class="btn absolute right-2 top-2 bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
+                <i class="bx text-3xl bx-x text-gray-800" />
+              </label>
+              <h3 class="text-lg font-bold">QR-Code du Diaporama</h3>
+              <p class="py-4">Choisissez de copier l'image ou de la télécharger.</p>
+              <div class="flex flex-col justify-center">
+                <div class="flex flex-row justify-center p-4">
+                  <canvas id="QRCodeCanvas-1" />
+                </div>
+                <div class="flex flex-row justify-center pb-6">
+                  <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Copier le QR-Code">
+                    <button type="button" class="mx-6 my-2 text-coopmaths" on:click={copyCanvasImageToClipboard}>
+                      <i class="bx text-[30px] bx-copy-alt" />
+                    </button>
+                  </div>
+                  <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Télécharger le QR-Code">
+                    <button type="button" class="mx-6 my-2 text-coopmaths" on:click={downloadCanvasImage}>
+                      <i class="bx text-[30px] bx-download" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -629,12 +723,40 @@
         <button type="button" class="mx-12 my-2 text-coopmaths" on:click={copyLinkToClipboard}>
           <i class="bx text-[100px] bx-link" />
         </button>
-        <dialog class="rounded-xl" id="linkCopiedDialog-2">Lien copié !</dialog>
+        <dialog class="rounded-xl" id="linkCopiedDialog-2">Le lien est copié dans le presse-papier !</dialog>
       </div>
-      <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
-        <button type="button" class="mx-12 my-2 text-coopmaths">
-          <i class="bx text-[100px] bx-qr" />
-        </button>
+      <label for="QRCodeModal-2" class="mx-12 my-2 hover:cursor-pointer">
+        <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
+          <i class="bx text-[100px] text-coopmaths bx-qr self-center" on:click={urlToQRCodeDisplay} />
+        </div>
+      </label>
+      <input type="checkbox" id="QRCodeModal-2" class="modal-toggle" />
+      <div class="modal">
+        <div class="modal-box relative text-gray-900">
+          <dialog class="rounded-xl" id="QRCodeDialog-2">Le QR-Code est copié dans le presse-papier !</dialog>
+          <label for="QRCodeModal-2" class="btn absolute right-2 top-2 bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
+            <i class="bx text-3xl bx-x text-gray-800" />
+          </label>
+          <h3 class="text-lg font-bold">QR-Code du Diaporama</h3>
+          <p class="py-4">Choisissez de copier l'image ou de la télécharger.</p>
+          <div class="flex flex-col justify-center">
+            <div class="flex flex-row justify-center p-4">
+              <canvas id="QRCodeCanvas-2" />
+            </div>
+            <div class="flex flex-row justify-center pb-6">
+              <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Copier le QR-Code">
+                <button type="button" class="mx-6 my-2 text-coopmaths" on:click={copyCanvasImageToClipboard}>
+                  <i class="bx text-[30px] bx-copy-alt" />
+                </button>
+              </div>
+              <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Télécharger le QR-Code">
+                <button type="button" class="mx-6 my-2 text-coopmaths" on:click={downloadCanvasImage}>
+                  <i class="bx text-[30px] bx-download" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Sortir du diaporama">
         <button
