@@ -429,8 +429,9 @@
               type="checkbox"
               class="bg-gray-50 border-gray-300 text-coopmaths focus:ring-3 focus:ring-coopmaths h-4 w-4 rounded"
               bind:checked={isSameDurationForAll}
+              disabled={exercices.length == 1}
             />
-            <label for="checkbox-1" class="ml-3 font-medium text-gray-900"
+            <label for="checkbox-1" class="ml-3 font-medium {exercices.length == 1 ? 'text-gray-300' : 'text-gray-900'} "
               >Même durée pour toutes les questions <input
                 type="number"
                 min="1"
