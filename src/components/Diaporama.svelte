@@ -313,6 +313,27 @@
     if (stepsUl) steps = stepsUl.querySelectorAll("li")
     if (steps && steps[currentQuestion + 5]) steps[currentQuestion + 5].scrollIntoView()
   }
+
+  /**
+   * Copy text pass as parameter to clipboard
+   * @param text text to be copied
+   * @author sylvain
+   */
+  function copyLinkToClipboard() {
+    const text = document.URL
+    navigator.clipboard.writeText(text).then(
+      () => {
+        const dialog = document.getElementById("linkCopiedDialog-1") ?? document.getElementById("linkCopiedDialog-2")
+        dialog.showModal()
+        setTimeout(() => {
+          dialog.close()
+        }, 1000)
+      },
+      (err) => {
+        console.error("Async: Could not copy text: ", err)
+      }
+    )
+  }
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
@@ -349,7 +370,7 @@
       </button>
     </div>
     <div class="flex flex-row w-full justify-center items-start mx-20">
-      <!-- Multivue -->
+      <!-- Multivue + Liens -->
       <div class="flex flex-col w-1/6 justify-start">
         <div class="flex text-lg font-bold mb-6">Multivue</div>
         <div class="flex px-4 pb-8">
@@ -407,9 +428,10 @@
         <div class="flex text-lg font-bold mb-2">Liens</div>
         <div class="flex flex-row px-4 justify-start">
           <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Lien du diaporama">
-            <button type="button" class="mr-4 my-2 text-coopmaths">
+            <button type="button" class="mr-4 my-2 text-coopmaths" on:click={copyLinkToClipboard}>
               <i class="bx text-2xl bx-link" />
             </button>
+            <dialog class="rounded-xl" id="linkCopiedDialog-1">Lien copié !</dialog>
           </div>
           <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
             <button type="button" class="mx-4 my-2 text-coopmaths">
@@ -604,9 +626,10 @@
         >
       </div>
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Lien du diaporama">
-        <button type="button" class="mx-12 my-2 text-coopmaths">
+        <button type="button" class="mx-12 my-2 text-coopmaths" on:click={copyLinkToClipboard}>
           <i class="bx text-[100px] bx-link" />
         </button>
+        <dialog class="rounded-xl" id="linkCopiedDialog-2">Lien copié !</dialog>
       </div>
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
         <button type="button" class="mx-12 my-2 text-coopmaths">
@@ -637,5 +660,8 @@
   thead {
     position: sticky;
     top: 0;
+  }
+  dialog::backdrop {
+    backdrop-filter: blur(4px);
   }
 </style>
