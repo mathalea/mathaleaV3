@@ -316,15 +316,15 @@
   }
 
   /**
-   * Copy text pass as parameter to clipboard
-   * @param text text to be copied
+   * Copy current URL to clipboard
+   * @param dialogId id of dialog widget where the info is displayed
    * @author sylvain
    */
-  function copyLinkToClipboard() {
+  function copyLinkToClipboard(dialogId) {
     const url = document.URL
     navigator.clipboard.writeText(url).then(
       () => {
-        const dialog = document.getElementById("linkCopiedDialog-1") ?? document.getElementById("linkCopiedDialog-2")
+        const dialog = document.getElementById(dialogId)
         dialog.showModal()
         setTimeout(() => {
           dialog.close()
@@ -337,17 +337,20 @@
   }
 
   /**
-   * Generate QR-Code from current URL and display it in canvas as png image
+   * Generate QR-Code from current URL and display it in designated canvas as png image
+   * @param canvasId id of the canvas
    * @author sylvain
    */
-  function urlToQRCodeDisplay() {
+  function urlToQRCodeOnCanvas(canvasId) {
     const diapoURL = document.URL
-    const canvas = document.getElementById("QRCodeCanvas-1") ?? document.getElementById("QRCodeCanvas-2")
+    const canvas = document.getElementById(canvasId)
     const options = {
       errorCorrectionLevel: "H",
       type: "image/png",
       quality: 0.3,
       margin: 1,
+      scale: 2,
+      width: 100,
       color: {
         dark: "#000",
         light: "#fff",
@@ -357,17 +360,19 @@
   }
 
   /**
-   * Copy image of QR-Code contained in approriate canvas to clipboard as png image
-   * and displayed that the image has been copied
+   * Copy image of QR-Code contained in designated canvas to clipboard as png image
+   * and displayed that the image has been copied in designated dialog widget
+   * @param canvasId id of the canvas
+   * @param dialogId id of dialog widget where the info is displayed
    * @author sylvain
    */
-  function copyCanvasImageToClipboard() {
-    const canvas = document.getElementById("QRCodeCanvas-1") ?? document.getElementById("QRCodeCanvas-2")
+  function copyCanvasImageToClipboard(canvasId, dialogId) {
+    const canvas = document.getElementById(canvasId)
     canvas.toBlob(function (blob) {
       const item = new ClipboardItem({ "image/png": blob })
       navigator.clipboard.write([item]).then(
         () => {
-          const dialog = document.getElementById("QRCodeDialog-1") ?? document.getElementById("QRCodeDialog-2")
+          const dialog = document.getElementById(dialogId)
           dialog.showModal()
           setTimeout(() => {
             dialog.close()
@@ -385,15 +390,15 @@
    * (timestamp is added to the file name)
    * @author sylvain
    */
-  function downloadCanvasImage() {
+  function downloadCanvasImage(canvasId) {
     let downloadLink = document.createElement("a")
     let date = new Date()
     const year = date.getFullYear()
     const month = ("0" + (date.getMonth() + 1)).slice(-2)
     const day = ("0" + date.getDate()).slice(-2)
     const timestamp = `${year}${month}${day}`
-    downloadLink.setAttribute("download", "qrcode_diaporama_" + timestamp + ".png")
-    const canvas = document.getElementById("QRCodeCanvas-1") ?? document.getElementById("QRCodeCanvas-2")
+    downloadLink.setAttribute("download", "qrcode_diapo_coopmaths" + timestamp + ".png")
+    const canvas = document.getElementById(canvasId)
     canvas.toBlob(function (blob) {
       let url = URL.createObjectURL(blob)
       downloadLink.setAttribute("href", url)
@@ -494,14 +499,14 @@
         <div class="flex text-lg font-bold mb-2">Liens</div>
         <div class="flex flex-row px-4 justify-start">
           <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Lien du diaporama">
-            <button type="button" class="mr-4 my-2 text-coopmaths" on:click={copyLinkToClipboard}>
+            <button type="button" class="mr-4 my-2 text-coopmaths" on:click={() => copyLinkToClipboard("linkCopiedDialog-1")}>
               <i class="bx text-2xl bx-link" />
             </button>
             <dialog class="rounded-xl" id="linkCopiedDialog-1">Le lien est copié dans le presse-papier !</dialog>
           </div>
           <label for="QRCodeModal-1" class="btn bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
             <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
-              <i class="bx text-2xl text-coopmaths bx-qr" on:click={urlToQRCodeDisplay} />
+              <i class="bx text-2xl text-coopmaths bx-qr" on:click={() => urlToQRCodeOnCanvas("QRCodeCanvas-1")} />
             </div>
           </label>
           <input type="checkbox" id="QRCodeModal-1" class="modal-toggle" />
@@ -519,12 +524,12 @@
                 </div>
                 <div class="flex flex-row justify-center pb-6">
                   <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Copier le QR-Code">
-                    <button type="button" class="mx-6 my-2 text-coopmaths" on:click={copyCanvasImageToClipboard}>
+                    <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => copyCanvasImageToClipboard("QRCodeCanvas-1", "QRCodeDialog-1")}>
                       <i class="bx text-[30px] bx-copy-alt" />
                     </button>
                   </div>
                   <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Télécharger le QR-Code">
-                    <button type="button" class="mx-6 my-2 text-coopmaths" on:click={downloadCanvasImage}>
+                    <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => downloadCanvasImage("QRCodeCanvas-1")}>
                       <i class="bx text-[30px] bx-download" />
                     </button>
                   </div>
@@ -720,14 +725,14 @@
         >
       </div>
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Lien du diaporama">
-        <button type="button" class="mx-12 my-2 text-coopmaths" on:click={copyLinkToClipboard}>
+        <button type="button" class="mx-12 my-2 text-coopmaths" on:click={() => copyLinkToClipboard("linkCopiedDialog-2")}>
           <i class="bx text-[100px] bx-link" />
         </button>
         <dialog class="rounded-xl" id="linkCopiedDialog-2">Le lien est copié dans le presse-papier !</dialog>
       </div>
       <label for="QRCodeModal-2" class="mx-12 my-2 hover:cursor-pointer">
         <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
-          <i class="bx text-[100px] text-coopmaths bx-qr self-center" on:click={urlToQRCodeDisplay} />
+          <i class="bx text-[100px] text-coopmaths bx-qr self-center" on:click={() => urlToQRCodeOnCanvas("QRCodeCanvas-2")} />
         </div>
       </label>
       <input type="checkbox" id="QRCodeModal-2" class="modal-toggle" />
@@ -745,12 +750,12 @@
             </div>
             <div class="flex flex-row justify-center pb-6">
               <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Copier le QR-Code">
-                <button type="button" class="mx-6 my-2 text-coopmaths" on:click={copyCanvasImageToClipboard}>
+                <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => copyCanvasImageToClipboard("QRCodeCanvas-2", "QRCodeDialog-2")}>
                   <i class="bx text-[30px] bx-copy-alt" />
                 </button>
               </div>
               <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Télécharger le QR-Code">
-                <button type="button" class="mx-6 my-2 text-coopmaths" on:click={downloadCanvasImage}>
+                <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => downloadCanvasImage("QRCodeCanvas-2")}>
                   <i class="bx text-[30px] bx-download" />
                 </button>
               </div>
