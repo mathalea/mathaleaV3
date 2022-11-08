@@ -124,24 +124,8 @@
     if (sizes[currentQuestion]) {
       const size = currentZoom + sizes[currentQuestion]
       divQuestion.style.lineHeight = `1.2`
-      divQuestion.style.fontSize = `${size}rem`
-      const qcms = document.querySelectorAll('.monQcm')
-      for (const qcm of qcms) {
-        ;(qcm as HTMLDivElement).style.fontSize = `${size}px`
-      }
-      const tables = document.querySelectorAll('#affichage_exercices label') // Pour les propositions des QCM
-      for (const table of tables) {
-        ;(table as HTMLDivElement).style.fontSize = `${size}px`
-      }
-      const figures = document.querySelectorAll('.mathalea2d')
-      for (const figureElement of figures) {
-        const figure = figureElement as SVGElement
-        if (!figure.dataset.widthInitiale) figure.dataset.widthInitiale = figure.getAttribute('width')
-        if (!figure.dataset.heightInitiale) figure.dataset.heightInitiale = figure.getAttribute('height')
-        figure.setAttribute('height', (Number(figure.dataset.heightInitiale) * currentZoom).toString())
-        figure.setAttribute('width', (Number(figure.dataset.widthInitiale) * currentZoom).toString())
-      }
-      Mathalea.renderDiv(divQuestion)
+      divQuestion.style.fontSize = `${size}rem`    
+      Mathalea.renderDiv(divQuestion, size)
       if (divQuestion.offsetHeight + 180 > window.innerHeight && currentZoom > 0) {
         currentZoom -= 0.25
         setSize()

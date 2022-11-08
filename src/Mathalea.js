@@ -59,7 +59,7 @@ export class Mathalea {
     })
   }
 
-  static renderDiv (div/** HTMLDivElement */)/** void */ {
+  static renderDiv (div/** HTMLDivElement */, zoom )/** void */ {
     // KaTeX à remplacer par MathLive ?
     // renderMathInElement(div, {
     //   TeX: {
@@ -83,7 +83,7 @@ export class Mathalea {
       trust: false
     })
     const params = get(displayOptions)
-    const zoom = Number(params.z)
+    zoom = zoom ?? Number(params.z)
 
     const qcms = div.querySelectorAll('.monQcm')
     for (const qcm of qcms) {
