@@ -5262,6 +5262,17 @@
         "url": "6e/6G42.js",
         "uuid": "b36df"
       },
+      "6G42-1": {
+        "datePublication": "06/11/2022",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Nommer des faces dans un pavé droit",
+        "url": "6e/6G42-1.js",
+        "uuid": "16773"
+      },
       "6G43": {
         "id": "6G43",
         "tags": {
@@ -9663,6 +9674,17 @@
         "url": "3e/3G41.js",
         "uuid": "136dd"
       },
+      "3G41-1": {
+        "datePublication": "07/11/2022",
+        "tags": {
+          "AMC": true,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Construire la section d'un plan dans un un pavé droit",
+        "url": "3e/3G41-1.js",
+        "uuid": "d96da"
+      },
       "3G42": {
         "id": "3G42",
         "tags": {
@@ -11517,7 +11539,7 @@
     "1AN": {
       "1AN10-1": {
         "dateModification": "24/10/2021",
-        "datePublication": "16/12/21",
+        "datePublication": "16/12/2021",
         "id": "1AN10-1",
         "tags": {
           "AMC": false,
