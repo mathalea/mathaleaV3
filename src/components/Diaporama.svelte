@@ -55,6 +55,13 @@
       if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif
       if (paramsExercice.alea) exercice.seed = paramsExercice.alea
       if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === "1"
+      if (exercice.seed === undefined)
+      exercice.seed = Mathalea.generateSeed({
+        includeUpperCase: true,
+        includeNumbers: true,
+        length: 4,
+        startsWithLowerCase: false,
+      })
       exercices.push(exercice)
     }
     exercices = exercices

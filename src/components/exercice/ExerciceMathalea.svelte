@@ -129,7 +129,6 @@
   }
 
   async function updateDisplay() {
-    if (exercice.typeExercice === 'simple') Mathalea.handleExerciceSimple(exercice, isInteractif)
     if (exercice.seed === undefined)
       exercice.seed = Mathalea.generateSeed({
         includeUpperCase: true,
@@ -138,6 +137,7 @@
         startsWithLowerCase: false,
       })
     seedrandom(exercice.seed, { global: true })
+    if (exercice.typeExercice === 'simple') Mathalea.handleExerciceSimple(exercice, isInteractif)
     exercice.interactif = isInteractif
     $exercicesParams[indiceExercice].alea = exercice.seed
     $exercicesParams[indiceExercice].i = isInteractif
