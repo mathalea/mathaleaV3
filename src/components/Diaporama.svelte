@@ -7,6 +7,7 @@
   import { tweened } from "svelte/motion"
   import { cubicOut } from "svelte/easing"
   import QRCode from "qrcode"
+  import { getBlobFromImageElement, copyBlobToClipboard, canCopyImagesToClipboard } from "copy-image-clipboard"
 
   let divQuestion: HTMLElement
   let divTableDurationsQuestions: HTMLElement
@@ -34,6 +35,9 @@
   let currentDuration: number
   let totalDuration: number = null
   let nbOfVues = 1
+  let formatQRCodeIndex: number = 0
+  const allowedImageFormats: string[] = ["image/jpeg", "image/png", "image/webp"]
+  let QRCodeWidth = 100
 
   onMount(async () => {
     Mathalea.updateUrl($exercicesParams)
@@ -337,73 +341,95 @@
   }
 
   /**
-   * Generate QR-Code from current URL and display it in designated canvas as png image
-   * @param canvasId id of the canvas
+   * Generate QR-Code from current URL and display it in designated image
+   * (format is decided by global variable <i>formatQRCodeIndex</i>)
+   * @param imageId id of the image
    * @author sylvain
    */
-  function urlToQRCodeOnCanvas(canvasId) {
+  function urlToQRCodeOnWithinImgTag(imageId) {
     const diapoURL = document.URL
-    const canvas = document.getElementById(canvasId)
     const options = {
       errorCorrectionLevel: "H",
-      type: "image/png",
-      quality: 0.3,
+      type: allowedImageFormats[formatQRCodeIndex],
+      quality: 0.9,
       margin: 1,
       scale: 2,
-      width: 100,
+      width: QRCodeWidth,
       color: {
         dark: "#000",
         light: "#fff",
       },
     }
-    QRCode.toDataURL(canvas, diapoURL, options)
-  }
-
-  /**
-   * Copy image of QR-Code contained in designated canvas to clipboard as png image
-   * and displayed that the image has been copied in designated dialog widget
-   * @param canvasId id of the canvas
-   * @param dialogId id of dialog widget where the info is displayed
-   * @author sylvain
-   */
-  function copyCanvasImageToClipboard(canvasId, dialogId) {
-    const canvas = document.getElementById(canvasId)
-    canvas.toBlob(function (blob) {
-      const item = new ClipboardItem({ "image/png": blob })
-      navigator.clipboard.write([item]).then(
-        () => {
-          const dialog = document.getElementById(dialogId)
-          dialog.showModal()
-          setTimeout(() => {
-            dialog.close()
-          }, 1500)
-        },
-        (err) => {
-          console.error("Async: Could not copy image: ", err)
-        }
-      )
+    QRCode.toDataURL(diapoURL, options, (err, url) => {
+      if (err) throw err
+      let img = document.getElementById(imageId)
+      img.src = url
     })
   }
 
   /**
-   * Download image of QR-Code contained in approriate canvas to clipboard as png image
-   * (timestamp is added to the file name)
+   * Copy image of QR-Code contained in designated img tag
+   * and displayed that the image has been copied in designated dialog widget
+   * @param imageId id of the canvas
+   * @param dialogId id of dialog widget where the info is displayed
    * @author sylvain
    */
-  function downloadCanvasImage(canvasId) {
-    let downloadLink = document.createElement("a")
+  function copyQRCodeImageToClipboard(imageId, dialogId) {
+    if (canCopyImagesToClipboard()) {
+      const imageElement = document.getElementById(imageId)
+      getBlobFromImageElement(imageElement)
+        .then((blob) => {
+          return copyBlobToClipboard(blob)
+        })
+        .then(() => {
+          const dialog = document.getElementById(dialogId + "-1")
+          dialog.showModal()
+          setTimeout(() => {
+            dialog.close()
+          }, 1000)
+        })
+        .catch((e) => {
+          console.log("Error: ", e.message)
+        })
+    } else {
+      const dialog = document.getElementById(dialogId + "-2")
+      dialog.showModal()
+      setTimeout(() => {
+        dialog.close()
+      }, 2000)
+      // console.log("Cannot copy image to clipboard")
+    }
+  }
+
+  /**
+   * Download image of QR-Code contained within designated img tag
+   * (timestamp is added to the file name)
+   * @param imageId ID of the image to download
+   * @author sylvain
+   */
+  function downloadQRCodeImage(imageId) {
+    // creating a timestamp for file name
     let date = new Date()
     const year = date.getFullYear()
     const month = ("0" + (date.getMonth() + 1)).slice(-2)
     const day = ("0" + date.getDate()).slice(-2)
     const timestamp = `${year}${month}${day}`
-    downloadLink.setAttribute("download", "qrcode_diapo_coopmaths" + timestamp + ".png")
-    const canvas = document.getElementById(canvasId)
-    canvas.toBlob(function (blob) {
-      let url = URL.createObjectURL(blob)
-      downloadLink.setAttribute("href", url)
-      downloadLink.click()
-    })
+
+    const imageSrc = document.getElementById(imageId).getAttribute("src")
+    fetch(imageSrc)
+      .then((resp) => resp.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(blob)
+        // creating virtual link for download
+        const downloadLink = document.createElement("a")
+        downloadLink.style.display = "none"
+        downloadLink.href = url
+        downloadLink.download = "qrcode_diapo_coopmaths" + timestamp + "." + allowedImageFormats[formatQRCodeIndex].slice(6)
+        document.body.appendChild(downloadLink)
+        downloadLink.click()
+        window.URL.revokeObjectURL(url)
+      })
+      .catch(() => "Erreur avec le téléchargement de l'image du QR-Code")
   }
 </script>
 
@@ -506,30 +532,92 @@
           </div>
           <label for="QRCodeModal-1" class="btn bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
             <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
-              <i class="bx text-2xl text-coopmaths bx-qr" on:click={() => urlToQRCodeOnCanvas("QRCodeCanvas-1")} />
+              <i class="bx text-2xl text-coopmaths bx-qr" on:click={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")} />
             </div>
           </label>
           <input type="checkbox" id="QRCodeModal-1" class="modal-toggle" />
           <div class="modal">
             <div class="modal-box relative">
-              <dialog class="rounded-xl" id="QRCodeDialog-1">Le QR-Code est copié dans le presse-papier !</dialog>
+              <dialog class="rounded-xl" id="QRCodeDialog-1-1">Le QR-Code est copié dans le presse-papier !</dialog>
+              <dialog class="rounded-xl" id="QRCodeDialog-1-2">Impossible de copier le QR-Code dans ce navigateur !<br /> Vérifier les permissions.</dialog>
               <label for="QRCodeModal-1" class="btn absolute right-2 top-2 bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
                 <i class="bx text-3xl bx-x text-gray-800" />
               </label>
               <h3 class="text-lg font-bold">QR-Code du Diaporama</h3>
               <p class="py-4">Choisissez de copier l'image ou de la télécharger.</p>
+              <!-- format QRCode -->
+              <div class="flex flex-row items-center justify-start">
+                <div class="font-bold text-coopmaths">Formats de l'image :</div>
+                <div class="flex flex-row justify-start items-center">
+                  <div class="form-check flex flex-row ml-4 items-center">
+                    <input
+                      class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                      type="radio"
+                      name="formatQRCode"
+                      id="formatQRCodeRadio1"
+                      bind:group={formatQRCodeIndex}
+                      on:change={() => {
+                        urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")
+                      }}
+                      value={0}
+                    />
+                    <label class="form-check-label inline-block text-gray-800" for="formatQRCodeRadio1"> jpeg </label>
+                  </div>
+                  <div class="form-check flex flex-row ml-4 items-center">
+                    <input
+                      class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                      type="radio"
+                      name="formatQRCode"
+                      id="formatQRCodeRadio2"
+                      bind:group={formatQRCodeIndex}
+                      on:change={() => {
+                        urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")
+                      }}
+                      value={1}
+                    />
+                    <label class=" form-check-label inline-block text-gray-800" for="formatQRCodeRadio2"> png </label>
+                  </div>
+                  <div class="form-check flex flex-row ml-4 items-center">
+                    <input
+                      class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                      type="radio"
+                      name="formatQRCode"
+                      id="formatQRCodeRadio3"
+                      bind:group={formatQRCodeIndex}
+                      on:change={() => {
+                        urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")
+                      }}
+                      value={2}
+                    />
+                    <label class="form-check-label inline-block text-gray-800" for="formatQRCodeRadio3"> webp </label>
+                  </div>
+                </div>
+              </div>
+              <!-- taille QR-Code -->
+              <div class="flex flex-row items-center justify-start my-4">
+                <div class="font-bold text-coopmaths">Taille du QR-Code</div>
+                <input
+                  type="number"
+                  min="80"
+                  max="300"
+                  bind:value={QRCodeWidth}
+                  class="ml-3 w-20 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
+                  on:change={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")}
+                />
+              </div>
               <div class="flex flex-col justify-center">
                 <div class="flex flex-row justify-center p-4">
-                  <canvas id="QRCodeCanvas-1" />
+                  <!-- <canvas id="QRCodeCanvas-1" /> -->
+                  <img id="QRCodeCanvas-1" />
                 </div>
                 <div class="flex flex-row justify-center pb-6">
                   <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Copier le QR-Code">
-                    <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => copyCanvasImageToClipboard("QRCodeCanvas-1", "QRCodeDialog-1")}>
+                    <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => copyQRCodeImageToClipboard("QRCodeCanvas-1", "QRCodeDialog-1")}>
                       <i class="bx text-[30px] bx-copy-alt" />
                     </button>
                   </div>
                   <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Télécharger le QR-Code">
-                    <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => downloadCanvasImage("QRCodeCanvas-1")}>
+                    <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => downloadQRCodeImage("QRCodeCanvas-1")}>
                       <i class="bx text-[30px] bx-download" />
                     </button>
                   </div>
@@ -732,30 +820,92 @@
       </div>
       <label for="QRCodeModal-2" class="mx-12 my-2 hover:cursor-pointer">
         <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
-          <i class="bx text-[100px] text-coopmaths bx-qr self-center" on:click={() => urlToQRCodeOnCanvas("QRCodeCanvas-2")} />
+          <i class="bx text-[100px] text-coopmaths bx-qr self-center" on:click={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")} />
         </div>
       </label>
       <input type="checkbox" id="QRCodeModal-2" class="modal-toggle" />
       <div class="modal">
-        <div class="modal-box relative text-gray-900">
-          <dialog class="rounded-xl" id="QRCodeDialog-2">Le QR-Code est copié dans le presse-papier !</dialog>
-          <label for="QRCodeModal-2" class="btn absolute right-2 top-2 bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
+        <div class="modal-box relative  text-gray-900">
+          <dialog class="rounded-xl" id="QRCodeDialog-2-1">Le QR-Code est copié dans le presse-papier !</dialog>
+          <dialog class="rounded-xl" id="QRCodeDialog-2-2">Impossible de copier le QR-Code dans ce navigateur !<br /> Vérifier les permissions.</dialog>
+          <label for="QRCodeModal-2" class="absolute right-2 top-2 bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
             <i class="bx text-3xl bx-x text-gray-800" />
           </label>
           <h3 class="text-lg font-bold">QR-Code du Diaporama</h3>
           <p class="py-4">Choisissez de copier l'image ou de la télécharger.</p>
+          <!-- format QRCode -->
+          <div class="flex flex-row items-center justify-start">
+            <div class="font-bold text-coopmaths">Formats de l'image :</div>
+            <div class="flex flex-row justify-start items-center">
+              <div class="form-check flex flex-row ml-4 items-center">
+                <input
+                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                  type="radio"
+                  name="formatQRCode"
+                  id="formatQRCodeRadio1"
+                  bind:group={formatQRCodeIndex}
+                  on:change={() => {
+                    urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")
+                  }}
+                  value={0}
+                />
+                <label class="form-check-label inline-block text-gray-800" for="formatQRCodeRadio1"> jpeg </label>
+              </div>
+              <div class="form-check flex flex-row ml-4 items-center">
+                <input
+                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                  type="radio"
+                  name="formatQRCode"
+                  id="formatQRCodeRadio2"
+                  bind:group={formatQRCodeIndex}
+                  on:change={() => {
+                    urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")
+                  }}
+                  value={1}
+                />
+                <label class=" form-check-label inline-block text-gray-800" for="formatQRCodeRadio2"> png </label>
+              </div>
+              <div class="form-check flex flex-row ml-4 items-center">
+                <input
+                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                  type="radio"
+                  name="formatQRCode"
+                  id="formatQRCodeRadio3"
+                  bind:group={formatQRCodeIndex}
+                  on:change={() => {
+                    urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")
+                  }}
+                  value={2}
+                />
+                <label class="form-check-label inline-block text-gray-800" for="formatQRCodeRadio3"> webp </label>
+              </div>
+            </div>
+          </div>
+          <!-- taille du QR-Code -->
+          <!-- taille QR-Code -->
+          <div class="flex flex-row items-center justify-start my-4">
+            <div class="font-bold text-coopmaths">Taille du QR-Code</div>
+            <input
+              type="number"
+              min="80"
+              max="300"
+              bind:value={QRCodeWidth}
+              class="ml-3 w-20 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
+              on:change={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")}
+            />
+          </div>
           <div class="flex flex-col justify-center">
             <div class="flex flex-row justify-center p-4">
-              <canvas id="QRCodeCanvas-2" />
+              <img id="QRCodeCanvas-2" />
             </div>
             <div class="flex flex-row justify-center pb-6">
               <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Copier le QR-Code">
-                <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => copyCanvasImageToClipboard("QRCodeCanvas-2", "QRCodeDialog-2")}>
+                <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => copyQRCodeImageToClipboard("QRCodeCanvas-2", "QRCodeDialog-2")}>
                   <i class="bx text-[30px] bx-copy-alt" />
                 </button>
               </div>
               <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Télécharger le QR-Code">
-                <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => downloadCanvasImage("QRCodeCanvas-2")}>
+                <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => downloadQRCodeImage("QRCodeCanvas-2")}>
                   <i class="bx text-[30px] bx-download" />
                 </button>
               </div>
