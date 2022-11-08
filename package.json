@@ -26,6 +26,7 @@
     "mathjs": "^11.3.2",
     "mathlive": "^0.84.0",
     "mathsteps": "github:mathalea/mathsteps",
+    "qrcode": "^1.5.1",
     "seedrandom": "^3.0.5",
     "simple-svelte-autocomplete": "^2.5.0",
     "ts-import": "4.0.0-beta.6"

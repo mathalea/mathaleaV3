@@ -182,30 +182,30 @@
     expanding = type
   }
 
-  function resizing(event:MouseEvent) {
+  function resizing(event: MouseEvent) {
     if (!expanding) return
     event.preventDefault()
     sidebarWidth = event.pageX
   }
 
-  function newDataForAll () {
+  function newDataForAll() {
     const newDataForAll = new window.Event("newDataForAll", {
       bubbles: true,
     })
     document.dispatchEvent(newDataForAll)
   }
 
-  function zoomMinus () {
+  function zoomMinus() {
     zoom -= 0.25
     updateSize()
   }
 
-  function zoomPlus () {
+  function zoomPlus() {
     zoom += 0.25
     updateSize()
   }
 
-  function updateSize () {
+  function updateSize() {
     displayOptions.update((params) => {
       params.z = zoom.toString()
       return params
@@ -253,25 +253,25 @@
     <!-- content -->
     {#if $exercicesParams.length !== 0}
       <div class="flex-1 flex flex-col p-6 overflow-hidden h-full" bind:this={divExercices}>
-          <div class="flex flex-row justify-end items-center space-x-2 text-slate-500">
-            <button type="button" class="hover:text-coopmaths-dark" on:click={zoomMinus} ><i class="bx bx-sm bx-minus" /></button>
-            <button type="button" class="hover:text-coopmaths-dark" on:click={zoomPlus} ><i class="bx bx-sm bx-plus" /></button>
-            <button type="button" class="hover:text-coopmaths-dark" on:click={newDataForAll} ><i class="bx bx-sm bx-refresh" /></button>
-            <button
-              type="button"
-              class="hover:text-coopmaths-dark"
-              on:click={() =>
-                displayOptions.update((params) => {
-                  params.v = "diaporama"
-                  return params
-                })}><i class="bx bx-sm bx-slideshow" /></button
-            >
-            {#if $displayOptions.v === "l"}
-          <div class="flex flex-row justify-end items-center">
-            <button type="button" on:click={quitFullScreen}><i class="bx ml-2 bx-sm bx-exit-fullscreen" /></button>
-          </div>
-        {/if}
-        {#if $displayOptions.v !== "l"}
+        <div class="flex flex-row justify-end items-center space-x-2 text-slate-500">
+          <button type="button" class="hover:text-coopmaths-dark" on:click={zoomMinus}><i class="bx bx-sm bx-minus" /></button>
+          <button type="button" class="hover:text-coopmaths-dark" on:click={zoomPlus}><i class="bx bx-sm bx-plus" /></button>
+          <button type="button" class="hover:text-coopmaths-dark" on:click={newDataForAll}><i class="bx bx-sm bx-refresh" /></button>
+          <button
+            type="button"
+            class="hover:text-coopmaths-dark"
+            on:click={() =>
+              displayOptions.update((params) => {
+                params.v = "diaporama"
+                return params
+              })}><i class="bx bx-sm bx-slideshow" /></button
+          >
+          {#if $displayOptions.v === "l"}
+            <div class="flex flex-row justify-end items-center">
+              <button type="button" on:click={quitFullScreen}><i class="bx ml-2 bx-sm bx-exit-fullscreen" /></button>
+            </div>
+          {/if}
+          {#if $displayOptions.v !== "l"}
             <button
               type="button"
               class="hover:text-coopmaths-dark"
@@ -279,9 +279,10 @@
                 displayOptions.update((params) => {
                   params.v = "l"
                   return params
-                })}><i class="bx bx-sm bx-fullscreen" />
+                })}
+              ><i class="bx bx-sm bx-fullscreen" />
             </button>
-        {/if}
+          {/if}
         </div>
         <div class="flex-1 overflow-y-scroll overscroll-auto">
           {#each $exercicesParams as paramsExercice, i (paramsExercice)}
