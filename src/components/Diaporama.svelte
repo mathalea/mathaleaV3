@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { onMount, tick } from "svelte"
-  import { Mathalea } from "../Mathalea"
-  import { exercicesParams } from "./store"
-  import type { Exercice } from "./utils/typeExercice"
-  import seedrandom from "seedrandom"
-  import { tweened } from "svelte/motion"
-  import { cubicOut } from "svelte/easing"
-  import QRCode from "qrcode"
-  import { getBlobFromImageElement, copyBlobToClipboard, canCopyImagesToClipboard } from "copy-image-clipboard"
+  import { onMount, tick } from 'svelte'
+  import { Mathalea } from '../Mathalea'
+  import { exercicesParams } from './store'
+  import type { Exercice } from './utils/typeExercice'
+  import seedrandom from 'seedrandom'
+  import { tweened } from 'svelte/motion'
+  import { cubicOut } from 'svelte/easing'
+  import QRCode from 'qrcode'
+  import { getBlobFromImageElement, copyBlobToClipboard, canCopyImagesToClipboard } from 'copy-image-clipboard'
 
   let divQuestion: HTMLElement
   let divTableDurationsQuestions: HTMLElement
@@ -36,7 +36,7 @@
   let totalDuration: number = null
   let nbOfVues = 1
   let formatQRCodeIndex: number = 0
-  const allowedImageFormats: string[] = ["image/jpeg", "image/png", "image/webp"]
+  const allowedImageFormats: string[] = ['image/jpeg', 'image/png', 'image/webp']
   let QRCodeWidth = 100
 
   onMount(async () => {
@@ -54,14 +54,14 @@
       if (paramsExercice.sup4) exercice.sup4 = paramsExercice.sup4
       if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif
       if (paramsExercice.alea) exercice.seed = paramsExercice.alea
-      if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === "1"
+      if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === '1'
       if (exercice.seed === undefined)
-      exercice.seed = Mathalea.generateSeed({
-        includeUpperCase: true,
-        includeNumbers: true,
-        length: 4,
-        startsWithLowerCase: false,
-      })
+        exercice.seed = Mathalea.generateSeed({
+          includeUpperCase: true,
+          includeNumbers: true,
+          length: 4,
+          startsWithLowerCase: false,
+        })
       exercices.push(exercice)
     }
     exercices = exercices
@@ -81,7 +81,7 @@
       corrections[idVue] = []
       for (const exercice of exercices) {
         if (idVue > 0) exercice.seed = exercice.seed + idVue
-        if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
+        if (exercice.typeExercice === 'simple') Mathalea.handleExerciceSimple(exercice, false)
         seedrandom(idVue, { global: true })
         exercice.nouvelleVersion()
         questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
@@ -120,26 +120,26 @@
     currentDuration = durationGlobal ?? durations[currentQuestion] ?? 10
   }
 
-  function setSize() {
+  function setSize () {
     if (sizes[currentQuestion]) {
-      const size = currentZoom * sizes[currentQuestion]
-      divQuestion.style.lineHeight = `${size * 1.2}rem`
+      const size = currentZoom + sizes[currentQuestion]
+      divQuestion.style.lineHeight = `1.2`
       divQuestion.style.fontSize = `${size}rem`
-      const qcms = document.querySelectorAll(".monQcm")
+      const qcms = document.querySelectorAll('.monQcm')
       for (const qcm of qcms) {
         ;(qcm as HTMLDivElement).style.fontSize = `${size}px`
       }
-      const tables = document.querySelectorAll("#affichage_exercices label") // Pour les propositions des QCM
+      const tables = document.querySelectorAll('#affichage_exercices label') // Pour les propositions des QCM
       for (const table of tables) {
         ;(table as HTMLDivElement).style.fontSize = `${size}px`
       }
-      const figures = document.querySelectorAll(".mathalea2d")
+      const figures = document.querySelectorAll('.mathalea2d')
       for (const figureElement of figures) {
         const figure = figureElement as SVGElement
-        if (!figure.dataset.widthInitiale) figure.dataset.widthInitiale = figure.getAttribute("width")
-        if (!figure.dataset.heightInitiale) figure.dataset.heightInitiale = figure.getAttribute("height")
-        figure.setAttribute("height", (Number(figure.dataset.heightInitiale) * currentZoom).toString())
-        figure.setAttribute("width", (Number(figure.dataset.widthInitiale) * currentZoom).toString())
+        if (!figure.dataset.widthInitiale) figure.dataset.widthInitiale = figure.getAttribute('width')
+        if (!figure.dataset.heightInitiale) figure.dataset.heightInitiale = figure.getAttribute('height')
+        figure.setAttribute('height', (Number(figure.dataset.heightInitiale) * currentZoom).toString())
+        figure.setAttribute('width', (Number(figure.dataset.widthInitiale) * currentZoom).toString())
       }
       Mathalea.renderDiv(divQuestion)
       if (divQuestion.offsetHeight + 180 > window.innerHeight && currentZoom > 0) {
@@ -165,7 +165,7 @@
   function switchFullScreen() {
     isFullScreen = !isFullScreen
     if (isFullScreen) {
-      const app = document.querySelector("#diap")
+      const app = document.querySelector('#diap')
       app.requestFullscreen()
     } else {
       document.exitFullscreen()
@@ -209,15 +209,15 @@
   }
 
   function handleShortcut(e: KeyboardEvent) {
-    if (e.key === "ArrowLeft") {
+    if (e.key === 'ArrowLeft') {
       e.preventDefault()
       prevQuestion()
     }
-    if (e.key === "ArrowRight") {
+    if (e.key === 'ArrowRight') {
       e.preventDefault()
       nextQuestion()
     }
-    if (e.key === " ") {
+    if (e.key === ' ') {
       e.preventDefault()
       if (durationGlobal !== 0) switchPause()
     }
@@ -237,14 +237,14 @@
    * @param duree valeur de la durée en secondes retournée par le curseur
    */
   function setPhraseDuree(duree) {
-    if (duree >= 2) return duree + " secondes"
-    else if (duree === 0) return "Défilement manuel"
-    else return duree + " seconde"
+    if (duree >= 2) return duree + ' secondes'
+    else if (duree === 0) return 'Défilement manuel'
+    else return duree + ' seconde'
   }
   $: messageDuree = setPhraseDuree(valueCursorTime)
 
   $: displayCurrentDuration = () => {
-    return currentDuration === 0 ? "Manuel" : currentDuration + "s"
+    return currentDuration === 0 ? 'Manuel' : currentDuration + 's'
   }
 
   /**
@@ -322,7 +322,7 @@
       durationGlobal = null
     }
     let steps: NodeListOf<HTMLLIElement>
-    if (stepsUl) steps = stepsUl.querySelectorAll("li")
+    if (stepsUl) steps = stepsUl.querySelectorAll('li')
     if (steps && steps[currentQuestion + 5]) steps[currentQuestion + 5].scrollIntoView()
   }
 
@@ -342,7 +342,7 @@
         }, 1000)
       },
       (err) => {
-        console.error("Async: Could not copy text: ", err)
+        console.error('Async: Could not copy text: ', err)
       }
     )
   }
@@ -356,15 +356,15 @@
   function urlToQRCodeOnWithinImgTag(imageId) {
     const diapoURL = document.URL
     const options = {
-      errorCorrectionLevel: "H",
+      errorCorrectionLevel: 'H',
       type: allowedImageFormats[formatQRCodeIndex],
       quality: 0.9,
       margin: 1,
       scale: 2,
       width: QRCodeWidth,
       color: {
-        dark: "#000",
-        light: "#fff",
+        dark: '#000',
+        light: '#fff',
       },
     }
     QRCode.toDataURL(diapoURL, options, (err, url) => {
@@ -389,17 +389,17 @@
           return copyBlobToClipboard(blob)
         })
         .then(() => {
-          const dialog = document.getElementById(dialogId + "-1")
+          const dialog = document.getElementById(dialogId + '-1')
           dialog.showModal()
           setTimeout(() => {
             dialog.close()
           }, 1000)
         })
         .catch((e) => {
-          console.log("Error: ", e.message)
+          console.log('Error: ', e.message)
         })
     } else {
-      const dialog = document.getElementById(dialogId + "-2")
+      const dialog = document.getElementById(dialogId + '-2')
       dialog.showModal()
       setTimeout(() => {
         dialog.close()
@@ -418,20 +418,20 @@
     // creating a timestamp for file name
     let date = new Date()
     const year = date.getFullYear()
-    const month = ("0" + (date.getMonth() + 1)).slice(-2)
-    const day = ("0" + date.getDate()).slice(-2)
+    const month = ('0' + (date.getMonth() + 1)).slice(-2)
+    const day = ('0' + date.getDate()).slice(-2)
     const timestamp = `${year}${month}${day}`
 
-    const imageSrc = document.getElementById(imageId).getAttribute("src")
+    const imageSrc = document.getElementById(imageId).getAttribute('src')
     fetch(imageSrc)
       .then((resp) => resp.blob())
       .then((blob) => {
         const url = window.URL.createObjectURL(blob)
         // creating virtual link for download
-        const downloadLink = document.createElement("a")
-        downloadLink.style.display = "none"
+        const downloadLink = document.createElement('a')
+        downloadLink.style.display = 'none'
         downloadLink.href = url
-        downloadLink.download = "qrcode_diapo_coopmaths" + timestamp + "." + allowedImageFormats[formatQRCodeIndex].slice(6)
+        downloadLink.download = 'qrcode_diapo_coopmaths' + timestamp + '.' + allowedImageFormats[formatQRCodeIndex].slice(6)
         document.body.appendChild(downloadLink)
         downloadLink.click()
         window.URL.revokeObjectURL(url)
@@ -449,10 +449,10 @@
         ><i
           class="relative bx ml-2 bx-lg bx-x hover:text-coopmaths"
           on:click={() => {
-            document.location.href = document.location.href.replace("&v=diaporama", "")
+            document.location.href = document.location.href.replace('&v=diaporama', '')
           }}
           on:keydown={() => {
-            document.location.href = document.location.href.replace("&v=diaporama", "")
+            document.location.href = document.location.href.replace('&v=diaporama', '')
           }}
         /></button
       >
@@ -532,22 +532,27 @@
         <div class="flex text-lg font-bold mb-2">Liens</div>
         <div class="flex flex-row px-4 justify-start">
           <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Lien du diaporama">
-            <button type="button" class="mr-4 my-2 text-coopmaths" on:click={() => copyLinkToClipboard("linkCopiedDialog-1")}>
+            <button type="button" class="mr-4 my-2 text-coopmaths" on:click={() => copyLinkToClipboard('linkCopiedDialog-1')}>
               <i class="bx text-2xl bx-link" />
             </button>
             <dialog class="rounded-xl" id="linkCopiedDialog-1">Le lien est copié dans le presse-papier !</dialog>
           </div>
           <label for="QRCodeModal-1" class="btn bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
             <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
-              <i class="bx text-2xl text-coopmaths bx-qr" on:click={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")} />
+              <i class="bx text-2xl text-coopmaths bx-qr" on:click={() => urlToQRCodeOnWithinImgTag('QRCodeCanvas-1')} />
             </div>
           </label>
           <input type="checkbox" id="QRCodeModal-1" class="modal-toggle" />
           <div class="modal">
             <div class="modal-box relative">
               <dialog class="rounded-xl" id="QRCodeDialog-1-1">Le QR-Code est copié dans le presse-papier !</dialog>
-              <dialog class="rounded-xl" id="QRCodeDialog-1-2">Impossible de copier le QR-Code dans ce navigateur !<br /> Vérifier les permissions.</dialog>
-              <label for="QRCodeModal-1" class="btn absolute right-2 top-2 bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
+              <dialog class="rounded-xl" id="QRCodeDialog-1-2">
+                Impossible de copier le QR-Code dans ce navigateur !<br /> Vérifier les permissions.
+              </dialog>
+              <label
+                for="QRCodeModal-1"
+                class="btn absolute right-2 top-2 bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent"
+              >
                 <i class="bx text-3xl bx-x text-gray-800" />
               </label>
               <h3 class="text-lg font-bold">QR-Code du Diaporama</h3>
@@ -564,7 +569,7 @@
                       id="formatQRCodeRadio1"
                       bind:group={formatQRCodeIndex}
                       on:change={() => {
-                        urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")
+                        urlToQRCodeOnWithinImgTag('QRCodeCanvas-1')
                       }}
                       value={0}
                     />
@@ -578,7 +583,7 @@
                       id="formatQRCodeRadio2"
                       bind:group={formatQRCodeIndex}
                       on:change={() => {
-                        urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")
+                        urlToQRCodeOnWithinImgTag('QRCodeCanvas-1')
                       }}
                       value={1}
                     />
@@ -592,7 +597,7 @@
                       id="formatQRCodeRadio3"
                       bind:group={formatQRCodeIndex}
                       on:change={() => {
-                        urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")
+                        urlToQRCodeOnWithinImgTag('QRCodeCanvas-1')
                       }}
                       value={2}
                     />
@@ -609,7 +614,7 @@
                   max="300"
                   bind:value={QRCodeWidth}
                   class="ml-3 w-20 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
-                  on:change={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")}
+                  on:change={() => urlToQRCodeOnWithinImgTag('QRCodeCanvas-1')}
                 />
               </div>
               <div class="flex flex-col justify-center">
@@ -619,12 +624,16 @@
                 </div>
                 <div class="flex flex-row justify-center pb-6">
                   <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Copier le QR-Code">
-                    <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => copyQRCodeImageToClipboard("QRCodeCanvas-1", "QRCodeDialog-1")}>
+                    <button
+                      type="button"
+                      class="mx-6 my-2 text-coopmaths"
+                      on:click={() => copyQRCodeImageToClipboard('QRCodeCanvas-1', 'QRCodeDialog-1')}
+                    >
                       <i class="bx text-[30px] bx-copy-alt" />
                     </button>
                   </div>
                   <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Télécharger le QR-Code">
-                    <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => downloadQRCodeImage("QRCodeCanvas-1")}>
+                    <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => downloadQRCodeImage('QRCodeCanvas-1')}>
                       <i class="bx text-[30px] bx-download" />
                     </button>
                   </div>
@@ -666,7 +675,9 @@
                 <th scope="col" class="py-3.5 pl-4 pr-3 w-4/6 text-left text-sm font-semibold text-gray-900 sm:pl">Exercices</th>
                 <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">
                   <div>Durées par question (s)</div>
-                  <div class="text-coopmaths text-xs">Durée diapo :<span class="font-bold ml-1">{formattedTimeStamp(getTotalDuration())}</span></div>
+                  <div class="text-coopmaths text-xs">
+                    Durée diapo :<span class="font-bold ml-1">{formattedTimeStamp(getTotalDuration())}</span>
+                  </div>
                 </th>
                 <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">
                   <div>Nombres de questions</div>
@@ -721,7 +732,11 @@
       <div class="flex flex-row h-full mt-6 w-full justify-center">
         <ul class="steps w-11/12" bind:this={stepsUl}>
           {#each questions[0] as question, i}
-            <li class="step {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => clickOnStep(i)} on:keydown={() => clickOnStep(i)} />
+            <li
+              class="step {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer"
+              on:click={() => clickOnStep(i)}
+              on:keydown={() => clickOnStep(i)}
+            />
           {/each}
         </ul>
       </div>
@@ -745,21 +760,27 @@
       <div class="flex flex-row justify-between w-full text-coopmaths">
         <!-- boutons réglagles zoom -->
         <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
-          <button type="button" on:click={switchFullScreen}><i class="bx ml-2 bx-lg {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}" /></button>
+          <button type="button" on:click={switchFullScreen}
+            ><i class="bx ml-2 bx-lg {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}" /></button
+          >
           <button type="button" on:click={zoomPlus}><i class="bx ml-2 bx-lg bx-plus" /></button>
           <button type="button" on:click={zoomMoins}><i class="bx ml-2 bx-lg bx-minus" /></button>
         </div>
         <!-- boutons contrôle défilement -->
         <div class="flex flex-row justify-center w-[33%] items-center">
           <button type="button" on:click={prevQuestion}><i class="bx ml-2 bx-lg bx-skip-previous" /></button>
-          <button type="button" on:click={switchPause} class:invisible={durationGlobal === 0}><i class="bx ml-2 bx-lg {isPause ? 'bx-play' : 'bx-pause'}" /></button>
+          <button type="button" on:click={switchPause} class:invisible={durationGlobal === 0}
+            ><i class="bx ml-2 bx-lg {isPause ? 'bx-play' : 'bx-pause'}" /></button
+          >
           <button type="button" on:click={nextQuestion}><i class="bx ml-2 bx-lg bx-skip-next" /></button>
         </div>
         <!-- boutons timers correction quitter -->
         <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
           <label for="timerSettings" class="modal-button"
             ><i class="relative bx ml-2 bx-lg bx-stopwatch" on:click={pause} on:keydown={pause}>
-              <div class="absolute -bottom-[12px] left-1/2 -translate-x-1/2 text-sm font-sans text-coopmaths">{displayCurrentDuration()}</div></i
+              <div class="absolute -bottom-[12px] left-1/2 -translate-x-1/2 text-sm font-sans text-coopmaths">
+                {displayCurrentDuration()}
+              </div></i
             ></label
           >
           <input type="checkbox" id="timerSettings" class="modal-toggle" />
@@ -787,14 +808,16 @@
               </div>
             </div>
           </div>
-          <button type="button" on:click={switchCorrectionVisible}><i class="bx ml-2 bx-lg {isCorrectionVisible ? 'bx-hide' : 'bx-show'}" /></button>
+          <button type="button" on:click={switchCorrectionVisible}
+            ><i class="bx ml-2 bx-lg {isCorrectionVisible ? 'bx-hide' : 'bx-show'}" /></button
+          >
           <button
             type="button"
             on:click={() => {
-              document.location.href = document.location.href.replace("&v=diaporama", "")
+              document.location.href = document.location.href.replace('&v=diaporama', '')
             }}
             on:keydown={() => {
-              document.location.href = document.location.href.replace("&v=diaporama", "")
+              document.location.href = document.location.href.replace('&v=diaporama', '')
             }}><i class="bx ml-2 bx-lg bx-power-off" /></button
           >
         </div>
@@ -808,34 +831,41 @@
     <div class="flex flex-row items-center justify-center w-full text-[300px] font-extrabold m-10">Fin !</div>
     <div class="flex flex-row items-center justify-center w-full mx-10 my-4">
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Début du diaporama">
-        <button type="button" class="mx-12 my-2 text-coopmaths" on:click={returnToStart} on:keydown={returnToStart}><i class="bx text-[100px] bx-arrow-back" /></button>
+        <button type="button" class="mx-12 my-2 text-coopmaths" on:click={returnToStart} on:keydown={returnToStart}
+          ><i class="bx text-[100px] bx-arrow-back" /></button
+        >
       </div>
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Questions + Réponses">
         <button
           type="button"
           class="mx-12 my-2 text-coopmaths"
           on:click={() => {
-            document.location.href = document.location.href.replace("&v=diaporama", "&v=can")
+            document.location.href = document.location.href.replace('&v=diaporama', '&v=can')
           }}><i class="bx text-[100px] bx-detail" /></button
         >
       </div>
       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Lien du diaporama">
-        <button type="button" class="mx-12 my-2 text-coopmaths" on:click={() => copyLinkToClipboard("linkCopiedDialog-2")}>
+        <button type="button" class="mx-12 my-2 text-coopmaths" on:click={() => copyLinkToClipboard('linkCopiedDialog-2')}>
           <i class="bx text-[100px] bx-link" />
         </button>
         <dialog class="rounded-xl" id="linkCopiedDialog-2">Le lien est copié dans le presse-papier !</dialog>
       </div>
       <label for="QRCodeModal-2" class="mx-12 my-2 hover:cursor-pointer">
         <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
-          <i class="bx text-[100px] text-coopmaths bx-qr self-center" on:click={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")} />
+          <i class="bx text-[100px] text-coopmaths bx-qr self-center" on:click={() => urlToQRCodeOnWithinImgTag('QRCodeCanvas-2')} />
         </div>
       </label>
       <input type="checkbox" id="QRCodeModal-2" class="modal-toggle" />
       <div class="modal">
         <div class="modal-box relative  text-gray-900">
           <dialog class="rounded-xl" id="QRCodeDialog-2-1">Le QR-Code est copié dans le presse-papier !</dialog>
-          <dialog class="rounded-xl" id="QRCodeDialog-2-2">Impossible de copier le QR-Code dans ce navigateur !<br /> Vérifier les permissions.</dialog>
-          <label for="QRCodeModal-2" class="absolute right-2 top-2 bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
+          <dialog class="rounded-xl" id="QRCodeDialog-2-2">
+            Impossible de copier le QR-Code dans ce navigateur !<br /> Vérifier les permissions.
+          </dialog>
+          <label
+            for="QRCodeModal-2"
+            class="absolute right-2 top-2 bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent"
+          >
             <i class="bx text-3xl bx-x text-gray-800" />
           </label>
           <h3 class="text-lg font-bold">QR-Code du Diaporama</h3>
@@ -852,7 +882,7 @@
                   id="formatQRCodeRadio1"
                   bind:group={formatQRCodeIndex}
                   on:change={() => {
-                    urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")
+                    urlToQRCodeOnWithinImgTag('QRCodeCanvas-2')
                   }}
                   value={0}
                 />
@@ -866,7 +896,7 @@
                   id="formatQRCodeRadio2"
                   bind:group={formatQRCodeIndex}
                   on:change={() => {
-                    urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")
+                    urlToQRCodeOnWithinImgTag('QRCodeCanvas-2')
                   }}
                   value={1}
                 />
@@ -880,7 +910,7 @@
                   id="formatQRCodeRadio3"
                   bind:group={formatQRCodeIndex}
                   on:change={() => {
-                    urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")
+                    urlToQRCodeOnWithinImgTag('QRCodeCanvas-2')
                   }}
                   value={2}
                 />
@@ -898,7 +928,7 @@
               max="300"
               bind:value={QRCodeWidth}
               class="ml-3 w-20 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
-              on:change={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")}
+              on:change={() => urlToQRCodeOnWithinImgTag('QRCodeCanvas-2')}
             />
           </div>
           <div class="flex flex-col justify-center">
@@ -907,12 +937,16 @@
             </div>
             <div class="flex flex-row justify-center pb-6">
               <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Copier le QR-Code">
-                <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => copyQRCodeImageToClipboard("QRCodeCanvas-2", "QRCodeDialog-2")}>
+                <button
+                  type="button"
+                  class="mx-6 my-2 text-coopmaths"
+                  on:click={() => copyQRCodeImageToClipboard('QRCodeCanvas-2', 'QRCodeDialog-2')}
+                >
                   <i class="bx text-[30px] bx-copy-alt" />
                 </button>
               </div>
               <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Télécharger le QR-Code">
-                <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => downloadQRCodeImage("QRCodeCanvas-2")}>
+                <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => downloadQRCodeImage('QRCodeCanvas-2')}>
                   <i class="bx text-[30px] bx-download" />
                 </button>
               </div>
@@ -925,7 +959,7 @@
           type="button"
           class="mx-12 my-2 text-coopmaths"
           on:click={() => {
-            document.location.href = document.location.href.replace("&v=diaporama", "")
+            document.location.href = document.location.href.replace('&v=diaporama', '')
           }}
         >
           <i class="bx text-[100px] bx-home-alt-2" />
