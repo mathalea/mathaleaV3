@@ -36,11 +36,13 @@
      * Détermine si un exercice est dans les résultats de la recherche ou pas
      */
     function filtre(exercice, inputSearch, isCanPossible) {
-        if (!inputSearch) return false;
+        // Les exercices statiques ont une année on les exclue de la recherche 
+        if (!inputSearch || exercice.annee) return false;
+        // Cela permet de trouver les problèmes de construction du dictionnaire
+        if (!exercice.id) console.log('Manque id', exercice)
         const inputs = inputSearch.split(" ");
         let results = [];
         for (const input of inputs) {
-            // if (!exercice.id) console.log(exercice)
             // Pour les exercices statiques exercice.titre n'existe pas
             results.push(
                 exercice.titre && 

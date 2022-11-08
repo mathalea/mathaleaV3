@@ -296,7 +296,7 @@
               >
                 {#each exercice.listeQuestions as item, i (i)}
                   <div>
-                    <li style="line-height: {exercice.spacing};" id="exercice{indiceExercice}Q${i}">
+                    <li style="line-height: {exercice.spacing};" id="exercice{indiceExercice}Q${i}" class="py-3">
                       {@html Mathalea.formatExercice(item)}
                     </li>
                   </div>

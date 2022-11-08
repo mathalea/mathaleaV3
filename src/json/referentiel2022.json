@@ -5264,6 +5264,7 @@
       },
       "6G42-1": {
         "datePublication": "06/11/2022",
+        "id": "6G42-1",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -9676,6 +9677,7 @@
       },
       "3G41-1": {
         "datePublication": "07/11/2022",
+        "id": "3G41-1",
         "tags": {
           "AMC": true,
           "Interactif": false,
