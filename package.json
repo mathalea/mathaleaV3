@@ -17,6 +17,7 @@
     "@svgdotjs/svg.js": "^3.1.2",
     "algebrite": "^1.4.0",
     "boxicons": "^2.1.4",
+    "copy-image-clipboard": "^2.1.2",
     "daisyui": "^2.38.0",
     "decimal.js": "^10.4.2",
     "earcut": "^2.2.4",
