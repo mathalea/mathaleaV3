@@ -120,9 +120,8 @@
     currentDuration = durationGlobal ?? durations[currentQuestion] ?? 10
   }
 
-  function setSize () {
-    if (sizes[currentQuestion]) {
-      const size = currentZoom + sizes[currentQuestion]
+  async function setSize () {
+      const size = currentZoom * sizes[currentQuestion]
       divQuestion.style.lineHeight = `1.2`
       divQuestion.style.fontSize = `${size}rem`    
       Mathalea.renderDiv(divQuestion, size)
@@ -130,7 +129,6 @@
         currentZoom -= 0.25
         setSize()
       }
-    }
   }
 
   function zoomPlus() {
@@ -730,7 +728,7 @@
       <div bind:this={divQuestion} class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : ''} place-content-stretch justify-items-center w-full">
         {#each Array(nbOfVues) as _, i}
           <div class="relative flex flex-col justify-center justify-self-stretch p-8 {nbOfVues > 1 ? 'bg-gray-300' : ''} text-center">
-            <div class="font-light mb-8">{consignes[currentQuestion]}</div>
+            <div class="font-light mb-8">{@html consignes[currentQuestion]}</div>
             {#if nbOfVues > 1}
               <div class="absolute bg-coopmaths text-white font-black -top-1 -left-1 rounded-tl-2xl w-1/12 h-1/12">{i + 1}</div>
             {/if}
