@@ -11,7 +11,6 @@
   import HeaderExercice from './HeaderExercice.svelte'
   import Settings from './Settings.svelte'
   import { scratchTraductionFr } from '../../modules/scratchBlocksFr'
-  import { i } from 'mathjs'
   export let exercice
   export let indiceExercice
   export let indiceLastExercice
@@ -78,7 +77,8 @@
       Mathalea.renderDiv(divExercice)
     }
   })
-  async function newData() {
+  async function newData () {
+    if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
     const seed = Mathalea.generateSeed({
       includeUpperCase: true,
       includeNumbers: true,
@@ -255,14 +255,13 @@
         </div>
         <article class="lg:text-base" style="font-size: {($displayOptions.z || 1).toString()}rem">
           <div>
-            <p class="leading-relaxed mt-2  ml-2 lg:mx-5 text-gray-800">
+            <p class="leading-relaxed mt-2 ml-2 lg:mx-5 text-gray-800">
               {@html exercice.consigne}
             </p>
           </div>
           {#if exercice.introduction}
             <div>
-              Intro
-              <p class="leading-relaxed mt-2  ml-2 lg:mx-5 text-gray-800">
+              <p class="leading-relaxed mt-2 ml-2 lg:mx-5 text-gray-800">
                 {@html exercice.introduction}
               </p>
             </div>
