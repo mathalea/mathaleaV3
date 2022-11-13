@@ -8,6 +8,7 @@
   import { cubicOut } from 'svelte/easing'
   import QRCode from 'qrcode'
   import { getBlobFromImageElement, copyBlobToClipboard, canCopyImagesToClipboard } from 'copy-image-clipboard'
+  import { context } from '../modules/context.js'
 
   let divQuestion: HTMLElement
   let divTableDurationsQuestions: HTMLElement
@@ -40,6 +41,7 @@
   let QRCodeWidth = 100
 
   onMount(async () => {
+    context.vue = 'diap'
     Mathalea.updateUrl($exercicesParams)
     for (const paramsExercice of $exercicesParams) {
       const exercice: Exercice = await Mathalea.load(paramsExercice.uuid)

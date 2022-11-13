@@ -4,6 +4,7 @@
   import { exercicesParams } from './store'
   import type { Exercice } from './utils/typeExercice'
   import seedrandom from 'seedrandom'
+  import { context } from '../modules/context'
 
   let exercices: Exercice[] = []
   let questions: [string[], string[], string[], string[]] = [[], [], [], []] // Concaténation de toutes les questions des exercices de exercicesParams, vue par vue
@@ -16,6 +17,7 @@
   let divExercice: HTMLElement
 
   onMount(async () => {
+    context.vue = 'can'
     Mathalea.updateUrl($exercicesParams)
     for (const paramsExercice of $exercicesParams) {
       const exercice: Exercice = await Mathalea.load(paramsExercice.uuid)
