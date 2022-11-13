@@ -311,7 +311,11 @@
     }
     let steps: NodeListOf<HTMLLIElement>
     if (stepsUl) steps = stepsUl.querySelectorAll('li')
-    if (steps && steps[currentQuestion + 5]) steps[currentQuestion + 5].scrollIntoView()
+    if (steps) {
+      if (steps[currentQuestion]) steps[currentQuestion].scrollIntoView()
+      if (steps[currentQuestion + 5]) steps[currentQuestion + 5].scrollIntoView()
+      if (steps[currentQuestion - 5] && !isInViewport(steps[currentQuestion - 5])) steps[currentQuestion - 5].scrollIntoView()
+    }
   }
 
   /**
@@ -426,6 +430,18 @@
       })
       .catch(() => "Erreur avec le téléchargement de l'image du QR-Code")
   }
+
+
+  function isInViewport(element: HTMLElement): boolean {
+    const rect = element.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
+
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
