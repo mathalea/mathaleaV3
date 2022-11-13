@@ -93,7 +93,11 @@
     for (const exercice of exercices) {
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
         sizes.push(exercice.tailleDiaporama)
-        consignes.push(exercice.consigne)
+        if (exercice.introduction) {
+          consignes.push( exercice.consigne + '\n' + exercice.introduction)
+        } else {
+          consignes.push( exercice.consigne)
+        } 
         durations.push(exercice.duration)
       }
     }

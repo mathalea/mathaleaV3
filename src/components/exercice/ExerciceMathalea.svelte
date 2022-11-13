@@ -253,9 +253,19 @@
         </div>
         <article class="lg:text-base" style="font-size: {($displayOptions.z || 1).toString()}rem" >
           {#if isCorrectionVisible}
+          <div>
             <p class="leading-relaxed mt-2  ml-2 lg:mx-5 text-gray-800">
-              {@html exercice.consigne + exercice.introduction}
+              {@html exercice.consigne}
             </p>
+          </div>
+          {#if exercice.introduction}
+            <div>
+              Intro
+              <p class="leading-relaxed mt-2  ml-2 lg:mx-5 text-gray-800">
+                {@html exercice.introduction}
+              </p>
+            </div>
+          {/if}
             <div class="bg-gray-200 leading-relaxed mt-2  ml-2 lg:mx-5">
               {@html exercice.consigneCorrection}
             </div>
@@ -285,9 +295,18 @@
               </ul>
             </div>
           {:else}
+          <div>
             <p class="leading-relaxed mt-2  ml-2 lg:mx-5 text-gray-800">
-              {@html exercice.consigne + exercice.introduction}
+              {@html exercice.consigne}
             </p>
+          </div>
+          {#if exercice.introduction}
+            <div>
+              <p class="leading-relaxed mt-2  ml-2 lg:mx-5 text-gray-800">
+                {@html exercice.introduction}
+              </p>
+            </div>
+          {/if}
             <div style="columns: {columnsCount.toString()}">
               <ul
                 class="{exercice.listeQuestions.length > 1
