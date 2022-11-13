@@ -11,6 +11,7 @@
   import HeaderExercice from './HeaderExercice.svelte'
   import Settings from './Settings.svelte'
   import { scratchTraductionFr } from '../../modules/scratchBlocksFr'
+  import { i } from 'mathjs'
   export let exercice
   export let indiceExercice
   export let indiceLastExercice
@@ -160,6 +161,7 @@
   }
 
   function verifExercice() {
+    isCorrectionVisible = true
     exerciceInteractif(exercice, divScore, buttonScore)
   }
 
@@ -251,8 +253,7 @@
             }}><i class="bx ml-1 bx-xs bx-plus" /></button
           >
         </div>
-        <article class="lg:text-base" style="font-size: {($displayOptions.z || 1).toString()}rem" >
-          {#if isCorrectionVisible}
+        <article class="lg:text-base" style="font-size: {($displayOptions.z || 1).toString()}rem">
           <div>
             <p class="leading-relaxed mt-2  ml-2 lg:mx-5 text-gray-800">
               {@html exercice.consigne}
@@ -266,23 +267,26 @@
               </p>
             </div>
           {/if}
+          {#if isCorrectionVisible}
             <div class="bg-gray-200 leading-relaxed mt-2  ml-2 lg:mx-5">
               {@html exercice.consigneCorrection}
             </div>
-            <div style="columns: {columnsCount.toString()}">
-              <ul
-                class="{exercice.listeQuestions.length > 1
-                  ? 'list-decimal'
-                  : 'list-none'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold"
-              >
-                {#each exercice.listeQuestions as item, i (i)}
-                  <div style="break-inside:avoid">
-                    <li
-                      style={i < exercice.listeQuestions.length ? `margin-bottom: ${exercice.spacing}` : ''}
-                      id="exercice{indiceExercice}Q${i}"
-                    >
-                      {@html Mathalea.formatExercice(item)}
-                    </li>
+          {/if}
+          <div style="columns: {columnsCount.toString()}">
+            <ul
+              class="{exercice.listeQuestions.length > 1
+                ? 'list-decimal'
+                : 'list-none'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold"
+            >
+              {#each exercice.listeQuestions as item, i (i)}
+                <div style="break-inside:avoid">
+                  <li
+                    style={i < exercice.listeQuestions.length ? `margin-bottom: ${exercice.spacing}` : ''}
+                    id="exercice{indiceExercice}Q${i}"
+                  >
+                    {@html Mathalea.formatExercice(item)}
+                  </li>
+                  {#if isCorrectionVisible}
                     <div
                       class="bg-gray-200 my-2 p-2"
                       style="line-height: {exercice.spacingCorr}; break-inside:avoid"
@@ -290,39 +294,11 @@
                     >
                       {@html Mathalea.formatExercice(exercice.listeCorrections[i])}
                     </div>
-                  </div>
-                {/each}
-              </ul>
-            </div>
-          {:else}
-          <div>
-            <p class="leading-relaxed mt-2  ml-2 lg:mx-5 text-gray-800">
-              {@html exercice.consigne}
-            </p>
+                  {/if}
+                </div>
+              {/each}
+            </ul>
           </div>
-          {#if exercice.introduction}
-            <div>
-              <p class="leading-relaxed mt-2  ml-2 lg:mx-5 text-gray-800">
-                {@html exercice.introduction}
-              </p>
-            </div>
-          {/if}
-            <div style="columns: {columnsCount.toString()}">
-              <ul
-                class="{exercice.listeQuestions.length > 1
-                  ? 'list-decimal'
-                  : 'list-none'} list-inside mt-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold"
-              >
-                {#each exercice.listeQuestions as item, i (i)}
-                  <div>
-                    <li style="line-height: {exercice.spacing};" id="exercice{indiceExercice}Q${i}" class="py-3">
-                      {@html Mathalea.formatExercice(item)}
-                    </li>
-                  </div>
-                {/each}
-              </ul>
-            </div>
-          {/if}
         </article>
         {#if isInteractif && !isCorrectionVisible && isContentVisible}
           <button type="submit" on:click={verifExercice} bind:this={buttonScore}>Vérifier les réponses </button>
