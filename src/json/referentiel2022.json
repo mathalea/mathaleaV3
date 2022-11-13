@@ -2734,6 +2734,18 @@
             "Can": true
           },
           "datePublication": "19/09/2022"
+        },
+        "can2C15": {
+          "uuid": "d9488",
+          "id": "can2C15",
+          "titre": "Calculer un nombre connaissant son inverse",
+          "url": "can/2e/can2C15.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "10/11/2022"
         }
       },
       "can2F": {
@@ -3118,6 +3130,18 @@
             "Can": true
           },
           "datePublication": "29/06/2022"
+        },
+        "can2G19": {
+          "uuid": "6082f",
+          "id": "can2G19",
+          "titre": "Déterminer le coefficient directeur d'une droite (graphique)",
+          "url": "can/2e/can2G19.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "10/11/2022"
         }
       },
       "can2L": {
@@ -5272,7 +5296,7 @@
         },
         "titre": "Nommer des faces dans un pavé droit",
         "url": "6e/6G42-1.js",
-        "uuid": "16773"
+        "uuid": "6809f"
       },
       "6G43": {
         "id": "6G43",
@@ -9685,7 +9709,7 @@
         },
         "titre": "Construire la section d'un plan dans un un pavé droit",
         "url": "3e/3G41-1.js",
-        "uuid": "d96da"
+        "uuid": "a3cb9"
       },
       "3G42": {
         "id": "3G42",
@@ -12003,6 +12027,19 @@
         "titre": "Equation du premier degré dans C",
         "url": "Ex/ExC100.js",
         "uuid": "8e72e"
+      },
+      "ExC101": {
+        "dateModification": "24/10/2021",
+        "datePublication": "25/10/2021",
+        "id": "ExC101",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Produit de matrices carrées ou colonnes",
+        "url": "Ex/ExC101.js",
+        "uuid": "88241"
       }
     }
   },
@@ -12030,6 +12067,19 @@
         "titre": "Calculs de probabilité avec la loi normale",
         "url": "HP/HPC102.js",
         "uuid": "89071"
+      },
+      "HPC103": {
+        "dateModification": "24/10/2021",
+        "datePublication": "25/10/2021",
+        "id": "HPC103",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Produit de matrices",
+        "url": "HP/HPC103.js",
+        "uuid": "a868f"
       }
     }
   },
