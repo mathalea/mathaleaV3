@@ -53,6 +53,7 @@
       headerExerciceProps.isDeletable = true
       headerExerciceProps.isHidable = true
     }
+    headerExerciceProps.isInteractif = isInteractif
     headerExerciceProps = headerExerciceProps
   }
 
