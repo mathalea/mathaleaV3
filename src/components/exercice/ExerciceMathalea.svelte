@@ -273,7 +273,7 @@
               <ul
                 class="{exercice.listeQuestions.length > 1
                   ? 'list-decimal'
-                  : 'list-none'} list-inside mt-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold"
+                  : 'list-none'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold"
               >
                 {#each exercice.listeQuestions as item, i (i)}
                   <div style="break-inside:avoid">
@@ -284,7 +284,7 @@
                       {@html Mathalea.formatExercice(item)}
                     </li>
                     <div
-                      class="bg-gray-200"
+                      class="bg-gray-200 my-2 p-2"
                       style="line-height: {exercice.spacingCorr}; break-inside:avoid"
                       id="correction${indiceExercice}Q${i}"
                     >
