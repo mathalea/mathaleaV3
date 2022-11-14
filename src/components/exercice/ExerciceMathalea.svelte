@@ -281,7 +281,7 @@
               {#each exercice.listeQuestions as item, i (i)}
                 <div style="break-inside:avoid">
                   <li
-                    style={i < exercice.listeQuestions.length ? `margin-bottom: ${exercice.spacing}` : ''}
+                    style={i < exercice.listeQuestions.length ? `margin-bottom: ${exercice.spacing}em` : ''}
                     id="exercice{indiceExercice}Q${i}"
                   >
                     {@html Mathalea.formatExercice(item)}
