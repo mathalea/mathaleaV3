@@ -265,7 +265,7 @@ export class Mathalea {
    * @param {string} texte
    * @returns string
    */
-  static formatExercice (texte) {
+  static formatExercice (texte = '') {
     return texte
       .replace(/\\dotfill/g, '..............................')
       .replace(/\\not=/g, '≠')

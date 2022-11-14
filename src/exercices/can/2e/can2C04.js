@@ -15,11 +15,11 @@ export const uuid = '69522'
 export const ref = 'can2C04'
 export default function IdentitesCalculs2e () {
   identitesCalculs.call(this)
-  this.typeExercice = 'simple'
+  // this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
-  this.can = true
-  this.canVersion = 'v1'
+  // this.can = true
+  // this.canVersion = 'v1'
   this.consigne = ''
 }

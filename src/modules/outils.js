@@ -4761,7 +4761,7 @@ export function warnMessage (texte, couleur, titre) {
   if (typeof (titre) === 'undefined') {
     titre = ''
   }
-  if (context.isHtml) {
+  if (context.isHtml && context.versionMathalea === 2) {
     return `
     <br>
     <div class="ui compact warning message">
@@ -4770,6 +4770,9 @@ export function warnMessage (texte, couleur, titre) {
     </p>
     </div>
     `
+  } else if (context.isHtml && context.versionMathalea > 2) {
+    // ToFix faire un coup de pouce pour la version 3
+    return ''
   } else {
     // return texCadreParOrange(texte);
     return `
