@@ -3482,50 +3482,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "3GXXXX copy": {
-    "titre": "Déterminer des longueurs",
-    "url": "/exercices/3e/3GXXXX copy.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCHybride"
-    },
-    "interactifReady": true,
-    "interactifType": [
-      "qcm",
-      "mathLive"
-    ],
-    "name": "3GXXXX copy",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "3GXXXX": {
-    "titre": "Déterminer des longueurs",
-    "url": "/exercices/3e/3GXXXX.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCHybride"
-    },
-    "interactifReady": true,
-    "interactifType": [
-      "qcm",
-      "mathLive"
-    ],
-    "name": "3GXXXX",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
   "3I1-1": {
     "titre": "Conjecture de Syracuse",
     "url": "/exercices/3e/3I1-1.js",
@@ -6771,7 +6727,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
