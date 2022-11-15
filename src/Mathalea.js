@@ -130,6 +130,11 @@ export class Mathalea {
     } else {
       url.searchParams.delete('z')
     }
+    if (params.nbVues && parseInt(params.nbVues) > 1) {
+      url.searchParams.append('nbVues', params.nbVues)
+    } else {
+      url.searchParams.delete('nbVues')
+    }
     if (params.durationGlobal) {
       url.searchParams.append('dGlobal', params.durationGlobal)
     } else {
@@ -147,6 +152,7 @@ export class Mathalea {
     let v = ''
     let z = '1'
     let durationGlobal = 0
+    let nbVues = 1
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     let indiceExercice = -1
@@ -186,6 +192,8 @@ export class Mathalea {
         z = entry[1]
       } else if (entry[0] === 'dGlobal') {
         durationGlobal = parseInt(entry[1])
+      } else if (entry[0] === 'nbVues') {
+        nbVues = parseInt(entry[1])
       } else if (entry[0] === 'alea') {
         newListeExercice[indiceExercice].alea = entry[1]
       } else if (entry[0] === 'i' && entry[1] === '1') {
@@ -205,7 +213,7 @@ export class Mathalea {
       return newListeExercice
     })
 
-    return { v, z, durationGlobal }
+    return { v, z, durationGlobal, nbVues }
   }
 
   static handleExerciceSimple (exercice, isInteractif) {

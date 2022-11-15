@@ -36,7 +36,7 @@
   let myInterval: number
   let currentDuration: number
   let totalDuration: number = null
-  let nbOfVues = 1
+  let nbOfVues = $globalOptions.nbVues || 1
   let formatQRCodeIndex: number = 0
   const allowedImageFormats: string[] = ['image/jpeg', 'image/png', 'image/webp']
   let QRCodeWidth = 100
@@ -119,6 +119,10 @@
         duration: exercice.duration,
       })
     }
+    globalOptions.update((l) => {
+      l.nbVues = nbOfVues
+      return l
+    })
     exercicesParams.update((l) => newParams)
     Mathalea.updateUrl($exercicesParams)
     totalDuration = getTotalDuration()
