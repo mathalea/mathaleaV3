@@ -1,6 +1,6 @@
 <script lang="ts">
   import SearchById from "./SearchById.svelte"
-  import { displayOptions, exercicesParams } from "../store"
+  import { globalOptions, exercicesParams } from "../store"
   import { createEventDispatcher } from "svelte"
   const dispatch = createEventDispatcher()
   export let sideMenuVisible: boolean
@@ -15,7 +15,7 @@
   }
 
   function fullScreen() {
-    displayOptions.update((params) => {
+    globalOptions.update((params) => {
       params.v = "l"
       return params
     })

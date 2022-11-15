@@ -1,7 +1,7 @@
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Exercice from './exercices/Exercice.js'
 import seedrandom from 'seedrandom'
-import { exercicesParams, displayOptions } from './components/store'
+import { exercicesParams, globalOptions } from './components/store'
 import { get } from 'svelte/store'
 import { setReponse } from './interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from './interactif/questionMathLive'
@@ -59,7 +59,7 @@ export class Mathalea {
     })
   }
 
-  static renderDiv (div/** HTMLDivElement */, zoom )/** void */ {
+  static renderDiv (div/** HTMLDivElement */, zoom)/** void */ {
     // KaTeX à remplacer par MathLive ?
     // renderMathInElement(div, {
     //   TeX: {
@@ -82,7 +82,7 @@ export class Mathalea {
       strict: 'warn',
       trust: false
     })
-    const params = get(displayOptions)
+    const params = get(globalOptions)
     zoom = zoom ?? Number(params.z)
 
     const qcms = div.querySelectorAll('.monQcm')
@@ -119,7 +119,7 @@ export class Mathalea {
       if (ex.cd !== undefined) url.searchParams.append('cd', ex.cd)
       if (ex.cols !== undefined) url.searchParams.append('cols', ex.cols)
     }
-    const params = get(displayOptions)
+    const params = get(globalOptions)
     if (params.v) {
       url.searchParams.append('v', params.v)
     } else {
@@ -129,6 +129,16 @@ export class Mathalea {
       url.searchParams.append('z', params.z)
     } else {
       url.searchParams.delete('z')
+    }
+    if (params.nbVues && parseInt(params.nbVues) > 1) {
+      url.searchParams.append('nbVues', params.nbVues)
+    } else {
+      url.searchParams.delete('nbVues')
+    }
+    if (params.durationGlobal) {
+      url.searchParams.append('dGlobal', params.durationGlobal)
+    } else {
+      url.searchParams.delete('dGlobal')
     }
     window.history.pushState({}, '', url)
   }
@@ -141,6 +151,8 @@ export class Mathalea {
   static loadExercicesFromUrl () {
     let v = ''
     let z = '1'
+    let durationGlobal = 0
+    let nbVues = 1
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     let indiceExercice = -1
@@ -178,6 +190,10 @@ export class Mathalea {
         v = entry[1]
       } else if (entry[0] === 'z') {
         z = entry[1]
+      } else if (entry[0] === 'dGlobal') {
+        durationGlobal = parseInt(entry[1])
+      } else if (entry[0] === 'nbVues') {
+        nbVues = parseInt(entry[1])
       } else if (entry[0] === 'alea') {
         newListeExercice[indiceExercice].alea = entry[1]
       } else if (entry[0] === 'i' && entry[1] === '1') {
@@ -196,7 +212,8 @@ export class Mathalea {
     exercicesParams.update((l) => {
       return newListeExercice
     })
-    return { v, z }
+
+    return { v, z, durationGlobal, nbVues }
   }
 
   static handleExerciceSimple (exercice, isInteractif) {

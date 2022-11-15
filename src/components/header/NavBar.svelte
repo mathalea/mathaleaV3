@@ -1,5 +1,5 @@
 <script>
-  import { displayOptions } from "../store"
+  import { globalOptions } from "../store"
 
   import NavBarMenu from "./NavBarMenu.svelte"
   let isNavBarVisible = false
@@ -51,17 +51,17 @@
       entrees: ["Plein écran", "Plein écran élève", "Diaporama", "Lien", "LaTeX", "Moodle", "AMC"],
       actions: [
         () =>
-          displayOptions.update((params) => {
+          globalOptions.update((params) => {
             params.v = "l"
             return params
           }),
         () =>
-          displayOptions.update((params) => {
+          globalOptions.update((params) => {
             params.v = "eleve"
             return params
           }),
         () =>
-          displayOptions.update((params) => {
+          globalOptions.update((params) => {
             params.v = "diaporama"
             return params
           }), // () => {document.location.href = urlV2('diap')},

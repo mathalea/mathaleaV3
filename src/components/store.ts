@@ -7,10 +7,10 @@ import { writable } from 'svelte/store'
 export const exercicesParams = writable([])
 
 /**
- * displayOptions est utilisé dans Mathalea.updateUrl() et dans Mathalea.loadExercicesFromUrl()
+ * globalOptions est utilisé dans Mathalea.updateUrl() et dans Mathalea.loadExercicesFromUrl()
  * Il permet de sauvegarder le type de vue (v=...)
  */
-export const displayOptions = writable({ v: '', z: '1' } as {v?: string, z?: string})
+export const globalOptions = writable({ v: '', z: '1' } as {v?: string, z?: string, durationGlobal?: number, nbVues?: number})
 
 /**
  *

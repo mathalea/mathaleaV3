@@ -2,12 +2,12 @@
   import Start from './Start.svelte'
   import Diaporama from './Diaporama.svelte'
   import Can from './Can.svelte'
-  import { displayOptions } from "./store"
+  import { globalOptions } from "./store"
 </script>
 
-{#if $displayOptions.v === 'diaporama'}
+{#if $globalOptions.v === 'diaporama'}
   <Diaporama></Diaporama>
-  {:else if $displayOptions.v === 'can'}
+  {:else if $globalOptions.v === 'can'}
   <Can></Can>
   {:else}
   <Start></Start>

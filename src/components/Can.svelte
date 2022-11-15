@@ -50,8 +50,8 @@
       corrections[idVue] = []
       for (const exercice of exercices) {
         if (idVue > 0) exercice.seed = exercice.seed + idVue
-        if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
-        seedrandom(idVue, { global: true })
+        if (exercice.typeExercice === 'simple') Mathalea.handleExerciceSimple(exercice, false)
+        seedrandom(exercice.seed, { global: true })
         exercice.nouvelleVersion()
         questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
         corrections[idVue] = [...corrections[idVue], ...exercice.listeCorrections]
