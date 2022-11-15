@@ -4,7 +4,7 @@
   import Footer from "./Footer.svelte"
   import Header2 from "./header2/Header2.svelte"
   import NiveauListeExos from "./sidebar/NiveauListeExos.svelte"
-  import { exercicesParams, displayOptions } from "./store"
+  import { exercicesParams, globalOptions } from "./store"
   import codeList from "../json/codeToLevelList.json"
   import referentiel from "../json/referentiel2022.json"
   import referentielStatic from "../json/referentielStatic.json"
@@ -34,7 +34,7 @@
   let isInitialUrlHandled = false
   function urlToDisplay() {
     const urlOptions = Mathalea.loadExercicesFromUrl()
-    displayOptions.update(() => {
+    globalOptions.update(() => {
       return urlOptions
     })
     isInitialUrlHandled = true
@@ -46,13 +46,13 @@
   // Mise à jour de l'URL dès que l'on change exercicesParams (sauf pour l'URL d'arrivée sur la page)
   $: {
     if (isInitialUrlHandled) Mathalea.updateUrl($exercicesParams)
-    if ($displayOptions.v === "l") {
+    if ($globalOptions.v === "l") {
       isSideMenuVisible = false
       isNavBarVisible = false
-    } else if ($displayOptions.v === "l2") {
+    } else if ($globalOptions.v === "l2") {
       isSideMenuVisible = false
       isNavBarVisible = true
-    } else if ($displayOptions.v === "eleve") {
+    } else if ($globalOptions.v === "eleve") {
       isSideMenuVisible = false
       isNavBarVisible = false
     } else {
@@ -143,12 +143,12 @@
   function handleSideMenu(event: CustomEvent) {
     isSideMenuVisible = event.detail.isListVisible
     if (!isSideMenuVisible) {
-      displayOptions.update((params) => {
+      globalOptions.update((params) => {
         params.v = "l2"
         return params
       })
     } else {
-      displayOptions.update((params) => {
+      globalOptions.update((params) => {
         delete params.v
         return params
       })
@@ -156,14 +156,14 @@
   }
 
   function quitFullScreen() {
-    displayOptions.update((params) => {
+    globalOptions.update((params) => {
       delete params.v
       return params
     })
   }
 
   function fullScreen() {
-    displayOptions.update((params) => {
+    globalOptions.update((params) => {
       params.v = "l"
       return params
     })
@@ -206,7 +206,7 @@
   }
 
   function updateSize() {
-    displayOptions.update((params) => {
+    globalOptions.update((params) => {
       params.z = zoom.toString()
       return params
     })
@@ -261,22 +261,22 @@
             type="button"
             class="hover:text-coopmaths-dark"
             on:click={() =>
-              displayOptions.update((params) => {
+              globalOptions.update((params) => {
                 params.v = "diaporama"
                 return params
               })}><i class="bx bx-sm bx-slideshow" /></button
           >
-          {#if $displayOptions.v === "l"}
+          {#if $globalOptions.v === "l"}
             <div class="flex flex-row justify-end items-center">
               <button type="button" on:click={quitFullScreen}><i class="bx ml-2 bx-sm bx-exit-fullscreen" /></button>
             </div>
           {/if}
-          {#if $displayOptions.v !== "l"}
+          {#if $globalOptions.v !== "l"}
             <button
               type="button"
               class="hover:text-coopmaths-dark"
               on:click={() =>
-                displayOptions.update((params) => {
+                globalOptions.update((params) => {
                   params.v = "l"
                   return params
                 })}

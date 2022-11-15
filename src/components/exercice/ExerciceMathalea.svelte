@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { displayOptions } from '../store'
+  import { globalOptions } from '../store'
   import { afterUpdate, onMount, tick } from 'svelte'
   import seedrandom from 'seedrandom'
   import { prepareExerciceCliqueFigure } from '../../interactif/interactif'
@@ -42,7 +42,7 @@
   $: {
     if (isContentVisible && isInteractif && buttonScore) initButtonScore()
 
-    if ($displayOptions.v === 'eleve') {
+    if ($globalOptions.v === 'eleve') {
       headerExerciceProps.settingsReady = false
       headerExerciceProps.isSortable = false
       headerExerciceProps.isDeletable = false
@@ -254,7 +254,7 @@
             }}><i class="bx ml-1 bx-xs bx-plus" /></button
           >
         </div>
-        <article class="lg:text-base" style="font-size: {($displayOptions.z || 1).toString()}rem">
+        <article class="lg:text-base" style="font-size: {($globalOptions.z || 1).toString()}rem">
           <div>
             <p class="leading-relaxed mt-2 ml-2 lg:mx-5 text-gray-800">
               {@html exercice.consigne}

@@ -1,17 +1,17 @@
 <script>
-import { displayOptions } from "../store";
+import { globalOptions } from "../store";
 
-let isFullScreen = $displayOptions.v === "l";
+let isFullScreen = $globalOptions.v === "l";
 
 function switchFullScreen() {
     isFullScreen = !isFullScreen;
     if (isFullScreen) {
-        displayOptions.update((params) => {
+        globalOptions.update((params) => {
             params.v = "l";
             return params;
         });
     } else {
-        displayOptions.update((params) => {
+        globalOptions.update((params) => {
             delete params.v;
             return params;
         });

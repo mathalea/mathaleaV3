@@ -1,7 +1,7 @@
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Exercice from './exercices/Exercice.js'
 import seedrandom from 'seedrandom'
-import { exercicesParams, displayOptions } from './components/store'
+import { exercicesParams, globalOptions } from './components/store'
 import { get } from 'svelte/store'
 import { setReponse } from './interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from './interactif/questionMathLive'
@@ -82,7 +82,7 @@ export class Mathalea {
       strict: 'warn',
       trust: false
     })
-    const params = get(displayOptions)
+    const params = get(globalOptions)
     zoom = zoom ?? Number(params.z)
 
     const qcms = div.querySelectorAll('.monQcm')
@@ -119,7 +119,7 @@ export class Mathalea {
       if (ex.cd !== undefined) url.searchParams.append('cd', ex.cd)
       if (ex.cols !== undefined) url.searchParams.append('cols', ex.cols)
     }
-    const params = get(displayOptions)
+    const params = get(globalOptions)
     if (params.v) {
       url.searchParams.append('v', params.v)
     } else {
