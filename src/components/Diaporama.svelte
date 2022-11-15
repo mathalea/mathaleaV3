@@ -46,6 +46,7 @@
     for (const paramsExercice of $exercicesParams) {
       const exercice: Exercice = await Mathalea.load(paramsExercice.uuid)
       if (exercice === undefined) return
+      exercice.uuid = paramsExercice.uuid
       if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
       exercice.duration = paramsExercice.duration ?? 10
       if (paramsExercice.titre) exercice.titre = paramsExercice.titre
@@ -73,6 +74,7 @@
   })
 
   function updateExercices() {
+    Mathalea.updateUrl($exercicesParams)
     questions = [[], [], [], []]
     corrections = [[], [], [], []]
     consignes = []
@@ -90,8 +92,10 @@
         corrections[idVue] = [...corrections[idVue], ...exercice.listeCorrections]
         questions[idVue] = questions[idVue].map(Mathalea.formatExercice)
         corrections[idVue] = corrections[idVue].map(Mathalea.formatExercice)
+
       }
     }
+    let newParams = []
     for (const exercice of exercices) {
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
         sizes.push(exercice.tailleDiaporama)
@@ -102,7 +106,10 @@
         } 
         durations.push(exercice.duration)
       }
+      newParams.push({uuid: exercice.uuid, id: exercice.id, alea: exercice.seed, nbQuestions: exercice.nbQuestions, duration: exercice.duration})
     }
+    exercicesParams.update(l => newParams)
+    Mathalea.updateUrl($exercicesParams)
     totalDuration = getTotalDuration()
     if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
   }
