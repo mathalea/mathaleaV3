@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte'
   import { Mathalea } from '../Mathalea'
-  import { exercicesParams } from './store'
+  import { exercicesParams, globalOptions } from './store'
   import type { Exercice } from './utils/typeExercice'
   import seedrandom from 'seedrandom'
   import { tweened } from 'svelte/motion'
@@ -26,7 +26,8 @@
   let sizes: number[] = []
   let consignes: string[] = []
   let durations: number[] = []
-  let durationGlobal: number = null
+  let durationGlobal: number = $globalOptions.durationGlobal
+  let previousDurationGlobal = 10 // Utile si on décoche puis recoche "Même durée pour toutes les questions"
   let ratioTime = 0 // Pourcentage du temps écoulé (entre 1 et 100)
   let progress = tweened(0, {
     duration: durationGlobal ?? durations[currentQuestion] ?? 10,
@@ -39,6 +40,11 @@
   let formatQRCodeIndex: number = 0
   const allowedImageFormats: string[] = ['image/jpeg', 'image/png', 'image/webp']
   let QRCodeWidth = 100
+  let stringDureeTotale = '0'
+
+  if ($globalOptions && $globalOptions.durationGlobal) {
+    isSameDurationForAll = true
+  }
 
   onMount(async () => {
     context.vue = 'diap'
@@ -92,7 +98,6 @@
         corrections[idVue] = [...corrections[idVue], ...exercice.listeCorrections]
         questions[idVue] = questions[idVue].map(Mathalea.formatExercice)
         corrections[idVue] = corrections[idVue].map(Mathalea.formatExercice)
-
       }
     }
     let newParams = []
@@ -100,19 +105,27 @@
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
         sizes.push(exercice.tailleDiaporama)
         if (exercice.introduction) {
-          consignes.push( exercice.consigne + '\n' + exercice.introduction)
+          consignes.push(exercice.consigne + '\n' + exercice.introduction)
         } else {
-          consignes.push( exercice.consigne)
-        } 
+          consignes.push(exercice.consigne)
+        }
         durations.push(exercice.duration)
       }
-      newParams.push({uuid: exercice.uuid, id: exercice.id, alea: exercice.seed, nbQuestions: exercice.nbQuestions, duration: exercice.duration})
+      newParams.push({
+        uuid: exercice.uuid,
+        id: exercice.id,
+        alea: exercice.seed,
+        nbQuestions: exercice.nbQuestions,
+        duration: exercice.duration,
+      })
     }
-    exercicesParams.update(l => newParams)
+    exercicesParams.update((l) => newParams)
     Mathalea.updateUrl($exercicesParams)
     totalDuration = getTotalDuration()
+    stringDureeTotale = formattedTimeStamp(getTotalDuration())
     if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
   }
+
   function prevQuestion() {
     if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
   }
@@ -133,15 +146,15 @@
     currentDuration = durationGlobal ?? durations[currentQuestion] ?? 10
   }
 
-  async function setSize () {
-      const size = currentZoom * sizes[currentQuestion]
-      divQuestion.style.lineHeight = `1.2`
-      divQuestion.style.fontSize = `${size}rem`    
-      Mathalea.renderDiv(divQuestion, size)
-      if (divQuestion.offsetHeight + 180 > window.innerHeight && currentZoom > 0) {
-        currentZoom -= 0.25
-        setSize()
-      }
+  async function setSize() {
+    const size = currentZoom * sizes[currentQuestion]
+    divQuestion.style.lineHeight = `1.2`
+    divQuestion.style.fontSize = `${size}rem`
+    Mathalea.renderDiv(divQuestion, size)
+    if (divQuestion.offsetHeight + 180 > window.innerHeight && currentZoom > 0) {
+      currentZoom -= 0.25
+      setSize()
+    }
   }
 
   function zoomPlus() {
@@ -227,6 +240,24 @@
     isSameDurationForAll = true
     goToQuestion(currentQuestion)
   }
+
+  function handleChangeDurationGlobal() {
+    globalOptions.update((l) => {
+      l.durationGlobal = durationGlobal
+      return l
+    })
+    updateExercices()
+  }
+
+  function handleCheckSameDurationForAll() {
+    globalOptions.update((l) => {
+      l.durationGlobal = null
+      return l
+    })
+    handleChangeDurationGlobal()
+    updateExercices()
+  }
+
   /**
    * Gestion du message dans le modal de réglage de la durée de projection
    * @param duree valeur de la durée en secondes retournée par le curseur
@@ -240,6 +271,25 @@
 
   $: displayCurrentDuration = () => {
     return currentDuration === 0 ? 'Manuel' : currentDuration + 's'
+  }
+
+  $: {
+    if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
+    if (durationGlobal) previousDurationGlobal = durationGlobal
+    if (isSameDurationForAll && previousDurationGlobal) durationGlobal = previousDurationGlobal
+
+    if (isSameDurationForAll && durationGlobal === null) {
+      durationGlobal = 10
+    } else if (!isSameDurationForAll) {
+      durationGlobal = null
+    }
+    let steps: NodeListOf<HTMLLIElement>
+    if (stepsUl) steps = stepsUl.querySelectorAll('li')
+    if (steps) {
+      if (steps[currentQuestion]) steps[currentQuestion].scrollIntoView()
+      if (steps[currentQuestion + 5]) steps[currentQuestion + 5].scrollIntoView()
+      if (steps[currentQuestion - 5] && !isInViewport(steps[currentQuestion - 5])) steps[currentQuestion - 5].scrollIntoView()
+    }
   }
 
   /**
@@ -263,7 +313,7 @@
    * Calcule la durée totale du diaporama
    * (durée par question x nombre de questions)
    */
-  $: getTotalDuration = () => {
+  function getTotalDuration() {
     let sum = 0
     for (let exercice of exercices) {
       sum += (isSameDurationForAll ? durationGlobal : exercice.duration) * exercice.nbQuestions
@@ -280,10 +330,6 @@
       sum += exercice.nbQuestions
     }
     return sum
-  }
-
-  $: {
-    if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
   }
 
   /**
@@ -307,21 +353,6 @@
       } else {
         return `${nbOfSecondsLeft}s`
       }
-    }
-  }
-
-  $: {
-    if (isSameDurationForAll && durationGlobal === null) {
-      durationGlobal = 10
-    } else if (!isSameDurationForAll) {
-      durationGlobal = null
-    }
-    let steps: NodeListOf<HTMLLIElement>
-    if (stepsUl) steps = stepsUl.querySelectorAll('li')
-    if (steps) {
-      if (steps[currentQuestion]) steps[currentQuestion].scrollIntoView()
-      if (steps[currentQuestion + 5]) steps[currentQuestion + 5].scrollIntoView()
-      if (steps[currentQuestion - 5] && !isInViewport(steps[currentQuestion - 5])) steps[currentQuestion - 5].scrollIntoView()
     }
   }
 
@@ -438,17 +469,15 @@
       .catch(() => "Erreur avec le téléchargement de l'image du QR-Code")
   }
 
-
   function isInViewport(element: HTMLElement): boolean {
-    const rect = element.getBoundingClientRect();
+    const rect = element.getBoundingClientRect()
     return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-}
-
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    )
+  }
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
@@ -665,12 +694,14 @@
               type="checkbox"
               class="bg-gray-50 border-gray-300 text-coopmaths focus:ring-3 focus:ring-coopmaths h-4 w-4 rounded"
               bind:checked={isSameDurationForAll}
+              on:change={handleCheckSameDurationForAll}
               disabled={exercices.length == 1}
             />
             <label for="checkbox-1" class="ml-3 font-medium {exercices.length == 1 ? 'text-gray-300' : 'text-gray-900'} "
               >Même durée pour toutes les questions <input
                 type="number"
                 min="1"
+                on:change={handleChangeDurationGlobal}
                 bind:value={durationGlobal}
                 class="ml-3 w-20 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
                 disabled={!isSameDurationForAll}
@@ -687,7 +718,7 @@
                 <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">
                   <div>Durées par question (s)</div>
                   <div class="text-coopmaths text-xs">
-                    Durée diapo :<span class="font-bold ml-1">{formattedTimeStamp(getTotalDuration())}</span>
+                    Durée diapo :<span class="font-bold ml-1">{stringDureeTotale}</span>
                   </div>
                 </th>
                 <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">

@@ -10,7 +10,7 @@ export const exercicesParams = writable([])
  * globalOptions est utilisé dans Mathalea.updateUrl() et dans Mathalea.loadExercicesFromUrl()
  * Il permet de sauvegarder le type de vue (v=...)
  */
-export const globalOptions = writable({ v: '', z: '1' } as {v?: string, z?: string})
+export const globalOptions = writable({ v: '', z: '1' } as {v?: string, z?: string, durationGlobal?: number})
 
 /**
  *
