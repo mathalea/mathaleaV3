@@ -151,11 +151,11 @@
       class="flex flex-row rounded-l-lg border-y border-l border-white w-14 h-14 justify-center items-center text-center cursor-pointer bg-coopmaths peer-checked/tab4:bg-white peer-checked/tab4:text-coopmaths"
       for="tab4">4</label
     >
-    <input disabled="1" type="radio" id="tab5" value={4} bind:group={currentVue} on:change={updateDisplay} class="flex flex-row peer/tab5 items-center justify-center invisible w-0 h-0" />
+    <!-- <input type="radio" id="tab5" value={4} bind:group={currentVue} on:change={updateDisplay} class="flex flex-row peer/tab5 items-center justify-center invisible w-0 h-0" />
     <label
       class="flex flex-row rounded-l-lg border-y border-l border-white w-14 h-14 justify-center items-center text-center cursor-pointer bg-coopmaths peer-checked/tab5:bg-white peer-checked/tab5:text-coopmaths"
       for="tab5">Tout</label
-    >
+    > -->
   </aside>
   <!-- Affichage QUestions/Réponses -->
   <div class="flex p-2 h-full">
