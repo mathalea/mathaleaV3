@@ -115,7 +115,9 @@
       ><i class="bx bx-sm {isQuestionsVisible ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
     >
     <span class="text-xs {isCorrectionVisible ? 'font-bold' : 'font-light'} pt-2">Réponses</span>
-    <button type="button" on:click={() => switchCorrectionVisible("correction")}><i class="mb-8 bx bx-sm {isCorrectionVisible ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button>
+    <button type="button" disabled={!isQuestionsVisible} on:click={() => switchCorrectionVisible("correction")}
+      ><i class="mb-8 bx bx-sm {isCorrectionVisible ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
+    >
     <!-- Onglets Séries -->
     {#if nbOfVues > 1}
       <input type="radio" id="tab1" value={0} bind:group={currentVue} on:change={updateDisplay} class="peer/tab1 items-center justify-center hidden" />
