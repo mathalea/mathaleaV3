@@ -90,7 +90,11 @@
       questions[idVue] = []
       corrections[idVue] = []
       for (const exercice of exercices) {
-        if (idVue > 0) exercice.seed = exercice.seed.substring(0, 5) + idVue
+        if (idVue > 0) {
+          exercice.seed = exercice.seed.substring(0, 4) + idVue
+        } else {
+          exercice.seed = exercice.seed.substring(0, 4)
+        }
         if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
         seedrandom(exercice.seed, { global: true })
         exercice.nouvelleVersion()
@@ -114,7 +118,7 @@
       newParams.push({
         uuid: exercice.uuid,
         id: exercice.id,
-        alea: exercice.seed,
+        alea: exercice.seed.substring(0, 4),
         nbQuestions: exercice.nbQuestions,
         duration: exercice.duration,
       })
@@ -124,7 +128,7 @@
       return l
     })
     exercicesParams.update((l) => newParams)
-    Mathalea.updateUrl($exercicesParams)
+    Mathalea.updateUrl(newParams)
     totalDuration = getTotalDuration()
     stringDureeTotale = formattedTimeStamp(getTotalDuration())
     if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)

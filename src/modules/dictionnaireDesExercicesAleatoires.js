@@ -11508,6 +11508,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "HPC104": {
+    "titre": "Calcul de déterminant",
+    "url": "/exercices/HP/HPC104.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "HPC104",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "PEA11-1": {
     "titre": "Passer de la base 12 ou 16 à la base 10 et inversement",
     "url": "/exercices/PE/PEA11-1.js",
@@ -15073,6 +15088,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can2G20": {
+    "titre": "Déterminer une équation de droite (graphique)",
+    "url": "/exercices/can/2e/can2G20.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G20",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can2L01": {
     "titre": "Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$",
     "url": "/exercices/can/2e/can2L01.js",
@@ -17448,6 +17479,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can5P09": {
+    "titre": "Calculer un prix à partir d'un prix au kg",
+    "url": "/exercices/can/5e/can5P09.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5P09",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can5a-2020": {
     "titre": "CAN 5ième sujet 2020",
     "url": "/exercices/can/5e/can5a-2020.js",
@@ -19163,6 +19213,25 @@ export default {
     "name": "can6P05",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6P06": {
+    "titre": "Résoudre un problème de calcul de pourcentage par complément à 100%",
+    "url": "/exercices/can/6e/can6P06.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6P06",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

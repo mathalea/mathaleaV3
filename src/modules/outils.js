@@ -2,7 +2,7 @@
 import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
-import { format, evaluate, isPrime, gcd, round, equal, Fraction, isInteger } from 'mathjs'
+import { format, evaluate, isPrime, gcd, round, equal, Fraction, isInteger, matrix, parse } from 'mathjs'
 import { loadScratchblocks } from './loaders.js'
 import { context } from './context.js'
 import { setReponse } from './gestionInteractif.js'
@@ -3661,6 +3661,13 @@ export class MatriceCarree {
       }
       return matriceCarree(resultat)
     }
+    this.toTex = function () {
+      let matrice = this.table
+      matrice = matrix(matrice)
+      matrice = matrice.toString()
+      matrice = parse(matrice).toTex().replaceAll('bmatrix', 'pmatrix')
+      return matrice
+    }
   }
 }
 
@@ -4761,7 +4768,7 @@ export function warnMessage (texte, couleur, titre) {
   if (typeof (titre) === 'undefined') {
     titre = ''
   }
-  if (context.isHtml && context.versionMathalea === 2) {
+  if (context.isHtml) {
     return `
     <br>
     <div class="ui compact warning message">
@@ -4770,9 +4777,6 @@ export function warnMessage (texte, couleur, titre) {
     </p>
     </div>
     `
-  } else if (context.isHtml && context.versionMathalea > 2) {
-    // ToFix faire un coup de pouce pour la version 3
-    return ''
   } else {
     // return texCadreParOrange(texte);
     return `

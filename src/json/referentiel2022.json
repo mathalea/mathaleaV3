@@ -1074,6 +1074,17 @@
             "Can": true
           },
           "datePublication": "13/11/2021"
+        },
+        "can6P06": {
+          "uuid": "fb422",
+          "titre": "Résoudre un problème de calcul de pourcentage par complément à 100%",
+          "url": "can/6e/can6P06.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "15/11/2022"
         }
       },
       "can6S": {
@@ -1608,6 +1619,17 @@
             "Can": true
           },
           "datePublication": "19/07/2022"
+        },
+        "can5P09": {
+          "uuid": "7b350",
+          "titre": "Calculer un prix à partir d'un prix au kg",
+          "url": "can/5e/can5P09.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "13/11/2022"
         }
       }
     },
@@ -2746,6 +2768,17 @@
             "Can": true
           },
           "datePublication": "10/11/2022"
+        },
+        "can2C16": {
+          "uuid": "04048",
+          "titre": "Calculer avec un programme de calcul*",
+          "url": "can/2e/can2C16.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "16/11/2022"
         }
       },
       "can2F": {
@@ -3142,6 +3175,17 @@
             "Can": true
           },
           "datePublication": "10/11/2022"
+        },
+        "can2G20": {
+          "uuid": "1f967",
+          "titre": "Déterminer une équation de droite (graphique)",
+          "url": "can/2e/can2G20.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "15/11/2022"
         }
       },
       "can2L": {
@@ -3811,6 +3855,17 @@
             "Can": true
           },
           "datePublication": "19/06/2022"
+        },
+        "can1L10": {
+          "uuid": "cc9ee",
+          "titre": "Simplifier un taux de variation",
+          "url": "can/1e/can1L10.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "17/11/2022"
         }
       },
       "can1P": {
@@ -12080,6 +12135,18 @@
         "titre": "Produit de matrices",
         "url": "HP/HPC103.js",
         "uuid": "a868f"
+      },
+      "HPC104": {
+        "dateModification": "24/10/2021",
+        "datePublication": "25/10/2021",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Calcul de déterminant",
+        "url": "HP/HPC104.js",
+        "uuid": "2806f"
       }
     }
   },
