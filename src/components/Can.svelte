@@ -13,7 +13,7 @@
   let consignes: string[] = []
   let durations: number[] = []
   let nbOfVues = $globalOptions.nbVues
-  let currentVue: 0 | 1 | 2 | 3 | 4 = 0
+  let currentVue: 0 | 1 | 2 | 3 | 4 = 4
   let isCorrectionVisible = false
   let isQuestionsVisible = true
   let divExercice: HTMLElement
@@ -24,6 +24,7 @@
     for (const paramsExercice of $exercicesParams) {
       const exercice: Exercice = await Mathalea.load(paramsExercice.uuid)
       if (exercice === undefined) return
+      exercice.uuid = paramsExercice.uuid
       if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
       exercice.duration = paramsExercice.duration ?? 10
       if (paramsExercice.titre) exercice.titre = paramsExercice.titre
@@ -50,7 +51,11 @@
       questions[idVue] = []
       corrections[idVue] = []
       for (const exercice of exercices) {
-        if (idVue > 0) exercice.seed = exercice.seed + idVue
+        if (idVue > 0) {
+          exercice.seed = exercice.seed.substring(0, 4) + idVue
+        } else {
+          exercice.seed = exercice.seed.substring(0, 4)
+        }
         if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
         seedrandom(exercice.seed, { global: true })
         exercice.nouvelleVersion()
@@ -89,11 +94,25 @@
   }
 
   function newDataForAll() {
-    // const newDataForAll = new window.Event("newDataForAll", {
-    //   bubbles: true,
-    // })
-    // document.dispatchEvent(newDataForAll)
-    console.log("Nouvelles données")
+    const newParams = []
+    for (const exercice of exercices) {
+      exercice.seed = Mathalea.generateSeed({
+          includeUpperCase: true,
+          includeNumbers: true,
+          length: 4,
+          startsWithLowerCase: false,
+        })
+      newParams.push({
+        uuid: exercice.uuid,
+        id: exercice.id,
+        alea: exercice.seed.substring(0, 4),
+        nbQuestions: exercice.nbQuestions,
+        duration: exercice.duration,
+      })
+    }
+    exercicesParams.update((l) => newParams)
+    updateExercices()
+    Mathalea.updateUrl($exercicesParams)
   }
 </script>
 
