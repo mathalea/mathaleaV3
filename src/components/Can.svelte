@@ -13,7 +13,7 @@
   let consignes: string[] = []
   let durations: number[] = []
   let nbOfVues = $globalOptions.nbVues
-  let currentVue: 0 | 1 | 2 | 3 | 4 = 0
+  let currentVue: 0 | 1 | 2 | 3 | 4 = 4
   let isCorrectionVisible = false
   let isQuestionsVisible = true
   let divExercice: HTMLElement
@@ -50,7 +50,7 @@
       questions[idVue] = []
       corrections[idVue] = []
       for (const exercice of exercices) {
-        if (idVue > 0) exercice.seed = exercice.seed + idVue
+        if (idVue > 0) exercice.seed = exercice.seed.substring(0, 5) + idVue
         if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
         seedrandom(exercice.seed, { global: true })
         exercice.nouvelleVersion()
@@ -89,11 +89,16 @@
   }
 
   function newDataForAll() {
-    // const newDataForAll = new window.Event("newDataForAll", {
-    //   bubbles: true,
-    // })
-    // document.dispatchEvent(newDataForAll)
-    console.log("Nouvelles données")
+    // for (const exercice of exercices) {
+    //   exercice.seed = Mathalea.generateSeed({
+    //       includeUpperCase: true,
+    //       includeNumbers: true,
+    //       length: 4,
+    //       startsWithLowerCase: false,
+    //     })
+    // }
+    // updateExercices()
+    // Mathalea.updateUrl()
   }
 </script>
 

@@ -90,7 +90,7 @@
       questions[idVue] = []
       corrections[idVue] = []
       for (const exercice of exercices) {
-        if (idVue > 0) exercice.seed = exercice.seed.substring(0, 3) + idVue
+        if (idVue > 0) exercice.seed = exercice.seed.substring(0, 5) + idVue
         if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
         seedrandom(exercice.seed, { global: true })
         exercice.nouvelleVersion()
