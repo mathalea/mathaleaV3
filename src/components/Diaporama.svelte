@@ -150,9 +150,25 @@
       currentZoom = userZoom
       setSize()
     }
-    if (!isPause) timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+
+    if (!isPause) {
+      showTransition().then(() => {
+        timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+      })
+    }
     currentDuration = durationGlobal ?? durations[currentQuestion] ?? 10
   }
+
+  async function showTransition() {
+    const dialog = document.getElementById("transition")
+    if (dialog) {
+      dialog.showModal()
+      await sleep(1000)
+      dialog.close()
+    }
+  }
+
+  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
   async function setSize() {
     const size = currentZoom * sizes[currentQuestion]
@@ -802,6 +818,9 @@
           </div>
         {/each}
       </div>
+      <dialog class=" bg-coopmaths text-white text-[200px] font-extrabold min-w-full min-h-full" id="transition">
+        <div class="flex flex-row w-full h-full justify-center items-center">{currentQuestion + 1} / {questions.length}</div>
+      </dialog>
     </main>
     <!-- Boutons de réglages -->
     <footer class="w-full h-20 py-1 sticky bottom-0 opacity-100 dark:bg-white">
