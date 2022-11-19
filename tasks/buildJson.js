@@ -139,6 +139,7 @@ function mettreAJourFichierReferentiel (dico) {
   const unordered = toObjet(dico)
   const ordered = {
     CAN: {
+      'CM1/CM2': unordered.canc3,
       '6e': unordered.can6e,
       '5e': unordered.can5e,
       '4e': unordered.can4e,

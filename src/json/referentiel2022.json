@@ -1,5 +1,296 @@
 {
   "CAN": {
+    "CM1/CM2": {
+      "c3C": {
+        "canc3C01": {
+          "uuid": "385b7",
+          "id": "canc3C01",
+          "titre": "Déterminer un nombre à partir d’une phrase",
+          "url": "can/c3/canc3C01.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "canc3C02": {
+          "uuid": "913e9",
+          "id": "canc3C02",
+          "titre": "Calculer à partir d’une décomposition",
+          "url": "can/c3/canc3C02.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "canc3C03": {
+          "uuid": "bdb11",
+          "id": "canc3C03",
+          "titre": "Trouver le nombre dans une table de multiplication ",
+          "url": "can/c3/canc3C03.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "canc3C04": {
+          "uuid": "4ba86",
+          "id": "canc3C04",
+          "titre": "Calculer le double ou moitié",
+          "url": "can/c3/canc3C04.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "16/11/2021"
+        },
+        "canc3C05": {
+          "uuid": "d0287",
+          "id": "canc3C05",
+          "titre": "Déterminer si un nombre est pair (V/F)",
+          "url": "can/c3/canc3C05.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "20/11/2021"
+        },
+        "canc3C06": {
+          "uuid": "3ca23",
+          "id": "canc3C06",
+          "titre": "Trouver le nombre manquant dans une somme",
+          "url": "can/c3/canc3C06.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "20/11/2021"
+        },
+        "canc3C07": {
+          "uuid": "02561",
+          "id": "canc3C07",
+          "titre": "Résoudre un problème avec \"de plus\", \"de moins\"",
+          "url": "can/c3/canc3C07.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "25/07/2022"
+        },
+        "canc3C08": {
+          "uuid": "080f9",
+          "id": "canc3C08",
+          "titre": "Résoudre un problème avec \"de plus\", \"de moins\"*",
+          "url": "can/c3/canc3C08.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "24/07/2022"
+        },
+        "canc3C09": {
+          "uuid": "a8e75",
+          "id": "canc3C09",
+          "titre": "Résoudre un problème avec \"fois plus\", \"fois moins\"",
+          "url": "can/c3/canc3C09.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "23/07/2022"
+        },
+        "canc3C10": {
+          "uuid": "06268",
+          "id": "canc3C10",
+          "titre": "Résoudre un problème avec \"fois plus\", \"fois moins\"*",
+          "url": "can/c3/canc3C10.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "23/07/2022"
+        },
+        "canc3C11": {
+          "uuid": "aee7c",
+          "id": "canc3C11",
+          "titre": "Calculer la moitié d’un nombre impair",
+          "url": "can/c3/canc3C11.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "13/09/2022"
+        },
+        "canc3C12": {
+          "uuid": "9e7c7",
+          "id": "canc3C12",
+          "titre": "Calculer avec un programme de calcul",
+          "url": "can/c3/canc3C12.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "17/11/2022"
+        },
+        "canc3C13": {
+          "uuid": "8afe0",
+          "id": "canc3C13",
+          "titre": "Trouver un nombre dans un produit de trois facteurs ",
+          "url": "can/c3/canc3C13.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "17/11/2022"
+        }
+      },
+      "c3D": {
+        "canc3D01": {
+          "uuid": "2ce11",
+          "id": "canc3D01",
+          "titre": "Lire l'heure",
+          "url": "can/c3/canc3D01.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "4/11/2021"
+        },
+        "canc3D02": {
+          "uuid": "0861b",
+          "id": "canc3D02",
+          "titre": "Lire une durée",
+          "url": "can/c3/canc3D02.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "4/11/2021"
+        },
+        "canc3D03": {
+          "uuid": "e3b7d",
+          "id": "canc3D03",
+          "titre": "Ajouter des durées",
+          "url": "can/c3/canc3D03.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "20/11/2021"
+        }
+      },
+      "c3M": {
+        "canc3M01": {
+          "uuid": "d0314",
+          "id": "canc3M01",
+          "titre": "Trouver la bonne unité",
+          "url": "can/c3/canc3M01.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "5/11/2021"
+        },
+        "canc3M02": {
+          "uuid": "cb91f",
+          "id": "canc3M02",
+          "titre": "Calculer une longueur/un périmètre/une aire (avec des entiers)",
+          "url": "can/c3/canc3M02.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "25/08/2022"
+        },
+        "canc3M03": {
+          "uuid": "85e82",
+          "id": "canc3M03",
+          "titre": "Calculer une somme de nombres avec des unités",
+          "url": "can/c3/canc3M03.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "05/11/2022"
+        }
+      },
+      "c3N": {
+        "canc3N01": {
+          "uuid": "f7ad2",
+          "id": "canc3N01",
+          "titre": "Écrire en lettres un nombre entier (QCM)",
+          "url": "can/c3/canc3N01.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "canc3N02": {
+          "uuid": "fc190",
+          "id": "canc3N02",
+          "titre": "Trouver un nombre sur une droite graduée",
+          "url": "can/c3/canc3N02.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "canc3N03": {
+          "uuid": "44f8c",
+          "id": "canc3N03",
+          "titre": "Trouver le plus grand nombre entier",
+          "url": "can/c3/canc3N03.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "canc3N04": {
+          "uuid": "de7d5",
+          "id": "canc3N04",
+          "titre": "Arrondir à l'unité",
+          "url": "can/c3/canc3N04.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        },
+        "canc3N05": {
+          "uuid": "42453",
+          "id": "canc3N05",
+          "titre": "Calculer une somme (partie entière/décimale)",
+          "url": "can/c3/canc3N05.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "16/11/2021"
+        }
+      }
+    },
     "6e": {
       "Annales": {
         "can6a-2018": {
