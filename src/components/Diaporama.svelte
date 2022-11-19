@@ -41,6 +41,7 @@
   const allowedImageFormats: string[] = ["image/jpeg", "image/png", "image/webp"]
   let QRCodeWidth = 100
   let stringDureeTotale = "0"
+  let isTransitionActive: boolean = true
 
   if ($globalOptions && $globalOptions.durationGlobal) {
     isSameDurationForAll = true
@@ -152,9 +153,13 @@
     }
 
     if (!isPause) {
-      showDialogForLimitedTime("transition", 1000).then(() => {
+      if (isTransitionActive) {
+        showDialogForLimitedTime("transition", 1000).then(() => {
+          timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+        })
+      } else {
         timer(durationGlobal ?? durations[currentQuestion] ?? 10)
-      })
+      }
     }
     currentDuration = durationGlobal ?? durations[currentQuestion] ?? 10
   }
@@ -534,10 +539,15 @@
     <div class="flex flex-row w-full justify-center items-start mx-20">
       <!-- Multivue + Liens -->
       <div class="flex flex-col w-1/6 justify-start">
-        <div class="flex text-lg font-bold mb-6">Multivue</div>
+        <div class="flex text-lg font-bold mb-2">Transitions</div>
+        <div class="flex flex-row justify-start items-center px-4 pb-8">
+          <button type="button" on:click={() => (isTransitionActive = !isTransitionActive)}><i class="text-coopmaths bx bx-sm {isTransitionActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button>
+          <div class="inline-flex pl-2">{isTransitionActive ? "Carton entre questions" : "Pas de carton entre questions"}</div>
+        </div>
+        <div class="flex text-lg font-bold mb-2">Multivue</div>
         <div class="flex px-4 pb-8">
           <div>
-            <div class="form-check">
+            <div class="form-check flex flex-row justify-start items-center">
               <input
                 class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
                 type="radio"
@@ -549,7 +559,7 @@
               />
               <label class="form-check-label inline-block text-gray-800" for="multivueRadio1"> Pas de multivue </label>
             </div>
-            <div class="form-check">
+            <div class="form-check flex flex-row justify-start items-center">
               <input
                 class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
                 type="radio"
@@ -561,7 +571,7 @@
               />
               <label class=" form-check-label inline-block text-gray-800" for="multivueRadio2"> Deux vues </label>
             </div>
-            <div class="form-check">
+            <div class="form-check flex flex-row justify-start items-center">
               <input
                 class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
                 type="radio"
@@ -573,7 +583,7 @@
               />
               <label class="form-check-label inline-block text-gray-800" for="multivueRadio3"> Trois vues </label>
             </div>
-            <div class="form-check">
+            <div class="form-check flex flex-row justify-start items-center">
               <input
                 class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
                 type="radio"
@@ -588,7 +598,7 @@
           </div>
         </div>
         <div class="flex text-lg font-bold mb-2">Liens</div>
-        <div class="flex flex-row px-4 justify-start">
+        <div class="flex flex-row px-4 -mt-2 justify-start">
           <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Lien du diaporama">
             <button type="button" class="mr-4 my-2 text-coopmaths" on:click={() => copyLinkToClipboard("linkCopiedDialog-1")}>
               <i class="bx text-2xl bx-link" />
@@ -698,7 +708,7 @@
           <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Aperçu des questions/réponses">
             <button
               type="button"
-              class="mr-4 my-2 text-coopmaths"
+              class="mr-4 text-coopmaths"
               on:click={() => {
                 document.location.href = document.location.href.replace("&v=diaporama", "&v=can")
               }}
