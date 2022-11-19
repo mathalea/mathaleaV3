@@ -152,7 +152,7 @@
     }
 
     if (!isPause) {
-      showTransition("transition", 1000).then(() => {
+      showDialogForLimitedTime("transition", 1000).then(() => {
         timer(durationGlobal ?? durations[currentQuestion] ?? 10)
       })
     }
@@ -164,13 +164,15 @@
    * @param {string} dialogId id de l'élément <dialog> à activer
    * @param {number} nbOfMilliseconds durée de l'affichage en ms
    */
-  async function showTransition(dialogId: string, nbOfMilliseconds: number) {
+  async function showDialogForLimitedTime(dialogId: string, nbOfMilliseconds: number) {
+    console.log("Entering showDialogForLImitedTime")
     const dialog = document.getElementById(dialogId)
     if (dialog) {
       dialog.showModal()
       await sleep(nbOfMilliseconds)
       dialog.close()
     }
+    console.log("Exiting showDialogForLImitedTime")
   }
 
   /**
@@ -399,11 +401,7 @@
     const url = document.URL
     navigator.clipboard.writeText(url).then(
       () => {
-        const dialog = document.getElementById(dialogId)
-        dialog.showModal()
-        setTimeout(() => {
-          dialog.close()
-        }, 1000)
+        showDialogForLimitedTime(dialogId, 1000)
       },
       (err) => {
         console.error("Async: Could not copy text: ", err)
@@ -453,22 +451,13 @@
           return copyBlobToClipboard(blob)
         })
         .then(() => {
-          const dialog = document.getElementById(dialogId + "-1")
-          dialog.showModal()
-          setTimeout(() => {
-            dialog.close()
-          }, 1000)
+          showDialogForLimitedTime(dialogId + "-1", 1000)
         })
         .catch((e) => {
           console.log("Error: ", e.message)
         })
     } else {
-      const dialog = document.getElementById(dialogId + "-2")
-      dialog.showModal()
-      setTimeout(() => {
-        dialog.close()
-      }, 2000)
-      // console.log("Cannot copy image to clipboard")
+      showDialogForLimitedTime(dialogId + "-2", 2000)
     }
   }
 
@@ -613,9 +602,9 @@
           </label>
           <input type="checkbox" id="QRCodeModal-1" class="modal-toggle" />
           <div class="modal">
-            <div class="modal-box relative">
-              <dialog class="rounded-xl" id="QRCodeDialog-1-1">Le QR-Code est copié dans le presse-papier !</dialog>
-              <dialog class="rounded-xl" id="QRCodeDialog-1-2">
+            <div class="modal-box relative z-0">
+              <dialog class="rounded-xl z-10 bg-coopmaths text-white" id="QRCodeDialog-1-1">Le QR-Code est copié dans le presse-papier !</dialog>
+              <dialog class="rounded-xl z-10 bg-coopmaths text-white" id="QRCodeDialog-1-2">
                 Impossible de copier le QR-Code dans ce navigateur !<br /> Vérifier les permissions.
               </dialog>
               <label for="QRCodeModal-1" class="btn absolute right-2 top-2 bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
