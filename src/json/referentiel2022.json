@@ -1077,6 +1077,7 @@
         },
         "can6P06": {
           "uuid": "fb422",
+          "id": "can6P06",
           "titre": "Résoudre un problème de calcul de pourcentage par complément à 100%",
           "url": "can/6e/can6P06.js",
           "tags": {
@@ -1622,6 +1623,7 @@
         },
         "can5P09": {
           "uuid": "7b350",
+          "id": "can5P09",
           "titre": "Calculer un prix à partir d'un prix au kg",
           "url": "can/5e/can5P09.js",
           "tags": {
@@ -2771,6 +2773,7 @@
         },
         "can2C16": {
           "uuid": "04048",
+          "id": "can2C16",
           "titre": "Calculer avec un programme de calcul*",
           "url": "can/2e/can2C16.js",
           "tags": {
@@ -3178,6 +3181,7 @@
         },
         "can2G20": {
           "uuid": "1f967",
+          "id": "can2G20",
           "titre": "Déterminer une équation de droite (graphique)",
           "url": "can/2e/can2G20.js",
           "tags": {
@@ -3858,6 +3862,7 @@
         },
         "can1L10": {
           "uuid": "cc9ee",
+          "id": "can1L10",
           "titre": "Simplifier un taux de variation",
           "url": "can/1e/can1L10.js",
           "tags": {
@@ -12139,6 +12144,7 @@
       "HPC104": {
         "dateModification": "24/10/2021",
         "datePublication": "25/10/2021",
+        "id": "HPC104",
         "tags": {
           "AMC": false,
           "Interactif": false,
