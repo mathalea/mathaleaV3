@@ -42,6 +42,8 @@
   let QRCodeWidth = 100
   let stringDureeTotale = "0"
   let isTransitionActive: boolean = true
+  let isTransitionSoundActive: boolean = true
+  const transtionSound = new Audio("/assets/sounds/transition_sound_02.ogg")
 
   if ($globalOptions && $globalOptions.durationGlobal) {
     isSameDurationForAll = true
@@ -153,6 +155,9 @@
     }
 
     if (!isPause) {
+      if (isTransitionSoundActive) {
+        transtionSound.play()
+      }
       if (isTransitionActive) {
         showDialogForLimitedTime("transition", 1000).then(() => {
           timer(durationGlobal ?? durations[currentQuestion] ?? 10)
@@ -540,9 +545,15 @@
       <!-- Multivue + Liens -->
       <div class="flex flex-col w-1/6 justify-start">
         <div class="flex text-lg font-bold mb-2">Transitions</div>
-        <div class="flex flex-row justify-start items-center px-4 pb-8">
+        <div class="flex flex-row justify-start items-center px-4">
           <button type="button" on:click={() => (isTransitionActive = !isTransitionActive)}><i class="text-coopmaths bx bx-sm {isTransitionActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button>
           <div class="inline-flex pl-2">{isTransitionActive ? "Carton entre questions" : "Pas de carton entre questions"}</div>
+        </div>
+        <div class="flex flex-row justify-start items-center px-4 pb-8">
+          <button type="button" on:click={() => (isTransitionSoundActive = !isTransitionSoundActive)}
+            ><i class="text-coopmaths bx bx-sm {isTransitionSoundActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
+          >
+          <div class="inline-flex pl-2">{isTransitionSoundActive ? "Son entre questions" : "Pas de son entre questions"}</div>
         </div>
         <div class="flex text-lg font-bold mb-2">Multivue</div>
         <div class="flex px-4 pb-8">
