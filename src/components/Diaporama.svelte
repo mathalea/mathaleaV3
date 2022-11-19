@@ -827,8 +827,10 @@
           </div>
         {/each}
       </div>
-      <dialog class=" bg-coopmaths text-white text-[200px] font-extrabold min-w-full min-h-full" id="transition">
-        <div class="flex flex-row w-full h-full justify-center items-center">{currentQuestion + 1} / {questions.length}</div>
+      <dialog class=" bg-coopmaths text-white text-[150px] font-extralight min-w-full min-h-full" id="transition">
+        <div class="flex flex-row w-full min-h-full justify-center items-center">
+          <div class="radial-progress" style="--value:{((currentQuestion + 1) / questions[0].length) * 100}; --size:500px; --thickness: 20px;">{currentQuestion + 1} / {questions[0].length}</div>
+        </div>
       </dialog>
     </main>
     <!-- Boutons de réglages -->
