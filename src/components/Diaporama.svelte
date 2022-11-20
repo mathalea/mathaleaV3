@@ -44,10 +44,10 @@
   let isTransitionActive: boolean = true
   let isTransitionSoundActive: boolean = true
   const transitionSounds = [
-    new Audio("/assets/sounds/transition_sound_01.ogg"),
-    new Audio("/assets/sounds/transition_sound_02.ogg"),
-    new Audio("/assets/sounds/transition_sound_03.ogg"),
-    new Audio("/assets/sounds/transition_sound_04.ogg"),
+    new Audio("/assets/sounds/transition_sound_01.mp3"),
+    new Audio("/assets/sounds/transition_sound_02.mp3"),
+    new Audio("/assets/sounds/transition_sound_03.mp3"),
+    new Audio("/assets/sounds/transition_sound_04.mp3"),
   ]
   let currentTransitionSound = 0
 
@@ -531,10 +531,10 @@
         /></button
       >
     </div>
-    <div class="flex flex-row items-center justify-center w-full mb-24 mt-12">
+    <div class="flex flex-row items-center justify-center w-full mb-14 mt-1">
       <button
         type="button"
-        class="inline-flex items-center justify-center shadow-2xl w-1/3 bg-coopmaths hover:bg-coopmaths-dark text-[100px] font-extrabold text-white py-6 px-12 rounded-lg"
+        class="inline-flex items-center justify-center shadow-2xl w-1/3 bg-coopmaths hover:bg-coopmaths-dark text-[100px] font-extrabold text-white py-4 px-12 rounded-lg"
         on:click={() => {
           goToQuestion(0)
           timer(durationGlobal ?? durations[currentQuestion] ?? 10)
@@ -549,7 +549,7 @@
     </div>
     <div class="flex flex-row w-full justify-center items-start mx-20">
       <!-- Multivue + Liens -->
-      <div class="flex flex-col w-1/6 justify-start">
+      <div class="flex flex-col w-1/5 justify-start">
         <div class="pb-8">
           <div class="flex text-lg font-bold mb-2">Transitions</div>
           <div class="flex flex-row justify-start items-center px-4">
