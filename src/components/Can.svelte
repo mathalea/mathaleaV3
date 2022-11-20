@@ -13,7 +13,7 @@
   let consignes: string[] = []
   let durations: number[] = []
   let nbOfVues = $globalOptions.nbVues
-  let currentVue: 0 | 1 | 2 | 3 | 4 = 0
+  let currentVue: 0 | 1 | 2 | 3 | 4 = nbOfVues > 1 ? 4 : 0
   let isCorrectionVisible = false
   let isQuestionsVisible = true
   let divExercice: HTMLElement

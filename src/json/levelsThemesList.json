@@ -2,6 +2,18 @@
   "Annales": {
     "titre": "Annales aléatoires"
   },
+  "c3C": {
+    "titre": "Calculs"
+  },
+  "c3D": {
+    "titre": "Durées"
+  },
+  "c3M": {
+    "titre": "Mesure"
+  },
+  "c3N": {
+    "titre": "Numération"
+  },
   "can6C": {
     "titre": "Calculs"
   },
@@ -839,6 +851,24 @@
   "2S4": {
     "titre": "Echantillonnage",
     "sousThemes": {}
+  },
+  "1AN": {
+    "titre" : "Analyse"
+  },
+  "1E1": {
+    "titre" : "Équations"
+  },
+  "1F1": {
+    "titre" : "Fonctions"
+  },
+  "1G1": {
+    "titre" : "Géométrie"
+  },
+  "1N1": {
+    "titre" : "Suites"
+  },
+  "1P1": {
+    "titre" : "Probabilités"
   },
   "PEA1": {
     "titre": "Numération et bases"
