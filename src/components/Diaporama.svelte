@@ -41,6 +41,15 @@
   const allowedImageFormats: string[] = ["image/jpeg", "image/png", "image/webp"]
   let QRCodeWidth = 100
   let stringDureeTotale = "0"
+  let isTransitionActive: boolean = true
+  let isTransitionSoundActive: boolean = true
+  const transitionSounds = [
+    new Audio("/assets/sounds/transition_sound_01.ogg"),
+    new Audio("/assets/sounds/transition_sound_02.ogg"),
+    new Audio("/assets/sounds/transition_sound_03.ogg"),
+    new Audio("/assets/sounds/transition_sound_04.ogg"),
+  ]
+  let currentTransitionSound = 0
 
   if ($globalOptions && $globalOptions.durationGlobal) {
     isSameDurationForAll = true
@@ -150,9 +159,44 @@
       currentZoom = userZoom
       setSize()
     }
-    if (!isPause) timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+
+    if (!isPause) {
+      if (isTransitionSoundActive) {
+        transitionSounds[currentTransitionSound].play()
+      }
+      if (isTransitionActive) {
+        showDialogForLimitedTime("transition", 1000).then(() => {
+          timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+        })
+      } else {
+        timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+      }
+    }
     currentDuration = durationGlobal ?? durations[currentQuestion] ?? 10
   }
+
+  /**
+   * Afficher un écran (élément <dialog>) pendant un nombre de millisecondes
+   * @param {string} dialogId id de l'élément <dialog> à activer
+   * @param {number} nbOfMilliseconds durée de l'affichage en ms
+   */
+  async function showDialogForLimitedTime(dialogId: string, nbOfMilliseconds: number) {
+    console.log("Entering showDialogForLImitedTime")
+    const dialog = document.getElementById(dialogId)
+    if (dialog) {
+      dialog.showModal()
+      await sleep(nbOfMilliseconds)
+      dialog.close()
+    }
+    console.log("Exiting showDialogForLImitedTime")
+  }
+
+  /**
+   * Faire une pause pendant l'exécution d'un programme
+   * {@link https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep?page=1&tab=scoredesc#tab-top | Source}
+   * @param ms nb de millisecondes de la pause
+   */
+  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
   async function setSize() {
     const size = currentZoom * sizes[currentQuestion]
@@ -373,11 +417,7 @@
     const url = document.URL
     navigator.clipboard.writeText(url).then(
       () => {
-        const dialog = document.getElementById(dialogId)
-        dialog.showModal()
-        setTimeout(() => {
-          dialog.close()
-        }, 1000)
+        showDialogForLimitedTime(dialogId, 1000)
       },
       (err) => {
         console.error("Async: Could not copy text: ", err)
@@ -427,22 +467,13 @@
           return copyBlobToClipboard(blob)
         })
         .then(() => {
-          const dialog = document.getElementById(dialogId + "-1")
-          dialog.showModal()
-          setTimeout(() => {
-            dialog.close()
-          }, 1000)
+          showDialogForLimitedTime(dialogId + "-1", 1000)
         })
         .catch((e) => {
           console.log("Error: ", e.message)
         })
     } else {
-      const dialog = document.getElementById(dialogId + "-2")
-      dialog.showModal()
-      setTimeout(() => {
-        dialog.close()
-      }, 2000)
-      // console.log("Cannot copy image to clipboard")
+      showDialogForLimitedTime(dialogId + "-2", 2000)
     }
   }
 
@@ -519,10 +550,85 @@
     <div class="flex flex-row w-full justify-center items-start mx-20">
       <!-- Multivue + Liens -->
       <div class="flex flex-col w-1/6 justify-start">
-        <div class="flex text-lg font-bold mb-6">Multivue</div>
+        <div class="pb-8">
+          <div class="flex text-lg font-bold mb-2">Transitions</div>
+          <div class="flex flex-row justify-start items-center px-4">
+            <button type="button" on:click={() => (isTransitionActive = !isTransitionActive)}><i class="text-coopmaths bx bx-sm {isTransitionActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button>
+            <div class="inline-flex pl-2">{isTransitionActive ? "Carton entre questions" : "Pas de carton entre questions"}</div>
+          </div>
+          <div class="flex flex-row justify-start items-center  px-4">
+            <button type="button" on:click={() => (isTransitionSoundActive = !isTransitionSoundActive)}
+              ><i class="text-coopmaths bx bx-sm {isTransitionSoundActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
+            >
+            <div class="inline-flex pl-2">{isTransitionSoundActive ? "Son entre questions" : "Pas de son entre questions"}</div>
+          </div>
+          <div class="grid grid-flow-col auto-cols-max gap-2  px-4">
+            <div class="form-check flex flex-row justify-start items-center">
+              <input
+                disabled={!isTransitionSoundActive}
+                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
+                type="radio"
+                name="sound"
+                id="soundRadio1"
+                bind:group={currentTransitionSound}
+                on:change={() => {
+                  transitionSounds[currentTransitionSound].play()
+                }}
+                value={0}
+              />
+              <label class="form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio1"> Son 1 </label>
+            </div>
+            <div class="form-check flex flex-row justify-start items-center">
+              <input
+                disabled={!isTransitionSoundActive}
+                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
+                type="radio"
+                name="sound"
+                id="soundRadio2"
+                bind:group={currentTransitionSound}
+                on:change={() => {
+                  transitionSounds[currentTransitionSound].play()
+                }}
+                value={1}
+              />
+              <label class=" form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio2"> Son 2 </label>
+            </div>
+            <div class="form-check flex flex-row justify-start items-center">
+              <input
+                disabled={!isTransitionSoundActive}
+                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
+                type="radio"
+                name="sound"
+                id="soundRadio3"
+                bind:group={currentTransitionSound}
+                on:change={() => {
+                  transitionSounds[currentTransitionSound].play()
+                }}
+                value={2}
+              />
+              <label class="form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio3"> Son 3 </label>
+            </div>
+            <div class="form-check flex flex-row justify-start items-center">
+              <input
+                disabled={!isTransitionSoundActive}
+                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
+                type="radio"
+                name="sound"
+                id="soundRadio4"
+                bind:group={currentTransitionSound}
+                on:change={() => {
+                  transitionSounds[currentTransitionSound].play()
+                }}
+                value={3}
+              />
+              <label class="form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio4"> Son 4 </label>
+            </div>
+          </div>
+        </div>
+        <div class="flex text-lg font-bold mb-2">Multivue</div>
         <div class="flex px-4 pb-8">
-          <div>
-            <div class="form-check">
+          <div class="grid grid-flow-row auto-rows-max gap-0">
+            <div class="form-check flex flex-row justify-start items-center">
               <input
                 class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
                 type="radio"
@@ -534,7 +640,7 @@
               />
               <label class="form-check-label inline-block text-gray-800" for="multivueRadio1"> Pas de multivue </label>
             </div>
-            <div class="form-check">
+            <div class="form-check flex flex-row justify-start items-center">
               <input
                 class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
                 type="radio"
@@ -546,7 +652,7 @@
               />
               <label class=" form-check-label inline-block text-gray-800" for="multivueRadio2"> Deux vues </label>
             </div>
-            <div class="form-check">
+            <div class="form-check flex flex-row justify-start items-center">
               <input
                 class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
                 type="radio"
@@ -558,7 +664,7 @@
               />
               <label class="form-check-label inline-block text-gray-800" for="multivueRadio3"> Trois vues </label>
             </div>
-            <div class="form-check">
+            <div class="form-check flex flex-row justify-start items-center">
               <input
                 class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
                 type="radio"
@@ -573,7 +679,7 @@
           </div>
         </div>
         <div class="flex text-lg font-bold mb-2">Liens</div>
-        <div class="flex flex-row px-4 justify-start">
+        <div class="flex flex-row px-4 -mt-2 justify-start">
           <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Lien du diaporama">
             <button type="button" class="mr-4 my-2 text-coopmaths" on:click={() => copyLinkToClipboard("linkCopiedDialog-1")}>
               <i class="bx text-2xl bx-link" />
@@ -587,9 +693,9 @@
           </label>
           <input type="checkbox" id="QRCodeModal-1" class="modal-toggle" />
           <div class="modal">
-            <div class="modal-box relative">
-              <dialog class="rounded-xl" id="QRCodeDialog-1-1">Le QR-Code est copié dans le presse-papier !</dialog>
-              <dialog class="rounded-xl" id="QRCodeDialog-1-2">
+            <div class="modal-box relative z-0">
+              <dialog class="rounded-xl z-10 bg-coopmaths text-white" id="QRCodeDialog-1-1">Le QR-Code est copié dans le presse-papier !</dialog>
+              <dialog class="rounded-xl z-10 bg-coopmaths text-white" id="QRCodeDialog-1-2">
                 Impossible de copier le QR-Code dans ce navigateur !<br /> Vérifier les permissions.
               </dialog>
               <label for="QRCodeModal-1" class="btn absolute right-2 top-2 bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
@@ -683,7 +789,7 @@
           <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Aperçu des questions/réponses">
             <button
               type="button"
-              class="mr-4 my-2 text-coopmaths"
+              class="mr-4 text-coopmaths"
               on:click={() => {
                 document.location.href = document.location.href.replace("&v=diaporama", "&v=can")
               }}
@@ -802,6 +908,11 @@
           </div>
         {/each}
       </div>
+      <dialog class=" bg-coopmaths text-white text-[150px] font-extralight min-w-full min-h-full" id="transition">
+        <div class="flex flex-row w-full min-h-full justify-center items-center">
+          <div class="radial-progress" style="--value:{((currentQuestion + 1) / questions[0].length) * 100}; --size:500px; --thickness: 20px;">{currentQuestion + 1} / {questions[0].length}</div>
+        </div>
+      </dialog>
     </main>
     <!-- Boutons de réglages -->
     <footer class="w-full h-20 py-1 sticky bottom-0 opacity-100 dark:bg-white">
