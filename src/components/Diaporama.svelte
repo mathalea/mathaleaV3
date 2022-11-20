@@ -556,13 +556,13 @@
             <button type="button" on:click={() => (isTransitionActive = !isTransitionActive)}><i class="text-coopmaths bx bx-sm {isTransitionActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button>
             <div class="inline-flex pl-2">{isTransitionActive ? "Carton entre questions" : "Pas de carton entre questions"}</div>
           </div>
-          <div class="flex flex-row justify-start items-center px-4">
+          <div class="flex flex-row justify-start items-center  px-4">
             <button type="button" on:click={() => (isTransitionSoundActive = !isTransitionSoundActive)}
               ><i class="text-coopmaths bx bx-sm {isTransitionSoundActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
             >
             <div class="inline-flex pl-2">{isTransitionSoundActive ? "Son entre questions" : "Pas de son entre questions"}</div>
           </div>
-          <div class="grid grid-flow-col auto-cols-max gap-3">
+          <div class="grid grid-flow-col auto-cols-max gap-2  px-4">
             <div class="form-check flex flex-row justify-start items-center">
               <input
                 disabled={!isTransitionSoundActive}
@@ -627,7 +627,7 @@
         </div>
         <div class="flex text-lg font-bold mb-2">Multivue</div>
         <div class="flex px-4 pb-8">
-          <div>
+          <div class="grid grid-flow-row auto-rows-max gap-0">
             <div class="form-check flex flex-row justify-start items-center">
               <input
                 class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
