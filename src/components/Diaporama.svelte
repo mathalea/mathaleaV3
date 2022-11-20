@@ -43,7 +43,13 @@
   let stringDureeTotale = "0"
   let isTransitionActive: boolean = true
   let isTransitionSoundActive: boolean = true
-  const transtionSound = new Audio("/assets/sounds/transition_sound_02.ogg")
+  const transitionSounds = [
+    new Audio("/assets/sounds/transition_sound_01.ogg"),
+    new Audio("/assets/sounds/transition_sound_02.ogg"),
+    new Audio("/assets/sounds/transition_sound_03.ogg"),
+    new Audio("/assets/sounds/transition_sound_04.ogg"),
+  ]
+  let currentTransitionSound = 0
 
   if ($globalOptions && $globalOptions.durationGlobal) {
     isSameDurationForAll = true
@@ -156,7 +162,7 @@
 
     if (!isPause) {
       if (isTransitionSoundActive) {
-        transtionSound.play()
+        transitionSounds[currentTransitionSound].play()
       }
       if (isTransitionActive) {
         showDialogForLimitedTime("transition", 1000).then(() => {
@@ -544,16 +550,80 @@
     <div class="flex flex-row w-full justify-center items-start mx-20">
       <!-- Multivue + Liens -->
       <div class="flex flex-col w-1/6 justify-start">
-        <div class="flex text-lg font-bold mb-2">Transitions</div>
-        <div class="flex flex-row justify-start items-center px-4">
-          <button type="button" on:click={() => (isTransitionActive = !isTransitionActive)}><i class="text-coopmaths bx bx-sm {isTransitionActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button>
-          <div class="inline-flex pl-2">{isTransitionActive ? "Carton entre questions" : "Pas de carton entre questions"}</div>
-        </div>
-        <div class="flex flex-row justify-start items-center px-4 pb-8">
-          <button type="button" on:click={() => (isTransitionSoundActive = !isTransitionSoundActive)}
-            ><i class="text-coopmaths bx bx-sm {isTransitionSoundActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
-          >
-          <div class="inline-flex pl-2">{isTransitionSoundActive ? "Son entre questions" : "Pas de son entre questions"}</div>
+        <div class="pb-8">
+          <div class="flex text-lg font-bold mb-2">Transitions</div>
+          <div class="flex flex-row justify-start items-center px-4">
+            <button type="button" on:click={() => (isTransitionActive = !isTransitionActive)}><i class="text-coopmaths bx bx-sm {isTransitionActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button>
+            <div class="inline-flex pl-2">{isTransitionActive ? "Carton entre questions" : "Pas de carton entre questions"}</div>
+          </div>
+          <div class="flex flex-row justify-start items-center px-4">
+            <button type="button" on:click={() => (isTransitionSoundActive = !isTransitionSoundActive)}
+              ><i class="text-coopmaths bx bx-sm {isTransitionSoundActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
+            >
+            <div class="inline-flex pl-2">{isTransitionSoundActive ? "Son entre questions" : "Pas de son entre questions"}</div>
+          </div>
+          <div class="grid grid-flow-col auto-cols-max gap-3">
+            <div class="form-check flex flex-row justify-start items-center">
+              <input
+                disabled={!isTransitionSoundActive}
+                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
+                type="radio"
+                name="sound"
+                id="soundRadio1"
+                bind:group={currentTransitionSound}
+                on:change={() => {
+                  transitionSounds[currentTransitionSound].play()
+                }}
+                value={0}
+              />
+              <label class="form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio1"> Son 1 </label>
+            </div>
+            <div class="form-check flex flex-row justify-start items-center">
+              <input
+                disabled={!isTransitionSoundActive}
+                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
+                type="radio"
+                name="sound"
+                id="soundRadio2"
+                bind:group={currentTransitionSound}
+                on:change={() => {
+                  transitionSounds[currentTransitionSound].play()
+                }}
+                value={1}
+              />
+              <label class=" form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio2"> Son 2 </label>
+            </div>
+            <div class="form-check flex flex-row justify-start items-center">
+              <input
+                disabled={!isTransitionSoundActive}
+                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
+                type="radio"
+                name="sound"
+                id="soundRadio3"
+                bind:group={currentTransitionSound}
+                on:change={() => {
+                  transitionSounds[currentTransitionSound].play()
+                }}
+                value={2}
+              />
+              <label class="form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio3"> Son 3 </label>
+            </div>
+            <div class="form-check flex flex-row justify-start items-center">
+              <input
+                disabled={!isTransitionSoundActive}
+                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
+                type="radio"
+                name="sound"
+                id="soundRadio4"
+                bind:group={currentTransitionSound}
+                on:change={() => {
+                  transitionSounds[currentTransitionSound].play()
+                }}
+                value={3}
+              />
+              <label class="form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio4"> Son 4 </label>
+            </div>
+          </div>
         </div>
         <div class="flex text-lg font-bold mb-2">Multivue</div>
         <div class="flex px-4 pb-8">
