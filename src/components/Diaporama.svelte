@@ -44,10 +44,10 @@
   let isTransitionActive: boolean = true
   let isTransitionSoundActive: boolean = true
   const transitionSounds = [
-    new Audio("/assets/sounds/transition_sound_01.mp3"),
-    new Audio("/assets/sounds/transition_sound_02.mp3"),
-    new Audio("/assets/sounds/transition_sound_03.mp3"),
-    new Audio("/assets/sounds/transition_sound_04.mp3"),
+    new Audio("assets/sounds/transition_sound_01.mp3"),
+    new Audio("assets/sounds/transition_sound_02.mp3"),
+    new Audio("assets/sounds/transition_sound_03.mp3"),
+    new Audio("assets/sounds/transition_sound_04.mp3"),
   ]
   let currentTransitionSound = 0
 
