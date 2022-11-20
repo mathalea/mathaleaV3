@@ -13,7 +13,7 @@
   let consignes: string[] = []
   let durations: number[] = []
   let nbOfVues = $globalOptions.nbVues
-  let currentVue: 0 | 1 | 2 | 3 | 4 = 4
+  let currentVue: 0 | 1 | 2 | 3 | 4 = 0
   let isCorrectionVisible = false
   let isQuestionsVisible = true
   let divExercice: HTMLElement
@@ -97,11 +97,11 @@
     const newParams = []
     for (const exercice of exercices) {
       exercice.seed = Mathalea.generateSeed({
-          includeUpperCase: true,
-          includeNumbers: true,
-          length: 4,
-          startsWithLowerCase: false,
-        })
+        includeUpperCase: true,
+        includeNumbers: true,
+        length: 4,
+        startsWithLowerCase: false,
+      })
       newParams.push({
         uuid: exercice.uuid,
         id: exercice.id,
