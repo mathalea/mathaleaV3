@@ -288,6 +288,17 @@
             "Can": true
           },
           "datePublication": "16/11/2021"
+        },
+        "canc3N06": {
+          "uuid": "a8597",
+          "titre": "Comparer deux nombres sur une droite graduée (QCM)",
+          "url": "can/c3/canc3N06.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "17/11/2022"
         }
       }
     },
@@ -2518,6 +2529,17 @@
             "Can": true
           },
           "datePublication": "31/10/2022"
+        },
+        "can3C15": {
+          "uuid": "864ba",
+          "titre": "Calculer des sommes contenant des puissances de 10",
+          "url": "can/3e/can3C15.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "20/11/2022"
         }
       },
       "can3F": {
