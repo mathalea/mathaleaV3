@@ -291,6 +291,7 @@
         },
         "canc3N06": {
           "uuid": "a8597",
+          "id": "canc3N06",
           "titre": "Comparer deux nombres sur une droite graduée (QCM)",
           "url": "can/c3/canc3N06.js",
           "tags": {
@@ -2532,6 +2533,7 @@
         },
         "can3C15": {
           "uuid": "864ba",
+          "id": "can3C15",
           "titre": "Calculer des sommes contenant des puissances de 10",
           "url": "can/3e/can3C15.js",
           "tags": {
