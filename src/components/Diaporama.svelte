@@ -181,14 +181,12 @@
    * @param {number} nbOfMilliseconds durée de l'affichage en ms
    */
   async function showDialogForLimitedTime(dialogId: string, nbOfMilliseconds: number) {
-    console.log("Entering showDialogForLImitedTime")
     const dialog = document.getElementById(dialogId)
     if (dialog) {
       dialog.showModal()
       await sleep(nbOfMilliseconds)
       dialog.close()
     }
-    console.log("Exiting showDialogForLImitedTime")
   }
 
   /**
@@ -225,7 +223,7 @@
   function switchFullScreen() {
     isFullScreen = !isFullScreen
     if (isFullScreen) {
-      const app = document.querySelector("#diap")
+      const app = document.querySelector("#diaporama")
       app.requestFullscreen()
     } else {
       document.exitFullscreen()
@@ -516,602 +514,616 @@
 
 <svelte:window on:keyup={handleShortcut} />
 <!-- Page d'accueil du diapo -->
-{#if currentQuestion === -1}
-  <div id="start" class="flex flex-col h-screen scrollbar-hide" data-theme="daisytheme">
-    <div class="flex flex-row justify-end p-6">
-      <button type="button"
-        ><i
-          class="relative bx ml-2 bx-lg bx-x hover:text-coopmaths"
-          on:click={() => {
-            document.location.href = document.location.href.replace("&v=diaporama", "")
-          }}
-          on:keydown={() => {
-            document.location.href = document.location.href.replace("&v=diaporama", "")
-          }}
-        /></button
-      >
-    </div>
-    <div class="flex flex-row items-center justify-center w-full mb-14 mt-1">
-      <button
-        type="button"
-        class="inline-flex items-center justify-center shadow-2xl w-1/3 bg-coopmaths hover:bg-coopmaths-dark text-[100px] font-extrabold text-white py-4 px-12 rounded-lg"
-        on:click={() => {
-          goToQuestion(0)
-          timer(durationGlobal ?? durations[currentQuestion] ?? 10)
-        }}
-        on:keydown={() => {
-          goToQuestion(0)
-          timer(durationGlobal ?? durations[currentQuestion] ?? 10)
-        }}
-      >
-        Play <i class="bx text-[100px] text-white bx-play" />
-      </button>
-    </div>
-    <div class="flex flex-row w-full justify-center items-start mx-20">
-      <!-- Multivue + Liens -->
-      <div class="flex flex-col w-1/5 justify-start">
-        <div class="pb-8">
-          <div class="flex text-lg font-bold mb-2">Transitions</div>
-          <div class="flex flex-row justify-start items-center px-4">
-            <button type="button" on:click={() => (isTransitionActive = !isTransitionActive)}><i class="text-coopmaths bx bx-sm {isTransitionActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button>
-            <div class="inline-flex pl-2">{isTransitionActive ? "Carton entre questions" : "Pas de carton entre questions"}</div>
-          </div>
-          <div class="flex flex-row justify-start items-center  px-4">
-            <button type="button" on:click={() => (isTransitionSoundActive = !isTransitionSoundActive)}
-              ><i class="text-coopmaths bx bx-sm {isTransitionSoundActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
-            >
-            <div class="inline-flex pl-2">{isTransitionSoundActive ? "Son entre questions" : "Pas de son entre questions"}</div>
-          </div>
-          <div class="grid grid-flow-col auto-cols-max gap-2  px-4">
-            <div class="form-check flex flex-row justify-start items-center">
-              <input
-                disabled={!isTransitionSoundActive}
-                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
-                type="radio"
-                name="sound"
-                id="soundRadio1"
-                bind:group={currentTransitionSound}
-                on:change={() => {
-                  transitionSounds[currentTransitionSound].play()
-                }}
-                value={0}
-              />
-              <label class="form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio1"> Son 1 </label>
-            </div>
-            <div class="form-check flex flex-row justify-start items-center">
-              <input
-                disabled={!isTransitionSoundActive}
-                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
-                type="radio"
-                name="sound"
-                id="soundRadio2"
-                bind:group={currentTransitionSound}
-                on:change={() => {
-                  transitionSounds[currentTransitionSound].play()
-                }}
-                value={1}
-              />
-              <label class=" form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio2"> Son 2 </label>
-            </div>
-            <div class="form-check flex flex-row justify-start items-center">
-              <input
-                disabled={!isTransitionSoundActive}
-                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
-                type="radio"
-                name="sound"
-                id="soundRadio3"
-                bind:group={currentTransitionSound}
-                on:change={() => {
-                  transitionSounds[currentTransitionSound].play()
-                }}
-                value={2}
-              />
-              <label class="form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio3"> Son 3 </label>
-            </div>
-            <div class="form-check flex flex-row justify-start items-center">
-              <input
-                disabled={!isTransitionSoundActive}
-                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
-                type="radio"
-                name="sound"
-                id="soundRadio4"
-                bind:group={currentTransitionSound}
-                on:change={() => {
-                  transitionSounds[currentTransitionSound].play()
-                }}
-                value={3}
-              />
-              <label class="form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio4"> Son 4 </label>
-            </div>
-          </div>
-        </div>
-        <div class="flex text-lg font-bold mb-2">Multivue</div>
-        <div class="flex px-4 pb-8">
-          <div class="grid grid-flow-row auto-rows-max gap-0">
-            <div class="form-check flex flex-row justify-start items-center">
-              <input
-                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
-                type="radio"
-                name="multivue"
-                id="multivueRadio1"
-                bind:group={nbOfVues}
-                on:change={updateExercices}
-                value={1}
-              />
-              <label class="form-check-label inline-block text-gray-800" for="multivueRadio1"> Pas de multivue </label>
-            </div>
-            <div class="form-check flex flex-row justify-start items-center">
-              <input
-                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
-                type="radio"
-                name="multivue"
-                id="multivueRadio2"
-                bind:group={nbOfVues}
-                on:change={updateExercices}
-                value={2}
-              />
-              <label class=" form-check-label inline-block text-gray-800" for="multivueRadio2"> Deux vues </label>
-            </div>
-            <div class="form-check flex flex-row justify-start items-center">
-              <input
-                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
-                type="radio"
-                name="multivue"
-                id="multivueRadio3"
-                bind:group={nbOfVues}
-                on:change={updateExercices}
-                value={3}
-              />
-              <label class="form-check-label inline-block text-gray-800" for="multivueRadio3"> Trois vues </label>
-            </div>
-            <div class="form-check flex flex-row justify-start items-center">
-              <input
-                class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
-                type="radio"
-                name="multivue"
-                id="multivueRadio4"
-                bind:group={nbOfVues}
-                on:change={updateExercices}
-                value={4}
-              />
-              <label class="form-check-label inline-block text-gray-800" for="multivueRadio4"> Quatre vues </label>
-            </div>
-          </div>
-        </div>
-        <div class="flex text-lg font-bold mb-2">Liens</div>
-        <div class="flex flex-row px-4 -mt-2 justify-start">
-          <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Lien du diaporama">
-            <button type="button" class="mr-4 my-2 text-coopmaths" on:click={() => copyLinkToClipboard("linkCopiedDialog-1")}>
-              <i class="bx text-2xl bx-link" />
-            </button>
-            <dialog class="rounded-xl" id="linkCopiedDialog-1">Le lien est copié dans le presse-papier !</dialog>
-          </div>
-          <label for="QRCodeModal-1" class="btn bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
-            <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
-              <i class="bx text-2xl text-coopmaths bx-qr" on:click={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")} />
-            </div>
-          </label>
-          <input type="checkbox" id="QRCodeModal-1" class="modal-toggle" />
-          <div class="modal">
-            <div class="modal-box relative z-0">
-              <dialog class="rounded-xl z-10 bg-coopmaths text-white" id="QRCodeDialog-1-1">Le QR-Code est copié dans le presse-papier !</dialog>
-              <dialog class="rounded-xl z-10 bg-coopmaths text-white" id="QRCodeDialog-1-2">
-                Impossible de copier le QR-Code dans ce navigateur !<br /> Vérifier les permissions.
-              </dialog>
-              <label for="QRCodeModal-1" class="btn absolute right-2 top-2 bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
-                <i class="bx text-3xl bx-x text-gray-800" />
-              </label>
-              <h3 class="text-lg font-bold">QR-Code du Diaporama</h3>
-              <p class="py-4">Choisissez de copier l'image ou de la télécharger.</p>
-              <!-- format QRCode -->
-              <div class="flex flex-row items-center justify-start">
-                <div class="font-bold text-coopmaths">Formats de l'image :</div>
-                <div class="flex flex-row justify-start items-center">
-                  <div class="form-check flex flex-row ml-4 items-center">
-                    <input
-                      class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
-                      type="radio"
-                      name="formatQRCode"
-                      id="formatQRCodeRadio1"
-                      bind:group={formatQRCodeIndex}
-                      on:change={() => {
-                        urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")
-                      }}
-                      value={0}
-                    />
-                    <label class="form-check-label inline-block text-gray-800" for="formatQRCodeRadio1"> jpeg </label>
-                  </div>
-                  <div class="form-check flex flex-row ml-4 items-center">
-                    <input
-                      class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
-                      type="radio"
-                      name="formatQRCode"
-                      id="formatQRCodeRadio2"
-                      bind:group={formatQRCodeIndex}
-                      on:change={() => {
-                        urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")
-                      }}
-                      value={1}
-                    />
-                    <label class=" form-check-label inline-block text-gray-800" for="formatQRCodeRadio2"> png </label>
-                  </div>
-                  <div class="form-check flex flex-row ml-4 items-center">
-                    <input
-                      class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
-                      type="radio"
-                      name="formatQRCode"
-                      id="formatQRCodeRadio3"
-                      bind:group={formatQRCodeIndex}
-                      on:change={() => {
-                        urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")
-                      }}
-                      value={2}
-                    />
-                    <label class="form-check-label inline-block text-gray-800" for="formatQRCodeRadio3"> webp </label>
-                  </div>
-                </div>
-              </div>
-              <!-- taille QR-Code -->
-              <div class="flex flex-row items-center justify-start my-4">
-                <div class="font-bold text-coopmaths">Taille du QR-Code</div>
-                <input
-                  type="number"
-                  min="80"
-                  max="300"
-                  bind:value={QRCodeWidth}
-                  class="ml-3 w-20 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
-                  on:change={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")}
-                />
-              </div>
-              <div class="flex flex-col justify-center">
-                <div class="flex flex-row justify-center p-4">
-                  <!-- <canvas id="QRCodeCanvas-1" /> -->
-                  <img id="QRCodeCanvas-1" />
-                </div>
-                <div class="flex flex-row justify-center pb-6">
-                  <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Copier le QR-Code">
-                    <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => copyQRCodeImageToClipboard("QRCodeCanvas-1", "QRCodeDialog-1")}>
-                      <i class="bx text-[30px] bx-copy-alt" />
-                    </button>
-                  </div>
-                  <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Télécharger le QR-Code">
-                    <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => downloadQRCodeImage("QRCodeCanvas-1")}>
-                      <i class="bx text-[30px] bx-download" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="flex text-lg font-bold mb-2">Aperçu</div>
-        <div class="flex flex-row px-4 justify-start">
-          <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Aperçu des questions/réponses">
-            <button
-              type="button"
-              class="mr-4 text-coopmaths"
-              on:click={() => {
-                document.location.href = document.location.href.replace("&v=diaporama", "&v=can")
-              }}
-            >
-              <i class="bx text-2xl bx-detail" />
-            </button>
-          </div>
-        </div>
-      </div>
-      <!-- Tableau réglages -->
-      <div class="flex flex-col w-4/6 justify-start">
-        <div class="flex flex-col lg:flex-row px-4 pb-4 w-full justify-start lg:justify-between lg:items-center">
-          <div class="flex text-lg font-bold">Durées et nombres de questions</div>
-          <div class="flex items-center">
-            <input
-              id="checkbox-1"
-              aria-describedby="checkbox-1"
-              type="checkbox"
-              class="bg-gray-50 border-gray-300 text-coopmaths focus:ring-3 focus:ring-coopmaths h-4 w-4 rounded"
-              bind:checked={isSameDurationForAll}
-              on:change={handleCheckSameDurationForAll}
-              disabled={exercices.length == 1}
-            />
-            <label for="checkbox-1" class="ml-3 font-medium {exercices.length == 1 ? 'text-gray-300' : 'text-gray-900'} "
-              >Même durée pour toutes les questions <input
-                type="number"
-                min="1"
-                on:change={handleChangeDurationGlobal}
-                bind:value={durationGlobal}
-                class="ml-3 w-20 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
-                disabled={!isSameDurationForAll}
-              /></label
-            >
-          </div>
-        </div>
-
-        <div class="flex flex-col min-w-full px-4 align-middle" bind:this={divTableDurationsQuestions}>
-          <div class="table-wrp block max-h-[300px] shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-            <table class="table-fixed min-w-full divide-y divide-gray-300">
-              <thead class="bg-gray-100 sticky top-0">
-                <th scope="col" class="py-3.5 pl-4 pr-3 w-4/6 text-left text-sm font-semibold text-gray-900 sm:pl">Exercices</th>
-                <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">
-                  <div>Durées par question (s)</div>
-                  <div class="text-coopmaths text-xs">
-                    Durée diapo :<span class="font-bold ml-1">{stringDureeTotale}</span>
-                  </div>
-                </th>
-                <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">
-                  <div>Nombres de questions</div>
-                  <div class="text-coopmaths text-xs">Total :<span class="font-bold ml-1">{getTotalNbOfQuestions()}</span></div>
-                </th>
-              </thead>
-              <tbody class="max-h-[300px] overflow-y-auto">
-                {#each exercices as exercice}
-                  <tr>
-                    <td class="whitespace-normal px-3 py-4 text-sm">{exercice.id} - {exercice.titre}</td>
-                    <td class="whitespace-normal px-3 py-4 text-sm"
-                      ><span class="flex justify-center"
-                        ><input
-                          type="number"
-                          min="1"
-                          on:change={updateExercices}
-                          bind:value={exercice.duration}
-                          class="ml-3 w-16 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
-                          disabled={isSameDurationForAll}
-                        /></span
-                      ></td
-                    >
-                    <td class="whitespace-normal px-3 py-4 text-sm"
-                      ><span class="flex justify-center"
-                        ><input
-                          type="number"
-                          min="1"
-                          bind:value={exercice.nbQuestions}
-                          on:change={updateExercices}
-                          class="ml-3 w-16 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0"
-                        /></span
-                      ></td
-                    >
-                  </tr>
-                {/each}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-{/if}
-<!-- Diaporama lui-même -->
-{#if currentQuestion > -1 && currentQuestion < questions[0].length}
-  <div id="diap" class="flex flex-col h-screen scrollbar-hide" data-theme="daisytheme">
-    <!-- Steps -->
-    <header class="flex flex-col h-20 dark:bg-white pb-1">
-      <div class:invisible={durationGlobal === 0} class="flex flex-row h-6 border border-coopmaths">
-        <div class="bg-coopmaths" style="width: {ratioTime}%;" />
-      </div>
-      <div class="flex flex-row h-full mt-6 w-full justify-center">
-        <ul class="steps w-11/12" bind:this={stepsUl}>
-          {#each questions[0] as question, i}
-            <li class="step {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => clickOnStep(i)} on:keydown={() => clickOnStep(i)} />
-          {/each}
-        </ul>
-      </div>
-    </header>
-    <!-- Question -->
-    <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-10">
-      <div bind:this={divQuestion} class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : ''} place-content-stretch justify-items-center w-full">
-        {#each Array(nbOfVues) as _, i}
-          <div class="relative flex flex-col justify-center justify-self-stretch p-8 {nbOfVues > 1 ? 'bg-gray-300' : ''} text-center">
-            <div class="font-light mb-8">{@html consignes[currentQuestion]}</div>
-            {#if nbOfVues > 1}
-              <div class="absolute bg-coopmaths text-white font-black -top-1 -left-1 rounded-tl-2xl w-1/12 h-1/12">{i + 1}</div>
-            {/if}
-            <div>{@html isCorrectionVisible ? corrections[i][currentQuestion] : questions[i][currentQuestion]}</div>
-          </div>
-        {/each}
-      </div>
-      <dialog class=" bg-coopmaths text-white text-[150px] font-extralight min-w-full min-h-full" id="transition">
-        <div class="flex flex-row w-full min-h-full justify-center items-center">
-          <div class="radial-progress" style="--value:{((currentQuestion + 1) / questions[0].length) * 100}; --size:500px; --thickness: 20px;">{currentQuestion + 1} / {questions[0].length}</div>
-        </div>
-      </dialog>
-    </main>
-    <!-- Boutons de réglages -->
-    <footer class="w-full h-20 py-1 sticky bottom-0 opacity-100 dark:bg-white">
-      <div class="flex flex-row justify-between w-full text-coopmaths">
-        <!-- boutons réglagles zoom -->
-        <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
-          <button type="button" on:click={switchFullScreen}><i class="bx ml-2 bx-lg {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}" /></button>
-          <button type="button" on:click={zoomPlus}><i class="bx ml-2 bx-lg bx-plus" /></button>
-          <button type="button" on:click={zoomMoins}><i class="bx ml-2 bx-lg bx-minus" /></button>
-        </div>
-        <!-- boutons contrôle défilement -->
-        <div class="flex flex-row justify-center w-[33%] items-center">
-          <button type="button" on:click={prevQuestion}><i class="bx ml-2 bx-lg bx-skip-previous" /></button>
-          <button type="button" on:click={switchPause} class:invisible={durationGlobal === 0}><i class="bx ml-2 bx-lg {isPause ? 'bx-play' : 'bx-pause'}" /></button>
-          <button type="button" on:click={nextQuestion}><i class="bx ml-2 bx-lg bx-skip-next" /></button>
-        </div>
-        <!-- boutons timers correction quitter -->
-        <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
-          <label for="timerSettings" class="modal-button"
-            ><i class="relative bx ml-2 bx-lg bx-stopwatch" on:click={pause} on:keydown={pause}>
-              <div class="absolute -bottom-[12px] left-1/2 -translate-x-1/2 text-sm font-sans text-coopmaths">
-                {displayCurrentDuration()}
-              </div></i
-            ></label
-          >
-          <input type="checkbox" id="timerSettings" class="modal-toggle" />
-          <div class="modal modal-bottom sm:modal-middle">
-            <div class="modal-box">
-              <h3 class="font-bold text-lg">Temps par question</h3>
-              <p class="py-4 text-black">Régler la durée de projection en secondes</p>
-              <div class="flew-row space-x-2">
-                <div class="flex flex-row justify-start items-center space-x-2">
-                  <input
-                    class="w-1/4 h-2 bg-transparent text-coopmaths cursor-pointer"
-                    type="range"
-                    max="30"
-                    min="0"
-                    name="duration"
-                    id="duration"
-                    bind:value={valueCursorTime}
-                    on:change={handleTimerChange}
-                  />
-                  <label class="w-3/4 text-sm text-black" for="duration">{messageDuree}</label>
-                </div>
-              </div>
-              <div class="modal-action">
-                <label for="timerSettings" class="btn btn-coopmaths" on:click={switchPause} on:keydown={switchPause}>Fermer</label>
-              </div>
-            </div>
-          </div>
-          <button type="button" on:click={switchCorrectionVisible}><i class="bx ml-2 bx-lg {isCorrectionVisible ? 'bx-hide' : 'bx-show'}" /></button>
-          <button
-            type="button"
+<div id="diaporama">
+  {#if currentQuestion === -1}
+    <div id="start" class="flex flex-col h-screen scrollbar-hide" data-theme="daisytheme">
+      <div class="flex flex-row justify-end p-6">
+        <button type="button"
+          ><i
+            class="relative bx ml-2 bx-lg bx-x hover:text-coopmaths"
             on:click={() => {
               document.location.href = document.location.href.replace("&v=diaporama", "")
             }}
             on:keydown={() => {
               document.location.href = document.location.href.replace("&v=diaporama", "")
-            }}><i class="bx ml-2 bx-lg bx-power-off" /></button
-          >
-        </div>
-      </div>
-    </footer>
-  </div>
-{/if}
-<!-- Fin du diaporama -->
-{#if currentQuestion === questions[0].length}
-  <div id="end" class="flex flex-col h-screen scrollbar-hide justify-center text-coopmaths" data-theme="daisytheme">
-    <div class="flex flex-row items-center justify-center w-full text-[300px] font-extrabold m-10">Fin !</div>
-    <div class="flex flex-row items-center justify-center w-full mx-10 my-4">
-      <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Début du diaporama">
-        <button type="button" class="mx-12 my-2 text-coopmaths" on:click={returnToStart} on:keydown={returnToStart}><i class="bx text-[100px] bx-arrow-back" /></button>
-      </div>
-      <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Questions + Réponses">
-        <button
-          type="button"
-          class="mx-12 my-2 text-coopmaths"
-          on:click={() => {
-            document.location.href = document.location.href.replace("&v=diaporama", "&v=can")
-          }}><i class="bx text-[100px] bx-detail" /></button
+            }}
+          /></button
         >
       </div>
-      <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Lien du diaporama">
-        <button type="button" class="mx-12 my-2 text-coopmaths" on:click={() => copyLinkToClipboard("linkCopiedDialog-2")}>
-          <i class="bx text-[100px] bx-link" />
+      <div class="flex flex-row items-center justify-center w-full mb-14 mt-1">
+        <button
+          type="button"
+          class="inline-flex items-center justify-center shadow-2xl w-1/3 bg-coopmaths hover:bg-coopmaths-dark text-[100px] font-extrabold text-white py-4 px-12 rounded-lg"
+          on:click={() => {
+            goToQuestion(0)
+            timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+          }}
+          on:keydown={() => {
+            goToQuestion(0)
+            timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+          }}
+        >
+          Play <i class="bx text-[100px] text-white bx-play" />
         </button>
-        <dialog class="rounded-xl" id="linkCopiedDialog-2">Le lien est copié dans le presse-papier !</dialog>
       </div>
-      <label for="QRCodeModal-2" class="mx-12 my-2 hover:cursor-pointer">
-        <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
-          <i class="bx text-[100px] text-coopmaths bx-qr self-center" on:click={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")} />
-        </div>
-      </label>
-      <input type="checkbox" id="QRCodeModal-2" class="modal-toggle" />
-      <div class="modal">
-        <div class="modal-box relative  text-gray-900">
-          <dialog class="rounded-xl" id="QRCodeDialog-2-1">Le QR-Code est copié dans le presse-papier !</dialog>
-          <dialog class="rounded-xl" id="QRCodeDialog-2-2">
-            Impossible de copier le QR-Code dans ce navigateur !<br /> Vérifier les permissions.
-          </dialog>
-          <label for="QRCodeModal-2" class="absolute right-2 top-2 bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
-            <i class="bx text-3xl bx-x text-gray-800" />
-          </label>
-          <h3 class="text-lg font-bold">QR-Code du Diaporama</h3>
-          <p class="py-4">Choisissez de copier l'image ou de la télécharger.</p>
-          <!-- format QRCode -->
-          <div class="flex flex-row items-center justify-start">
-            <div class="font-bold text-coopmaths">Formats de l'image :</div>
-            <div class="flex flex-row justify-start items-center">
-              <div class="form-check flex flex-row ml-4 items-center">
+      <div class="flex flex-row w-full justify-center items-start mx-20">
+        <!-- Multivue + Liens -->
+        <div class="flex flex-col w-1/5 justify-start">
+          <div class="pb-8">
+            <div class="flex text-lg font-bold mb-2">Transitions</div>
+            <div class="flex flex-row justify-start items-center px-4">
+              <button type="button" on:click={() => (isTransitionActive = !isTransitionActive)}
+                ><i class="text-coopmaths bx bx-sm {isTransitionActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
+              >
+              <div class="inline-flex pl-2">{isTransitionActive ? "Carton entre questions" : "Pas de carton entre questions"}</div>
+            </div>
+            <div class="flex flex-row justify-start items-center  px-4">
+              <button type="button" on:click={() => (isTransitionSoundActive = !isTransitionSoundActive)}
+                ><i class="text-coopmaths bx bx-sm {isTransitionSoundActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
+              >
+              <div class="inline-flex pl-2">{isTransitionSoundActive ? "Son entre questions" : "Pas de son entre questions"}</div>
+            </div>
+            <div class="grid grid-flow-col auto-cols-max gap-2  px-4">
+              <div class="form-check flex flex-row justify-start items-center">
                 <input
-                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                  disabled={!isTransitionSoundActive}
+                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
                   type="radio"
-                  name="formatQRCode"
-                  id="formatQRCodeRadio1"
-                  bind:group={formatQRCodeIndex}
+                  name="sound"
+                  id="soundRadio1"
+                  bind:group={currentTransitionSound}
                   on:change={() => {
-                    urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")
+                    transitionSounds[currentTransitionSound].play()
                   }}
                   value={0}
                 />
-                <label class="form-check-label inline-block text-gray-800" for="formatQRCodeRadio1"> jpeg </label>
+                <label class="form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio1"> Son 1 </label>
               </div>
-              <div class="form-check flex flex-row ml-4 items-center">
+              <div class="form-check flex flex-row justify-start items-center">
                 <input
-                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                  disabled={!isTransitionSoundActive}
+                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
                   type="radio"
-                  name="formatQRCode"
-                  id="formatQRCodeRadio2"
-                  bind:group={formatQRCodeIndex}
+                  name="sound"
+                  id="soundRadio2"
+                  bind:group={currentTransitionSound}
                   on:change={() => {
-                    urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")
+                    transitionSounds[currentTransitionSound].play()
                   }}
                   value={1}
                 />
-                <label class=" form-check-label inline-block text-gray-800" for="formatQRCodeRadio2"> png </label>
+                <label class=" form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio2"> Son 2 </label>
               </div>
-              <div class="form-check flex flex-row ml-4 items-center">
+              <div class="form-check flex flex-row justify-start items-center">
                 <input
-                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                  disabled={!isTransitionSoundActive}
+                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
                   type="radio"
-                  name="formatQRCode"
-                  id="formatQRCodeRadio3"
-                  bind:group={formatQRCodeIndex}
+                  name="sound"
+                  id="soundRadio3"
+                  bind:group={currentTransitionSound}
                   on:change={() => {
-                    urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")
+                    transitionSounds[currentTransitionSound].play()
                   }}
                   value={2}
                 />
-                <label class="form-check-label inline-block text-gray-800" for="formatQRCodeRadio3"> webp </label>
+                <label class="form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio3"> Son 3 </label>
+              </div>
+              <div class="form-check flex flex-row justify-start items-center">
+                <input
+                  disabled={!isTransitionSoundActive}
+                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
+                  type="radio"
+                  name="sound"
+                  id="soundRadio4"
+                  bind:group={currentTransitionSound}
+                  on:change={() => {
+                    transitionSounds[currentTransitionSound].play()
+                  }}
+                  value={3}
+                />
+                <label class="form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio4"> Son 4 </label>
               </div>
             </div>
           </div>
-          <!-- taille du QR-Code -->
-          <!-- taille QR-Code -->
-          <div class="flex flex-row items-center justify-start my-4">
-            <div class="font-bold text-coopmaths">Taille du QR-Code</div>
-            <input
-              type="number"
-              min="80"
-              max="300"
-              bind:value={QRCodeWidth}
-              class="ml-3 w-20 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
-              on:change={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")}
-            />
-          </div>
-          <div class="flex flex-col justify-center">
-            <div class="flex flex-row justify-center p-4">
-              <img id="QRCodeCanvas-2" />
+          <div class="flex text-lg font-bold mb-2">Multivue</div>
+          <div class="flex px-4 pb-8">
+            <div class="grid grid-flow-row auto-rows-max gap-0">
+              <div class="form-check flex flex-row justify-start items-center">
+                <input
+                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                  type="radio"
+                  name="multivue"
+                  id="multivueRadio1"
+                  bind:group={nbOfVues}
+                  on:change={updateExercices}
+                  value={1}
+                />
+                <label class="form-check-label inline-block text-gray-800" for="multivueRadio1"> Pas de multivue </label>
+              </div>
+              <div class="form-check flex flex-row justify-start items-center">
+                <input
+                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                  type="radio"
+                  name="multivue"
+                  id="multivueRadio2"
+                  bind:group={nbOfVues}
+                  on:change={updateExercices}
+                  value={2}
+                />
+                <label class=" form-check-label inline-block text-gray-800" for="multivueRadio2"> Deux vues </label>
+              </div>
+              <div class="form-check flex flex-row justify-start items-center">
+                <input
+                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                  type="radio"
+                  name="multivue"
+                  id="multivueRadio3"
+                  bind:group={nbOfVues}
+                  on:change={updateExercices}
+                  value={3}
+                />
+                <label class="form-check-label inline-block text-gray-800" for="multivueRadio3"> Trois vues </label>
+              </div>
+              <div class="form-check flex flex-row justify-start items-center">
+                <input
+                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                  type="radio"
+                  name="multivue"
+                  id="multivueRadio4"
+                  bind:group={nbOfVues}
+                  on:change={updateExercices}
+                  value={4}
+                />
+                <label class="form-check-label inline-block text-gray-800" for="multivueRadio4"> Quatre vues </label>
+              </div>
             </div>
-            <div class="flex flex-row justify-center pb-6">
-              <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Copier le QR-Code">
-                <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => copyQRCodeImageToClipboard("QRCodeCanvas-2", "QRCodeDialog-2")}>
-                  <i class="bx text-[30px] bx-copy-alt" />
+          </div>
+          <div class="flex text-lg font-bold pb-2">
+            Liens
+            <div class="flex flex-row px-4 -mt-2 justify-start">
+              <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Lien du diaporama">
+                <button type="button" class="mr-4 my-2 text-coopmaths" on:click={() => copyLinkToClipboard("linkCopiedDialog-1")}>
+                  <i class="bx text-2xl bx-link" />
+                </button>
+                <dialog class="rounded-xl" id="linkCopiedDialog-1">Le lien est copié dans le presse-papier !</dialog>
+              </div>
+              <label for="QRCodeModal-1" class="btn bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
+                <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
+                  <i class="bx text-2xl text-coopmaths bx-qr" on:click={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")} />
+                </div>
+              </label>
+              <input type="checkbox" id="QRCodeModal-1" class="modal-toggle" />
+              <div class="modal">
+                <div class="modal-box relative z-0">
+                  <dialog class="rounded-xl z-10 bg-coopmaths text-white" id="QRCodeDialog-1-1">Le QR-Code est copié dans le presse-papier !</dialog>
+                  <dialog class="rounded-xl z-10 bg-coopmaths text-white" id="QRCodeDialog-1-2">
+                    Impossible de copier le QR-Code dans ce navigateur !<br /> Vérifier les permissions.
+                  </dialog>
+                  <label for="QRCodeModal-1" class="btn absolute right-2 top-2 bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
+                    <i class="bx text-3xl bx-x text-gray-800" />
+                  </label>
+                  <h3 class="text-lg font-bold">QR-Code du Diaporama</h3>
+                  <p class="py-4">Choisissez de copier l'image ou de la télécharger.</p>
+                  <!-- format QRCode -->
+                  <div class="flex flex-row items-center justify-start">
+                    <div class="font-bold text-coopmaths">Formats de l'image :</div>
+                    <div class="flex flex-row justify-start items-center">
+                      <div class="form-check flex flex-row ml-4 items-center">
+                        <input
+                          class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                          type="radio"
+                          name="formatQRCode"
+                          id="formatQRCodeRadio1"
+                          bind:group={formatQRCodeIndex}
+                          on:change={() => {
+                            urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")
+                          }}
+                          value={0}
+                        />
+                        <label class="form-check-label inline-block text-gray-800" for="formatQRCodeRadio1"> jpeg </label>
+                      </div>
+                      <div class="form-check flex flex-row ml-4 items-center">
+                        <input
+                          class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                          type="radio"
+                          name="formatQRCode"
+                          id="formatQRCodeRadio2"
+                          bind:group={formatQRCodeIndex}
+                          on:change={() => {
+                            urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")
+                          }}
+                          value={1}
+                        />
+                        <label class=" form-check-label inline-block text-gray-800" for="formatQRCodeRadio2"> png </label>
+                      </div>
+                      <div class="form-check flex flex-row ml-4 items-center">
+                        <input
+                          class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                          type="radio"
+                          name="formatQRCode"
+                          id="formatQRCodeRadio3"
+                          bind:group={formatQRCodeIndex}
+                          on:change={() => {
+                            urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")
+                          }}
+                          value={2}
+                        />
+                        <label class="form-check-label inline-block text-gray-800" for="formatQRCodeRadio3"> webp </label>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- taille QR-Code -->
+                  <div class="flex flex-row items-center justify-start my-4">
+                    <div class="font-bold text-coopmaths">Taille du QR-Code</div>
+                    <input
+                      type="number"
+                      min="80"
+                      max="300"
+                      bind:value={QRCodeWidth}
+                      class="ml-3 w-20 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
+                      on:change={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")}
+                    />
+                  </div>
+                  <div class="flex flex-col justify-center">
+                    <div class="flex flex-row justify-center p-4">
+                      <!-- <canvas id="QRCodeCanvas-1" /> -->
+                      <img id="QRCodeCanvas-1" />
+                    </div>
+                    <div class="flex flex-row justify-center pb-6">
+                      <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Copier le QR-Code">
+                        <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => copyQRCodeImageToClipboard("QRCodeCanvas-1", "QRCodeDialog-1")}>
+                          <i class="bx text-[30px] bx-copy-alt" />
+                        </button>
+                      </div>
+                      <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Télécharger le QR-Code">
+                        <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => downloadQRCodeImage("QRCodeCanvas-1")}>
+                          <i class="bx text-[30px] bx-download" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex text-lg font-bold pb-4">
+            Aperçu
+            <div class="flex flex-row px-4 justify-start">
+              <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Aperçu des questions/réponses">
+                <button
+                  type="button"
+                  class="mr-4 text-coopmaths"
+                  on:click={() => {
+                    document.location.href = document.location.href.replace("&v=diaporama", "&v=can")
+                  }}
+                >
+                  <i class="bx text-2xl bx-detail" />
                 </button>
               </div>
-              <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Télécharger le QR-Code">
-                <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => downloadQRCodeImage("QRCodeCanvas-2")}>
-                  <i class="bx text-[30px] bx-download" />
-                </button>
-              </div>
+            </div>
+          </div>
+          <div class="flex text-lg font-bold mb-2">
+            Plein écran
+            <div class="flex flex-row px-4 justify-start">
+              <button type="button" on:click={switchFullScreen} class="mr-4 text-coopmaths"><i class="bx text-2xl {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}" /></button>
+            </div>
+          </div>
+        </div>
+        <!-- Tableau réglages -->
+        <div class="flex flex-col w-4/6 justify-start">
+          <div class="flex flex-col lg:flex-row px-4 pb-4 w-full justify-start lg:justify-between lg:items-center">
+            <div class="flex text-lg font-bold">Durées et nombres de questions</div>
+            <div class="flex items-center">
+              <input
+                id="checkbox-1"
+                aria-describedby="checkbox-1"
+                type="checkbox"
+                class="bg-gray-50 border-gray-300 text-coopmaths focus:ring-3 focus:ring-coopmaths h-4 w-4 rounded"
+                bind:checked={isSameDurationForAll}
+                on:change={handleCheckSameDurationForAll}
+                disabled={exercices.length == 1}
+              />
+              <label for="checkbox-1" class="ml-3 font-medium {exercices.length == 1 ? 'text-gray-300' : 'text-gray-900'} "
+                >Même durée pour toutes les questions <input
+                  type="number"
+                  min="1"
+                  on:change={handleChangeDurationGlobal}
+                  bind:value={durationGlobal}
+                  class="ml-3 w-20 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
+                  disabled={!isSameDurationForAll}
+                /></label
+              >
+            </div>
+          </div>
+
+          <div class="flex flex-col min-w-full px-4 align-middle" bind:this={divTableDurationsQuestions}>
+            <div class="table-wrp block max-h-[300px] shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+              <table class="table-fixed min-w-full divide-y divide-gray-300">
+                <thead class="bg-gray-100 sticky top-0">
+                  <th scope="col" class="py-3.5 pl-4 pr-3 w-4/6 text-left text-sm font-semibold text-gray-900 sm:pl">Exercices</th>
+                  <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">
+                    <div>Durées par question (s)</div>
+                    <div class="text-coopmaths text-xs">
+                      Durée diapo :<span class="font-bold ml-1">{stringDureeTotale}</span>
+                    </div>
+                  </th>
+                  <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">
+                    <div>Nombres de questions</div>
+                    <div class="text-coopmaths text-xs">Total :<span class="font-bold ml-1">{getTotalNbOfQuestions()}</span></div>
+                  </th>
+                </thead>
+                <tbody class="max-h-[300px] overflow-y-auto">
+                  {#each exercices as exercice}
+                    <tr>
+                      <td class="whitespace-normal px-3 py-4 text-sm">{exercice.id} - {exercice.titre}</td>
+                      <td class="whitespace-normal px-3 py-4 text-sm"
+                        ><span class="flex justify-center"
+                          ><input
+                            type="number"
+                            min="1"
+                            on:change={updateExercices}
+                            bind:value={exercice.duration}
+                            class="ml-3 w-16 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
+                            disabled={isSameDurationForAll}
+                          /></span
+                        ></td
+                      >
+                      <td class="whitespace-normal px-3 py-4 text-sm"
+                        ><span class="flex justify-center"
+                          ><input
+                            type="number"
+                            min="1"
+                            bind:value={exercice.nbQuestions}
+                            on:change={updateExercices}
+                            class="ml-3 w-16 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0"
+                          /></span
+                        ></td
+                      >
+                    </tr>
+                  {/each}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
-      <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Sortir du diaporama">
-        <button
-          type="button"
-          class="mx-12 my-2 text-coopmaths"
-          on:click={() => {
-            document.location.href = document.location.href.replace("&v=diaporama", "")
-          }}
-        >
-          <i class="bx text-[100px] bx-home-alt-2" />
-        </button>
+    </div>
+  {/if}
+  <!-- Diaporama lui-même -->
+  {#if currentQuestion > -1 && currentQuestion < questions[0].length}
+    <div id="diap" class="flex flex-col h-screen scrollbar-hide" data-theme="daisytheme">
+      <!-- Steps -->
+      <header class="flex flex-col h-20 dark:bg-white pb-1">
+        <div class:invisible={durationGlobal === 0} class="flex flex-row h-6 border border-coopmaths">
+          <div class="bg-coopmaths" style="width: {ratioTime}%;" />
+        </div>
+        <div class="flex flex-row h-full mt-6 w-full justify-center">
+          <ul class="steps w-11/12" bind:this={stepsUl}>
+            {#each questions[0] as question, i}
+              <li class="step {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => clickOnStep(i)} on:keydown={() => clickOnStep(i)} />
+            {/each}
+          </ul>
+        </div>
+      </header>
+      <!-- Question -->
+      <main class="flex grow max-h-full dark:bg-white dark:text-slate-800 p-10">
+        <div bind:this={divQuestion} class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : ''} place-content-stretch justify-items-center w-full">
+          {#each Array(nbOfVues) as _, i}
+            <div class="relative flex flex-col justify-center justify-self-stretch p-8 {nbOfVues > 1 ? 'bg-gray-300' : ''} text-center">
+              <div class="font-light mb-8">{@html consignes[currentQuestion]}</div>
+              {#if nbOfVues > 1}
+                <div class="absolute bg-coopmaths text-white font-black -top-1 -left-1 rounded-tl-2xl w-1/12 h-1/12">{i + 1}</div>
+              {/if}
+              <div>{@html isCorrectionVisible ? corrections[i][currentQuestion] : questions[i][currentQuestion]}</div>
+            </div>
+          {/each}
+        </div>
+        <dialog class=" bg-coopmaths text-white text-[150px] font-extralight min-w-full min-h-full" id="transition">
+          <div class="flex flex-row w-full min-h-full justify-center items-center">
+            <div class="radial-progress" style="--value:{((currentQuestion + 1) / questions[0].length) * 100}; --size:500px; --thickness: 20px;">{currentQuestion + 1} / {questions[0].length}</div>
+          </div>
+        </dialog>
+      </main>
+      <!-- Boutons de réglages -->
+      <footer class="w-full h-20 py-1 sticky bottom-0 opacity-100 dark:bg-white">
+        <div class="flex flex-row justify-between w-full text-coopmaths">
+          <!-- boutons réglagles zoom -->
+          <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
+            <button type="button" on:click={switchFullScreen}><i class="bx ml-2 bx-lg {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}" /></button>
+            <button type="button" on:click={zoomPlus}><i class="bx ml-2 bx-lg bx-plus" /></button>
+            <button type="button" on:click={zoomMoins}><i class="bx ml-2 bx-lg bx-minus" /></button>
+          </div>
+          <!-- boutons contrôle défilement -->
+          <div class="flex flex-row justify-center w-[33%] items-center">
+            <button type="button" on:click={prevQuestion}><i class="bx ml-2 bx-lg bx-skip-previous" /></button>
+            <button type="button" on:click={switchPause} class:invisible={durationGlobal === 0}><i class="bx ml-2 bx-lg {isPause ? 'bx-play' : 'bx-pause'}" /></button>
+            <button type="button" on:click={nextQuestion}><i class="bx ml-2 bx-lg bx-skip-next" /></button>
+          </div>
+          <!-- boutons timers correction quitter -->
+          <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
+            <label for="timerSettings" class="modal-button"
+              ><i class="relative bx ml-2 bx-lg bx-stopwatch" on:click={pause} on:keydown={pause}>
+                <div class="absolute -bottom-[12px] left-1/2 -translate-x-1/2 text-sm font-sans text-coopmaths">
+                  {displayCurrentDuration()}
+                </div></i
+              ></label
+            >
+            <input type="checkbox" id="timerSettings" class="modal-toggle" />
+            <div class="modal modal-bottom sm:modal-middle">
+              <div class="modal-box">
+                <h3 class="font-bold text-lg">Temps par question</h3>
+                <p class="py-4 text-black">Régler la durée de projection en secondes</p>
+                <div class="flew-row space-x-2">
+                  <div class="flex flex-row justify-start items-center space-x-2">
+                    <input
+                      class="w-1/4 h-2 bg-transparent text-coopmaths cursor-pointer"
+                      type="range"
+                      max="30"
+                      min="0"
+                      name="duration"
+                      id="duration"
+                      bind:value={valueCursorTime}
+                      on:change={handleTimerChange}
+                    />
+                    <label class="w-3/4 text-sm text-black" for="duration">{messageDuree}</label>
+                  </div>
+                </div>
+                <div class="modal-action">
+                  <label for="timerSettings" class="btn btn-coopmaths" on:click={switchPause} on:keydown={switchPause}>Fermer</label>
+                </div>
+              </div>
+            </div>
+            <button type="button" on:click={switchCorrectionVisible}><i class="bx ml-2 bx-lg {isCorrectionVisible ? 'bx-hide' : 'bx-show'}" /></button>
+            <button
+              type="button"
+              on:click={() => {
+                document.location.href = document.location.href.replace("&v=diaporama", "")
+              }}
+              on:keydown={() => {
+                document.location.href = document.location.href.replace("&v=diaporama", "")
+              }}><i class="bx ml-2 bx-lg bx-power-off" /></button
+            >
+          </div>
+        </div>
+      </footer>
+    </div>
+  {/if}
+  <!-- Fin du diaporama -->
+  {#if currentQuestion === questions[0].length}
+    <div id="end" class="flex flex-col h-screen scrollbar-hide justify-center text-coopmaths" data-theme="daisytheme">
+      <div class="flex flex-row items-center justify-center w-full text-[300px] font-extrabold m-10">Fin !</div>
+      <div class="flex flex-row items-center justify-center w-full mx-10 my-4">
+        <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Début du diaporama">
+          <button type="button" class="mx-12 my-2 text-coopmaths" on:click={returnToStart} on:keydown={returnToStart}><i class="bx text-[100px] bx-arrow-back" /></button>
+        </div>
+        <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Questions + Réponses">
+          <button
+            type="button"
+            class="mx-12 my-2 text-coopmaths"
+            on:click={() => {
+              document.location.href = document.location.href.replace("&v=diaporama", "&v=can")
+            }}><i class="bx text-[100px] bx-detail" /></button
+          >
+        </div>
+        <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Lien du diaporama">
+          <button type="button" class="mx-12 my-2 text-coopmaths" on:click={() => copyLinkToClipboard("linkCopiedDialog-2")}>
+            <i class="bx text-[100px] bx-link" />
+          </button>
+          <dialog class="rounded-xl" id="linkCopiedDialog-2">Le lien est copié dans le presse-papier !</dialog>
+        </div>
+        <label for="QRCodeModal-2" class="mx-12 my-2 hover:cursor-pointer">
+          <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="QR-code du diaporama">
+            <i class="bx text-[100px] text-coopmaths bx-qr self-center" on:click={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")} />
+          </div>
+        </label>
+        <input type="checkbox" id="QRCodeModal-2" class="modal-toggle" />
+        <div class="modal">
+          <div class="modal-box relative  text-gray-900">
+            <dialog class="rounded-xl" id="QRCodeDialog-2-1">Le QR-Code est copié dans le presse-papier !</dialog>
+            <dialog class="rounded-xl" id="QRCodeDialog-2-2">
+              Impossible de copier le QR-Code dans ce navigateur !<br /> Vérifier les permissions.
+            </dialog>
+            <label for="QRCodeModal-2" class="absolute right-2 top-2 bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
+              <i class="bx text-3xl bx-x text-gray-800" />
+            </label>
+            <h3 class="text-lg font-bold">QR-Code du Diaporama</h3>
+            <p class="py-4">Choisissez de copier l'image ou de la télécharger.</p>
+            <!-- format QRCode -->
+            <div class="flex flex-row items-center justify-start">
+              <div class="font-bold text-coopmaths">Formats de l'image :</div>
+              <div class="flex flex-row justify-start items-center">
+                <div class="form-check flex flex-row ml-4 items-center">
+                  <input
+                    class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                    type="radio"
+                    name="formatQRCode"
+                    id="formatQRCodeRadio1"
+                    bind:group={formatQRCodeIndex}
+                    on:change={() => {
+                      urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")
+                    }}
+                    value={0}
+                  />
+                  <label class="form-check-label inline-block text-gray-800" for="formatQRCodeRadio1"> jpeg </label>
+                </div>
+                <div class="form-check flex flex-row ml-4 items-center">
+                  <input
+                    class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                    type="radio"
+                    name="formatQRCode"
+                    id="formatQRCodeRadio2"
+                    bind:group={formatQRCodeIndex}
+                    on:change={() => {
+                      urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")
+                    }}
+                    value={1}
+                  />
+                  <label class=" form-check-label inline-block text-gray-800" for="formatQRCodeRadio2"> png </label>
+                </div>
+                <div class="form-check flex flex-row ml-4 items-center">
+                  <input
+                    class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                    type="radio"
+                    name="formatQRCode"
+                    id="formatQRCodeRadio3"
+                    bind:group={formatQRCodeIndex}
+                    on:change={() => {
+                      urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")
+                    }}
+                    value={2}
+                  />
+                  <label class="form-check-label inline-block text-gray-800" for="formatQRCodeRadio3"> webp </label>
+                </div>
+              </div>
+            </div>
+            <!-- taille du QR-Code -->
+            <!-- taille QR-Code -->
+            <div class="flex flex-row items-center justify-start my-4">
+              <div class="font-bold text-coopmaths">Taille du QR-Code</div>
+              <input
+                type="number"
+                min="80"
+                max="300"
+                bind:value={QRCodeWidth}
+                class="ml-3 w-20 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
+                on:change={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")}
+              />
+            </div>
+            <div class="flex flex-col justify-center">
+              <div class="flex flex-row justify-center p-4">
+                <img id="QRCodeCanvas-2" />
+              </div>
+              <div class="flex flex-row justify-center pb-6">
+                <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Copier le QR-Code">
+                  <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => copyQRCodeImageToClipboard("QRCodeCanvas-2", "QRCodeDialog-2")}>
+                    <i class="bx text-[30px] bx-copy-alt" />
+                  </button>
+                </div>
+                <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Télécharger le QR-Code">
+                  <button type="button" class="mx-6 my-2 text-coopmaths" on:click={() => downloadQRCodeImage("QRCodeCanvas-2")}>
+                    <i class="bx text-[30px] bx-download" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Sortir du diaporama">
+          <button
+            type="button"
+            class="mx-12 my-2 text-coopmaths"
+            on:click={() => {
+              document.location.href = document.location.href.replace("&v=diaporama", "")
+            }}
+          >
+            <i class="bx text-[100px] bx-home-alt-2" />
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-{/if}
+  {/if}
+</div>
 
 <style>
   .table-wrp {
