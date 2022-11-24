@@ -177,12 +177,14 @@
     <div class="w-full" bind:this={divExercice}>
       {#if currentVue < 4}
         {#if nbOfVues > 1}
-          <div class="text-3xl font-black text-coopmaths p-6">
-            Série {currentVue + 1}
+          <div class="flex flex-row items-center justify-start text-3xl font-black text-coopmaths p-6">
+            Série {currentVue + 1} <button type="button" class="pl-4"><i class="bx bx-sm bx-refresh" /></button>
           </div>
         {:else}
-          <div class="text-3xl font-black text-coopmaths p-6">
-            {isQuestionsVisible ? "Questions" : ""}{isCorrectionVisible && isQuestionsVisible ? " / " : ""}{isCorrectionVisible ? "Réponses" : ""}
+          <div class="flex flex-row items-center justify-start text-3xl font-black text-coopmaths p-6">
+            {isQuestionsVisible ? "Questions" : ""}{isCorrectionVisible && isQuestionsVisible ? " / " : ""}{isCorrectionVisible ? "Réponses" : ""}<button type="button" class="pl-4"
+              ><i class="bx bx-sm bx-refresh" /></button
+            >
           </div>
         {/if}
         <div class="list-inside list-decimal mt-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold">
@@ -212,12 +214,15 @@
         <div class="flex flex-row justify-evenly w-full">
           {#each Array(nbOfVues) as _, currentVueId}
             <div style="width: {100 / nbOfVues}%">
-              <div class="text-3xl font-black text-coopmaths p-6">
-                Série {currentVueId + 1}
+              <div class="flex flex-row justify-start items-center text-3xl font-black text-coopmaths p-6">
+                Série {currentVueId + 1}<button type="button" class="pl-4"><i class="bx bx-sm bx-refresh" /></button>
               </div>
               {#each questions[currentVueId] as question, i}
                 <div class="pl-6">
-                  <div class="flex flex-row my-4">
+                  <div class="flex flex-row items-start my-4">
+                    <div class="pr-3">
+                      <button type="button"><i class="bx bx-refresh" /></button>
+                    </div>
                     <div class="flex flex-col justify-start items-center pr-2">
                       <span class="inline-flex text-center text-coopmaths font-black text-lg">{i + 1}.</span>
                     </div>
