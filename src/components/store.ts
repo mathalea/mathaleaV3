@@ -29,7 +29,6 @@ export function moveExercice (liste, iDepart, iArrivee) {
  */
 export function updateGlobalOptionsInURL () {
   const options = get(globalOptions)
-  console.log('globalOptions.v=' + options.v)
   const url = new URL(window.location.href)
   if (options.v) {
     url.searchParams.append('v', options.v)
@@ -51,6 +50,10 @@ export function updateGlobalOptionsInURL () {
   } else {
     url.searchParams.delete('dGlobal')
   }
-  console.log('URL : ' + url)
+  if (options.choice) {
+    url.searchParams.append('choice', options.choice)
+  } else {
+    url.searchParams.delete('choice')
+  }
   window.history.pushState({}, '', url)
 }

@@ -53,9 +53,11 @@
   ]
   let currentTransitionSound = 0
   // variables pour l'aléatoire dans le choix des exercices
-  let isSampleAskedFor: boolean = true
-  let sampleSize: number
-  let sampleIndexes: number[]
+  let isSampleAskedFor: boolean = false
+  let sampleSize: number = 1
+  let sampleIndexes: number[] = []
+  // variable pour l'ordre des questions
+  let isQuestionsShuffled: boolean = false
 
   if ($globalOptions && $globalOptions.durationGlobal) {
     isSameDurationForAll = true
@@ -101,26 +103,39 @@
     consignes = []
     sizes = []
     durations = []
-    if (isSampleAskedFor) {
-      sampleSize = exercices.length > 2 ? 2 : exercices.length // $globalOptions.choice | exercices.length
-      sampleIndexes = listOfRandomIndexes(exercices.length, sampleSize)
-    }
     for (let idVue = 0; idVue < nbOfVues; idVue++) {
       questions[idVue] = []
       corrections[idVue] = []
       for (const [i, exercice] of exercices.entries()) {
-        if (idVue > 0) {
-          exercice.seed = exercice.seed.substring(0, 4) + idVue
+        if (isSampleAskedFor) {
+          if (sampleIndexes.includes(i)) {
+            if (idVue > 0) {
+              exercice.seed = exercice.seed.substring(0, 4) + idVue
+            } else {
+              exercice.seed = exercice.seed.substring(0, 4)
+            }
+            if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
+            seedrandom(exercice.seed, { global: true })
+            exercice.nouvelleVersion()
+            questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
+            corrections[idVue] = [...corrections[idVue], ...exercice.listeCorrections]
+            questions[idVue] = questions[idVue].map(Mathalea.formatExercice)
+            corrections[idVue] = corrections[idVue].map(Mathalea.formatExercice)
+          }
         } else {
-          exercice.seed = exercice.seed.substring(0, 4)
+          if (idVue > 0) {
+            exercice.seed = exercice.seed.substring(0, 4) + idVue
+          } else {
+            exercice.seed = exercice.seed.substring(0, 4)
+          }
+          if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
+          seedrandom(exercice.seed, { global: true })
+          exercice.nouvelleVersion()
+          questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
+          corrections[idVue] = [...corrections[idVue], ...exercice.listeCorrections]
+          questions[idVue] = questions[idVue].map(Mathalea.formatExercice)
+          corrections[idVue] = corrections[idVue].map(Mathalea.formatExercice)
         }
-        if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
-        seedrandom(exercice.seed, { global: true })
-        exercice.nouvelleVersion()
-        questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
-        corrections[idVue] = [...corrections[idVue], ...exercice.listeCorrections]
-        questions[idVue] = questions[idVue].map(Mathalea.formatExercice)
-        corrections[idVue] = corrections[idVue].map(Mathalea.formatExercice)
       }
     }
     let newParams = []
@@ -375,8 +390,14 @@
    */
   function getTotalDuration() {
     let sum = 0
-    for (let exercice of exercices) {
-      sum += (isSameDurationForAll ? durationGlobal : exercice.duration) * exercice.nbQuestions
+    for (let [i, exercice] of exercices.entries()) {
+      if (isSampleAskedFor) {
+        if (sampleIndexes.includes(i)) {
+          sum += (isSameDurationForAll ? durationGlobal : exercice.duration) * exercice.nbQuestions
+        }
+      } else {
+        sum += (isSameDurationForAll ? durationGlobal : exercice.duration) * exercice.nbQuestions
+      }
     }
     return sum
   }
@@ -386,8 +407,14 @@
    */
   $: getTotalNbOfQuestions = () => {
     let sum = 0
-    for (let exercice of exercices) {
-      sum += exercice.nbQuestions
+    for (let [i, exercice] of exercices.entries()) {
+      if (isSampleAskedFor) {
+        if (sampleIndexes.includes(i)) {
+          sum += exercice.nbQuestions
+        }
+      } else {
+        sum += exercice.nbQuestions
+      }
     }
     return sum
   }
@@ -520,6 +547,46 @@
     const rect = element.getBoundingClientRect()
     return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   }
+
+  /**
+   * Gestion de la sélection du choix des exercices dans la liste
+   */
+  function handleSampleChecked() {
+    // for (let i = 0; i < 5; i++) {
+    //   console.log(shuffle([...Array(10).keys()]))
+    // }
+    isSampleAskedFor = !isSampleAskedFor
+    if (!isSampleAskedFor) {
+      sampleIndexes = []
+      globalOptions.update((l) => {
+        l.choice = undefined
+        return l
+      })
+      getTotalNbOfQuestions()
+      updateExercices()
+    } else {
+      handleSampleSizeChange()
+    }
+  }
+
+  /**
+   * Gestion du changement du nombre d'exercices à utiliser
+   * dans la liste de ceux sélectionnées
+   *
+   * 1/ on génère une liste d'indexes aléatoires sur laquelle
+   * sera batie la liste des exercices à utiliser
+   * 2/ on met à jours les paramètres dans les options et l'URL
+   */
+  function handleSampleSizeChange() {
+    sampleIndexes = [...listOfRandomIndexes(exercices.length, sampleSize)]
+    globalOptions.update((l) => {
+      l.choice = sampleSize
+      return l
+    })
+    getTotalNbOfQuestions()
+    updateExercices()
+    console.log(sampleSize + " questions / " + sampleIndexes)
+  }
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
@@ -559,17 +626,95 @@
       <div class="flex flex-row w-full justify-center items-start mx-20">
         <!-- Multivue + Liens -->
         <div class="flex flex-col w-1/5 justify-start">
+          <div class="flex flex-row justify-start items-center pb-6">
+            <div class="flex text-lg font-bold">
+              Aperçu
+              <div class="flex flex-row px-4 justify-start">
+                <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Aperçu des questions/réponses">
+                  <button
+                    type="button"
+                    class="mr-4 text-coopmaths"
+                    on:click={() => {
+                      document.location.href = document.location.href.replace("&v=diaporama", "&v=can")
+                    }}
+                  >
+                    <i class="bx text-2xl bx-detail" />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="flex text-lg font-bold">
+              Plein écran
+              <div class="flex flex-row px-4 justify-start">
+                <button type="button" on:click={switchFullScreen} class="mr-4 text-coopmaths"><i class="bx text-2xl {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}" /></button>
+              </div>
+            </div>
+          </div>
+          <div class="flex text-lg font-bold mb-2">Multivue</div>
+          <div class="flex px-4 pb-8">
+            <div class="grid grid-flow-row auto-rows-max gap-0">
+              <div class="form-check flex flex-row justify-start items-center">
+                <input
+                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                  type="radio"
+                  name="multivue"
+                  id="multivueRadio1"
+                  bind:group={nbOfVues}
+                  on:change={updateExercices}
+                  value={1}
+                />
+                <label class="form-check-label inline-block text-gray-800" for="multivueRadio1"> Pas de multivue </label>
+              </div>
+              <div class="form-check flex flex-row justify-start items-center">
+                <input
+                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                  type="radio"
+                  name="multivue"
+                  id="multivueRadio2"
+                  bind:group={nbOfVues}
+                  on:change={updateExercices}
+                  value={2}
+                />
+                <label class=" form-check-label inline-block text-gray-800" for="multivueRadio2"> Deux vues </label>
+              </div>
+              <div class="form-check flex flex-row justify-start items-center">
+                <input
+                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                  type="radio"
+                  name="multivue"
+                  id="multivueRadio3"
+                  bind:group={nbOfVues}
+                  on:change={updateExercices}
+                  value={3}
+                />
+                <label class="form-check-label inline-block text-gray-800" for="multivueRadio3"> Trois vues </label>
+              </div>
+              <div class="form-check flex flex-row justify-start items-center">
+                <input
+                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
+                  type="radio"
+                  name="multivue"
+                  id="multivueRadio4"
+                  bind:group={nbOfVues}
+                  on:change={updateExercices}
+                  value={4}
+                />
+                <label class="form-check-label inline-block text-gray-800" for="multivueRadio4"> Quatre vues </label>
+              </div>
+            </div>
+          </div>
+
           <div class="pb-8">
-            <div class="flex text-lg font-bold mb-2">Transitions</div>
+            <div class="flex text-lg font-bold mb-1">Transitions</div>
             <div class="flex flex-row justify-start items-center px-4">
               <button type="button" on:click={() => (isTransitionActive = !isTransitionActive)}
-                ><i class="text-coopmaths bx bx-sm {isTransitionActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
+                ><i class="mt-2 text-coopmaths bx bx-sm {isTransitionActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
               >
               <div class="inline-flex pl-2">{isTransitionActive ? "Carton entre questions" : "Pas de carton entre questions"}</div>
             </div>
-            <div class="flex flex-row justify-start items-center  px-4">
+            <div class="flex flex-row justify-start items-center  px-4 -mt-2">
               <button type="button" on:click={() => (isTransitionSoundActive = !isTransitionSoundActive)}
-                ><i class="text-coopmaths bx bx-sm {isTransitionSoundActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
+                ><i class="mt-2 text-coopmaths bx bx-sm {isTransitionSoundActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
               >
               <div class="inline-flex pl-2">{isTransitionSoundActive ? "Son entre questions" : "Pas de son entre questions"}</div>
             </div>
@@ -636,57 +781,39 @@
               </div>
             </div>
           </div>
-          <div class="flex text-lg font-bold mb-2">Multivue</div>
-          <div class="flex px-4 pb-8">
-            <div class="grid grid-flow-row auto-rows-max gap-0">
-              <div class="form-check flex flex-row justify-start items-center">
+          <div class="pb-6">
+            <div class="flex text-lg font-bold mb-1">Ordre</div>
+            <div class="flex flex-row justify-start items-center px-4">
+              <button type="button" on:click={() => (isQuestionsShuffled = !isQuestionsShuffled)}
+                ><i class="mt-2 text-coopmaths bx bx-sm {isQuestionsShuffled ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
+              >
+              <div class="inline-flex pl-2">{isQuestionsShuffled ? "Questions dans le désordre" : "Questions dans l'ordre"}</div>
+            </div>
+          </div>
+          <div class="pb-6">
+            <div class="flex text-lg font-bold mb-1">Choix</div>
+            <div class="flex flex-row justify-start items-center px-4">
+              <input
+                id="checkbox-choice"
+                aria-describedby="checkbox-choice"
+                type="checkbox"
+                class="bg-gray-50 border-gray-300 text-coopmaths focus:ring-3 focus:ring-coopmaths h-4 w-4 rounded"
+                on:change={handleSampleChecked}
+                disabled={exercices.length == 1}
+              />
+              <label for="checkbox-choice" class="ml-3 font-medium {exercices.length == 1 ? 'text-gray-300' : 'text-gray-900'} "
+                >Seulement certains exercices de la liste
                 <input
-                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
-                  type="radio"
-                  name="multivue"
-                  id="multivueRadio1"
-                  bind:group={nbOfVues}
-                  on:change={updateExercices}
-                  value={1}
+                  type="number"
+                  min="1"
+                  max={exercices.length}
+                  bind:value={sampleSize}
+                  on:change={handleSampleSizeChange}
+                  class="ml-3 w-14 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
+                  disabled={!isSampleAskedFor}
                 />
-                <label class="form-check-label inline-block text-gray-800" for="multivueRadio1"> Pas de multivue </label>
-              </div>
-              <div class="form-check flex flex-row justify-start items-center">
-                <input
-                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
-                  type="radio"
-                  name="multivue"
-                  id="multivueRadio2"
-                  bind:group={nbOfVues}
-                  on:change={updateExercices}
-                  value={2}
-                />
-                <label class=" form-check-label inline-block text-gray-800" for="multivueRadio2"> Deux vues </label>
-              </div>
-              <div class="form-check flex flex-row justify-start items-center">
-                <input
-                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
-                  type="radio"
-                  name="multivue"
-                  id="multivueRadio3"
-                  bind:group={nbOfVues}
-                  on:change={updateExercices}
-                  value={3}
-                />
-                <label class="form-check-label inline-block text-gray-800" for="multivueRadio3"> Trois vues </label>
-              </div>
-              <div class="form-check flex flex-row justify-start items-center">
-                <input
-                  class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-2 cursor-pointer"
-                  type="radio"
-                  name="multivue"
-                  id="multivueRadio4"
-                  bind:group={nbOfVues}
-                  on:change={updateExercices}
-                  value={4}
-                />
-                <label class="form-check-label inline-block text-gray-800" for="multivueRadio4"> Quatre vues </label>
-              </div>
+                <span class={isSampleAskedFor ? "" : "text-gray-300"}> parmi {exercices.length}</span>
+              </label>
             </div>
           </div>
           <div class="flex text-lg font-bold pb-2">
@@ -797,28 +924,6 @@
               </div>
             </div>
           </div>
-          <div class="flex text-lg font-bold pb-4">
-            Aperçu
-            <div class="flex flex-row px-4 justify-start">
-              <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Aperçu des questions/réponses">
-                <button
-                  type="button"
-                  class="mr-4 text-coopmaths"
-                  on:click={() => {
-                    document.location.href = document.location.href.replace("&v=diaporama", "&v=can")
-                  }}
-                >
-                  <i class="bx text-2xl bx-detail" />
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="flex text-lg font-bold mb-2">
-            Plein écran
-            <div class="flex flex-row px-4 justify-start">
-              <button type="button" on:click={switchFullScreen} class="mr-4 text-coopmaths"><i class="bx text-2xl {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}" /></button>
-            </div>
-          </div>
         </div>
         <!-- Tableau réglages -->
         <div class="flex flex-col w-4/6 justify-start">
@@ -864,9 +969,11 @@
                   </th>
                 </thead>
                 <tbody class="max-h-[300px] overflow-y-auto">
-                  {#each exercices as exercice}
+                  {#each exercices as exercice, i}
                     <tr>
-                      <td class="whitespace-normal px-3 py-4 text-sm">{exercice.id} - {exercice.titre}</td>
+                      <td class="whitespace-normal px-3 py-4 text-sm">
+                        <span class="{sampleIndexes.includes(i) ? '' : 'invisible'} pr-2"><i class="bx text-xs bxs-circle text-coopmaths" /></span>{exercice.id} - {exercice.titre}</td
+                      >
                       <td class="whitespace-normal px-3 py-4 text-sm"
                         ><span class="flex justify-center"
                           ><input
