@@ -1,7 +1,9 @@
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Exercice from './exercices/Exercice.js'
 import seedrandom from 'seedrandom'
-import { exercicesParams, globalOptions } from './components/store'
+import {
+  exercicesParams, globalOptions, updateGlobalOptionsInURL
+} from './components/store'
 import { get } from 'svelte/store'
 import { setReponse } from './interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from './interactif/questionMathLive'
@@ -119,28 +121,30 @@ export class Mathalea {
       if (ex.cd !== undefined) url.searchParams.append('cd', ex.cd)
       if (ex.cols !== undefined) url.searchParams.append('cols', ex.cols)
     }
-    const params = get(globalOptions)
-    if (params.v) {
-      url.searchParams.append('v', params.v)
-    } else {
-      url.searchParams.delete('v')
-    }
-    if (params.z && params.z !== '1') {
-      url.searchParams.append('z', params.z)
-    } else {
-      url.searchParams.delete('z')
-    }
-    if (params.nbVues && parseInt(params.nbVues) > 1) {
-      url.searchParams.append('nbVues', params.nbVues)
-    } else {
-      url.searchParams.delete('nbVues')
-    }
-    if (params.durationGlobal) {
-      url.searchParams.append('dGlobal', params.durationGlobal)
-    } else {
-      url.searchParams.delete('dGlobal')
-    }
+    // const params = get(globalOptions)
+    // if (params.v) {
+    //   url.searchParams.append('v', params.v)
+    // } else {
+    //   url.searchParams.delete('v')
+    // }
+    // if (params.z && params.z !== '1') {
+    //   url.searchParams.append('z', params.z)
+    // } else {
+    //   url.searchParams.delete('z')
+    // }
+    // if (params.nbVues && parseInt(params.nbVues) > 1) {
+    //   url.searchParams.append('nbVues', params.nbVues)
+    // } else {
+    //   url.searchParams.delete('nbVues')
+    // }
+    // if (params.durationGlobal) {
+    //   url.searchParams.append('dGlobal', params.durationGlobal)
+    // } else {
+    //   url.searchParams.delete('dGlobal')
+    // }
     window.history.pushState({}, '', url)
+    // retrieve globalOptions for diaporama
+    updateGlobalOptionsInURL(url)
   }
 
   /**

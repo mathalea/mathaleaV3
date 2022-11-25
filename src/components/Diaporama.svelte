@@ -9,6 +9,7 @@
   import QRCode from "qrcode"
   import { getBlobFromImageElement, copyBlobToClipboard, canCopyImagesToClipboard } from "copy-image-clipboard"
   import { context } from "../modules/context.js"
+  import { shuffle, listOfRandomIndexes } from "./utils/shuffle"
 
   let divQuestion: HTMLElement
   let divTableDurationsQuestions: HTMLElement
@@ -41,6 +42,7 @@
   const allowedImageFormats: string[] = ["image/jpeg", "image/png", "image/webp"]
   let QRCodeWidth = 100
   let stringDureeTotale = "0"
+  // variables pour les transitions entre questions
   let isTransitionActive: boolean = true
   let isTransitionSoundActive: boolean = true
   const transitionSounds = [
@@ -50,6 +52,10 @@
     new Audio("assets/sounds/transition_sound_04.mp3"),
   ]
   let currentTransitionSound = 0
+  // variables pour l'aléatoire dans le choix des exercices
+  let isSampleAskedFor: boolean = true
+  let sampleSize: number
+  let sampleIndexes: number[]
 
   if ($globalOptions && $globalOptions.durationGlobal) {
     isSameDurationForAll = true
@@ -95,10 +101,14 @@
     consignes = []
     sizes = []
     durations = []
+    if (isSampleAskedFor) {
+      sampleSize = exercices.length > 2 ? 2 : exercices.length // $globalOptions.choice | exercices.length
+      sampleIndexes = listOfRandomIndexes(exercices.length, sampleSize)
+    }
     for (let idVue = 0; idVue < nbOfVues; idVue++) {
       questions[idVue] = []
       corrections[idVue] = []
-      for (const exercice of exercices) {
+      for (const [i, exercice] of exercices.entries()) {
         if (idVue > 0) {
           exercice.seed = exercice.seed.substring(0, 4) + idVue
         } else {
@@ -114,7 +124,7 @@
       }
     }
     let newParams = []
-    for (const exercice of exercices) {
+    for (const [j, exercice] of exercices.entries()) {
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
         sizes.push(exercice.tailleDiaporama)
         if (exercice.introduction) {
