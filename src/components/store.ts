@@ -55,5 +55,10 @@ export function updateGlobalOptionsInURL () {
   } else {
     url.searchParams.delete('choice')
   }
+  if (options.shuffle) {
+    url.searchParams.append('shuffle', options.shuffle)
+  } else {
+    url.searchParams.delete('shuffle')
+  }
   window.history.pushState({}, '', url)
 }

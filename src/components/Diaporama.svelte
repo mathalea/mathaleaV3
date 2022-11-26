@@ -58,6 +58,8 @@
   let sampleIndexes: number[] = []
   // variable pour l'ordre des questions
   let isQuestionsShuffled: boolean = false
+  // indexes des questions si affichage aléatoire est demandé
+  let questionsIndexes: [number[], number[], number[], number[]] = [[], [], [], []]
 
   if ($globalOptions && $globalOptions.durationGlobal) {
     isSameDurationForAll = true
@@ -106,9 +108,9 @@
     for (let idVue = 0; idVue < nbOfVues; idVue++) {
       questions[idVue] = []
       corrections[idVue] = []
-      for (const [i, exercice] of exercices.entries()) {
+      for (const [k, exercice] of exercices.entries()) {
         if (isSampleAskedFor) {
-          if (sampleIndexes.includes(i)) {
+          if (sampleIndexes.includes(k)) {
             if (idVue > 0) {
               exercice.seed = exercice.seed.substring(0, 4) + idVue
             } else {
@@ -139,23 +141,44 @@
       }
     }
     let newParams = []
-    for (const [j, exercice] of exercices.entries()) {
-      for (let i = 0; i < exercice.listeQuestions.length; i++) {
-        sizes.push(exercice.tailleDiaporama)
-        if (exercice.introduction) {
-          consignes.push(exercice.consigne + "\n" + exercice.introduction)
-        } else {
-          consignes.push(exercice.consigne)
+    for (const [k, exercice] of exercices.entries()) {
+      if (isSampleAskedFor) {
+        if (sampleIndexes.includes(k)) {
+          for (let i = 0; i < exercice.listeQuestions.length; i++) {
+            sizes.push(exercice.tailleDiaporama)
+            if (exercice.introduction) {
+              consignes.push(exercice.consigne + "\n" + exercice.introduction)
+            } else {
+              consignes.push(exercice.consigne)
+            }
+            durations.push(exercice.duration)
+          }
+          newParams.push({
+            uuid: exercice.uuid,
+            id: exercice.id,
+            alea: exercice.seed.substring(0, 4),
+            nbQuestions: exercice.nbQuestions,
+            duration: exercice.duration,
+          })
         }
-        durations.push(exercice.duration)
+      } else {
+        for (let i = 0; i < exercice.listeQuestions.length; i++) {
+          sizes.push(exercice.tailleDiaporama)
+          if (exercice.introduction) {
+            consignes.push(exercice.consigne + "\n" + exercice.introduction)
+          } else {
+            consignes.push(exercice.consigne)
+          }
+          durations.push(exercice.duration)
+        }
+        newParams.push({
+          uuid: exercice.uuid,
+          id: exercice.id,
+          alea: exercice.seed.substring(0, 4),
+          nbQuestions: exercice.nbQuestions,
+          duration: exercice.duration,
+        })
       }
-      newParams.push({
-        uuid: exercice.uuid,
-        id: exercice.id,
-        alea: exercice.seed.substring(0, 4),
-        nbQuestions: exercice.nbQuestions,
-        duration: exercice.duration,
-      })
     }
     globalOptions.update((l) => {
       l.nbVues = nbOfVues
@@ -166,6 +189,18 @@
     totalDuration = getTotalDuration()
     stringDureeTotale = formattedTimeStamp(getTotalDuration())
     if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
+    // préparation des indexes si l'ordre aléatoire est demandé
+    for (let idVue = 0; idVue < nbOfVues; idVue++) {
+      if (isQuestionsShuffled) {
+        if (isSampleAskedFor) {
+          questionsIndexes[idVue] = shuffle([...Array(sampleSize).keys()])
+        } else {
+          questionsIndexes[idVue] = shuffle([...Array(questions[0].length).keys()])
+        }
+      } else {
+        questionsIndexes[idVue] = [...Array(questions[0].length).keys()]
+      }
+    }
   }
 
   function prevQuestion() {
@@ -587,6 +622,24 @@
     updateExercices()
     console.log(sampleSize + " questions / " + sampleIndexes)
   }
+
+  /**
+   * Gestion du bouton demandant de changer l'ordre des questions
+   */
+  function handleRandomQuestionOrder() {
+    isQuestionsShuffled = !isQuestionsShuffled
+    globalOptions.update((l) => {
+      l.shuffle = isQuestionsShuffled
+      return l
+    })
+    updateExercices()
+  }
+
+  function handleQuit() {
+    document.location.href = document.location.href.replace("&v=diaporama", "")
+    isSampleAskedFor = false
+    updateExercices()
+  }
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
@@ -784,9 +837,7 @@
           <div class="pb-6">
             <div class="flex text-lg font-bold mb-1">Ordre</div>
             <div class="flex flex-row justify-start items-center px-4">
-              <button type="button" on:click={() => (isQuestionsShuffled = !isQuestionsShuffled)}
-                ><i class="mt-2 text-coopmaths bx bx-sm {isQuestionsShuffled ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
-              >
+              <button type="button" on:click={handleRandomQuestionOrder}><i class="mt-2 text-coopmaths bx bx-sm {isQuestionsShuffled ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button>
               <div class="inline-flex pl-2">{isQuestionsShuffled ? "Questions dans le désordre" : "Questions dans l'ordre"}</div>
             </div>
           </div>
@@ -1030,11 +1081,11 @@
         <div bind:this={divQuestion} class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : ''} place-content-stretch justify-items-center w-full">
           {#each Array(nbOfVues) as _, i}
             <div class="relative flex flex-col justify-center justify-self-stretch p-8 {nbOfVues > 1 ? 'bg-gray-300' : ''} text-center">
-              <div class="font-light mb-8">{@html consignes[currentQuestion]}</div>
+              <div class="font-light mb-8">{@html consignes[questionsIndexes[i][currentQuestion]]}</div>
               {#if nbOfVues > 1}
                 <div class="absolute bg-coopmaths text-white font-black -top-1 -left-1 rounded-tl-2xl w-1/12 h-1/12">{i + 1}</div>
               {/if}
-              <div>{@html isCorrectionVisible ? corrections[i][currentQuestion] : questions[i][currentQuestion]}</div>
+              <div>{@html isCorrectionVisible ? corrections[i][questionsIndexes[i][currentQuestion]] : questions[i][questionsIndexes[i][currentQuestion]]}</div>
             </div>
           {/each}
         </div>
@@ -1094,15 +1145,7 @@
               </div>
             </div>
             <button type="button" on:click={switchCorrectionVisible}><i class="bx ml-2 bx-lg {isCorrectionVisible ? 'bx-hide' : 'bx-show'}" /></button>
-            <button
-              type="button"
-              on:click={() => {
-                document.location.href = document.location.href.replace("&v=diaporama", "")
-              }}
-              on:keydown={() => {
-                document.location.href = document.location.href.replace("&v=diaporama", "")
-              }}><i class="bx ml-2 bx-lg bx-power-off" /></button
-            >
+            <button type="button" on:click={handleQuit} on:keydown={handleQuit}><i class="bx ml-2 bx-lg bx-power-off" /></button>
           </div>
         </div>
       </footer>
