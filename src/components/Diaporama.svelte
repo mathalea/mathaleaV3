@@ -791,7 +791,7 @@
             </div>
           </div>
           <div class="pb-6">
-            <div class="flex text-lg font-bold mb-1">Choix</div>
+            <div class="flex text-lg font-bold mb-1">Choix aléatoire</div>
             <div class="flex flex-row justify-start items-center px-4">
               <input
                 id="checkbox-choice"
@@ -801,19 +801,19 @@
                 on:change={handleSampleChecked}
                 disabled={exercices.length == 1}
               />
-              <label for="checkbox-choice" class="ml-3 font-medium {exercices.length == 1 ? 'text-gray-300' : 'text-gray-900'} "
-                >Seulement certains exercices de la liste
-                <input
-                  type="number"
-                  min="1"
-                  max={exercices.length}
-                  bind:value={sampleSize}
-                  on:change={handleSampleSizeChange}
-                  class="ml-3 w-14 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
-                  disabled={!isSampleAskedFor}
-                />
-                <span class={isSampleAskedFor ? "" : "text-gray-300"}> parmi {exercices.length}</span>
-              </label>
+              <label for="checkbox-choice" class="ml-3 font-medium {exercices.length == 1 ? 'text-gray-300' : 'text-gray-900'} ">Seulement certains exercices de la liste </label>
+            </div>
+            <div class="pl-8">
+              <input
+                type="number"
+                min="1"
+                max={exercices.length}
+                bind:value={sampleSize}
+                on:change={handleSampleSizeChange}
+                class="ml-3 w-14 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
+                disabled={!isSampleAskedFor}
+              />
+              <span class={isSampleAskedFor ? "" : "text-gray-300"}> parmi {exercices.length}</span>
             </div>
           </div>
           <div class="flex text-lg font-bold pb-2">
@@ -956,7 +956,9 @@
             <div class="table-wrp block max-h-[300px] shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
               <table class="table-fixed min-w-full divide-y divide-gray-300">
                 <thead class="bg-gray-100 sticky top-0">
-                  <th scope="col" class="py-3.5 pl-4 pr-3 w-4/6 text-left text-sm font-semibold text-gray-900 sm:pl">Exercices</th>
+                  <th scope="col" class="py-3.5 pl-4 pr-3 w-4/6 text-left text-sm font-semibold text-gray-900 sm:pl">
+                    Exercices<span class="pl-2 font-extralight text-gray-500 {isSampleAskedFor ? '' : 'invisible'}">({sampleSize} parmi {exercices.length})</span>
+                  </th>
                   <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">
                     <div>Durées par question (s)</div>
                     <div class="text-coopmaths text-xs">

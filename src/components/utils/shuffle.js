@@ -1,3 +1,4 @@
+import seedrandom from 'seedrandom'
 /**
  * À partir d'un tableau passé en paramètre, construit un nouveau
  * tableau où l'ordre des éléments aura changé aléatoirement.
@@ -15,9 +16,10 @@
  * @author sylvain
  */
 export function shuffle (unshuffledArray) {
+  const randomNumber = seedrandom()
   return unshuffledArray
-    .map(value => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
+    .map(value => ({ value, sortingKey: randomNumber() }))
+    .sort((a, b) => a.sortingKey - b.sortingKey)
     .map(({ value }) => value)
 }
 
