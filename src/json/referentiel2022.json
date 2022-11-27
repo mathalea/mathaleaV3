@@ -5117,8 +5117,8 @@
         "uuid": "96b94"
       },
       "6C32-1": {
-        "id": "6C32-1",
         "datePublication": "27/11/2022",
+        "id": "6C32-1",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -6966,8 +6966,8 @@
         "uuid": "cd0d8"
       },
       "5C12-2": {
-        "id": "5C12-2",
         "datePublication": "26/11/2022",
+        "id": "5C12-2",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -6978,8 +6978,8 @@
         "uuid": "41f23"
       },
       "5C12-3": {
-        "id": "5C12-3",
         "datePublication": "26/11/2022",
+        "id": "5C12-3",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -9857,6 +9857,18 @@
         "url": "3e/3G11.js",
         "uuid": "18e25"
       },
+      "3G11-1": {
+        "datePublication": "27/11/2022",
+        "id": "3G11-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Homothétie - Rapport",
+        "url": "3e/3G11-1.js",
+        "uuid": "1ebf7"
+      },
       "3G12": {
         "id": "3G12",
         "tags": {
@@ -10425,11 +10437,11 @@
       "3L13-2": {
         "id": "3L13-2",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": true,
           "Can": false
         },
-        "titre": "Equations résolvantes pour le théorème de Thalès",
+        "titre": "Équations résolvantes pour le théorème de Thalès",
         "url": "3e/3L13-2.js",
         "uuid": "6516e"
       },

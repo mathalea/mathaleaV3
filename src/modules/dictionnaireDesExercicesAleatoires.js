@@ -3030,6 +3030,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "3G11-1": {
+    "titre": "Homothétie - Rapport",
+    "url": "/exercices/3e/3G11-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "3G11-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "3G11": {
     "titre": "Construire l'image d'un point par une homothetie avec cible auto-corrective",
     "url": "/exercices/3e/3G11.js",
@@ -3858,9 +3873,12 @@ export default {
     }
   },
   "3L13-2": {
-    "titre": "Equations résolvantes pour le théorème de Thalès",
+    "titre": "Équations résolvantes pour le théorème de Thalès",
     "url": "/exercices/3e/3L13-2.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3L13-2",
@@ -5288,7 +5306,7 @@ export default {
     "url": "/exercices/4e/4G21.js",
     "amcReady": true,
     "amcType": {
-      "text": "qcmMono"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "qcm",
