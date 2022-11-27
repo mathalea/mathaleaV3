@@ -5116,6 +5116,18 @@
         "url": "6e/6C32.js",
         "uuid": "96b94"
       },
+      "6C32-1": {
+        "id": "6C32-1",
+        "datePublication": "27/11/2022",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Résoudre des problèmes (plus complexes)",
+        "url": "6e/6C32-1.js",
+        "uuid": "e906e"
+      },
       "6C33": {
         "id": "6C33",
         "tags": {
@@ -6304,6 +6316,7 @@
         "uuid": "1acf7"
       },
       "6N23-2": {
+        "dateModification": "22/11/2022",
         "id": "6N23-2",
         "tags": {
           "AMC": true,
@@ -6315,6 +6328,7 @@
         "uuid": "12773"
       },
       "6N23-3": {
+        "dateModification": "22/11/2022",
         "id": "6N23-3",
         "tags": {
           "AMC": true,
@@ -6500,7 +6514,7 @@
         "datePublication": "28/09/22",
         "id": "6N31-5",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": true,
           "Can": false
         },
@@ -6950,6 +6964,30 @@
         "titre": "Traduire une phrase par une expression et la calculer",
         "url": "5e/5C12-1.js",
         "uuid": "cd0d8"
+      },
+      "5C12-2": {
+        "id": "5C12-2",
+        "datePublication": "26/11/2022",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Distributivité numérique",
+        "url": "5e/5C12-2.js",
+        "uuid": "41f23"
+      },
+      "5C12-3": {
+        "id": "5C12-3",
+        "datePublication": "26/11/2022",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Distributivité et calcul mental",
+        "url": "5e/5C12-3.js",
+        "uuid": "9103e"
       }
     },
     "5G1": {
