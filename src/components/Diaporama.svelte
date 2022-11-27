@@ -447,7 +447,7 @@
     }
     QRCode.toDataURL(diapoURL, options, (err, url) => {
       if (err) throw err
-      let img = document.getElementById(imageId)
+      let img = document.getElementById(imageId) as HTMLImageElement
       img.src = url
     })
   }
@@ -461,7 +461,7 @@
    */
   function copyQRCodeImageToClipboard(imageId, dialogId) {
     if (canCopyImagesToClipboard()) {
-      const imageElement = document.getElementById(imageId)
+      const imageElement = document.getElementById(imageId) as HTMLImageElement
       getBlobFromImageElement(imageElement)
         .then((blob) => {
           return copyBlobToClipboard(blob)
