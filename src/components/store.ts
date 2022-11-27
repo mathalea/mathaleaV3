@@ -12,6 +12,9 @@ export const exercicesParams = writable([])
  */
 export const globalOptions = writable({ v: '', z: '1' } as {v?: string, z?: string, durationGlobal?: number, nbVues?: number, shuffle?: boolean, choice?: number})
 
+export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: [] })
+export const selectedExercices = writable([])
+
 /**
  *
  * @param liste

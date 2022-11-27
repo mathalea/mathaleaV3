@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { globalOptions } from "./store"
+  import { globalOptions, questionsOrder } from "./store"
   import { onMount, tick } from "svelte"
   import { Mathalea } from "../Mathalea"
   import { exercicesParams } from "./store"
@@ -17,6 +17,7 @@
   let isCorrectionVisible = false
   let isQuestionsVisible = true
   let divExercice: HTMLElement
+  let questionsRealIndexes = $questionsOrder.indexes
 
   onMount(async () => {
     context.vue = "can"
@@ -70,6 +71,7 @@
         consignes.push(exercice.consigne)
       }
     }
+    console.log("can/store = " + $questionsOrder.indexes)
     await tick()
     if (divExercice) Mathalea.renderDiv(divExercice)
   }
@@ -114,18 +116,28 @@
     updateExercices()
     Mathalea.updateUrl($exercicesParams)
   }
+
+  /**
+   * Gérer le changement d'affichage (quel composant remplace l'autre dans App.svelte)
+   * @param {string} oldComponent composant à changer
+   * @param {string} newComponent composant à afficher
+   */
+  function handleComponentChange(oldComponent, newComponent) {
+    const oldPart = "&v=" + oldComponent
+    const newPart = newComponent === "" ? "" : "&v=" + newComponent
+    const urlString = window.location.href.replace(oldPart, newPart)
+    window.history.pushState(newComponent, "", urlString)
+    globalOptions.update((l) => {
+      l.v = newComponent
+      return l
+    })
+  }
 </script>
 
 <main class="flex h-full dark:bg-white dark:text-slate-800">
   <!-- boutons commandes -->
   <aside class="flex flex-col bg-coopmaths text-white w-14 min-h-screen py-4 items-center">
-    <button
-      type="button"
-      class="pb-8"
-      on:click={() => {
-        document.location.href = document.location.href.replace("&v=can", "&v=diaporama")
-      }}><i class="bx bx-sm bx-arrow-back" /></button
-    >
+    <button type="button" class="pb-8" on:click={() => handleComponentChange("can", "diaporama")}><i class="bx bx-sm bx-arrow-back" /></button>
     <button type="button" class="pb-8" on:click={newDataForAll}><i class="bx bx-sm bx-refresh" /></button>
     <!-- <button type="button" class="hover:text-coopmaths-dark" on:click={newDataForAll}><i class="bx bx-sm bx-refresh" /></button> -->
 
@@ -197,12 +209,12 @@
                 <div class="flex flex-col justify-start items-start">
                   {#if isQuestionsVisible}
                     <div>
-                      {@html Mathalea.formatExercice(question)}
+                      {@html Mathalea.formatExercice(questions[currentVue][$questionsOrder.indexes[i]])}
                     </div>
                   {/if}
                   {#if isCorrectionVisible}
                     <div class="bg-gray-200 {isQuestionsVisible ? 'my-4' : ''} p-2">
-                      {@html Mathalea.formatExercice(corrections[currentVue][i])}
+                      {@html Mathalea.formatExercice(corrections[currentVue][$questionsOrder.indexes[i]])}
                     </div>
                   {/if}
                 </div>
@@ -229,12 +241,12 @@
                     <div class="flex flex-col justify-start items-start">
                       {#if isQuestionsVisible}
                         <div>
-                          {@html Mathalea.formatExercice(question)}
+                          {@html Mathalea.formatExercice(questions[currentVue][$questionsOrder.indexes[i]])}
                         </div>
                       {/if}
                       {#if isCorrectionVisible}
                         <div class="bg-gray-200 {isQuestionsVisible ? 'my-4' : ''} p-2">
-                          {@html Mathalea.formatExercice(corrections[currentVueId][i])}
+                          {@html Mathalea.formatExercice(corrections[currentVueId][$questionsOrder.indexes[i]])}
                         </div>
                       {/if}
                     </div>

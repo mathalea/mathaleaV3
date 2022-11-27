@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from "svelte"
   import { Mathalea } from "../Mathalea"
-  import { exercicesParams, globalOptions } from "./store"
+  import { exercicesParams, globalOptions, questionsOrder, selectedExercices } from "./store"
   import type { Exercice } from "./utils/typeExercice"
   import seedrandom from "seedrandom"
   import { tweened } from "svelte/motion"
@@ -59,7 +59,7 @@
   // variable pour l'ordre des questions
   let isQuestionsShuffled: boolean = false
   // indexes des questions si affichage aléatoire est demandé
-  let questionsIndexes: [number[], number[], number[], number[]] = [[], [], [], []]
+  let questionsIndexes: number = []
 
   if ($globalOptions && $globalOptions.durationGlobal) {
     isSameDurationForAll = true
@@ -142,43 +142,22 @@
     }
     let newParams = []
     for (const [k, exercice] of exercices.entries()) {
-      if (isSampleAskedFor) {
-        if (sampleIndexes.includes(k)) {
-          for (let i = 0; i < exercice.listeQuestions.length; i++) {
-            sizes.push(exercice.tailleDiaporama)
-            if (exercice.introduction) {
-              consignes.push(exercice.consigne + "\n" + exercice.introduction)
-            } else {
-              consignes.push(exercice.consigne)
-            }
-            durations.push(exercice.duration)
-          }
-          newParams.push({
-            uuid: exercice.uuid,
-            id: exercice.id,
-            alea: exercice.seed.substring(0, 4),
-            nbQuestions: exercice.nbQuestions,
-            duration: exercice.duration,
-          })
+      for (let i = 0; i < exercice.listeQuestions.length; i++) {
+        sizes.push(exercice.tailleDiaporama)
+        if (exercice.introduction) {
+          consignes.push(exercice.consigne + "\n" + exercice.introduction)
+        } else {
+          consignes.push(exercice.consigne)
         }
-      } else {
-        for (let i = 0; i < exercice.listeQuestions.length; i++) {
-          sizes.push(exercice.tailleDiaporama)
-          if (exercice.introduction) {
-            consignes.push(exercice.consigne + "\n" + exercice.introduction)
-          } else {
-            consignes.push(exercice.consigne)
-          }
-          durations.push(exercice.duration)
-        }
-        newParams.push({
-          uuid: exercice.uuid,
-          id: exercice.id,
-          alea: exercice.seed.substring(0, 4),
-          nbQuestions: exercice.nbQuestions,
-          duration: exercice.duration,
-        })
+        durations.push(exercice.duration)
       }
+      newParams.push({
+        uuid: exercice.uuid,
+        id: exercice.id,
+        alea: exercice.seed.substring(0, 4),
+        nbQuestions: exercice.nbQuestions,
+        duration: exercice.duration,
+      })
     }
     globalOptions.update((l) => {
       l.nbVues = nbOfVues
@@ -190,17 +169,12 @@
     stringDureeTotale = formattedTimeStamp(getTotalDuration())
     if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
     // préparation des indexes si l'ordre aléatoire est demandé
-    for (let idVue = 0; idVue < nbOfVues; idVue++) {
-      if (isQuestionsShuffled) {
-        if (isSampleAskedFor) {
-          questionsIndexes[idVue] = shuffle([...Array(sampleSize).keys()])
-        } else {
-          questionsIndexes[idVue] = shuffle([...Array(questions[0].length).keys()])
-        }
-      } else {
-        questionsIndexes[idVue] = [...Array(questions[0].length).keys()]
-      }
+    if ($questionsOrder.isQuestionsShuffled) {
+      $questionsOrder.indexes = shuffle([...Array(questions[0].length).keys()])
+    } else {
+      $questionsOrder.indexes = [...Array(questions[0].length).keys()]
     }
+    console.log("diapo/store = " + $questionsOrder.indexes)
   }
 
   function prevQuestion() {
@@ -627,18 +601,34 @@
    * Gestion du bouton demandant de changer l'ordre des questions
    */
   function handleRandomQuestionOrder() {
-    isQuestionsShuffled = !isQuestionsShuffled
+    $questionsOrder.isQuestionsShuffled = !$questionsOrder.isQuestionsShuffled
     globalOptions.update((l) => {
-      l.shuffle = isQuestionsShuffled
+      l.shuffle = $questionsOrder.isQuestionsShuffled
       return l
     })
     updateExercices()
   }
 
   function handleQuit() {
-    document.location.href = document.location.href.replace("&v=diaporama", "")
+    handleComponentChange("diaporama", "")
     isSampleAskedFor = false
     updateExercices()
+  }
+
+  /**
+   * Gérer le changement d'affichage (quel composant remplace l'autre dans App.svelte)
+   * @param {string} oldComponent composant à changer
+   * @param {string} newComponent composant à afficher
+   */
+  function handleComponentChange(oldComponent, newComponent) {
+    const oldPart = "&v=" + oldComponent
+    const newPart = newComponent === "" ? "" : "&v=" + newComponent
+    const urlString = window.location.href.replace(oldPart, newPart)
+    window.history.pushState(newComponent, "", urlString)
+    globalOptions.update((l) => {
+      l.v = newComponent
+      return l
+    })
   }
 </script>
 
@@ -649,15 +639,7 @@
     <div id="start" class="flex flex-col h-screen scrollbar-hide" data-theme="daisytheme">
       <div class="flex flex-row justify-end p-6">
         <button type="button"
-          ><i
-            class="relative bx ml-2 bx-lg bx-x hover:text-coopmaths"
-            on:click={() => {
-              document.location.href = document.location.href.replace("&v=diaporama", "")
-            }}
-            on:keydown={() => {
-              document.location.href = document.location.href.replace("&v=diaporama", "")
-            }}
-          /></button
+          ><i class="relative bx ml-2 bx-lg bx-x hover:text-coopmaths" on:click={() => handleComponentChange("diaporama", "")} on:keydown={() => handleComponentChange("diaporama", "")} /></button
         >
       </div>
       <div class="flex flex-row items-center justify-center w-full mb-14 mt-1">
@@ -684,13 +666,7 @@
               Aperçu
               <div class="flex flex-row px-4 justify-start">
                 <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Aperçu des questions/réponses">
-                  <button
-                    type="button"
-                    class="mr-4 text-coopmaths"
-                    on:click={() => {
-                      document.location.href = document.location.href.replace("&v=diaporama", "&v=can")
-                    }}
-                  >
+                  <button type="button" class="mr-4 text-coopmaths" on:click={() => handleComponentChange("diaporama", "can")}>
                     <i class="bx text-2xl bx-detail" />
                   </button>
                 </div>
@@ -837,8 +813,9 @@
           <div class="pb-6">
             <div class="flex text-lg font-bold mb-1">Ordre</div>
             <div class="flex flex-row justify-start items-center px-4">
-              <button type="button" on:click={handleRandomQuestionOrder}><i class="mt-2 text-coopmaths bx bx-sm {isQuestionsShuffled ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button>
-              <div class="inline-flex pl-2">{isQuestionsShuffled ? "Questions dans le désordre" : "Questions dans l'ordre"}</div>
+              <button type="button" on:click={handleRandomQuestionOrder}><i class="mt-2 text-coopmaths bx bx-sm {$questionsOrder.isQuestionsShuffled ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
+              >
+              <div class="inline-flex pl-2">{$questionsOrder.isQuestionsShuffled ? "Questions dans le désordre" : "Questions dans l'ordre"}</div>
             </div>
           </div>
           <div class="pb-6">
@@ -1081,11 +1058,11 @@
         <div bind:this={divQuestion} class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : ''} place-content-stretch justify-items-center w-full">
           {#each Array(nbOfVues) as _, i}
             <div class="relative flex flex-col justify-center justify-self-stretch p-8 {nbOfVues > 1 ? 'bg-gray-300' : ''} text-center">
-              <div class="font-light mb-8">{@html consignes[questionsIndexes[i][currentQuestion]]}</div>
+              <div class="font-light mb-8">{@html consignes[$questionsOrder.indexes[currentQuestion]]}</div>
               {#if nbOfVues > 1}
                 <div class="absolute bg-coopmaths text-white font-black -top-1 -left-1 rounded-tl-2xl w-1/12 h-1/12">{i + 1}</div>
               {/if}
-              <div>{@html isCorrectionVisible ? corrections[i][questionsIndexes[i][currentQuestion]] : questions[i][questionsIndexes[i][currentQuestion]]}</div>
+              <div>{@html isCorrectionVisible ? corrections[i][$questionsOrder.indexes[currentQuestion]] : questions[i][$questionsOrder.indexes[currentQuestion]]}</div>
             </div>
           {/each}
         </div>
@@ -1160,13 +1137,7 @@
           <button type="button" class="mx-12 my-2 text-coopmaths" on:click={returnToStart} on:keydown={returnToStart}><i class="bx text-[100px] bx-arrow-back" /></button>
         </div>
         <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Questions + Réponses">
-          <button
-            type="button"
-            class="mx-12 my-2 text-coopmaths"
-            on:click={() => {
-              document.location.href = document.location.href.replace("&v=diaporama", "&v=can")
-            }}><i class="bx text-[100px] bx-detail" /></button
-          >
+          <button type="button" class="mx-12 my-2 text-coopmaths" on:click={() => handleComponentChange("diaporama", "can")}><i class="bx text-[100px] bx-detail" /></button>
         </div>
         <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Lien du diaporama">
           <button type="button" class="mx-12 my-2 text-coopmaths" on:click={() => copyLinkToClipboard("linkCopiedDialog-2")}>
@@ -1272,13 +1243,7 @@
           </div>
         </div>
         <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Sortir du diaporama">
-          <button
-            type="button"
-            class="mx-12 my-2 text-coopmaths"
-            on:click={() => {
-              document.location.href = document.location.href.replace("&v=diaporama", "")
-            }}
-          >
+          <button type="button" class="mx-12 my-2 text-coopmaths" on:click={() => handleComponentChange("diaporama", "")}>
             <i class="bx text-[100px] bx-home-alt-2" />
           </button>
         </div>
