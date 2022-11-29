@@ -6116,7 +6116,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Encadrer un entier entre deux entiers consécutifs",
+        "titre": "Encadrer un entier",
         "url": "6e/6N11-3.js",
         "uuid": "29b40"
       },
@@ -10251,7 +10251,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Donner l'opposé d'une expression",
+        "titre": "Supprimer les parenthèses puis réduire une expression",
         "url": "3e/3L10.js",
         "uuid": "603a8"
       },
@@ -10265,6 +10265,18 @@
         "titre": "Additionner ou soustraire une expression entre parenthèses",
         "url": "3e/3L10-1.js",
         "uuid": "815eb"
+      },
+      "3L10-2": {
+        "id": "3L10-2",
+        "datePublication": "28/11/2022",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Supprimer les parenthèses puis réduire une expression (niveau 2)",
+        "url": "3e/3L10-2.js",
+        "uuid": "c88ba"
       },
       "3L11": {
         "id": "3L11",
