@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { globalOptions, questionsOrder } from "./store"
+  import { globalOptions, questionsOrder, selectedExercises } from "./store"
   import { onMount, tick } from "svelte"
   import { Mathalea } from "../Mathalea"
   import { exercicesParams } from "./store"
@@ -51,7 +51,7 @@
     for (let idVue = 0; idVue < nbOfVues; idVue++) {
       questions[idVue] = []
       corrections[idVue] = []
-      for (const exercice of exercices) {
+      for (const [k, exercice] of exercices.entries()) {
         if (idVue > 0) {
           exercice.seed = exercice.seed.substring(0, 4) + idVue
         } else {
@@ -60,10 +60,12 @@
         if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
         seedrandom(exercice.seed, { global: true })
         exercice.nouvelleVersion()
-        questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
-        corrections[idVue] = [...corrections[idVue], ...exercice.listeCorrections]
-        questions[idVue] = questions[idVue].map(Mathalea.formatExercice)
-        corrections[idVue] = corrections[idVue].map(Mathalea.formatExercice)
+        if ($selectedExercises.indexes.includes(k)) {
+          questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
+          corrections[idVue] = [...corrections[idVue], ...exercice.listeCorrections]
+          questions[idVue] = questions[idVue].map(Mathalea.formatExercice)
+          corrections[idVue] = corrections[idVue].map(Mathalea.formatExercice)
+        }
       }
     }
     for (const exercice of exercices) {

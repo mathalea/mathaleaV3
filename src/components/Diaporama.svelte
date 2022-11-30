@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from "svelte"
   import { Mathalea } from "../Mathalea"
-  import { exercicesParams, globalOptions, questionsOrder, selectedExercices } from "./store"
+  import { exercicesParams, globalOptions, questionsOrder, selectedExercises } from "./store"
   import type { Exercice } from "./utils/typeExercice"
   import seedrandom from "seedrandom"
   import { tweened } from "svelte/motion"
@@ -52,14 +52,6 @@
     new Audio("assets/sounds/transition_sound_04.mp3"),
   ]
   let currentTransitionSound = 0
-  // variables pour l'aléatoire dans le choix des exercices
-  let isSampleAskedFor: boolean = false
-  let sampleSize: number = 1
-  let sampleIndexes: number[] = []
-  // variable pour l'ordre des questions
-  let isQuestionsShuffled: boolean = false
-  // indexes des questions si affichage aléatoire est demandé
-  let questionsIndexes: number = []
 
   if ($globalOptions && $globalOptions.durationGlobal) {
     isSameDurationForAll = true
@@ -93,6 +85,9 @@
       exercices.push(exercice)
     }
     exercices = exercices
+    if (!$selectedExercises.isActive) {
+      $selectedExercises.indexes = [...Array(exercices.length).keys()]
+    }
     updateExercices()
     await tick()
     if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
@@ -109,30 +104,15 @@
       questions[idVue] = []
       corrections[idVue] = []
       for (const [k, exercice] of exercices.entries()) {
-        if (isSampleAskedFor) {
-          if (sampleIndexes.includes(k)) {
-            if (idVue > 0) {
-              exercice.seed = exercice.seed.substring(0, 4) + idVue
-            } else {
-              exercice.seed = exercice.seed.substring(0, 4)
-            }
-            if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
-            seedrandom(exercice.seed, { global: true })
-            exercice.nouvelleVersion()
-            questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
-            corrections[idVue] = [...corrections[idVue], ...exercice.listeCorrections]
-            questions[idVue] = questions[idVue].map(Mathalea.formatExercice)
-            corrections[idVue] = corrections[idVue].map(Mathalea.formatExercice)
-          }
+        if (idVue > 0) {
+          exercice.seed = exercice.seed.substring(0, 4) + idVue
         } else {
-          if (idVue > 0) {
-            exercice.seed = exercice.seed.substring(0, 4) + idVue
-          } else {
-            exercice.seed = exercice.seed.substring(0, 4)
-          }
-          if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
-          seedrandom(exercice.seed, { global: true })
-          exercice.nouvelleVersion()
+          exercice.seed = exercice.seed.substring(0, 4)
+        }
+        if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
+        seedrandom(exercice.seed, { global: true })
+        exercice.nouvelleVersion()
+        if ($selectedExercises.indexes.includes(k)) {
           questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
           corrections[idVue] = [...corrections[idVue], ...exercice.listeCorrections]
           questions[idVue] = questions[idVue].map(Mathalea.formatExercice)
@@ -400,8 +380,8 @@
   function getTotalDuration() {
     let sum = 0
     for (let [i, exercice] of exercices.entries()) {
-      if (isSampleAskedFor) {
-        if (sampleIndexes.includes(i)) {
+      if ($selectedExercises.isActive) {
+        if ($selectedExercises.indexes.includes(i)) {
           sum += (isSameDurationForAll ? durationGlobal : exercice.duration) * exercice.nbQuestions
         }
       } else {
@@ -417,8 +397,8 @@
   $: getTotalNbOfQuestions = () => {
     let sum = 0
     for (let [i, exercice] of exercices.entries()) {
-      if (isSampleAskedFor) {
-        if (sampleIndexes.includes(i)) {
+      if ($selectedExercises.isActive) {
+        if ($selectedExercises.indexes.includes(i)) {
           sum += exercice.nbQuestions
         }
       } else {
@@ -564,9 +544,9 @@
     // for (let i = 0; i < 5; i++) {
     //   console.log(shuffle([...Array(10).keys()]))
     // }
-    isSampleAskedFor = !isSampleAskedFor
-    if (!isSampleAskedFor) {
-      sampleIndexes = []
+    $selectedExercises.isActive = !$selectedExercises.isActive
+    if (!$selectedExercises.isActive) {
+      $selectedExercises.indexes = [...Array(exercices.length).keys()]
       globalOptions.update((l) => {
         l.choice = undefined
         return l
@@ -587,14 +567,13 @@
    * 2/ on met à jours les paramètres dans les options et l'URL
    */
   function handleSampleSizeChange() {
-    sampleIndexes = [...listOfRandomIndexes(exercices.length, sampleSize)]
+    $selectedExercises.indexes = [...listOfRandomIndexes(exercices.length, $selectedExercises.count)]
     globalOptions.update((l) => {
-      l.choice = sampleSize
+      l.choice = $selectedExercises.count
       return l
     })
     getTotalNbOfQuestions()
     updateExercices()
-    console.log(sampleSize + " questions / " + sampleIndexes)
   }
 
   /**
@@ -611,7 +590,7 @@
 
   function handleQuit() {
     handleComponentChange("diaporama", "")
-    isSampleAskedFor = false
+    // $selectedExercises.isActive = false
     updateExercices()
   }
 
@@ -826,6 +805,7 @@
                 aria-describedby="checkbox-choice"
                 type="checkbox"
                 class="bg-gray-50 border-gray-300 text-coopmaths focus:ring-3 focus:ring-coopmaths h-4 w-4 rounded"
+                checked={$selectedExercises.isActive}
                 on:change={handleSampleChecked}
                 disabled={exercices.length == 1}
               />
@@ -836,12 +816,12 @@
                 type="number"
                 min="1"
                 max={exercices.length}
-                bind:value={sampleSize}
+                bind:value={$selectedExercises.count}
                 on:change={handleSampleSizeChange}
                 class="ml-3 w-14 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
-                disabled={!isSampleAskedFor}
+                disabled={!$selectedExercises.isActive}
               />
-              <span class={isSampleAskedFor ? "" : "text-gray-300"}> parmi {exercices.length}</span>
+              <span class={$selectedExercises.isActive ? "" : "text-gray-300"}> parmi {exercices.length}</span>
             </div>
           </div>
           <div class="flex text-lg font-bold pb-2">
@@ -985,7 +965,7 @@
               <table class="table-fixed min-w-full divide-y divide-gray-300">
                 <thead class="bg-gray-100 sticky top-0">
                   <th scope="col" class="py-3.5 pl-4 pr-3 w-4/6 text-left text-sm font-semibold text-gray-900 sm:pl">
-                    Exercices<span class="pl-2 font-extralight text-gray-500 {isSampleAskedFor ? '' : 'invisible'}">({sampleSize} parmi {exercices.length})</span>
+                    Exercices<span class="pl-2 font-extralight text-gray-500 {$selectedExercises.isActive ? '' : 'invisible'}">({$selectedExercises.count} parmi {exercices.length})</span>
                   </th>
                   <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-gray-900">
                     <div>Durées par question (s)</div>
@@ -1002,7 +982,8 @@
                   {#each exercices as exercice, i}
                     <tr>
                       <td class="whitespace-normal px-3 py-4 text-sm">
-                        <span class="{sampleIndexes.includes(i) ? '' : 'invisible'} pr-2"><i class="bx text-xs bxs-circle text-coopmaths" /></span>{exercice.id} - {exercice.titre}</td
+                        <span class="{$selectedExercises.isActive && $selectedExercises.indexes.includes(i) ? '' : 'invisible'} pr-2"><i class="bx text-xs bxs-circle text-coopmaths" /></span
+                        >{exercice.id} - {exercice.titre}</td
                       >
                       <td class="whitespace-normal px-3 py-4 text-sm"
                         ><span class="flex justify-center"
