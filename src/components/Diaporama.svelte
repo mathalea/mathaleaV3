@@ -617,9 +617,9 @@
   {#if currentQuestion === -1}
     <div id="start" class="flex flex-col h-screen scrollbar-hide" data-theme="daisytheme">
       <div class="flex flex-row justify-end p-6">
-        <button type="button"
-          ><i class="relative bx ml-2 bx-lg bx-x hover:text-coopmaths" on:click={() => handleComponentChange("diaporama", "")} on:keydown={() => handleComponentChange("diaporama", "")} /></button
-        >
+        <button type="button">
+          <i class="relative bx ml-2 bx-lg bx-x hover:text-coopmaths" on:click={() => handleComponentChange("diaporama", "")} on:keydown={() => handleComponentChange("diaporama", "")} />
+        </button>
       </div>
       <div class="flex flex-row items-center justify-center w-full mb-14 mt-1">
         <button
@@ -715,15 +715,15 @@
           <div class="pb-8">
             <div class="flex text-lg font-bold mb-1">Transitions</div>
             <div class="flex flex-row justify-start items-center px-4">
-              <button type="button" on:click={() => (isTransitionActive = !isTransitionActive)}
-                ><i class="mt-2 text-coopmaths bx bx-sm {isTransitionActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
-              >
+              <button type="button" on:click={() => (isTransitionActive = !isTransitionActive)}>
+                <i class="mt-2 text-coopmaths bx bx-sm {isTransitionActive ? 'bx-toggle-right' : 'bx-toggle-left'}" />
+              </button>
               <div class="inline-flex pl-2">{isTransitionActive ? "Carton entre questions" : "Pas de carton entre questions"}</div>
             </div>
             <div class="flex flex-row justify-start items-center  px-4 -mt-2">
-              <button type="button" on:click={() => (isTransitionSoundActive = !isTransitionSoundActive)}
-                ><i class="mt-2 text-coopmaths bx bx-sm {isTransitionSoundActive ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
-              >
+              <button type="button" on:click={() => (isTransitionSoundActive = !isTransitionSoundActive)}>
+                <i class="mt-2 text-coopmaths bx bx-sm {isTransitionSoundActive ? 'bx-toggle-right' : 'bx-toggle-left'}" />
+              </button>
               <div class="inline-flex pl-2">{isTransitionSoundActive ? "Son entre questions" : "Pas de son entre questions"}</div>
             </div>
             <div class="grid grid-flow-col auto-cols-max gap-2  px-4">
@@ -792,8 +792,9 @@
           <div class="pb-6">
             <div class="flex text-lg font-bold mb-1">Ordre</div>
             <div class="flex flex-row justify-start items-center px-4">
-              <button type="button" on:click={handleRandomQuestionOrder}><i class="mt-2 text-coopmaths bx bx-sm {$questionsOrder.isQuestionsShuffled ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
-              >
+              <button type="button" on:click={handleRandomQuestionOrder}>
+                <i class="mt-2 text-coopmaths bx bx-sm {$questionsOrder.isQuestionsShuffled ? 'bx-toggle-right' : 'bx-toggle-left'}" />
+              </button>
               <div class="inline-flex pl-2">{$questionsOrder.isQuestionsShuffled ? "Questions dans le désordre" : "Questions dans l'ordre"}</div>
             </div>
           </div>
@@ -1070,13 +1071,13 @@
           </div>
           <!-- boutons timers correction quitter -->
           <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
-            <label for="timerSettings" class="modal-button"
-              ><i class="relative bx ml-2 bx-lg bx-stopwatch" on:click={pause} on:keydown={pause}>
+            <label for="timerSettings" class="modal-button">
+              <i class="relative bx ml-2 bx-lg bx-stopwatch" on:click={pause} on:keydown={pause}>
                 <div class="absolute -bottom-[12px] left-1/2 -translate-x-1/2 text-sm font-sans text-coopmaths">
                   {displayCurrentDuration()}
-                </div></i
-              ></label
-            >
+                </div>
+              </i>
+            </label>
             <input type="checkbox" id="timerSettings" class="modal-toggle" />
             <div class="modal modal-bottom sm:modal-middle">
               <div class="modal-box">
