@@ -10267,8 +10267,8 @@
         "uuid": "815eb"
       },
       "3L10-2": {
-        "id": "3L10-2",
         "datePublication": "28/11/2022",
+        "id": "3L10-2",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -12321,6 +12321,18 @@
         "titre": "Déterminer les termes d'une suite définie par récurrence",
         "url": "1e/1N11.js",
         "uuid": "b8c14"
+      },
+      "1N12": {
+        "id": "1N12",
+        "datePublication": "30/11/2021",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Somme des termes d'une suite arithmétique",
+        "url": "1e/1N12.js",
+        "uuid": "f8309"
       }
     },
     "1P1": {
