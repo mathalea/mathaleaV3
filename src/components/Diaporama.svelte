@@ -154,7 +154,6 @@
     } else {
       $questionsOrder.indexes = [...Array(questions[0].length).keys()]
     }
-    console.log("diapo/store = " + $questionsOrder.indexes)
   }
 
   function prevQuestion() {
