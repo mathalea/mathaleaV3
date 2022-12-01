@@ -4,9 +4,6 @@
   import Can from "./Can.svelte"
   import { globalOptions, questionsOrder } from "./store"
   import { onDestroy } from "svelte"
-
-  const unsubscribe = questionsOrder.subscribe((value) => {})
-  onDestroy(unsubscribe)
 </script>
 
 {#if $globalOptions.v === "diaporama"}

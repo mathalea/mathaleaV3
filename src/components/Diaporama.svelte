@@ -603,7 +603,7 @@
     const oldPart = "&v=" + oldComponent
     const newPart = newComponent === "" ? "" : "&v=" + newComponent
     const urlString = window.location.href.replace(oldPart, newPart)
-    window.history.pushState(newComponent, "", urlString)
+    window.history.pushState(null, "", urlString)
     globalOptions.update((l) => {
       l.v = newComponent
       return l

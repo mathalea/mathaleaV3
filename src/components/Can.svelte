@@ -17,7 +17,6 @@
   let isCorrectionVisible = false
   let isQuestionsVisible = true
   let divExercice: HTMLElement
-  let questionsRealIndexes = $questionsOrder.indexes
 
   onMount(async () => {
     context.vue = "can"
@@ -128,7 +127,7 @@
     const oldPart = "&v=" + oldComponent
     const newPart = newComponent === "" ? "" : "&v=" + newComponent
     const urlString = window.location.href.replace(oldPart, newPart)
-    window.history.pushState(newComponent, "", urlString)
+    window.history.pushState(null, "", urlString)
     globalOptions.update((l) => {
       l.v = newComponent
       return l
@@ -243,7 +242,7 @@
                     <div class="flex flex-col justify-start items-start">
                       {#if isQuestionsVisible}
                         <div>
-                          {@html Mathalea.formatExercice(questions[currentVue][$questionsOrder.indexes[i]])}
+                          {@html Mathalea.formatExercice(questions[currentVueId][$questionsOrder.indexes[i]])}
                         </div>
                       {/if}
                       {#if isCorrectionVisible}
