@@ -14,6 +14,7 @@ export const globalOptions = writable({ v: '', z: '1' } as {v?: string, z?: stri
 
 export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: [] })
 export const selectedExercises = writable({ isActive: false, indexes: [], count: 1 })
+export const transitionsBetweenQuestions = writable({ isActive: true, isNoisy: false, tune: 0 })
 
 /**
  *

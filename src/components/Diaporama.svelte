@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from "svelte"
   import { Mathalea } from "../Mathalea"
-  import { exercicesParams, globalOptions, questionsOrder, selectedExercises } from "./store"
+  import { exercicesParams, globalOptions, questionsOrder, selectedExercises, transitionsBetweenQuestions } from "./store"
   import type { Exercice } from "./utils/typeExercice"
   import seedrandom from "seedrandom"
   import { tweened } from "svelte/motion"
@@ -43,15 +43,12 @@
   let QRCodeWidth = 100
   let stringDureeTotale = "0"
   // variables pour les transitions entre questions
-  let isTransitionActive: boolean = true
-  let isTransitionSoundActive: boolean = true
   const transitionSounds = [
     new Audio("assets/sounds/transition_sound_01.mp3"),
     new Audio("assets/sounds/transition_sound_02.mp3"),
     new Audio("assets/sounds/transition_sound_03.mp3"),
     new Audio("assets/sounds/transition_sound_04.mp3"),
   ]
-  let currentTransitionSound = 0
 
   if ($globalOptions && $globalOptions.durationGlobal) {
     isSameDurationForAll = true
@@ -174,10 +171,10 @@
     }
 
     if (!isPause) {
-      if (isTransitionSoundActive) {
-        transitionSounds[currentTransitionSound].play()
+      if ($transitionsBetweenQuestions.isNoisy) {
+        transitionSounds[$transitionsBetweenQuestions.tune].play()
       }
-      if (isTransitionActive) {
+      if ($transitionsBetweenQuestions.isActive) {
         showDialogForLimitedTime("transition", 1000).then(() => {
           timer(durationGlobal ?? durations[currentQuestion] ?? 10)
         })
@@ -620,22 +617,6 @@
           <i class="relative bx ml-2 bx-lg bx-x hover:text-coopmaths" on:click={() => handleComponentChange("diaporama", "")} on:keydown={() => handleComponentChange("diaporama", "")} />
         </button>
       </div>
-      <div class="flex flex-row items-center justify-center w-full mb-14 mt-1">
-        <button
-          type="button"
-          class="inline-flex items-center justify-center shadow-2xl w-1/3 bg-coopmaths hover:bg-coopmaths-dark text-[100px] font-extrabold text-white py-4 px-12 rounded-lg"
-          on:click={() => {
-            goToQuestion(0)
-            timer(durationGlobal ?? durations[currentQuestion] ?? 10)
-          }}
-          on:keydown={() => {
-            goToQuestion(0)
-            timer(durationGlobal ?? durations[currentQuestion] ?? 10)
-          }}
-        >
-          Play <i class="bx text-[100px] text-white bx-play" />
-        </button>
-      </div>
       <div class="flex flex-row w-full justify-center items-start mx-20">
         <!-- Multivue + Liens -->
         <div class="flex flex-col w-1/5 justify-start">
@@ -714,77 +695,77 @@
           <div class="pb-8">
             <div class="flex text-lg font-bold mb-1">Transitions</div>
             <div class="flex flex-row justify-start items-center px-4">
-              <button type="button" on:click={() => (isTransitionActive = !isTransitionActive)}>
-                <i class="mt-2 text-coopmaths bx bx-sm {isTransitionActive ? 'bx-toggle-right' : 'bx-toggle-left'}" />
+              <button type="button" on:click={() => ($transitionsBetweenQuestions.isActive = !$transitionsBetweenQuestions.isActive)}>
+                <i class="mt-2 text-coopmaths bx bx-sm {$transitionsBetweenQuestions.isActive ? 'bx-toggle-right' : 'bx-toggle-left'}" />
               </button>
-              <div class="inline-flex pl-2">{isTransitionActive ? "Carton entre questions" : "Pas de carton entre questions"}</div>
+              <div class="inline-flex pl-2">{$transitionsBetweenQuestions.isActive ? "Carton entre questions" : "Pas de carton entre questions"}</div>
             </div>
             <div class="flex flex-row justify-start items-center  px-4 -mt-2">
-              <button type="button" on:click={() => (isTransitionSoundActive = !isTransitionSoundActive)}>
-                <i class="mt-2 text-coopmaths bx bx-sm {isTransitionSoundActive ? 'bx-toggle-right' : 'bx-toggle-left'}" />
+              <button type="button" on:click={() => ($transitionsBetweenQuestions.isNoisy = !$transitionsBetweenQuestions.isNoisy)}>
+                <i class="mt-2 text-coopmaths bx bx-sm {$transitionsBetweenQuestions.isNoisy ? 'bx-toggle-right' : 'bx-toggle-left'}" />
               </button>
-              <div class="inline-flex pl-2">{isTransitionSoundActive ? "Son entre questions" : "Pas de son entre questions"}</div>
+              <div class="inline-flex pl-2">{$transitionsBetweenQuestions.isNoisy ? "Son entre questions" : "Pas de son entre questions"}</div>
             </div>
             <div class="grid grid-flow-col auto-cols-max gap-2  px-4">
               <div class="form-check flex flex-row justify-start items-center">
                 <input
-                  disabled={!isTransitionSoundActive}
+                  disabled={!$transitionsBetweenQuestions.isNoisy}
                   class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
                   type="radio"
                   name="sound"
                   id="soundRadio1"
-                  bind:group={currentTransitionSound}
+                  bind:group={$transitionsBetweenQuestions.tune}
                   on:change={() => {
-                    transitionSounds[currentTransitionSound].play()
+                    transitionSounds[$transitionsBetweenQuestions.tune].play()
                   }}
                   value={0}
                 />
-                <label class="form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio1"> Son 1 </label>
+                <label class="form-check-label inline-block {$transitionsBetweenQuestions.isNoisy ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio1"> Son 1 </label>
               </div>
               <div class="form-check flex flex-row justify-start items-center">
                 <input
-                  disabled={!isTransitionSoundActive}
+                  disabled={!$transitionsBetweenQuestions.isNoisy}
                   class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
                   type="radio"
                   name="sound"
                   id="soundRadio2"
-                  bind:group={currentTransitionSound}
+                  bind:group={$transitionsBetweenQuestions.tune}
                   on:change={() => {
-                    transitionSounds[currentTransitionSound].play()
+                    transitionSounds[$transitionsBetweenQuestions.tune].play()
                   }}
                   value={1}
                 />
-                <label class=" form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio2"> Son 2 </label>
+                <label class=" form-check-label inline-block {$transitionsBetweenQuestions.isNoisy ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio2"> Son 2 </label>
               </div>
               <div class="form-check flex flex-row justify-start items-center">
                 <input
-                  disabled={!isTransitionSoundActive}
+                  disabled={!$transitionsBetweenQuestions.isNoisy}
                   class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
                   type="radio"
                   name="sound"
                   id="soundRadio3"
-                  bind:group={currentTransitionSound}
+                  bind:group={$transitionsBetweenQuestions.tune}
                   on:change={() => {
-                    transitionSounds[currentTransitionSound].play()
+                    transitionSounds[$transitionsBetweenQuestions.tune].play()
                   }}
                   value={2}
                 />
-                <label class="form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio3"> Son 3 </label>
+                <label class="form-check-label inline-block {$transitionsBetweenQuestions.isNoisy ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio3"> Son 3 </label>
               </div>
               <div class="form-check flex flex-row justify-start items-center">
                 <input
-                  disabled={!isTransitionSoundActive}
+                  disabled={!$transitionsBetweenQuestions.isNoisy}
                   class="form-check-input rounded-full h-4 w-4 border border-gray-300 bg-white text-coopmaths checked:bg-coopmaths checked:border-coopmaths active:border-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 transition duration-200 mt-1 mr-1 cursor-pointer"
                   type="radio"
                   name="sound"
                   id="soundRadio4"
-                  bind:group={currentTransitionSound}
+                  bind:group={$transitionsBetweenQuestions.tune}
                   on:change={() => {
-                    transitionSounds[currentTransitionSound].play()
+                    transitionSounds[$transitionsBetweenQuestions.tune].play()
                   }}
                   value={3}
                 />
-                <label class="form-check-label inline-block {isTransitionSoundActive ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio4"> Son 4 </label>
+                <label class="form-check-label inline-block {$transitionsBetweenQuestions.isNoisy ? 'text-gray-800' : 'text-gray-300'}" for="soundRadio4"> Son 4 </label>
               </div>
             </div>
           </div>
@@ -960,8 +941,8 @@
             </div>
           </div>
 
-          <div class="flex flex-col min-w-full px-4 align-middle" bind:this={divTableDurationsQuestions}>
-            <div class="table-wrp block max-h-[300px] shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+          <div class="flex flex-col min-w-full h-[100vh] px-4 align-middle" bind:this={divTableDurationsQuestions}>
+            <div class="table-wrp block shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
               <table class="table-fixed min-w-full divide-y divide-gray-300">
                 <thead class="bg-gray-100 sticky top-0">
                   <th scope="col" class="py-3.5 pl-4 pr-3 w-4/6 text-left text-sm font-semibold text-gray-900 sm:pl">
@@ -978,7 +959,7 @@
                     <div class="text-coopmaths text-xs">Total :<span class="font-bold ml-1">{getTotalNbOfQuestions()}</span></div>
                   </th>
                 </thead>
-                <tbody class="max-h-[300px] overflow-y-auto">
+                <tbody class="overflow-y-auto" id="exercisesList">
                   {#each exercices as exercice, i}
                     <tr>
                       <td class="whitespace-normal px-3 py-4 text-sm">
@@ -1012,6 +993,23 @@
                   {/each}
                 </tbody>
               </table>
+            </div>
+
+            <div class="flex flex-row items-center justify-end w-full my-4">
+              <button
+                type="button"
+                class="animate-pulse inline-flex items-center justify-center shadow-2xl w-2/12 bg-coopmaths hover:bg-coopmaths-dark font-extrabold text-white text-3xl py-4 rounded-lg"
+                on:click={() => {
+                  goToQuestion(0)
+                  timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+                }}
+                on:keydown={() => {
+                  goToQuestion(0)
+                  timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+                }}
+              >
+                Play<i class="bx bx-play" />
+              </button>
             </div>
           </div>
         </div>
@@ -1235,7 +1233,7 @@
 
 <style>
   .table-wrp {
-    max-height: 300px;
+    max-height: 60%;
     overflow-y: auto;
     display: block;
   }
