@@ -1,16 +1,5 @@
 {
   "1e": {
-    "1F1": {
-      "2af1c": {
-        "titre": "Calculs de dérivées",
-        "id": "1F10",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      }
-    },
     "1AN": {
       "29202": {
         "titre": "Nombre dérivé de fonctions de références",
@@ -23,9 +12,9 @@
         "datePublication": "16/12/2021",
         "dateModification": "24/10/2021"
       },
-      "1a60f": {
-        "titre": "Dérivée d'un produit",
-        "id": "1AN14-4",
+      "b32f2": {
+        "titre": "Dérivée d'un quotient",
+        "id": "1AN14-5",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -42,9 +31,9 @@
           "Can": false
         }
       },
-      "b32f2": {
-        "titre": "Dérivée d'un quotient",
-        "id": "1AN14-5",
+      "1a60f": {
+        "titre": "Dérivée d'un produit",
+        "id": "1AN14-4",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -62,6 +51,17 @@
         },
         "datePublication": "16/12/2021",
         "dateModification": "24/10/2021"
+      }
+    },
+    "1F1": {
+      "2af1c": {
+        "titre": "Calculs de dérivées",
+        "id": "1F10",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
       }
     },
     "1P1": {
@@ -240,17 +240,6 @@
         "datePublication": "16/04/2022",
         "dateModification": ""
       },
-      "a720c": {
-        "titre": "Mesure principale d'un angle",
-        "id": "1G11",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "20/04/2022",
-        "dateModification": ""
-      },
       "b9e6a": {
         "titre": "cos et sin associés à un réel x ",
         "id": "1G12",
@@ -261,18 +250,20 @@
         },
         "datePublication": "20/04/2022",
         "dateModification": ""
-      }
-    },
-    "1N1": {
-      "f8309": {
-        "titre": "Somme des termes d'une suite arithmétique",
+      },
+      "a720c": {
+        "titre": "Mesure principale d'un angle",
+        "id": "1G11",
         "tags": {
           "AMC": false,
           "Interactif": true,
           "Can": false
         },
-        "datePublication": "30/11/2021"
-      },
+        "datePublication": "20/04/2022",
+        "dateModification": ""
+      }
+    },
+    "1N1": {
       "b8c14": {
         "titre": "Déterminer les termes d'une suite définie par récurrence",
         "id": "1N11",
@@ -281,6 +272,16 @@
           "Interactif": false,
           "Can": false
         }
+      },
+      "cfac9": {
+        "titre": "Somme des termes d'une suite arithmétique",
+        "id": "1N12",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "30/11/2021"
       },
       "f0c2d": {
         "titre": "Déterminer les termes d'une suite définie de façon explicite",
@@ -294,186 +295,6 @@
     }
   },
   "6e": {
-    "6N2": {
-      "12773": {
-        "titre": "Lire des abscisses décimales sous trois formes",
-        "id": "6N23-2",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "dateModification": "22/11/2022"
-      },
-      "708a9": {
-        "titre": "Donner l'écriture décimale d'une fraction décimale",
-        "id": "6N23-8",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "28/09/22"
-      },
-      "6c8a1": {
-        "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1)",
-        "id": "6N20",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "6a17f": {
-        "titre": "Mettre bout à bout des segments",
-        "id": "6N22-2",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "c75b6": {
-        "titre": "Effectuer des calculs simples avec des fractions",
-        "id": "6N22",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "20/11/21"
-      },
-      "63f03": {
-        "titre": "Recomposer un nombre décimal représenté par des fractions du cube unité",
-        "id": "6N23-7",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "23c48": {
-        "titre": "Lire une abscisse décimale grâce à des zooms successifs",
-        "id": "6N23-3",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "dateModification": "22/11/2022"
-      },
-      "2ba53": {
-        "titre": "Utiliser les abscisses fractionnaires",
-        "id": "6N21",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "ab44e": {
-        "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale",
-        "id": "6N20-2",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "1f5de": {
-        "titre": "Encadrer une fraction entre deux nombres entiers consécutifs",
-        "id": "6N20-1",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "5eb83": {
-        "titre": "Écrire un nombre décimal en chiffres ou en lettres",
-        "id": "6N23-0",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "1acf7": {
-        "titre": "Donner différentes écritures de nombres décimaux",
-        "id": "6N23-1",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "dateModification": "25/09/2022"
-      },
-      "e8e24": {
-        "titre": "Donner l'écriture décimale d'un nombre à partir de différents textes",
-        "id": "6N23-4",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "dateModification": "15/01/2022"
-      },
-      "4b9d5": {
-        "titre": "Donner l'écriture décimale d'une fraction décimale",
-        "id": "6N23",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "ec005": {
-        "titre": "Multiplier ou diviser un nombre entier par 10, 100 ou 1 000",
-        "id": "6N24-1",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "d5e44": {
-        "titre": "Calculer la valeur décimale d'une fraction",
-        "id": "6N23-6",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "18/11/2021"
-      },
-      "ae35d": {
-        "titre": "Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)",
-        "id": "6N24",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "7781a": {
-        "titre": "Exprimer le rapport de deux longueurs sur un segment",
-        "id": "6N22-1",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "4d0dd": {
-        "titre": "Donner une écriture fractionnaire",
-        "id": "6N23-5",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      }
-    },
     "6C1": {
       "37267": {
         "titre": "Déterminer reste et quotient d'une division euclidienne à partir d'une égalité",
@@ -553,6 +374,43 @@
           "Can": false
         }
       },
+      "23bc8": {
+        "titre": "Utiliser tables de multiplication pour effectuer produits avec multiple de 10",
+        "id": "6C10-2",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "a5c5a": {
+        "titre": "Utiliser tables de multiplication pour effectuer produits avec décimaux",
+        "id": "6C10-3",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "ace0a": {
+        "titre": "Effectuer addition de deux entiers",
+        "id": "6C10-4",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "4e2b2": {
+        "titre": "Résoudre des problèmes de masses",
+        "id": "6C12-1",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "02/11/2021"
+      },
       "529ad": {
         "titre": "Résoudre des problèmes avec des informations inutiles",
         "id": "6C12-4",
@@ -573,52 +431,6 @@
         },
         "datePublication": "02/11/2021"
       },
-      "4e2b2": {
-        "titre": "Résoudre des problèmes de masses",
-        "id": "6C12-1",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "02/11/2021"
-      },
-      "23bc8": {
-        "titre": "Utiliser tables de multiplication pour effectuer produits avec multiple de 10",
-        "id": "6C10-2",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "32e02": {
-        "titre": "Vocabulaires liés aux 4 opérations",
-        "id": "6C13-1",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "ace0a": {
-        "titre": "Effectuer addition de deux entiers",
-        "id": "6C10-4",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "a5c5a": {
-        "titre": "Utiliser tables de multiplication pour effectuer produits avec décimaux",
-        "id": "6C10-3",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
       "7fb24": {
         "titre": "Trouver les informations utiles ou inutiles pour résoudre des problèmes",
         "id": "6C12-3",
@@ -629,12 +441,30 @@
         },
         "datePublication": "01/12/2021"
       },
+      "32e02": {
+        "titre": "Vocabulaires liés aux 4 opérations",
+        "id": "6C13-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
       "ed0ea": {
         "titre": "Traduire des phrases en calculs et réciproquement",
         "id": "6C13",
         "tags": {
           "AMC": false,
           "Interactif": false,
+          "Can": false
+        }
+      },
+      "2da81": {
+        "titre": "Poser divisions euclidiennes",
+        "id": "6C11",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
           "Can": false
         }
       },
@@ -647,15 +477,6 @@
           "Can": false
         },
         "datePublication": "09/09/2022"
-      },
-      "2da81": {
-        "titre": "Poser divisions euclidiennes",
-        "id": "6C11",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
       },
       "0e6bd": {
         "titre": "Réviser les tables de multiplication",
@@ -745,11 +566,11 @@
           "Can": false
         }
       },
-      "6ea89": {
-        "titre": "Décomposer un nombre décimal (nombre de..., chiffre des..., partie entière, partie décimale)",
-        "id": "6N10-2",
+      "6babf": {
+        "titre": "Écrire un nombre en chiffres ou en lettres",
+        "id": "6N10-0",
         "tags": {
-          "AMC": true,
+          "AMC": false,
           "Interactif": true,
           "Can": false
         }
@@ -764,12 +585,21 @@
         },
         "dateModification": "09/09/2022"
       },
-      "6babf": {
-        "titre": "Écrire un nombre en chiffres ou en lettres",
-        "id": "6N10-0",
+      "6ea89": {
+        "titre": "Décomposer un nombre décimal (nombre de..., chiffre des..., partie entière, partie décimale)",
+        "id": "6N10-2",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": true,
+          "Can": false
+        }
+      },
+      "dc348": {
+        "titre": "Écrire correctement les grands nombres entiers",
+        "id": "6N10-4",
+        "tags": {
+          "AMC": true,
+          "Interactif": false,
           "Can": false
         }
       },
@@ -783,6 +613,34 @@
         },
         "datePublication": "19/09/2021",
         "dateModification": "14/09/2022"
+      },
+      "29b40": {
+        "titre": "Encadrer un entier",
+        "id": "6N11-3",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "3bba9": {
+        "titre": "Ranger une liste de nombres entiers dans l'ordre croissant ou décroissant",
+        "id": "6N11-4",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "a7aa7": {
+        "titre": "Comparer deux nombres entiers",
+        "id": "6N11-5",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "datePublication": "07/08/2022"
       },
       "bb9d8": {
         "titre": "Multiplier ou diviser un entier par 10, 100, 1 000... (résultat entier)",
@@ -804,43 +662,6 @@
         },
         "datePublication": "14/08/2022"
       },
-      "a7aa7": {
-        "titre": "Comparer deux nombres entiers",
-        "id": "6N11-5",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        },
-        "datePublication": "07/08/2022"
-      },
-      "dc348": {
-        "titre": "Écrire correctement les grands nombres entiers",
-        "id": "6N10-4",
-        "tags": {
-          "AMC": true,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "29b40": {
-        "titre": "Encadrer un entier",
-        "id": "6N11-3",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "3bba9": {
-        "titre": "Ranger une liste de nombres entiers dans l'ordre croissant ou décroissant",
-        "id": "6N11-4",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
       "5d1e2": {
         "titre": "Connaître les préfixes utilisés dans les unités",
         "id": "6N13-0",
@@ -854,6 +675,186 @@
       "3eae0": {
         "titre": "Convertir des longueurs, masses, capacités, prix ou unités informatiques",
         "id": "6N13",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      }
+    },
+    "6N2": {
+      "12773": {
+        "titre": "Lire des abscisses décimales sous trois formes",
+        "id": "6N23-2",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "dateModification": "22/11/2022"
+      },
+      "708a9": {
+        "titre": "Donner l'écriture décimale d'une fraction décimale",
+        "id": "6N23-8",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "28/09/22"
+      },
+      "6a17f": {
+        "titre": "Mettre bout à bout des segments",
+        "id": "6N22-2",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "6c8a1": {
+        "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1)",
+        "id": "6N20",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "c75b6": {
+        "titre": "Effectuer des calculs simples avec des fractions",
+        "id": "6N22",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "20/11/21"
+      },
+      "63f03": {
+        "titre": "Recomposer un nombre décimal représenté par des fractions du cube unité",
+        "id": "6N23-7",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "23c48": {
+        "titre": "Lire une abscisse décimale grâce à des zooms successifs",
+        "id": "6N23-3",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "dateModification": "22/11/2022"
+      },
+      "2ba53": {
+        "titre": "Utiliser les abscisses fractionnaires",
+        "id": "6N21",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "1f5de": {
+        "titre": "Encadrer une fraction entre deux nombres entiers consécutifs",
+        "id": "6N20-1",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "ab44e": {
+        "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale",
+        "id": "6N20-2",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "7781a": {
+        "titre": "Exprimer le rapport de deux longueurs sur un segment",
+        "id": "6N22-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "5eb83": {
+        "titre": "Écrire un nombre décimal en chiffres ou en lettres",
+        "id": "6N23-0",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "1acf7": {
+        "titre": "Donner différentes écritures de nombres décimaux",
+        "id": "6N23-1",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "dateModification": "25/09/2022"
+      },
+      "e8e24": {
+        "titre": "Donner l'écriture décimale d'un nombre à partir de différents textes",
+        "id": "6N23-4",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "dateModification": "15/01/2022"
+      },
+      "4d0dd": {
+        "titre": "Donner une écriture fractionnaire",
+        "id": "6N23-5",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "4b9d5": {
+        "titre": "Donner l'écriture décimale d'une fraction décimale",
+        "id": "6N23",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "ec005": {
+        "titre": "Multiplier ou diviser un nombre entier par 10, 100 ou 1 000",
+        "id": "6N24-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "d5e44": {
+        "titre": "Calculer la valeur décimale d'une fraction",
+        "id": "6N23-6",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "18/11/2021"
+      },
+      "ae35d": {
+        "titre": "Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)",
+        "id": "6N24",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -950,15 +951,6 @@
         "datePublication": "24/04/2021",
         "dateModification": "16/11/2021"
       },
-      "013ef": {
-        "titre": "Donner des valeurs approchées d'un quotient décimal",
-        "id": "6C31-2",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        }
-      },
       "625c0": {
         "titre": "Calculer le produit de deux décimaux connaissant le produit de deux entiers",
         "id": "6C30-2",
@@ -978,9 +970,56 @@
         },
         "dateModification": "12/12/2021"
       },
-      "96b94": {
-        "titre": "Résoudre des problèmes de courses au marché",
-        "id": "6C32",
+      "021f3": {
+        "titre": "Multiplier par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)",
+        "id": "6C30-5",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "47a54": {
+        "titre": "Multiplier par 0,1 ; 0,01 ; 0,001 (placer la virgule)",
+        "id": "6C30-4",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "9540b": {
+        "titre": "Diviser par 10, 100 ou 1 000",
+        "id": "6C30-8",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "08/12/2021"
+      },
+      "013ef": {
+        "titre": "Donner des valeurs approchées d'un quotient décimal",
+        "id": "6C31-2",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "e906e": {
+        "titre": "Résoudre des problèmes (plus complexes)",
+        "id": "6C32-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "datePublication": "27/11/2022"
+      },
+      "4c10a": {
+        "titre": "Calculer en utilisant les priorités opératoires",
+        "id": "6C33",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -996,47 +1035,9 @@
           "Can": false
         }
       },
-      "4c10a": {
-        "titre": "Calculer en utilisant les priorités opératoires",
-        "id": "6C33",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "e906e": {
-        "titre": "Résoudre des problèmes (plus complexes)",
-        "id": "6C32-1",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        },
-        "datePublication": "27/11/2022"
-      },
-      "9540b": {
-        "titre": "Diviser par 10, 100 ou 1 000",
-        "id": "6C30-8",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "08/12/2021"
-      },
-      "021f3": {
-        "titre": "Multiplier par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)",
-        "id": "6C30-5",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "47a54": {
-        "titre": "Multiplier par 0,1 ; 0,01 ; 0,001 (placer la virgule)",
-        "id": "6C30-4",
+      "96b94": {
+        "titre": "Résoudre des problèmes de courses au marché",
+        "id": "6C32",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -1124,6 +1125,16 @@
         },
         "datePublication": "4/12/2021"
       },
+      "fe08e": {
+        "titre": "Reconnaître un angle particulier",
+        "id": "6G22-2",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "03/12/2022"
+      },
       "90e1a": {
         "titre": "Nommer et coder des polygones",
         "id": "6G20",
@@ -1142,6 +1153,16 @@
           "Can": false
         }
       },
+      "e8d33": {
+        "titre": "Connaitre le vocabulaire de base des angles",
+        "id": "6G22-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "03/12/2022"
+      },
       "c7f7a": {
         "titre": "Mesurer un angle sans rapporteur sur l'énoncé",
         "id": "6G23-1",
@@ -1156,15 +1177,6 @@
         "id": "6G23-2",
         "tags": {
           "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "34e3c": {
-        "titre": "Construire un angle de mesure donnée",
-        "id": "6G23",
-        "tags": {
-          "AMC": true,
           "Interactif": false,
           "Can": false
         }
@@ -1188,12 +1200,12 @@
         },
         "datePublication": "18/12/2021"
       },
-      "49cb2": {
-        "titre": "Utiliser des symétries axiales en pavage triangulaire",
-        "id": "6G25-1",
+      "34e3c": {
+        "titre": "Construire un angle de mesure donnée",
+        "id": "6G23",
         "tags": {
           "AMC": true,
-          "Interactif": true,
+          "Interactif": false,
           "Can": false
         }
       },
@@ -1206,6 +1218,15 @@
           "Can": false
         },
         "datePublication": "14/12/2020"
+      },
+      "49cb2": {
+        "titre": "Utiliser des symétries axiales en pavage triangulaire",
+        "id": "6G25-1",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
       },
       "d7052": {
         "titre": "Construire des médiatrices avec cible auto-corrective",
@@ -1282,16 +1303,6 @@
         },
         "datePublication": "08/06/2022"
       },
-      "06b1a": {
-        "titre": "Calculer l'aire de triangles",
-        "id": "6M20",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "dateModification": "08/05/2022"
-      },
       "f9a02": {
         "titre": "Calculer périmètre et aire de disques",
         "id": "6M22-1",
@@ -1309,6 +1320,16 @@
           "Interactif": false,
           "Can": false
         }
+      },
+      "06b1a": {
+        "titre": "Calculer l'aire de triangles",
+        "id": "6M20",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "dateModification": "08/05/2022"
       },
       "dc7ba": {
         "titre": "Connaître le cours sur le périmètre et l'aire",
@@ -1368,6 +1389,15 @@
         },
         "dateModification": "23/02/2022"
       },
+      "837cd": {
+        "titre": "Remplir une facture",
+        "id": "6P13-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
       "064ce": {
         "titre": "Augmenter ou diminuer d'un pourcentage",
         "id": "6P13",
@@ -1378,6 +1408,15 @@
         },
         "datePublication": "23/07/21",
         "dateModification": "15/03/2022"
+      },
+      "850d5": {
+        "titre": "Reconnaître une situation de proportionnalité",
+        "id": "6P10",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
       },
       "f7a14": {
         "titre": "Résoudre des problèmes de proportionnalité en utilisant la linéarité simple",
@@ -1391,24 +1430,6 @@
       "b0f4e": {
         "titre": "Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple",
         "id": "6P12",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "837cd": {
-        "titre": "Remplir une facture",
-        "id": "6P13-1",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "850d5": {
-        "titre": "Reconnaître une situation de proportionnalité",
-        "id": "6P10",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -1444,6 +1465,15 @@
           "Can": false
         }
       },
+      "8418e": {
+        "titre": "Lire l'abscisse décimale d'un point (niveau 2)",
+        "id": "6N30-1",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
       "c1888": {
         "titre": "Lire l'abscisse décimale d'un point",
         "id": "6N30",
@@ -1462,15 +1492,6 @@
           "Can": false
         }
       },
-      "8418e": {
-        "titre": "Lire l'abscisse décimale d'un point (niveau 2)",
-        "id": "6N30-1",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
       "db772": {
         "titre": "Résoudre des problèmes de calcul de pourcentage par complément à 100%",
         "id": "6N33-2",
@@ -1480,24 +1501,14 @@
           "Can": false
         }
       },
-      "d67e9": {
-        "titre": "Résoudre des problèmes avec des calculs de pourcentages",
-        "id": "6N33-3",
+      "843e5": {
+        "titre": "Trouver ordre de grandeur d'opérations sur les décimaux",
+        "id": "6N31-2",
         "tags": {
-          "AMC": true,
-          "Interactif": true,
+          "AMC": false,
+          "Interactif": false,
           "Can": false
         }
-      },
-      "b86b9": {
-        "titre": "Intercaler un nombre décimal entre deux nombres décimaux",
-        "id": "6N31-4",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "dateModification": "29/10/2021"
       },
       "a8c21": {
         "titre": "Encadrer un décimal",
@@ -1519,32 +1530,15 @@
         },
         "datePublication": "28/09/22"
       },
-      "a168c": {
-        "titre": "Calculer la fraction d'une quantité",
-        "id": "6N33-0",
+      "b86b9": {
+        "titre": "Intercaler un nombre décimal entre deux nombres décimaux",
+        "id": "6N31-4",
         "tags": {
           "AMC": true,
           "Interactif": true,
           "Can": false
-        }
-      },
-      "ddb83": {
-        "titre": "Calculer la fraction d'un nombre",
-        "id": "6N33",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "843e5": {
-        "titre": "Trouver ordre de grandeur d'opérations sur les décimaux",
-        "id": "6N31-2",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
+        },
+        "dateModification": "29/10/2021"
       },
       "3e083": {
         "titre": "Encadrer un décimal par deux entiers consécutifs",
@@ -1564,6 +1558,33 @@
           "Can": false
         }
       },
+      "a168c": {
+        "titre": "Calculer la fraction d'une quantité",
+        "id": "6N33-0",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "d67e9": {
+        "titre": "Résoudre des problèmes avec des calculs de pourcentages",
+        "id": "6N33-3",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "ddb83": {
+        "titre": "Calculer la fraction d'un nombre",
+        "id": "6N33",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
       "c57cf": {
         "titre": "Effectuer des conversions avec tous les préfixes de milli à tera",
         "id": "6N34",
@@ -1575,6 +1596,16 @@
       }
     },
     "6G4": {
+      "6809f": {
+        "titre": "Nommer des faces dans un pavé droit",
+        "id": "6G42-1",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "06/11/2022"
+      },
       "5f115": {
         "titre": "Compter les cubes manquants ou pas",
         "id": "6G43",
@@ -1593,16 +1624,6 @@
           "Can": false
         },
         "datePublication": "7/11/2021"
-      },
-      "6809f": {
-        "titre": "Nommer des faces dans un pavé droit",
-        "id": "6G42-1",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "06/11/2022"
       },
       "051aa": {
         "titre": "Reconnaitre des solides",
@@ -1691,6 +1712,25 @@
           "Can": false
         }
       },
+      "d81c6": {
+        "titre": "Donner description et notation de droites, segments et demi-droites",
+        "id": "6G10-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "3dbda": {
+        "titre": "Tracer des droites, segments,...",
+        "id": "6G10-5",
+        "tags": {
+          "AMC": true,
+          "Interactif": false,
+          "Can": false
+        },
+        "datePublication": "05/10/2022"
+      },
       "03b49": {
         "titre": "Connaître le vocabulaire du cercle",
         "id": "6G10-4",
@@ -1711,16 +1751,6 @@
         },
         "datePublication": "05/10/2022"
       },
-      "3dbda": {
-        "titre": "Tracer des droites, segments,...",
-        "id": "6G10-5",
-        "tags": {
-          "AMC": true,
-          "Interactif": false,
-          "Can": false
-        },
-        "datePublication": "05/10/2022"
-      },
       "8f5d3": {
         "titre": "Utiliser la notation de droites, segments et demi-droites",
         "id": "6G10",
@@ -1729,6 +1759,16 @@
           "Interactif": false,
           "Can": false
         }
+      },
+      "df825": {
+        "titre": "Tracer des perpendiculaires",
+        "id": "6G11-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "datePublication": "09/10/2022"
       },
       "d14bc": {
         "titre": "Tracer des parallèles et des perpendiculaires",
@@ -1749,30 +1789,11 @@
         },
         "datePublication": "10/09/2022"
       },
-      "df825": {
-        "titre": "Tracer des perpendiculaires",
-        "id": "6G11-1",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        },
-        "datePublication": "09/10/2022"
-      },
       "6a336": {
         "titre": "Utiliser les propriétés des droites perpendiculaires",
         "id": "6G14",
         "tags": {
           "AMC": true,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "d81c6": {
-        "titre": "Donner description et notation de droites, segments et demi-droites",
-        "id": "6G10-1",
-        "tags": {
-          "AMC": false,
           "Interactif": false,
           "Can": false
         }
@@ -1817,85 +1838,6 @@
         }
       }
     },
-    "6M1": {
-      "9a5fe": {
-        "titre": "Problèmes d'aires de rectangles",
-        "id": "6M10-1",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "09/04/2022"
-      },
-      "d1513": {
-        "titre": "Calculer périmètre et aire de carrés, rectangles et triangles rectangles",
-        "id": "6M11-1",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "eb45a": {
-        "titre": "Calculer l'aire de carrés, rectangles et triangles rectangles",
-        "id": "6M11",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "5999f": {
-        "titre": "Calculer périmètre et aire de figures composées",
-        "id": "6M11-2",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "83be1": {
-        "titre": "Calculer des périmètres et des aires de figures usuelles",
-        "id": "6M10",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "3cb1d": {
-        "titre": "Convertir des longueurs",
-        "id": "6M12",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      }
-    },
-    "6G5": {
-      "5bac3": {
-        "titre": "Se servir des relations entre perpendicularité et parallélisme",
-        "id": "6G52",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        },
-        "datePublication": "11/09/2022"
-      },
-      "c46e8": {
-        "titre": "Utiliser les propriétés des droites perpendiculaires",
-        "id": "6G52-2",
-        "tags": {
-          "AMC": true,
-          "Interactif": false,
-          "Can": false
-        },
-        "datePublication": "21/09/2023"
-      }
-    },
     "6I1": {
       "c8fe9": {
         "titre": "Programmer des déplacements (Scratch)",
@@ -1925,6 +1867,95 @@
         }
       }
     },
+    "6G5": {
+      "5bac3": {
+        "titre": "Se servir des relations entre perpendicularité et parallélisme",
+        "id": "6G52",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "datePublication": "11/09/2022"
+      },
+      "c46e8": {
+        "titre": "Utiliser les propriétés des droites perpendiculaires",
+        "id": "6G52-2",
+        "tags": {
+          "AMC": true,
+          "Interactif": false,
+          "Can": false
+        },
+        "datePublication": "21/09/2023"
+      }
+    },
+    "6M1": {
+      "9a5fe": {
+        "titre": "Problèmes d'aires de rectangles",
+        "id": "6M10-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "09/04/2022"
+      },
+      "d1513": {
+        "titre": "Calculer périmètre et aire de carrés, rectangles et triangles rectangles",
+        "id": "6M11-1",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "5999f": {
+        "titre": "Calculer périmètre et aire de figures composées",
+        "id": "6M11-2",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "5563e": {
+        "titre": "Calculer le périmètre de carrés, rectangles et triangles",
+        "id": "6M11-3",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "27/11/2022"
+      },
+      "eb45a": {
+        "titre": "Calculer l'aire de carrés, rectangles et triangles rectangles",
+        "id": "6M11",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "83be1": {
+        "titre": "Calculer des périmètres et des aires de figures usuelles",
+        "id": "6M10",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "3cb1d": {
+        "titre": "Convertir des longueurs",
+        "id": "6M12",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      }
+    },
     "6N4": {
       "f8a4d": {
         "titre": "Parcourir un labyrinthe de fractions égales",
@@ -1945,9 +1976,9 @@
           "Can": false
         }
       },
-      "bbdd6": {
-        "titre": "Reconnaître diviseur, multiple, divisible",
-        "id": "6N43-3",
+      "4a128": {
+        "titre": "Utiliser les critères de divisibilité",
+        "id": "6N43",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -1963,9 +1994,9 @@
           "Can": false
         }
       },
-      "4a128": {
-        "titre": "Utiliser les critères de divisibilité",
-        "id": "6N43",
+      "bbdd6": {
+        "titre": "Reconnaître diviseur, multiple, divisible",
+        "id": "6N43-3",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -2012,12 +2043,30 @@
       }
     },
     "6D1": {
+      "8b0f9": {
+        "titre": "Convertir des durées",
+        "id": "6D10",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
       "6b3e4": {
         "titre": "Utiliser les heures décimales",
         "id": "6D101",
         "tags": {
           "AMC": true,
           "Interactif": true,
+          "Can": false
+        }
+      },
+      "5f315": {
+        "titre": "Additionner des durées",
+        "id": "6D11",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
           "Can": false
         }
       },
@@ -2030,24 +2079,6 @@
           "Can": false
         },
         "dateModification": "14/05/2022"
-      },
-      "8b0f9": {
-        "titre": "Convertir des durées",
-        "id": "6D10",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "5f315": {
-        "titre": "Additionner des durées",
-        "id": "6D11",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
       },
       "e960d": {
         "titre": "Calculer des durées ou déterminer un horaire",
@@ -2281,26 +2312,6 @@
         },
         "datePublication": "25/12/2021"
       },
-      "1b057": {
-        "titre": "Déterminer une probabilté dans un tableau d’effectifs",
-        "id": "can1P07",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "06/07/2022"
-      },
-      "0f776": {
-        "titre": "Compléter le tableau d’une loi de probabilité d’une variable aléatoire",
-        "id": "can1P08",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "08/07/2022"
-      },
       "7c8b7": {
         "titre": "Calculer la probabilité d’une intersection à partir d’un arbre",
         "id": "can1P03",
@@ -2320,6 +2331,26 @@
           "Can": true
         },
         "datePublication": "05/07/2022"
+      },
+      "0f776": {
+        "titre": "Compléter le tableau d’une loi de probabilité d’une variable aléatoire",
+        "id": "can1P08",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "08/07/2022"
+      },
+      "1b057": {
+        "titre": "Déterminer une probabilté dans un tableau d’effectifs",
+        "id": "can1P07",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "06/07/2022"
       },
       "15f6d": {
         "titre": "Ecrire une probabilté avec les notations",
@@ -2365,6 +2396,16 @@
         },
         "datePublication": "20/06/2022"
       },
+      "84ae6": {
+        "titre": "Déterminer la fonction dérivée d’une fonction affine*",
+        "id": "can1F09",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "20/06/2022"
+      },
       "3c690": {
         "titre": "Déterminer le coefficient directeur d’une tangente (fonctions de référence)",
         "id": "can1F13",
@@ -2374,16 +2415,6 @@
           "Can": true
         },
         "datePublication": "21/06/2022"
-      },
-      "2d459": {
-        "titre": "Déterminer l’abscisse ou l’ordonnée du sommet d’une parabole",
-        "id": "can1F21",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "21/09/2022"
       },
       "5283f": {
         "titre": "Résoudre une équation du second degré sans $\\Delta$",
@@ -2395,15 +2426,15 @@
         },
         "datePublication": "17/09/2022"
       },
-      "84ae6": {
-        "titre": "Déterminer la fonction dérivée d’une fonction affine*",
-        "id": "can1F09",
+      "2d459": {
+        "titre": "Déterminer l’abscisse ou l’ordonnée du sommet d’une parabole",
+        "id": "can1F21",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": true,
           "Can": true
         },
-        "datePublication": "20/06/2022"
+        "datePublication": "21/09/2022"
       },
       "053d7": {
         "titre": "Lire graphiquement les valeurs de $b$ et $c$ avec une parabole",
@@ -2475,19 +2506,20 @@
         },
         "datePublication": "1/11/2021"
       },
-      "a3e7a": {
-        "titre": "Déterminer la fonction dérivée d’un polynôme de degré 2",
-        "id": "can1F10",
+      "cc460": {
+        "titre": "Déterminer le sens de variation d’un pôlynome du second degré",
+        "id": "can1F02",
         "tags": {
           "AMC": false,
           "Interactif": true,
           "Can": true
         },
-        "datePublication": "20/06/2022"
+        "datePublication": "1/11/2021",
+        "dateModification": "10/06/2022"
       },
-      "a1ba2": {
-        "titre": "Déterminer un nombre dérivé",
-        "id": "can1F14",
+      "a3e7a": {
+        "titre": "Déterminer la fonction dérivée d’un polynôme de degré 2",
+        "id": "can1F10",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -2505,9 +2537,19 @@
         },
         "datePublication": "21/06/2022"
       },
-      "c7f8e": {
-        "titre": "Calculer une dérivée et écrire le résultat sous la forme d’un quotient",
-        "id": "can1F19",
+      "a1ba2": {
+        "titre": "Déterminer un nombre dérivé",
+        "id": "can1F14",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "20/06/2022"
+      },
+      "c4251": {
+        "titre": "Déterminer la fonction dérivée d’une fonction $a/u(x)$",
+        "id": "can1F18",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -2515,9 +2557,9 @@
         },
         "datePublication": "24/06/2022"
       },
-      "c4251": {
-        "titre": "Déterminer la fonction dérivée d’une fonction $a/u(x)$",
-        "id": "can1F18",
+      "c7f8e": {
+        "titre": "Calculer une dérivée et écrire le résultat sous la forme d’un quotient",
+        "id": "can1F19",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -2535,27 +2577,6 @@
         },
         "datePublication": "24/09/2022"
       },
-      "e794b": {
-        "titre": "Déterminer la fonction dérivée d’une fonction $k/x$ ou $k\\sqrt{x}$",
-        "id": "can1F12",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "21/06/2022"
-      },
-      "cc460": {
-        "titre": "Déterminer le sens de variation d’un pôlynome du second degré",
-        "id": "can1F02",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "1/11/2021",
-        "dateModification": "10/06/2022"
-      },
       "5b203": {
         "titre": "Déterminer une équation de l’axe de symétrie d’une parabole",
         "id": "can1F07",
@@ -2565,6 +2586,16 @@
           "Can": true
         },
         "datePublication": "15/06/2022"
+      },
+      "e794b": {
+        "titre": "Déterminer la fonction dérivée d’une fonction $k/x$ ou $k\\sqrt{x}$",
+        "id": "can1F12",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "21/06/2022"
       }
     },
     "can1G": {
@@ -2618,16 +2649,6 @@
         },
         "datePublication": "31/10/2022"
       },
-      "e7919": {
-        "titre": "Déterminer un vecteur normal avec une équation cartésienne",
-        "id": "can1G08",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "08/07/2022"
-      },
       "e20cc": {
         "titre": "Déterminer un produit scalaire avec les coordonnées",
         "id": "can1G05",
@@ -2637,6 +2658,16 @@
           "Can": true
         },
         "datePublication": "27/06/2022"
+      },
+      "e7919": {
+        "titre": "Déterminer un vecteur normal avec une équation cartésienne",
+        "id": "can1G08",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "08/07/2022"
       },
       "18b46": {
         "titre": "Donner la mesure d'un angle à partir des cosinus et sinus ",
@@ -2690,6 +2721,26 @@
         },
         "datePublication": "19/06/2022"
       },
+      "d0042": {
+        "titre": "Calculer un discriminant",
+        "id": "can1L01",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "26/10/2021"
+      },
+      "c74ea": {
+        "titre": "Déterminer le nombre de solutions d’une équation du second degré",
+        "id": "can1L02",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "1/11/2021"
+      },
       "a23a1": {
         "titre": "Trouver les racines à partir d’une forme factorisée",
         "id": "can1L03",
@@ -2719,16 +2770,6 @@
           "Can": true
         },
         "datePublication": "04/06/2022"
-      },
-      "d0042": {
-        "titre": "Calculer un discriminant",
-        "id": "can1L01",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "26/10/2021"
       },
       "d1ad9": {
         "titre": "Déterminer une forme canonique",
@@ -2769,39 +2810,9 @@
           "Can": true
         },
         "datePublication": "11/06/2022"
-      },
-      "c74ea": {
-        "titre": "Déterminer le nombre de solutions d’une équation du second degré",
-        "id": "can1L02",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "1/11/2021"
       }
     },
     "can1S": {
-      "1eb6e": {
-        "titre": "Déterminer une relation de récurrence",
-        "id": "can1S09",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "18/02/2022"
-      },
-      "fccb4": {
-        "titre": "Calculer un terme d’une suite récurrente*",
-        "id": "can1S03",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "15/02/2022"
-      },
       "3f032": {
         "titre": "Calculer un terme d’une suite récurrente",
         "id": "can1S02",
@@ -2811,16 +2822,6 @@
           "Can": true
         },
         "datePublication": "14/02/2022"
-      },
-      "baa9f": {
-        "titre": "Calculer la raison d’une suite arithmétique/géométrique*",
-        "id": "can1S08",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "18/02/2022"
       },
       "44c30": {
         "titre": "Calculer un terme d’une suite explicite",
@@ -2832,35 +2833,15 @@
         },
         "datePublication": "14/02/2022"
       },
-      "cd45d": {
-        "titre": "Calculer la raison d’une suite arithmétique/géométrique",
-        "id": "can1S07",
+      "b119b": {
+        "titre": "Donner la nature d’une suite (formule de récurrence)",
+        "id": "can1S04",
         "tags": {
           "AMC": false,
           "Interactif": true,
           "Can": true
         },
-        "datePublication": "18/02/2022"
-      },
-      "fba63": {
-        "titre": "Donner la forme explicite d’une suite arithmétique/géométrique",
-        "id": "can1S06",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "17/02/2022"
-      },
-      "0f014": {
-        "titre": "Donner le résultat d’un programme Python",
-        "id": "can1S11",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "21/02/2022"
+        "datePublication": "16/02/2022"
       },
       "88acd": {
         "titre": "Donner la nature d’une suite (formule explicite)",
@@ -2872,15 +2853,55 @@
         },
         "datePublication": "16/02/2022"
       },
-      "b119b": {
-        "titre": "Donner la nature d’une suite (formule de récurrence)",
-        "id": "can1S04",
+      "fccb4": {
+        "titre": "Calculer un terme d’une suite récurrente*",
+        "id": "can1S03",
         "tags": {
           "AMC": false,
           "Interactif": true,
           "Can": true
         },
-        "datePublication": "16/02/2022"
+        "datePublication": "15/02/2022"
+      },
+      "fba63": {
+        "titre": "Donner la forme explicite d’une suite arithmétique/géométrique",
+        "id": "can1S06",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "17/02/2022"
+      },
+      "cd45d": {
+        "titre": "Calculer la raison d’une suite arithmétique/géométrique",
+        "id": "can1S07",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "18/02/2022"
+      },
+      "baa9f": {
+        "titre": "Calculer la raison d’une suite arithmétique/géométrique*",
+        "id": "can1S08",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "18/02/2022"
+      },
+      "0f014": {
+        "titre": "Donner le résultat d’un programme Python",
+        "id": "can1S11",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "21/02/2022"
       },
       "d1261": {
         "titre": "Trouver le sens de variation d’une suite (QCM)",
@@ -2891,6 +2912,16 @@
           "Can": true
         },
         "datePublication": "19/02/2022"
+      },
+      "1eb6e": {
+        "titre": "Déterminer une relation de récurrence",
+        "id": "can1S09",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "18/02/2022"
       }
     }
   },
@@ -3097,18 +3128,18 @@
           "Can": false
         }
       },
-      "8ea24": {
-        "titre": "Construire le symétrique d'une figure par rapport à une droite",
-        "id": "5G10-2",
+      "ce9ef": {
+        "titre": "Construire le symétrique d'un point par rapport à une droite",
+        "id": "5G10-1",
         "tags": {
           "AMC": false,
           "Interactif": false,
           "Can": false
         }
       },
-      "ce9ef": {
-        "titre": "Construire le symétrique d'un point par rapport à une droite",
-        "id": "5G10-1",
+      "8ea24": {
+        "titre": "Construire le symétrique d'une figure par rapport à une droite",
+        "id": "5G10-2",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -3155,6 +3186,15 @@
         },
         "dateModification": "17/03/2022"
       },
+      "ce9ca": {
+        "titre": "Comparer quatre fractions (dénominateurs multiples) et un nombre entier",
+        "id": "5N14-2",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
       "0e58f": {
         "titre": "Écrire une fraction sur 100 puis sous la forme d'un pourcentage",
         "id": "5N11-3",
@@ -3164,6 +3204,15 @@
           "Can": false
         },
         "dateModification": "17/03/2022"
+      },
+      "234a7": {
+        "titre": "Comparer deux fractions (dénominateurs multiples)",
+        "id": "5N14",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
       },
       "b2c55": {
         "titre": "Variation en pourcentages",
@@ -3183,18 +3232,9 @@
           "Can": false
         }
       },
-      "ce9ca": {
-        "titre": "Comparer quatre fractions (dénominateurs multiples) et un nombre entier",
-        "id": "5N14-2",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "234a7": {
-        "titre": "Comparer deux fractions (dénominateurs multiples)",
-        "id": "5N14",
+      "d1fb2": {
+        "titre": "Fractions égales et égalité des produits en croix",
+        "id": "5N14-3",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -3204,15 +3244,6 @@
       "4718e": {
         "titre": "Égalités entre fractions simples",
         "id": "5N13-2",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "d1fb2": {
-        "titre": "Fractions égales et égalité des produits en croix",
-        "id": "5N14-3",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -3231,6 +3262,26 @@
       "5a44b": {
         "titre": "Tableaux et pourcentages - pourcentage constant",
         "id": "5N11-2",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      }
+    },
+    "5N2": {
+      "d5ee3": {
+        "titre": "Additionner ou soustraire deux fractions (dénominateurs multiples)",
+        "id": "5N20",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "b6250": {
+        "titre": "Résoudre un problème en utilisant des fractions",
+        "id": "5N20-0",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -3306,26 +3357,6 @@
         }
       }
     },
-    "5N2": {
-      "d5ee3": {
-        "titre": "Additionner ou soustraire deux fractions (dénominateurs multiples)",
-        "id": "5N20",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "b6250": {
-        "titre": "Résoudre un problème en utilisant des fractions",
-        "id": "5N20-0",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      }
-    },
     "5R2": {
       "41254": {
         "titre": "Additions de deux entiers relatifs dans un tableau à double entrée",
@@ -3365,40 +3396,12 @@
           "Can": false
         }
       },
-      "b6982": {
-        "titre": "Soustraction de deux entiers relatifs",
-        "id": "5R21",
+      "ce842": {
+        "titre": "Addition à trou de deux entiers relatifs",
+        "id": "5R20-2",
         "tags": {
           "AMC": true,
           "Interactif": true,
-          "Can": false
-        },
-        "dateModification": "11/11/2021"
-      },
-      "f6ea7": {
-        "titre": "Additions et soustractions de nombres relatifs",
-        "id": "5R22",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "cbc26": {
-        "titre": "Addition de deux entiers relatifs",
-        "id": "5R20",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "070b4": {
-        "titre": "Simplifier l'écriture d'une somme de 2 relatifs et calculer",
-        "id": "5R22-2",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
           "Can": false
         }
       },
@@ -3411,12 +3414,40 @@
           "Can": false
         }
       },
-      "ce842": {
-        "titre": "Addition à trou de deux entiers relatifs",
-        "id": "5R20-2",
+      "b6982": {
+        "titre": "Soustraction de deux entiers relatifs",
+        "id": "5R21",
         "tags": {
           "AMC": true,
           "Interactif": true,
+          "Can": false
+        },
+        "dateModification": "11/11/2021"
+      },
+      "cbc26": {
+        "titre": "Addition de deux entiers relatifs",
+        "id": "5R20",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "f6ea7": {
+        "titre": "Additions et soustractions de nombres relatifs",
+        "id": "5R22",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "070b4": {
+        "titre": "Simplifier l'écriture d'une somme de 2 relatifs et calculer",
+        "id": "5R22-2",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
           "Can": false
         }
       }
@@ -3586,18 +3617,19 @@
       }
     },
     "5G4": {
-      "8812e": {
-        "titre": "Nature de parallélogrammes",
-        "id": "5G42",
+      "588fe": {
+        "titre": "Reconnaître un parallélogramme à partir du codage d'une figure",
+        "id": "5G40-2",
         "tags": {
           "AMC": false,
           "Interactif": false,
           "Can": false
-        }
+        },
+        "dateModification": "08/05/2022"
       },
-      "588fe": {
-        "titre": "Reconnaître un parallélogramme à partir du codage d'une figure",
-        "id": "5G40-2",
+      "b611a": {
+        "titre": "Construire des parallélogrammes avec dispositif d'auto-correction",
+        "id": "5G40",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -3614,15 +3646,14 @@
           "Can": false
         }
       },
-      "b611a": {
-        "titre": "Construire des parallélogrammes avec dispositif d'auto-correction",
-        "id": "5G40",
+      "8812e": {
+        "titre": "Nature de parallélogrammes",
+        "id": "5G42",
         "tags": {
           "AMC": false,
           "Interactif": false,
           "Can": false
-        },
-        "dateModification": "08/05/2022"
+        }
       },
       "af2c2": {
         "titre": "Citer les propriétés des parallélogrammes",
@@ -3674,72 +3705,6 @@
           "Can": false
         }
       },
-      "a8ad0": {
-        "titre": "Réduire une expression littérale (somme et produit)",
-        "id": "5L12-2",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "22/02/2022"
-      },
-      "1bce3": {
-        "titre": "Réduire une expression de la forme $ax+bx$ ",
-        "id": "5L13",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "17e39": {
-        "titre": "Calculer la valeur d'une expression littérale",
-        "id": "5L14",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "e2e64": {
-        "titre": "Simplifier l'écriture d'une expression littérale",
-        "id": "5L16",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "07/04/2022",
-        "dateModification": "18/06/2022"
-      },
-      "8865d": {
-        "titre": "Substitution",
-        "id": "5L14-2",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "85d2d": {
-        "titre": "Réduire une expression littérale",
-        "id": "5L12",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "d88d6": {
-        "titre": "Tester une égalité",
-        "id": "5L15",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
       "12bb6": {
         "titre": "Traduire un programme de calcul par une expression littérale",
         "id": "5L10-2",
@@ -3759,6 +3724,72 @@
           "Can": false
         },
         "dateModification": "11/05/2022"
+      },
+      "a8ad0": {
+        "titre": "Réduire une expression littérale (somme et produit)",
+        "id": "5L12-2",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "22/02/2022"
+      },
+      "85d2d": {
+        "titre": "Réduire une expression littérale",
+        "id": "5L12",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "1bce3": {
+        "titre": "Réduire une expression de la forme $ax+bx$ ",
+        "id": "5L13",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "8865d": {
+        "titre": "Substitution",
+        "id": "5L14-2",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "17e39": {
+        "titre": "Calculer la valeur d'une expression littérale",
+        "id": "5L14",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "d88d6": {
+        "titre": "Tester une égalité",
+        "id": "5L15",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "e2e64": {
+        "titre": "Simplifier l'écriture d'une expression littérale",
+        "id": "5L16",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "07/04/2022",
+        "dateModification": "18/06/2022"
       },
       "97f1a": {
         "titre": "Déterminer la dernière opération à effectuer dans une expression littérale",
@@ -3933,15 +3964,6 @@
       }
     },
     "5C1": {
-      "e61fc": {
-        "titre": "Calculer une expression numérique en détaillant les calculs",
-        "id": "5C12",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
       "3406a": {
         "titre": "Traduire une succession des opérations par une expression",
         "id": "5C11-2",
@@ -3971,9 +3993,27 @@
         },
         "datePublication": "26/11/2022"
       },
+      "e61fc": {
+        "titre": "Calculer une expression numérique en détaillant les calculs",
+        "id": "5C12",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
       "baa4b": {
         "titre": "Traduire une expression par une phrase",
         "id": "5C11-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "9d15d": {
+        "titre": "Traduire une phrase par une expression",
+        "id": "5C11",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -3986,15 +4026,6 @@
         "tags": {
           "AMC": true,
           "Interactif": true,
-          "Can": false
-        }
-      },
-      "9d15d": {
-        "titre": "Traduire une phrase par une expression",
-        "id": "5C11",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
           "Can": false
         }
       }
@@ -4062,20 +4093,20 @@
         },
         "datePublication": "04/03/2022"
       },
-      "6516e": {
-        "titre": "Équations résolvantes pour le théorème de Thalès",
-        "id": "3L13-2",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
       "1802d": {
         "titre": "Équation du premier degré (utilisant la distributivité)",
         "id": "3L13-1",
         "tags": {
           "AMC": false,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "6516e": {
+        "titre": "Équations résolvantes pour le théorème de Thalès",
+        "id": "3L13-2",
+        "tags": {
+          "AMC": true,
           "Interactif": true,
           "Can": false
         }
@@ -4119,20 +4150,20 @@
           "Can": false
         }
       },
-      "603a8": {
-        "titre": "Supprimer les parenthèses puis réduire une expression",
-        "id": "3L10",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        }
-      },
       "4197c": {
         "titre": "Utiliser la double distributivité",
         "id": "3L11-1",
         "tags": {
           "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "603a8": {
+        "titre": "Supprimer les parenthèses puis réduire une expression",
+        "id": "3L10",
+        "tags": {
+          "AMC": false,
           "Interactif": true,
           "Can": false
         }
@@ -4146,11 +4177,11 @@
           "Can": false
         }
       },
-      "5f5a6": {
-        "titre": "Factoriser une expression",
-        "id": "3L11-4",
+      "edbd5": {
+        "titre": "Calcul mental et calcul littéral",
+        "id": "3L11-5",
         "tags": {
-          "AMC": true,
+          "AMC": false,
           "Interactif": true,
           "Can": false
         }
@@ -4165,6 +4196,15 @@
         },
         "datePublication": "12/12/2021"
       },
+      "5f5a6": {
+        "titre": "Factoriser une expression",
+        "id": "3L11-4",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
       "77a62": {
         "titre": "Utiliser la simple distributivité",
         "id": "3L11",
@@ -4174,9 +4214,9 @@
           "Can": false
         }
       },
-      "edbd5": {
-        "titre": "Calcul mental et calcul littéral",
-        "id": "3L11-5",
+      "be157": {
+        "titre": "Développer (a-b)(a+b)",
+        "id": "3L12-1",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -4186,15 +4226,6 @@
       "81fd2": {
         "titre": "Factoriser a²-b²",
         "id": "3L12",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "be157": {
-        "titre": "Développer (a-b)(a+b)",
-        "id": "3L12-1",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -4353,24 +4384,6 @@
           "Can": false
         }
       },
-      "5986b": {
-        "titre": "Calculer la hauteur d'un objet vu sous un angle donné",
-        "id": "3G32-2",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "e42e0": {
-        "titre": "Calculer la hauteur d'une falaise",
-        "id": "3G32-3",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
       "3cb52": {
         "titre": "Calculer la hauteur d'une montagne",
         "id": "3G32-4",
@@ -4380,9 +4393,9 @@
           "Can": false
         }
       },
-      "8ba77": {
-        "titre": "Triangle rectangle inscrit dans un triangle rectangle",
-        "id": "3G32-5",
+      "5986b": {
+        "titre": "Calculer la hauteur d'un objet vu sous un angle donné",
+        "id": "3G32-2",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -4398,12 +4411,48 @@
           "Can": false
         }
       },
+      "e42e0": {
+        "titre": "Calculer la hauteur d'une falaise",
+        "id": "3G32-3",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "8ba77": {
+        "titre": "Triangle rectangle inscrit dans un triangle rectangle",
+        "id": "3G32-5",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
       "35e0b": {
         "titre": "Calculer toutes les mesures d'angle d'une figure complexe",
         "id": "3G31-1",
         "tags": {
           "AMC": false,
           "Interactif": false,
+          "Can": false
+        }
+      },
+      "0d1f7": {
+        "titre": "Exprimer le cosinus, le sinus ou la tangente d'un angle en fonction des côtés du triangle",
+        "id": "3G30-1",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "0ac11": {
+        "titre": "Calculer un angle dans un triangle rectangle en utilisant la trigonométrie",
+        "id": "3G31",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
           "Can": false
         }
       },
@@ -4416,24 +4465,6 @@
           "Can": false
         },
         "dateModification": "21/03/2022"
-      },
-      "0ac11": {
-        "titre": "Calculer un angle dans un triangle rectangle en utilisant la trigonométrie",
-        "id": "3G31",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "0d1f7": {
-        "titre": "Exprimer le cosinus, le sinus ou la tangente d'un angle en fonction des côtés du triangle",
-        "id": "3G30-1",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
       }
     },
     "3I1": {
@@ -4466,16 +4497,6 @@
           "Can": false
         }
       },
-      "39a32": {
-        "titre": "Compléter un script Scratch - 1",
-        "id": "3I12-1",
-        "tags": {
-          "AMC": true,
-          "Interactif": false,
-          "Can": false
-        },
-        "datePublication": "20/09/2022"
-      },
       "52c97": {
         "titre": "Compléter un script Scratch - 2",
         "id": "3I12-3",
@@ -4485,6 +4506,16 @@
           "Can": false
         },
         "datePublication": "22/09/2022"
+      },
+      "39a32": {
+        "titre": "Compléter un script Scratch - 1",
+        "id": "3I12-1",
+        "tags": {
+          "AMC": true,
+          "Interactif": false,
+          "Can": false
+        },
+        "datePublication": "20/09/2022"
       },
       "8cbd6": {
         "titre": "Instruction conditionnelle (scratch)",
@@ -4546,38 +4577,27 @@
         },
         "datePublication": "12/10/2022"
       },
-      "eee79": {
-        "titre": "Recourir à une décomposition en facteurs premiers dans des cas simples",
-        "id": "3A10-5",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "29/08/2022"
-      },
-      "5636e": {
-        "titre": "Trouver un chiffre pour qu'un nombre soit divisible par un autre",
-        "id": "3A10-6",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "29/08/2022"
-      },
-      "32f33": {
-        "titre": "Décomposer un entier en produit de facteurs premiers",
-        "id": "3A10-3",
+      "bba55": {
+        "titre": "Indiquer si des nombres sont premiers ou pas",
+        "id": "3A10-1",
         "tags": {
           "AMC": true,
           "Interactif": true,
           "Can": false
         }
       },
-      "8c05e": {
-        "titre": "Résoudre des problèmes avec recherche de diviseurs communs",
-        "id": "3A12-1",
+      "526f8": {
+        "titre": "Justifier si des nombres sont premiers ou pas - Variante avec les critères de divisibilité par 7 et par 11",
+        "id": "3A10-2",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "32f33": {
+        "titre": "Décomposer un entier en produit de facteurs premiers",
+        "id": "3A10-3",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -4593,14 +4613,15 @@
           "Can": false
         }
       },
-      "a6667": {
-        "titre": "Rendre irréductible une fraction",
-        "id": "3A11",
+      "eee79": {
+        "titre": "Recourir à une décomposition en facteurs premiers dans des cas simples",
+        "id": "3A10-5",
         "tags": {
           "AMC": false,
-          "Interactif": false,
+          "Interactif": true,
           "Can": false
-        }
+        },
+        "datePublication": "29/08/2022"
       },
       "5b60d": {
         "titre": "Comprendre le vocabulaire : division euclidienne, diviseurs, multiples",
@@ -4611,21 +4632,31 @@
           "Can": false
         }
       },
-      "526f8": {
-        "titre": "Justifier si des nombres sont premiers ou pas - Variante avec les critères de divisibilité par 7 et par 11",
-        "id": "3A10-2",
+      "5636e": {
+        "titre": "Trouver un chiffre pour qu'un nombre soit divisible par un autre",
+        "id": "3A10-6",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "29/08/2022"
+      },
+      "8c05e": {
+        "titre": "Résoudre des problèmes avec recherche de diviseurs communs",
+        "id": "3A12-1",
         "tags": {
           "AMC": true,
           "Interactif": true,
           "Can": false
         }
       },
-      "bba55": {
-        "titre": "Indiquer si des nombres sont premiers ou pas",
-        "id": "3A10-1",
+      "a6667": {
+        "titre": "Rendre irréductible une fraction",
+        "id": "3A11",
         "tags": {
-          "AMC": true,
-          "Interactif": true,
+          "AMC": false,
+          "Interactif": false,
           "Can": false
         }
       },
@@ -4658,9 +4689,9 @@
         },
         "datePublication": "14/09/2022"
       },
-      "b0cee": {
-        "titre": "Indiquer une égalité à partir d'une division euclidienne",
-        "id": "3A13-4",
+      "8741f": {
+        "titre": "Poser divisions euclidiennes",
+        "id": "3A13-1",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -4668,9 +4699,9 @@
         },
         "datePublication": "14/09/2022"
       },
-      "8741f": {
-        "titre": "Poser divisions euclidiennes",
-        "id": "3A13-1",
+      "b0cee": {
+        "titre": "Indiquer une égalité à partir d'une division euclidienne",
+        "id": "3A13-4",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -4701,6 +4732,15 @@
       }
     },
     "3G4": {
+      "8c803": {
+        "titre": "Volume d'une boule",
+        "id": "3G42",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
       "136dd": {
         "titre": "Dessiner différentes vues d'un empilement de cubes",
         "id": "3G41",
@@ -4710,15 +4750,6 @@
           "Can": false
         },
         "datePublication": "06/10/2022"
-      },
-      "8c803": {
-        "titre": "Volume d'une boule",
-        "id": "3G42",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
       },
       "75ea2": {
         "titre": "Repérage sur la sphère",
@@ -4760,20 +4791,20 @@
           "Can": false
         }
       },
-      "056fa": {
-        "titre": "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine",
-        "id": "3F21-3",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        }
-      },
       "e5ddd": {
         "titre": "Déterminer une fonction affine",
         "id": "3F21-1",
         "tags": {
           "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "056fa": {
+        "titre": "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine",
+        "id": "3F21-3",
+        "tags": {
+          "AMC": false,
           "Interactif": true,
           "Can": false
         }
@@ -4798,24 +4829,6 @@
           "Can": false
         }
       },
-      "b8946": {
-        "titre": "Lire l'image d'un nombre à partir d'un graphique",
-        "id": "3F12-4",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "be398": {
-        "titre": "Spécial escape game",
-        "id": "3F13-2",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        }
-      },
       "4daef": {
         "titre": "Vocabulaire et notations des fonctions",
         "id": "3F10-3",
@@ -4826,9 +4839,27 @@
         },
         "datePublication": "29/09/2022"
       },
+      "b8946": {
+        "titre": "Lire l'image d'un nombre à partir d'un graphique",
+        "id": "3F12-4",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
       "4b121": {
         "titre": "Lecture graphique d'images et d'antécédents",
         "id": "3F13-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "be398": {
+        "titre": "Spécial escape game",
+        "id": "3F13-2",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -4844,6 +4875,15 @@
           "Can": false
         }
       },
+      "b92da": {
+        "titre": "Lectures d'images et d'antécédents depuis un tableau de valeurs",
+        "id": "3F10",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        }
+      },
       "082d7": {
         "titre": "Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique",
         "id": "3F12-2",
@@ -4856,24 +4896,6 @@
       "afb2f": {
         "titre": "Compléter un tableau de valeurs",
         "id": "3F12-3",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "b92da": {
-        "titre": "Lectures d'images et d'antécédents depuis un tableau de valeurs",
-        "id": "3F10",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "ba520": {
-        "titre": "Fonction : calculs d'images (et d'antécédents)",
-        "id": "3F10-2",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -4897,6 +4919,15 @@
           "Interactif": false,
           "Can": false
         }
+      },
+      "ba520": {
+        "titre": "Fonction : calculs d'images (et d'antécédents)",
+        "id": "3F10-2",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
       }
     },
     "3G2": {
@@ -4909,6 +4940,15 @@
           "Can": false
         }
       },
+      "eea67": {
+        "titre": "Problèmes avec le théorème de Thalès",
+        "id": "3G20-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
       "3451c": {
         "titre": "Démontrer que deux droites sont ou ne sont pas parallèles avec le théorème de Thalès",
         "id": "3G21",
@@ -4918,9 +4958,9 @@
           "Can": false
         }
       },
-      "eea67": {
-        "titre": "Problèmes avec le théorème de Thalès",
-        "id": "3G20-1",
+      "960f9": {
+        "titre": "Connaître les effets des agrandissements/réductions sur les aires et les volumes",
+        "id": "3G22",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -4937,15 +4977,6 @@
         },
         "datePublication": "25/10/2021",
         "dateModification": "24/10/2021"
-      },
-      "960f9": {
-        "titre": "Connaître les effets des agrandissements/réductions sur les aires et les volumes",
-        "id": "3G22",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
       },
       "74eac": {
         "titre": "Calculer des longueurs avec le théorème de Thalès",
@@ -5047,18 +5078,18 @@
           "Can": false
         }
       },
-      "ef897": {
-        "titre": "Déterminer une fonction affine à partir de deux images",
-        "id": "2F10-4",
+      "b72b0": {
+        "titre": "Déterminer le sens de variation d'une fonction affine",
+        "id": "2F10-6",
         "tags": {
           "AMC": false,
           "Interactif": false,
           "Can": false
         }
       },
-      "b72b0": {
-        "titre": "Déterminer le sens de variation d'une fonction affine",
-        "id": "2F10-6",
+      "ef897": {
+        "titre": "Déterminer une fonction affine à partir de deux images",
+        "id": "2F10-4",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -5137,18 +5168,18 @@
         "datePublication": "28/12/2021",
         "dateModification": "30/08/2022"
       },
-      "0cf54": {
-        "titre": "Calculer des probabilités simples",
-        "id": "2S30-3",
+      "e1938": {
+        "titre": "Calculer des probabilités dans une expérience aléatoire à deux épreuves",
+        "id": "2S30-4",
         "tags": {
           "AMC": false,
           "Interactif": false,
           "Can": false
         }
       },
-      "e1938": {
-        "titre": "Calculer des probabilités dans une expérience aléatoire à deux épreuves",
-        "id": "2S30-4",
+      "0cf54": {
+        "titre": "Calculer des probabilités simples",
+        "id": "2S30-3",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -5176,16 +5207,6 @@
         },
         "datePublication": "31/01/2022"
       },
-      "acee0": {
-        "titre": "Déterminer un extremum ou encadrer par lecture d'un tableau de variations",
-        "id": "2F32-3",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        },
-        "datePublication": "20/12/2021"
-      },
       "c705b": {
         "titre": "Comparaison d'images dans un tableau de variations",
         "id": "2F31-3",
@@ -5206,6 +5227,16 @@
           "Can": false
         },
         "datePublication": "1/08/2021"
+      },
+      "acee0": {
+        "titre": "Déterminer un extremum ou encadrer par lecture d'un tableau de variations",
+        "id": "2F32-3",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "datePublication": "20/12/2021"
       },
       "1803c": {
         "titre": "Utiliser les variations des fonctions de référence pour comparer des images",
@@ -5291,21 +5322,21 @@
           "Can": false
         }
       },
-      "65bed": {
-        "titre": "Calculs de volumes",
-        "id": "2G11-5",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
       "109b1": {
         "titre": "Problèmes utilisant le théorème de Pythagore",
         "id": "2G11-1",
         "tags": {
           "AMC": false,
           "Interactif": false,
+          "Can": false
+        }
+      },
+      "65bed": {
+        "titre": "Calculs de volumes",
+        "id": "2G11-5",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
           "Can": false
         }
       }
@@ -5320,18 +5351,18 @@
           "Can": false
         }
       },
-      "3a3ec": {
-        "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées",
-        "id": "2G22-1",
+      "fa7b9": {
+        "titre": "Coordonnées de vecteurs et translations",
+        "id": "2G23-2",
         "tags": {
           "AMC": false,
           "Interactif": false,
           "Can": false
         }
       },
-      "fa7b9": {
-        "titre": "Coordonnées de vecteurs et translations",
-        "id": "2G23-2",
+      "3a3ec": {
+        "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées",
+        "id": "2G22-1",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -5358,27 +5389,9 @@
           "Can": false
         }
       },
-      "1ea16": {
-        "titre": "Déterminer le coefficient directeur d'une droite",
-        "id": "2G30-1",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "d1da3": {
-        "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente",
-        "id": "2G30-5",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "0ec77": {
-        "titre": "Déterminer une équation cartésienne de droite à partir d'un point et d'un vecteur directeur",
-        "id": "2G30-4",
+      "0cee9": {
+        "titre": "Déterminer une équation réduite de droite",
+        "id": "2G30-2",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -5394,12 +5407,21 @@
           "Can": false
         }
       },
-      "0cee9": {
-        "titre": "Déterminer une équation réduite de droite",
-        "id": "2G30-2",
+      "d1da3": {
+        "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente",
+        "id": "2G30-5",
         "tags": {
           "AMC": false,
           "Interactif": false,
+          "Can": false
+        }
+      },
+      "1ea16": {
+        "titre": "Déterminer le coefficient directeur d'une droite",
+        "id": "2G30-1",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
           "Can": false
         }
       },
@@ -5420,21 +5442,30 @@
           "Interactif": false,
           "Can": false
         }
+      },
+      "0ec77": {
+        "titre": "Déterminer une équation cartésienne de droite à partir d'un point et d'un vecteur directeur",
+        "id": "2G30-4",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
       }
     },
     "2N1": {
-      "dc2a5": {
-        "titre": "Utiliser et comprendre les symboles $\\cup $ et $\\cap $ avec les intervalles de $\\mathbb{R}$",
-        "id": "2N11-2",
+      "31c01": {
+        "titre": "Associer un intervalle de  $\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée",
+        "id": "2N11-1",
         "tags": {
           "AMC": false,
           "Interactif": false,
           "Can": false
         }
       },
-      "31c01": {
-        "titre": "Associer un intervalle de  $\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée",
-        "id": "2N11-1",
+      "dc2a5": {
+        "titre": "Utiliser et comprendre les symboles $\\cup $ et $\\cap $ avec les intervalles de $\\mathbb{R}$",
+        "id": "2N11-2",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -5450,15 +5481,14 @@
           "Can": false
         }
       },
-      "ed2ee": {
-        "titre": "Encadrer avec les racines carrées",
-        "id": "2N12-3",
+      "25fb4": {
+        "titre": "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient",
+        "id": "2N14-1",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": true,
           "Can": false
-        },
-        "datePublication": "28/09/2022"
+        }
       },
       "0d8b3": {
         "titre": "Utiliser la notion de valeur absolue d'une quantité",
@@ -5469,14 +5499,15 @@
           "Can": false
         }
       },
-      "25fb4": {
-        "titre": "Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient",
-        "id": "2N14-1",
+      "ed2ee": {
+        "titre": "Encadrer avec les racines carrées",
+        "id": "2N12-3",
         "tags": {
-          "AMC": true,
+          "AMC": false,
           "Interactif": true,
           "Can": false
-        }
+        },
+        "datePublication": "28/09/2022"
       },
       "bba9b": {
         "titre": "Arrondir une valeur",
@@ -5577,27 +5608,19 @@
         },
         "datePublication": "16/12/2021"
       },
+      "846b8": {
+        "titre": "Modéliser une situation  à l'aide d'une équation",
+        "id": "2N50-3",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "datePublication": "16/12/2021"
+      },
       "bb6d5": {
         "titre": "Résoudre des équations carrées",
         "id": "2N52-2",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "78f02": {
-        "titre": "Équations du type x/a=b/c (v2)",
-        "id": "2N51-3v2",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "7959f": {
-        "titre": "Equations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$",
-        "id": "2N51-3",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -5613,6 +5636,24 @@
           "Can": false
         }
       },
+      "7959f": {
+        "titre": "Equations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$",
+        "id": "2N51-3",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "78f02": {
+        "titre": "Équations du type x/a=b/c (v2)",
+        "id": "2N51-3v2",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
       "622b9": {
         "titre": "Mettre en équation un problème sans objectif de résolution",
         "id": "2N50-1",
@@ -5621,25 +5662,6 @@
           "Interactif": false,
           "Can": false
         }
-      },
-      "d02da": {
-        "titre": "Équations du premier degré",
-        "id": "2N51-4",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "846b8": {
-        "titre": "Modéliser une situation  à l'aide d'une équation",
-        "id": "2N50-3",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        },
-        "datePublication": "16/12/2021"
       },
       "71e5c": {
         "titre": "Tester si un nombre est solution d'une équation",
@@ -5656,6 +5678,15 @@
         "tags": {
           "AMC": false,
           "Interactif": false,
+          "Can": false
+        }
+      },
+      "d02da": {
+        "titre": "Équations du premier degré",
+        "id": "2N51-4",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
           "Can": false
         }
       }
@@ -5689,19 +5720,265 @@
         }
       }
     },
-    "2N4": {
-      "98658": {
-        "titre": "Calculer la valeur d'une expression littérale",
-        "id": "2N40-2",
+    "2N2": {
+      "74939": {
+        "titre": "Compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers",
+        "id": "2N20-6",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "dateModification": "14/11/2021"
+      },
+      "3ec5c": {
+        "titre": "Déterminer la parité d'une expression",
+        "id": "2N20-8",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "c04cc": {
+        "titre": "Primalité ou pas",
+        "id": "2N20-4",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "dateModification": "29/10/2021"
+      },
+      "c3c84": {
+        "titre": "Engrenages",
+        "id": "2N20-7",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "dateModification": "14/11/2021"
+      },
+      "098db": {
+        "titre": "Division Euclidienne - Diviseurs - Multiples",
+        "id": "2N20-3",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "dateModification": "29/10/2021"
+      },
+      "7cf48": {
+        "titre": "Écrire la liste de tous les diviseurs d'un entier",
+        "id": "2N20-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "dateModification": "28/10/2021"
+      },
+      "c14e8": {
+        "titre": "Décomposition en facteurs premiers",
+        "id": "2N20-5",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "dateModification": "2/11/2021"
+      },
+      "d5a6d": {
+        "titre": "Critères de divisibilité (plusieurs possibles)",
+        "id": "2N20-2",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "dateModification": "29/10/2021"
+      }
+    },
+    "2N3": {
+      "29919": {
+        "titre": "Multiplier des fractions",
+        "id": "2N30-3",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "45726": {
+        "titre": "Décomposer une fraction (partie entière +fraction inférieure à 1) puis donner l'écriture décimale",
+        "id": "2N30-1",
         "tags": {
           "AMC": false,
           "Interactif": true,
           "Can": false
         }
       },
-      "04b0a": {
-        "titre": "Développer avec les identités remarquables",
-        "id": "2N41-6",
+      "d9495": {
+        "titre": "Écrire le nombre proposé sous la forme $a\\sqrt{b}$",
+        "id": "2N32-3",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "99b29": {
+        "titre": "Connaître les propriétés calculatoires des racines carrées",
+        "id": "2N32-2",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "91dc4": {
+        "titre": "Développer les identités remarquables avec des racines carrées",
+        "id": "2N32-6",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "55cc0": {
+        "titre": "Existence d'une racine carrée",
+        "id": "2N32-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "660de": {
+        "titre": "Appliquer la double distributivité avec les racines carrées",
+        "id": "2N32-5",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "4771d": {
+        "titre": "Rendre entier le dénominateur d'une fraction",
+        "id": "2N32-7",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "12b72": {
+        "titre": "Simplifier une somme de racines carrées",
+        "id": "2N32-4",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "53fbb": {
+        "titre": "Puissances : écriture décimale ou fractionnaire",
+        "id": "2N31-0",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "14/06/2022"
+      },
+      "cb572": {
+        "titre": "Diviser des fractions",
+        "id": "2N30-4",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "b51ec": {
+        "titre": "Additionner ou soustraire deux fractions",
+        "id": "2N30-2",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "6575c": {
+        "titre": "Fractions et priorités opératoires",
+        "id": "2N30-5",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "d0fdc": {
+        "titre": "Problèmes additifs et de comparaison sur les fractions",
+        "id": "2N30-7",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "1e42b": {
+        "titre": "Puissances : le sens des règles de calculs",
+        "id": "2N31-2",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "0ecd3": {
+        "titre": "Puissances : Calculs automatisés et règles de calculs",
+        "id": "2N31-3",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "6fda8": {
+        "titre": "Calculs utilisant les priorités opératoires et les puissances",
+        "id": "2N31-4",
+        "tags": {
+          "AMC": true,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "c1561": {
+        "titre": "Fractions irréductibles",
+        "id": "2N30-6",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "c9404": {
+        "titre": "Notation scientifique",
+        "id": "2N31-1",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      }
+    },
+    "2N4": {
+      "98658": {
+        "titre": "Calculer la valeur d'une expression littérale",
+        "id": "2N40-2",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -5726,6 +6003,15 @@
           "Can": false
         }
       },
+      "04b0a": {
+        "titre": "Développer avec les identités remarquables",
+        "id": "2N41-6",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        }
+      },
       "874e8": {
         "titre": "Factoriser avec les identités remarquables (niveau II)",
         "id": "2N41-7",
@@ -5741,6 +6027,24 @@
         "tags": {
           "AMC": false,
           "Interactif": false,
+          "Can": false
+        }
+      },
+      "74c5a": {
+        "titre": "Calcul mental et calcul littéral",
+        "id": "2N40-6",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "3d2f9": {
+        "titre": "Factoriser une expression complexe",
+        "id": "2N41-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
           "Can": false
         }
       },
@@ -5762,9 +6066,9 @@
           "Can": false
         }
       },
-      "74c5a": {
-        "titre": "Calcul mental et calcul littéral",
-        "id": "2N40-6",
+      "3b7ee": {
+        "titre": "Développer (a-b)(a+b)",
+        "id": "2N41-3",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -5774,24 +6078,6 @@
       "47f20": {
         "titre": "Factoriser a²-b²",
         "id": "2N41-2",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "3d2f9": {
-        "titre": "Factoriser une expression complexe",
-        "id": "2N41-1",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "3b7ee": {
-        "titre": "Développer (a-b)(a+b)",
-        "id": "2N41-3",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -5817,180 +6103,6 @@
         }
       }
     },
-    "2N3": {
-      "29919": {
-        "titre": "Multiplier des fractions",
-        "id": "2N30-3",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "45726": {
-        "titre": "Décomposer une fraction (partie entière +fraction inférieure à 1) puis donner l'écriture décimale",
-        "id": "2N30-1",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "12b72": {
-        "titre": "Simplifier une somme de racines carrées",
-        "id": "2N32-4",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "55cc0": {
-        "titre": "Existence d'une racine carrée",
-        "id": "2N32-1",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "99b29": {
-        "titre": "Connaître les propriétés calculatoires des racines carrées",
-        "id": "2N32-2",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "d9495": {
-        "titre": "Écrire le nombre proposé sous la forme $a\\sqrt{b}$",
-        "id": "2N32-3",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "660de": {
-        "titre": "Appliquer la double distributivité avec les racines carrées",
-        "id": "2N32-5",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "91dc4": {
-        "titre": "Développer les identités remarquables avec des racines carrées",
-        "id": "2N32-6",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "4771d": {
-        "titre": "Rendre entier le dénominateur d'une fraction",
-        "id": "2N32-7",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "53fbb": {
-        "titre": "Puissances : écriture décimale ou fractionnaire",
-        "id": "2N31-0",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "14/06/2022"
-      },
-      "b51ec": {
-        "titre": "Additionner ou soustraire deux fractions",
-        "id": "2N30-2",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "cb572": {
-        "titre": "Diviser des fractions",
-        "id": "2N30-4",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "6575c": {
-        "titre": "Fractions et priorités opératoires",
-        "id": "2N30-5",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "0ecd3": {
-        "titre": "Puissances : Calculs automatisés et règles de calculs",
-        "id": "2N31-3",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "1e42b": {
-        "titre": "Puissances : le sens des règles de calculs",
-        "id": "2N31-2",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "6fda8": {
-        "titre": "Calculs utilisant les priorités opératoires et les puissances",
-        "id": "2N31-4",
-        "tags": {
-          "AMC": true,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "c9404": {
-        "titre": "Notation scientifique",
-        "id": "2N31-1",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "c1561": {
-        "titre": "Fractions irréductibles",
-        "id": "2N30-6",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "d0fdc": {
-        "titre": "Problèmes additifs et de comparaison sur les fractions",
-        "id": "2N30-7",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      }
-    },
     "2S1": {
       "12444": {
         "titre": "Variations en pourcentage",
@@ -6012,16 +6124,6 @@
         },
         "datePublication": "9/12/2021"
       },
-      "018f3": {
-        "titre": "Déterminer un taux d'évolution global",
-        "id": "2S12-2",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "06/01/2022"
-      },
       "509db": {
         "titre": "Déterminer un taux d'évolution réciproque",
         "id": "2S12-3",
@@ -6032,6 +6134,16 @@
         },
         "datePublication": "16/01/2022"
       },
+      "018f3": {
+        "titre": "Déterminer un taux d'évolution global",
+        "id": "2S12-2",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "06/01/2022"
+      },
       "05db7": {
         "titre": "Calculer un CM à partir d'un taux d'évolution et inversement",
         "id": "2S11-1",
@@ -6040,87 +6152,6 @@
           "Interactif": true,
           "Can": false
         }
-      }
-    },
-    "2N2": {
-      "74939": {
-        "titre": "Compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers",
-        "id": "2N20-6",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        },
-        "dateModification": "14/11/2021"
-      },
-      "3ec5c": {
-        "titre": "Déterminer la parité d'une expression",
-        "id": "2N20-8",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "7cf48": {
-        "titre": "Écrire la liste de tous les diviseurs d'un entier",
-        "id": "2N20-1",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        },
-        "dateModification": "28/10/2021"
-      },
-      "c14e8": {
-        "titre": "Décomposition en facteurs premiers",
-        "id": "2N20-5",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        },
-        "dateModification": "2/11/2021"
-      },
-      "c3c84": {
-        "titre": "Engrenages",
-        "id": "2N20-7",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        },
-        "dateModification": "14/11/2021"
-      },
-      "098db": {
-        "titre": "Division Euclidienne - Diviseurs - Multiples",
-        "id": "2N20-3",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        },
-        "dateModification": "29/10/2021"
-      },
-      "c04cc": {
-        "titre": "Primalité ou pas",
-        "id": "2N20-4",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "dateModification": "29/10/2021"
-      },
-      "d5a6d": {
-        "titre": "Critères de divisibilité (plusieurs possibles)",
-        "id": "2N20-2",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "dateModification": "29/10/2021"
       }
     },
     "2S2": {
@@ -6193,6 +6224,15 @@
           "Can": false
         }
       },
+      "0da6a": {
+        "titre": "Tranformations de triangle",
+        "id": "4G15",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
       "8ac93": {
         "titre": "Trouver la transformation",
         "id": "4G12-1",
@@ -6202,15 +6242,6 @@
           "Can": false
         },
         "datePublication": "3/12/2021"
-      },
-      "0da6a": {
-        "titre": "Tranformations de triangle",
-        "id": "4G15",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
       },
       "7b40c": {
         "titre": "Trouver les coordonnée de l'image d'un point par une translation",
@@ -6261,6 +6292,15 @@
           "Can": false
         }
       },
+      "f5cbd": {
+        "titre": "Déterminer la racine carrée d'un carré parfait (calcul mental)",
+        "id": "4G20-2",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
       "516d1": {
         "titre": "Encadrer une racine carrée et en donner un arrondi",
         "id": "4G20-6",
@@ -6276,15 +6316,6 @@
         "tags": {
           "AMC": false,
           "Interactif": false,
-          "Can": false
-        }
-      },
-      "f5cbd": {
-        "titre": "Déterminer la racine carrée d'un carré parfait (calcul mental)",
-        "id": "4G20-2",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
           "Can": false
         }
       },
@@ -6316,6 +6347,129 @@
         }
       }
     },
+    "4C1": {
+      "73187": {
+        "titre": "Multiplications et quotients de relatifs : signe avec une lettre",
+        "id": "4C10-6",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "745ba": {
+        "titre": "Calculer des produits et des quotients de nombres relatifs",
+        "id": "4C10",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "23/09/2022"
+      },
+      "9e862": {
+        "titre": "Rose multiplicative relatifs",
+        "id": "4C10-9",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "12/08/2022"
+      },
+      "2fbc0": {
+        "titre": "Yohaku multiplicatif nombres relatifs niveau 1",
+        "id": "4C10-8",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "10/08/2022"
+      },
+      "450ae": {
+        "titre": "Signe d'un produit ou d'un quotient de nombres relatifs",
+        "id": "4C10-0",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "857c1": {
+        "titre": "Multiplication à trou de deux entiers relatifs",
+        "id": "4C10-10",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "datePublication": "26/08/2022"
+      },
+      "153b9": {
+        "titre": "Multiplication de deux entiers relatifs",
+        "id": "4C10-3",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "cdcc1": {
+        "titre": "Quotient de deux entiers relatifs",
+        "id": "4C10-4",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "c8f4b": {
+        "titre": "Multiplications de deux entiers relatifs dans un tableau à double entrée",
+        "id": "4C10-5",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "0b020": {
+        "titre": "Opérations avec deux entiers relatifs",
+        "id": "4C10-7",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "62f66": {
+        "titre": "Calculs utilisant les priorités opératoires",
+        "id": "4C11",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "4fd42": {
+        "titre": "Signe d'un produit de nombres relatifs",
+        "id": "4C10-1",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "aa4f9": {
+        "titre": "Signe d'un quotient de nombres relatifs",
+        "id": "4C10-2",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      }
+    },
     "4C2": {
       "55354": {
         "titre": "Diviser des fractions",
@@ -6335,16 +6489,6 @@
           "Can": false
         }
       },
-      "72ce7": {
-        "titre": "Multiplier ou/et diviser des fractions",
-        "id": "4C22",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "dateModification": "09/04/2022"
-      },
       "612b9": {
         "titre": "Simplifier des fractions à l'aide des nombres premiers",
         "id": "4C24",
@@ -6354,6 +6498,16 @@
           "Can": false
         },
         "datePublication": "17/03/2022"
+      },
+      "72ce7": {
+        "titre": "Multiplier ou/et diviser des fractions",
+        "id": "4C22",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "dateModification": "09/04/2022"
       },
       "0576d": {
         "titre": "Rose additive fractions",
@@ -6413,15 +6567,6 @@
           "Can": false
         }
       },
-      "18ddd": {
-        "titre": "Fractions et priorités opératoires",
-        "id": "4C23-1",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
       "374b6": {
         "titre": "Somme, différence ou produit de fractions",
         "id": "4C23",
@@ -6437,6 +6582,15 @@
         "tags": {
           "AMC": false,
           "Interactif": false,
+          "Can": false
+        }
+      },
+      "18ddd": {
+        "titre": "Fractions et priorités opératoires",
+        "id": "4C23-1",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
           "Can": false
         }
       },
@@ -6499,6 +6653,42 @@
           "Can": false
         }
       },
+      "36f8b": {
+        "titre": "Écriture décimale ou fractionnaire d'une puissance",
+        "id": "4C30-3",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "f5dcf": {
+        "titre": "Puissances de 10 : Le sens des règles de calculs",
+        "id": "4C30",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "762fe": {
+        "titre": "Calcul avec les puissances de dix",
+        "id": "4C32-1",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "fedae": {
+        "titre": "Puissances de 10 et préfixes kilo, méga, giga, téra",
+        "id": "4C32-2",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
       "1d078": {
         "titre": "Utiliser la notation puissance",
         "id": "4C33-0",
@@ -6509,11 +6699,20 @@
         },
         "datePublication": "21/11/2021"
       },
-      "f5dcf": {
-        "titre": "Puissances de 10 : Le sens des règles de calculs",
-        "id": "4C30",
+      "051c7": {
+        "titre": "Problèmes avec des puissances de 10 et des conversions",
+        "id": "4C32-3",
         "tags": {
           "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "bae57": {
+        "titre": "Puissances : Le sens des règles de calculs",
+        "id": "4C33-1",
+        "tags": {
+          "AMC": true,
           "Interactif": true,
           "Can": false
         }
@@ -6527,14 +6726,15 @@
           "Can": false
         }
       },
-      "bae57": {
-        "titre": "Puissances : Le sens des règles de calculs",
-        "id": "4C33-1",
+      "8b399": {
+        "titre": "Calculs avec des multiplications et des puissances de 10",
+        "id": "4C32-4",
         "tags": {
           "AMC": true,
           "Interactif": true,
           "Can": false
-        }
+        },
+        "datePublication": "20/08/2022"
       },
       "2d79c": {
         "titre": "Calculs utilisant les priorités opératoires et les puissances",
@@ -6573,62 +6773,6 @@
           "Can": false
         }
       },
-      "b0b3c": {
-        "titre": "Puissances de 10 et préfixes",
-        "id": "4C30-4",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "12/04/2022"
-      },
-      "36f8b": {
-        "titre": "Écriture décimale ou fractionnaire d'une puissance",
-        "id": "4C30-3",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "051c7": {
-        "titre": "Problèmes avec des puissances de 10 et des conversions",
-        "id": "4C32-3",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "fedae": {
-        "titre": "Puissances de 10 et préfixes kilo, méga, giga, téra",
-        "id": "4C32-2",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "762fe": {
-        "titre": "Calcul avec les puissances de dix",
-        "id": "4C32-1",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "8b399": {
-        "titre": "Calculs avec des multiplications et des puissances de 10",
-        "id": "4C32-4",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "20/08/2022"
-      },
       "975cc": {
         "titre": "Utiliser les ordres de grandeur pour vérifier ses résultats",
         "id": "4C36",
@@ -6639,129 +6783,16 @@
         },
         "datePublication": "23/05/2022",
         "dateModification": "18/06/2022"
-      }
-    },
-    "4C1": {
-      "73187": {
-        "titre": "Multiplications et quotients de relatifs : signe avec une lettre",
-        "id": "4C10-6",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
       },
-      "745ba": {
-        "titre": "Calculer des produits et des quotients de nombres relatifs",
-        "id": "4C10",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "23/09/2022"
-      },
-      "9e862": {
-        "titre": "Rose multiplicative relatifs",
-        "id": "4C10-9",
+      "b0b3c": {
+        "titre": "Puissances de 10 et préfixes",
+        "id": "4C30-4",
         "tags": {
           "AMC": false,
           "Interactif": true,
           "Can": false
         },
-        "datePublication": "12/08/2022"
-      },
-      "2fbc0": {
-        "titre": "Yohaku multiplicatif nombres relatifs niveau 1",
-        "id": "4C10-8",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "10/08/2022"
-      },
-      "153b9": {
-        "titre": "Multiplication de deux entiers relatifs",
-        "id": "4C10-3",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "cdcc1": {
-        "titre": "Quotient de deux entiers relatifs",
-        "id": "4C10-4",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "0b020": {
-        "titre": "Opérations avec deux entiers relatifs",
-        "id": "4C10-7",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "62f66": {
-        "titre": "Calculs utilisant les priorités opératoires",
-        "id": "4C11",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "c8f4b": {
-        "titre": "Multiplications de deux entiers relatifs dans un tableau à double entrée",
-        "id": "4C10-5",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
-      "857c1": {
-        "titre": "Multiplication à trou de deux entiers relatifs",
-        "id": "4C10-10",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "datePublication": "26/08/2022"
-      },
-      "450ae": {
-        "titre": "Signe d'un produit ou d'un quotient de nombres relatifs",
-        "id": "4C10-0",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "4fd42": {
-        "titre": "Signe d'un produit de nombres relatifs",
-        "id": "4C10-1",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "aa4f9": {
-        "titre": "Signe d'un quotient de nombres relatifs",
-        "id": "4C10-2",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
+        "datePublication": "12/04/2022"
       }
     },
     "4G5": {
@@ -6852,15 +6883,6 @@
           "Can": false
         }
       },
-      "a1c9a": {
-        "titre": "Tester si un nombre est solution d'une équation",
-        "id": "4L14-0",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
-      },
       "501f9": {
         "titre": "Démontrer l'équivalence de deux programmes de calcul",
         "id": "4L12",
@@ -6875,6 +6897,15 @@
       "8b18b": {
         "titre": "Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue",
         "id": "4L13-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
+      "a1c9a": {
+        "titre": "Tester si un nombre est solution d'une équation",
+        "id": "4L14-0",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -6967,6 +6998,15 @@
           "Can": false
         }
       },
+      "72c5a": {
+        "titre": "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes",
+        "id": "4P10",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      },
       "63cdb": {
         "titre": "Convertir des grandeurs composées",
         "id": "4P16",
@@ -6976,15 +7016,6 @@
           "Can": false
         },
         "datePublication": "23/05/2022"
-      },
-      "72c5a": {
-        "titre": "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes",
-        "id": "4P10",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
-          "Can": false
-        }
       },
       "a6b5b": {
         "titre": "Déterminer une quatrième proportionnelle dans un tableau",
@@ -7058,6 +7089,15 @@
         },
         "dateModification": "10/10/2022"
       },
+      "bdb18": {
+        "titre": "Nombre premier ou pas",
+        "id": "4A10",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
       "b8a38": {
         "titre": "Décomposer un nombre entier en produit de facteurs premiers",
         "id": "4A11-1",
@@ -7076,15 +7116,6 @@
           "Can": false
         },
         "dateModification": "2/11/2021"
-      },
-      "bdb18": {
-        "titre": "Nombre premier ou pas",
-        "id": "4A10",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
       },
       "426f5": {
         "titre": "Fractions irréductibles",
@@ -7220,16 +7251,6 @@
           "Can": true
         }
       },
-      "d9488": {
-        "titre": "Calculer un nombre connaissant son inverse",
-        "id": "can2C15",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "10/11/2022"
-      },
       "04048": {
         "titre": "Calculer avec un programme de calcul*",
         "id": "can2C16",
@@ -7239,6 +7260,16 @@
           "Can": true
         },
         "datePublication": "16/11/2022"
+      },
+      "d9488": {
+        "titre": "Calculer un nombre connaissant son inverse",
+        "id": "can2C15",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "10/11/2022"
       },
       "5da59": {
         "titre": "Calculer le \"milieu\" entre 1 et une fraction",
@@ -7276,15 +7307,6 @@
           "Can": true
         }
       },
-      "cc300": {
-        "titre": "Simplifier des racines carrées",
-        "id": "can2C06",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        }
-      },
       "3a350": {
         "titre": "Calculer avec une racine carrée*",
         "id": "can2C08",
@@ -7294,9 +7316,18 @@
           "Can": true
         }
       },
-      "4b11f": {
-        "titre": "Passer du taux d’évolution au coefficient multiplicateur",
-        "id": "can2C10",
+      "2af85": {
+        "titre": "Calculer avec une racine carrée",
+        "id": "can2C07",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "031f0": {
+        "titre": "Passer du coefficient multiplicateur au taux d’évolution",
+        "id": "can2C11",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -7304,9 +7335,19 @@
         },
         "datePublication": "09/12/2021"
       },
-      "031f0": {
-        "titre": "Passer du coefficient multiplicateur au taux d’évolution",
-        "id": "can2C11",
+      "b31eb": {
+        "titre": "Calculer avec  des puissances",
+        "id": "can2C13",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "15/09/2022"
+      },
+      "4b11f": {
+        "titre": "Passer du taux d’évolution au coefficient multiplicateur",
+        "id": "can2C10",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -7324,16 +7365,6 @@
         },
         "datePublication": "19/12/2021"
       },
-      "b31eb": {
-        "titre": "Calculer avec  des puissances",
-        "id": "can2C13",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "15/09/2022"
-      },
       "27f5c": {
         "titre": "Calculer avec une racine carrée (définition)",
         "id": "can2C14",
@@ -7344,9 +7375,9 @@
         },
         "datePublication": "19/09/2022"
       },
-      "2af85": {
-        "titre": "Calculer avec une racine carrée",
-        "id": "can2C07",
+      "cc300": {
+        "titre": "Simplifier des racines carrées",
+        "id": "can2C06",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -7393,16 +7424,6 @@
         },
         "datePublication": "22/06/2022"
       },
-      "1f967": {
-        "titre": "Déterminer une équation de droite (graphique)",
-        "id": "can2G20",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "15/11/2022"
-      },
       "6082f": {
         "titre": "Déterminer le coefficient directeur d'une droite (graphique)",
         "id": "can2G19",
@@ -7412,6 +7433,16 @@
           "Can": true
         },
         "datePublication": "10/11/2022"
+      },
+      "1f967": {
+        "titre": "Déterminer une équation de droite (graphique)",
+        "id": "can2G20",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "15/11/2022"
       },
       "31f61": {
         "titre": "Calculer une longueur avec le théorème de Pythagore",
@@ -7441,15 +7472,23 @@
         },
         "datePublication": "29/06/2022"
       },
-      "651a5": {
-        "titre": "Déterminer les coordonnées d’un vecteur",
-        "id": "can2G07",
+      "b0d98": {
+        "titre": "Calculer une distance avec les coordonnées",
+        "id": "can2G05",
         "tags": {
           "AMC": false,
           "Interactif": true,
           "Can": true
-        },
-        "datePublication": "30/10/2021"
+        }
+      },
+      "8bc88": {
+        "titre": "Calculer les coordonnées du milieu",
+        "id": "can2G04",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        }
       },
       "eaebb": {
         "titre": "Déterminer les coordonnées d’un vecteur (bis)",
@@ -7461,9 +7500,60 @@
         },
         "datePublication": "30/10/2021"
       },
-      "0dfad": {
-        "titre": "Déterminer les coordonnées d'un point avec une translation",
-        "id": "can2G14",
+      "651a5": {
+        "titre": "Déterminer les coordonnées d’un vecteur",
+        "id": "can2G07",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "30/10/2021"
+      },
+      "ee579": {
+        "titre": "Déterminer le coefficient de colinéarité entre deux vecteurs",
+        "id": "can2G09",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "30/10/2021"
+      },
+      "26f3b": {
+        "titre": "Utiliser la relation de Chasles/réductions vectorielles",
+        "id": "can2G10",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "30/10/2021",
+        "dateModification": "03/01/2022"
+      },
+      "3a0e1": {
+        "titre": "Calculer la norme d’un vecteur",
+        "id": "can2G13",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "6/12/2021"
+      },
+      "2ba42": {
+        "titre": "Reconnaître des vecteurs colinéaires (V/F)",
+        "id": "can2G12",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "30/10/2021"
+      },
+      "84eaa": {
+        "titre": "Déterminer le déterminant de deux vecteurs.",
+        "id": "can2G15",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -7471,9 +7561,20 @@
         },
         "datePublication": "04/03:2022"
       },
-      "84eaa": {
-        "titre": "Déterminer le déterminant de deux vecteurs.",
-        "id": "can2G15",
+      "7bc4a": {
+        "titre": "Utiliser la relation de Chasles/réductions vectorielles*",
+        "id": "can2G11",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "30/10/2021",
+        "dateModification": "03/01/2022"
+      },
+      "0dfad": {
+        "titre": "Déterminer les coordonnées d'un point avec une translation",
+        "id": "can2G14",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -7490,76 +7591,6 @@
           "Can": true
         },
         "datePublication": "08/07/2022"
-      },
-      "8bc88": {
-        "titre": "Calculer les coordonnées du milieu",
-        "id": "can2G04",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "b0d98": {
-        "titre": "Calculer une distance avec les coordonnées",
-        "id": "can2G05",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "ee579": {
-        "titre": "Déterminer le coefficient de colinéarité entre deux vecteurs",
-        "id": "can2G09",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "30/10/2021"
-      },
-      "3a0e1": {
-        "titre": "Calculer la norme d’un vecteur",
-        "id": "can2G13",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "6/12/2021"
-      },
-      "26f3b": {
-        "titre": "Utiliser la relation de Chasles/réductions vectorielles",
-        "id": "can2G10",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "30/10/2021",
-        "dateModification": "03/01/2022"
-      },
-      "7bc4a": {
-        "titre": "Utiliser la relation de Chasles/réductions vectorielles*",
-        "id": "can2G11",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "30/10/2021",
-        "dateModification": "03/01/2022"
-      },
-      "2ba42": {
-        "titre": "Reconnaître des vecteurs colinéaires (V/F)",
-        "id": "can2G12",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "30/10/2021"
       }
     },
     "can2F": {
@@ -7605,18 +7636,18 @@
         "datePublication": "21/12/2021",
         "dateModification": "24/10/2021"
       },
-      "b2c31": {
-        "titre": "Calculer une image avec le second degré",
-        "id": "can2F01",
+      "8b3a9": {
+        "titre": "Calculer une image avec un quotient",
+        "id": "can2F02",
         "tags": {
           "AMC": false,
           "Interactif": true,
           "Can": true
         }
       },
-      "8b3a9": {
-        "titre": "Calculer une image avec un quotient",
-        "id": "can2F02",
+      "03b1d": {
+        "titre": "Déterminer le signe d’une fonction affine (V/F)",
+        "id": "can2F03",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -7633,35 +7664,24 @@
         },
         "datePublication": "25/10/2021"
       },
-      "1d7cc": {
-        "titre": "Calculer une ordonnée à partir de l’abscisse d’un point",
-        "id": "can2F14",
+      "82d4a": {
+        "titre": "Déterminer un antécédent avec la racine carrée",
+        "id": "can2F05",
         "tags": {
           "AMC": false,
           "Interactif": true,
           "Can": true
         },
-        "datePublication": "27/09/2022"
+        "datePublication": "1/11/2021"
       },
-      "991c2": {
-        "titre": "Utiliser la fonction carré pour comparer deux images",
-        "id": "can2F11",
+      "b2c31": {
+        "titre": "Calculer une image avec le second degré",
+        "id": "can2F01",
         "tags": {
           "AMC": false,
           "Interactif": true,
           "Can": true
-        },
-        "datePublication": "30/12/2021"
-      },
-      "1380f": {
-        "titre": "Résoudre une équation avec une fonction de référence*",
-        "id": "can2F10",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "27/12/2021"
+        }
       },
       "a7515": {
         "titre": "Résoudre une équation avec une fonction de référence",
@@ -7673,6 +7693,36 @@
         },
         "datePublication": "27/12/2021"
       },
+      "1380f": {
+        "titre": "Résoudre une équation avec une fonction de référence*",
+        "id": "can2F10",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "27/12/2021"
+      },
+      "991c2": {
+        "titre": "Utiliser la fonction carré pour comparer deux images",
+        "id": "can2F11",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "30/12/2021"
+      },
+      "1d7cc": {
+        "titre": "Calculer une ordonnée à partir de l’abscisse d’un point",
+        "id": "can2F14",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "27/09/2022"
+      },
       "1afde": {
         "titre": "Déterminer l’image d’un nombre par une fonction de référence",
         "id": "can2F13",
@@ -7682,28 +7732,18 @@
           "Can": true
         },
         "datePublication": "18/01/2022"
-      },
-      "82d4a": {
-        "titre": "Déterminer un antécédent avec la racine carrée",
-        "id": "can2F05",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "1/11/2021"
-      },
-      "03b1d": {
-        "titre": "Déterminer le signe d’une fonction affine (V/F)",
-        "id": "can2F03",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        }
       }
     },
     "can2L": {
+      "3b832": {
+        "titre": "Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$",
+        "id": "can2L01",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
       "dfe60": {
         "titre": "Calculer les coordonnées d’un point sur une droite",
         "id": "can2L02",
@@ -7731,11 +7771,11 @@
           "Can": true
         }
       },
-      "3b832": {
-        "titre": "Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$",
-        "id": "can2L01",
+      "96a78": {
+        "titre": "Résoudre une inéquation (QCM)",
+        "id": "can2L05",
         "tags": {
-          "AMC": true,
+          "AMC": false,
           "Interactif": true,
           "Can": true
         }
@@ -7750,16 +7790,6 @@
         },
         "datePublication": "25/10/2021"
       },
-      "c1123": {
-        "titre": "Résoudre une équation du type $\\dfrac{x+a}{b}=c$",
-        "id": "can2L08",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "04/03/2022"
-      },
       "55c60": {
         "titre": "Factoriser une expression",
         "id": "can2L07",
@@ -7770,14 +7800,15 @@
         },
         "datePublication": "21/10/2021"
       },
-      "96a78": {
-        "titre": "Résoudre une inéquation (QCM)",
-        "id": "can2L05",
+      "c1123": {
+        "titre": "Résoudre une équation du type $\\dfrac{x+a}{b}=c$",
+        "id": "can2L08",
         "tags": {
           "AMC": false,
           "Interactif": true,
           "Can": true
-        }
+        },
+        "datePublication": "04/03/2022"
       }
     },
     "can2N": {
@@ -7845,62 +7876,6 @@
         "datePublication": "19/04/2022"
       }
     },
-    "can3S": {
-      "47142": {
-        "titre": "Calculer une probabilité",
-        "id": "can3S01",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "b2a59": {
-        "titre": "Calculer la probabilité d’ un évènement contraire",
-        "id": "can3S02",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "d86be": {
-        "titre": "Calculer une probabilités*",
-        "id": "can3S03",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "f0983": {
-        "titre": "Calculer une étendue",
-        "id": "can3S04",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "c9d15": {
-        "titre": "Calculer une moyenne",
-        "id": "can3S05",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "87ceb": {
-        "titre": "Déterminer le rang d’une médiane",
-        "id": "can3S06",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        }
-      }
-    },
     "can3C": {
       "59365": {
         "titre": "Simplifier des fractions ou des racines carrées",
@@ -7959,9 +7934,18 @@
           "Can": true
         }
       },
-      "ce089": {
-        "titre": "Calculer avec  une puissance de 10",
-        "id": "can3C05",
+      "f1208": {
+        "titre": "Rendre irréductible une fraction",
+        "id": "can3C03",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "1853b": {
+        "titre": "Calculer une somme entre fraction et entier",
+        "id": "can3C04",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -7978,6 +7962,15 @@
         },
         "dateModification": "08/12/2021"
       },
+      "a2d6a": {
+        "titre": "Calculer avec une racine carrée",
+        "id": "can3C09",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        }
+      },
       "9094b": {
         "titre": "Calculer avec un programme de calcul",
         "id": "can3C08",
@@ -7987,11 +7980,11 @@
           "Can": true
         }
       },
-      "a2d6a": {
-        "titre": "Calculer avec une racine carrée",
-        "id": "can3C09",
+      "ce089": {
+        "titre": "Calculer avec  une puissance de 10",
+        "id": "can3C05",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": true,
           "Can": true
         }
@@ -8023,21 +8016,59 @@
           "Can": true
         },
         "datePublication": "20/11/2022"
-      },
-      "f1208": {
-        "titre": "Rendre irréductible une fraction",
-        "id": "can3C03",
+      }
+    },
+    "can3S": {
+      "47142": {
+        "titre": "Calculer une probabilité",
+        "id": "can3S01",
         "tags": {
           "AMC": true,
           "Interactif": true,
           "Can": true
         }
       },
-      "1853b": {
-        "titre": "Calculer une somme entre fraction et entier",
-        "id": "can3C04",
+      "b2a59": {
+        "titre": "Calculer la probabilité d’ un évènement contraire",
+        "id": "can3S02",
         "tags": {
-          "AMC": true,
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "f0983": {
+        "titre": "Calculer une étendue",
+        "id": "can3S04",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "c9d15": {
+        "titre": "Calculer une moyenne",
+        "id": "can3S05",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "d86be": {
+        "titre": "Calculer une probabilités*",
+        "id": "can3S03",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "87ceb": {
+        "titre": "Déterminer le rang d’une médiane",
+        "id": "can3S06",
+        "tags": {
+          "AMC": false,
           "Interactif": true,
           "Can": true
         }
@@ -8073,16 +8104,6 @@
         },
         "datePublication": "25/10/2021"
       },
-      "bf9f2": {
-        "titre": "Déterminer une ordonnée/abscisse avec une fonction linéaire",
-        "id": "can3F10",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "02/11/2022"
-      },
       "f554f": {
         "titre": "Lire graphiquement une fonction affine*",
         "id": "can3F08",
@@ -8093,15 +8114,25 @@
         },
         "datePublication": "25/10/2021"
       },
-      "b60f4": {
-        "titre": "Reconnaître une fonction affine",
-        "id": "can3F09",
+      "bf9f2": {
+        "titre": "Déterminer une ordonnée/abscisse avec une fonction linéaire",
+        "id": "can3F10",
         "tags": {
           "AMC": false,
           "Interactif": true,
           "Can": true
         },
-        "datePublication": "25/10/2021"
+        "datePublication": "02/11/2022"
+      },
+      "c3468": {
+        "titre": "Calculer une image par une fonction linéaire",
+        "id": "can3F02",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        },
+        "dateModification": "13/10/2022"
       },
       "cf55d": {
         "titre": "Calculer une image par une fonction affine",
@@ -8113,9 +8144,9 @@
         },
         "dateModification": "13/10/2022"
       },
-      "c3468": {
-        "titre": "Calculer une image par une fonction linéaire",
-        "id": "can3F02",
+      "83a8a": {
+        "titre": "Calculer un antécédent par fonction affine",
+        "id": "can3F05",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -8133,15 +8164,15 @@
         },
         "dateModification": "13/10/2022"
       },
-      "83a8a": {
-        "titre": "Calculer un antécédent par fonction affine",
-        "id": "can3F05",
+      "b60f4": {
+        "titre": "Reconnaître une fonction affine",
+        "id": "can3F09",
         "tags": {
-          "AMC": true,
+          "AMC": false,
           "Interactif": true,
           "Can": true
         },
-        "dateModification": "13/10/2022"
+        "datePublication": "25/10/2021"
       }
     },
     "can3G": {
@@ -8324,27 +8355,9 @@
         },
         "datePublication": "13/09/2022"
       },
-      "a630a": {
-        "titre": "Utiliser la règle des signes",
-        "id": "can4C04",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
       "1da2d": {
         "titre": "Utiliser les priorités opératoires avec des relatifs",
         "id": "can4C01",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "11f3c": {
-        "titre": "Trouver le nombre de nombres entiers entre deux valeurs",
-        "id": "can4C06",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -8370,9 +8383,27 @@
           "Can": true
         }
       },
+      "a630a": {
+        "titre": "Utiliser la règle des signes",
+        "id": "can4C04",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
       "1b4fe": {
         "titre": "Déterminer la somme de fractions à dénominateurs compatibles",
         "id": "can4C05",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "11f3c": {
+        "titre": "Trouver le nombre de nombres entiers entre deux valeurs",
+        "id": "can4C06",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -8429,18 +8460,18 @@
           "Can": true
         }
       },
-      "709b6": {
-        "titre": "Calculer une quatrième proportionnelle",
-        "id": "can4P03",
+      "7374f": {
+        "titre": "Résoudre un problème de vitesse",
+        "id": "can4P02",
         "tags": {
           "AMC": true,
           "Interactif": true,
           "Can": true
         }
       },
-      "7374f": {
-        "titre": "Résoudre un problème de vitesse",
-        "id": "can4P02",
+      "709b6": {
+        "titre": "Calculer une quatrième proportionnelle",
+        "id": "can4P03",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -8477,18 +8508,18 @@
           "Can": true
         }
       },
-      "4b711": {
-        "titre": "Calculer un côté avec le théorème de Pythagore",
-        "id": "can4G04",
+      "d9524": {
+        "titre": "Calculer l’hypoténuse avec le théorème de Pythagore",
+        "id": "can4G03",
         "tags": {
           "AMC": false,
           "Interactif": true,
           "Can": true
         }
       },
-      "d9524": {
-        "titre": "Calculer l’hypoténuse avec le théorème de Pythagore",
-        "id": "can4G03",
+      "4b711": {
+        "titre": "Calculer un côté avec le théorème de Pythagore",
+        "id": "can4G04",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -8504,18 +8535,18 @@
           "Can": true
         }
       },
-      "61c07": {
-        "titre": "Calculer une longueur avec le théorème de Thalès",
-        "id": "can4G06",
+      "b1a48": {
+        "titre": "Calculer une aire ou un périmètre (carré et rectangle)",
+        "id": "can4G08",
         "tags": {
           "AMC": false,
           "Interactif": true,
           "Can": true
         }
       },
-      "b1a48": {
-        "titre": "Calculer une aire ou un périmètre (carré et rectangle)",
-        "id": "can4G08",
+      "61c07": {
+        "titre": "Calculer une longueur avec le théorème de Thalès",
+        "id": "can4G06",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -8651,6 +8682,211 @@
         }
       }
     },
+    "can5C": {
+      "52336": {
+        "titre": "Calculer avec triple et moitié",
+        "id": "can5C04",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "67f09": {
+        "titre": "Passer d'un décimal à une fraction",
+        "id": "can5C22",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "31/10/2022"
+      },
+      "102f4": {
+        "titre": "Calculer un produit d’entiers",
+        "id": "can5C01",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "5ecdc": {
+        "titre": "Calculer une somme d’entiers",
+        "id": "can5C02",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "62e1f": {
+        "titre": "Calculer une différence d’entiers",
+        "id": "can5C03",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "63dff": {
+        "titre": "Calculer un quotient entier",
+        "id": "can5C05",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "14b41": {
+        "titre": "Utiliser une priorité opératoire",
+        "id": "can5C07",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "bc6a9": {
+        "titre": "Trouver le reste d’une division euclidienne",
+        "id": "can5C06",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "2aa64": {
+        "titre": "Calculer le prochain multiple de 3 ou de 9",
+        "id": "can5C08",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "606fd": {
+        "titre": "Calculer une différence",
+        "id": "can5C11",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "e4b95": {
+        "titre": "Calculer la fraction d’entier",
+        "id": "can5C12",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "ca4ce": {
+        "titre": "Calculer astucieusement avec 100 ou 10",
+        "id": "can5C13",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "4fc0e": {
+        "titre": "Diviser avec des décimaux",
+        "id": "can5C14",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "1a593": {
+        "titre": "Multiplier par les multiples de 101",
+        "id": "can5C09",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "6b25b": {
+        "titre": "Rechercher un nombre à ajouter",
+        "id": "can5C15",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "7d21c": {
+        "titre": "Calculer astucieusement avec une factorisation",
+        "id": "can5C16",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "1f71c": {
+        "titre": "Reconnaître une expression numérique (QCM)",
+        "id": "can5C18",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "24/02/2022"
+      },
+      "1293c": {
+        "titre": "Soustraire deux décimaux",
+        "id": "can5C19",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "09/05/2022"
+      },
+      "0f007": {
+        "titre": "Soustraire deux décimaux*",
+        "id": "can5C20",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "09/05/2022"
+      },
+      "b1881": {
+        "titre": "Convertir une fraction ou une somme vers un décimal",
+        "id": "can5C17",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "843e1": {
+        "titre": "Calculer la somme de décimaux qui se marient",
+        "id": "can5C21",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "11/05/2022"
+      },
+      "1b91d": {
+        "titre": "Décomposer en produit de facteurs premiers",
+        "id": "can5C10",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        }
+      }
+    },
     "can5P": {
       "57777": {
         "titre": "Résoudre un problème de proportionnalité",
@@ -8682,9 +8918,9 @@
         },
         "datePublication": "19/07/2022"
       },
-      "eb6bc": {
-        "titre": "Calculer avec une proportion",
-        "id": "can5P04",
+      "7487c": {
+        "titre": "Calculer un prix après une évolution en pourcentage",
+        "id": "can5P01",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -8700,6 +8936,15 @@
           "Can": true
         },
         "dateModification": "19/12/2021"
+      },
+      "eb6bc": {
+        "titre": "Calculer avec une proportion",
+        "id": "can5P04",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
       },
       "802cc": {
         "titre": "Ecrire sous la forme d’un pourcentage",
@@ -8721,15 +8966,6 @@
         },
         "datePublication": "18/12/2021"
       },
-      "7487c": {
-        "titre": "Calculer un prix après une évolution en pourcentage",
-        "id": "can5P01",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
       "7b350": {
         "titre": "Calculer un prix à partir d'un prix au kg",
         "id": "can5P09",
@@ -8739,211 +8975,6 @@
           "Can": true
         },
         "datePublication": "13/11/2022"
-      }
-    },
-    "can5C": {
-      "52336": {
-        "titre": "Calculer avec triple et moitié",
-        "id": "can5C04",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "67f09": {
-        "titre": "Passer d'un décimal à une fraction",
-        "id": "can5C22",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "31/10/2022"
-      },
-      "5ecdc": {
-        "titre": "Calculer une somme d’entiers",
-        "id": "can5C02",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "62e1f": {
-        "titre": "Calculer une différence d’entiers",
-        "id": "can5C03",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "63dff": {
-        "titre": "Calculer un quotient entier",
-        "id": "can5C05",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "bc6a9": {
-        "titre": "Trouver le reste d’une division euclidienne",
-        "id": "can5C06",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "14b41": {
-        "titre": "Utiliser une priorité opératoire",
-        "id": "can5C07",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "2aa64": {
-        "titre": "Calculer le prochain multiple de 3 ou de 9",
-        "id": "can5C08",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "1a593": {
-        "titre": "Multiplier par les multiples de 101",
-        "id": "can5C09",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "606fd": {
-        "titre": "Calculer une différence",
-        "id": "can5C11",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "ca4ce": {
-        "titre": "Calculer astucieusement avec 100 ou 10",
-        "id": "can5C13",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "4fc0e": {
-        "titre": "Diviser avec des décimaux",
-        "id": "can5C14",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "6b25b": {
-        "titre": "Rechercher un nombre à ajouter",
-        "id": "can5C15",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "7d21c": {
-        "titre": "Calculer astucieusement avec une factorisation",
-        "id": "can5C16",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "843e1": {
-        "titre": "Calculer la somme de décimaux qui se marient",
-        "id": "can5C21",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "11/05/2022"
-      },
-      "0f007": {
-        "titre": "Soustraire deux décimaux*",
-        "id": "can5C20",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "09/05/2022"
-      },
-      "1293c": {
-        "titre": "Soustraire deux décimaux",
-        "id": "can5C19",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "09/05/2022"
-      },
-      "102f4": {
-        "titre": "Calculer un produit d’entiers",
-        "id": "can5C01",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "1f71c": {
-        "titre": "Reconnaître une expression numérique (QCM)",
-        "id": "can5C18",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "24/02/2022"
-      },
-      "1b91d": {
-        "titre": "Décomposer en produit de facteurs premiers",
-        "id": "can5C10",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "e4b95": {
-        "titre": "Calculer la fraction d’entier",
-        "id": "can5C12",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "b1881": {
-        "titre": "Convertir une fraction ou une somme vers un décimal",
-        "id": "can5C17",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
       }
     },
     "can5G": {
@@ -8998,16 +9029,6 @@
         },
         "datePublication": "08/02/2022"
       },
-      "d8797": {
-        "titre": "Convertir des heures décimales en heures/minutes et inversement",
-        "id": "can5D01",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        },
-        "dateModification": "08/02/2022"
-      },
       "5430f": {
         "titre": "Convertir des fractions d’heures en minutes et inversement",
         "id": "can5D03",
@@ -9017,6 +9038,16 @@
           "Can": true
         },
         "datePublication": "08/02/2022"
+      },
+      "d8797": {
+        "titre": "Convertir des heures décimales en heures/minutes et inversement",
+        "id": "can5D01",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        },
+        "dateModification": "08/02/2022"
       }
     },
     "can5L": {
@@ -9153,9 +9184,9 @@
           "Can": true
         }
       },
-      "aa22e": {
-        "titre": "Lire une abscisse (décimale) sur une droite graduée*",
-        "id": "can6N17",
+      "fb7ac": {
+        "titre": "Lire une abscisse (entière) sur une droite graduée *",
+        "id": "can6N16",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -9163,9 +9194,9 @@
         },
         "datePublication": "29/08/2022"
       },
-      "fb7ac": {
-        "titre": "Lire une abscisse (entière) sur une droite graduée *",
-        "id": "can6N16",
+      "aa22e": {
+        "titre": "Lire une abscisse (décimale) sur une droite graduée*",
+        "id": "can6N17",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -9295,19 +9326,18 @@
           "Can": true
         }
       },
+      "84b48": {
+        "titre": "Trouver la fraction (définition)",
+        "id": "can6C15",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
       "99b96": {
         "titre": "Comparer des fractions de même dénominateur/numérateur",
         "id": "can6C41",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "04/11/2022"
-      },
-      "16c8e": {
-        "titre": "Comparer deux fractions*",
-        "id": "can6C44",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -9325,14 +9355,15 @@
         },
         "datePublication": "04/11/2022"
       },
-      "84b48": {
-        "titre": "Trouver la fraction (définition)",
-        "id": "can6C15",
+      "16c8e": {
+        "titre": "Comparer deux fractions*",
+        "id": "can6C44",
         "tags": {
-          "AMC": true,
+          "AMC": false,
           "Interactif": true,
           "Can": true
-        }
+        },
+        "datePublication": "04/11/2022"
       },
       "4e198": {
         "titre": "Trouver une valeur dans un Yohaku (additif)",
@@ -9354,9 +9385,9 @@
         },
         "datePublication": "10/08/2022"
       },
-      "109ae": {
-        "titre": "Calculer dans une pyramide additive",
-        "id": "can6C32",
+      "a905f": {
+        "titre": "Calculer dans une pyramide multiplicative",
+        "id": "can6C33",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -9364,9 +9395,9 @@
         },
         "datePublication": "09/05/2022"
       },
-      "a905f": {
-        "titre": "Calculer dans une pyramide multiplicative",
-        "id": "can6C33",
+      "109ae": {
+        "titre": "Calculer dans une pyramide additive",
+        "id": "can6C32",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -9384,18 +9415,9 @@
         },
         "datePublication": "09/05/2022"
       },
-      "5c1b3": {
-        "titre": "Multiplier un nombre pair par 5",
-        "id": "can6C02",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "c8078": {
-        "titre": "Multiplier astucieusement",
-        "id": "can6C05",
+      "de779": {
+        "titre": "Trouver un ordre de grandeur (QCM)",
+        "id": "can6C01",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -9420,6 +9442,24 @@
           "Can": true
         }
       },
+      "8be78": {
+        "titre": "Diviser par 9",
+        "id": "can6C06",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "c8078": {
+        "titre": "Multiplier astucieusement",
+        "id": "can6C05",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
       "b3aee": {
         "titre": "Trouver le reste d’une division par 3",
         "id": "can6C07",
@@ -9429,9 +9469,9 @@
           "Can": true
         }
       },
-      "8be78": {
-        "titre": "Diviser par 9",
-        "id": "can6C06",
+      "5c1b3": {
+        "titre": "Multiplier un nombre pair par 5",
+        "id": "can6C02",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -9447,15 +9487,6 @@
           "Can": true
         }
       },
-      "eae92": {
-        "titre": "Connaître les tables de multiplication (de 5 à 9)",
-        "id": "can6C10",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
       "592c7": {
         "titre": "Soustraire 10n+9",
         "id": "can6C09",
@@ -9465,9 +9496,45 @@
           "Can": true
         }
       },
+      "eae92": {
+        "titre": "Connaître les tables de multiplication (de 5 à 9)",
+        "id": "can6C10",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
       "c3b5b": {
         "titre": "Calculer le double ou le triple",
         "id": "can6C12",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "90d0d": {
+        "titre": "Calculer la somme de quatre entiers qui se marient",
+        "id": "can6C14",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "d656b": {
+        "titre": "Déterminer le complément à 100",
+        "id": "can6C19",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
+      "9e396": {
+        "titre": "Trouver le complément à 1",
+        "id": "can6C20",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -9484,27 +9551,9 @@
         },
         "dateModification": "04/12/2021"
       },
-      "90d0d": {
-        "titre": "Calculer la somme de quatre entiers qui se marient",
-        "id": "can6C14",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
       "daaa3": {
         "titre": "Calculer la fraction d’une quantité",
         "id": "can6C17",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "d656b": {
-        "titre": "Déterminer le complément à 100",
-        "id": "can6C19",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -9520,11 +9569,11 @@
           "Can": true
         }
       },
-      "9e396": {
-        "titre": "Trouver le complément à 1",
-        "id": "can6C20",
+      "81a00": {
+        "titre": "Rechercher un prix unitaire",
+        "id": "can6C25",
         "tags": {
-          "AMC": true,
+          "AMC": false,
           "Interactif": true,
           "Can": true
         }
@@ -9538,9 +9587,9 @@
           "Can": true
         }
       },
-      "81a00": {
-        "titre": "Rechercher un prix unitaire",
-        "id": "can6C25",
+      "2ce71": {
+        "titre": "Résoudre un problème de fraction",
+        "id": "can6C28",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -9557,15 +9606,6 @@
         },
         "datePublication": "1/11/2021"
       },
-      "2ce71": {
-        "titre": "Résoudre un problème de fraction",
-        "id": "can6C28",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        }
-      },
       "5b443": {
         "titre": "Soustraire un décimal d’un entier",
         "id": "can6C31",
@@ -9575,15 +9615,6 @@
           "Can": true
         },
         "datePublication": "09/05/2022"
-      },
-      "de779": {
-        "titre": "Trouver un ordre de grandeur (QCM)",
-        "id": "can6C01",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
       },
       "c3e17": {
         "titre": "Calculer la somme de deux décimaux",
@@ -9633,16 +9664,6 @@
         },
         "datePublication": "01/08/2022"
       },
-      "bfec4": {
-        "titre": "Calculer la moitié d’un nombre décimal",
-        "id": "can6C40",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "13/09/2022"
-      },
       "95dd2": {
         "titre": "Résoudre un problème avec \"de plus\", \"de moins\"",
         "id": "can6C35",
@@ -9652,6 +9673,16 @@
           "Can": true
         },
         "datePublication": "27/07/2022"
+      },
+      "bfec4": {
+        "titre": "Calculer la moitié d’un nombre décimal",
+        "id": "can6C40",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "13/09/2022"
       },
       "f3b31": {
         "titre": "Comprarer deux fractions (dénominateurs multiples)",
@@ -9713,6 +9744,15 @@
         },
         "datePublication": "27/08/2022"
       },
+      "ac56a": {
+        "titre": "Trouver la bonne unité",
+        "id": "can6M02",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
       "d52aa": {
         "titre": "Convertir en mètres",
         "id": "can6M03",
@@ -9749,24 +9789,6 @@
           "Can": true
         }
       },
-      "d5c88": {
-        "titre": "Calculer des longueurs à partir des périmètres",
-        "id": "can6M09",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "ac56a": {
-        "titre": "Trouver la bonne unité",
-        "id": "can6M02",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
       "bae27": {
         "titre": "Comparer des aires (V/F)",
         "id": "can6M08",
@@ -9775,12 +9797,21 @@
           "Interactif": true,
           "Can": true
         }
+      },
+      "d5c88": {
+        "titre": "Calculer des longueurs à partir des périmètres",
+        "id": "can6M09",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        }
       }
     },
     "can6G": {
-      "84be1": {
-        "titre": "Résoudre un problème de longueurs (inverse)",
-        "id": "can6G05",
+      "d30d1": {
+        "titre": "Résoudre un problème de longueurs",
+        "id": "can6G04",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -9788,9 +9819,9 @@
         },
         "datePublication": "2/11/2021"
       },
-      "d30d1": {
-        "titre": "Résoudre un problème de longueurs",
-        "id": "can6G04",
+      "84be1": {
+        "titre": "Résoudre un problème de longueurs (inverse)",
+        "id": "can6G05",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -9857,15 +9888,6 @@
       }
     },
     "can6D": {
-      "05b2e": {
-        "titre": "Calculer une durée en minutes",
-        "id": "can6D03",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
       "1db82": {
         "titre": "Convertir des Heures/minutes en minutes",
         "id": "can6D01",
@@ -9884,6 +9906,15 @@
           "Can": true
         }
       },
+      "05b2e": {
+        "titre": "Calculer une durée en minutes",
+        "id": "can6D03",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
       "d34e5": {
         "titre": "Convertir minutes<->heures ou secondes<->minutes",
         "id": "can6D04",
@@ -9895,18 +9926,18 @@
       }
     },
     "can6P": {
-      "5e28d": {
-        "titre": "Utiliser une proportionnalité*",
-        "id": "can6P02",
+      "6de10": {
+        "titre": "Utiliser une proportionnalité",
+        "id": "can6P01",
         "tags": {
           "AMC": true,
           "Interactif": true,
           "Can": true
         }
       },
-      "6de10": {
-        "titre": "Utiliser une proportionnalité",
-        "id": "can6P01",
+      "5e28d": {
+        "titre": "Utiliser une proportionnalité*",
+        "id": "can6P02",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -10006,6 +10037,35 @@
         }
       }
     },
+    "c3N2": {
+      "ec7e4": {
+        "titre": "Donner l'écriture décimale à partir d'un somme d'entiers et de fractions décimales",
+        "id": "c3N20",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "2fa3b": {
+        "titre": "Lire abscisse décimale sous trois formes",
+        "id": "c3N22",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "b2f66": {
+        "titre": "Lire abscisse décimale avec zoom",
+        "id": "c3N23",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        }
+      }
+    },
     "c3N1": {
       "85618": {
         "titre": "Écrire un nombre en chiffres ou en lettres",
@@ -10032,35 +10092,6 @@
         "tags": {
           "AMC": true,
           "Interactif": true,
-          "Can": false
-        }
-      }
-    },
-    "c3N2": {
-      "ec7e4": {
-        "titre": "Donner l'écriture décimale à partir d'un somme d'entiers et de fractions décimales",
-        "id": "c3N20",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "2fa3b": {
-        "titre": "Lire abscisse décimale sous trois formes",
-        "id": "c3N22",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "b2f66": {
-        "titre": "Lire abscisse décimale avec zoom",
-        "id": "c3N23",
-        "tags": {
-          "AMC": false,
-          "Interactif": false,
           "Can": false
         }
       }
@@ -10095,9 +10126,18 @@
           "Can": false
         }
       },
-      "b0311": {
-        "titre": "Résoudre des problèmes de prix",
-        "id": "c3C13",
+      "ed7fc": {
+        "titre": "Tables d'addition",
+        "id": "c3C10-4",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "ec3cc": {
+        "titre": "Résoudre des problèmes de masses",
+        "id": "c3C13-1",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -10105,9 +10145,9 @@
         },
         "datePublication": "02/11/2021"
       },
-      "ec3cc": {
-        "titre": "Résoudre des problèmes de masses",
-        "id": "c3C13-1",
+      "b0311": {
+        "titre": "Résoudre des problèmes de prix",
+        "id": "c3C13",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -10128,15 +10168,6 @@
       "e2a48": {
         "titre": "Dernier chiffre d'un calcul",
         "id": "c3C12",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "ed7fc": {
-        "titre": "Tables d'addition",
-        "id": "c3C10-4",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -10206,6 +10237,15 @@
           "Can": true
         }
       },
+      "f7ad2": {
+        "titre": "Écrire en lettres un nombre entier (QCM)",
+        "id": "canc3N01",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
+      },
       "44f8c": {
         "titre": "Trouver le plus grand nombre entier",
         "id": "canc3N03",
@@ -10223,33 +10263,24 @@
           "Interactif": true,
           "Can": true
         }
-      },
-      "f7ad2": {
-        "titre": "Écrire en lettres un nombre entier (QCM)",
-        "id": "canc3N01",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
       }
     },
     "c3D": {
-      "2ce11": {
-        "titre": "Lire l'heure",
-        "id": "canc3D01",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "4/11/2021"
-      },
       "0861b": {
         "titre": "Lire une durée",
         "id": "canc3D02",
         "tags": {
           "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "4/11/2021"
+      },
+      "2ce11": {
+        "titre": "Lire l'heure",
+        "id": "canc3D01",
+        "tags": {
+          "AMC": true,
           "Interactif": true,
           "Can": true
         },
@@ -10277,16 +10308,6 @@
         },
         "datePublication": "25/08/2022"
       },
-      "85e82": {
-        "titre": "Calculer une somme de nombres avec des unités",
-        "id": "canc3M03",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "05/11/2022"
-      },
       "d0314": {
         "titre": "Trouver la bonne unité",
         "id": "canc3M01",
@@ -10296,21 +10317,22 @@
           "Can": true
         },
         "datePublication": "5/11/2021"
+      },
+      "85e82": {
+        "titre": "Calculer une somme de nombres avec des unités",
+        "id": "canc3M03",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "05/11/2022"
       }
     },
     "c3C": {
       "385b7": {
         "titre": "Déterminer un nombre à partir d’une phrase",
         "id": "canc3C01",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        }
-      },
-      "913e9": {
-        "titre": "Calculer à partir d’une décomposition",
-        "id": "canc3C02",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -10336,6 +10358,16 @@
         },
         "datePublication": "16/11/2021"
       },
+      "d0287": {
+        "titre": "Déterminer si un nombre est pair (V/F)",
+        "id": "canc3C05",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "20/11/2021"
+      },
       "3ca23": {
         "titre": "Trouver le nombre manquant dans une somme",
         "id": "canc3C06",
@@ -10345,6 +10377,25 @@
           "Can": true
         },
         "datePublication": "20/11/2021"
+      },
+      "02561": {
+        "titre": "Résoudre un problème avec \"de plus\", \"de moins\"",
+        "id": "canc3C07",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        },
+        "datePublication": "25/07/2022"
+      },
+      "913e9": {
+        "titre": "Calculer à partir d’une décomposition",
+        "id": "canc3C02",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": true
+        }
       },
       "a8e75": {
         "titre": "Résoudre un problème avec \"fois plus\", \"fois moins\"",
@@ -10366,15 +10417,15 @@
         },
         "datePublication": "23/07/2022"
       },
-      "02561": {
-        "titre": "Résoudre un problème avec \"de plus\", \"de moins\"",
-        "id": "canc3C07",
+      "9e7c7": {
+        "titre": "Calculer avec un programme de calcul",
+        "id": "canc3C12",
         "tags": {
           "AMC": true,
           "Interactif": true,
           "Can": true
         },
-        "datePublication": "25/07/2022"
+        "datePublication": "17/11/2022"
       },
       "080f9": {
         "titre": "Résoudre un problème avec \"de plus\", \"de moins\"*",
@@ -10395,26 +10446,6 @@
           "Can": true
         },
         "datePublication": "17/11/2022"
-      },
-      "9e7c7": {
-        "titre": "Calculer avec un programme de calcul",
-        "id": "canc3C12",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "17/11/2022"
-      },
-      "d0287": {
-        "titre": "Déterminer si un nombre est pair (V/F)",
-        "id": "canc3C05",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": true
-        },
-        "datePublication": "20/11/2021"
       },
       "aee7c": {
         "titre": "Calculer la moitié d’un nombre impair",
@@ -10565,9 +10596,18 @@
           "Can": false
         }
       },
-      "d8a39": {
-        "titre": "Soustraire 9",
-        "id": "CM006",
+      "9db38": {
+        "titre": "Tables de multiplication et de divisions",
+        "id": "CM003",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "6d698": {
+        "titre": "Additions et de soustractions",
+        "id": "CM000",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -10601,18 +10641,9 @@
           "Can": false
         }
       },
-      "6d698": {
-        "titre": "Additions et de soustractions",
-        "id": "CM000",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "9db38": {
-        "titre": "Tables de multiplication et de divisions",
-        "id": "CM003",
+      "d8a39": {
+        "titre": "Soustraire 9",
+        "id": "CM006",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -10633,6 +10664,15 @@
       "67962": {
         "titre": "Complément à 100",
         "id": "CM012",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "6a3de": {
+        "titre": "Tiers",
+        "id": "CM010",
         "tags": {
           "AMC": true,
           "Interactif": true,
@@ -10666,24 +10706,6 @@
           "Can": false
         }
       },
-      "678f9": {
-        "titre": "Somme de deux nombres mariés et un entier",
-        "id": "CM018",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
-      "fc635": {
-        "titre": "Diviser un nombre décimal par 10, 100 ou 1000",
-        "id": "CM017",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        }
-      },
       "fbd32": {
         "titre": "Somme de deux nombres mariés",
         "id": "CM015",
@@ -10702,9 +10724,18 @@
           "Can": false
         }
       },
-      "6a3de": {
-        "titre": "Tiers",
-        "id": "CM010",
+      "fc635": {
+        "titre": "Diviser un nombre décimal par 10, 100 ou 1000",
+        "id": "CM017",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        }
+      },
+      "678f9": {
+        "titre": "Somme de deux nombres mariés et un entier",
+        "id": "CM018",
         "tags": {
           "AMC": true,
           "Interactif": true,

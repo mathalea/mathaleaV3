@@ -5442,6 +5442,30 @@
         "url": "6e/6G22.js",
         "uuid": "e10d1"
       },
+      "6G22-1": {
+        "datePublication": "03/12/2022",
+        "id": "6G22-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Connaitre le vocabulaire de base des angles",
+        "url": "6e/6G22-1.js",
+        "uuid": "e8d33"
+      },
+      "6G22-2": {
+        "datePublication": "03/12/2022",
+        "id": "6G22-2",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Reconnaître un angle particulier",
+        "url": "6e/6G22-2.js",
+        "uuid": "fe08e"
+      },
       "6G23": {
         "id": "6G23",
         "tags": {
@@ -5838,6 +5862,18 @@
         "titre": "Calculer périmètre et aire de figures composées",
         "url": "6e/6M11-2.js",
         "uuid": "5999f"
+      },
+      "6M11-3": {
+        "datePublication": "27/11/2022",
+        "id": "6M11-3",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Calculer le périmètre de carrés, rectangles et triangles",
+        "url": "6e/6M11-3.js",
+        "uuid": "5563e"
       },
       "6M12": {
         "id": "6M12",
@@ -12323,8 +12359,8 @@
         "uuid": "b8c14"
       },
       "1N12": {
-        "id": "1N12",
         "datePublication": "30/11/2021",
+        "id": "1N12",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -12332,7 +12368,7 @@
         },
         "titre": "Somme des termes d'une suite arithmétique",
         "url": "1e/1N12.js",
-        "uuid": "f8309"
+        "uuid": "cfac9"
       }
     },
     "1P1": {
