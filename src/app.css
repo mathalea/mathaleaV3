@@ -367,3 +367,52 @@ src: local(''),
     font-weight: normal;
     font-style: normal;
 }
+
+/* 
+888b     d888                                                                
+8888b   d8888                                                                
+88888b.d88888                                                                
+888Y88888P888  .d88b.  .d8888b  .d8888b   8888b.   .d88b.   .d88b.  .d8888b  
+888 Y888P 888 d8P  Y8b 88K      88K          "88b d88P"88b d8P  Y8b 88K      
+888  Y8P  888 88888888 "Y8888b. "Y8888b. .d888888 888  888 88888888 "Y8888b. 
+888   "   888 Y8b.          X88      X88 888  888 Y88b 888 Y8b.          X88 
+888       888  "Y8888   88888P'  88888P' "Y888888  "Y88888  "Y8888   88888P' 
+                                                       888                   
+                                                  Y8b d88P                   
+                                                   "Y88P"                     */
+/*warnMessage*/
+div[id^="warnMessage"]{
+  @apply bg-gray-100 p-4 border-l-4 border-l-coopmaths font-light relative w-2/3
+}
+div[id^="warnMessage"]:before{
+    content: "🌬";
+    float: left;
+    @apply mr-3 text-lg text-white bg-coopmaths rounded-full h-6 w-6 inline-flex items-center justify-center
+}
+div[id^="title-warnMessage"]{
+  @apply font-bold pb-2
+}
+/* info message */
+div[id^="infoMessage"]{
+  @apply bg-gray-100 p-4 border-l-4 border-l-coopmaths font-light relative w-2/3
+}
+div[id^="infoMessage"]:before{
+    content: "ℹ";
+    float: left;
+    @apply mr-3 text-xl text-white font-black bg-coopmaths rounded-full h-6 w-6 inline-flex items-center justify-center
+}
+div[id^="title-infoMessage"]{
+  @apply font-bold pb-2
+}
+/* lampe message */
+div[id^="lampeMessage"]{
+  @apply bg-gray-100 p-4 border-l-4 border-l-coopmaths font-light relative w-2/3 mb-4
+}
+div[id^="lampeMessage"]:before{
+    content: "📚";
+    float: left;
+    @apply mr-3 text-xl text-coopmaths inline-block
+}
+div[id^="title-lampeMessage"]{
+  @apply font-bold pb-2
+}
