@@ -11,7 +11,7 @@ export const dateDePublication = '30/11/2021'
  * @author Rémi Angot
  * Référence 1N12
 */
-export const uuid = 'f8309'
+export const uuid = 'cfac9'
 export const ref = '1N12'
 export default class SommeSuiteArithmetique extends Exercice {
   constructor () {

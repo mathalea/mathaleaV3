@@ -4793,7 +4793,7 @@ export function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3, color =
   let rayon
   const centre = point(this.x, this.y)
   const azimut = point(this.x + this.rang * this.taille, this.y)
-  objets.push(labelPoint(centre))
+  // objets.push(labelPoint(centre))
   const azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + 0.3)
   this.bordures = [this.x - this.rang * this.taille - 1, this.y - this.rang * this.taille - 1, this.x + this.rang * this.taille + 1, this.y + this.rang * this.taille + 1]
   for (let i = 0; i < 8; i++) {
@@ -5256,7 +5256,7 @@ export function sensDeRotation (A, O, sens, color = 'black') {
 }
 /** Construit l'image d'un objet par homothétie
  * @param {Point|Segment|Droite|Polygone|Vecteur} Objet Objet MathAlea2d choisi parmi un point, un segment, une droite, un polygone ou un vecteur
- * @param {oint} O Centre de l'homothétie
+ * @param {Point} O Centre de l'homothétie
  * @param {number} k Rapport de l'homothétie
  * @param {string} [nom = ''] Nom du point-image
  * @param {string} [positionLabel = 'above'] Position du point-image. Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.

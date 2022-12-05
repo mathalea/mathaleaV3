@@ -1,13 +1,15 @@
-import { ComputeEngine } from '@cortex-js/compute-engine'
 import FractionEtendue from '../modules/FractionEtendue.js'
 import { number } from 'mathjs'
 import Grandeur from '../modules/Grandeur.js'
 import { sp, texteExposant } from '../modules/outils.js'
 import { context } from '../modules/context'
 import { afficheScore } from './gestionInteractif.js'
+import * as pkg from '@cortex-js/compute-engine'
+const { ComputeEngine } = pkg
+let engine
+if (context.versionMathalea) engine = new ComputeEngine()
 
 export function verifQuestionMathLive (exercice, i) {
-  const engine = new ComputeEngine()
   let saisieParsee, num, den, fSaisie, fReponse
   const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
