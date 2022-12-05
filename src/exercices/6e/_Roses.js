@@ -11,9 +11,9 @@ import { context } from '../../modules/context.js'
 const { ComputeEngine } = pkg
 export const interactifReady = true
 export const interactifType = 'custom'
-const math = create(all)
 let engine
 if (context.versionMathalea) engine = new ComputeEngine()
+const math = create(all)
 
 /**
  * Travailler les tables de multiplication autrement
