@@ -42,6 +42,7 @@ export class Mathalea {
       ;(await exercice).id = filename
       return exercice
     } catch (error) {
+      console.log(error)
       console.log(`Chargement de l'exercice ${directory}/${filename} impossible`)
       const exercice = new Exercice()
       exercice.contenu = `<h3>La référence ${directory}/${filename} n'existe pas !</h3>`
