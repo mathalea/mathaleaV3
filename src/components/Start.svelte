@@ -19,11 +19,10 @@
 
   context.versionMathalea = 3
 
-  if(customElements.get('alea-instrumenpoche') === undefined) {
+  if (customElements.get("alea-instrumenpoche") === undefined) {
     customElements.define("alea-instrumenpoche", ElementInstrumenpoche)
     customElements.define("alea-buttoninstrumenpoche", ElementButtonInstrumenpoche)
   }
-
 
   let isNavBarVisible = true
   let filtre = "all"
