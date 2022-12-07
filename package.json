@@ -58,7 +58,8 @@
     "tslib": "^2.4.1",
     "typescript": "^4.9.3",
     "util": "^0.12.5",
-    "vite": "^3.2.4"
+    "vite": "^3.2.4",
+    "typed-function": "^4.1.0"
   },
   "pnpm": {
     "overrides": {

@@ -554,7 +554,6 @@ export function traverserEtapes (steps, changeType = [], result = []) {
  * @param {Objet} params // Les paramètres (commentaires visibles , sous-étapes visibles, fraction-solution au format MixedNumber)
 */
 export function calculer (expression, params) {
-  console.log('calcul')
   params = Object.assign({ comment: false, comments: {}, substeps: false, mixed: false, name: undefined, suppr1: true }, params)
   // La fonction simplifyExpression est une fonction mathsteps
   // Elle renvoie toutes les étapes d'un calcul numérique ou d'un développement-réduction
