@@ -8,10 +8,9 @@ import { gestionCan } from './gestionCan.js'
 import { sp, texteExposant } from '../outils.js'
 import * as pkg from '@cortex-js/compute-engine'
 const { ComputeEngine } = pkg
-let engine
-if (context.versionMathalea) engine = new ComputeEngine()
 
 export function verifQuestionMathLive (exercice, i, writeResult = true) {
+  const engine = new ComputeEngine()
   let saisieParsee, num, den, fSaisie, fReponse
   const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif || 'calcul'
   const precision = exercice.autoCorrection[i].reponse.param.precision || 0

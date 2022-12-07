@@ -45,8 +45,10 @@ export class Mathalea {
       return exercice
     } catch (error) {
       console.log(`Chargement de l'exercice ${directory}/${filename} impossible`)
+      console.log(error)
       const exercice = new Exercice()
-      exercice.contenu = `<h3>La référence ${directory}/${filename} n'existe pas !</h3>`
+      exercice.titre = `Exercice ${filename} - Problème à signaler`
+      exercice.nouvelleVersion = () => {}
       return exercice
     }
   }
