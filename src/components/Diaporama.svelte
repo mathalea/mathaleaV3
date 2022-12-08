@@ -778,13 +778,6 @@
               <div class="inline-flex pl-2">{$questionsOrder.isQuestionsShuffled ? "Questions dans le désordre" : "Questions dans l'ordre"}</div>
             </div>
           </div>
-
-          <div class="form-control">
-            <label class="label cursor-pointer">
-              <input type="checkbox" class="toggle toggle-primary" checked />
-              <span class="label-text">Questions dans l'ordre</span>
-            </label>
-          </div>
           <div class="pb-6">
             <div class="flex text-lg font-bold mb-1">Choix aléatoire</div>
             <div class="flex flex-row justify-start items-center px-4">
