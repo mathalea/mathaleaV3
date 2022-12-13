@@ -4851,13 +4851,13 @@ export function lampeMessage ({ titre, texte, couleur }) {
     if (context.versionMathalea === 3) {
       const timeStamp = new Date().getTime()
       return `
-    <div id="lampeMessage-${timeStamp}">
-    <div id="title-lampeMessage-${timeStamp}">
-    ${titre}
-    </div>
-    ${texte}
-    </div>
-    `
+      <div id="lampeMessage-${timeStamp}">
+        <div id="title-lampeMessage-${timeStamp}">
+        ${titre}
+        </div>
+        ${texte}
+      </div>
+      `
     } else {
       return `
       <div class="ui compact icon message">
