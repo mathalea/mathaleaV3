@@ -161,14 +161,12 @@
       })
     }
     const id = "exo" + indiceExercice
-    document.querySelectorAll(`[id^=${id}]`).forEach(function (action) {
+    const exoDiv = document.querySelector(`[id^=${id}]`)
+    exoDiv.querySelectorAll('[id^="warnMessage"]').forEach(function (action) {
       console.log("messages montrés dans " + id + " : " + isMessagesVisible)
-      const message = action.querySelector('[id^="warnMessage"]')
-      if (message) {
-        console.log(message)
-        if (!isMessagesVisible) {
-          message.parentNode.removeChild(message)
-        }
+      console.log(action)
+      if (!isMessagesVisible) {
+        action.parentNode.removeChild(action)
       }
     })
   }
