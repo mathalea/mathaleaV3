@@ -288,7 +288,7 @@
         </div>
         <div class="flex-1 overflow-y-scroll overscroll-auto">
           {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-            <div animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
+            <div id="exo{i}" animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
               <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
             </div>
           {/each}

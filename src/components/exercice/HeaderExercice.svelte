@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte'
-  import BoutonMonter from './BoutonMonter.svelte'
-  import BoutonDescendre from './BoutonDescendre.svelte'
-  import { exercicesParams } from '../store'
+  import { createEventDispatcher } from "svelte"
+  import BoutonMonter from "./BoutonMonter.svelte"
+  import BoutonDescendre from "./BoutonDescendre.svelte"
+  import { exercicesParams } from "../store"
   export let title: string
   export let interactifReady = true
   export let randomReady = true
@@ -18,16 +18,17 @@
   let isSettingsVisible = false
   let isContentVisible = true
   let isCorrectionVisible = false
+  let isMessagesVisible = true
 
   const dispatch = createEventDispatcher()
 
   function switchInteractif() {
     isInteractif = !isInteractif
-    dispatch('clickInteractif', { isInteractif })
+    dispatch("clickInteractif", { isInteractif })
   }
 
   function newData() {
-    dispatch('clickNewData')
+    dispatch("clickNewData")
   }
 
   function remove() {
@@ -66,35 +67,46 @@
     </div>
     <div class="flex justify-start text-normal mt-1 text-3xl lg:justify-end lg:text-xl mr-1">
       <button
+        class="mx-2 tooltip tooltip-left"
+        data-tip={isMessagesVisible ? "Masquer les messages" : "Montrer les messages"}
+        type="button"
+        on:click={() => {
+          isMessagesVisible = !isMessagesVisible
+          dispatch("clickMessages", { isMessagesVisible })
+        }}
+      >
+        <i class="bx {isMessagesVisible ? 'bxs-bulb' : 'bx-bulb'}" />
+      </button>
+      <button
         class="mx-2 tooltip tooltip-left {correctionReady ? '' : 'invisible'}"
-        data-tip={isCorrectionVisible ? 'Masquer la correction' : 'Montrer la correction'}
+        data-tip={isCorrectionVisible ? "Masquer la correction" : "Montrer la correction"}
         type="button"
         on:click={() => {
           isCorrectionVisible = !isCorrectionVisible
-          dispatch('clickCorrection', {
+          dispatch("clickCorrection", {
             isCorrectionVisible,
             isContentVisible,
           })
         }}
       >
-        <i class="bx {isCorrectionVisible ? 'bxs-check-circle' : 'bx-check-circle'}" /></button
-      >
+        <i class="bx {isCorrectionVisible ? 'bxs-check-circle' : 'bx-check-circle'}" />
+      </button>
       <button
         class="mx-2 tooltip tooltip-left {interactifReady ? '' : 'invisible'}"
-        data-tip={isInteractif ? "Désactiver l'interactivité" : 'Rendre interactif'}
+        data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
         type="button"
-        on:click={switchInteractif}><i class="bx {isInteractif ? 'bxs-edit' : 'bx-edit'}" /></button
+        on:click={switchInteractif}
       >
-      <button class="mx-2 tooltip tooltip-left" data-tip="Nouvel énoncé" type="button" on:click={newData}
-        ><i class="bx bx-refresh {randomReady ? '' : 'invisible'}" /></button
-      >
+        <i class="bx {isInteractif ? 'bxs-edit' : 'bx-edit'}" />
+      </button>
+      <button class="mx-2 tooltip tooltip-left" data-tip="Nouvel énoncé" type="button" on:click={newData}><i class="bx bx-refresh {randomReady ? '' : 'invisible'}" /></button>
       <button
         class="mx-2 tooltip tooltip-left {settingsReady ? '' : 'invisible'} "
         data-tip="Changer les paramètres de l'exercice"
         type="button"
         on:click={() => {
           isSettingsVisible = !isSettingsVisible
-          dispatch('clickSettings', { isSettingsVisible: isSettingsVisible })
+          dispatch("clickSettings", { isSettingsVisible: isSettingsVisible })
         }}
       >
         <i class="bx {isSettingsVisible ? 'bxs-cog' : 'bx-cog'}" />
@@ -104,7 +116,7 @@
           type="button"
           on:click={() => {
             isVisible = !isVisible
-            dispatch('clickVisible', { isVisible })
+            dispatch("clickVisible", { isVisible })
           }}
           class="mx-2 tooltip tooltip-left"
           data-tip=" {isVisible ? 'Masquer' : 'Montrer'} l'exercice"
@@ -113,9 +125,7 @@
         </button>
       {/if}
       {#if isDeletable}
-        <button class="mx-2 tooltip tooltip-left" data-tip="Supprimer l'exercice" type="button" on:click={remove}
-          ><i class="bx bx-trash" /></button
-        >
+        <button class="mx-2 tooltip tooltip-left" data-tip="Supprimer l'exercice" type="button" on:click={remove}><i class="bx bx-trash" /></button>
       {/if}
       {#if isSortable}
         <BoutonMonter indice={indiceExercice} />
