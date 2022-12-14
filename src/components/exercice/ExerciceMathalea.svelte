@@ -166,7 +166,9 @@
       const message = action.querySelector('[id^="warnMessage"]')
       if (message) {
         console.log(message)
-        message.parentNode.removeChild(message)
+        if (!isMessagesVisible) {
+          message.parentNode.removeChild(message)
+        }
       }
     })
   }
