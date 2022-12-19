@@ -1718,6 +1718,7 @@
         },
         "can5C23": {
           "uuid": "cb5d5",
+          "id": "can5C23",
           "titre": "Multiplier par 1,5 ou 2,5 ou ...",
           "url": "can/5e/can5C23.js",
           "tags": {
@@ -2791,6 +2792,7 @@
           "datePublication": "25/10/2021"
         },
         "can3L06": {
+          "id": "can3L06",
           "uuid": "3cf30",
           "titre": "Réduire une expression avec une fraction",
           "url": "can/3e/can3L06.js",
@@ -3622,6 +3624,7 @@
           "datePublication": "04/03/2022"
         },
         "can2L09": {
+          "id": "can2L09",
           "uuid": "05bc2",
           "titre": "Écrire avec un seul quotient",
           "url": "can/2e/can2L09.js",
@@ -5464,6 +5467,7 @@
         "uuid": "a07bb"
       },
       "6G21-2": {
+        "id": "6G21-2",
         "datePublication": "17/12/2022",
         "tags": {
           "AMC": false,
@@ -5475,6 +5479,7 @@
         "uuid": "f4fdd"
       },
       "6G21-3": {
+        "id": "6G21-3",
         "datePublication": "17/12/2022",
         "tags": {
           "AMC": false,
@@ -10250,6 +10255,7 @@
         "uuid": "acb80"
       },
       "3G44": {
+        "id": "3G44",
         "datePublication": "19/12/2022",
         "tags": {
           "AMC": true,
