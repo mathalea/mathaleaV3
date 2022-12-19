@@ -4769,18 +4769,7 @@ export function warnMessage (texte, couleur, titre) {
     titre = ''
   }
   if (context.isHtml) {
-    if (context.versionMathalea === 3) {
-      const timeStamp = new Date().getTime()
-      return `
-    <div id="warnMessage-${timeStamp}">
-    <div id="title-warnMessage-${timeStamp}">
-    ${titre}
-    </div>
-    ${texte}
-    </div>
-    `
-    } else {
-      return `
+    return `
     <br>
     <div class="ui compact warning message">
     <h4><i class="lightbulb outline icon"></i>${titre}</h4>
@@ -4788,7 +4777,6 @@ export function warnMessage (texte, couleur, titre) {
     </p>
     </div>
     `
-    }
   } else {
     // return texCadreParOrange(texte);
     return `
@@ -4808,18 +4796,7 @@ export function warnMessage (texte, couleur, titre) {
 export function infoMessage ({ titre, texte, couleur }) {
   // 'use strict';
   if (context.isHtml) {
-    if (context.versionMathalea === 3) {
-      const timeStamp = new Date().getTime()
-      return `
-    <div id="infoMessage-${timeStamp}">
-    <div id="title-infoMessage-${timeStamp}">
-    ${titre}
-    </div>
-    ${texte}
-    </div>
-    `
-    } else {
-      return `
+    return `
     <div class="ui compact icon message">
       <i class="info circle icon"></i>
       <div class="content">
@@ -4830,7 +4807,6 @@ export function infoMessage ({ titre, texte, couleur }) {
       </div>
       </div>
     `
-    }
   } else {
     return `
     \\begin{bclogo}[couleurBarre=` + couleur + ',couleurBord=' + couleur + ',epBord=2,couleur=gray!10,logo=\\bcinfo,arrondi=0.1]{\\bf ' + titre + `}
@@ -4849,15 +4825,12 @@ export function infoMessage ({ titre, texte, couleur }) {
 export function lampeMessage ({ titre, texte, couleur }) {
   if (context.isHtml) {
     if (context.versionMathalea === 3) {
-      const timeStamp = new Date().getTime()
       return `
-    <div id="lampeMessage-${timeStamp}">
-    <div id="title-lampeMessage-${timeStamp}">
-    ${titre}
-    </div>
-    ${texte}
-    </div>
-    `
+      <div class='bg-gray-100 border-solid border-2 border-black rounded p-2'>
+      <h1 class='font-bold'>${titre}</h1>
+      <p>${texte}</p>
+      </div>
+      `
     } else {
       return `
       <div class="ui compact icon message">
@@ -6788,8 +6761,11 @@ export function telechargeFichier (text, filename) {
 * @author Rémi Angot
 */
 export function introLatex (entete = 'Exercices', listePackages = '') {
+  let isImpressionRectoVerso = false
+  const checkBoxImpressionRectoVerso = document.getElementById('impression_recto_verso')
+  if (checkBoxImpressionRectoVerso !== null) isImpressionRectoVerso = checkBoxImpressionRectoVerso.checked
   if (entete === '') { entete = 'Exercices' }
-  return `\\documentclass[12pt,svgnames]{article}
+  return `\\documentclass[${isImpressionRectoVerso ? 'twoside,' : ''}12pt,svgnames]{article}
 \\usepackage[a4paper,left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -6871,9 +6847,12 @@ ${preambulePersonnalise(listePackages)}
 * @author Rémi Angot
 */
 export function introLatexCan (entete = 'Course aux nombres', listePackages = '') {
+  let isImpressionRectoVerso = false
+  const checkBoxImpressionRectoVerso = document.getElementById('impression_recto_verso')
+  if (checkBoxImpressionRectoVerso !== null) isImpressionRectoVerso = checkBoxImpressionRectoVerso.checked
   if (entete === '') { entete = 'Course aux nombres' }
   // return `\\documentclass[12pt, landscape]{article}
-  return `\\documentclass[12pt,svgnames]{article}
+  return `\\documentclass[${isImpressionRectoVerso ? 'twoside,' : ''}12pt,svgnames]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -7066,7 +7045,10 @@ ${preambulePersonnalise(listePackages)}
 * @author Rémi Angot
 */
 export function introLatexCoop (listePackages) {
-  const introLatexCoop = `\\documentclass[12pt,svgnames]{article}
+  let isImpressionRectoVerso = false
+  const checkBoxImpressionRectoVerso = document.getElementById('impression_recto_verso')
+  if (checkBoxImpressionRectoVerso !== null) isImpressionRectoVerso = checkBoxImpressionRectoVerso.checked
+  const introLatexCoop = `\\documentclass[${isImpressionRectoVerso ? 'twoside,' : ''}12pt,svgnames]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
 %\\usepackage[utf8]{inputenc}        
 %\\usepackage[T1]{fontenc}
@@ -8881,6 +8863,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   const nombreDeQuestionsIndefinie = []
   const graine = randint(1, 100000)
   const groupeDeQuestions = []; const texQuestions = [[]]; const titreQuestion = []; const melangeQuestion = []
+
   for (const exercice of questions) {
     code = exportQcmAmc(exercice, idExo)
     idExo++
@@ -8912,6 +8895,9 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   }
   // Fin de la préparation des groupes
 
+  let isImpressionRectoVerso = false
+  const checkBoxImpressionRectoVerso = document.getElementById('impression_recto_verso')
+  if (checkBoxImpressionRectoVerso !== null) isImpressionRectoVerso = checkBoxImpressionRectoVerso.checked
   // variable qui contiendra le code LaTeX pour AMC
   let codeLatex = ''
 
@@ -8925,9 +8911,9 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \n`
   if (format === 'A3') {
-    preambule += '\t \\documentclass[10pt,a3paper,landscape,french,svgnames]{article}\n'
+    preambule += `\t \\documentclass[${isImpressionRectoVerso ? 'twoside,' : ''}10pt,a3paper,landscape,french,svgnames]{article}\n`
   } else {
-    preambule += '\t \\documentclass[10pt,a4paper,french,svgnames]{article}\n'
+    preambule += `\t \\documentclass[${isImpressionRectoVerso ? 'twoside,' : ''}10pt,a4paper,french,svgnames]{article}\n`
   }
 
   preambule += `\t

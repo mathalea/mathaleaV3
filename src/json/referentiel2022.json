@@ -1239,7 +1239,7 @@
         "can6N11": {
           "uuid": "79452",
           "id": "can6N11",
-          "titre": "Ecrire sous forme d'une fraction décimale",
+          "titre": "Écrire sous forme d'une fraction décimale",
           "url": "can/6e/can6N11.js",
           "tags": {
             "AMC": true,
@@ -1715,6 +1715,17 @@
             "Can": true
           },
           "datePublication": "31/10/2022"
+        },
+        "can5C23": {
+          "uuid": "cb5d5",
+          "titre": "Multiplier par 1,5 ou 2,5 ou ...",
+          "url": "can/5e/can5C23.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "08/12/2022"
         }
       },
       "can5D": {
@@ -1891,7 +1902,7 @@
         "can5P06": {
           "uuid": "802cc",
           "id": "can5P06",
-          "titre": "Ecrire sous la forme d’un pourcentage",
+          "titre": "Écrire sous la forme d’un pourcentage",
           "url": "can/5e/can5P06.js",
           "tags": {
             "AMC": true,
@@ -2778,6 +2789,17 @@
             "Can": true
           },
           "datePublication": "25/10/2021"
+        },
+        "can3L06": {
+          "uuid": "3cf30",
+          "titre": "Réduire une expression avec une fraction",
+          "url": "can/3e/can3L06.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "08/12/2022"
         }
       },
       "can3M": {
@@ -3598,6 +3620,17 @@
             "Can": true
           },
           "datePublication": "04/03/2022"
+        },
+        "can2L09": {
+          "uuid": "05bc2",
+          "titre": "Écrire avec un seul quotient",
+          "url": "can/2e/can2L09.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "08/12/2022"
         }
       },
       "can2N": {
@@ -4192,7 +4225,7 @@
         "can1P01": {
           "uuid": "15f6d",
           "id": "can1P01",
-          "titre": "Ecrire une probabilté avec les notations",
+          "titre": "Écrire une probabilté avec les notations",
           "url": "can/1e/can1P01.js",
           "tags": {
             "AMC": true,
@@ -5415,7 +5448,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Construire un triangle aux instruments",
+        "titre": "Construire un triangle avec les instruments",
         "url": "6e/6G21.js",
         "uuid": "e0bc9"
       },
@@ -5429,6 +5462,28 @@
         "titre": "Construire un triangle avec cible",
         "url": "6e/6G21-1.js",
         "uuid": "a07bb"
+      },
+      "6G21-2": {
+        "datePublication": "17/12/2022",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Construire un triangle quelconque avec les instruments et auto-vérification",
+        "url": "6e/6G21-2.js",
+        "uuid": "f4fdd"
+      },
+      "6G21-3": {
+        "datePublication": "17/12/2022",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Construire un triangle particulier avec les instruments et auto-vérification",
+        "url": "6e/6G21-3.js",
+        "uuid": "e1e64"
       },
       "6G22": {
         "datePublication": "13/04/2022",
@@ -10193,6 +10248,17 @@
         "titre": "Calculs de volumes",
         "url": "3e/3G43.js",
         "uuid": "acb80"
+      },
+      "3G44": {
+        "datePublication": "19/12/2022",
+        "tags": {
+          "AMC": true,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Déterminer des longueurs dans la géométrie dans l'espace",
+        "url": "3e/3G44.js",
+        "uuid": "57c70"
       }
     },
     "3I1": {
