@@ -8514,6 +8514,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6C30-9": {
+    "titre": "Produit et somme ou différence de décimaux",
+    "url": "/exercices/6e/6C30-9.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6C30-9",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6C30": {
     "titre": "Poser des multiplications de nombres décimaux",
     "url": "/exercices/6e/6C30.js",
@@ -8908,6 +8923,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
+  "6G13-1": {
+    "titre": "Tracer des carrés et rectangles et auto-vérification",
+    "url": "/exercices/6e/6G13-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6G13-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6G13": {
     "titre": "Tracer des carrés et des rectangles de longueurs données",
     "url": "/exercices/6e/6G13.js",
@@ -9019,6 +9049,36 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "6G21-3",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6G21-4": {
+    "titre": "Tracer des losanges ou des parallélogrammes et auto-vérification",
+    "url": "/exercices/6e/6G21-4.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6G21-4",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6G21-5": {
+    "titre": "Tracer des quadrilatères particuliers et auto-vérification",
+    "url": "/exercices/6e/6G21-5.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6G21-5",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -10430,7 +10490,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -10449,7 +10509,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -12158,6 +12218,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "beta2F11-2": {
+    "titre": "Comparer deux images avec une fonction de référence",
+    "url": "/exercices/beta/beta2F11-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2F11-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "beta2F12-2": {
     "titre": "Résoudre graphiquement $f(x)>k$ ($<k$) avec une fonction de référence",
     "url": "/exercices/beta/beta2F12-2.js",
@@ -12925,7 +13000,7 @@ export default {
     "interactifType": "mathLive",
     "name": "betaProblemeAge",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -15888,7 +15963,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can3C15",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

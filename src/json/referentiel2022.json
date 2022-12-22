@@ -2792,8 +2792,8 @@
           "datePublication": "25/10/2021"
         },
         "can3L06": {
-          "id": "can3L06",
           "uuid": "3cf30",
+          "id": "can3L06",
           "titre": "Réduire une expression avec une fraction",
           "url": "can/3e/can3L06.js",
           "tags": {
@@ -3624,8 +3624,8 @@
           "datePublication": "04/03/2022"
         },
         "can2L09": {
-          "id": "can2L09",
           "uuid": "05bc2",
+          "id": "can2L09",
           "titre": "Écrire avec un seul quotient",
           "url": "can/2e/can2L09.js",
           "tags": {
@@ -5119,6 +5119,18 @@
         "url": "6e/6C30-8.js",
         "uuid": "9540b"
       },
+      "6C30-9": {
+        "datePublication": "20/12/2022",
+        "id": "6C30-9",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Produit et somme ou différence de décimaux",
+        "url": "6e/6C30-9.js",
+        "uuid": "c6836"
+      },
       "6C31": {
         "id": "6C31",
         "tags": {
@@ -5397,6 +5409,18 @@
         "url": "6e/6G13.js",
         "uuid": "2203a"
       },
+      "6G13-1": {
+        "datePublication": "19/12/2022",
+        "id": "6G13-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Tracer des carrés et rectangles et auto-vérification",
+        "url": "6e/6G13-1.js",
+        "uuid": "4f9a6"
+      },
       "6G14": {
         "id": "6G14",
         "tags": {
@@ -5467,8 +5491,8 @@
         "uuid": "a07bb"
       },
       "6G21-2": {
-        "id": "6G21-2",
         "datePublication": "17/12/2022",
+        "id": "6G21-2",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -5479,8 +5503,8 @@
         "uuid": "f4fdd"
       },
       "6G21-3": {
-        "id": "6G21-3",
         "datePublication": "17/12/2022",
+        "id": "6G21-3",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -5489,6 +5513,30 @@
         "titre": "Construire un triangle particulier avec les instruments et auto-vérification",
         "url": "6e/6G21-3.js",
         "uuid": "e1e64"
+      },
+      "6G21-4": {
+        "datePublication": "19/12/2022",
+        "id": "6G21-4",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Tracer des losanges ou des parallélogrammes et auto-vérification",
+        "url": "6e/6G21-4.js",
+        "uuid": "3fc85"
+      },
+      "6G21-5": {
+        "datePublication": "19/12/2022",
+        "id": "6G21-5",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Tracer des quadrilatères particuliers et auto-vérification",
+        "url": "6e/6G21-5.js",
+        "uuid": "b3a4c"
       },
       "6G22": {
         "datePublication": "13/04/2022",
@@ -10255,8 +10303,8 @@
         "uuid": "acb80"
       },
       "3G44": {
-        "id": "3G44",
         "datePublication": "19/12/2022",
+        "id": "3G44",
         "tags": {
           "AMC": true,
           "Interactif": true,
