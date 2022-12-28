@@ -20,6 +20,7 @@ export default class SommeSuiteGeometrique extends Exercice {
     this.nbQuestions = 2
     this.spacingCorr = 3
     this.correctionDetaillee = true
+    this.correctionDetailleeDisponible = true
   }
 
   nouvelleVersion () {
