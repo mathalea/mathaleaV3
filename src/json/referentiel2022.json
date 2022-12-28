@@ -301,6 +301,19 @@
           },
           "datePublication": "17/11/2022"
         }
+      },
+      "c3a": {
+        "canc3a": {
+          "uuid": "32a0f",
+          "id": "c3C3CaN",
+          "titre": "Course aux nombres CM1",
+          "url": "can/c3/canc3a.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          }
+        }
       }
     },
     "6e": {
@@ -4599,17 +4612,6 @@
         "titre": "Problème - Les courses",
         "url": "c3/c3C31.js",
         "uuid": "b74c6"
-      },
-      "c3C3CaN": {
-        "id": "c3C3CaN",
-        "tags": {
-          "AMC": true,
-          "Interactif": true,
-          "Can": false
-        },
-        "titre": "Course aux nombres CM1",
-        "url": "c3/c3C3CaN.js",
-        "uuid": "32a0f"
       }
     },
     "c3I1": {
@@ -4732,7 +4734,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Rose additive",
+        "titre": "Résoudre une Rose additive",
         "url": "6e/6C10-0.js",
         "uuid": "322a0"
       },
@@ -4800,7 +4802,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Rose multiplicative",
+        "titre": "Résoudre une Rose multiplicative",
         "url": "6e/6C10-6.js",
         "uuid": "57502"
       },
@@ -4812,7 +4814,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Yohaku additif niveau 1",
+        "titre": "Résoudre un Yohaku additif niveau 1",
         "url": "6e/6C10-7a.js",
         "uuid": "26bb9"
       },
@@ -4824,7 +4826,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Yohaku multiplicatif niveau 1",
+        "titre": "Résoudre un Yohaku multiplicatif niveau 1",
         "url": "6e/6C10-7b.js",
         "uuid": "08680"
       },
@@ -5522,7 +5524,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Tracer des losanges ou des parallélogrammes et auto-vérification",
+        "titre": "Construire des losanges ou des parallélogrammes et auto-vérification",
         "url": "6e/6G21-4.js",
         "uuid": "3fc85"
       },
@@ -5534,7 +5536,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Tracer des quadrilatères particuliers et auto-vérification",
+        "titre": "Construire des quadrilatères particuliers et auto-vérification",
         "url": "6e/6G21-5.js",
         "uuid": "b3a4c"
       },
@@ -7220,7 +7222,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Trouver les coordonnée de l'image d'un point par une symétrie centrale",
+        "titre": "Trouver les coordonnées de l'image d'un point par une symétrie centrale",
         "url": "5e/5G11-4.js",
         "uuid": "08f60"
       },
@@ -7232,7 +7234,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Trouver les coordonnée de l'image d'un point par une symétrie axiale ou centrale",
+        "titre": "Trouver les coordonnées de l'image d'un point par une symétrie axiale ou centrale",
         "url": "5e/5G11-5.js",
         "uuid": "2d2bb"
       },
@@ -8136,7 +8138,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Yohaku additif nombres relatifs niveau 1",
+        "titre": "Résoudre un Yohaku additif nombres relatifs niveau 1",
         "url": "5e/5R20-6.js",
         "uuid": "598c3"
       },
@@ -8148,7 +8150,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Rose additive relatifs",
+        "titre": "Résoudre une Rose additive avec des relatifs",
         "url": "5e/5R20-7.js",
         "uuid": "3e4d9"
       },
@@ -8510,7 +8512,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Yohaku multiplicatif nombres relatifs niveau 1",
+        "titre": "Résoudre un Yohaku multiplicatif nombres relatifs niveau 1",
         "url": "4e/4C10-8.js",
         "uuid": "2fbc0"
       },
@@ -8522,7 +8524,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Rose multiplicative relatifs",
+        "titre": "Résoudre une Rose multiplicative avec des relatifs",
         "url": "4e/4C10-9.js",
         "uuid": "9e862"
       },
@@ -8603,7 +8605,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Yohaku additif fractions niveau 1",
+        "titre": "Résoudre un Yohaku additif fractions niveau 1",
         "url": "4e/4C21-2.js",
         "uuid": "1a61d"
       },
@@ -8615,7 +8617,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Rose additive fractions",
+        "titre": "Résoudre une Rose additive avec des fractions",
         "url": "4e/4C21-3.js",
         "uuid": "0576d"
       },
@@ -8661,7 +8663,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Yohaku multiplicatif fractions niveau 1",
+        "titre": "Résoudre un Yohaku multiplicatif fractions niveau 1",
         "url": "4e/4C22-3.js",
         "uuid": "ee808"
       },
@@ -8673,7 +8675,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Rose multiplicative fractions",
+        "titre": "Résoudre une Rose multiplicative avec des fractions",
         "url": "4e/4C22-4.js",
         "uuid": "4713e"
       },
@@ -8964,7 +8966,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Trouver les coordonnée de l'image d'un point par une translation",
+        "titre": "Trouver les coordonnées de l'image d'un point par une translation",
         "url": "4e/4G10-1.js",
         "uuid": "7b40c"
       },
@@ -9275,7 +9277,7 @@
         "id": "4L10",
         "tags": {
           "AMC": false,
-          "Interactif": true,
+          "Interactif": false,
           "Can": false
         },
         "titre": "Utiliser la simple distributivité",
@@ -9301,7 +9303,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Donner l'expression littérale d'un Périmètre et d'une aire de quadrilatère",
+        "titre": "Donner l'expression littérale d'un périmètre et d'une aire de quadrilatère",
         "url": "4e/4L10-2.js",
         "uuid": "af8bb"
       },
@@ -9313,7 +9315,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Yohaku additif expressions littérales niveau 1",
+        "titre": "Résoudre un Yohaku additif expressions littérales niveau 1",
         "url": "4e/4L10-3.js",
         "uuid": "4c5da"
       },
@@ -9325,7 +9327,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Rose additive littéraux",
+        "titre": "Résoudre une Rose additive avec calcul littéral",
         "url": "4e/4L10-4.js",
         "uuid": "a40d6"
       },
@@ -9462,7 +9464,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Équation du premier degré",
+        "titre": "Résoudre une equation du premier degré",
         "url": "4e/4L20.js",
         "uuid": "799c4"
       },
@@ -9473,7 +9475,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Équation du premier degré à solutions entières",
+        "titre": "Résoudre une equation du premier degré à solutions entières",
         "url": "4e/4L20-0.js",
         "uuid": "515b0"
       }
@@ -10403,18 +10405,19 @@
       "3L10": {
         "id": "3L10",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": true,
           "Can": false
         },
-        "titre": "Supprimer les parenthèses puis réduire une expression",
+        "titre": "Supprimer les parenthèses puis réduire l'expression",
         "url": "3e/3L10.js",
         "uuid": "603a8"
       },
       "3L10-1": {
+        "dateModification": "26/12/2022",
         "id": "3L10-1",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": true,
           "Can": false
         },
@@ -10426,18 +10429,18 @@
         "datePublication": "28/11/2022",
         "id": "3L10-2",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": true,
           "Can": false
         },
-        "titre": "Supprimer les parenthèses puis réduire une expression (niveau 2)",
+        "titre": "Supprimer les parenthèses puis réduire l'expression (niveau 2)",
         "url": "3e/3L10-2.js",
         "uuid": "c88ba"
       },
       "3L11": {
         "id": "3L11",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": true,
           "Can": false
         },
@@ -10515,7 +10518,7 @@
         "datePublication": "12/12/2021",
         "id": "3L11-7",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": true,
           "Can": false
         },
@@ -10531,7 +10534,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Yohaku multiplicatif expressions littérales niveau 1",
+        "titre": "Résoudre un Yohaku multiplicatif expressions littérales niveau 1",
         "url": "3e/3L11-8.js",
         "uuid": "1f9b4"
       },
@@ -10543,7 +10546,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Rose multiplicative littéraux",
+        "titre": "Résoudre une Rose multiplicative avec calcul littéral",
         "url": "3e/3L11-9.js",
         "uuid": "4963b"
       },
@@ -10559,9 +10562,10 @@
         "uuid": "81fd2"
       },
       "3L12-1": {
+        "dateModification": "27/12/2022",
         "id": "3L12-1",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": true,
           "Can": false
         },
@@ -10576,7 +10580,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Équation du premier degré",
+        "titre": "Résoudre une equation du premier degré",
         "url": "3e/3L13.js",
         "uuid": "f239f"
       },
@@ -10587,7 +10591,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Équation du premier degré à solutions entières",
+        "titre": "Résoudre une equation du premier degré à solutions entières",
         "url": "3e/3L13-0.js",
         "uuid": "5a02b"
       },
@@ -10598,7 +10602,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Équation du premier degré (utilisant la distributivité)",
+        "titre": "Résoudre une equation du premier degré (utilisant la distributivité)",
         "url": "3e/3L13-1.js",
         "uuid": "1802d"
       },
@@ -10609,7 +10613,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Équations résolvantes pour le théorème de Thalès",
+        "titre": "Résoudre une equation résolvante pour le théorème de Thalès",
         "url": "3e/3L13-2.js",
         "uuid": "6516e"
       },
@@ -10621,7 +10625,7 @@
           "Interactif": true,
           "Can": false
         },
-        "titre": "Problèmes à mettre en équation et à résoudre",
+        "titre": "Mettre en équation un problème et le résoudre",
         "url": "3e/3L13-3.js",
         "uuid": "22412"
       },
@@ -10633,7 +10637,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Périmètre, aire, équation",
+        "titre": "Trouver périmètre ou aire en résolvant une équation",
         "url": "3e/3L13-4.js",
         "uuid": "cd2f2"
       },
@@ -10667,7 +10671,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Équations du second degré se ramenant au premier degré",
+        "titre": "Résoudre une equation du second degré se ramenant au premier degré",
         "url": "3e/3L15.js",
         "uuid": "231d2"
       },

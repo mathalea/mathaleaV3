@@ -541,7 +541,7 @@ export function pointIntersectionDD (d, f, nom = '', positionLabel = 'above') {
     // console.log('Les droites sont parallèles, pas de point d\'intersection')
     return false
   } else { y = (f.c * d.a - d.c * f.a) / (f.a * d.b - f.b * d.a) }
-  if (egal(d.a, 0, 6)) { // si d est horizontale alors f ne l'est pas donc f.a<>0
+  if (egal(d.a, 0, 0.01)) { // si d est horizontale alors f ne l'est pas donc f.a<>0
     x = (-f.c - f.b * y) / f.a
   } else { // d n'est pas horizontale donc ...
     x = (-d.c - d.b * y) / d.a
@@ -3873,8 +3873,8 @@ export function cercleCentrePoint (O, M, color = 'black', couleurDeRemplissage =
 /** Trace un arc de cercle, connaissant une extrémité, son centre et la mesure de l'angle
  * @param {Point} M Extrémité de départ de l'arc
  * @param {Point} Omega Centre de l'arc
- * @param {number} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect)
- * @param {boolean} [rayon = false] Booléen. Si true, les rayons délimitant l'arc sont ajoutés.
+ * @param {number|Point} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect) ou bien point formant un angle avec M et Omega.
+ * @param {boolean} [rayon = false] Si true, les rayons délimitant l'arc sont ajoutés.
  * @param {string} [couleurDeRemplissage = 'none'] Couleur ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
@@ -4045,8 +4045,7 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     if (rayon && (this.couleurDeRemplissage[1] !== 'none' && this.couleurDeRemplissage !== '')) {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}}`)
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]},opacity = ${this.opaciteDeRemplissage}}`)
     }
 
     if (this.hachures) {
@@ -4062,7 +4061,7 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
     }
-    if (rayon) return `\\draw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) -- cycle ;`
+    if (rayon) return `\\draw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
     else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
   }
   let code, P
@@ -9239,14 +9238,17 @@ export function antecedentParDichotomie (xmin, xmax, f, y, precision = 0.01) {
   }
   xmoy = (xmax + xmin) / 2
   ymoy = f(xmoy)
-  while (Math.abs(ymoy - y) > precision) {
+  let cpt = 0
+  while (Math.abs(ymoy - y) > precision && cpt < 1000) {
     if (f(xmin) < f(xmax)) {
       if (ymoy > y) { xmax = xmoy } else { xmin = xmoy }
     } else
     if (ymoy > y) { xmin = xmoy } else { xmax = xmoy }
     xmoy = (xmin + xmax) / 2
     ymoy = f(xmoy)
+    cpt++
   }
+  if (cpt > 1000) return false
   return xmoy
 }
 
@@ -9398,6 +9400,7 @@ export function TexteParPoint (texte, A, orientation = 'milieu', color = 'black'
   if (typeof texte !== 'string') {
     texte = String(texte)
   }
+  texte = texte.replaceAll('$$', '$') // ça arrive que des fonctions ajoutent des $ alors qu'il y en a déjà...
   if (texte.charAt(0) === '$') {
     A.positionLabel = 'above'
     this.svg = function (coeff) {
@@ -9781,6 +9784,22 @@ export function LatexParCoordonneesBox (texte, x, y, color, largeur, hauteur, co
   let style = ''
   if (options.anchor !== undefined && options.anchor !== '') {
     switch (options.anchor) {
+      case 'center': {
+        let dy = 0
+        if (options.dy === undefined || options.dy === '' || options.dy.indexOf('%') < 0) {
+          dy = 0
+        } else {
+          dy = parseInt(options.dy.substr(0, options.dy.indexOf('%')))
+        }
+        let dx = 0
+        if (options.dx === undefined || options.dx === '' || options.dx.indexOf('%') < 0) {
+          dx = 0
+        } else {
+          dx = parseInt(options.dx.substr(0, options.dx.indexOf('%')))
+        }
+        style = `position:fixed;top: 50%;left: 50%;transform: translate(${-50 + dx}%, ${-50 + dy}%);`
+        break
+      }
       case 'above':
         style = 'position:fixed;bottom:0;'
         break

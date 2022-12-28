@@ -983,8 +983,8 @@ export function rienSi1 (a) {
   if (equal(a, 1)) return ''
   if (equal(a, -1)) return '-'
   if (a instanceof Fraction || a instanceof FractionX) return a.toLatex()
-  if (Number(a)) return texNombre(a)
-  window.notify('rienSi1 : type de valeur non prise en compte')
+  if (Number(a) || a === 0) return stringNombre(a) // on retourne 0 ce sera pas joli, mais Number(0) est false !!!
+  window.notify('rienSi1 : type de valeur non prise en compte : ', { a })
 }
 
 /**
@@ -1497,11 +1497,12 @@ export function abs (a) {
 * @author Jean-Claude Lhote
 */
 export function egalOuApprox (a, precision) {
+  debugger
   if (typeof a === 'object' && ['Fraction', 'FractionX'].indexOf(a.type) !== -1) {
     return egal(a.n / a.d, arrondi(a.n / a.d, precision)) ? '=' : '\\approx'
   } else if (a instanceof Decimal) {
     return a.eq(a.toDP(precision)) ? '=' : '\\approx'
-  } else if (!isNaN(a) && !isNaN(precision)) return egal(a, arrondi(a, precision)) ? '=' : '\\approx'
+  } else if (!isNaN(a) && !isNaN(precision)) return egal(a, round(a, precision), 10 ** (-precision - 2)) ? '=' : '\\approx'
   else {
     window.notify('egalOuApprox : l\'argument n\'est pas un nombre', { a, precision })
     return 'Mauvais argument (nombres attendus).'
@@ -1639,6 +1640,7 @@ export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c
 
 /**
  * renvoie une chaine correspondant à l'écriture réduite de ax+b selon les valeurs de a et b
+ * La lettre par défaut utilisée est 'x' mais peut être tout autre chose.
  * @author Jean-Claude Lhote
  * @param {number} a
  * @param {number} b
@@ -1662,43 +1664,43 @@ export function reduireAxPlusB (a, b) {
  * renvoie une chaine correspondant à l'écriture réduite de ax^3+bx^2+cx+d selon les valeurs de a,b,c et d
  * @author Jean-Claude Lhote
  */
-export function reduirePolynomeDegre3 (a, b, c, d) {
+export function reduirePolynomeDegre3 (a, b, c, d, x = 'x') {
   let result = ''
   if (a !== 0) {
     switch (a) {
       case 1:
-        result += 'x^3'
+        result += `${x}^3`
         break
       case -1:
-        result += '-x^3'
+        result += `-${x}^3`
         break
       default:
-        result += `${a}x^3`
+        result += `${a}${x}^3`
         break
     }
     if (b !== 0) {
       switch (b) {
         case 1:
-          result += '+x^2'
+          result += `+${x}^2`
           break
         case -1:
-          result += '-x^2'
+          result += `-${x}^2`
           break
         default:
-          result += `${ecritureAlgebrique(b)}x^2`
+          result += `${ecritureAlgebrique(b)}${x}^2`
           break
       }
     }
     if (c !== 0) {
       switch (c) {
         case 1:
-          result += '+x'
+          result += `+${x}`
           break
         case -1:
-          result += '-x'
+          result += `-${x}`
           break
         default:
-          result += `${ecritureAlgebrique(c)}x`
+          result += `${ecritureAlgebrique(c)}${x}`
           break
       }
     }
@@ -1709,25 +1711,25 @@ export function reduirePolynomeDegre3 (a, b, c, d) {
     if (b !== 0) {
       switch (b) {
         case 1:
-          result += 'x^2'
+          result += `${x}^2`
           break
         case -1:
-          result += '-x^2'
+          result += `-${x}^2`
           break
         default:
-          result += `${b}x^2`
+          result += `${b}${x}^2`
           break
       }
       if (c !== 0) {
         switch (c) {
           case 1:
-            result += '+x'
+            result += `+${x}`
             break
           case -1:
-            result += '-x'
+            result += `-${x}`
             break
           default:
-            result += `${ecritureAlgebrique(c)}x`
+            result += `${ecritureAlgebrique(c)}${x}`
             break
         }
       }
@@ -1738,13 +1740,13 @@ export function reduirePolynomeDegre3 (a, b, c, d) {
     if (c !== 0) {
       switch (c) {
         case 1:
-          result += 'x'
+          result += `${x}`
           break
         case -1:
-          result += '-x'
+          result += `-${x}`
           break
         default:
-          result += `${c}x`
+          result += `${c}${x}`
           break
       }
       if (d !== 0) {
@@ -1941,10 +1943,10 @@ export function texNum (expression, formatFraction = false) {
  * renvoie le résultat de l'expression en couleur (vert=positif, rouge=négatif, noir=nul)
  * @param {string} expression l'expression à calculer
  */
-export function texNombreCoul (nombre) {
-  if (nombre > 0) return miseEnEvidence(texNombrec(nombre), 'green')
-  else if (nombre < 0) return miseEnEvidence(texNombrec(nombre), 'red')
-  else return miseEnEvidence(texNombrec(0), 'black')
+export function texNombreCoul (nombre, positif = 'green', negatif = 'red', nul = 'black') {
+  if (nombre > 0) return miseEnEvidence(texNombrec(nombre), positif)
+  else if (nombre < 0) return miseEnEvidence(texNombrec(nombre), negatif)
+  else return miseEnEvidence(texNombrec(0), nul)
 }
 
 /**
@@ -4833,7 +4835,7 @@ export function lampeMessage ({ titre, texte, couleur }) {
       `
     } else {
       return `
-      <div class="ui compact icon message">
+      <div class="ui compact icon message" style="width: auto">
         <i class="lightbulb outline icon"></i>
         <div class="content">
             <div class="header">
