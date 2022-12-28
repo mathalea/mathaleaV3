@@ -12493,6 +12493,18 @@
         "titre": "Somme des termes d'une suite arithmétique",
         "url": "1e/1N12.js",
         "uuid": "cfac9"
+      },
+      "1N13": {
+        "datePublication": "28/12/2022",
+        "id": "1N13",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Somme des termes d'une suite géométrique",
+        "url": "1e/1N13.js",
+        "uuid": "974a9"
       }
     },
     "1P1": {
