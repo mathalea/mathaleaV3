@@ -12500,6 +12500,7 @@
         "uuid": "cfac9"
       },
       "1N12-1": {
+        "id": "1N12-1",
         "datePublication": "28/12/2022",
         "tags": {
           "AMC": false,
@@ -12508,7 +12509,7 @@
         },
         "titre": "Calculer une somme",
         "url": "1e/1N12-1.js",
-        "uuid": "a41ae"
+        "uuid": "8ed19"
       },
       "1N13": {
         "datePublication": "28/12/2022",

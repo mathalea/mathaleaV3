@@ -9160,7 +9160,7 @@ export default {
     "interactifType": "qcm",
     "name": "6G22-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9176,7 +9176,7 @@ export default {
     "interactifType": "qcm",
     "name": "6G22-2",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11319,7 +11319,7 @@ export default {
     }
   },
   "FichierDeTests": {
-    "titre": "Calculer un angle, déduit de figures simples",
+    "titre": "Bonne année...",
     "url": "/exercices/6e/FichierDeTests.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11327,6 +11327,21 @@ export default {
     "name": "FichierDeTests",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "bonneAnnee2023": {
+    "titre": "Bonne année...",
+    "url": "/exercices/6e/bonneAnnee2023.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "bonneAnnee2023",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -12298,7 +12313,7 @@ export default {
     }
   },
   "beta2F12-2": {
-    "titre": "Résoudre graphiquement $f(x)>k$ ($<k$) avec une fonction de référence",
+    "titre": "Résoudre graphiquement $f(x)\\gt k \\quad (\\lt k)$ avec une fonction de référence",
     "url": "/exercices/beta/beta2F12-2.js",
     "amcReady": false,
     "interactifReady": false,
@@ -12873,12 +12888,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques",
+    "name": "betaModele30_constructions_géométriques",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -13103,7 +13118,7 @@ export default {
     }
   },
   "betaSpline": {
-    "titre": "Nom de l'exercice",
+    "titre": "Fichier test sur les splines de Catmul Rom",
     "url": "/exercices/beta/betaSpline.js",
     "amcReady": false,
     "interactifReady": false,

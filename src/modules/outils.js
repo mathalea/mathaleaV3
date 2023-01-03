@@ -4456,6 +4456,17 @@ export function numAlpha (k, nospace = false) {
 }
 
 /**
+ * Crée une liste de questions numérique
+ * @param {number} k valeur numérique
+ * @author Eric Elter
+ */
+export function numAlphaNum (k, nospace = false) {
+  k = k + 1
+  if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + k + ')' + (nospace ? '' : '&nbsp;') + '</span>'
+  else return '\\textbf {' + k + '.}' + (nospace ? '' : ' ')
+}
+
+/**
  * crée un cadre orange autour d'un paragraphe
  * utilisé notamment dans 3F12 pour entourer les programmes de calcul
  * @param {string} texte paragraphe entouré par le cadre orange rectangulaire
@@ -6834,6 +6845,7 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 \\fancyfoot{}
 \\fancyfoot[R]{\\scriptsize Coopmaths.fr -- CC-BY-SA}
 \\setlength{\\headheight}{14.5pt}
+\\newcommand\\dotfills[1][8]{\\newcount\\nbdots \\nbdots=#1 \\loop \\ldots \\advance \\nbdots -1 \\ifnum \\nbdots>0 \\repeat }
 
 ${preambulePersonnalise(listePackages)}
 
@@ -6903,7 +6915,6 @@ export function introLatexCan (entete = 'Course aux nombres', listePackages = ''
 \\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
 shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
 
-
 \\setlength{\\parindent}{0mm}
 \\renewcommand{\\arraystretch}{1.5}
 \\newcounter{exo}          
@@ -6926,6 +6937,8 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 {
   \\fancyhead[C]{\\textsc{${entete}}}
 }
+\\newcommand\\dotfills[1][8]{\\newcount\\nbdots \\nbdots=#1 \\loop \\ldots \\advance \\nbdots -1 \\ifnum \\nbdots>0 \\repeat }
+
 ${preambulePersonnalise(listePackages)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -7214,6 +7227,8 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
     \\end{tikzpicture}
   }
 }
+
+\\newcommand\\dotfills[1][8]{\\newcount\\nbdots \\nbdots=#1 \\loop \\ldots \\advance \\nbdots -1 \\ifnum \\nbdots>0 \\repeat }
 
 ${preambulePersonnalise(listePackages)}
 
