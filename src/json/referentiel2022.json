@@ -3542,6 +3542,18 @@
             "Can": true
           },
           "datePublication": "15/11/2022"
+        },
+        "can2G21": {
+          "uuid": "21bc0",
+          "id": "can2G21",
+          "titre": "Lire les coordonnées d'un point dans un repère",
+          "url": "can/2e/can2G21.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "04/01/2023"
         }
       },
       "can2L": {
@@ -3647,6 +3659,18 @@
             "Can": true
           },
           "datePublication": "08/12/2022"
+        },
+        "can2L10": {
+          "uuid": "0bb5f",
+          "id": "can2L10",
+          "titre": "Simplifier un quotient",
+          "url": "can/2e/can2L10.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "04/01/2023"
         }
       },
       "can2N": {
@@ -10727,6 +10751,17 @@
         "titre": "Calculer des effectifs et des fréquences",
         "url": "3e/3S12.js",
         "uuid": "f4b95"
+      },
+      "3S14": {
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Calculer des caractéristiques d'une série",
+        "url": "3e/3S14.js",
+        "id": "3S14",
+        "uuid": "b8afd"
       },
       "3S15": {
         "dateModification": "31/08/2022",
