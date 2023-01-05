@@ -73,7 +73,7 @@
         consignes.push(exercice.consigne)
       }
     }
-    console.log("can/store = " + $questionsOrder.indexes)
+    // console.log("can/store = " + $questionsOrder.indexes)
     await tick()
     if (divExercice) Mathalea.renderDiv(divExercice)
   }
@@ -143,15 +143,17 @@
     if (button === "backward") {
       if (correctionsSteps.length !== 0) {
         correctionsSteps.pop()
+        correctionsSteps = correctionsSteps
       }
     }
     if (button === "forward") {
       if (correctionsSteps.length < $questionsOrder.indexes.length) {
         correctionsSteps.push($questionsOrder.indexes[correctionsSteps.length])
       }
+      correctionsSteps = correctionsSteps
     }
     updateDisplay()
-    console.log("correctionsSteps: " + correctionsSteps)
+    // console.log("correctionsSteps: " + correctionsSteps)
   }
 </script>
 
@@ -163,7 +165,7 @@
     <!-- <button type="button" class="hover:text-coopmaths-dark" on:click={newDataForAll}><i class="bx bx-sm bx-refresh" /></button> -->
 
     <span class="text-xs {isQuestionsVisible ? 'font-bold' : 'font-light'}">Questions</span>
-    <button type="button" disabled={!isCorrectionVisible} on:click={() => switchCorrectionVisible("instructions")}
+    <button type="button" disabled={!isCorrectionVisible && correctionsSteps.length === 0} on:click={() => switchCorrectionVisible("instructions")}
       ><i class="bx bx-sm {isQuestionsVisible ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
     >
     <span class="text-xs {isCorrectionVisible ? 'font-bold' : 'font-light'} pt-2">Réponses</span>
@@ -251,10 +253,6 @@
                   {#if isQuestionsVisible}
                     <div>
                       {@html Mathalea.formatExercice(questions[currentVue][$questionsOrder.indexes[i]])}
-                      <br />
-                      Index : {@html i} / Question : {@html $questionsOrder.indexes[i]} / CorrectionsSteps : {@html correctionsSteps[i]} / Test : {@html correctionsSteps.includes(
-                        $questionsOrder.indexes[i]
-                      )}
                     </div>
                   {/if}
                   {#if isCorrectionVisible || correctionsSteps.includes($questionsOrder.indexes[i])}
