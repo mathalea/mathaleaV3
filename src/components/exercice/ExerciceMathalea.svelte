@@ -78,6 +78,19 @@
       }
       Mathalea.renderDiv(divExercice)
     }
+    divExercice.querySelectorAll('[id^="warnMessage"]').forEach(function (elt) {
+      if (!isMessagesVisible) {
+        if (elt.classList.contains("visible")) {
+          elt.classList.remove("visible")
+        }
+        elt.classList.add("hidden")
+      } else {
+        if (elt.classList.contains("hidden")) {
+          elt.classList.remove("hidden")
+        }
+        elt.classList.add("visible")
+      }
+    })
   })
   async function newData() {
     if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
@@ -160,23 +173,6 @@
         languages: ["fr"],
       })
     }
-    const id = "exo" + indiceExercice
-    const exoDiv = document.querySelector(`[id^=${id}]`)
-    exoDiv.querySelectorAll('[id^="warnMessage"]').forEach(function (elt) {
-      console.log("messages montrés dans " + id + " : " + isMessagesVisible)
-      console.log(elt)
-      if (!isMessagesVisible) {
-        if (elt.classList.contains("visible")) {
-          elt.classList.remove("visible")
-        }
-        elt.classList.add("hidden")
-      } else {
-        if (elt.classList.contains("hidden")) {
-          elt.classList.remove("hidden")
-        }
-        elt.classList.add("visible")
-      }
-    })
   }
 
   function verifExercice() {
