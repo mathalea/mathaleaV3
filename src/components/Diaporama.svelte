@@ -38,6 +38,11 @@
   let currentDuration: number
   let totalDuration: number = null
   let nbOfVues = $globalOptions.nbVues || 1
+  $questionsOrder.isQuestionsShuffled = $globalOptions.shuffle
+  $selectedExercises.count = $globalOptions.choice
+  if ($selectedExercises.count !== undefined) {
+    $selectedExercises.isActive = true
+  }
   let formatQRCodeIndex: number = 0
   const allowedImageFormats: string[] = ["image/jpeg", "image/png", "image/webp"]
   let QRCodeWidth = 100
@@ -84,6 +89,8 @@
     exercices = exercices
     if (!$selectedExercises.isActive) {
       $selectedExercises.indexes = [...Array(exercices.length).keys()]
+    } else {
+      $selectedExercises.indexes = [...listOfRandomIndexes(exercices.length, $selectedExercises.count)]
     }
     updateExercices()
     await tick()
@@ -537,9 +544,7 @@
    * Gestion de la sélection du choix des exercices dans la liste
    */
   function handleSampleChecked() {
-    // for (let i = 0; i < 5; i++) {
-    //   console.log(shuffle([...Array(10).keys()]))
-    // }
+    $selectedExercises.count = exercices.length - 1
     $selectedExercises.isActive = !$selectedExercises.isActive
     if (!$selectedExercises.isActive) {
       $selectedExercises.indexes = [...Array(exercices.length).keys()]

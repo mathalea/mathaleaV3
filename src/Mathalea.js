@@ -159,6 +159,8 @@ export class Mathalea {
     let z = '1'
     let durationGlobal = 0
     let nbVues = 1
+    let shuffle = false
+    let choice
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     let indiceExercice = -1
@@ -200,6 +202,10 @@ export class Mathalea {
         durationGlobal = parseInt(entry[1])
       } else if (entry[0] === 'nbVues') {
         nbVues = parseInt(entry[1])
+      } else if (entry[0] === 'shuffle') {
+        shuffle = true
+      } else if (entry[0] === 'choice') {
+        choice = parseInt(entry[1])
       } else if (entry[0] === 'alea') {
         newListeExercice[indiceExercice].alea = entry[1]
       } else if (entry[0] === 'i' && entry[1] === '1') {
@@ -219,7 +225,7 @@ export class Mathalea {
       return newListeExercice
     })
 
-    return { v, z, durationGlobal, nbVues }
+    return { v, z, durationGlobal, nbVues, shuffle, choice }
   }
 
   static handleExerciceSimple (exercice, isInteractif) {
