@@ -66,7 +66,7 @@
       </div>
     </div>
     <div class="flex justify-start text-normal mt-1 text-3xl lg:justify-end lg:text-xl mr-1">
-      <button
+      <!-- <button
         class="mx-2 tooltip tooltip-left"
         data-tip={isMessagesVisible ? "Masquer les messages" : "Montrer les messages"}
         type="button"
@@ -76,7 +76,7 @@
         }}
       >
         <i class="bx {isMessagesVisible ? 'bxs-bulb' : 'bx-bulb'}" />
-      </button>
+      </button> -->
       <button
         class="mx-2 tooltip tooltip-left {correctionReady ? '' : 'invisible'}"
         data-tip={isCorrectionVisible ? "Masquer la correction" : "Montrer la correction"}
