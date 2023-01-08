@@ -17,6 +17,8 @@
   import { context } from "../modules/context"
   import SearchExercice from "./sidebar/SearchExercice.svelte"
 
+  import { isRecent } from "./utils/handleDate"
+
   context.versionMathalea = 3
 
   if (customElements.get("alea-instrumenpoche") === undefined) {
@@ -78,6 +80,7 @@
   filteredReferentiel["CRPE"]["Concours 2022 - Par thèmes"] = filteredReferentiel["static"]["CRPE (2022) par thèmes"]
   filteredReferentiel["CRPE"]["CRPE (2015-2019) par thèmes - COPIRELEM"] = filteredReferentiel["static"]["CRPE (2015-2019) par thèmes - COPIRELEM"]
   filteredReferentiel["CRPE"]["CRPE (2015-2019) par année - COPIRELEM"] = filteredReferentiel["static"]["CRPE (2015-2019) par année - COPIRELEM"]
+  console.log(filteredReferentiel)
   let referentielMap = toMap(filteredReferentiel)
   let arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
 
@@ -103,9 +106,37 @@
           }
         }, {})
     }
+
+    // on ajoute un objet 'Nouveautés' qui contient tous les exercices ayant une date de publication
+    // ou de modification inférieure à 1 mois (appel de la fonction utilitaire 'isRecent()')
+    for (const level in filteredReferentiel) {
+      for (const sublevel in filteredReferentiel[level]) {
+        for (const exo in filteredReferentiel[level][sublevel]) {
+          if (isRecent(filteredReferentiel[level][sublevel][exo]["datePublication"]) || isRecent(filteredReferentiel[level][sublevel][exo]["dateModification"])) {
+            if (!filteredReferentiel["Nouveautés"]) {
+              filteredReferentiel = { ...filteredReferentiel, ...{ Nouveautés: {} } }
+            }
+            if (!filteredReferentiel["Nouveautés"][level]) {
+              let obj = {}
+              obj[level] = {}
+              filteredReferentiel["Nouveautés"] = { ...filteredReferentiel["Nouveautés"], ...obj }
+            }
+            if (!filteredReferentiel["Nouveautés"][level][sublevel]) {
+              let obj = {}
+              obj[sublevel] = {}
+              filteredReferentiel["Nouveautés"][level] = { ...filteredReferentiel["Nouveautés"][level], ...obj }
+            }
+            filteredReferentiel["Nouveautés"][level][sublevel] = { ...filteredReferentiel["Nouveautés"][level][sublevel], ...filteredReferentiel[level][sublevel][exo] }
+          }
+        }
+      }
+    }
+    const keysToBeFirst = { Nouveautés: null }
+    filteredReferentiel = Object.assign(keysToBeFirst, filteredReferentiel)
     referentielMap = toMap(filteredReferentiel)
     arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
   }
+  updateReferentiel()
 
   /**
    * Retrouve le titre d'un niveau basé sur son
