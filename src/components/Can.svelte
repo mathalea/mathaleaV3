@@ -17,6 +17,7 @@
   let isCorrectionVisible = false
   let isQuestionsVisible = true
   let divExercice: HTMLElement
+  let correctionsSteps: number[] = []
 
   onMount(async () => {
     context.vue = "can"
@@ -72,7 +73,7 @@
         consignes.push(exercice.consigne)
       }
     }
-    console.log("can/store = " + $questionsOrder.indexes)
+    // console.log("can/store = " + $questionsOrder.indexes)
     await tick()
     if (divExercice) Mathalea.renderDiv(divExercice)
   }
@@ -133,6 +134,27 @@
       return l
     })
   }
+
+  /**
+   * Gestion du pas à pas pour l'affichage des corrections
+   * @param {string} button chaîne correspondant à la direction du pas à pas ("backward" ou "forward")
+   */
+  function handleCorrectionsStepsClick(button) {
+    if (button === "backward") {
+      if (correctionsSteps.length !== 0) {
+        correctionsSteps.pop()
+        correctionsSteps = correctionsSteps
+      }
+    }
+    if (button === "forward") {
+      if (correctionsSteps.length < $questionsOrder.indexes.length) {
+        correctionsSteps.push($questionsOrder.indexes[correctionsSteps.length])
+      }
+      correctionsSteps = correctionsSteps
+    }
+    updateDisplay()
+    // console.log("correctionsSteps: " + correctionsSteps)
+  }
 </script>
 
 <main class="flex h-full dark:bg-white dark:text-slate-800">
@@ -143,13 +165,33 @@
     <!-- <button type="button" class="hover:text-coopmaths-dark" on:click={newDataForAll}><i class="bx bx-sm bx-refresh" /></button> -->
 
     <span class="text-xs {isQuestionsVisible ? 'font-bold' : 'font-light'}">Questions</span>
-    <button type="button" disabled={!isCorrectionVisible} on:click={() => switchCorrectionVisible("instructions")}
+    <button type="button" disabled={!isCorrectionVisible && correctionsSteps.length === 0} on:click={() => switchCorrectionVisible("instructions")}
       ><i class="bx bx-sm {isQuestionsVisible ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
     >
     <span class="text-xs {isCorrectionVisible ? 'font-bold' : 'font-light'} pt-2">Réponses</span>
-    <button type="button" disabled={!isQuestionsVisible} on:click={() => switchCorrectionVisible("correction")}
-      ><i class="mb-8 bx bx-sm {isCorrectionVisible ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
-    >
+    <button type="button" disabled={!isQuestionsVisible} on:click={() => switchCorrectionVisible("correction")}>
+      <i class="mb-8 bx bx-sm {isCorrectionVisible ? 'bx-toggle-right' : 'bx-toggle-left'}" />
+    </button>
+    <span class="text-xs font-bold pt-2">Pas à pas</span>
+    <div class="flex flex-row justify-center items-center mb-8">
+      <button
+        type="button"
+        on:click={() => {
+          handleCorrectionsStepsClick("backward")
+        }}
+      >
+        <i class="bx bxs-left-arrow mr-2" />
+      </button>
+      <button
+        type="button"
+        on:click={() => {
+          handleCorrectionsStepsClick("forward")
+        }}
+      >
+        <i class="bx bxs-right-arrow" />
+      </button>
+    </div>
+
     <!-- Onglets Séries -->
     {#if nbOfVues > 1}
       <input type="radio" id="tab1" value={0} bind:group={currentVue} on:change={updateDisplay} class="peer/tab1 items-center justify-center hidden" />
@@ -213,7 +255,7 @@
                       {@html Mathalea.formatExercice(questions[currentVue][$questionsOrder.indexes[i]])}
                     </div>
                   {/if}
-                  {#if isCorrectionVisible}
+                  {#if isCorrectionVisible || correctionsSteps.includes($questionsOrder.indexes[i])}
                     <div class="bg-gray-200 {isQuestionsVisible ? 'my-4' : ''} p-2">
                       {@html Mathalea.formatExercice(corrections[currentVue][$questionsOrder.indexes[i]])}
                     </div>
@@ -245,7 +287,7 @@
                           {@html Mathalea.formatExercice(questions[currentVueId][$questionsOrder.indexes[i]])}
                         </div>
                       {/if}
-                      {#if isCorrectionVisible}
+                      {#if isCorrectionVisible || correctionsSteps.includes($questionsOrder.indexes[i])}
                         <div class="bg-gray-200 {isQuestionsVisible ? 'my-4' : ''} p-2">
                           {@html Mathalea.formatExercice(corrections[currentVueId][$questionsOrder.indexes[i]])}
                         </div>

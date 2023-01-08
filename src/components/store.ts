@@ -12,6 +12,7 @@ export const exercicesParams = writable([])
  */
 export const globalOptions = writable({ v: '', z: '1' } as {v?: string, z?: string, durationGlobal?: number, nbVues?: number, shuffle?: boolean, choice?: number})
 
+// utilisé pour les aller-retours entre le composant Diaporam et le composant Can
 export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: [] })
 export const selectedExercises = writable({ isActive: false, indexes: [], count: 1 })
 export const transitionsBetweenQuestions = writable({ isActive: true, isNoisy: false, tune: 0 })

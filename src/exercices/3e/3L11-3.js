@@ -12,8 +12,7 @@ export const amcReady = true
 /**
 * Utiliser la simple ou la double distributivité et réduire l'expression
 *
-* @author Rémi Angot
-* 3L11-3
+* @author Rémi Angot (Amélioration AMC par Eric Elter)
 */
 export const uuid = '82313'
 export const ref = '3L11-3'
@@ -23,7 +22,6 @@ export default function DistributiviteSimpleDoubleReduction () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.consigne = 'Développer et réduire les expressions suivantes.'
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -32,6 +30,7 @@ export default function DistributiviteSimpleDoubleReduction () {
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
+    this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -113,15 +112,18 @@ export default function DistributiviteSimpleDoubleReduction () {
       }
       if (!context.isAmc && this.interactif) {
         setReponse(this, i, reponse)
-        texte += `<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline')
+        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
       } else {
         this.autoCorrection[i] = {
-          enonce: texte,
+          enonce: '',
+          enonceAvant: false,
+          options: { multicols: true, barreseparation: true },
           propositions: [
             {
               type: 'AMCOpen',
               propositions: [{
                 texte: texteCorr,
+                enonce: texte + '<br>',
                 statut: 3
               }]
             },

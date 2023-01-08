@@ -57,7 +57,7 @@ export default function AireCarresRectanglesTriangles () {
       a = b
       b = tmp
     }
-    const d = randint(b - a, a + b, [a - b, a + b])
+    const d = randint(b - a, a + b, [b - a, a + b])
     const A = point(0, 0, nom[0])
     const B = rotation(point(c, 0), A, randint(-15, 15), nom[1])
     const C = rotation(A, B, -90, nom[2])
@@ -73,6 +73,7 @@ export default function AireCarresRectanglesTriangles () {
     J.positionLabel = 'right'
     const cI = cercle(I, b)
     const cJ = cercle(J, d)
+    debugger
     const K = pointIntersectionCC(cI, cJ, nom[10], 1)
     K.positionLabel = 'above'
     const triangle = polygoneAvecNom(I, J, K)
@@ -86,13 +87,13 @@ export default function AireCarresRectanglesTriangles () {
       texteCorr = ''
       switch (i) {
         case 0 :
-          texte = 'Calculer le périmètre du carré en cm'
+          texte = 'Calculer le périmètre du carré en cm.'
 
-          texteCorr += `<br>$\\mathcal{P}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=4\\times ${c}~\\text{cm}=${4 * c}~\\text{cm}$`
+          texteCorr += `$\\mathcal{P}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=4\\times ${c}~\\text{cm}=${4 * c}~\\text{cm}$`
           setReponse(this, i, new Grandeur(4 * c, 'cm'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer le périmètre du carré de côté ${c}cm en cm`,
+              enonce: `Calculer le périmètre du carré de côté ${c}cm en cm.`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Périmètre en cm',
@@ -103,13 +104,13 @@ export default function AireCarresRectanglesTriangles () {
           }
           break
         case 1 :
-          texte = 'Calculer le périmètre du rectangle en cm'
-          texteCorr += `<br>$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=2\\times ${L}~\\text{cm} + 2\\times${l}~\\text{cm}=${2 * L + 2 * l
+          texte = 'Calculer le périmètre du rectangle en cm.'
+          texteCorr += `$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=2\\times ${L}~\\text{cm} + 2\\times${l}~\\text{cm}=${2 * L + 2 * l
           }~\\text{cm}$`
           setReponse(this, i, new Grandeur(2 * L + 2 * l, 'cm'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer le périmètre du rectangle de longueur ${L}cm et de largeur ${l}cm en cm`,
+              enonce: `Calculer le périmètre du rectangle de longueur ${L}cm et de largeur ${l}cm en cm.`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Périmètre en cm',
@@ -120,12 +121,12 @@ export default function AireCarresRectanglesTriangles () {
           }
           break
         case 2 :
-          texte = 'Calculer le périmètre du triangle en cm'
-          texteCorr += `<br>$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm} + ${b}~\\text{cm} + ${d}~\\text{cm} =${a + b + d}~\\text{cm}$`
+          texte = 'Calculer le périmètre du triangle en cm.'
+          texteCorr += `$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm} + ${b}~\\text{cm} + ${d}~\\text{cm} =${a + b + d}~\\text{cm}$`
           setReponse(this, i, new Grandeur(a + b + d, 'cm'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer le périmètre du triangle dont les côtés de l'angle droit mesurent ${a}cm, ${b}cm et ${d}cm en cm`,
+              enonce: `Calculer le périmètre du triangle dont les côtés de l'angle droit mesurent ${a}cm, ${b}cm et ${d}cm en cm.`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Périmètre en cm',

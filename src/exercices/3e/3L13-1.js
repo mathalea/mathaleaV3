@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureA
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-export const titre = 'Équation du premier degré (utilisant la distributivité)'
+export const titre = 'Résoudre une equation du premier degré (utilisant la distributivité)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = false // AMC : pour l'instant on ne peut pas tester une réponse parfois décimale parfois fractionnaire
@@ -181,7 +181,7 @@ export default function ExerciceEquation1Tiret2 () {
         texteCorr += `<br> La solution est $${texFractionReduite(d - b, a - c)}$.`
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, b, c, d, k)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte) // replace(/1x/g,'x')); //remplace 1x par x
         this.listeCorrections.push(texteCorr) // .replace(/1x/g,'x')); //remplace 1x par x
         i++

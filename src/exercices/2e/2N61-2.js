@@ -1,11 +1,11 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { tableauDeVariation } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite, miseEnEvidence, texFraction, texSymbole, sp, texteGras, lampeMessage } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { tableauDeVariation } from '../../modules/TableauDeVariation.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModificationImportante = '03/04/2022'
@@ -33,7 +33,7 @@ export default function ExerciceInequationProduit () {
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false // Désactive la correction détaillée par défaut
   this.sup = 1 // Choix du type d'inéquation
-  this.nbQuestions = 1 // Choix du nombre de questions
+  this.nbQuestions = 4 // Choix du nombre de questions
 
   this.listePackages = 'tkz-tab' // Pour la compilation LateX des tableaux de signes
   this.nbCols = 1 // Fixe le nombre de colonnes pour les énoncés de la sortie LateX
@@ -686,7 +686,7 @@ export default function ExerciceInequationProduit () {
           })
         }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b, c, d, e, f)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

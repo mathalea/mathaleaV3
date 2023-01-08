@@ -1,11 +1,12 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, creerNomDePolygone, texNombre, arrondi } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, creerNomDePolygone, arrondi, sp } from '../../modules/outils.js'
 import { point, polygone, nommePolygone, rotation, similitude, codageAngleDroit, afficheLongueurSegment, longueur } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur.js'
+import { RedactionPythagore } from './_pythagore.js'
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
 export const amcType = 'AMCOpenNum' // Question numérique
 export const amcReady = true // Il reste à gérer les options numériques
@@ -16,7 +17,7 @@ export const interactifType = 'mathLive'
 
 /**
  * Exercices sur le théorème de Pythagore avec MathALEA2D
- * @author Rémi Angot
+ * @author Rémi Angot (Factorisation de la rédaction de Pythagore par Eric Elter )
  * 4G20
  */
 export const uuid = 'bd660'
@@ -31,10 +32,10 @@ export default function Pythagore2D () {
   this.nbQuestions = 3
   this.nbCols = 3
   this.nbColsCorr = 1
+  this.sup = 3
   this.sup2 = 3
   this.typeDeQuestion = 'Calculer :'
   this.video = 'M9sceJ8gzNc'
-  this.besoinFormulaire2Numerique = ['Côté', 3, '1 : Hypoténuse\n2 : Côté de l\'angle droit\n3 : Mélange']
 
   this.nouvelleVersion = function () {
     if (this.sup) {
@@ -104,150 +105,80 @@ export default function Pythagore2D () {
       }
 
       if (!context.isHtml) { texte = '~\\\\' }
-      texte += mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, scale: 0.6, style: 'display: block' }, mesObjetsATracer)
-      if (this.sup === 2) {
-        if (listeTypeDeQuestions[i] === 'AB') {
-          texte += `<br>$${A.nom + B.nom}^2=\\ldots$`
-          setReponse(this, i, [
-            `${B.nom + C.nom}^2-${A.nom + C.nom}^2`,
-            `${C.nom + B.nom}^2-${A.nom + C.nom}^2`,
-            `${B.nom + C.nom}^2-${C.nom + A.nom}^2`,
-            `${C.nom + B.nom}^2-${C.nom + A.nom}^2`
-          ], { formatInteractif: 'texte' })
-        }
-        if (listeTypeDeQuestions[i] === 'BC') {
-          texte += `<br>$${B.nom + C.nom}^2=\\ldots$`
-          setReponse(this, i, [
-            `${A.nom + B.nom}^2+${A.nom + C.nom}^2`,
-            `${B.nom + A.nom}^2+${A.nom + C.nom}^2`,
-            `${A.nom + B.nom}^2+${C.nom + A.nom}^2`,
-            `${B.nom + A.nom}^2+${C.nom + A.nom}^2`,
-            //
-            `${A.nom + C.nom}^2+${A.nom + B.nom}^2`,
-            `${A.nom + C.nom}^2+${B.nom + A.nom}^2`,
-            `${C.nom + A.nom}^2+${A.nom + B.nom}^2`,
-            `${C.nom + A.nom}^2+${B.nom + A.nom}^2`
-          ], { formatInteractif: 'texte' })
-        }
-        if (listeTypeDeQuestions[i] === 'AC') {
-          setReponse(this, i, [
-            `${B.nom + C.nom}^2-${A.nom + B.nom}^2`,
-            `${C.nom + B.nom}^2-${A.nom + B.nom}^2`,
-            `${B.nom + C.nom}^2-${B.nom + A.nom}^2`,
-            `${C.nom + B.nom}^2-${B.nom + A.nom}^2`
-          ], { formatInteractif: 'texte' })
-          texte += `<br>$${A.nom + C.nom}^2=\\ldots$`
-        }
-      }
+      texte += mathalea2d({ xmin, xmax, ymin, ymax, scale: 0.6, style: 'display: block' }, mesObjetsATracer)
       if (!context.isHtml && !context.isAmc && i !== this.nbQuestions - 1) { texte += '\\columnbreak' } // pour la sortie LaTeX sauf la dernière question
 
-      texteCorr = `Le triangle $${nomDuPolygone}$ est rectangle en $${A.nom}$ donc d'après le théorème de Pythagore, on a : `
-      texteCorr += `$${B.nom + C.nom}^2=${A.nom + B.nom}^2+${A.nom + C.nom}^2$`
-      if (this.typeDeQuestion === '' && this.sup === 1) {
-        setReponse(this, i, [
-        `${B.nom + C.nom}^2=${A.nom + B.nom}^2+${A.nom + C.nom}^2`,
-        `${C.nom + B.nom}^2=${A.nom + B.nom}^2+${A.nom + C.nom}^2`,
-        `${B.nom + C.nom}^2=${B.nom + A.nom}^2+${A.nom + C.nom}^2`,
-        `${C.nom + B.nom}^2=${B.nom + A.nom}^2+${A.nom + C.nom}^2`,
-        `${B.nom + C.nom}^2=${A.nom + B.nom}^2+${C.nom + A.nom}^2`,
-        `${C.nom + B.nom}^2=${A.nom + B.nom}^2+${C.nom + A.nom}^2`,
-        `${B.nom + C.nom}^2=${B.nom + A.nom}^2+${C.nom + A.nom}^2`,
-        `${C.nom + B.nom}^2=${B.nom + A.nom}^2+${C.nom + A.nom}^2`,
-        //
-        `${B.nom + C.nom}^2=${A.nom + C.nom}^2+${A.nom + B.nom}^2`,
-        `${C.nom + B.nom}^2=${A.nom + C.nom}^2+${A.nom + B.nom}^2`,
-        `${B.nom + C.nom}^2=${A.nom + C.nom}^2+${B.nom + A.nom}^2`,
-        `${C.nom + B.nom}^2=${A.nom + C.nom}^2+${B.nom + A.nom}^2`,
-        `${B.nom + C.nom}^2=${C.nom + A.nom}^2+${A.nom + B.nom}^2`,
-        `${C.nom + B.nom}^2=${C.nom + A.nom}^2+${A.nom + B.nom}^2`,
-        `${B.nom + C.nom}^2=${C.nom + A.nom}^2+${B.nom + A.nom}^2`,
-        `${C.nom + B.nom}^2=${C.nom + A.nom}^2+${B.nom + A.nom}^2`,
-        // en commençant par la somme
-        `${A.nom + B.nom}^2+${A.nom + C.nom}^2=${B.nom + C.nom}^2`,
-        `${A.nom + B.nom}^2+${A.nom + C.nom}^2=${C.nom + B.nom}^2`,
-        `${B.nom + A.nom}^2+${A.nom + C.nom}^2=${B.nom + C.nom}^2`,
-        `${B.nom + A.nom}^2+${A.nom + C.nom}^2=${C.nom + B.nom}^2`,
-        `${A.nom + B.nom}^2+${C.nom + A.nom}^2=${B.nom + C.nom}^2`,
-        `${A.nom + B.nom}^2+${C.nom + A.nom}^2=${C.nom + B.nom}^2`,
-        `${B.nom + A.nom}^2+${C.nom + A.nom}^2=${B.nom + C.nom}^2`,
-        `${B.nom + A.nom}^2+${C.nom + A.nom}^2=${C.nom + B.nom}^2`,
-        //
-        `${A.nom + C.nom}^2+${A.nom + B.nom}^2=${B.nom + C.nom}^2`,
-        `${A.nom + C.nom}^2+${A.nom + B.nom}^2=${C.nom + B.nom}^2`,
-        `${A.nom + C.nom}^2+${B.nom + A.nom}^2=${B.nom + C.nom}^2`,
-        `${A.nom + C.nom}^2+${B.nom + A.nom}^2=${C.nom + B.nom}^2`,
-        `${C.nom + A.nom}^2+${A.nom + B.nom}^2=${B.nom + C.nom}^2`,
-        `${C.nom + A.nom}^2+${A.nom + B.nom}^2=${C.nom + B.nom}^2`,
-        `${C.nom + A.nom}^2+${B.nom + A.nom}^2=${B.nom + C.nom}^2`,
-        `${C.nom + A.nom}^2+${B.nom + A.nom}^2=${C.nom + B.nom}^2`], { formatInteractif: 'texte' })
-      }
-      if (this.sup === 2) {
-        if (listeTypeDeQuestions[i] === 'AB') {
-          texteCorr += ` d'où $${A.nom + B.nom}^2=${B.nom + C.nom}^2-${A.nom + C.nom}^2$.`
-        }
-        if (listeTypeDeQuestions[i] === 'BC') {
-          texteCorr += '.'
-        }
-        if (listeTypeDeQuestions[i] === 'AC') {
-          texteCorr += ` d'où $${A.nom + C.nom}^2=${B.nom + C.nom}^2-${A.nom + B.nom}^2$.`
-        }
-      }
+      let redaction
       if (this.typeDeQuestion === 'Calculer :') {
         if (listeTypeDeQuestions[i] === 'AB') {
-          let AB
-          texteCorr += ` donc $${A.nom + B.nom}^2=${B.nom + C.nom}^2-${A.nom + C.nom}^2$.`
-          texteCorr += `<br> $${A.nom + B.nom}^2=${texNombre(longueurBC)}^2-${texNombre(longueurAC)}^2=${texNombrec(longueurBC ** 2 - longueurAC ** 2)}$`
-          texteCorr += `<br> $${A.nom + B.nom}=\\sqrt{${texNombrec(longueurBC ** 2 - longueurAC ** 2)}}$`
-          if (calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1) === calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 5)) {
-            AB = texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1))
-            reponse = arrondi(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1)
-            texteCorr += `<br> $${A.nom + B.nom}=${AB}$ cm`
-            if (this.interactif && context.isHtml) texte += `<br>$${A.nom + B.nom}=$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
-          } else {
-            AB = texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1))
-            reponse = arrondi(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1)
-            texteCorr += `<br> $${A.nom + B.nom}\\approx${AB}$ cm`
-            if (this.interactif && context.isHtml) texte += `<br>$${A.nom + B.nom}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
-          }
-          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites', precision: 0.001 })
-        }
-        if (listeTypeDeQuestions[i] === 'BC') {
-          const BC = texNombre(calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1))
+          reponse = arrondi(Math.sqrt(longueurBC ** 2 - longueurAC ** 2), 1)
+          redaction = RedactionPythagore(A.nom, B.nom, C.nom, 2, reponse, longueurAC, longueurBC)
+        } else if (listeTypeDeQuestions[i] === 'BC') {
           reponse = arrondi(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1)
-          texteCorr += `<br> $${B.nom + C.nom}^2=${texNombre(longueurAB)}^2+${texNombre(longueurAC)}^2=${texNombrec(longueurAB ** 2 + longueurAC ** 2)}$`
-          texteCorr += `<br> $${B.nom + C.nom}=\\sqrt{${texNombrec(longueurAB ** 2 + longueurAC ** 2)}}$`
-          if (calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 1) === calcul(Math.sqrt(longueurAB ** 2 + longueurAC ** 2), 5)) {
-            texteCorr += `<br> $${B.nom + C.nom}=${BC}$ cm`
-            if (this.interactif && context.isHtml) texte += `<br>$${B.nom + C.nom}=$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
-          } else {
-            texteCorr += `<br> $${B.nom + C.nom}\\approx${BC}$ cm`
-            if (this.interactif && context.isHtml) texte += `<br>$${B.nom + C.nom}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
-          }
-          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites', precision: 0.001 })
-        }
-        if (listeTypeDeQuestions[i] === 'AC') {
-          const AC = texNombre(calcul(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1))
+          redaction = RedactionPythagore(A.nom, B.nom, C.nom, 1, longueurAB, longueurAC, reponse)
+        } else { // listeTypeDeQuestions[i] === 'AC'
           reponse = arrondi(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1)
-          texteCorr += ` donc $${A.nom + C.nom}^2=${B.nom + C.nom}^2-${A.nom + B.nom}^2$.`
-          texteCorr += `<br> $${A.nom + C.nom}^2=${texNombre(longueurBC)}^2-${texNombre(longueurAB)}^2=${texNombrec(longueurBC ** 2 - longueurAB ** 2)}$`
-          texteCorr += `<br> $${A.nom + C.nom}=\\sqrt{${texNombrec(longueurBC ** 2 - longueurAB ** 2)}}$`
-          if (calcul(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 1) === calcul(Math.sqrt(longueurBC ** 2 - longueurAB ** 2), 5)) {
-            texteCorr += `<br> $${A.nom + C.nom}=${AC}$ cm`
-            if (this.interactif && context.isHtml) texte += `<br>$${A.nom + C.nom}=$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
-          } else {
-            texteCorr += `<br> $${A.nom + C.nom}\\approx${AC}$ cm`
-            if (this.interactif && context.isHtml) texte += `<br>$${A.nom + C.nom}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
-          }
-          context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites', precision: 0.001 })
+          redaction = RedactionPythagore(A.nom, C.nom, B.nom, 2, reponse, longueurAB, longueurBC)
         }
+        texteCorr = redaction[0]
+        texte += this.interactif ? (`$${A.nom + C.nom} ${redaction[1]}$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore unites[longueurs]')) : ''
+        context.isAmc ? setReponse(this, i, reponse) : setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites', precision: 0.001 })
+
         if (context.isAmc) {
           this.autoCorrection[i].propositions = [{ statut: 3, texte: texteCorr }]
           this.autoCorrection[i].enonce = 'Calculer la longueur manquante.\\\\' + texte
         }
       } else {
-        texte += ajouteChampTexteMathLive(this, i)
+        const hypotenuse = [`${B.nom + C.nom}^2`, `${C.nom + B.nom}^2`]
+        const cote1 = [`${B.nom + A.nom}^2`, `${A.nom + B.nom}^2`]
+        const cote2 = [`${C.nom + A.nom}^2`, `${A.nom + C.nom}^2`]
+        redaction = RedactionPythagore(A.nom, B.nom, C.nom, 0, longueurAB, longueurAC, reponse)
+        texteCorr = redaction[0]
+        if (this.sup === 1) {
+          reponse = []
+          for (let j = 0; j < 2; j++) {
+            for (let k = 0; k < 2; k++) {
+              for (let m = 0; m < 2; m++) {
+                reponse.push(hypotenuse[j] + '=' + cote1[k] + '+' + cote2[m])
+                reponse.push(hypotenuse[j] + '=' + cote2[m] + '+' + cote1[k])
+                reponse.push(cote1[k] + '+' + cote2[m] + '=' + hypotenuse[j])
+                reponse.push(cote2[m] + '+' + cote1[k] + '=' + hypotenuse[j])
+              }
+            }
+          }
+        } else {
+          texteCorr += '<br>'
+          reponse = []
+          if (listeTypeDeQuestions[i] === 'AB') {
+            texte += `<br>$${A.nom + B.nom}^2=$`
+            texteCorr += ` d'où $${A.nom + B.nom}^2=${B.nom + C.nom}^2-${A.nom + C.nom}^2$.`
+            for (let j = 0; j < 2; j++) {
+              for (let k = 0; k < 2; k++) {
+                reponse.push(hypotenuse[j] + '-' + cote2[k])
+              }
+            }
+          } else if (listeTypeDeQuestions[i] === 'AC') {
+            texte += `<br>$${A.nom + C.nom}^2=$`
+            texteCorr += ` d'où $${A.nom + C.nom}^2=${B.nom + C.nom}^2-${A.nom + B.nom}^2$.`
+            for (let j = 0; j < 2; j++) {
+              for (let k = 0; k < 2; k++) {
+                reponse.push(hypotenuse[j] + '-' + cote1[k])
+              }
+            }
+          } else {
+            texte += `<br>$${B.nom + C.nom}^2=$`
+            for (let j = 0; j < 2; j++) {
+              for (let k = 0; k < 2; k++) {
+                reponse.push(cote2[j] + '+' + cote1[k])
+                reponse.push(cote1[j] + '+' + cote2[k])
+              }
+            }
+          }
+          texte += this.interactif ? '' : `$${sp(2)}\\ldots$`
+        }
+        setReponse(this, i, reponse)
+        texte += ajouteChampTexteMathLive(this, i, 'inline')
       }
-
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
@@ -258,6 +189,5 @@ export default function Pythagore2D () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',3,"1 : Donner l'égalité de Pythagore\n2 : Compléter l'égalité de Pythagore\n3 : Calculer une longueur manquante"];
+  this.besoinFormulaire2Numerique = ['Recherche de côtés ', 3, '1 : Hypoténuse\n2 : Côtés de l\'angle droit\n3: Peu importe']
 }
-// 4G20-1

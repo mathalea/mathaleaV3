@@ -21,7 +21,7 @@ export default function ExerciceQuotientsRelatifs () {
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.titre = titre
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   this.spacing = 2
   this.nbQuestions = 6
 
@@ -58,7 +58,7 @@ export default function ExerciceQuotientsRelatifs () {
       setReponse(this, i, calcul(a / b))
       texte += ajouteChampTexteMathLive(this, i)
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, b)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

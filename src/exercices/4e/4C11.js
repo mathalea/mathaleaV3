@@ -48,7 +48,7 @@ export default function PrioritesEtRelatifs () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.consigne = 'Calculer :'
+  this.consigne = 'Calculer.'
   this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 1
@@ -402,7 +402,7 @@ export default function PrioritesEtRelatifs () {
           texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
         })
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b, c, d)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

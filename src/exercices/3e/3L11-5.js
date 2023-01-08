@@ -138,9 +138,9 @@ export default function IdentitesCalculs () {
       const situations = [
         {
           lettre: lettres,
-          a: a,
+          a,
           b: bSomme,
-          coeff: coeff,
+          coeff,
           a_coeff: a * coeff,
           operations: [{ str: '+', nb: 1 }, { str: '+', nb: 1 }],
           facteurs: [{ str: `${texNombre(a * coeff)}+${bSomme}`, nb: texNombre(a * coeff + bSomme) }, { str: `${texNombre(a * coeff)}+${bSomme}`, nb: texNombre(a * coeff + bSomme) }],
@@ -156,9 +156,9 @@ export default function IdentitesCalculs () {
         },
         {
           lettre: lettres,
-          a: a,
+          a,
           b: bDifference,
-          coeff: coeff,
+          coeff,
           a_coeff: a * coeff,
           operations: [{ str: '-', nb: -1 }, { str: '-', nb: -1 }],
           facteurs: [{ str: `${texNombre(a * coeff)}-${bDifference}`, nb: texNombre(a * coeff - bDifference) }, { str: `${texNombre(a * coeff)}-${bDifference}`, nb: texNombre(a * coeff - bDifference) }],
@@ -174,7 +174,7 @@ export default function IdentitesCalculs () {
         },
         {
           lettre: lettres,
-          a: a,
+          a,
           b: bSomDif,
           coeff: coeffSomDif,
           a_coeff: a * coeffSomDif,
@@ -353,6 +353,7 @@ export default function IdentitesCalculs () {
         // comment
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+        // ToDo traiter les éventuelles question interactives en double
         let mybool = false
         this.listeQuestions.forEach(elt => {
           if (texte.split('$')[1].substr(2).indexOf(elt.split('$')[1].substr(2)) !== -1) {

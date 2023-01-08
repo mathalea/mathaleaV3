@@ -16,7 +16,6 @@ export const titre = 'Fonctions : Notion et vocabulaire'
 export const uuid = '77d18'
 export const ref = '3F1-act'
 export default function FonctionNotionVocabulaire () {
-  'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1
   this.titre = titre
@@ -200,12 +199,12 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
 
           // sous question f/
           if (context.isHtml) {
-            texte += numAlpha(j) + ' Ecrire maintenant la fonction f en utilisant la forme  '
+            texte += numAlpha(j) + ' Écrire maintenant la fonction f en utilisant la forme  '
             texte += katexPopup('$\\mathbf{f:\\textbf{\\textit{x}}\\longmapsto \\ldots}$', 'Notation', '4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f:4\\longmapsto 16}$')
             texteCorr += numAlpha(j) + ' L\'image de $x$ par la fonction f vaut $4\\times x$ donc $f:x\\longmapsto 4\\times x$.<br>'
             j++ // incrémente la sous question
           } else { // sortie LaTeX
-            texte += '\\item   Ecrire maintenant la fonction f en utilisant la forme $\\mathbf{f:\\textbf{\\textit{x}}\\longmapsto \\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f:4\\longmapsto 16}$},'
+            texte += '\\item   Écrire maintenant la fonction f en utilisant la forme $\\mathbf{f:\\textbf{\\textit{x}}\\longmapsto \\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction f peut s\'écrire $\\mathbf{f:4\\longmapsto 16}$},'
             // texte += ` écrire la réponse à la question d/`;
             texteCorr += '\\item  L\'image de $x$ par la fonction f vaut $4\\times x$ donc $f:x\\longmapsto 4\\times x$.'
             texte += '\\end{enumerate}'
@@ -314,12 +313,12 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
 
           // sous question f/
           if (context.isHtml) {
-            texte += numAlpha(j) + ' Ecrire maintenant la fonction g en utilisant la forme '
+            texte += numAlpha(j) + ' Écrire maintenant la fonction g en utilisant la forme '
             texte += katexPopup('$\\mathbf{g:\\textbf{\\textit{x}} \\longmapsto \\ldots}$', 'Notation', '4 a pour image 16 par la fonction g peut s\'écrire $\\mathbf{g:4\\longmapsto 16}$')
             texteCorr += numAlpha(j) + ' L\'image de $x$ par la fonction g vaut $x\\times x=x^2$ donc $g:x\\longmapsto x\\times x=x^2$.<br>'
             j++ // incrémente la sous question
           } else { // sortie LaTeX
-            texte += '\\item  Ecrire maintenant la fonction g en utilisant la forme '
+            texte += '\\item  Écrire maintenant la fonction g en utilisant la forme '
             texte += '$\\mathbf{g:\\textbf{\\textit{x}} \\longmapsto \\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction g peut s\'écrire $\\mathbf{g:4\\longmapsto 16}$\'}'
             texteCorr += '\\item L\'image de $x$ par la fonction g vaut $x\\times x=x^2$ donc $g:x\\longmapsto x\\times x=x^2$.'
             texte += '\\end{enumerate}'
@@ -434,12 +433,12 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
 
           // sous question f/
           if (context.isHtml) {
-            texte += numAlpha(j) + ' Ecrire maintenant la fonction h en utilisant la forme '
+            texte += numAlpha(j) + ' Écrire maintenant la fonction h en utilisant la forme '
             texte += katexPopup('$\\mathbf{h:\\textbf{\\textit{x}} \\longmapsto \\ldots}$', 'Notation', '4 a pour image 16 par la fonction h peut s\'écrire $\\mathbf{h:4\\longmapsto16}$')
             texteCorr += numAlpha(j) + ' L\'image de $x$ par la fonction h vaut $3\\times x +1= 3x + 1$ donc $h : x \\longmapsto 3\\times x + 1$ soit $h : x \\longmapsto 3x + 1$.<br>'
             j++ // incrémente la sous question
           } else { // sortie LaTeX
-            texte += '\\item  Ecrire maintenant la fonction h en utilisant la forme '
+            texte += '\\item  Écrire maintenant la fonction h en utilisant la forme '
             texte += '$\\mathbf{h:\\textbf{\\textit{x}} \\longmapsto \\ldots}$ \\footnote{\\textbf{Notation :} 4 a pour image 16 par la fonction h peut s\'écrire $\\mathbf{h:4\\longmapsto16}$}'
             texteCorr += '\\item L\'image de $x$ par la fonction h vaut $3\\times x +1= 3x + 1$ donc $h : x \\longmapsto 3\\times x + 1$ soit $h : x \\longmapsto 3x + 1$.'
             texte += '\\end{enumerate}'
@@ -585,7 +584,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           break
       };
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, typesDeQuestions, x, y, z)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
