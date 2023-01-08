@@ -899,7 +899,7 @@
                   <div class="flex flex-col justify-center">
                     <div class="flex flex-row justify-center p-4">
                       <!-- <canvas id="QRCodeCanvas-1" /> -->
-                      <img id="QRCodeCanvas-1" />
+                      <img id="QRCodeCanvas-1" alt="QR-Code du diaporama" />
                     </div>
                     <div class="flex flex-row justify-center pb-6">
                       <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Copier le QR-Code">
@@ -1209,7 +1209,7 @@
             </div>
             <div class="flex flex-col justify-center">
               <div class="flex flex-row justify-center p-4">
-                <img id="QRCodeCanvas-2" />
+                <img id="QRCodeCanvas-2" alt="QR-Code du diaporama" />
               </div>
               <div class="flex flex-row justify-center pb-6">
                 <div class="tooltip tooltip-bottom tooltip-primary text-white" data-tip="Copier le QR-Code">
