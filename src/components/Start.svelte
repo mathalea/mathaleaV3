@@ -80,7 +80,6 @@
   filteredReferentiel["CRPE"]["Concours 2022 - Par thèmes"] = filteredReferentiel["static"]["CRPE (2022) par thèmes"]
   filteredReferentiel["CRPE"]["CRPE (2015-2019) par thèmes - COPIRELEM"] = filteredReferentiel["static"]["CRPE (2015-2019) par thèmes - COPIRELEM"]
   filteredReferentiel["CRPE"]["CRPE (2015-2019) par année - COPIRELEM"] = filteredReferentiel["static"]["CRPE (2015-2019) par année - COPIRELEM"]
-  console.log(filteredReferentiel)
   let referentielMap = toMap(filteredReferentiel)
   let arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
 
@@ -107,30 +106,90 @@
         }, {})
     }
 
-    // on ajoute un objet 'Nouveautés' qui contient tous les exercices ayant une date de publication
-    // ou de modification inférieure à 1 mois (appel de la fonction utilitaire 'isRecent()')
-    for (const level in filteredReferentiel) {
-      for (const sublevel in filteredReferentiel[level]) {
-        for (const exo in filteredReferentiel[level][sublevel]) {
-          if (isRecent(filteredReferentiel[level][sublevel][exo]["datePublication"]) || isRecent(filteredReferentiel[level][sublevel][exo]["dateModification"])) {
-            if (!filteredReferentiel["Nouveautés"]) {
-              filteredReferentiel = { ...filteredReferentiel, ...{ Nouveautés: {} } }
+    /**
+     * Construit un object contenant les références des exercices ayant une date
+     * de modification ou de publication récente (<= 1mois)
+     * en parcourant récursivement l'objet passé en paramètre
+     * Inspiration : {@link https://stackoverflow.com/questions/15690706/recursively-looping-through-an-object-to-build-a-property-list/53620876#53620876}
+     * @param {any} obj objet à parcourir (récursivement)
+     * @return {[string]} objet des exos nouveaux
+     * @author sylvain
+     */
+    function getRecentExercises(obj) {
+      /**
+       * Détecter si une valeur est un objet
+       * @param val valeur à analyser
+       */
+      const isObject = (val) => val && typeof val === "object" && !Array.isArray(val)
+
+      /**
+       * Ajouter un point entre deux chaînes (sauf si la première est vide)
+       * Utilisé pour créer des chemins du style "folder1.folder2.folder3"
+       * @param a 1ere chaîne
+       * @param b 2e chaîne
+       */
+      const addDelimiter = (a, b) => (a ? `${a}.${b}` : b)
+
+      let pathsToRecentExercises = []
+      // on parcourt récursivement l'objet référentiel et on en profite pour peupler le tableau pathToRecentExercises
+      // avec les exercices dont les dates de publication ou de modification sont récentes
+      const paths = (obj = {}, head = "") => {
+        return Object.entries(obj).reduce((product, [key, value]) => {
+          let fullPath = addDelimiter(head, key)
+          // return isObject(value) ? product.concat(paths(value, fullPath)) : product.concat(fullPath) // <-- dans le source
+          if (isObject(value)) {
+            if (Object.hasOwn(value, "uuid")) {
+              if (isRecent(value.datePublication) || isRecent(value.dateModification)) {
+                pathsToRecentExercises.push(fullPath)
+              }
+              return product.concat(fullPath)
+            } else {
+              return product.concat(paths(value, fullPath))
             }
-            if (!filteredReferentiel["Nouveautés"][level]) {
-              let obj = {}
-              obj[level] = {}
-              filteredReferentiel["Nouveautés"] = { ...filteredReferentiel["Nouveautés"], ...obj }
-            }
-            if (!filteredReferentiel["Nouveautés"][level][sublevel]) {
-              let obj = {}
-              obj[sublevel] = {}
-              filteredReferentiel["Nouveautés"][level] = { ...filteredReferentiel["Nouveautés"][level], ...obj }
-            }
-            filteredReferentiel["Nouveautés"][level][sublevel] = { ...filteredReferentiel["Nouveautés"][level][sublevel], ...filteredReferentiel[level][sublevel][exo] }
           }
+        }, [])
+      }
+      paths(obj)
+
+      // on récupère les _vrais_ objets à partir de la liste des chemins construite précédemment
+      let exosOnObjectForm = []
+      for (const e of pathsToRecentExercises) {
+        const cheminVersExo = e.split(".")
+        const level = cheminVersExo[0]
+        let object = {}
+        let exo = filteredReferentiel
+        cheminVersExo.reduce(function (o, s, i) {
+          if (i === cheminVersExo.length - 1) {
+            return (o[s] = exo[s])
+          } else {
+            exo = exo[s]
+            return (o[s] = {})
+          }
+        }, object)
+        exosOnObjectForm.push(object)
+      }
+      /**
+       * Fusionne deux objets sans écraser la valeur d'une propriété lorsqu'elle existe
+       * par récursivité afin de chercher des propriétés imbriquées
+       * @param target objet à compléter
+       * @param objectToAdd objet à ajouter
+       */
+      const mergeWithoutOverwriting = (target, objectToAdd) => {
+        // on récupère le nom de la première propriété (qui est la seule en fait ! vu la nature des objets)
+        const key = Object.keys(objectToAdd)[0]
+        if (Object.hasOwn(target, key)) {
+          mergeWithoutOverwriting(target[key], objectToAdd[key])
+        } else {
+          Object.assign(target, objectToAdd)
         }
       }
+
+      let exosNouveaux = {}
+      exosOnObjectForm.forEach((exo) => mergeWithoutOverwriting(exosNouveaux, exo))
+      return exosNouveaux
     }
+
+    filteredReferentiel["Nouveautés"] = getRecentExercises(filteredReferentiel)
     const keysToBeFirst = { Nouveautés: null }
     filteredReferentiel = Object.assign(keysToBeFirst, filteredReferentiel)
     referentielMap = toMap(filteredReferentiel)
