@@ -90,10 +90,10 @@
       {:else}
         <span class="font-bold">{exercice.get("id")} - </span>{exercice.get("titre")}
         {#if isRecent(exercice.get("datePublication"))}
-          <span class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-light text-white text-xs px-1 py-[1px] shadow-sm">NEW</span>
+          <span class="badge badge-primary badge-xs text-[10px] font-bold">NEW</span>
         {/if}
         {#if isRecent(exercice.get("dateModification"))}
-          <span class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-light text-white text-xs px-1 py-[1px] shadow-sm">MAJ</span>
+          <span class="badge badge-primary badge-xs text-[10px] font-bold">MAJ</span>
         {/if}
       {/if}
     </div>
