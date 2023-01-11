@@ -2125,6 +2125,18 @@
             "Can": true
           },
           "datePublication": "13/09/2022"
+        },
+        "can4C13": {
+          "uuid": "7a0b1",
+          "id": "can4C13",
+          "titre": "Passer d'une fraction à un décimal",
+          "url": "can/4e/can4C13.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "10/01/2023"
         }
       },
       "can4G": {
@@ -9182,6 +9194,18 @@
         "url": "4e/4G30.js",
         "uuid": "18a21"
       },
+      "4G30-1": {
+        "datePublication": "05/01/2023",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Écrire une relation de Thalès",
+        "url": "4e/4G30-1.js",
+        "id": "4G30-1",
+        "uuid": "ff410"
+      },
       "4G31": {
         "id": "4G31",
         "tags": {
@@ -10102,6 +10126,18 @@
         "url": "3e/3G20-1.js",
         "uuid": "eea67"
       },
+      "3G20-2": {
+        "id": "3G20-2",
+        "datePublication": "05/01/2023",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Écrire une relation de Thalès",
+        "url": "3e/3G20-2.js",
+        "uuid": "6fd12"
+      },
       "3G21": {
         "id": "3G21",
         "tags": {
@@ -10753,6 +10789,7 @@
         "uuid": "f4b95"
       },
       "3S14": {
+        "id": "3S14",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -10760,7 +10797,6 @@
         },
         "titre": "Calculer des caractéristiques d'une série",
         "url": "3e/3S14.js",
-        "id": "3S14",
         "uuid": "b8afd"
       },
       "3S15": {

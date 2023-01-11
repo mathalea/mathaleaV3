@@ -513,6 +513,7 @@
   "6f13a": "can/2e/can2F04.js",
   "6f32d": "can/1e/can1F16.js",
   "6f383": "3e/3G13.js",
+  "6fd12": "3e/3G20-2.js",
   "6fda8": "2e/2N31-4.js",
   "708a9": "6e/6N23-8.js",
   "709b6": "can/4e/can4P03.js",
@@ -545,6 +546,7 @@
   "7959f": "2e/2N51-3.js",
   "796f3": "5e/5G22.js",
   "799c4": "4e/4L20.js",
+  "7a0b1": "can/4e/can4C13.js",
   "7a19d": "can/6e/can6C34.js",
   "7a950": "can/1e/can1L04.js",
   "7aba6": "5e/5L10-4.js",
@@ -1119,6 +1121,7 @@
   "fefa0": "5e/5L10-1.js",
   "ff2cc": "6e/6G23-4.js",
   "ff386": "6e/6M22-2.js",
+  "ff410": "4e/4G30-1.js",
   "ff67d": "5e/5S13-2.js",
   "ffbf6": "can/1e/can1F11.js"
 }
