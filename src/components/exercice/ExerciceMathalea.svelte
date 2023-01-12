@@ -300,7 +300,7 @@
                     {@html Mathalea.formatExercice(item)}
                   </li>
                   {#if isCorrectionVisible}
-                    <div class="bg-gray-200 my-2 p-2" style="line-height: {exercice.spacingCorr}; break-inside:avoid" id="correction${indiceExercice}Q${i}">
+                    <div class="bg-coopmaths-lightest my-2 p-2" style="line-height: {exercice.spacingCorr}; break-inside:avoid" id="correction${indiceExercice}Q${i}">
                       {@html Mathalea.formatExercice(exercice.listeCorrections[i])}
                     </div>
                   {/if}

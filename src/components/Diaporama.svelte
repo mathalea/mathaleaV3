@@ -1046,7 +1046,9 @@
               {#if nbOfVues > 1}
                 <div class="absolute bg-coopmaths text-white font-black -top-1 -left-1 rounded-tl-2xl w-1/12 h-1/12">{i + 1}</div>
               {/if}
-              <div>{@html isCorrectionVisible ? corrections[i][$questionsOrder.indexes[currentQuestion]] : questions[i][$questionsOrder.indexes[currentQuestion]]}</div>
+              <div class="py-4 {isCorrectionVisible ? 'bg-coopmaths-lightest my-10' : ''}">
+                {@html isCorrectionVisible ? corrections[i][$questionsOrder.indexes[currentQuestion]] : questions[i][$questionsOrder.indexes[currentQuestion]]}
+              </div>
             </div>
           {/each}
         </div>

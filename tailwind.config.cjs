@@ -7,7 +7,7 @@ const config = {
       colors: {
         coopmaths: {
           DEFAULT: '#F15929',
-          lightest: '#FF8C5C',
+          lightest: '#FFE6D6',
           light: '#FF7343',
           dark: '#D84010',
           darkest: '#BE2600'
