@@ -131,6 +131,7 @@
       const addDelimiter = (a, b) => (a ? `${a}.${b}` : b)
 
       let pathsToRecentExercises = []
+      let recentExos = []
       // on parcourt récursivement l'objet référentiel et on en profite pour peupler le tableau pathToRecentExercises
       // avec les exercices dont les dates de publication ou de modification sont récentes
       const paths = (obj = {}, head = "") => {
@@ -141,6 +142,7 @@
             if (Object.hasOwn(value, "uuid")) {
               if (isRecent(value.datePublication) || isRecent(value.dateModification)) {
                 pathsToRecentExercises.push(fullPath)
+                recentExos.push({ [key]: value })
               }
               return product.concat(fullPath)
             } else {
@@ -151,45 +153,46 @@
       }
       paths(obj)
 
-      // on récupère les _vrais_ objets à partir de la liste des chemins construite précédemment
-      let exosOnObjectForm = []
-      for (const e of pathsToRecentExercises) {
-        const cheminVersExo = e.split(".")
-        const level = cheminVersExo[0]
-        let object = {}
-        let exo = filteredReferentiel
-        cheminVersExo.reduce(function (o, s, i) {
-          if (i === cheminVersExo.length - 1) {
-            return (o[s] = exo[s])
-          } else {
-            exo = exo[s]
-            return (o[s] = {})
-          }
-        }, object)
-        exosOnObjectForm.push(object)
-      }
-      /**
-       * Fusionne deux objets sans écraser la valeur d'une propriété lorsqu'elle existe
-       * par récursivité afin de chercher des propriétés imbriquées
-       * @param target objet à compléter
-       * @param objectToAdd objet à ajouter
-       */
-      const mergeWithoutOverwriting = (target, objectToAdd) => {
-        // on récupère le nom de la première propriété (qui est la seule en fait ! vu la nature des objets)
-        const key = Object.keys(objectToAdd)[0]
-        if (Object.hasOwn(target, key)) {
-          mergeWithoutOverwriting(target[key], objectToAdd[key])
-        } else {
-          Object.assign(target, objectToAdd)
-        }
-      }
+      // // on récupère les _vrais_ objets à partir de la liste des chemins construite précédemment
+      // let exosOnObjectForm = []
+      // for (const e of pathsToRecentExercises) {
+      //   const cheminVersExo = e.split(".")
+      //   const level = cheminVersExo[0]
+      //   let object = {}
+      //   let exo = filteredReferentiel
+      //   cheminVersExo.reduce(function (o, s, i) {
+      //     if (i === cheminVersExo.length - 1) {
+      //       return (o[s] = exo[s])
+      //     } else {
+      //       exo = exo[s]
+      //       return (o[s] = {})
+      //     }
+      //   }, object)
+      //   exosOnObjectForm.push(object)
+      // }
+      // /**
+      //  * Fusionne deux objets sans écraser la valeur d'une propriété lorsqu'elle existe
+      //  * par récursivité afin de chercher des propriétés imbriquées
+      //  * @param target objet à compléter
+      //  * @param objectToAdd objet à ajouter
+      //  */
+      // const mergeWithoutOverwriting = (target, objectToAdd) => {
+      //   // on récupère le nom de la première propriété (qui est la seule en fait ! vu la nature des objets)
+      //   const key = Object.keys(objectToAdd)[0]
+      //   if (Object.hasOwn(target, key)) {
+      //     mergeWithoutOverwriting(target[key], objectToAdd[key])
+      //   } else {
+      //     Object.assign(target, objectToAdd)
+      //   }
+      // }
 
       let exosNouveaux = {}
-      exosOnObjectForm.forEach((exo) => mergeWithoutOverwriting(exosNouveaux, exo))
+      recentExos.forEach((exo) => Object.assign(exosNouveaux, exo))
       return exosNouveaux
     }
 
     filteredReferentiel["Nouveautés"] = getRecentExercises(filteredReferentiel)
+    console.log(filteredReferentiel["Nouveautés"])
     const keysToBeFirst = { Nouveautés: null }
     filteredReferentiel = Object.assign(keysToBeFirst, filteredReferentiel)
     referentielMap = toMap(filteredReferentiel)
