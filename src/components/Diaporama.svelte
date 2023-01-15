@@ -610,6 +610,10 @@
       return l
     })
   }
+
+  function handleCheckManualMode() {
+    return null
+  }
 </script>
 
 <svelte:window on:keyup={handleShortcut} />
@@ -925,6 +929,14 @@
             <div class="flex text-lg font-bold">Durées et nombres de questions</div>
             <div class="flex items-center">
               <input
+                id="checkbox-2"
+                aria-describedby="checkbox-2"
+                type="checkbox"
+                class="bg-gray-50 border-gray-300 text-coopmaths focus:ring-3 focus:ring-coopmaths h-4 w-4 rounded"
+                on:change={handleCheckManualMode}
+              />
+              <label for="checkbox-2" class="ml-3 mr-4 font-medium text-gray-900"> Défilement manuel </label>
+              <input
                 id="checkbox-1"
                 aria-describedby="checkbox-1"
                 type="checkbox"
@@ -933,16 +945,17 @@
                 on:change={handleCheckSameDurationForAll}
                 disabled={exercices.length == 1}
               />
-              <label for="checkbox-1" class="ml-3 font-medium {exercices.length == 1 ? 'text-gray-300' : 'text-gray-900'} "
-                >Même durée pour toutes les questions <input
+              <label for="checkbox-1" class="ml-3 font-medium {exercices.length == 1 ? 'text-gray-300' : 'text-gray-900'} ">
+                Même durée pour toutes les questions
+                <input
                   type="number"
                   min="1"
                   on:change={handleChangeDurationGlobal}
                   bind:value={durationGlobal}
                   class="ml-3 w-20 h-8 bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
                   disabled={!isSameDurationForAll}
-                /></label
-              >
+                />
+              </label>
             </div>
           </div>
 
