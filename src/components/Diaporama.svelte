@@ -1040,7 +1040,7 @@
       <!-- Steps -->
       <header class="flex flex-col h-20 dark:bg-white pb-1">
         <div class:invisible={durationGlobal === 0} class="flex flex-row h-6 border border-coopmaths">
-          <div class="bg-coopmaths" style="width: {ratioTime}%;" />
+          <div id="diapoProgressBar" class="bg-coopmaths" style="width: {ratioTime}%; transition: width {currentDuration / 100}s linear" />
         </div>
         <div class="flex flex-row h-full mt-6 w-full justify-center">
           <ul class="steps w-11/12" bind:this={stepsUl}>
