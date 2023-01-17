@@ -2137,6 +2137,18 @@
             "Can": true
           },
           "datePublication": "10/01/2023"
+        },
+        "can4C14": {
+          "id": "can4C14",
+          "uuid": "bcb79",
+          "titre": "Augmenter un nombre d'une fraction",
+          "url": "can/4e/can4C14.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "12/01/2023"
         }
       },
       "can4G": {
@@ -3683,6 +3695,18 @@
             "Can": true
           },
           "datePublication": "04/01/2023"
+        },
+        "can2L11": {
+          "uuid": "b5c9c",
+          "id": "can2L11",
+          "titre": "Exprimer une variable en fonction d'une autre",
+          "url": "can/2e/can2L11.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "12/01/2023"
         }
       },
       "can2N": {
@@ -5760,6 +5784,7 @@
         "uuid": "49cb2"
       },
       "6G25-2": {
+        "dateModification": "15/01/2023",
         "id": "6G25-2",
         "tags": {
           "AMC": true,
@@ -7504,6 +7529,18 @@
         "titre": "Constructibilité des triangles via les angles",
         "url": "5e/5G31-1.js",
         "uuid": "bcbe1"
+      },
+      "5G31-2": {
+        "datePublication": "11/01/2023",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Déterminer un angle dans un triangle et sa nature",
+        "url": "5e/5G31-2.js",
+        "id": "5G31-2",
+        "uuid": "c2f77"
       }
     },
     "5G4": {
@@ -9196,6 +9233,7 @@
       },
       "4G30-1": {
         "datePublication": "05/01/2023",
+        "id": "4G30-1",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -9203,7 +9241,6 @@
         },
         "titre": "Écrire une relation de Thalès",
         "url": "4e/4G30-1.js",
-        "id": "4G30-1",
         "uuid": "ff410"
       },
       "4G31": {
@@ -10012,7 +10049,7 @@
     },
     "3G1": {
       "3G10-1": {
-        "dateModification": "28/12/2022",
+        "dateModification": "15/01/2023",
         "id": "3G10-1",
         "tags": {
           "AMC": true,
@@ -10024,6 +10061,7 @@
         "uuid": "d4088"
       },
       "3G10-2": {
+        "dateModification": "15/01/2023",
         "id": "3G10-2",
         "tags": {
           "AMC": true,
@@ -10069,6 +10107,7 @@
         "uuid": "1ebf7"
       },
       "3G12": {
+        "dateModification": "15/01/2023",
         "id": "3G12",
         "tags": {
           "AMC": false,
@@ -10080,6 +10119,7 @@
         "uuid": "442e0"
       },
       "3G12-1": {
+        "dateModification": "15/01/2023",
         "id": "3G12-1",
         "tags": {
           "AMC": true,
@@ -10127,8 +10167,8 @@
         "uuid": "eea67"
       },
       "3G20-2": {
-        "id": "3G20-2",
         "datePublication": "05/01/2023",
+        "id": "3G20-2",
         "tags": {
           "AMC": false,
           "Interactif": false,
