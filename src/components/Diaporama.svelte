@@ -18,6 +18,7 @@
   let isFullScreen = false
   let isPause = false
   let isCorrectionVisible = false
+  let isQuestionVisible = true
   let isSameDurationForAll = false
   let userZoom = 3
   let currentZoom = userZoom
@@ -247,8 +248,20 @@
     }
   }
 
-  async function switchCorrectionVisible() {
-    isCorrectionVisible = !isCorrectionVisible
+  async function switchCorrectionMode() {
+    // isCorrectionVisible = !isCorrectionVisible
+    if (isQuestionVisible && !isCorrectionVisible) {
+      isCorrectionVisible = !isCorrectionVisible
+    } else {
+      if (isQuestionVisible && isCorrectionVisible) {
+        isQuestionVisible = !isQuestionVisible
+      } else {
+        if (!isQuestionVisible && isCorrectionVisible) {
+          isQuestionVisible = !isQuestionVisible
+          isCorrectionVisible = !isCorrectionVisible
+        }
+      }
+    }
     await tick()
     Mathalea.renderDiv(divQuestion)
   }
@@ -338,6 +351,18 @@
 
   $: displayCurrentDuration = () => {
     return currentDuration === 0 ? "Manuel" : currentDuration + "s"
+  }
+  $: displayCurrentCorrectionMode = () => {
+    if (isQuestionVisible && !isCorrectionVisible) {
+      return "Q"
+    }
+    if (isQuestionVisible && isCorrectionVisible) {
+      return "Q+C"
+    }
+    if (!isQuestionVisible && isCorrectionVisible) {
+      return "C"
+    }
+    return ""
   }
 
   $: {
@@ -1059,9 +1084,16 @@
               {#if nbOfVues > 1}
                 <div class="absolute bg-coopmaths text-white font-black -top-1 -left-1 rounded-tl-2xl w-1/12 h-1/12">{i + 1}</div>
               {/if}
-              <div class="py-4 {isCorrectionVisible ? 'bg-coopmaths-lightest my-10' : ''}">
-                {@html isCorrectionVisible ? corrections[i][$questionsOrder.indexes[currentQuestion]] : questions[i][$questionsOrder.indexes[currentQuestion]]}
-              </div>
+              {#if isQuestionVisible}
+                <div class="py-4">
+                  {@html questions[i][$questionsOrder.indexes[currentQuestion]]}
+                </div>
+              {/if}
+              {#if isCorrectionVisible}
+                <div class="py-4 {isCorrectionVisible ? 'bg-coopmaths-lightest my-10' : ''}">
+                  {@html corrections[i][$questionsOrder.indexes[currentQuestion]]}
+                </div>
+              {/if}
             </div>
           {/each}
         </div>
@@ -1090,7 +1122,7 @@
           <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
             <label for="timerSettings" class="modal-button">
               <i class="relative bx ml-2 bx-lg bx-stopwatch" on:click={pause} on:keydown={pause}>
-                <div class="absolute -bottom-[12px] left-1/2 -translate-x-1/2 text-sm font-sans text-coopmaths">
+                <div class="absolute -bottom-[10px] left-1/2 -translate-x-1/2 text-sm font-sans text-coopmaths">
                   {displayCurrentDuration()}
                 </div>
               </i>
@@ -1120,7 +1152,11 @@
                 </div>
               </div>
             </div>
-            <button type="button" on:click={switchCorrectionVisible}><i class="bx ml-2 bx-lg {isCorrectionVisible ? 'bx-hide' : 'bx-show'}" /></button>
+            <button type="button" on:click={switchCorrectionMode}
+              ><i class="relative bx ml-2 bx-lg bx-show">
+                <div class="absolute -bottom-[8px] left-1/2 -translate-x-1/2 text-sm font-extrabold font-sans">{displayCurrentCorrectionMode()}</div>
+              </i></button
+            >
             <button type="button" on:click={handleQuit} on:keydown={handleQuit}><i class="bx ml-2 bx-lg bx-power-off" /></button>
           </div>
         </div>
