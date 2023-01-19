@@ -2139,8 +2139,8 @@
           "datePublication": "10/01/2023"
         },
         "can4C14": {
-          "id": "can4C14",
           "uuid": "bcb79",
+          "id": "can4C14",
           "titre": "Augmenter un nombre d'une fraction",
           "url": "can/4e/can4C14.js",
           "tags": {
@@ -5800,7 +5800,7 @@
         "id": "6G25-3",
         "tags": {
           "AMC": false,
-          "Interactif": false,
+          "Interactif": true,
           "Can": false
         },
         "titre": "Trouver l'image d'une figure par une symétrie axiale dans un pavage",
@@ -7532,6 +7532,7 @@
       },
       "5G31-2": {
         "datePublication": "11/01/2023",
+        "id": "5G31-2",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -7539,7 +7540,6 @@
         },
         "titre": "Déterminer un angle dans un triangle et sa nature",
         "url": "5e/5G31-2.js",
-        "id": "5G31-2",
         "uuid": "c2f77"
       }
     },
@@ -9162,6 +9162,18 @@
         "titre": "Déterminer la racine carrée d'un carré parfait (calcul mental)",
         "url": "4e/4G20-2.js",
         "uuid": "f5cbd"
+      },
+      "4G20-3": {
+        "datePublication": "17/01/2023",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Calculer un carré",
+        "id": "4G20-3",
+        "url": "4e/4G20-3.js",
+        "uuid": "e564b"
       },
       "4G20-4": {
         "id": "4G20-4",
