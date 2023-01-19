@@ -44,6 +44,14 @@
   if ($selectedExercises.count !== undefined) {
     $selectedExercises.isActive = true
   }
+  $transitionsBetweenQuestions.isActive = $globalOptions.trans
+  if ($globalOptions.sound) {
+    $transitionsBetweenQuestions.isNoisy = true
+    $transitionsBetweenQuestions.tune = $globalOptions.sound
+  } else {
+    $transitionsBetweenQuestions.isNoisy = false
+    $transitionsBetweenQuestions.tune = 0
+  }
   let formatQRCodeIndex: number = 0
   const allowedImageFormats: string[] = ["image/jpeg", "image/png", "image/webp"]
   let QRCodeWidth = 100
@@ -636,6 +644,27 @@
     })
   }
 
+  function handleTransitionsMode() {
+    $transitionsBetweenQuestions.isActive = !$transitionsBetweenQuestions.isActive
+    globalOptions.update((l) => {
+      l.trans = $transitionsBetweenQuestions.isActive
+      return l
+    })
+    updateExercices()
+  }
+
+  function handleTransitionSound() {
+    $transitionsBetweenQuestions.isNoisy = !$transitionsBetweenQuestions.isNoisy
+    globalOptions.update((l) => {
+      if ($transitionsBetweenQuestions.isNoisy) {
+        l.sound = $transitionsBetweenQuestions.tune
+      } else {
+        l.sound = undefined
+      }
+      return l
+    })
+    updateExercices()
+  }
   function handleCheckManualMode() {
     return null
   }
@@ -729,13 +758,13 @@
           <div class="pb-8">
             <div class="flex text-lg font-bold mb-1">Transitions</div>
             <div class="flex flex-row justify-start items-center px-4">
-              <button type="button" on:click={() => ($transitionsBetweenQuestions.isActive = !$transitionsBetweenQuestions.isActive)}>
+              <button type="button" on:click={handleTransitionsMode}>
                 <i class="mt-2 text-coopmaths bx bx-sm {$transitionsBetweenQuestions.isActive ? 'bx-toggle-right' : 'bx-toggle-left'}" />
               </button>
               <div class="inline-flex pl-2">{$transitionsBetweenQuestions.isActive ? "Carton entre questions" : "Pas de carton entre questions"}</div>
             </div>
             <div class="flex flex-row justify-start items-center  px-4 -mt-2">
-              <button type="button" on:click={() => ($transitionsBetweenQuestions.isNoisy = !$transitionsBetweenQuestions.isNoisy)}>
+              <button type="button" on:click={handleTransitionSound}>
                 <i class="mt-2 text-coopmaths bx bx-sm {$transitionsBetweenQuestions.isNoisy ? 'bx-toggle-right' : 'bx-toggle-left'}" />
               </button>
               <div class="inline-flex pl-2">{$transitionsBetweenQuestions.isNoisy ? "Son entre questions" : "Pas de son entre questions"}</div>
