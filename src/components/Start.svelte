@@ -17,6 +17,8 @@
   import { context } from "../modules/context"
   import SearchExercice from "./sidebar/SearchExercice.svelte"
 
+  import { isRecent } from "./utils/handleDate"
+
   context.versionMathalea = 3
 
   if (customElements.get("alea-instrumenpoche") === undefined) {
@@ -103,9 +105,59 @@
           }
         }, {})
     }
+
+    /**
+     * Construit un object contenant les références des exercices ayant une date
+     * de modification ou de publication récente (<= 1mois)
+     * en parcourant récursivement l'objet passé en paramètre
+     * Inspiration : {@link https://stackoverflow.com/questions/15690706/recursively-looping-through-an-object-to-build-a-property-list/53620876#53620876}
+     * @param {any} obj objet à parcourir (récursivement)
+     * @return {[string]} objet des exos nouveaux
+     * @author sylvain
+     */
+    function getRecentExercises(obj) {
+      /**
+       * Détecter si une valeur est un objet
+       * @param val valeur à analyser
+       */
+      const isObject = (val) => val && typeof val === "object" && !Array.isArray(val)
+
+      let recentExercises = []
+      /**
+       * On parcourt récursivement l'objet référentiel et on en profite pour peupler
+       * le tableau recentExercises avec les exercices dont les dates de publication
+       * ou de modification sont récentes
+       * @param obj Objet à parcourir
+       */
+      const traverseObject = (obj = {}) => {
+        return Object.entries(obj).reduce((product, [key, value]) => {
+          if (isObject(value)) {
+            if (Object.hasOwn(value, "uuid")) {
+              // <-- on arrête la récursivité lorsqu'on tombe sur les données de l'exo
+              if (isRecent(value.datePublication) || isRecent(value.dateModification)) {
+                recentExercises.push({ [key]: value })
+              }
+              return null
+            } else {
+              return traverseObject(value)
+            }
+          }
+        }, [])
+      }
+      traverseObject(obj)
+
+      let recentExercisesAsObject = {}
+      recentExercises.forEach((exo) => Object.assign(recentExercisesAsObject, exo))
+      return recentExercisesAsObject
+    }
+
+    filteredReferentiel["Nouveautés"] = getRecentExercises(filteredReferentiel)
+    const keysToBeFirst = { Nouveautés: null }
+    filteredReferentiel = Object.assign(keysToBeFirst, filteredReferentiel)
     referentielMap = toMap(filteredReferentiel)
     arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
   }
+  updateReferentiel()
 
   /**
    * Retrouve le titre d'un niveau basé sur son

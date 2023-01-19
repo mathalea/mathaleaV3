@@ -2125,6 +2125,30 @@
             "Can": true
           },
           "datePublication": "13/09/2022"
+        },
+        "can4C13": {
+          "uuid": "7a0b1",
+          "id": "can4C13",
+          "titre": "Passer d'une fraction à un décimal",
+          "url": "can/4e/can4C13.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "10/01/2023"
+        },
+        "can4C14": {
+          "uuid": "bcb79",
+          "id": "can4C14",
+          "titre": "Augmenter un nombre d'une fraction",
+          "url": "can/4e/can4C14.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "12/01/2023"
         }
       },
       "can4G": {
@@ -3671,6 +3695,18 @@
             "Can": true
           },
           "datePublication": "04/01/2023"
+        },
+        "can2L11": {
+          "uuid": "b5c9c",
+          "id": "can2L11",
+          "titre": "Exprimer une variable en fonction d'une autre",
+          "url": "can/2e/can2L11.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "12/01/2023"
         }
       },
       "can2N": {
@@ -5748,6 +5784,7 @@
         "uuid": "49cb2"
       },
       "6G25-2": {
+        "dateModification": "15/01/2023",
         "id": "6G25-2",
         "tags": {
           "AMC": true,
@@ -5763,7 +5800,7 @@
         "id": "6G25-3",
         "tags": {
           "AMC": false,
-          "Interactif": false,
+          "Interactif": true,
           "Can": false
         },
         "titre": "Trouver l'image d'une figure par une symétrie axiale dans un pavage",
@@ -7492,6 +7529,18 @@
         "titre": "Constructibilité des triangles via les angles",
         "url": "5e/5G31-1.js",
         "uuid": "bcbe1"
+      },
+      "5G31-2": {
+        "datePublication": "11/01/2023",
+        "id": "5G31-2",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Déterminer un angle dans un triangle et sa nature",
+        "url": "5e/5G31-2.js",
+        "uuid": "c2f77"
       }
     },
     "5G4": {
@@ -9114,6 +9163,18 @@
         "url": "4e/4G20-2.js",
         "uuid": "f5cbd"
       },
+      "4G20-3": {
+        "datePublication": "17/01/2023",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Calculer un carré",
+        "id": "4G20-3",
+        "url": "4e/4G20-3.js",
+        "uuid": "e564b"
+      },
       "4G20-4": {
         "id": "4G20-4",
         "tags": {
@@ -9181,6 +9242,18 @@
         "titre": "Calculer des longueurs avec le théorème de Thalès",
         "url": "4e/4G30.js",
         "uuid": "18a21"
+      },
+      "4G30-1": {
+        "datePublication": "05/01/2023",
+        "id": "4G30-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Écrire une relation de Thalès",
+        "url": "4e/4G30-1.js",
+        "uuid": "ff410"
       },
       "4G31": {
         "id": "4G31",
@@ -9988,7 +10061,7 @@
     },
     "3G1": {
       "3G10-1": {
-        "dateModification": "28/12/2022",
+        "dateModification": "15/01/2023",
         "id": "3G10-1",
         "tags": {
           "AMC": true,
@@ -10000,6 +10073,7 @@
         "uuid": "d4088"
       },
       "3G10-2": {
+        "dateModification": "15/01/2023",
         "id": "3G10-2",
         "tags": {
           "AMC": true,
@@ -10045,6 +10119,7 @@
         "uuid": "1ebf7"
       },
       "3G12": {
+        "dateModification": "15/01/2023",
         "id": "3G12",
         "tags": {
           "AMC": false,
@@ -10056,6 +10131,7 @@
         "uuid": "442e0"
       },
       "3G12-1": {
+        "dateModification": "15/01/2023",
         "id": "3G12-1",
         "tags": {
           "AMC": true,
@@ -10101,6 +10177,18 @@
         "titre": "Problèmes avec le théorème de Thalès",
         "url": "3e/3G20-1.js",
         "uuid": "eea67"
+      },
+      "3G20-2": {
+        "datePublication": "05/01/2023",
+        "id": "3G20-2",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Écrire une relation de Thalès",
+        "url": "3e/3G20-2.js",
+        "uuid": "6fd12"
       },
       "3G21": {
         "id": "3G21",
@@ -10753,6 +10841,7 @@
         "uuid": "f4b95"
       },
       "3S14": {
+        "id": "3S14",
         "tags": {
           "AMC": false,
           "Interactif": true,
@@ -10760,7 +10849,6 @@
         },
         "titre": "Calculer des caractéristiques d'une série",
         "url": "3e/3S14.js",
-        "id": "3S14",
         "uuid": "b8afd"
       },
       "3S15": {
