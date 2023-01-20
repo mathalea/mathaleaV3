@@ -70,7 +70,7 @@ export function updateGlobalOptionsInURL () {
   } else {
     url.searchParams.delete('trans')
   }
-  if (options.sound) {
+  if (typeof options.sound !== 'undefined') {
     url.searchParams.append('sound', options.sound)
   } else {
     url.searchParams.delete('sound')

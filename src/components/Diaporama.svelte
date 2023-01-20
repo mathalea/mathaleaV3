@@ -45,12 +45,9 @@
     $selectedExercises.isActive = true
   }
   $transitionsBetweenQuestions.isActive = $globalOptions.trans
-  if ($globalOptions.sound) {
+  $transitionsBetweenQuestions.tune = $globalOptions.sound
+  if ($transitionsBetweenQuestions.tune !== undefined) {
     $transitionsBetweenQuestions.isNoisy = true
-    $transitionsBetweenQuestions.tune = $globalOptions.sound
-  } else {
-    $transitionsBetweenQuestions.isNoisy = false
-    $transitionsBetweenQuestions.tune = 0
   }
   let formatQRCodeIndex: number = 0
   const allowedImageFormats: string[] = ["image/jpeg", "image/png", "image/webp"]
@@ -655,16 +652,32 @@
 
   function handleTransitionSound() {
     $transitionsBetweenQuestions.isNoisy = !$transitionsBetweenQuestions.isNoisy
-    globalOptions.update((l) => {
-      if ($transitionsBetweenQuestions.isNoisy) {
-        l.sound = $transitionsBetweenQuestions.tune
-      } else {
-        l.sound = undefined
+    if ($transitionsBetweenQuestions.isNoisy) {
+      if (typeof $transitionsBetweenQuestions.tune === "undefined") {
+        $transitionsBetweenQuestions.tune = 0
       }
+      globalOptions.update((l) => {
+        l.sound = $transitionsBetweenQuestions.tune
+        return l
+      })
+    } else {
+      $transitionsBetweenQuestions.tune = undefined
+      globalOptions.update((l) => {
+        l.sound = undefined
+        return l
+      })
+    }
+    updateExercices()
+  }
+
+  function handleTuneChange() {
+    globalOptions.update((l) => {
+      l.sound = $transitionsBetweenQuestions.tune
       return l
     })
     updateExercices()
   }
+
   function handleCheckManualMode() {
     return null
   }
@@ -780,6 +793,7 @@
                   bind:group={$transitionsBetweenQuestions.tune}
                   on:change={() => {
                     transitionSounds[$transitionsBetweenQuestions.tune].play()
+                    handleTuneChange()
                   }}
                   value={0}
                 />
@@ -795,6 +809,7 @@
                   bind:group={$transitionsBetweenQuestions.tune}
                   on:change={() => {
                     transitionSounds[$transitionsBetweenQuestions.tune].play()
+                    handleTuneChange()
                   }}
                   value={1}
                 />
@@ -810,6 +825,7 @@
                   bind:group={$transitionsBetweenQuestions.tune}
                   on:change={() => {
                     transitionSounds[$transitionsBetweenQuestions.tune].play()
+                    handleTuneChange()
                   }}
                   value={2}
                 />
@@ -825,6 +841,7 @@
                   bind:group={$transitionsBetweenQuestions.tune}
                   on:change={() => {
                     transitionSounds[$transitionsBetweenQuestions.tune].play()
+                    handleTuneChange()
                   }}
                   value={3}
                 />
