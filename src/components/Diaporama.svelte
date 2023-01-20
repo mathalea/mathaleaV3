@@ -641,6 +641,10 @@
     })
   }
 
+  /**
+   * Gérer le choix de cartons entre les questions
+   * @author sylvain
+   */
   function handleTransitionsMode() {
     $transitionsBetweenQuestions.isActive = !$transitionsBetweenQuestions.isActive
     globalOptions.update((l) => {
@@ -650,6 +654,10 @@
     updateExercices()
   }
 
+  /**
+   * Gérer le choix de sons entre les questions
+   * @author sylvain
+   */
   function handleTransitionSound() {
     $transitionsBetweenQuestions.isNoisy = !$transitionsBetweenQuestions.isNoisy
     if ($transitionsBetweenQuestions.isNoisy) {
@@ -670,6 +678,10 @@
     updateExercices()
   }
 
+  /**
+   * Met à jour le numéro du son dans l'URL
+   * @author sylvain
+   */
   function handleTuneChange() {
     globalOptions.update((l) => {
       l.sound = $transitionsBetweenQuestions.tune
