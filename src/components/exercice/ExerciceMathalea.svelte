@@ -60,6 +60,7 @@
 
   onMount(async () => {
     document.addEventListener("newDataForAll", newData)
+    document.addEventListener("setAllInteractif", setAllInteractif)
     updateDisplay()
   })
 
@@ -107,6 +108,11 @@
     if (isCorrectionVisible) {
       window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, "true")
     }
+    updateDisplay()
+  }
+  
+  async function setAllInteractif() {
+    if (exercice.interactifReady) isInteractif = true
     updateDisplay()
   }
 
