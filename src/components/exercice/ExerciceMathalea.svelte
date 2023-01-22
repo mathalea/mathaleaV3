@@ -296,11 +296,11 @@
             <ul class="{exercice.listeQuestions.length > 1 ? 'list-decimal' : 'list-none'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold">
               {#each exercice.listeQuestions as item, i (i)}
                 <div style="break-inside:avoid">
-                  <li style={i < exercice.listeQuestions.length ? `margin-bottom: ${exercice.spacing}em` : ""} id="exercice{indiceExercice}Q${i}">
+                  <li style={i < exercice.listeQuestions.length ? `margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: 1` : ""} id="exercice{indiceExercice}Q${i}">
                     {@html Mathalea.formatExercice(item)}
                   </li>
                   {#if isCorrectionVisible}
-                    <div class="bg-gray-200 my-2 p-2" style="line-height: {exercice.spacingCorr}; break-inside:avoid" id="correction${indiceExercice}Q${i}">
+                    <div class="bg-gray-200 my-2 p-2" style="margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: {exercice.spacingCorr || 1}; break-inside:avoid" id="correction${indiceExercice}Q${i}">
                       {@html Mathalea.formatExercice(exercice.listeCorrections[i])}
                     </div>
                   {/if}
