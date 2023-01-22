@@ -302,7 +302,7 @@
             <ul class="{exercice.listeQuestions.length > 1 ? 'list-decimal' : 'list-none'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold">
               {#each exercice.listeQuestions as item, i (i)}
                 <div style="break-inside:avoid">
-                  <li style={i < exercice.listeQuestions.length ? `margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: 1` : ""} id="exercice{indiceExercice}Q${i}">
+                  <li style={i < exercice.listeQuestions.length ? `margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: 1` : ""} id="exercice{indiceExercice}Q{i}">
                     {@html Mathalea.formatExercice(item)}
                   </li>
                   {#if isCorrectionVisible}
