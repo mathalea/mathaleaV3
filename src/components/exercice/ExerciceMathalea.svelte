@@ -317,8 +317,8 @@
         </article>
         {#if isInteractif && !isCorrectionVisible && isContentVisible}
           <button type="submit" on:click={verifExercice} bind:this={buttonScore}>Vérifier les réponses </button>
+          {/if}
           <div bind:this={divScore} />
-        {/if}
       </div>
       <div class="bg-gray-100 {isSettingsVisible ? 'visible lg:w-1/4' : 'hidden lg:w-0'} flex flex-col duration-500">
         {#if isSettingsVisible}
