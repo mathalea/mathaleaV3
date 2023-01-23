@@ -61,6 +61,7 @@
   onMount(async () => {
     document.addEventListener("newDataForAll", newData)
     document.addEventListener("setAllInteractif", setAllInteractif)
+    document.addEventListener("removeAllInteractif", removeAllInteractif)
     updateDisplay()
   })
 
@@ -113,6 +114,10 @@
   
   async function setAllInteractif() {
     if (exercice.interactifReady) isInteractif = true
+    updateDisplay()
+  }
+  async function removeAllInteractif() {
+    if (exercice.interactifReady) isInteractif = false
     updateDisplay()
   }
 

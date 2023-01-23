@@ -30,6 +30,7 @@
   let filtre = "all"
   let divExercices: HTMLDivElement
   let zoom = 1
+  let setAllInteractifClicked = false
 
   // ToFix fonction à lier avec bugsnag
   window.notify = (arg) => console.log(arg)
@@ -253,7 +254,16 @@
     const setAllInteractif = new window.Event("setAllInteractif", {
       bubbles: true,
     })
+    setAllInteractifClicked = true
     document.dispatchEvent(setAllInteractif)
+  }
+  
+  function removeAllInteractif() {
+    const removeAllInteractif = new window.Event("removeAllInteractif", {
+      bubbles: true,
+    })
+    setAllInteractifClicked = false
+    document.dispatchEvent(removeAllInteractif)
   }
 
   function zoomMinus() {
@@ -317,7 +327,7 @@
         <div class="flex flex-row justify-end items-center space-x-2 text-slate-500">
           <button type="button" class="hover:text-coopmaths-dark tooltip tooltip-left" data-tip={"Réduire la taille"} on:click={zoomMinus}><i class="bx bx-sm bx-minus" /></button>
           <button type="button" class="hover:text-coopmaths-dark tooltip tooltip-left" data-tip={"Agrandir la taille"} on:click={zoomPlus}><i class="bx bx-sm bx-plus" /></button>
-          <button type="button" class="hover:text-coopmaths-dark tooltip tooltip-left" data-tip={"Rendre tous les exercices interactifs"} on:click={setAllInteractif}><i class="bx bx-sm bx-edit" /></button>
+          <button type="button" class="hover:text-coopmaths-dark tooltip tooltip-left" data-tip={setAllInteractifClicked ? "Arrêter l'interactivité" : "Rendre tous les exercices interactifs"} on:click={setAllInteractifClicked ? removeAllInteractif : setAllInteractif}><i class="bx bx-sm {setAllInteractifClicked ? 'bxs-edit': 'bx-edit'}" /></button>
           <button type="button" class="hover:text-coopmaths-dark tooltip tooltip-left" data-tip={"Nouveaux énoncés pour tous les exercices"} on:click={newDataForAll}><i class="bx bx-sm bx-refresh" /></button>
           <button
             type="button"
