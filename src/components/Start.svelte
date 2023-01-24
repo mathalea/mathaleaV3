@@ -30,6 +30,7 @@
   let filtre = "all"
   let divExercices: HTMLDivElement
   let zoom = 1
+  let setAllInteractifClicked = false
 
   // ToFix fonction à lier avec bugsnag
   window.notify = (arg) => console.log(arg)
@@ -249,6 +250,22 @@
     document.dispatchEvent(newDataForAll)
   }
 
+  function setAllInteractif() {
+    const setAllInteractif = new window.Event("setAllInteractif", {
+      bubbles: true,
+    })
+    setAllInteractifClicked = true
+    document.dispatchEvent(setAllInteractif)
+  }
+  
+  function removeAllInteractif() {
+    const removeAllInteractif = new window.Event("removeAllInteractif", {
+      bubbles: true,
+    })
+    setAllInteractifClicked = false
+    document.dispatchEvent(removeAllInteractif)
+  }
+
   function zoomMinus() {
     zoom -= 0.25
     updateSize()
@@ -308,12 +325,14 @@
     {#if $exercicesParams.length !== 0}
       <div class="flex-1 flex flex-col p-6 overflow-hidden h-full" bind:this={divExercices}>
         <div class="flex flex-row justify-end items-center space-x-2 text-slate-500">
-          <button type="button" class="hover:text-coopmaths-dark" on:click={zoomMinus}><i class="bx bx-sm bx-minus" /></button>
-          <button type="button" class="hover:text-coopmaths-dark" on:click={zoomPlus}><i class="bx bx-sm bx-plus" /></button>
-          <button type="button" class="hover:text-coopmaths-dark" on:click={newDataForAll}><i class="bx bx-sm bx-refresh" /></button>
+          <button type="button" class="hover:text-coopmaths-dark tooltip tooltip-left" data-tip={"Réduire la taille"} on:click={zoomMinus}><i class="bx bx-sm bx-minus" /></button>
+          <button type="button" class="hover:text-coopmaths-dark tooltip tooltip-left" data-tip={"Agrandir la taille"} on:click={zoomPlus}><i class="bx bx-sm bx-plus" /></button>
+          <button type="button" class="hover:text-coopmaths-dark tooltip tooltip-left" data-tip={setAllInteractifClicked ? "Arrêter l'interactivité" : "Rendre tous les exercices interactifs"} on:click={setAllInteractifClicked ? removeAllInteractif : setAllInteractif}><i class="bx bx-sm {setAllInteractifClicked ? 'bxs-edit': 'bx-edit'}" /></button>
+          <button type="button" class="hover:text-coopmaths-dark tooltip tooltip-left" data-tip={"Nouveaux énoncés pour tous les exercices"} on:click={newDataForAll}><i class="bx bx-sm bx-refresh" /></button>
           <button
             type="button"
-            class="hover:text-coopmaths-dark"
+            class="hover:text-coopmaths-dark tooltip tooltip-left"
+            data-tip={"Diaporama"}
             on:click={() =>
               globalOptions.update((params) => {
                 params.v = "diaporama"
@@ -322,13 +341,14 @@
           >
           {#if $globalOptions.v === "l"}
             <div class="flex flex-row justify-end items-center">
-              <button type="button" on:click={quitFullScreen}><i class="bx ml-2 bx-sm bx-exit-fullscreen" /></button>
+              <button type="button" class="hover:text-coopmaths-dark tooltip tooltip-left" data-tip={"Quitter le plein écran"} on:click={quitFullScreen}><i class="bx ml-2 bx-sm bx-exit-fullscreen" /></button>
             </div>
           {/if}
           {#if $globalOptions.v !== "l"}
             <button
               type="button"
-              class="hover:text-coopmaths-dark"
+              class="hover:text-coopmaths-dark tooltip tooltip-left"
+              data-tip={"Plein écran"}
               on:click={() =>
                 globalOptions.update((params) => {
                   params.v = "l"
