@@ -8,7 +8,7 @@
   }
 </script>
 
-<div class="inline-flex flex-wrap items-center justify-center rounded-full bg-gray-300 text-gray-500 text-xs px-1 py-[1px] shadow-sm">
+<div class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-backdark text-coopmaths-title text-xs px-1 py-[1px] shadow-sm">
   {text}
   <button class="ml-2 bg-transparent hover focus:outline-none cursor-pointer" on:click={remove}>
     <i class="bx bx-x font-semibold text-base" />

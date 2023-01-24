@@ -10,7 +10,13 @@ const config = {
           lightest: '#FFE6D6',
           light: '#FF7343',
           dark: '#D84010',
-          darkest: '#BE2600'
+          darkest: '#BE2600',
+          back: '#FFFBE8',
+          backdark: '#E0E6CC',
+          backdarker: '#D7DCC4',
+          title: '#4A4737',
+          darkmode: '#2e2e2b',
+          darkmodelight: '#363633'
         }
       },
       fontFamily: {
@@ -43,7 +49,7 @@ const config = {
           primary: '#F15929',
           secondary: '#FF8C5C',
           accent: '#D84010',
-          neutral: '#191D24',
+          neutral: '#E0E6CC',
           'base-100': '#FFFF',
           info: '#3ABFF8',
           success: '#36D399',
