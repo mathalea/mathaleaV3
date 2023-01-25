@@ -178,13 +178,13 @@
 </script>
 
 <div class="text-2xl lg:text-base ml-2 lg:mx-4 space-y-4 p-3 rounded-md">
-  <h3 class="text-coopmaths-title-title font-bold">Paramètres</h3>
+  <h3 class="text-coopmaths-title font-bold">Paramètres</h3>
   {#if !exercice.nbQuestionsModifiable && !exercice.besoinFormulaireCaseACocher && !exercice.besoinFormulaireNumerique && !exercice.besoinFormulaireTexte}
     <div class="italic">Cet exercice ne peut pas être paramétré.</div>
   {/if}
   {#if exercice.nbQuestionsModifiable}
     <div>
-      <span class="text-coopmaths-title-title font-light">Nombre de questions :</span>
+      <span class="text-coopmaths-title font-light">Nombre de questions :</span>
       <input
         type="number"
         min="1"
@@ -195,7 +195,7 @@
     </div>
   {/if}
   <div>
-    <span class="text-coopmaths-title-title font-light">Durée d'une question pour le diaporama :</span>
+    <span class="text-coopmaths-title font-light">Durée d'une question pour le diaporama :</span>
     <input
       type="number"
       min="1"

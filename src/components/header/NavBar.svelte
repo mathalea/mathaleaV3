@@ -110,7 +110,7 @@
         <li>
           <a
             href={"https://coopmaths.fr/calculmental/"}
-            class="bg-coopmaths-backnav hover:bg-coopmaths-backnavlight text-coopmaths-title text-xl font-extrabold relative block py-6 px-2 lg:p-6 items-center">Calcul mental</a
+            class="bg-coopmaths-backnav hover:bg-coopmaths-backnavlight text-coopmaths-titlelight text-xl font-extrabold relative block py-6 px-2 lg:p-6 items-center">Calcul mental</a
           >
         </li>
         <li>

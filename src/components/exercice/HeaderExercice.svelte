@@ -56,7 +56,7 @@
  -->
 
 <div class="z-0 flex-1 overflow-hidden">
-  <h1 class="border-b border-coopmaths-backdark text-coopmaths-titleexercise pl-4 mt-4 pb-2 flex flex-col lg:flex-row lg:justify-between lg:items-center">
+  <h1 class="border-b border-coopmaths-titleexercise text-coopmaths-titleexercise pl-4 mt-4 pb-2 flex flex-col lg:flex-row lg:justify-between lg:items-center">
     <div class="flex flex-col lg:flex-row lg:justify-start lg:items-center" id="exercice{indiceExercice}">
       <div class="flex font-bold text-3xl md:text-lg">
         Exercice&#8239;{indiceExercice + 1}
