@@ -288,7 +288,7 @@
                         </div>
                       {/if}
                       {#if isCorrectionVisible || correctionsSteps.includes($questionsOrder.indexes[i])}
-                        <div class="bg-coopmaths-lightest {isQuestionsVisible ? 'my-4' : ''} p-2">
+                        <div class="bg-coopmaths-backcorrection {isQuestionsVisible ? 'my-4' : ''} p-2">
                           {@html Mathalea.formatExercice(corrections[currentVueId][$questionsOrder.indexes[i]])}
                         </div>
                       {/if}

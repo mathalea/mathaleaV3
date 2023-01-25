@@ -916,8 +916,8 @@
               <input type="checkbox" id="QRCodeModal-1" class="modal-toggle" />
               <div class="modal">
                 <div class="modal-box relative z-0 bg-coopmaths-back">
-                  <dialog class="rounded-xl z-10 bg-coopmaths text-coopmaths-back" id="QRCodeDialog-1-1">Le QR-Code est copié dans le presse-papier !</dialog>
-                  <dialog class="rounded-xl z-10 bg-coopmaths text-coopmaths-back" id="QRCodeDialog-1-2">
+                  <dialog class="rounded-xl z-10 bg-coopmaths text-coopmaths-titlelight" id="QRCodeDialog-1-1">Le QR-Code est copié dans le presse-papier !</dialog>
+                  <dialog class="rounded-xl z-10 bg-coopmaths text-coopmaths-titlelight" id="QRCodeDialog-1-2">
                     Impossible de copier le QR-Code dans ce navigateur !<br /> Vérifier les permissions.
                   </dialog>
                   <label for="QRCodeModal-1" class="btn absolute right-2 top-2 bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
@@ -1101,7 +1101,7 @@
             <div class="flex flex-row items-center justify-end w-full my-4">
               <button
                 type="button"
-                class="animate-pulse inline-flex items-center justify-center shadow-2xl w-2/12 bg-coopmaths hover:bg-coopmaths-dark font-extrabold text-coopmaths-back text-3xl py-4 rounded-lg"
+                class="animate-pulse inline-flex items-center justify-center shadow-2xl w-2/12 bg-coopmaths hover:bg-coopmaths-dark font-extrabold text-coopmaths-titlelight text-3xl py-4 rounded-lg"
                 on:click={() => {
                   goToQuestion(0)
                   timer(durationGlobal ?? durations[currentQuestion] ?? 10)
@@ -1150,14 +1150,14 @@
                 </div>
               {/if}
               {#if isCorrectionVisible}
-                <div class="py-4 {isCorrectionVisible ? 'bg-coopmaths-lightest my-10' : ''}">
+                <div class="py-4 {isCorrectionVisible ? 'bg-coopmaths-backcorrection my-10' : ''}">
                   {@html corrections[i][$questionsOrder.indexes[currentQuestion]]}
                 </div>
               {/if}
             </div>
           {/each}
         </div>
-        <dialog class=" bg-coopmaths text-coopmaths-back text-[150px] font-extralight min-w-full min-h-full" id="transition">
+        <dialog class=" bg-coopmaths text-coopmaths-titlelight text-[150px] font-extralight min-w-full min-h-full" id="transition">
           <div class="flex flex-row w-full min-h-full justify-center items-center">
             <div class="radial-progress" style="--value:{((currentQuestion + 1) / questions[0].length) * 100}; --size:500px; --thickness: 20px;">{currentQuestion + 1} / {questions[0].length}</div>
           </div>

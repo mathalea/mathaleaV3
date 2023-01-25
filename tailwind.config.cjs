@@ -14,7 +14,9 @@ const config = {
           back: '#FFFBE8',
           backdark: '#E0E6CC',
           backdarker: '#D7DCC4',
+          backcorrection: '#FFE6D6',
           title: '#4A4737',
+          titlelight: '#FFFBE8',
           darkmode: '#2e2e2b',
           darkmodelight: '#363633'
         }

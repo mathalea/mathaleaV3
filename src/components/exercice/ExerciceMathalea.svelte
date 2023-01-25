@@ -299,7 +299,7 @@
             </div>
           {/if}
           {#if isCorrectionVisible}
-            <div class="bg-coopmaths-lightest leading-relaxed mt-2  ml-2 lg:mx-5">
+            <div class="bg-coopmaths-backcorrection leading-relaxed mt-2  ml-2 lg:mx-5">
               {@html exercice.consigneCorrection}
             </div>
           {/if}
@@ -312,7 +312,7 @@
                   </li>
                   {#if isCorrectionVisible}
                     <div
-                      class="bg-coopmaths-lightest my-2 p-2"
+                      class="bg-coopmaths-backcorrection my-2 p-2"
                       style="margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: {exercice.spacingCorr || 1}; break-inside:avoid"
                       id="correction${indiceExercice}Q${i}"
                     >
