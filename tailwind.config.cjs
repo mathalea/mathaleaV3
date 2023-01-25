@@ -15,8 +15,12 @@ const config = {
           backdark: '#E0E6CC',
           backdarker: '#D7DCC4',
           backcorrection: '#FFE6D6',
+          backnav: '#F15929',
+          backnavlight: '#FF7343',
           title: '#4A4737',
+          titlemenu: '#F15929',
           titlelight: '#FFFBE8',
+          titleexercise: '#F15929',
           darkmode: '#2e2e2b',
           darkmodelight: '#363633'
         }

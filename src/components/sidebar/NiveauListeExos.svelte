@@ -55,7 +55,7 @@
   - **nestedLevelCount** : compteur pour connaître le nombre d'imbrication (utilisé pour l'indentation de la ligne) class="pl-{nestedLevelCount * 2}"
  -->
 <div
-  class="flex flex-row items-center justify-between {expanded ? 'bg-coopmaths-backdarker' : 'bg-coopmaths-backdark'} font-bold text-coopmaths hover:bg-coopmaths-backdarker cursor-pointer"
+  class="flex flex-row items-center justify-between {expanded ? 'bg-coopmaths-backdarker' : 'bg-coopmaths-backdark'} font-bold text-coopmaths-titlemenu hover:bg-coopmaths-backdarker cursor-pointer"
   style="padding-left: {(nestedLevelCount * 2) / 4}rem"
   on:click={toggleContent}
   on:keydown={toggleContent}

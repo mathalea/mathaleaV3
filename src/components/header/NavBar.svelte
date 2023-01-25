@@ -90,7 +90,7 @@
   }
 </script>
 
-<nav class="bg-coopmaths z-50">
+<nav class="bg-coopmaths-backnav z-50">
   <!-- container -->
   <div class="flex flex-wrap w-full mx-auto lg:space-x-6 lg:items-center">
     <!-- bouton menu -->
@@ -108,8 +108,9 @@
           <NavBarMenu {...menus.referentiels} bind:isNavBarVisible />
         </li>
         <li>
-          <a href={"https://coopmaths.fr/calculmental/"} class="bg-coopmaths hover:bg-coopmaths-light text-coopmaths-titlelight text-xl font-extrabold relative block py-6 px-2 lg:p-6 items-center"
-            >Calcul mental</a
+          <a
+            href={"https://coopmaths.fr/calculmental/"}
+            class="bg-coopmaths-backnav hover:bg-coopmaths-backnavlight text-coopmaths-title text-xl font-extrabold relative block py-6 px-2 lg:p-6 items-center">Calcul mental</a
           >
         </li>
         <li>
