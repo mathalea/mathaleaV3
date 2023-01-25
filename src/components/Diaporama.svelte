@@ -1139,10 +1139,10 @@
       <main class="flex grow max-h-full dark:bg-coopmaths-back dark:text-slate-800 p-10">
         <div bind:this={divQuestion} class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : ''} place-content-stretch justify-items-center w-full">
           {#each Array(nbOfVues) as _, i}
-            <div class="relative flex flex-col justify-center justify-self-stretch p-8 {nbOfVues > 1 ? 'bg-gray-300' : ''} text-center">
+            <div class="relative flex flex-col justify-center justify-self-stretch p-8 {nbOfVues > 1 ? 'bg-coopmaths-backdark' : ''} text-center">
               <div class="font-light mb-8">{@html consignes[$questionsOrder.indexes[currentQuestion]]}</div>
               {#if nbOfVues > 1}
-                <div class="absolute bg-coopmaths text-white font-black -top-1 -left-1 rounded-tl-2xl w-1/12 h-1/12">{i + 1}</div>
+                <div class="absolute bg-coopmaths text-coopmaths-titlelight font-black -top-1 -left-1 rounded-tl-2xl w-1/12 h-1/12">{i + 1}</div>
               {/if}
               {#if isQuestionVisible}
                 <div class="py-4">
