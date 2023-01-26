@@ -154,6 +154,30 @@
             "Can": true
           },
           "datePublication": "17/11/2022"
+        },
+        "canc3C14": {
+          "uuid": "d61d9",
+          "id": "canc3C14",
+          "titre": "Connaître les tables de multiplication (avec des divisions)",
+          "url": "can/c3/canc3C14.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "24/01/2023"
+        },
+        "canc3C15": {
+          "uuid": "aa8af",
+          "titre": "Connaître les tables de multiplication (phrases)",
+          "url": "can/c3/canc3C15.js",
+          "id": "canc3C15",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "24/01/2023"
         }
       },
       "c3D": {
@@ -300,6 +324,18 @@
             "Can": true
           },
           "datePublication": "17/11/2022"
+        },
+        "canc3N07": {
+          "uuid": "ba5d4",
+          "id": "canc3N07",
+          "titre": "Décomposer un nombre",
+          "url": "can/c3/canc3N07.js",
+          "tags": {
+            "AMC": false,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "25/01/2023"
         }
       },
       "c3a": {
@@ -5821,6 +5857,18 @@
       }
     },
     "6G3": {
+      "6G32": {
+        "datePublication": "25/01/2023",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Utiliser les propriétés de conservation de la symétrie axiale",
+        "id": "6G32",
+        "url": "6e/6G32.js",
+        "uuid": "65bd7"
+      },
       "6G32-1": {
         "datePublication": "26/10/2020",
         "id": "6G32-1",
@@ -7976,6 +8024,7 @@
         "uuid": "ce9ca"
       },
       "5N14-3": {
+        "dateModification": "25/01/2023",
         "id": "5N14-3",
         "tags": {
           "AMC": true,
@@ -9165,13 +9214,13 @@
       },
       "4G20-3": {
         "datePublication": "17/01/2023",
+        "id": "4G20-3",
         "tags": {
           "AMC": false,
           "Interactif": false,
           "Can": false
         },
         "titre": "Calculer un carré",
-        "id": "4G20-3",
         "url": "4e/4G20-3.js",
         "uuid": "e564b"
       },
