@@ -111,7 +111,7 @@
     }
     updateDisplay()
   }
-  
+
   async function setAllInteractif() {
     if (exercice.interactifReady) isInteractif = true
     updateDisplay()
@@ -266,7 +266,7 @@
   {#if isVisible}
     <div class="flex flex-col-reverse lg:flex-row">
       <div class="flex flex-col relative {isSettingsVisible ? 'w-full lg:w-3/4' : 'w-full'} duration-500" id="exercice{indiceExercice}">
-        <div class="text-right text-orange-600 text-xs mt-2">
+        <div class="text-right text-coopmaths text-xs mt-2">
           {#if columnsCount > 1}
             <button
               type="button"
@@ -299,7 +299,7 @@
             </div>
           {/if}
           {#if isCorrectionVisible}
-            <div class="bg-gray-200 leading-relaxed mt-2  ml-2 lg:mx-5">
+            <div class="bg-coopmaths-backcorrection leading-relaxed mt-2  ml-2 lg:mx-5">
               {@html exercice.consigneCorrection}
             </div>
           {/if}
@@ -311,7 +311,11 @@
                     {@html Mathalea.formatExercice(item)}
                   </li>
                   {#if isCorrectionVisible}
-                    <div class="bg-gray-200 my-2 p-2" style="margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: {exercice.spacingCorr || 1}; break-inside:avoid" id="correction${indiceExercice}Q${i}">
+                    <div
+                      class="bg-coopmaths-backcorrection my-2 p-2"
+                      style="margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: {exercice.spacingCorr || 1}; break-inside:avoid"
+                      id="correction${indiceExercice}Q${i}"
+                    >
                       {@html Mathalea.formatExercice(exercice.listeCorrections[i])}
                     </div>
                   {/if}
@@ -322,10 +326,10 @@
         </article>
         {#if isInteractif && !isCorrectionVisible && isContentVisible}
           <button type="submit" on:click={verifExercice} bind:this={buttonScore}>Vérifier les réponses </button>
-          {/if}
-          <div bind:this={divScore} />
+        {/if}
+        <div bind:this={divScore} />
       </div>
-      <div class="bg-gray-100 {isSettingsVisible ? 'visible lg:w-1/4' : 'hidden lg:w-0'} flex flex-col duration-500">
+      <div class="bg-coopmaths-backdark {isSettingsVisible ? 'visible lg:w-1/4' : 'hidden lg:w-0'} flex flex-col duration-500">
         {#if isSettingsVisible}
           <Settings {exercice} on:settings={handleNewSettings} />
         {/if}

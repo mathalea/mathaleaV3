@@ -10,7 +10,7 @@ export const exercicesParams = writable([])
  * globalOptions est utilisé dans Mathalea.updateUrl() et dans Mathalea.loadExercicesFromUrl()
  * Il permet de sauvegarder le type de vue (v=...)
  */
-export const globalOptions = writable({ v: '', z: '1' } as {v?: string, z?: string, durationGlobal?: number, nbVues?: number, shuffle?: boolean, choice?: number})
+export const globalOptions = writable({ v: '', z: '1' } as {v?: string, z?: string, durationGlobal?: number, nbVues?: number, shuffle?: boolean, choice?: number, trans?: boolean, sound?: number})
 
 // utilisé pour les aller-retours entre le composant Diaporam et le composant Can
 export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: [] })
@@ -64,6 +64,16 @@ export function updateGlobalOptionsInURL () {
     url.searchParams.append('shuffle', options.shuffle)
   } else {
     url.searchParams.delete('shuffle')
+  }
+  if (options.trans) {
+    url.searchParams.append('trans', options.trans)
+  } else {
+    url.searchParams.delete('trans')
+  }
+  if (typeof options.sound !== 'undefined') {
+    url.searchParams.append('sound', options.sound)
+  } else {
+    url.searchParams.delete('sound')
   }
   window.history.pushState({}, '', url)
 }

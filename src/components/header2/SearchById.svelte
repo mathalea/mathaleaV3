@@ -106,7 +106,16 @@
 <div class="inline-flex space-x-2">
   <form autocomplete="off" on:submit|preventDefault={submitValue}>
     <div class="autocomplete">
-      <input id="idInput" type="text" list="autocomplete-items-list" placeholder="Identifiant d'exercice" bind:this={searchInput} bind:value={inputValue} on:input={filterEx} />
+      <input
+        id="idInput"
+        type="text"
+        list="autocomplete-items-list"
+        class="w-full border-2 border-transparent focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-back text-sm"
+        placeholder="Identifiant d'exercice"
+        bind:this={searchInput}
+        bind:value={inputValue}
+        on:input={filterEx}
+      />
       <datalist id="autocomplete-items-list" class="fixed">
         {#each filteredExercices as ex, i}
           <option value={ex} />
@@ -128,7 +137,7 @@
     display: inline-block;
     width: 200px;
   }
-  input {
+  /* input {
     border: 1px solid transparent;
     background-color: #f1f1f1;
     padding: 4px;
@@ -138,7 +147,7 @@
   input[type="text"] {
     background-color: #f1f1f1;
     width: 100%;
-  }
+  } */
   /* input[type=submit] {
   background-color: DodgerBlue;
   color: #fff;

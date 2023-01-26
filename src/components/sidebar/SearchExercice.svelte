@@ -32,30 +32,26 @@
   }
   let inputSearch = ""
 
-    /**
-     * Détermine si un exercice est dans les résultats de la recherche ou pas
-     */
-    function filtre(exercice, inputSearch, isCanPossible) {
-        // Les exercices statiques ont une année on les exclue de la recherche 
-        if (!inputSearch || exercice.annee) return false;
-        // Cela permet de trouver les problèmes de construction du dictionnaire
-        if (!exercice.id) console.log('Manque id', exercice)
-        const inputs = inputSearch.split(" ");
-        let results = [];
-        for (const input of inputs) {
-            // Pour les exercices statiques exercice.titre n'existe pas
-            results.push(
-                exercice.titre && 
-                (exercice.titre.toLowerCase().includes(input.toLowerCase()) ||
-                    exercice.id.toLowerCase().includes(input.toLowerCase()))
-            );
-        }
-        if (!isCanPossible) {
-            // Pour les exercices statiques exercice.id n'existe pas
-            results.push(exercice.id && !exercice.id.includes("can"))
-        } 
-        return results.every((value) => value === true)
+  /**
+   * Détermine si un exercice est dans les résultats de la recherche ou pas
+   */
+  function filtre(exercice, inputSearch, isCanPossible) {
+    // Les exercices statiques ont une année on les exclue de la recherche
+    if (!inputSearch || exercice.annee) return false
+    // Cela permet de trouver les problèmes de construction du dictionnaire
+    if (!exercice.id) console.log("Manque id", exercice)
+    const inputs = inputSearch.split(" ")
+    let results = []
+    for (const input of inputs) {
+      // Pour les exercices statiques exercice.titre n'existe pas
+      results.push(exercice.titre && (exercice.titre.toLowerCase().includes(input.toLowerCase()) || exercice.id.toLowerCase().includes(input.toLowerCase())))
     }
+    if (!isCanPossible) {
+      // Pour les exercices statiques exercice.id n'existe pas
+      results.push(exercice.id && !exercice.id.includes("can"))
+    }
+    return results.every((value) => value === true)
+  }
 
   /**
    * Ajouter l'exercice courant à la liste
@@ -70,20 +66,27 @@
   }
 </script>
 
-<div class="mb-2 items-center font-bold text-large">Recherche</div>
-<div class="ml-2 mb-4">
-  <input type="text" class="border-2 border-transparent focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 bg-gray-100" bind:value={inputSearch} />
+<div class="mb-2 items-center font-bold text-large text-coopmaths-title">Recherche</div>
+<div class="mb-4 w-full">
+  <span class="block">
+    <input type="text" class="block border-2 border-transparent focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-back text-coopmaths-title" bind:value={inputSearch} />
+  </span>
 </div>
 {#if inputSearch.length > 0}
-  <div class="mb-4">
-    Inclure les courses aux nombres : <input type="checkbox" bind:checked={isCanInclusDansResultats} />
+  <div class="mb-4 text-coopmaths-title text-sm font-light">
+    Inclure les courses aux nombres :
+    <input
+      type="checkbox"
+      class="ml-2 bg-coopmaths-back border-2 border-transparent focus:border-2 text-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
+      bind:checked={isCanInclusDansResultats}
+    />
   </div>
 {/if}
 
 {#each filteredList as exercice}
-  <div class="relative flex flex-row items-center text-sm text-gray-600 bg-gray-100 ml-1">
-    <div class="flex-1 hover:bg-coopmaths-lightest cursor-pointer" on:click={() => addToList(exercice)} on:keydown={() => addToList(exercice)}>
-      <div class="ml-[3px] pl-2 bg-gray-100 hover:bg-gray-100 flex-1">
+  <div class="relative flex flex-row items-center text-sm text-coopmaths-title bg-coopmaths-back ml-1">
+    <div class="flex-1 hover:bg-coopmaths-light cursor-pointer" on:click={() => addToList(exercice)} on:keydown={() => addToList(exercice)}>
+      <div class="ml-[3px] pl-2 bg-coopmaths-back hover:bg-coopmaths-back flex-1">
         <span class="font-bold">{exercice.id} - </span>{exercice.titre}
       </div>
     </div>

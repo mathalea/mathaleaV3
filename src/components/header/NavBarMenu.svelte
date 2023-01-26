@@ -1,6 +1,5 @@
 <script lang="ts">
-import { typeOf } from "mathjs";
-
+  import { typeOf } from "mathjs"
 
   export let entrees: string[]
   export let actions = []
@@ -30,7 +29,7 @@ import { typeOf } from "mathjs";
   function closeMenu(i) {
     isMenuOpen = false
     isNavBarVisible = false
-    if(typeOf (actions[i]) === 'string') {
+    if (typeOf(actions[i]) === "string") {
       window.location.href = actions[i]
     } else {
       actions[i]()
@@ -42,13 +41,20 @@ import { typeOf } from "mathjs";
 </script>
 
 <div class="group inline-block relative" use:clickOutside on:click_outside={handleClickOutside}>
-  <button class="bg-coopmaths hover:bg-coopmaths-light  text-white text-xl font-extrabold relative flex lg:block py-6 px-2 lg:px-8 items-center" {id} on:click={() => (isMenuOpen = !isMenuOpen)} on:keydown={() => (isMenuOpen = !isMenuOpen)}>
+  <button
+    class="bg-coopmaths-backnav hover:bg-coopmaths-backnavlight  text-coopmaths-titlelight text-xl font-extrabold relative flex lg:block py-6 px-2 lg:px-8 items-center"
+    {id}
+    on:click={() => (isMenuOpen = !isMenuOpen)}
+    on:keydown={() => (isMenuOpen = !isMenuOpen)}
+  >
     <span>{titre}<i class="ml-2 bx {isMenuOpen ? 'bx-caret-down lg:hidden' : 'bx-caret-right lg:hidden'}" /></span>
   </button>
-  <ul class="lg:absolute right-0 {isMenuOpen ? 'block' : 'hidden'} text-white w-56 filter drop-shadow-xl z-50">
+  <ul class="lg:absolute right-0 {isMenuOpen ? 'block' : 'hidden'} text-coopmaths-titlelight w-56 filter drop-shadow-xl z-50">
     {#each entrees as entree, i}
       <li>
-        <a class="bg-coopmaths hover:bg-coopmaths-light py-2 px-4 block whitespace-no-wrap" id={[id, "-entree-", i + 1].join("")} on:click={() => closeMenu(i)} on:keydown={() => closeMenu(i)}>{entree}</a>
+        <a class="bg-coopmaths hover:bg-coopmaths-light py-2 px-4 block whitespace-no-wrap" id={[id, "-entree-", i + 1].join("")} on:click={() => closeMenu(i)} on:keydown={() => closeMenu(i)}
+          >{entree}</a
+        >
       </li>
     {/each}
   </ul>

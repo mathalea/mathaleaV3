@@ -7,10 +7,22 @@ const config = {
       colors: {
         coopmaths: {
           DEFAULT: '#F15929',
-          lightest: '#FF8C5C',
-          light: '#FF7343',
-          dark: '#D84010',
-          darkest: '#BE2600'
+          lightest: '#f87f5c',
+          light: '#f56d45',
+          dark: '#F45E27',
+          darkest: '#E64A10',
+          back: '#f5f1f3',
+          backdark: '#dadbdf',
+          backdarker: '#cecfd4',
+          backcorrection: '#E0A588',
+          backnav: '#F15929',
+          backnavlight: '#f56d45',
+          title: '#342A34',
+          titlemenu: '#F15929',
+          titlelight: '#f5f1f3',
+          titleexercise: '#F15929',
+          darkmode: '#2e2e2b',
+          darkmodelight: '#363633'
         }
       },
       fontFamily: {
@@ -43,7 +55,7 @@ const config = {
           primary: '#F15929',
           secondary: '#FF8C5C',
           accent: '#D84010',
-          neutral: '#191D24',
+          neutral: '#dadbdf',
           'base-100': '#FFFF',
           info: '#3ABFF8',
           success: '#36D399',

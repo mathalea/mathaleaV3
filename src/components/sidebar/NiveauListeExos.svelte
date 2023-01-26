@@ -38,7 +38,7 @@
 
   $: {
     if (listeExercices) Mathalea.renderDiv(listeExercices)
-  } 
+  }
 </script>
 
 <!-- 
@@ -55,9 +55,10 @@
   - **nestedLevelCount** : compteur pour connaître le nombre d'imbrication (utilisé pour l'indentation de la ligne) class="pl-{nestedLevelCount * 2}"
  -->
 <div
-  class="flex flex-row items-center justify-between {expanded ? 'bg-gray-300' : 'bg-gray-200'} font-bold text-coopmaths  hover:bg-gray-100 hover:text-coopmaths-light cursor-pointer"
+  class="flex flex-row items-center justify-between {expanded ? 'bg-coopmaths-backdarker' : 'bg-coopmaths-backdark'} font-bold text-coopmaths-titlemenu hover:bg-coopmaths-backdarker cursor-pointer"
   style="padding-left: {(nestedLevelCount * 2) / 4}rem"
-  on:click={toggleContent} on:keydown={toggleContent}
+  on:click={toggleContent}
+  on:keydown={toggleContent}
 >
   <div class="text-base">{levelTitle} <span class="font-normal">{themeTitle(levelTitle)}</span></div>
   <i class=" text-xl bg-transparent bx {expanded ? 'bx-plus rotate-[225deg]' : 'bx-plus'} transition-transform duration-500 ease-in-out" />

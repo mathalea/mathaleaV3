@@ -77,23 +77,23 @@
   - **nestedLevelCount** : compteur pour connaître le nombre d'imbrication (utilisé pour l'indentation de la ligne)
   
  -->
-<div class="relative flex flex-row items-center text-sm text-gray-600 bg-gray-400 ml-{nestedLevelCount * 2}">
-  <div class="flex-1 hover:bg-coopmaths-lightest cursor-pointer" on:click={addToList} on:keydown={addToList}>
-    <div class="ml-[3px] pl-2 bg-gray-200 hover:bg-gray-100 flex-1">
+<div class="relative flex flex-row items-center text-sm text-coopmaths-title bg-coopmaths-back ml-{nestedLevelCount * 2}">
+  <div class="flex-1 hover:bg-coopmaths-light bg-coopmaths-backdarker cursor-pointer" on:click={addToList} on:keydown={addToList}>
+    <div class="ml-[3px] pl-2 bg-coopmaths-backdark hover:bg-coopmaths-back flex-1">
       {#if exercice.has("lieu")}
         <span class="font-bold">{exercice.get("typeExercice").toUpperCase()} {exercice.get("mois") || ""} {exercice.get("annee")} - {exercice.get("lieu")} - {exercice.get("numeroInitial")}</span>
         <div>
           {#each tags as tag}
-            <span class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-light text-white text-xs px-1 py-[1px] shadow-sm mr-1">{tag}</span>
+            <span class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-light text-coopmaths-back text-xs px-1 py-[1px] shadow-sm mr-1">{tag}</span>
           {/each}
         </div>
       {:else}
         <span class="font-bold">{exercice.get("id")} - </span>{exercice.get("titre")}
         {#if isRecent(exercice.get("datePublication"))}
-          <span class="badge badge-primary badge-xs text-[10px] font-bold">NEW</span>
+          <span class="badge badge-primary badge-xs text-[8px] font-bold ">NEW</span>
         {/if}
         {#if isRecent(exercice.get("dateModification"))}
-          <span class="badge badge-primary badge-xs text-[10px] font-bold">MAJ</span>
+          <span class="badge badge-primary badge-xs text-[8px] font-bold">MAJ</span>
         {/if}
       {/if}
     </div>
@@ -107,10 +107,10 @@
       on:mouseout={handleMouseOut}
       on:blur={handleMouseOut}
       on:click={removeFromList}
-      on:keydown={removeFromList}><i class="text-coopmaths-lightest text-base bx {icon} {rotation}" /></button
+      on:keydown={removeFromList}><i class="text-coopmaths-light text-base bx {icon} {rotation}" /></button
     >
   {/if}
   {#if selectedCount >= 2 && mouseIsOut}
-    <div class="absolute -left-[12.5px] text-[0.6rem] font-bold text-white">{selectedCount}</div>
+    <div class="absolute -left-[12.5px] text-[0.6rem] font-bold text-coopmaths-back">{selectedCount}</div>
   {/if}
 </div>

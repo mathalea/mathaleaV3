@@ -90,16 +90,16 @@
   }
 </script>
 
-<nav class="bg-coopmaths z-50">
+<nav class="bg-coopmaths-backnav z-50">
   <!-- container -->
   <div class="flex flex-wrap w-full mx-auto lg:space-x-6 lg:items-center">
     <!-- bouton menu -->
     <div class="flex flex-row justify-start space-x-2">
-      <button class=" lg:hidden inline-flex ml-auto items-center justify-center text-white font-bold text-xl" on:click={() => (isNavBarVisible = !isNavBarVisible)}>
+      <button class=" lg:hidden inline-flex ml-auto items-center justify-center text-coopmaths-titlelight font-bold text-xl" on:click={() => (isNavBarVisible = !isNavBarVisible)}>
         <i class="bx bx-menu" />
       </button>
       <!-- logo -->
-      <a href={"#"} class="inline-flex p-2 text-2xl font-logo6 text-white uppercase tracking-wider">Coopmaths</a>
+      <a href={"#"} class="inline-flex p-2 text-2xl font-logo6 text-coopmaths-titlelight uppercase tracking-wider">Coopmaths</a>
     </div>
     <!-- menu -->
     <div class="flex flex-col mt-2 lg:inline-flex lg:grow lg:flex-row lg:mt-0 {isNavBarVisible ? 'flex' : 'hidden'}">
@@ -108,7 +108,10 @@
           <NavBarMenu {...menus.referentiels} bind:isNavBarVisible />
         </li>
         <li>
-          <a href={"https://coopmaths.fr/calculmental/"} class="bg-coopmaths hover:bg-coopmaths-light text-white text-xl font-extrabold relative block py-6 px-2 lg:p-6 items-center">Calcul mental</a>
+          <a
+            href={"https://coopmaths.fr/calculmental/"}
+            class="bg-coopmaths-backnav hover:bg-coopmaths-backnavlight text-coopmaths-titlelight text-xl font-extrabold relative block py-6 px-2 lg:p-6 items-center">Calcul mental</a
+          >
         </li>
         <li>
           <NavBarMenu {...menus.professeurs} bind:isNavBarVisible />

@@ -257,7 +257,7 @@
     setAllInteractifClicked = true
     document.dispatchEvent(setAllInteractif)
   }
-  
+
   function removeAllInteractif() {
     const removeAllInteractif = new window.Event("removeAllInteractif", {
       bubbles: true,
@@ -292,16 +292,20 @@
     <Header2 sideMenuVisible={isSideMenuVisible} on:sideMenuChange={handleSideMenu} />
   {/if}
   <!-- Gestion du mode sombre -->
-  <main class="flex h-full dark:bg-white dark:text-slate-800" on:mousemove={resizing}>
+  <main class="flex h-full bg-coopmaths-back dark:bg-coopmaths-darkmode" on:mousemove={resizing}>
     <!-- side menu -->
     {#if isSideMenuVisible || nbExercisesInList === 0}
-      <aside style="width:{sidebarWidth}px" class="flex flex-col bg-gray-200 p-4 overflow-hidden h-full">
-        <div class="flex-none block overflow-y-scroll overscroll-auto h-full">
-          <h2 class="inline-flex items-center font-bold text-xl mb-6">
+      <aside style="width:{sidebarWidth}px" class="flex flex-col bg-coopmaths-backdark p-4 overflow-hidden h-full">
+        <div class="flex flex-col overflow-y-scroll overscroll-auto">
+          <h2 class="inline-flex items-center font-bold text-xl mb-6 text-coopmaths-title">
             <span>Choix des exercices</span>
           </h2>
-          <div class="flex flex-auto mb-2 mx-2">
-            <select class="bg-gray-100 border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 w-full" bind:value={filtre} on:change={updateReferentiel}>
+          <div class="flex flex-auto mb-2">
+            <select
+              class="bg-coopmaths-back text-coopmaths-title text-sm border-2 border-transparent focus:border-2 focus:border-coopmaths focus:outline-0 focus:ring-0 w-full"
+              bind:value={filtre}
+              on:change={updateReferentiel}
+            >
               <option value="all">Tous les exercices</option>
               <option value="college">Collège</option>
               <option value="lycee">Lycée</option>
@@ -319,16 +323,23 @@
         </div>
       </aside>
       <!-- drag bar -->
-      <div id="dragbar" class="flex w-[4px] bg-coopmaths-light hover:bg-coopmaths-lightest hover:cursor-col-resize" on:mousedown={startResizing.bind(this, "moving")} />
+      <div id="dragbar" class="flex w-[4px] bg-coopmaths-backdark hover:bg-coopmaths-light hover:cursor-col-resize" on:mousedown={startResizing.bind(this, "moving")} />
     {/if}
     <!-- content -->
     {#if $exercicesParams.length !== 0}
       <div class="flex-1 flex flex-col p-6 overflow-hidden h-full" bind:this={divExercices}>
-        <div class="flex flex-row justify-end items-center space-x-2 text-slate-500">
-          <button type="button" class="hover:text-coopmaths-dark tooltip tooltip-left" data-tip={"Réduire la taille"} on:click={zoomMinus}><i class="bx bx-sm bx-minus" /></button>
-          <button type="button" class="hover:text-coopmaths-dark tooltip tooltip-left" data-tip={"Agrandir la taille"} on:click={zoomPlus}><i class="bx bx-sm bx-plus" /></button>
-          <button type="button" class="hover:text-coopmaths-dark tooltip tooltip-left" data-tip={setAllInteractifClicked ? "Arrêter l'interactivité" : "Rendre tous les exercices interactifs"} on:click={setAllInteractifClicked ? removeAllInteractif : setAllInteractif}><i class="bx bx-sm {setAllInteractifClicked ? 'bxs-edit': 'bx-edit'}" /></button>
-          <button type="button" class="hover:text-coopmaths-dark tooltip tooltip-left" data-tip={"Nouveaux énoncés pour tous les exercices"} on:click={newDataForAll}><i class="bx bx-sm bx-refresh" /></button>
+        <div class="flex flex-row justify-end items-center space-x-2 text-coopmaths-title text-opacity-50">
+          <button type="button" class="hover:text-coopmaths tooltip tooltip-left" data-tip={"Réduire la taille"} on:click={zoomMinus}><i class="bx bx-sm bx-minus" /></button>
+          <button type="button" class="hover:text-coopmaths tooltip tooltip-left" data-tip={"Agrandir la taille"} on:click={zoomPlus}><i class="bx bx-sm bx-plus" /></button>
+          <button
+            type="button"
+            class="hover:text-coopmaths tooltip tooltip-left"
+            data-tip={setAllInteractifClicked ? "Arrêter l'interactivité" : "Rendre tous les exercices interactifs"}
+            on:click={setAllInteractifClicked ? removeAllInteractif : setAllInteractif}><i class="bx bx-sm {setAllInteractifClicked ? 'bxs-edit' : 'bx-edit'}" /></button
+          >
+          <button type="button" class="hover:text-coopmaths tooltip tooltip-left" data-tip={"Nouveaux énoncés pour tous les exercices"} on:click={newDataForAll}
+            ><i class="bx bx-sm bx-refresh" /></button
+          >
           <button
             type="button"
             class="hover:text-coopmaths-dark tooltip tooltip-left"
@@ -341,7 +352,9 @@
           >
           {#if $globalOptions.v === "l"}
             <div class="flex flex-row justify-end items-center">
-              <button type="button" class="hover:text-coopmaths-dark tooltip tooltip-left" data-tip={"Quitter le plein écran"} on:click={quitFullScreen}><i class="bx ml-2 bx-sm bx-exit-fullscreen" /></button>
+              <button type="button" class="hover:text-coopmaths-dark tooltip tooltip-left" data-tip={"Quitter le plein écran"} on:click={quitFullScreen}
+                ><i class="bx ml-2 bx-sm bx-exit-fullscreen" /></button
+              >
             </div>
           {/if}
           {#if $globalOptions.v !== "l"}
@@ -367,7 +380,7 @@
         </div>
       </div>
     {:else}
-      <div class="flex flex-col justify-start text-slate-400 px-10 py-40">
+      <div class="flex flex-col justify-start text-coopmaths-title px-10 py-40">
         <div class="animate-pulse flex flex-row justify-start space-x-6 items-center">
           <div class="mt-[10px]"><i class="bx bx-chevron-left text-[50px]" /></div>
           <div class="font-extralight text-[50px]">Sélectionner les exercices</div>
