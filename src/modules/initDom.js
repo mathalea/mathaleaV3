@@ -240,6 +240,7 @@ export async function initDom () {
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container' })
     if (vue === 'diapCorr') await addFetchHtmlToParent('templates/boutonsZoom.html', section)
+    if (vue === 'exMoodle') await addFetchHtmlToParent('templates/boutonsZoomMoodle.html', section)
     addElement(section, 'div', { id: 'containerErreur' })
     if (vue === 'exMoodle' && new URLSearchParams(window.location.search).get('moodleJson') === null) {
       const divMessage = addElement(section, 'div')
@@ -381,7 +382,6 @@ export async function initDom () {
           element.hasListenner = true
         }
       }
-      window.parent.postMessage({ url: window.location.href, graine: context.graine, exercicesAffiches: true }, '*')
     })
   } else if (vue === 'light' || vue === 'l') {
     setOutputHtml()
@@ -422,7 +422,6 @@ export async function initDom () {
       for (const ol of ols) {
         setStyles(ol, 'padding:0;')
       }
-      window.parent.postMessage({ url: window.location.href, graine: context.graine, exercicesAffiches: true }, '*')
     })
     // On récupère tous les paramètres de chaque exos dans un tableau d'objets
     const paramsAllExos = Object.entries(getUrlVars())
@@ -525,7 +524,6 @@ export async function initDom () {
         gestionTimer(divTimer)
       }
       document.querySelector('button[data-num="1"]').classList.add('blue')
-      window.parent.postMessage({ url: window.location.href, graine: context.graine, exercicesAffiches: true }, '*')
       document.getElementById('corrections').style.display = 'none'
     })
     document.getElementById('btnCorrection').addEventListener('click', () => {

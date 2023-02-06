@@ -169,9 +169,9 @@
         },
         "canc3C15": {
           "uuid": "aa8af",
+          "id": "canc3C15",
           "titre": "Connaître les tables de multiplication (phrases)",
           "url": "can/c3/canc3C15.js",
-          "id": "canc3C15",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -5859,13 +5859,13 @@
     "6G3": {
       "6G32": {
         "datePublication": "25/01/2023",
+        "id": "6G32",
         "tags": {
           "AMC": false,
           "Interactif": false,
           "Can": false
         },
         "titre": "Utiliser les propriétés de conservation de la symétrie axiale",
-        "id": "6G32",
         "url": "6e/6G32.js",
         "uuid": "65bd7"
       },
@@ -10145,13 +10145,15 @@
         "uuid": "19ce6"
       },
       "3G11": {
+        "dateModification": "31/01/2023",
+        "datePublication": "30/11/2020",
         "id": "3G11",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": false,
           "Can": false
         },
-        "titre": "Construire l'image d'un point par une homothetie avec cible auto-corrective",
+        "titre": "Construire l'image d'un point par une homothétie avec cible auto-corrective",
         "url": "3e/3G11.js",
         "uuid": "18e25"
       },
@@ -10168,11 +10170,12 @@
         "uuid": "1ebf7"
       },
       "3G12": {
-        "dateModification": "15/01/2023",
+        "dateModification": "29/01/2023",
+        "datePublication": "16/12/2020",
         "id": "3G12",
         "tags": {
-          "AMC": false,
-          "Interactif": false,
+          "AMC": true,
+          "Interactif": true,
           "Can": false
         },
         "titre": "Trouver l'image d'une figure par une rotation dans un pavage",
@@ -10192,6 +10195,7 @@
         "uuid": "034f1"
       },
       "3G13": {
+        "dateModification": "29/01/2023",
         "datePublication": "28/11/2021",
         "id": "3G13",
         "tags": {
@@ -11268,6 +11272,7 @@
     },
     "2G2": {
       "2G21-1": {
+        "dateModification": "29/01/2023",
         "id": "2G21-1",
         "tags": {
           "AMC": false,
