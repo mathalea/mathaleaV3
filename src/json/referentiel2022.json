@@ -5998,8 +5998,20 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Programmer des déplacements (Scratch)",
+        "titre": "Programmer des déplacements absolus (Scratch)",
         "url": "6e/6I10.js",
+        "uuid": "c8fe9"
+      },
+      "6I10-1": {
+        "datePublication": "05/02/2023",
+        "id": "6I10",
+        "tags": {
+          "AMC": true,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Programmer des déplacements relatifs (Scratch)",
+        "url": "6e/6I10-1.js",
         "uuid": "c8fe9"
       },
       "6I11": {
@@ -9065,7 +9077,7 @@
           "Interactif": false,
           "Can": false
         },
-        "titre": "Problème s'appuyant sur la lecture d'une représentation graphique",
+        "titre": "Résoudre un problème s'appuyant sur la lecture d'une représentation graphique",
         "url": "4e/4F12.js",
         "uuid": "b428e"
       }
