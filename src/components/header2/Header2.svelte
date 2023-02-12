@@ -22,15 +22,9 @@
   }
 </script>
 
-<h1 class="py-2 px-4 text-coopmaths-titlelight text-2xl font-bold  bg-coopmaths-backnavlight flex items-center">
-  <button type="button" on:click={toggleSideList}><i class="bx bx-menu-alt-left" /></button>
-  <div class="inline-flex justify-between items-center text-coopmaths-title font-normal text-xs ml-8 w-15 max-h-15 w-full">
+<h1 class="py-2 px-4  text-2xl font-bold  bg-coopmaths-canvas flex items-center">
+  <button type="button" class="text-coopmaths-action hover:text-coopmaths-action-lightest" on:click={toggleSideList}><i class="bx bx-menu-alt-left" /></button>
+  <div class="inline-flex justify-between items-center text-coopmaths-corpus-light font-normal text-xs ml-8 w-15 max-h-15 w-full">
     <SearchById />
-    <button
-      type="button"
-      on:click={() => {
-        $exercicesParams.length = 0
-      }}><i class="bx text-coopmaths-titlelight bx-sm bx-trash" /></button
-    >
   </div>
 </h1>

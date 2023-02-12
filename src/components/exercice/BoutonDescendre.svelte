@@ -9,4 +9,6 @@
   }
 </script>
 
-<button on:click={descendre} class="{indice < indiceLastExercice - 1 ? '' : 'invisible'}"><i class="bx bx-down-arrow-circle ml-[0.5]" /></button>
+<button on:click={descendre} class={indice < indiceLastExercice - 1 ? "" : "invisible"}>
+  <i class="text-coopmaths-action hover:text-coopmaths-action-lightest bx bx-down-arrow-circle ml-[0.5]" />
+</button>

@@ -66,18 +66,22 @@
   }
 </script>
 
-<div class="mb-2 items-center font-bold text-large text-coopmaths-title">Recherche</div>
+<div class="mb-2 items-center font-bold text-large text-coopmaths-struct">Recherche</div>
 <div class="mb-4 w-full">
   <span class="block">
-    <input type="text" class="block border-2 border-transparent focus:border-coopmaths focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-back text-coopmaths-title" bind:value={inputSearch} />
+    <input
+      type="text"
+      class="block border-2 border-transparent focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas text-coopmaths-corpus-light"
+      bind:value={inputSearch}
+    />
   </span>
 </div>
 {#if inputSearch.length > 0}
-  <div class="mb-4 text-coopmaths-title text-sm font-light">
+  <div class="mb-4 text-coopmaths-struct-light text-sm font-light">
     Inclure les courses aux nombres :
     <input
       type="checkbox"
-      class="ml-2 bg-coopmaths-back border-2 border-transparent focus:border-2 text-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
+      class="ml-2 bg-coopmaths-canvas border-2 border-transparent focus:border-2 text-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
       bind:checked={isCanInclusDansResultats}
     />
   </div>

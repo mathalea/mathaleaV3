@@ -110,7 +110,7 @@
         id="idInput"
         type="text"
         list="autocomplete-items-list"
-        class="w-full border-2 border-transparent focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-back text-sm"
+        class="w-full border-2 border-transparent focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas-dark text-sm"
         placeholder="Identifiant d'exercice"
         bind:this={searchInput}
         bind:value={inputValue}

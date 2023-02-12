@@ -177,42 +177,42 @@
   }
 </script>
 
-<div class="text-2xl lg:text-base ml-2 lg:mx-4 space-y-4 p-3 rounded-md">
-  <h3 class="text-coopmaths-title font-bold">Paramètres</h3>
+<div class="text-2xl lg:text-base ml-2 lg:ml-4 space-y-4 p-3 bg-coopmaths-canvas-dark">
+  <h3 class="text-coopmaths-struct font-bold">Paramètres</h3>
   {#if !exercice.nbQuestionsModifiable && !exercice.besoinFormulaireCaseACocher && !exercice.besoinFormulaireNumerique && !exercice.besoinFormulaireTexte}
     <div class="italic">Cet exercice ne peut pas être paramétré.</div>
   {/if}
   {#if exercice.nbQuestionsModifiable}
     <div>
-      <span class="text-coopmaths-title font-light">Nombre de questions :</span>
+      <span class="text-coopmaths-struct font-light">Nombre de questions :</span>
       <input
         type="number"
         min="1"
         bind:value={nbQuestions}
         on:change={newSettings}
-        class="w-full border-2 border-transparent focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-back"
+        class="w-full border-2 border-transparent focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas"
       />
     </div>
   {/if}
   <div>
-    <span class="text-coopmaths-title font-light">Durée d'une question pour le diaporama :</span>
+    <span class="text-coopmaths-struct font-light">Durée d'une question pour le diaporama :</span>
     <input
       type="number"
       min="1"
       bind:value={duration}
       on:change={newSettings}
-      class="w-full border-2 border-transparent focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-back"
+      class="w-full border-2 border-transparent focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas"
     />
   </div>
   {#if exercice.besoinFormulaireCaseACocher}
     <div class="form-check">
-      <label class="form-check-label text-coopmaths-title font-light" for="check1">
+      <label class="form-check-label text-coopmaths-struct font-light" for="check1">
         {exercice.besoinFormulaireCaseACocher[0]} :
       </label>
       <input
         name="check1"
         type="checkbox"
-        class="form-check-input text-coopmaths-title focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2"
+        class="form-check-input text-coopmaths-struct focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2"
         bind:checked={sup}
         on:change={newSettings}
       />
@@ -222,9 +222,9 @@
     {#if Array.isArray(formNum1.champs)}
       <div class="flex flex-col">
         <form action="">
-          <label class="text-coopmaths-title font-light" for="formNum1">{formNum1.titre}</label>
+          <label class="text-coopmaths-struct font-light" for="formNum1">{formNum1.titre}</label>
           <select
-            class="flex flex-auto w-full border-2 border-transparent focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-back"
+            class="flex flex-auto w-full border-2 border-transparent focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas"
             name="formNum1"
             id="formNum1-select"
             bind:value={sup}
@@ -239,7 +239,7 @@
     {:else}
       <div>
         <!-- Il faudra gérer l'absence de tooltip -->
-        <label class="text-coopmaths-title font-light" for="formNum1">{exercice.besoinFormulaireNumerique[0]} :</label>
+        <label class="text-coopmaths-struct font-light" for="formNum1">{exercice.besoinFormulaireNumerique[0]} :</label>
         <input
           name="formNum1"
           type="number"
@@ -257,10 +257,10 @@
   {#if exercice.besoinFormulaireTexte}
     <div class="tooltip tooltip-left" data-tip={exercice.besoinFormulaireTexte[1]}>
       <form id="formText1" name="formText1" on:submit|preventDefault={newSettings}>
-        <label class="text-coopmaths-title font-light" for="formText1">{exercice.besoinFormulaireTexte[0]} :</label>
-        <input class="w-full border-2 border-transparent focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-back" name="formText1" type="text" bind:value={sup} />
+        <label class="text-coopmaths-struct font-light" for="formText1">{exercice.besoinFormulaireTexte[0]} :</label>
+        <input class="w-full border-2 border-transparent focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas" name="formText1" type="text" bind:value={sup} />
         <!-- <fieldset>
-          <legend class="text-coopmaths-title opacity-35">{formText1.titre}</legend>
+          <legend class="text-coopmaths-struct opacity-35">{formText1.titre}</legend>
           <div class="flex flex-col  ml-3 mt-1">
             {#each formText1.champsDecortiques as entree, i}
               <div class="flew-row space-x-2">
@@ -283,11 +283,11 @@
   <!-- sup2 -->
   {#if exercice.besoinFormulaire2CaseACocher}
     <div class="form-check">
-      <label class="form-check-label text-coopmaths-title font-light" for="check2">{exercice.besoinFormulaire2CaseACocher[0]} : </label>
+      <label class="form-check-label text-coopmaths-struct font-light" for="check2">{exercice.besoinFormulaire2CaseACocher[0]} : </label>
       <input
         name="check2"
         type="checkbox"
-        class="form-check-input text-coopmaths-title focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2 checkbox-primary"
+        class="form-check-input text-coopmaths-struct focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 checkbox-primary"
         bind:checked={sup2}
         on:change={newSettings}
       />
@@ -297,9 +297,9 @@
     {#if Array.isArray(formNum2.champs)}
       <div class="flex flex-col">
         <form action="">
-          <label class="text-coopmaths-title font-light" for="formNum2">{formNum2.titre}</label>
+          <label class="text-coopmaths-struct font-light" for="formNum2">{formNum2.titre}</label>
           <select
-            class="flex flex-auto  w-full border-2 border-transparent focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-back"
+            class="flex flex-auto  w-full border-2 border-transparent focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas"
             name="formNum2"
             id="formNum2-select"
             bind:value={sup2}
@@ -314,11 +314,11 @@
     {:else}
       <div>
         <!-- Il faudra gérer l'absence de tooltip -->
-        <label class="text-coopmaths-title font-light" for="formNum2">{exercice.besoinFormulaire2Numerique[0]} :</label>
+        <label class="text-coopmaths-struct font-light" for="formNum2">{exercice.besoinFormulaire2Numerique[0]} :</label>
         <input
           name="formNum2"
           type="number"
-          class="w-full border-2 border-transparent focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-back"
+          class="w-full border-2 border-transparent focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas"
           min="1"
           max={exercice.besoinFormulaire2Numerique[1]}
           data-bs-toggle="tooltip"
@@ -332,10 +332,15 @@
   {#if exercice.besoinFormulaire2Texte}
     <div class=" tooltip tooltip-left" data-tip={exercice.besoinFormulaire2Texte[1]}>
       <form id="formText2" name="formText2" on:submit|preventDefault={newSettings}>
-        <label class="text-coopmaths-title font-light" for="formText2">{exercice.besoinFormulaire2Texte[0]} :</label>
-        <input class="w-full border-2 border-transparent focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-back" name="formText2" type="text" bind:value={sup2} />
+        <label class="text-coopmaths-struct font-light" for="formText2">{exercice.besoinFormulaire2Texte[0]} :</label>
+        <input
+          class="w-full border-2 border-transparent focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas"
+          name="formText2"
+          type="text"
+          bind:value={sup2}
+        />
         <!-- <fieldset>
-          <legend class="text-coopmaths-title opacity-35">{formText2.titre}</legend>
+          <legend class="text-coopmaths-struct opacity-35">{formText2.titre}</legend>
           <div class="flex flex-col  ml-3 mt-1">
             {#each formText2.champsDecortiques as entree, i}
               <div class="flew-row space-x-2">
@@ -358,11 +363,11 @@
   <!-- sup3 -->
   {#if exercice.besoinFormulaire3CaseACocher}
     <div class="form-check">
-      <label class="form-check-label text-coopmaths-title opacity-35" for="check3">{exercice.besoinFormulaire3CaseACocher[0]} : </label>
+      <label class="form-check-label text-coopmaths-struct opacity-35" for="check3">{exercice.besoinFormulaire3CaseACocher[0]} : </label>
       <input
         name="check3"
         type="checkbox"
-        class="form-check-input text-coopmaths-title focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2 checkbox-primary"
+        class="form-check-input text-coopmaths-struct focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 checkbox-primary"
         bind:checked={sup3}
         on:change={newSettings}
       />
@@ -372,7 +377,7 @@
     {#if Array.isArray(formNum3.champs)}
       <div class="flex flex-col">
         <form action="">
-          <label class="text-coopmaths-title font-light" for="formNum3">{formNum3.titre}</label>
+          <label class="text-coopmaths-struct font-light" for="formNum3">{formNum3.titre}</label>
           <select class="flex flex-auto" name="formNum3" id="formNum3-select" bind:value={sup3} on:change={newSettings}>
             {#each formNum3.champs as entree, i}
               <option value={i + 1}>{entree}</option>
@@ -383,11 +388,11 @@
     {:else}
       <div>
         <!-- Il faudra gérer l'absence de tooltip -->
-        <label class="text-coopmaths-title font-light" for="formNum3">{exercice.besoinFormulaire3Numerique[0]} :</label>
+        <label class="text-coopmaths-struct font-light" for="formNum3">{exercice.besoinFormulaire3Numerique[0]} :</label>
         <input
           name="formNum3"
           type="number"
-          class="w-full border-2 border-transparent focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-back"
+          class="w-full border-2 border-transparent focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas"
           min="1"
           max={exercice.besoinFormulaire3Numerique[1]}
           data-bs-toggle="tooltip"
@@ -401,12 +406,17 @@
   {#if exercice.besoinFormulaire3Texte}
     <div class=" tooltip tooltip-left" data-tip={exercice.besoinFormulaire3Texte[1]}>
       <form id="formText3" name="formText3" on:submit|preventDefault={newSettings}>
-        <label class="text-coopmaths-title font-light" for="formText3">{exercice.besoinFormulaire3Texte[0]} :</label>
-        <input class="w-full border-2 border-transparent focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-back" name="formText3" type="text" bind:value={sup3} />
+        <label class="text-coopmaths-struct font-light" for="formText3">{exercice.besoinFormulaire3Texte[0]} :</label>
+        <input
+          class="w-full border-2 border-transparent focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas"
+          name="formText3"
+          type="text"
+          bind:value={sup3}
+        />
         <!-- <div>
       <form id="formText3" name="formText3">
         <fieldset>
-          <legend class="text-coopmaths-title opacity-35">{formText3.titre}</legend>
+          <legend class="text-coopmaths-struct opacity-35">{formText3.titre}</legend>
           <div class="flex flex-col  ml-3 mt-1">
             {#each formText3.champsDecortiques as entree, i}
               <div class="flew-row space-x-2">
@@ -429,11 +439,11 @@
   <!-- sup4 -->
   {#if exercice.besoinFormulaire4CaseACocher}
     <div class="form-check">
-      <label class="form-check-label text-coopmaths-title opacity-35" for="check4">{exercice.besoinFormulaire4CaseACocher[0]} : </label>
+      <label class="form-check-label text-coopmaths-struct opacity-35" for="check4">{exercice.besoinFormulaire4CaseACocher[0]} : </label>
       <input
         name="check4"
         type="checkbox"
-        class="form-check-input text-coopmaths-title focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2 checkbox-primary"
+        class="form-check-input text-coopmaths-struct focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 checkbox-primary"
         bind:checked={sup4}
         on:change={newSettings}
       />
@@ -443,9 +453,9 @@
     {#if Array.isArray(formNum4.champs)}
       <div class="flex flex-col">
         <form action="">
-          <label class="text-coopmaths-title font-light" for="formNum4">{formNum4.titre}</label>
+          <label class="text-coopmaths-struct font-light" for="formNum4">{formNum4.titre}</label>
           <select
-            class="flex flex-auto w-full border-2 border-transparent focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-back"
+            class="flex flex-auto w-full border-2 border-transparent focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas"
             name="formNum4"
             id="formNum4-select"
             bind:value={sup4}
@@ -460,11 +470,11 @@
     {:else}
       <div>
         <!-- Il faudra gérer l'absence de tooltip -->
-        <label class="text-coopmaths-title font-light" for="formNum4">{exercice.besoinFormulaire4Numerique[0]} :</label>
+        <label class="text-coopmaths-struct font-light" for="formNum4">{exercice.besoinFormulaire4Numerique[0]} :</label>
         <input
           name="formNum4"
           type="number"
-          class="w-full border-2 border-transparent focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-back"
+          class="w-full border-2 border-transparent focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas"
           min="1"
           max={exercice.besoinFormulaire4Numerique[1]}
           data-bs-toggle="tooltip"
@@ -478,14 +488,19 @@
   {#if exercice.besoinFormulaire4Texte}
     <div class="tooltip tooltip-left" data-tip={exercice.besoinFormulaire4Texte[1]}>
       <form id="formText4" name="formText4" on:submit|preventDefault={newSettings}>
-        <label class="text-coopmaths-title font-light" for="formText4">{exercice.besoinFormulaire4Texte[0]} :</label>
-        <input class="w-full border-2 border-transparent focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-back" name="formText4" type="text" bind:value={sup4} />
+        <label class="text-coopmaths-struct font-light" for="formText4">{exercice.besoinFormulaire4Texte[0]} :</label>
+        <input
+          class="w-full border-2 border-transparent focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas"
+          name="formText4"
+          type="text"
+          bind:value={sup4}
+        />
       </form>
     </div>
     <!-- <div>
       <form id="formText4" name="formText4">
         <fieldset>
-          <legend class="text-coopmaths-title opacity-35">{formText4.titre}</legend>
+          <legend class="text-coopmaths-struct opacity-35">{formText4.titre}</legend>
           <div class="flex flex-col  ml-3 mt-1">
             {#each formText4.champsDecortiques as entree, i}
               <div class="flew-row space-x-2">
@@ -507,17 +522,17 @@
 
   {#if exercice.correctionDetailleeDisponible}
     <div>
-      <span class="text-coopmaths-title opacity-35">Correction détaillée :</span>
+      <span class="text-coopmaths-struct opacity-35">Correction détaillée :</span>
       <input
         type="checkbox"
-        class="form-check-input text-coopmaths-title focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2"
+        class="form-check-input text-coopmaths-struct focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2"
         bind:checked={correctionDetaillee}
         on:change={newSettings}
       />
     </div>
   {/if}
   <form id="formAlea" name="formAlea" on:submit|preventDefault={newSettings}>
-    <label class="text-coopmaths-title font-light" for="formAlea">Série :</label>
-    <input class="w-full border-2 border-transparent focus:border-coopmaths-light focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-back" name="formAlea" type="text" bind:value={alea} />
+    <label class="text-coopmaths-struct font-light" for="formAlea">Série :</label>
+    <input class="w-full border-2 border-transparent focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas" name="formAlea" type="text" bind:value={alea} />
   </form>
 </div>

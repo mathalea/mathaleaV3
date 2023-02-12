@@ -1,5 +1,5 @@
 <script>
-  import { globalOptions } from "../store"
+  import { globalOptions, darkMode } from "../store"
 
   import NavBarMenu from "./NavBarMenu.svelte"
   let isNavBarVisible = false
@@ -88,18 +88,25 @@
     params.delete("uuid")
     return ("https://coopmaths.fr/mathalea.html?" + params.toString()).replaceAll("id=", "ex=").replaceAll("&s", ",s").replaceAll("&n", ",n")
   }
+
+  function handleDarkMode() {
+    console.log("DarkMode is on : " + $darkMode.isActive)
+  }
 </script>
 
-<nav class="bg-coopmaths-backnav z-50">
+<nav class="bg-coopmaths-canvas z-50">
   <!-- container -->
   <div class="flex flex-wrap w-full mx-auto lg:space-x-6 lg:items-center">
     <!-- bouton menu -->
     <div class="flex flex-row justify-start space-x-2">
-      <button class=" lg:hidden inline-flex ml-auto items-center justify-center text-coopmaths-titlelight font-bold text-xl" on:click={() => (isNavBarVisible = !isNavBarVisible)}>
+      <button
+        class=" lg:hidden inline-flex ml-auto items-center justify-center text-coopmaths-action hover:text-coopmaths-action-lightest font-bold text-xl"
+        on:click={() => (isNavBarVisible = !isNavBarVisible)}
+      >
         <i class="bx bx-menu" />
       </button>
       <!-- logo -->
-      <a href={"#"} class="inline-flex p-2 text-2xl font-logo6 text-coopmaths-titlelight uppercase tracking-wider">Coopmaths</a>
+      <a href={"#"} class="inline-flex p-2 text-2xl font-logo6 text-coopmaths-action hover:text-coopmaths-action-lightest uppercase tracking-wider">Coopmaths</a>
     </div>
     <!-- menu -->
     <div class="flex flex-col mt-2 lg:inline-flex lg:grow lg:flex-row lg:mt-0 {isNavBarVisible ? 'flex' : 'hidden'}">
@@ -110,7 +117,7 @@
         <li>
           <a
             href={"https://coopmaths.fr/calculmental/"}
-            class="bg-coopmaths-backnav hover:bg-coopmaths-backnavlight text-coopmaths-titlelight text-xl font-extrabold relative block py-6 px-2 lg:p-6 items-center">Calcul mental</a
+            class="bg-coopmaths-canvas text-coopmaths-action hover:text-coopmaths-action-lightest text-xl font-extrabold relative block py-6 px-2 lg:p-6 items-center">Calcul mental</a
           >
         </li>
         <li>
@@ -122,6 +129,16 @@
       </ul>
       <div class="flex flex-1 pt-6 lg:pt-0 items-center justify-start lg:justify-end">
         <NavBarMenu {...menus.export} bind:isNavBarVisible />
+      </div>
+      <div class="flex px-4">
+        <label class="swap swap-rotate text-coopmaths-action hover:text-coopmaths-action-lightest">
+          <!-- this hidden checkbox controls the state -->
+          <input type="checkbox" class="invisible" bind:checked={$darkMode.isActive} on:change={handleDarkMode} />
+          <!-- sun icon -->
+          <div class="swap-on"><i class="bx bx-sm bx-sun" /></div>
+          <!-- moon icon -->
+          <div class="swap-off"><i class="bx bx-sm bx-moon" /></div>
+        </label>
       </div>
     </div>
   </div>

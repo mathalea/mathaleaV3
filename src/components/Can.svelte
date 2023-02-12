@@ -157,149 +157,158 @@
   }
 </script>
 
-<main class="flex h-full dark:bg-coopmaths-back dark:text-slate-800">
+<div class="flex bg-coopmaths-canvas">
   <!-- boutons commandes -->
-  <aside class="flex flex-col bg-coopmaths text-coopmaths-back w-14 min-h-screen py-4 items-center">
-    <button type="button" class="pb-8" on:click={() => handleComponentChange("can", "diaporama")}><i class="bx bx-sm bx-arrow-back" /></button>
-    <button type="button" class="pb-8" on:click={newDataForAll}><i class="bx bx-sm bx-refresh" /></button>
-    <!-- <button type="button" class="hover:text-coopmaths-dark" on:click={newDataForAll}><i class="bx bx-sm bx-refresh" /></button> -->
+  <aside class=" h-screen sticky top-0">
+    <div class="flex flex-col bg-coopmaths-canvas-dark text-coopmaths-struct w-14 min-h-screen py-4 items-center">
+      <button type="button" class="pb-8 text-coopmaths-action hover:text-coopmaths-action-lightest" on:click={() => handleComponentChange("can", "diaporama")}
+        ><i class="bx bx-sm bx-arrow-back" /></button
+      >
+      <button type="button" class="pb-8 text-coopmaths-action hover:text-coopmaths-action-lightest" on:click={newDataForAll}><i class="bx bx-sm bx-refresh" /></button>
+      <!-- <button type="button" class="hover:text-coopmaths-dark" on:click={newDataForAll}><i class="bx bx-sm bx-refresh" /></button> -->
 
-    <span class="text-xs text-coopmaths-back {isQuestionsVisible ? 'font-bold' : 'font-light'}">Questions</span>
-    <button type="button" disabled={!isCorrectionVisible && correctionsSteps.length === 0} on:click={() => switchCorrectionVisible("instructions")}
-      ><i class="bx bx-sm text-coopmaths-back {isQuestionsVisible ? 'bx-toggle-right' : 'bx-toggle-left'}" /></button
-    >
-    <span class="text-xs text-coopmaths-back {isCorrectionVisible ? 'font-bold' : 'font-light'} pt-2">Réponses</span>
-    <button type="button" disabled={!isQuestionsVisible} on:click={() => switchCorrectionVisible("correction")}>
-      <i class="mb-8 bx bx-sm text-coopmaths-back {isCorrectionVisible ? 'bx-toggle-right' : 'bx-toggle-left'}" />
-    </button>
-    <span class="text-xs font-bold pt-2 text-coopmaths-back">Pas à pas</span>
-    <div class="flex flex-row justify-center items-center mb-8 text-coopmaths-back">
-      <button
-        type="button"
-        on:click={() => {
-          handleCorrectionsStepsClick("backward")
-        }}
+      <span class="text-xs text-coopmaths-struct {isQuestionsVisible ? 'font-bold' : 'font-light'}">Questions</span>
+      <button type="button" disabled={!isCorrectionVisible && correctionsSteps.length === 0} on:click={() => switchCorrectionVisible("instructions")}
+        ><i class="bx bx-sm text-coopmaths-action hover:text-coopmaths-action-lightest {isQuestionsVisible ? 'bx-toggle-right' : 'bx-toggle-left'} cursor-pointer" /></button
       >
-        <i class="bx bxs-left-arrow mr-2" />
+      <span class="text-xs text-coopmaths-struct {isCorrectionVisible ? 'font-bold' : 'font-light'} pt-2">Réponses</span>
+      <button type="button" disabled={!isQuestionsVisible} on:click={() => switchCorrectionVisible("correction")}>
+        <i class="mb-8 bx bx-sm text-coopmaths-action hover:text-coopmaths-action-lightest  {isCorrectionVisible ? 'bx-toggle-right' : 'bx-toggle-left'} cursor-pointer" />
       </button>
-      <button
-        type="button"
-        on:click={() => {
-          handleCorrectionsStepsClick("forward")
-        }}
-      >
-        <i class="bx bxs-right-arrow" />
-      </button>
-    </div>
+      <span class="text-xs font-bold pt-2 text-coopmaths-struct">Pas à pas</span>
+      <div class="flex flex-row justify-center items-center mb-8 text-coopmaths-action hover:text-coopmaths-action-lightest ">
+        <button
+          type="button"
+          on:click={() => {
+            handleCorrectionsStepsClick("backward")
+          }}
+        >
+          <i class="bx bxs-left-arrow mr-2 cursor-pointer" />
+        </button>
+        <button
+          type="button"
+          on:click={() => {
+            handleCorrectionsStepsClick("forward")
+          }}
+        >
+          <i class="bx bxs-right-arrow cursor-pointer" />
+        </button>
+      </div>
 
-    <!-- Onglets Séries -->
-    {#if nbOfVues > 1}
-      <input type="radio" id="tab1" value={0} bind:group={currentVue} on:change={updateDisplay} class="peer/tab1 items-center justify-center hidden" />
-      <label
-        class="flex flex-row rounded-l-lg border-y border-l border-coopmaths-back w-14 h-14 justify-center items-center text-center cursor-pointer bg-coopmaths peer-checked/tab1:bg-coopmaths-back peer-checked/tab1:text-coopmaths"
-        for="tab1">1</label
-      >
-      <input type="radio" id="tab2" value={1} bind:group={currentVue} on:change={updateDisplay} class="peer/tab2 items-center justify-center hidden" />
-      <label
-        class="flex flex-row rounded-l-lg border-y border-l border-coopmaths-back w-14 h-14 justify-center items-center text-center cursor-pointer bg-coopmaths peer-checked/tab2:bg-coopmaths-back peer-checked/tab2:text-coopmaths"
-        for="tab2">2</label
-      >
-    {/if}
-    {#if nbOfVues > 2}
-      <input type="radio" id="tab3" value={2} bind:group={currentVue} on:change={updateDisplay} class="peer/tab3 items-center justify-center hidden" />
-      <label
-        class="flex flex-row rounded-l-lg border-y border-l border-coopmaths-back w-14 h-14 justify-center items-center text-center cursor-pointer bg-coopmaths peer-checked/tab3:bg-coopmaths-back peer-checked/tab3:text-coopmaths"
-        for="tab3">3</label
-      >
-    {/if}
-    {#if nbOfVues > 3}
-      <input type="radio" id="tab4" value={3} bind:group={currentVue} on:change={updateDisplay} class="peer/tab4 items-center justify-center hidden" />
-      <label
-        class="flex flex-row rounded-l-lg border-y border-l border-coopmaths-back w-14 h-14 justify-center items-center text-center cursor-pointer bg-coopmaths peer-checked/tab4:bg-coopmaths-back peer-checked/tab4:text-coopmaths"
-        for="tab4">4</label
-      >
-    {/if}
-    {#if nbOfVues > 1}
-      <input type="radio" id="tab5" value={4} bind:group={currentVue} on:change={updateDisplay} class="hidden peer/tab5 items-center justify-center" />
-      <label
-        class="flex flex-row rounded-l-lg border-y border-l border-coopmaths-back w-14 h-14 justify-center items-center text-center cursor-pointer bg-coopmaths peer-checked/tab5:bg-coopmaths-back peer-checked/tab5:text-coopmaths"
-        for="tab5">Tout</label
-      >
-    {/if}
-  </aside>
-  <!-- Affichage Questions/Réponses -->
-  <div class="flex p-2 h-full w-full">
-    <div class="w-full" bind:this={divExercice}>
-      {#if currentVue < 4}
-        {#if nbOfVues > 1}
-          <div class="flex flex-row items-center justify-start text-3xl font-black text-coopmaths p-6">
-            Série {currentVue + 1} <button type="button" class="pl-4"><i class="bx bx-sm bx-refresh" /></button>
-          </div>
-        {:else}
-          <div class="flex flex-row items-center justify-start text-3xl font-black text-coopmaths p-6">
-            {isQuestionsVisible ? "Questions" : ""}{isCorrectionVisible && isQuestionsVisible ? " / " : ""}{isCorrectionVisible ? "Réponses" : ""}<button type="button" class="pl-4"
-              ><i class="bx bx-sm bx-refresh" /></button
-            >
-          </div>
-        {/if}
-        <div class="list-inside list-decimal mt-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold">
-          {#each questions[currentVue] as question, i}
-            <div>
-              <div class="flex flex-row my-4">
-                <div class="flex flex-col justify-start items-center pr-2">
-                  <span class="inline-flex text-center text-coopmaths font-black text-lg">{i + 1}.</span>
-                </div>
-                <div class="flex flex-col justify-start items-start">
-                  {#if isQuestionsVisible}
-                    <div>
-                      {@html Mathalea.formatExercice(questions[currentVue][$questionsOrder.indexes[i]])}
-                    </div>
-                  {/if}
-                  {#if isCorrectionVisible || correctionsSteps.includes($questionsOrder.indexes[i])}
-                    <div class="bg-coopmaths-lightest {isQuestionsVisible ? 'my-4' : ''} p-2">
-                      {@html Mathalea.formatExercice(corrections[currentVue][$questionsOrder.indexes[i]])}
-                    </div>
-                  {/if}
-                </div>
-              </div>
-            </div>
-          {/each}
-        </div>
-      {:else}
-        <div class="flex flex-row justify-evenly w-full">
-          {#each Array(nbOfVues) as _, currentVueId}
-            <div style="width: {100 / nbOfVues}%">
-              <div class="flex flex-row justify-start items-center text-3xl font-black text-coopmaths p-6">
-                Série {currentVueId + 1}<button type="button" class="pl-4"><i class="bx bx-sm bx-refresh" /></button>
-              </div>
-              {#each questions[currentVueId] as question, i}
-                <div class="pl-6">
-                  <div class="flex flex-row items-start my-4">
-                    <div class="pr-3">
-                      <button type="button"><i class="bx bx-refresh" /></button>
-                    </div>
-                    <div class="flex flex-col justify-start items-center pr-2">
-                      <span class="inline-flex text-center text-coopmaths font-black text-lg">{i + 1}.</span>
-                    </div>
-                    <div class="flex flex-col justify-start items-start">
-                      {#if isQuestionsVisible}
-                        <div>
-                          {@html Mathalea.formatExercice(questions[currentVueId][$questionsOrder.indexes[i]])}
-                        </div>
-                      {/if}
-                      {#if isCorrectionVisible || correctionsSteps.includes($questionsOrder.indexes[i])}
-                        <div class="bg-coopmaths-backcorrection {isQuestionsVisible ? 'my-4' : ''} p-2">
-                          {@html Mathalea.formatExercice(corrections[currentVueId][$questionsOrder.indexes[i]])}
-                        </div>
-                      {/if}
-                    </div>
-                  </div>
-                </div>
-              {/each}
-            </div>
-          {/each}
-        </div>
+      <!-- Onglets Séries -->
+      {#if nbOfVues > 1}
+        <input type="radio" id="tab1" value={0} bind:group={currentVue} on:change={updateDisplay} class="peer/tab1 items-center justify-center hidden" />
+        <label
+          class="flex flex-row rounded-l-lg border-y border-l border-coopmaths-struct w-14 h-14 justify-center items-center text-center cursor-pointer bg-coopmaths-canvas-dark font-bold text-coopmaths-action hover:text-coopmaths-action-lightest peer-checked/tab1:bg-coopmaths-canvas peer-checked/tab1:text-coopmaths-struct peer-checked/tab1:cursor-default"
+          for="tab1">1</label
+        >
+        <input type="radio" id="tab2" value={1} bind:group={currentVue} on:change={updateDisplay} class="peer/tab2 items-center justify-center hidden" />
+        <label
+          class="flex flex-row rounded-l-lg border-y border-l border-coopmaths-struct w-14 h-14 justify-center items-center text-center cursor-pointer bg-coopmaths-canvas-dark font-bold text-coopmaths-action hover:text-coopmaths-action-lightest peer-checked/tab2:bg-coopmaths-canvas peer-checked/tab2:text-coopmaths-struct peer-checked/tab2:cursor-default"
+          for="tab2">2</label
+        >
+      {/if}
+      {#if nbOfVues > 2}
+        <input type="radio" id="tab3" value={2} bind:group={currentVue} on:change={updateDisplay} class="peer/tab3 items-center justify-center hidden" />
+        <label
+          class="flex flex-row rounded-l-lg border-y border-l border-coopmaths-struct w-14 h-14 justify-center items-center text-center cursor-pointer bg-coopmaths-canvas-dark font-bold text-coopmaths-action hover:text-coopmaths-action-lightest peer-checked/tab3:bg-coopmaths-canvas peer-checked/tab3:text-coopmaths-struct peer-checked/tab3:cursor-default"
+          for="tab3">3</label
+        >
+      {/if}
+      {#if nbOfVues > 3}
+        <input type="radio" id="tab4" value={3} bind:group={currentVue} on:change={updateDisplay} class="peer/tab4 items-center justify-center hidden" />
+        <label
+          class="flex flex-row rounded-l-lg border-y border-l border-coopmaths-struct w-14 h-14 justify-center items-center text-center cursor-pointer bg-coopmaths-canvas-dark font-bold text-coopmaths-action hover:text-coopmaths-action-lightest peer-checked/tab4:bg-coopmaths-canvas peer-checked/tab4:text-coopmaths-struct peer-checked/tab4:cursor-default"
+          for="tab4">4</label
+        >
+      {/if}
+      {#if nbOfVues > 1}
+        <input type="radio" id="tab5" value={4} bind:group={currentVue} on:change={updateDisplay} class="hidden peer/tab5 items-center justify-center" />
+        <label
+          class="flex flex-row rounded-l-lg border-y border-l border-coopmaths-struct w-14 h-14 justify-center items-center text-center cursor-pointer bg-coopmaths-canvas-dark font-bold text-coopmaths-action hover:text-coopmaths-action-lightest peer-checked/tab5:bg-coopmaths-canvas peer-checked/tab5:text-coopmaths-struct peer-checked/tab5:cursor-default"
+          for="tab5">Tout</label
+        >
       {/if}
     </div>
-  </div>
-</main>
+  </aside>
+  <main class=" bg-coopmaths-canvas text-coopmaths-corpus">
+    <!-- Affichage Questions/Réponses -->
+    <div class="flex p-2 h-full w-full">
+      <div class="w-full" bind:this={divExercice}>
+        {#if currentVue < 4}
+          {#if nbOfVues > 1}
+            <div class="flex flex-row items-center justify-start text-3xl font-black text-coopmaths-struct p-6">
+              Série {currentVue + 1} <button type="button" class="pl-4"><i class="text-coopmaths-action hover:text-coopmaths-lightest bx bx-sm bx-refresh" /></button>
+            </div>
+          {:else}
+            <div class="flex flex-row items-center justify-start text-3xl font-black text-coopmaths-struct p-6">
+              {isQuestionsVisible ? "Questions" : ""}{isCorrectionVisible && isQuestionsVisible ? " / " : ""}{isCorrectionVisible ? "Réponses" : ""}<button type="button" class="pl-4"
+                ><i class="text-coopmaths-action hover:text-coopmaths-lightest bx bx-sm bx-refresh" /></button
+              >
+            </div>
+          {/if}
+          <div class="list-inside list-decimal mt-2 mx-2 lg:mx-6 marker:text-coopmaths-struct marker:font-bold">
+            {#each questions[currentVue] as question, i}
+              <div>
+                <div class="flex flex-row my-4">
+                  <div class="flex flex-col justify-start items-center pr-2">
+                    <span class="inline-flex text-center text-coopmaths-struct font-black text-lg">{i + 1}.</span>
+                  </div>
+                  <div class="flex flex-col justify-start items-start">
+                    {#if isQuestionsVisible}
+                      <div>
+                        {@html Mathalea.formatExercice(questions[currentVue][$questionsOrder.indexes[i]])}
+                      </div>
+                    {/if}
+                    {#if isCorrectionVisible || correctionsSteps.includes($questionsOrder.indexes[i])}
+                      <div class="relative border-l-coopmaths-warn-lightest border-l-8 text-coopmaths-corpus-lightest  {isQuestionsVisible ? 'my-4' : ''} py-2 pl-6">
+                        {@html Mathalea.formatExercice(corrections[currentVue][$questionsOrder.indexes[i]])}
+                        <div class="absolute flex flex-row justify-center items-center -left-4 top-0 rounded-full bg-coopmaths-warn-lightest text-coopmaths-canvas h-6 w-6">
+                          <i class="bx bx-sm bx-check" />
+                        </div>
+                      </div>
+                    {/if}
+                  </div>
+                </div>
+              </div>
+            {/each}
+          </div>
+        {:else}
+          <div class="flex flex-row justify-evenly w-full">
+            {#each Array(nbOfVues) as _, currentVueId}
+              <div style="width: {100 / nbOfVues}%">
+                <div class="flex flex-row justify-start items-center text-3xl font-black text-coopmaths-struct p-6">
+                  Série {currentVueId + 1}<button type="button" class="pl-4"><i class="text-coopmaths-action hover:text-coopmaths-lightest bx bx-sm bx-refresh" /></button>
+                </div>
+                {#each questions[currentVueId] as question, i}
+                  <div class="pl-6">
+                    <div class="flex flex-row items-start my-4">
+                      <div class="flex flex-col justify-start items-center pr-2">
+                        <span class="inline-flex text-center text-coopmaths-struct font-black text-lg">{i + 1}.</span>
+                      </div>
+                      <div class="flex flex-col justify-start items-start">
+                        {#if isQuestionsVisible}
+                          <div>
+                            {@html Mathalea.formatExercice(questions[currentVueId][$questionsOrder.indexes[i]])}
+                          </div>
+                        {/if}
+                        {#if isCorrectionVisible || correctionsSteps.includes($questionsOrder.indexes[i])}
+                          <div class="relative border-l-coopmaths-warn-lightest border-l-8 text-coopmaths-corpus-lightest {isQuestionsVisible ? 'my-4' : ''} p-2">
+                            {@html Mathalea.formatExercice(corrections[currentVueId][$questionsOrder.indexes[i]])}
+                            <div class="absolute flex flex-row justify-center items-center -left-4 top-0 rounded-full bg-coopmaths-warn-lightest text-coopmaths-canvas h-6 w-6">
+                              <i class="bx bx-sm bx-check" />
+                            </div>
+                          </div>
+                        {/if}
+                      </div>
+                    </div>
+                  </div>
+                {/each}
+              </div>
+            {/each}
+          </div>
+        {/if}
+      </div>
+    </div>
+  </main>
+</div>

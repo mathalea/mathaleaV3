@@ -1,9 +1,14 @@
 const plugin = require('tailwindcss/plugin')
 const defaultTheme = require('tailwindcss/defaultTheme')
 const config = {
+  darkMode: 'class',
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
     extend: {
+      scale: {
+        175: '1.75',
+        200: '2.00'
+      },
       colors: {
         coopmaths: {
           DEFAULT: '#F15929',
@@ -12,6 +17,58 @@ const config = {
           dark: '#F45E27',
           darkest: '#E64A10',
           back: '#f5f1f3',
+          backdark: '#dadbdf',
+          backdarker: '#cecfd4',
+          backcorrection: '#E0A588',
+          backnav: '#F15929',
+          backnavlight: '#f56d45',
+          title: '#342A34',
+          titlemenu: '#F15929',
+          titlelight: '#f5f1f3',
+          titleexercise: '#F15929',
+          darkmode: '#2e2e2b',
+          darkmodelight: '#363633',
+          canvas: {
+            DEFAULT: '#EDEDF0',
+            dark: '#e1e1e6',
+            darkest: '#d6d6db'
+          },
+          corpus: {
+            DEFAULT: '#1F2429',
+            light: '#45505b',
+            lightest: '#6a7c8d',
+            dark: '#191d21',
+            darkest: '#131619'
+          },
+          action: {
+            DEFAULT: '#F15929',
+            light: '#f47a54',
+            lightest: '#f79b7f',
+            dark: '#d43d0e',
+            darkest: '#9f2e0a'
+          },
+          warn: {
+            DEFAULT: '#80D925',
+            light: '#99e150',
+            lightest: '#b3e97c',
+            dark: '#66ae1e',
+            darkest: '#4d8216'
+          },
+          struct: {
+            DEFAULT: '#216D9A',
+            light: '#2c93cf',
+            lightest: '#5faedd',
+            dark: '#1a577b',
+            darkest: '#14415c'
+          }
+        },
+        coopmathsdark: {
+          DEFAULT: '#F15929',
+          lightest: '#f87f5c',
+          light: '#f56d45',
+          dark: '#F45E27',
+          darkest: '#E64A10',
+          back: '#2e2e2b',
           backdark: '#dadbdf',
           backdarker: '#cecfd4',
           backcorrection: '#E0A588',
@@ -53,9 +110,9 @@ const config = {
       {
         mytheme: {
           primary: '#F15929',
-          secondary: '#FF8C5C',
+          secondary: '#216D9A',
           accent: '#D84010',
-          neutral: '#dadbdf',
+          neutral: '#e1e1e6',
           'base-100': '#FFFF',
           info: '#3ABFF8',
           success: '#36D399',

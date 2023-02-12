@@ -56,7 +56,7 @@
  -->
 
 <div class="z-0 flex-1 overflow-hidden">
-  <h1 class="border-b border-coopmaths-titleexercise text-coopmaths-titleexercise pl-4 mt-4 pb-2 flex flex-col lg:flex-row lg:justify-between lg:items-center">
+  <h1 class="border-b border-coopmaths-struct text-coopmaths-struct pl-4 mt-4 pb-2 flex flex-col lg:flex-row lg:justify-between lg:items-center">
     <div class="flex flex-col lg:flex-row lg:justify-start lg:items-center" id="exercice{indiceExercice}">
       <div class="flex font-bold text-3xl md:text-lg">
         Exercice&#8239;{indiceExercice + 1}
@@ -78,7 +78,7 @@
         <i class="bx {isMessagesVisible ? 'bxs-bulb' : 'bx-bulb'}" />
       </button> -->
       <button
-        class="mx-2 tooltip tooltip-left {correctionReady ? '' : 'invisible'}"
+        class="mx-2 tooltip tooltip-left tooltip-neutral {correctionReady ? '' : 'invisible'}"
         data-tip={isCorrectionVisible ? "Masquer la correction" : "Montrer la correction"}
         type="button"
         on:click={() => {
@@ -89,19 +89,21 @@
           })
         }}
       >
-        <i class="bx {isCorrectionVisible ? 'bxs-check-circle' : 'bx-check-circle'}" />
+        <i class="text-coopmaths-action hover:text-coopmaths-action-lightest bx {isCorrectionVisible ? 'bxs-check-circle' : 'bx-check-circle'}" />
       </button>
       <button
-        class="mx-2 tooltip tooltip-left {interactifReady ? '' : 'invisible'}"
+        class="mx-2 tooltip tooltip-left tooltip-neutral {interactifReady ? '' : 'invisible'}"
         data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
         type="button"
         on:click={switchInteractif}
       >
-        <i class="bx {isInteractif ? 'bxs-edit' : 'bx-edit'}" />
+        <i class="text-coopmaths-action hover:text-coopmaths-action-lightest bx {isInteractif ? 'bxs-edit' : 'bx-edit'}" />
       </button>
-      <button class="mx-2 tooltip tooltip-left" data-tip="Nouvel énoncé" type="button" on:click={newData}><i class="bx bx-refresh {randomReady ? '' : 'invisible'}" /></button>
+      <button class="mx-2 tooltip tooltip-left" data-tip="Nouvel énoncé" type="button" on:click={newData}
+        ><i class="text-coopmaths-action hover:text-coopmaths-action-lightest bx bx-refresh {randomReady ? '' : 'invisible'}" /></button
+      >
       <button
-        class="mx-2 tooltip tooltip-left {settingsReady ? '' : 'invisible'} "
+        class="mx-2 tooltip tooltip-left tooltip-neutral {settingsReady ? '' : 'invisible'} "
         data-tip="Changer les paramètres de l'exercice"
         type="button"
         on:click={() => {
@@ -109,7 +111,7 @@
           dispatch("clickSettings", { isSettingsVisible: isSettingsVisible })
         }}
       >
-        <i class="bx {isSettingsVisible ? 'bxs-cog' : 'bx-cog'}" />
+        <i class="text-coopmaths-action hover:text-coopmaths-action-lightest bx {isSettingsVisible ? 'bxs-cog' : 'bx-cog'}" />
       </button>
       {#if isHidable}
         <button
@@ -121,11 +123,13 @@
           class="mx-2 tooltip tooltip-left"
           data-tip=" {isVisible ? 'Masquer' : 'Montrer'} l'exercice"
         >
-          <i class="bx {isVisible ? 'bx-hide' : 'bx-show'}" />
+          <i class="text-coopmaths-action hover:text-coopmaths-action-lightest bx {isVisible ? 'bx-hide' : 'bx-show'}" />
         </button>
       {/if}
       {#if isDeletable}
-        <button class="mx-2 tooltip tooltip-left" data-tip="Supprimer l'exercice" type="button" on:click={remove}><i class="bx bx-trash" /></button>
+        <button class="mx-2 tooltip tooltip-left tooltip-neutral" data-tip="Supprimer l'exercice" type="button" on:click={remove}>
+          <i class="text-coopmaths-action hover:text-coopmaths-action-lightest bx bx-trash" />
+        </button>
       {/if}
       {#if isSortable}
         <BoutonMonter indice={indiceExercice} />

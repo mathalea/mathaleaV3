@@ -17,6 +17,9 @@ export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: []
 export const selectedExercises = writable({ isActive: false, indexes: [], count: 1 })
 export const transitionsBetweenQuestions = writable({ isActive: true, isNoisy: false, tune: 0 })
 
+// pour la gestion du mode sombre
+export const darkMode = writable({ isActive: false })
+
 /**
  *
  * @param liste
