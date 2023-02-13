@@ -8,4 +8,6 @@
   }
 </script>
 
-<button on:click={monter} class={indice > 0 ? "" : "invisible"}> <i class="text-coopmaths-action hover:text-coopmaths-action-lightest bx bx-up-arrow-circle ml-4" /> </button>
+<button on:click={monter} class={indice > 0 ? "" : "invisible"}>
+  <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-up-arrow-circle ml-4" />
+</button>

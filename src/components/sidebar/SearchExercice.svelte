@@ -66,31 +66,31 @@
   }
 </script>
 
-<div class="mb-2 items-center font-bold text-large text-coopmaths-struct">Recherche</div>
+<div class="mb-2 items-center font-bold text-large text-coopmaths-struct dark:text-coopmathsdark-struct">Recherche</div>
 <div class="mb-4 w-full">
   <span class="block">
     <input
       type="text"
-      class="block border-2 border-transparent focus:border-coopmaths-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas text-coopmaths-corpus-light"
+      class="block border-2 border-transparent focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
       bind:value={inputSearch}
     />
   </span>
 </div>
 {#if inputSearch.length > 0}
-  <div class="mb-4 text-coopmaths-struct-light text-sm font-light">
+  <div class="mb-4 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light text-sm font-light">
     Inclure les courses aux nombres :
     <input
       type="checkbox"
-      class="ml-2 bg-coopmaths-canvas border-2 border-transparent focus:border-2 text-coopmaths focus:border-coopmaths focus:outline-0 focus:ring-0 disabled:opacity-30"
+      class="ml-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-2 border-transparent focus:border-2 text-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
       bind:checked={isCanInclusDansResultats}
     />
   </div>
 {/if}
 
 {#each filteredList as exercice}
-  <div class="relative flex flex-row items-center text-sm text-coopmaths-title bg-coopmaths-back ml-1">
-    <div class="flex-1 hover:bg-coopmaths-light cursor-pointer" on:click={() => addToList(exercice)} on:keydown={() => addToList(exercice)}>
-      <div class="ml-[3px] pl-2 bg-coopmaths-back hover:bg-coopmaths-back flex-1">
+  <div class="relative flex flex-row items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas ml-1">
+    <div class="flex-1 hover:bg-coopmaths-light dark:hover:bg-coopmathsdark-light cursor-pointer" on:click={() => addToList(exercice)} on:keydown={() => addToList(exercice)}>
+      <div class="ml-[3px] pl-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas  hover:bg-coopmaths-canvas-dark dark:hover:bg-coopmathsdark-canvas-dark flex-1">
         <span class="font-bold">{exercice.id} - </span>{exercice.titre}
       </div>
     </div>

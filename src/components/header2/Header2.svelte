@@ -22,9 +22,11 @@
   }
 </script>
 
-<h1 class="py-2 px-4  text-2xl font-bold  bg-coopmaths-canvas flex items-center">
-  <button type="button" class="text-coopmaths-action hover:text-coopmaths-action-lightest" on:click={toggleSideList}><i class="bx bx-menu-alt-left" /></button>
-  <div class="inline-flex justify-between items-center text-coopmaths-corpus-light font-normal text-xs ml-8 w-15 max-h-15 w-full">
+<h1 class="py-2 px-4  text-2xl font-bold  bg-coopmaths-canvas dark:bg-coopmathsdark-canvas flex items-center">
+  <button type="button" class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" on:click={toggleSideList}
+    ><i class="bx bx-menu-alt-left" /></button
+  >
+  <div class="inline-flex justify-between items-center text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light font-normal text-xs ml-8 w-15 max-h-15 w-full">
     <SearchById />
   </div>
 </h1>

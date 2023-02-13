@@ -42,18 +42,18 @@
 
 <div class="group inline-block relative" use:clickOutside on:click_outside={handleClickOutside}>
   <button
-    class="bg-coopmaths-canvas  text-coopmaths-action hover:text-coopmaths-action-lightest text-xl font-extrabold relative flex lg:block py-6 px-2 lg:px-8 items-center"
+    class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas  text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest text-xl font-extrabold relative flex lg:block py-6 px-2 lg:px-8 items-center"
     {id}
     on:click={() => (isMenuOpen = !isMenuOpen)}
     on:keydown={() => (isMenuOpen = !isMenuOpen)}
   >
     <span>{titre}<i class="ml-2 bx {isMenuOpen ? 'bx-caret-down lg:hidden' : 'bx-caret-right lg:hidden'}" /></span>
   </button>
-  <ul class="lg:absolute right-0 {isMenuOpen ? 'block' : 'hidden'} text-coopmaths-action w-56 filter drop-shadow-xl z-50">
+  <ul class="lg:absolute right-0 {isMenuOpen ? 'block' : 'hidden'} w-56 filter drop-shadow-xl z-50">
     {#each entrees as entree, i}
       <li>
         <a
-          class="bg-coopmaths-canvas hover:bg-coopmaths-canvas-dark py-2 px-4 block whitespace-no-wrap"
+          class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas-dark dark:hover:bg-coopmathsdark-canvas-darkest text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest py-2 px-4 block whitespace-no-wrap"
           id={[id, "-entree-", i + 1].join("")}
           on:click={() => closeMenu(i)}
           on:keydown={() => closeMenu(i)}>{entree}</a

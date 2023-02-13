@@ -8,9 +8,11 @@
   }
 </script>
 
-<div class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-canvas-dark text-coopmaths-corpus text-xs px-1 py-[1px] shadow-sm">
+<div
+  class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus text-xs px-1 py-[1px] shadow-sm"
+>
   {text}
   <button class="ml-2 bg-transparent hover focus:outline-none cursor-pointer" on:click={remove}>
-    <i class="text-coopmaths-action hover:text-coopmaths-action-lightest bx bx-x font-semibold text-base" />
+    <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-x font-semibold text-base" />
   </button>
 </div>

@@ -266,7 +266,7 @@
   {#if isVisible}
     <div class="flex flex-col-reverse lg:flex-row">
       <div class="flex flex-col relative {isSettingsVisible ? 'w-full lg:w-3/4' : 'w-full'} duration-500" id="exercice{indiceExercice}">
-        <div class="text-right text-coopmaths-struct text-xs mt-2">
+        <div class="text-right text-coopmaths-struct dark:text-coopmathsdark-struct text-xs mt-2">
           {#if columnsCount > 1}
             <button
               type="button"
@@ -275,7 +275,7 @@
                 updateDisplay()
               }}
             >
-              <i class="text-coopmaths-action hover:text-coopmaths-action-darkest bx ml-2 bx-xs bx-minus" />
+              <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 bx-xs bx-minus" />
             </button>
           {/if}
           <i class="bx ml-1 bx-xs bx-columns" />
@@ -286,29 +286,33 @@
               updateDisplay()
             }}
           >
-            <i class="text-coopmaths-action hover:text-coopmaths-action-darkest  bx ml-1 bx-xs bx-plus" />
+            <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest  bx ml-1 bx-xs bx-plus" />
           </button>
         </div>
         <article class="lg:text-base" style="font-size: {($globalOptions.z || 1).toString()}rem">
           <div>
-            <p class="leading-relaxed mt-2 ml-2 lg:mx-5 text-coopmaths-corpus">
+            <p class="leading-relaxed mt-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
               {@html exercice.consigne}
             </p>
           </div>
           {#if exercice.introduction}
             <div>
-              <p class="leading-relaxed mt-2 ml-2 lg:mx-5 text-coopmaths-corpus">
+              <p class="leading-relaxed mt-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
                 {@html exercice.introduction}
               </p>
             </div>
           {/if}
           {#if isCorrectionVisible}
-            <div class="bg-coopmaths-warn-lightest text-coopmaths-corpus leading-relaxed mt-2  ml-2 lg:mx-5">
+            <div class="bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus leading-relaxed mt-2  ml-2 lg:mx-5">
               {@html exercice.consigneCorrection}
             </div>
           {/if}
           <div style="columns: {columnsCount.toString()}">
-            <ul class="{exercice.listeQuestions.length > 1 ? 'list-decimal' : 'list-none'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct marker:font-bold">
+            <ul
+              class="{exercice.listeQuestions.length > 1
+                ? 'list-decimal'
+                : 'list-none'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
+            >
               {#each exercice.listeQuestions as item, i (i)}
                 <div style="break-inside:avoid">
                   <li style={i < exercice.listeQuestions.length ? `margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: 1` : ""} id="exercice{indiceExercice}Q{i}">
@@ -316,12 +320,14 @@
                   </li>
                   {#if isCorrectionVisible}
                     <div
-                      class="relative border-l-coopmaths-warn-lightest border-l-8 text-coopmaths-corpus-lightest my-2 py-2 pl-6"
+                      class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest my-2 py-2 pl-6"
                       style="margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: {exercice.spacingCorr || 1}; break-inside:avoid"
                       id="correction${indiceExercice}Q${i}"
                     >
                       {@html Mathalea.formatExercice(exercice.listeCorrections[i])}
-                      <div class="absolute flex flex-row justify-center items-center -left-4 top-0 rounded-full bg-coopmaths-warn-lightest text-coopmaths-canvas h-6 w-6">
+                      <div
+                        class="absolute flex flex-row justify-center items-center -left-4 top-0 rounded-full bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-canvas dark:text-coopmathsdark-canvas h-6 w-6"
+                      >
                         <i class="bx bx-sm bx-check" />
                       </div>
                     </div>
@@ -336,7 +342,7 @@
         {/if}
         <div bind:this={divScore} />
       </div>
-      <div class="bg-coopmaths-canavs-dark {isSettingsVisible ? 'visible lg:w-1/4' : 'hidden lg:w-0'} flex flex-col duration-500">
+      <div class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark {isSettingsVisible ? 'visible lg:w-1/4' : 'hidden lg:w-0'} flex flex-col duration-500">
         {#if isSettingsVisible}
           <Settings {exercice} on:settings={handleNewSettings} />
         {/if}

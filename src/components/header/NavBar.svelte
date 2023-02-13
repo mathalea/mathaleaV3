@@ -94,19 +94,23 @@
   }
 </script>
 
-<nav class="bg-coopmaths-canvas z-50">
+<nav class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas z-50">
   <!-- container -->
   <div class="flex flex-wrap w-full mx-auto lg:space-x-6 lg:items-center">
     <!-- bouton menu -->
     <div class="flex flex-row justify-start space-x-2">
       <button
-        class=" lg:hidden inline-flex ml-auto items-center justify-center text-coopmaths-action hover:text-coopmaths-action-lightest font-bold text-xl"
+        class=" lg:hidden inline-flex ml-auto items-center justify-center text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest font-bold text-xl"
         on:click={() => (isNavBarVisible = !isNavBarVisible)}
       >
         <i class="bx bx-menu" />
       </button>
       <!-- logo -->
-      <a href={"#"} class="inline-flex p-2 text-2xl font-logo6 text-coopmaths-action hover:text-coopmaths-action-lightest uppercase tracking-wider">Coopmaths</a>
+      <a
+        href={"#"}
+        class="inline-flex p-2 text-2xl font-logo6 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest uppercase tracking-wider"
+        >Coopmaths</a
+      >
     </div>
     <!-- menu -->
     <div class="flex flex-col mt-2 lg:inline-flex lg:grow lg:flex-row lg:mt-0 {isNavBarVisible ? 'flex' : 'hidden'}">
@@ -117,7 +121,8 @@
         <li>
           <a
             href={"https://coopmaths.fr/calculmental/"}
-            class="bg-coopmaths-canvas text-coopmaths-action hover:text-coopmaths-action-lightest text-xl font-extrabold relative block py-6 px-2 lg:p-6 items-center">Calcul mental</a
+            class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest text-xl font-extrabold relative block py-6 px-2 lg:p-6 items-center"
+            >Calcul mental</a
           >
         </li>
         <li>
@@ -131,7 +136,7 @@
         <NavBarMenu {...menus.export} bind:isNavBarVisible />
       </div>
       <div class="flex px-4">
-        <label class="swap swap-rotate text-coopmaths-action hover:text-coopmaths-action-lightest">
+        <label class="swap swap-rotate text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
           <!-- this hidden checkbox controls the state -->
           <input type="checkbox" class="invisible" bind:checked={$darkMode.isActive} on:change={handleDarkMode} />
           <!-- sun icon -->

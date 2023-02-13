@@ -56,8 +56,8 @@
  -->
 <div
   class="flex flex-row items-center justify-between {expanded
-    ? 'bg-coopmaths-canvas-darkest'
-    : 'bg-coopmaths-canvas-dark'} font-bold text-coopmaths-action hover:bg-coopmaths-canvas-darkest cursor-pointer"
+    ? 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'
+    : 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'} font-bold text-coopmaths-action dark:text-coopmathsdark-action hover:bg-coopmaths-canvas-darkest dark:hover:bg-coopmathsdark-canvas-darkest cursor-pointer"
   style="padding-left: {(nestedLevelCount * 2) / 4}rem"
   on:click={toggleContent}
   on:keydown={toggleContent}

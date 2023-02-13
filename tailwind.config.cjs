@@ -79,7 +79,40 @@ const config = {
           titlelight: '#f5f1f3',
           titleexercise: '#F15929',
           darkmode: '#2e2e2b',
-          darkmodelight: '#363633'
+          darkmodelight: '#363633',
+          canvas: {
+            DEFAULT: '#282a36',
+            dark: '#3a3d4e',
+            darkest: '#4b4f66'
+          },
+          corpus: {
+            DEFAULT: '#b0b0b0',
+            light: '#c8c8c8',
+            lightest: '#dfdfdf',
+            dark: '#7b7b7b',
+            darkest: '#464646'
+          },
+          action: {
+            DEFAULT: '#ffb86c',
+            light: '#ffc689',
+            lightest: '#ffd4a7',
+            dark: '#ff9523',
+            darkest: '#da7100'
+          },
+          warn: {
+            DEFAULT: '#ff79c6',
+            light: '#ff94d1',
+            lightest: '#ffafdd',
+            dark: '#ff2ea6',
+            darkest: '#e20082'
+          },
+          struct: {
+            DEFAULT: '#bd93f9',
+            light: '#c49efa',
+            lightest: '#caa9fa',
+            dark: '#a66df7',
+            darkest: '#8f48f5'
+          }
         }
       },
       fontFamily: {
@@ -114,7 +147,7 @@ const config = {
           accent: '#D84010',
           neutral: '#e1e1e6',
           'base-100': '#FFFF',
-          info: '#3ABFF8',
+          info: '#bd93f9',
           success: '#36D399',
           warning: '#FBBD23',
           error: '#F87272'

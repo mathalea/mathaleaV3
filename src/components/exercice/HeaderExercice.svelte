@@ -56,7 +56,9 @@
  -->
 
 <div class="z-0 flex-1 overflow-hidden">
-  <h1 class="border-b border-coopmaths-struct text-coopmaths-struct pl-4 mt-4 pb-2 flex flex-col lg:flex-row lg:justify-between lg:items-center">
+  <h1
+    class="border-b border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-struct dark:text-coopmathsdark-struct pl-4 mt-4 pb-2 flex flex-col lg:flex-row lg:justify-between lg:items-center"
+  >
     <div class="flex flex-col lg:flex-row lg:justify-start lg:items-center" id="exercice{indiceExercice}">
       <div class="flex font-bold text-3xl md:text-lg">
         Exercice&#8239;{indiceExercice + 1}
@@ -89,7 +91,11 @@
           })
         }}
       >
-        <i class="text-coopmaths-action hover:text-coopmaths-action-lightest bx {isCorrectionVisible ? 'bxs-check-circle' : 'bx-check-circle'}" />
+        <i
+          class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {isCorrectionVisible
+            ? 'bxs-check-circle'
+            : 'bx-check-circle'}"
+        />
       </button>
       <button
         class="mx-2 tooltip tooltip-left tooltip-neutral {interactifReady ? '' : 'invisible'}"
@@ -97,10 +103,12 @@
         type="button"
         on:click={switchInteractif}
       >
-        <i class="text-coopmaths-action hover:text-coopmaths-action-lightest bx {isInteractif ? 'bxs-edit' : 'bx-edit'}" />
+        <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {isInteractif ? 'bxs-edit' : 'bx-edit'}" />
       </button>
       <button class="mx-2 tooltip tooltip-left" data-tip="Nouvel énoncé" type="button" on:click={newData}
-        ><i class="text-coopmaths-action hover:text-coopmaths-action-lightest bx bx-refresh {randomReady ? '' : 'invisible'}" /></button
+        ><i
+          class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh {randomReady ? '' : 'invisible'}"
+        /></button
       >
       <button
         class="mx-2 tooltip tooltip-left tooltip-neutral {settingsReady ? '' : 'invisible'} "
@@ -111,7 +119,9 @@
           dispatch("clickSettings", { isSettingsVisible: isSettingsVisible })
         }}
       >
-        <i class="text-coopmaths-action hover:text-coopmaths-action-lightest bx {isSettingsVisible ? 'bxs-cog' : 'bx-cog'}" />
+        <i
+          class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {isSettingsVisible ? 'bxs-cog' : 'bx-cog'}"
+        />
       </button>
       {#if isHidable}
         <button
@@ -123,12 +133,12 @@
           class="mx-2 tooltip tooltip-left"
           data-tip=" {isVisible ? 'Masquer' : 'Montrer'} l'exercice"
         >
-          <i class="text-coopmaths-action hover:text-coopmaths-action-lightest bx {isVisible ? 'bx-hide' : 'bx-show'}" />
+          <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {isVisible ? 'bx-hide' : 'bx-show'}" />
         </button>
       {/if}
       {#if isDeletable}
         <button class="mx-2 tooltip tooltip-left tooltip-neutral" data-tip="Supprimer l'exercice" type="button" on:click={remove}>
-          <i class="text-coopmaths-action hover:text-coopmaths-action-lightest bx bx-trash" />
+          <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-trash" />
         </button>
       {/if}
       {#if isSortable}
