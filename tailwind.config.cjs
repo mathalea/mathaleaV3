@@ -83,7 +83,8 @@ const config = {
           canvas: {
             DEFAULT: '#282a36',
             dark: '#3a3d4e',
-            darkest: '#4b4f66'
+            darkest: '#4b4f66',
+            light: '#9fa3b8'
           },
           corpus: {
             DEFAULT: '#b0b0b0',

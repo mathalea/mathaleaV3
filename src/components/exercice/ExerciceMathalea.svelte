@@ -355,4 +355,7 @@
   li {
     break-inside: avoid;
   }
+  .mathalea2d {
+    color: orange;
+  }
 </style>

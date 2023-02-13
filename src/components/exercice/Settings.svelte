@@ -190,7 +190,7 @@
         min="1"
         bind:value={nbQuestions}
         on:change={newSettings}
-        class="w-full border-2 border-transparent focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
+        class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
       />
     </div>
   {/if}
@@ -201,7 +201,7 @@
       min="1"
       bind:value={duration}
       on:change={newSettings}
-      class="w-full border-2 border-transparent focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
+      class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
     />
   </div>
   {#if exercice.besoinFormulaireCaseACocher}
@@ -212,7 +212,7 @@
       <input
         name="check1"
         type="checkbox"
-        class="form-check-input text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2"
+        class="form-check-input text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1"
         bind:checked={sup}
         on:change={newSettings}
       />
@@ -224,7 +224,7 @@
         <form action="">
           <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formNum1">{formNum1.titre}</label>
           <select
-            class="flex flex-auto w-full border-2 border-transparent focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
+            class="flex flex-auto w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
             name="formNum1"
             id="formNum1-select"
             bind:value={sup}
@@ -243,7 +243,7 @@
         <input
           name="formNum1"
           type="number"
-          class="w-16 border-2"
+          class="w-16 border-1"
           min="1"
           max={exercice.besoinFormulaireNumerique[1]}
           data-bs-toggle="tooltip"
@@ -259,7 +259,7 @@
       <form id="formText1" name="formText1" on:submit|preventDefault={newSettings}>
         <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formText1">{exercice.besoinFormulaireTexte[0]} :</label>
         <input
-          class="w-full border-2 border-transparent focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
+          class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
           name="formText1"
           type="text"
           bind:value={sup}
@@ -292,7 +292,7 @@
       <input
         name="check2"
         type="checkbox"
-        class="form-check-input text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2 checkbox-primary"
+        class="form-check-input text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 checkbox-primary"
         bind:checked={sup2}
         on:change={newSettings}
       />
@@ -304,7 +304,7 @@
         <form action="">
           <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formNum2">{formNum2.titre}</label>
           <select
-            class="flex flex-auto  w-full border-2 border-transparent focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
+            class="flex flex-auto  w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
             name="formNum2"
             id="formNum2-select"
             bind:value={sup2}
@@ -323,7 +323,7 @@
         <input
           name="formNum2"
           type="number"
-          class="w-full border-2 border-transparent focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
+          class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
           min="1"
           max={exercice.besoinFormulaire2Numerique[1]}
           data-bs-toggle="tooltip"
@@ -339,7 +339,7 @@
       <form id="formText2" name="formText2" on:submit|preventDefault={newSettings}>
         <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formText2">{exercice.besoinFormulaire2Texte[0]} :</label>
         <input
-          class="w-full border-2 border-transparent focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
+          class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
           name="formText2"
           type="text"
           bind:value={sup2}
@@ -372,7 +372,7 @@
       <input
         name="check3"
         type="checkbox"
-        class="form-check-input text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2 checkbox-primary"
+        class="form-check-input text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 checkbox-primary"
         bind:checked={sup3}
         on:change={newSettings}
       />
@@ -397,7 +397,7 @@
         <input
           name="formNum3"
           type="number"
-          class="w-full border-2 border-transparent focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
+          class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
           min="1"
           max={exercice.besoinFormulaire3Numerique[1]}
           data-bs-toggle="tooltip"
@@ -413,7 +413,7 @@
       <form id="formText3" name="formText3" on:submit|preventDefault={newSettings}>
         <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formText3">{exercice.besoinFormulaire3Texte[0]} :</label>
         <input
-          class="w-full border-2 border-transparent focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
+          class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
           name="formText3"
           type="text"
           bind:value={sup3}
@@ -448,7 +448,7 @@
       <input
         name="check4"
         type="checkbox"
-        class="form-check-input text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2 checkbox-primary"
+        class="form-check-input text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 checkbox-primary"
         bind:checked={sup4}
         on:change={newSettings}
       />
@@ -460,7 +460,7 @@
         <form action="">
           <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formNum4">{formNum4.titre}</label>
           <select
-            class="flex flex-auto w-full border-2 border-transparent focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
+            class="flex flex-auto w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
             name="formNum4"
             id="formNum4-select"
             bind:value={sup4}
@@ -479,7 +479,7 @@
         <input
           name="formNum4"
           type="number"
-          class="w-full border-2 border-transparent focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
+          class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
           min="1"
           max={exercice.besoinFormulaire4Numerique[1]}
           data-bs-toggle="tooltip"
@@ -495,7 +495,7 @@
       <form id="formText4" name="formText4" on:submit|preventDefault={newSettings}>
         <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formText4">{exercice.besoinFormulaire4Texte[0]} :</label>
         <input
-          class="w-full border-2 border-transparent focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
+          class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
           name="formText4"
           type="text"
           bind:value={sup4}
@@ -530,7 +530,7 @@
       <span class="text-coopmaths-struct dark:text-coopmathsdark-struct opacity-35">Correction détaillée :</span>
       <input
         type="checkbox"
-        class="form-check-input text-coopmaths-struct dark:text-coopmathsdark-struct focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2"
+        class="form-check-input text-coopmaths-struct dark:text-coopmathsdark-struct focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1"
         bind:checked={correctionDetaillee}
         on:change={newSettings}
       />
@@ -539,7 +539,7 @@
   <form id="formAlea" name="formAlea" on:submit|preventDefault={newSettings}>
     <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formAlea">Série :</label>
     <input
-      class="w-full border-2 border-transparent focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
+      class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark"
       name="formAlea"
       type="text"
       bind:value={alea}

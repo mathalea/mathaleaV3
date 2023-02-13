@@ -382,7 +382,7 @@ src: local(''),
                                                    "Y88P"                     */
 /*warnMessage*/
 div[id^="warnMessage"]{
-  @apply bg-gray-100 p-4 border-l-4 border-l-coopmaths font-light relative w-2/3
+  @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark p-4 border-l-4 border-l-coopmaths-warn dark:border-l-coopmathsdark-warn  font-light relative w-2/3
 }
 div[id^="warnMessage"]:before{
     content: "🌬";
@@ -394,7 +394,7 @@ div[id^="title-warnMessage"]{
 }
 /* info message */
 div[id^="infoMessage"]{
-  @apply bg-gray-100 p-4 border-l-4 border-l-coopmaths font-light relative w-2/3
+  @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark p-4 border-l-4 border-l-coopmaths-warn dark:border-l-coopmathsdark-warn  font-light relative w-2/3
 }
 div[id^="infoMessage"]:before{
     content: "ℹ";
@@ -406,7 +406,7 @@ div[id^="title-infoMessage"]{
 }
 /* lampe message */
 div[id^="lampeMessage"]{
-  @apply bg-gray-100 p-4 border-l-4 border-l-coopmaths font-light relative w-2/3 mb-4
+  @apply bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-4 border-l-4 border-l-coopmaths-warn dark:border-l-coopmathsdark-warn font-light relative w-2/3 mb-4
 }
 div[id^="lampeMessage"]:before{
     content: "📚";
@@ -415,4 +415,13 @@ div[id^="lampeMessage"]:before{
 }
 div[id^="title-lampeMessage"]{
   @apply font-bold pb-2
+}
+
+
+.katex {
+  @apply text-coopmaths-corpus dark:text-coopmathsdark-corpus
+}
+
+.mathalea2d {
+  @apply dark:bg-coopmathsdark-canvas-light
 }
