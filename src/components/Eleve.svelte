@@ -18,7 +18,6 @@
   let correctionsSteps: number[] = []
 
   let currentExerciceNumber: number = 0
-  let currentExercice = {}
 
   onMount(async () => {
     context.vue = "can"
@@ -45,6 +44,7 @@
 
   function handleExerciseChange(exoNum: number) {
     currentExerciceNumber = exoNum
+    console.log(exercices[currentExerciceNumber].titre)
   }
 </script>
 
