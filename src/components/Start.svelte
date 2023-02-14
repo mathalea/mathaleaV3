@@ -387,7 +387,17 @@
                 return params
               })}
           >
-            <i class="bx bx-md px-2 ml-16 bx-slideshow  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+            <i class="bx bx-md px-2 ml-24 bx-slideshow  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+          </button>
+          <button
+            type="button"
+            on:click={() =>
+              globalOptions.update((params) => {
+                params.v = "eleve"
+                return params
+              })}
+          >
+            <i class="bx bx-md px-2 bxs-graduation  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
           </button>
         </div>
         <div class="flex-1 overflow-y-scroll overscroll-auto">

@@ -2,6 +2,7 @@
   import Start from "./Start.svelte"
   import Diaporama from "./Diaporama.svelte"
   import Can from "./Can.svelte"
+  import Eleve from "./Eleve.svelte"
   import { globalOptions, questionsOrder } from "./store"
   import { onDestroy } from "svelte"
 </script>
@@ -11,6 +12,8 @@
     <Diaporama />
   {:else if $globalOptions.v === "can"}
     <Can />
+  {:else if $globalOptions.v === "eleve"}
+    <Eleve />
   {:else}
     <Start />
   {/if}
