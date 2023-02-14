@@ -1201,7 +1201,7 @@
             <div class="flex flex-row items-center justify-end w-full my-4">
               <button
                 type="button"
-                class="animate-pulse inline-flex items-center justify-center shadow-2xl w-2/12 bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest font-extrabold  dark:text-coopmathsdark-canvas text-3xl py-4 rounded-lg"
+                class="animate-pulse inline-flex items-center justify-center shadow-2xl w-2/12 bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest font-extrabold text-coopmaths-canvas dark:text-coopmathsdark-canvas text-3xl py-4 rounded-lg"
                 on:click={() => {
                   goToQuestion(0)
                   timer(durationGlobal ?? durations[currentQuestion] ?? 10)

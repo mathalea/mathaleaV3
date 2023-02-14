@@ -6,10 +6,12 @@
   import { onDestroy } from "svelte"
 </script>
 
-{#if $globalOptions.v === "diaporama"}
-  <Diaporama />
-{:else if $globalOptions.v === "can"}
-  <Can />
-{:else}
-  <Start />
-{/if}
+<div class="subpixel-antialiased">
+  {#if $globalOptions.v === "diaporama"}
+    <Diaporama />
+  {:else if $globalOptions.v === "can"}
+    <Can />
+  {:else}
+    <Start />
+  {/if}
+</div>

@@ -302,14 +302,14 @@
           </h2>
           <div class="flex flex-auto mb-2">
             <select
-              class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm border-2 border-transparent focus:border-2 focus:border-coopmaths-action focus:outline-0 focus:ring-0 w-full"
+              class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm border-1  focus:border-1 border-coopmaths-action focus:border-coopmaths-action-lightest dark:border-coopmathsdark-action dark:focus:border-coopmaths-action-lightest focus:outline-0 focus:ring-0 w-full"
               bind:value={filtre}
               on:change={updateReferentiel}
             >
-              <option value="all">Tous les exercices</option>
-              <option value="college">Collège</option>
-              <option value="lycee">Lycée</option>
-              <option value="crpe">CRPE</option>
+              <option value="all" class=" hover:bg-coopmaths-canvas-darkest">Tous les exercices</option>
+              <option value="college" class=" hover:bg-coopmaths-canvas-darkest">Collège</option>
+              <option value="lycee" class=" hover:bg-coopmaths-canvas-darkest">Lycée</option>
+              <option value="crpe" class=" hover:bg-coopmaths-canvas-darkest">CRPE</option>
             </select>
           </div>
           <SearchExercice referentiel={filteredReferentiel} />
@@ -413,6 +413,3 @@
   </Modals> -->
   <Footer />
 </div>
-
-<style>
-</style>

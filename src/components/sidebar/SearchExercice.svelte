@@ -68,13 +68,14 @@
 
 <div class="mb-2 items-center font-bold text-large text-coopmaths-struct dark:text-coopmathsdark-struct">Recherche</div>
 <div class="mb-4 w-full">
-  <span class="block">
-    <input
-      type="text"
-      class="block border-2 border-transparent focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-      bind:value={inputSearch}
-    />
-  </span>
+  <!-- <span class="block"> -->
+  <input
+    type="text"
+    class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm"
+    placeholder="Thème, identifiant..."
+    bind:value={inputSearch}
+  />
+  <!-- </span> -->
 </div>
 {#if inputSearch.length > 0}
   <div class="mb-4 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light text-sm font-light">
@@ -96,15 +97,3 @@
     </div>
   </div>
 {/each}
-
-<style>
-  input {
-    border: 2px solid transparent;
-    padding: 4px;
-    font-size: 12px;
-    margin: 0;
-  }
-  input[type="text"] {
-    width: 98%;
-  }
-</style>

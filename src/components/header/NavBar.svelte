@@ -1,7 +1,7 @@
 <script>
   import { globalOptions, darkMode } from "../store"
 
-  import NavBarMenu from "./NavBarMenu.svelte"
+  import NavBarMenuV2 from "./NavBarMenuV2.svelte"
   let isNavBarVisible = false
   const menus = {
     referentiels: {
@@ -116,7 +116,7 @@
     <div class="flex flex-col mt-2 lg:inline-flex lg:grow lg:flex-row lg:mt-0 {isNavBarVisible ? 'flex' : 'hidden'}">
       <ul class="flex flex-col space-y-2 lg:flex-row lg:space-y-0">
         <li>
-          <NavBarMenu {...menus.referentiels} bind:isNavBarVisible />
+          <NavBarMenuV2 {...menus.referentiels} bind:isNavBarVisible />
         </li>
         <li>
           <a
@@ -126,14 +126,14 @@
           >
         </li>
         <li>
-          <NavBarMenu {...menus.professeurs} bind:isNavBarVisible />
+          <NavBarMenuV2 {...menus.professeurs} bind:isNavBarVisible />
         </li>
         <li>
-          <NavBarMenu {...menus.aPropos} bind:isNavBarVisible />
+          <NavBarMenuV2 {...menus.aPropos} bind:isNavBarVisible />
         </li>
       </ul>
       <div class="flex flex-1 pt-6 lg:pt-0 items-center justify-start lg:justify-end">
-        <NavBarMenu {...menus.export} bind:isNavBarVisible />
+        <NavBarMenuV2 {...menus.export} bind:isNavBarVisible />
       </div>
       <div class="flex px-4">
         <label class="swap swap-rotate text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
