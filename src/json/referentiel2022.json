@@ -892,6 +892,30 @@
             "Can": true
           },
           "datePublication": "04/11/2022"
+        },
+        "can6C45": {
+          "uuid": "4a157",
+          "id": "can6C45",
+          "titre": "Résoudre un problème par soustraction/division",
+          "url": "can/6e/can6C45.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "09/02/2023"
+        },
+        "can6C46": {
+          "uuid": "1cee6",
+          "titre": "Résoudre un problème de reste en fraction",
+          "url": "can/6e/can6C46.js",   
+          "id": "can6C46",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "13/02/2023"
         }
       },
       "can6D": {
