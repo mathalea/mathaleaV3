@@ -399,7 +399,7 @@ div[id^="infoMessage"]{
 div[id^="infoMessage"]:before{
     content: "ℹ";
     float: left;
-    @apply mr-3 text-xl text-white font-black bg-coopmaths rounded-full h-6 w-6 inline-flex items-center justify-center
+    @apply mr-3 text-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas font-black bg-coopmaths-warn dark:bg-coopmathsdark-warn rounded-full h-6 w-6 inline-flex items-center justify-center
 }
 div[id^="title-infoMessage"]{
   @apply font-bold pb-2
@@ -411,7 +411,7 @@ div[id^="lampeMessage"]{
 div[id^="lampeMessage"]:before{
     content: "📚";
     float: left;
-    @apply mr-3 text-xl text-coopmaths inline-block
+    @apply mr-3 text-xl text-coopmaths-warn dark:text-coopmathsdark-warn inline-block
 }
 div[id^="title-lampeMessage"]{
   @apply font-bold pb-2

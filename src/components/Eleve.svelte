@@ -1,50 +1,12 @@
 <script lang="ts">
-  import { globalOptions, questionsOrder, selectedExercises, darkMode } from "./store"
-  import { onMount, tick } from "svelte"
-  import { Mathalea } from "../Mathalea"
-  import { exercicesParams } from "./store"
+  import { exercicesParams, darkMode } from "./store"
   import type { Exercice } from "./utils/typeExercice"
-  import seedrandom from "seedrandom"
-  import { context } from "../modules/context"
+  import Exercice from "./exercice/Exercice.svelte"
 
-  let exercices: Exercice[] = []
-  let questions: [string[], string[], string[], string[]] = [[], [], [], []] // Concaténation de toutes les questions des exercices de exercicesParams, vue par vue
-  let corrections: [string[], string[], string[], string[]] = [[], [], [], []]
-  let consignes: string[] = []
-  let durations: number[] = []
-  let isCorrectionVisible = false
-  let isQuestionsVisible = true
-  let divExercice: HTMLElement
-  let correctionsSteps: number[] = []
-
-  let currentExerciceNumber: number = 0
-
-  onMount(async () => {
-    context.vue = "can"
-    Mathalea.updateUrl($exercicesParams)
-    for (const paramsExercice of $exercicesParams) {
-      const exercice: Exercice = await Mathalea.load(paramsExercice.uuid)
-      if (exercice === undefined) return
-      exercice.uuid = paramsExercice.uuid
-      if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
-      exercice.duration = paramsExercice.duration ?? 10
-      if (paramsExercice.titre) exercice.titre = paramsExercice.titre
-      if (paramsExercice.id) exercice.id = paramsExercice.id
-      if (paramsExercice.sup) exercice.sup = paramsExercice.sup
-      if (paramsExercice.sup2) exercice.sup2 = paramsExercice.sup2
-      if (paramsExercice.sup3) exercice.sup3 = paramsExercice.sup3
-      if (paramsExercice.sup4) exercice.sup4 = paramsExercice.sup4
-      if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif
-      if (paramsExercice.alea) exercice.seed = paramsExercice.alea
-      if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === "1"
-      exercices.push(exercice)
-    }
-    exercices = exercices
-  })
+  let currentExerciseNumber: number = 0
 
   function handleExerciseChange(exoNum: number) {
-    currentExerciceNumber = exoNum
-    console.log(exercices[currentExerciceNumber].titre)
+    currentExerciseNumber = exoNum
   }
 </script>
 
@@ -57,10 +19,10 @@
           {#each $exercicesParams as paramsExercice, i (paramsExercice)}
             <div class="">
               <button
-                class="{currentExerciceNumber === i
+                class="{currentExerciseNumber === i
                   ? 'border-b-4'
                   : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
-                disabled={currentExerciceNumber === i}
+                disabled={currentExerciseNumber === i}
                 on:click={() => handleExerciseChange(i)}
               >
                 <div class="py-2 px-6 text-xl font-bold">
@@ -73,7 +35,21 @@
       </div>
     </div>
     <div class="px-8">
-      Exercice {currentExerciceNumber}
+      {#each $exercicesParams as paramsExercice, i (paramsExercice)}
+        {#if i === currentExerciseNumber}
+          <Exercice {paramsExercice} indiceExercice={currentExerciseNumber} indiceLastExercice={$exercicesParams.length} />
+        {/if}
+      {/each}
     </div>
+    <!-- {#each currentExercise.listeQuestions as item, i (i)}
+      <div style="break-inside:avoid">
+        <li
+          style={i < currentExercise.listeQuestions.length ? `margin-top: ${currentExercise.spacing}em; margin-bottom: ${currentExercise.spacing}em; line-height: 1` : ""}
+          id="currentExercise{currentExerciseNumber}Q{i}"
+        >
+          {@html Mathalea.formatExercice(item)}
+        </li>
+      </div>
+    {/each} -->
   </div>
 </div>
