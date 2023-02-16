@@ -907,9 +907,9 @@
         },
         "can6C46": {
           "uuid": "1cee6",
-          "titre": "Résoudre un problème de reste en fraction",
-          "url": "can/6e/can6C46.js",   
           "id": "can6C46",
+          "titre": "Résoudre un problème de reste en fraction",
+          "url": "can/6e/can6C46.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
@@ -11071,6 +11071,18 @@
         "url": "2e/2F11-1.js",
         "uuid": "b6cc0"
       },
+      "2F11-2": {
+        "datePublication": "14/02/2023",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Comparer deux images avec une fonction de référence",
+        "url": "2e/2F11-2.js",
+        "id": "2F11-2",
+        "uuid": "9315e"
+      },
       "2F12-1": {
         "datePublication": "07/01/2022",
         "id": "2F12-1",
@@ -11082,6 +11094,18 @@
         "titre": "Résoudre algébriquement une équation f(x)=k avec une fonction de référence",
         "url": "2e/2F12-1.js",
         "uuid": "de0d1"
+      },
+      "2F12-2": {
+        "datePublication": "14/02/2023",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Résoudre graphiquement $f(x)\\gt k \\quad (\\lt k)$ avec une fonction de référence",
+        "id": "2F12-2",
+        "url": "2e/2F12-2.js",
+        "uuid": "277d3"
       }
     },
     "2F2": {
@@ -11108,6 +11132,18 @@
         "url": "2e/2F20-2.js",
         "uuid": "ec059"
       },
+      "2F21-1": {
+        "datePublication": "14/02/2023",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Modéliser une situation à l'aide d'une fonction",
+        "id": "2F21-1",
+        "url": "2e/2F21-1.js",
+        "uuid": "5621b"
+      },
       "2F25-1": {
         "id": "2F25-1",
         "tags": {
@@ -11132,6 +11168,18 @@
       }
     },
     "2F3": {
+      "2F30-1": {
+        "datePublication": "14/02/2023",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Dresser un tableau de variations à partir d'une courbe",
+        "url": "2e/2F30-1.js",
+        "id": "2F30-1",
+        "uuid": "05b52"
+      },
       "2F31-1": {
         "datePublication": "07/01/2022",
         "id": "2F31-1",
@@ -12197,6 +12245,30 @@
       }
     },
     "2N6": {
+      "2N60-1": {
+        "datePublication": "14/02/2023",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Modéliser un problème par une inéquation.",
+        "id": "2N60-1",
+        "url": "2e/2N60-1.js",
+        "uuid": "d2084"
+      },
+      "2N60-3": {
+        "datePublication": "14/02/2023",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Utiliser les propriétés de conservation du sens d'une inégalité",
+        "url": "2e/2N60-3.js",
+        "id": "2N60-3",
+        "uuid": "e32f3"
+      },
       "2N60-4": {
         "id": "2N60-4",
         "tags": {

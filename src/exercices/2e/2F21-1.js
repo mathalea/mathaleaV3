@@ -7,12 +7,14 @@ import { repere, texteParPosition, point, courbeInterpolee, antecedentParDichoto
 import { listeQuestionsToContenu, combinaisonListes, stringNombre, prenom, prenomM, texPrix, texteGras, choice, sp, texNombre, randint, numAlpha } from '../../modules/outils.js'
 import { exp } from 'mathjs'
 export const titre = 'Modéliser une situation à l\'aide d\'une fonction'
-
+export const dateDePublication = '14/02/2023'
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora
  * Référence
 */
+export const uuid = '5621b'
+export const ref = '2F21-1'
 export default function ModeliserParUneFonction () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
