@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { exercicesParams, darkMode } from "./store"
-  import type { Exercice } from "./utils/typeExercice"
-  import Exercice from "./exercice/Exercice.svelte"
+  import { exercicesParams, darkMode } from './store'
+  import Exercice from './exercice/Exercice.svelte'
 
   let currentExerciseNumber: number = 0
 
@@ -10,8 +9,10 @@
   }
 </script>
 
-<div class={$darkMode.isActive ? "dark" : ""}>
-  <div class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+<div class={$darkMode.isActive ? 'dark' : ''}>
+  <div
+    class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+  >
     <div class="h-32 w-full  bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct">
       <div class="flex flex-row justify-start p-4 items-center">
         <div class="text-4xl font-extrabold ml-4 mr-10">Évaluation</div>
@@ -36,20 +37,12 @@
     </div>
     <div class="px-8">
       {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-        {#if i === currentExerciseNumber}
+        <!-- {#if i === currentExerciseNumber} -->
+        <div class={currentExerciseNumber === i ? '' : 'hidden'}>
           <Exercice {paramsExercice} indiceExercice={currentExerciseNumber} indiceLastExercice={$exercicesParams.length} />
-        {/if}
+        </div>
+        <!-- {/if} -->
       {/each}
     </div>
-    <!-- {#each currentExercise.listeQuestions as item, i (i)}
-      <div style="break-inside:avoid">
-        <li
-          style={i < currentExercise.listeQuestions.length ? `margin-top: ${currentExercise.spacing}em; margin-bottom: ${currentExercise.spacing}em; line-height: 1` : ""}
-          id="currentExercise{currentExerciseNumber}Q{i}"
-        >
-          {@html Mathalea.formatExercice(item)}
-        </li>
-      </div>
-    {/each} -->
   </div>
 </div>
