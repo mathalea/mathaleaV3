@@ -11,7 +11,7 @@
   import { context } from "../modules/context.js"
   import { shuffle, listOfRandomIndexes } from "./utils/shuffle"
 
-  let divQuestion: HTMLElement
+  let divQuestions:HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
   let stepsUl: HTMLUListElement
   let currentQuestion = -1 // -1 pour l'intro et questions[0].length pour l'outro
@@ -178,7 +178,7 @@
     if (i >= -1 && i <= questions[0].length) currentQuestion = i
     if (i === -1 || i === questions[0].length) pause()
     await tick()
-    if (divQuestion) {
+    if (divQuestions[0]) {
       currentZoom = userZoom
       setSize()
     }
@@ -221,12 +221,16 @@
 
   async function setSize() {
     const size = currentZoom * sizes[currentQuestion]
-    divQuestion.style.lineHeight = `1.2`
-    divQuestion.style.fontSize = `${size}rem`
-    Mathalea.renderDiv(divQuestion, size)
-    if (divQuestion.offsetHeight + 180 > window.innerHeight && currentZoom > 0) {
-      currentZoom -= 0.25
-      setSize()
+    for (let i = 0; i < nbOfVues; i++) {
+      if (divQuestions[i] !== undefined) {
+        divQuestions[i].style.lineHeight = `1.2`
+        divQuestions[i].style.fontSize = `${size}rem`
+        Mathalea.renderDiv(divQuestions[i], size)
+        if (divQuestions[i].offsetHeight + 180 > window.innerHeight && currentZoom > 0) {
+          currentZoom -= 0.25
+          setSize()
+        } 
+      }
     }
   }
 
@@ -268,7 +272,7 @@
       }
     }
     await tick()
-    Mathalea.renderDiv(divQuestion)
+    setSize()
   }
 
   function switchPause() {
@@ -1137,23 +1141,25 @@
       </header>
       <!-- Question -->
       <main class="flex grow max-h-full dark:bg-coopmaths-back dark:text-slate-800 p-10">
-        <div bind:this={divQuestion} class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : ''} place-content-stretch justify-items-center w-full">
+        <div class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : ''} place-content-stretch justify-items-center w-full">
           {#each Array(nbOfVues) as _, i}
             <div class="relative flex flex-col justify-center justify-self-stretch p-8 {nbOfVues > 1 ? 'bg-coopmaths-backdark' : ''} text-center">
               <div class="font-light mb-8">{@html consignes[$questionsOrder.indexes[currentQuestion]]}</div>
               {#if nbOfVues > 1}
                 <div class="absolute bg-coopmaths text-coopmaths-titlelight font-black -top-1 -left-1 rounded-tl-2xl w-1/12 h-1/12">{i + 1}</div>
               {/if}
-              {#if isQuestionVisible}
-                <div class="py-4">
-                  {@html questions[i][$questionsOrder.indexes[currentQuestion]]}
-                </div>
-              {/if}
-              {#if isCorrectionVisible}
-                <div class="py-4 {isCorrectionVisible ? 'bg-coopmaths-backcorrection my-10' : ''}">
-                  {@html corrections[i][$questionsOrder.indexes[currentQuestion]]}
-                </div>
-              {/if}
+              <div bind:this={divQuestions[i]}>
+                {#if isQuestionVisible}
+                  <div class="py-4">
+                    {@html questions[i][$questionsOrder.indexes[currentQuestion]]}
+                  </div>
+                {/if}
+                {#if isCorrectionVisible}
+                  <div class="py-4 {isCorrectionVisible ? 'bg-coopmaths-backcorrection my-10' : ''}">
+                    {@html corrections[i][$questionsOrder.indexes[currentQuestion]]}
+                  </div>
+                {/if}
+              </div>
             </div>
           {/each}
         </div>
