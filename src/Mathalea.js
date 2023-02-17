@@ -161,7 +161,7 @@ export class Mathalea {
     let nbVues = 1
     let shuffle = false
     let trans = false
-    let choice, sound
+    let choice, sound, ep
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     let indiceExercice = -1

@@ -24,6 +24,7 @@
     "instrumenpoche": "git+https://git.sesamath.net/sesamath/instrumenpoche.git",
     "katex": "^0.16.4",
     "loadjs": "^4.2.0",
+    "lz-string": "^1.4.4",
     "mathjs": "^11.5.0",
     "mathlive": "^0.86.0",
     "mathsteps": "github:mathalea/mathsteps",

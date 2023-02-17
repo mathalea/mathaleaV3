@@ -16,6 +16,7 @@ export const globalOptions = writable({ v: '', z: '1' } as {v?: string, z?: stri
 export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: [] })
 export const selectedExercises = writable({ isActive: false, indexes: [], count: 1 })
 export const transitionsBetweenQuestions = writable({ isActive: true, isNoisy: false, tune: 0 })
+export const eleveVueSetUp = writable({ title: 'Évaluation', presMode: 'page', isInteractive: false, isSolutionAccessible: true } as {title: string, presMode: string, isInteractive: boolean, isSolutionAccessible: boolean})
 
 // pour la gestion du mode sombre
 export const darkMode = writable({ isActive: false })
