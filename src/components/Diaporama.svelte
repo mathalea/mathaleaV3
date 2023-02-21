@@ -222,16 +222,76 @@
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
   async function setSize() {
-    const size = currentZoom * sizes[currentQuestion]
-    for (let k = 0; k < nbOfVues; k++) {
-      if (typeof divQuestion[k] !== "undefined") {
-        divQuestion[k].style.lineHeight = `1.2`
-        divQuestion[k].style.fontSize = `${size}rem`
-        Mathalea.renderDiv(divQuestion[k], size)
-        if (divQuestion[k].offsetHeight + 180 > window.innerHeight && currentZoom > 0) {
-          currentZoom -= 0.25
-          setSize()
-        }
+    // const size = currentZoom * sizes[currentQuestion]
+    // for (let k = 0; k < nbOfVues; k++) {
+    //   if (typeof divQuestion[k] !== "undefined") {
+    //     divQuestion[k].style.lineHeight = `1.2`
+    //     divQuestion[k].style.fontSize = `${size}rem`
+    //     Mathalea.renderDiv(divQuestion[k], size)
+    //     if (divQuestion[k].offsetHeight + 180 > window.innerHeight && currentZoom > 0) {
+    //       currentZoom -= 0.25
+    //       setSize()
+    //     }
+    //   }
+    // }
+
+    for (let i = 0; i < nbOfVues; i++) {
+      if (typeof divQuestion[i] !== "undefined") {
+        Mathalea.renderDiv(divQuestion[i], -1)
+        const diapocell_div: HTMLDivElement = document.getElementById("diapocell" + i)
+        const textcell_div: HTMLDivElement = document.getElementById("textcell" + i)
+        const consigne_div: HTMLDivElement = document.getElementById("consigne" + i)
+        const question_div: HTMLDivElement = document.getElementById("question" + i)
+        const correction_div: HTMLDivElement = document.getElementById("correction" + i)
+        let diapocell_width = diapocell_div.clientWidth
+        let textcell_width = textcell_div.clientWidth
+        let textcell_height = textcell_div.clientHeight
+        let start_size = 100
+        let consigne_width, consigne_height, correction_width, correction_height, question_width, question_height: number
+        do {
+          if (question_div !== null) {
+            question_div.style.fontSize = start_size-- + "px"
+            question_width = question_div.clientWidth
+            question_height = question_div.clientHeight
+          } else {
+            question_width = 0
+            question_height = 0
+          }
+          if (consigne_div !== null) {
+            consigne_div.style.fontSize = start_size-- + "px"
+            consigne_width = consigne_div.clientWidth
+            consigne_height = consigne_div.clientHeight
+          } else {
+            consigne_width = 0
+            consigne_height = 0
+          }
+          if (correction_div !== null) {
+            correction_div.style.fontSize = start_size-- + "px"
+            correction_width = correction_div.clientWidth
+            correction_height = correction_div.clientHeight
+          } else {
+            correction_width = 0
+            correction_height = 0
+          }
+        } while (question_width > textcell_width || consigne_width > textcell_width || correction_width > textcell_width || question_height + consigne_height + correction_height > textcell_height)
+        console.log(
+          "text-width" +
+            i +
+            " : " +
+            textcell_width +
+            " / text-height" +
+            i +
+            " : " +
+            textcell_height +
+            " / width" +
+            i +
+            " : " +
+            question_width +
+            " / height" +
+            i +
+            " : " +
+            (question_height + consigne_height + correction_height)
+        )
       }
     }
   }
@@ -700,6 +760,11 @@
 
   function handleCheckManualMode() {
     return null
+  }
+
+  // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
+  window.onresize = (event) => {
+    setSize()
   }
 </script>
 
@@ -1231,7 +1296,7 @@
   {#if currentQuestion > -1 && currentQuestion < questions[0].length}
     <div id="diap" class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" data-theme="daisytheme">
       <!-- Steps -->
-      <header class="flex flex-col h-20 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas pb-1">
+      <header class="flex flex-col h-[10%] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas pb-1">
         <div class:invisible={durationGlobal === 0} class="flex flex-row h-6 border border-coopmaths-warn dark:border-coopmathsdark-warn">
           <div id="diapoProgressBar" class="bg-coopmaths-warn dark:bg-coopmathsdark-warn" style="width: {ratioTime}%; transition: width {currentDuration / 100}s linear" />
         </div>
@@ -1244,10 +1309,15 @@
         </div>
       </header>
       <!-- Question -->
-      <main class="flex grow max-h-full bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus p-10">
-        <div class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : ''} place-content-stretch justify-items-center w-full">
+      <main class="bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus min-h-[80%] p-10">
+        <div class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : ''} place-content-stretch justify-items-center w-full h-full">
           {#each Array(nbOfVues) as _, i}
-            <div class="relative flex flex-col justify-center justify-self-stretch p-8 {nbOfVues > 1 ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark' : ''} text-center">
+            <div
+              id="diapocell{i}"
+              class="relative min-h-[100%] max-h-[100%] flex flex-col justify-center justify-self-stretch place-items-stretch p-8 {nbOfVues > 1
+                ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'
+                : ''} text-center"
+            >
               {#if nbOfVues > 1}
                 <div
                   class="absolute bg-coopmaths-struct text-coopmaths-canvas dark:bg-coopmathsdark-struct dark:text-coopmathsdark-canvas font-black text-4xl -top-1 -left-1 rounded-tl-2xl w-1/12 h-1/12"
@@ -1255,15 +1325,15 @@
                   {i + 1}
                 </div>
               {/if}
-              <div bind:this={divQuestion[i]}>
-                <div class="font-light mb-8">{@html consignes[$questionsOrder.indexes[currentQuestion]]}</div>
+              <div id="textcell{i}" bind:this={divQuestion[i]} class="flex flex-col justify-center w-full  min-h-[100%]  max-h-[100%]">
+                <div class="font-light mb-8" id="consigne{i}">{@html consignes[$questionsOrder.indexes[currentQuestion]]}</div>
                 {#if isQuestionVisible}
-                  <div class="py-4">
+                  <div class="py-4" id="question{i}">
                     {@html questions[i][$questionsOrder.indexes[currentQuestion]]}
                   </div>
                 {/if}
                 {#if isCorrectionVisible}
-                  <div class="py-4 {isCorrectionVisible ? 'bg-coopmaths-warn-light bg-opacity-30 dark:bg-coopmathsdark-warn-light dark:bg-opacity-30 my-10' : ''}">
+                  <div id="correction{i}" class="py-4 {isCorrectionVisible ? 'bg-coopmaths-warn-light bg-opacity-30 dark:bg-coopmathsdark-warn-light dark:bg-opacity-30 my-10' : ''}">
                     {@html corrections[i][$questionsOrder.indexes[currentQuestion]]}
                   </div>
                 {/if}
@@ -1278,7 +1348,7 @@
         </dialog>
       </main>
       <!-- Boutons de réglages -->
-      <footer class="w-full h-20 py-1 sticky bottom-0 opacity-100 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+      <footer class="w-full h-[10%] py-1 sticky bottom-0 opacity-100 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
         <div class="flex flex-row justify-between w-full">
           <!-- boutons réglagles zoom -->
           <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
