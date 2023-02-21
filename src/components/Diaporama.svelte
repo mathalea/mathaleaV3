@@ -10,6 +10,7 @@
   import { getBlobFromImageElement, copyBlobToClipboard, canCopyImagesToClipboard } from "copy-image-clipboard"
   import { context } from "../modules/context.js"
   import { shuffle, listOfRandomIndexes } from "./utils/shuffle"
+  import renderScratch from "../lib/renderScratch"
 
   let divQuestions:HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
@@ -103,7 +104,7 @@
     if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
   })
 
-  function updateExercices() {
+  async function updateExercices() {
     Mathalea.updateUrl($exercicesParams)
     questions = [[], [], [], []]
     corrections = [[], [], [], []]
@@ -165,6 +166,8 @@
       $questionsOrder.indexes = [...Array(questions[0].length).keys()]
     }
   }
+
+  
 
   function prevQuestion() {
     if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
@@ -232,6 +235,7 @@
         } 
       }
     }
+    renderScratch()
   }
 
   function zoomPlus() {

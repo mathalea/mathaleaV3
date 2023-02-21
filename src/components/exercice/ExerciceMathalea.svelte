@@ -7,9 +7,7 @@
   import { Mathalea } from '../../Mathalea'
   import { exerciceInteractif } from '../../interactif/interactif'
   import { exercicesParams } from '../store'
-  import scratchblocks from 'scratchblocks'
-  import scratchFr from '../../json/scratchFr.json'
-
+  import renderScratch from '../../lib/renderScratch'
   import HeaderExercice from './HeaderExercice.svelte'
   import Settings from './Settings.svelte'
   export let exercice
@@ -161,26 +159,8 @@
     exercice.nouvelleVersion(indiceExercice)
     Mathalea.updateUrl($exercicesParams)
     if (exercice.typeExercice === "Scratch") {
-      // Exécuter 2 fois le rendu sur un même élément <pre> semble buguer
-      // Donc le sélectionneur css ne cible que l'exercice en cours
-      // pour ne pas altérer les rendus des autres exercices
-      scratchblocks.loadLanguages({ fr: scratchFr })
       await tick()
-      scratchblocks.renderMatching(`#exo${indiceExercice} pre.blocks`, {
-        style: 'scratch3',
-        languages: ['fr'],
-        scale: 0.7,
-      })
-      // Le code est rendu dans un svg enfant de pre.blocks
-      // Quand le render passe une 2e fois, il essaie de rendre le code svg d'où le bug
-      // Donc une fois le code rendu, on enlève la classe blocks pour ne plus le sélectionner
-      document.querySelectorAll(`#exo${indiceExercice} pre.blocks`).forEach(el => el.classList.remove('blocks'))
-      scratchblocks.renderMatching(`#exo${indiceExercice} code.b`, {
-        inline: true,
-        style: 'scratch3',
-        languages: ['fr'],
-        scale: 0.7,
-      })
+      renderScratch(`#exo${indiceExercice} `)
     }
   }
 
