@@ -311,10 +311,10 @@
   function zoomMoins() {
     // if (userZoom > 1) userZoom -= 0.25
     // else if (userZoom > 0.2) userZoom -= 0.1
-    if (userZoom > 0) {
+    if (userZoom > 0.1) {
       userZoom -= 0.05
     } else {
-      userZoom = 0
+      userZoom = 0.1
     }
     currentZoom = userZoom
     setSize()
