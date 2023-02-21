@@ -13,6 +13,9 @@ class HMS {
   static fromString (text: string): HMS {
     const hms = new HMS()
     text = text.replaceAll('&nbsp;', '')
+    text = text.replaceAll('{\\:\\text{h}\\:}', 'h')
+    text = text.replaceAll('{\\:\\text{min}\\:}', 'min')
+    text = text.replaceAll('{\\:\\text{s}\\:}', 's')
     if (text.includes('min') && !text.includes('s')) {
       // Format sans le s pour les secondes 4min33, 5h3min15
       const regex = /(?:(?<sign>[+,-]))?(?:(?<hour>\d+)\s*h\s*)?(?:(?<minute>\d+)\s*min\s*)?(?:(?<second>\d+))?/gm
@@ -47,7 +50,12 @@ class HMS {
   toString (): string {
     let result = ''
     if (this.hour > 0) {
-      result += `${this.hour % 24 ?? 0} h`
+      // Ce code fait buguer le build:dicos de la v2 : this.hour % 24 ?? 0
+      if (this.hour % 24 === 0) {
+        result += '0 h'
+      } else {
+        result += `${this.hour} h`
+      }
       if (this.minute > 0 || this.second > 0) result += ' '
     }
     if (this.minute > 0) {

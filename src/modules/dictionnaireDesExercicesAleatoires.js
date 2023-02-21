@@ -8946,7 +8946,7 @@ export default {
       "text": "AMCHybride"
     },
     "interactifReady": true,
-    "interactifType": "custom",
+    "interactifType": "mathLive",
     "name": "6D12",
     "newEx": {
       "isNew": false,

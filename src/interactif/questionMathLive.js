@@ -5,11 +5,13 @@ import { sp, texteExposant } from '../modules/outils.js'
 import { context } from '../modules/context'
 import { afficheScore } from './gestionInteractif.js'
 import * as pkg from '@cortex-js/compute-engine'
+import Hms from '../modules/Hms.js'
 const { ComputeEngine } = pkg
 let engine
 if (context.versionMathalea) engine = new ComputeEngine()
 
 export function verifQuestionMathLive (exercice, i) {
+  console.log('prout')
   let saisieParsee, num, den, fSaisie, fReponse
   const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
@@ -30,6 +32,7 @@ export function verifQuestionMathLive (exercice, i) {
     let ii = 0
     while ((resultat === 'KO') && (ii < reponses.length)) {
       reponse = reponses[ii]
+
       switch (formatInteractif) {
         case 'Num':
           num = parseInt(champTexte.value.replace(',', '.'))
@@ -51,11 +54,31 @@ export function verifQuestionMathLive (exercice, i) {
           break
         case 'calcul':
         // Le format par défaut
-          saisie = champTexte.value.replace(',', '.')
+          saisie = champTexte.value.replaceAll(',', '.') // EE : Le All est nécessaire pour l'usage du clavier spécial 6ème
           // La réponse est transformée en chaine compatible avec engine.parse()
           reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
           saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-          if (engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
+          // console.log('saisie : ', saisie) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
+          // console.log('reponse : ', reponse) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
+          if (!isNaN(reponse)) {
+            if (saisie !== '' && Number(saisie) === Number(reponse)) {
+              resultat = 'OK'
+            }
+          } else if (engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
+            resultat = 'OK'
+          }
+          break
+        case 'hms':
+          saisie = Hms.fromString(champTexte.value)
+          if (saisie.isEqual(reponse)) {
+            resultat = 'OK'
+          }
+          break
+        case 'formeDeveloppee':
+          saisie = champTexte.value.replaceAll(',', '.')
+          reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
+          saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+          if (!saisie.includes('times') && engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
             resultat = 'OK'
           }
           break
@@ -82,16 +105,17 @@ export function verifQuestionMathLive (exercice, i) {
 
           if (champTexte !== undefined) saisie = champTexte.value
           else saisie = ''
-          // console.log('saisie : ', saisie) // NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
-          // console.log('reponse : ', reponse) // NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
+          // console.log({ saisie, reponse}) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
           if (saisie === reponse) {
             resultat = 'OK'
+          } else if (saisie.replaceAll('\\,', '') === reponse.replaceAll('\\,', '')) {
+            feedbackCorrection = 'Attention aux espaces !'
           }
           break
 
         case 'ignorerCasse':
           saisie = champTexte.value
-          if (saisie.toLowerCase() === reponse.toLowerCase()) {
+          if (saisie.toLowerCase().replaceAll('\\lparen', '(').replaceAll('\\rparen', ')').replaceAll('\\left(', '(').replaceAll('\\right)', ')') === reponse.toLowerCase()) {
             resultat = 'OK'
             // Pour les exercices de simplifications de fraction
           }
@@ -99,12 +123,12 @@ export function verifQuestionMathLive (exercice, i) {
         case 'fractionPlusSimple':
           saisie = champTexte.value.replace(',', '.')
           if (!isNaN(parseFloat(saisie))) {
-            saisieParsee = engine.parse(`\\frac{${saisie}}{1}`).canonical
+            if (parseInt(saisie) === reponse.n) resultat = 'OK'
           } else {
-            saisieParsee = engine.parse(saisie)
+            saisieParsee = engine.parse(saisie, { canonical: false })
+            fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac'), { canonical: false })
+            if (saisieParsee.isEqual(fReponse) && saisieParsee.json[1] && saisieParsee.json[1] < fReponse.json[1] && Number.isInteger(saisieParsee.json[1])) resultat = 'OK'
           }
-          fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac'))
-          if (saisieParsee.isEqual(fReponse) && saisieParsee.json[1] < fReponse.json[1]) resultat = 'OK'
           break
         case 'fractionEgale': // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
         // Si l'utilisateur entre un nombre décimal n, on transforme en n/1
@@ -121,22 +145,36 @@ export function verifQuestionMathLive (exercice, i) {
           }
           break
         case 'fraction': // Pour les exercices où l'on attend un écriture donnée d'une fraction
-          saisie = champTexte.value.replace(',', '.')
+          saisie = champTexte.value.replaceAll(',', '.')
+          nbDeMoins = saisie.split('-')
+          if (saisie.indexOf('-') !== -1) {
+            if (nbDeMoins % 2 === 1) {
+              saisie = saisie.replace('-', '')
+            } else {
+              saisie = saisie.replaceAll('-', '')
+              saisie = '-' + saisie
+            }
+          }
           if (!isNaN(parseFloat(saisie))) {
-            saisieParsee = engine.parse(new FractionEtendue(saisie, 1).texFSD)
+            if (parseInt(saisie) === reponse.n) resultat = 'OK'
           } else {
             saisieParsee = engine.parse(saisie.replace('frac', 'dfrac').replace('ddfrac', 'dfrac'))
+            fReponse = engine.parse(reponse.texFSD)
+            if (saisieParsee.isEqual(fReponse)) resultat = 'OK'
           }
-          fReponse = engine.parse(reponse.texFSD)
-          if (saisieParsee.isEqual(fReponse)) resultat = 'OK'
           break
         case 'unites': // Pour les exercices où l'on attend une mesure avec une unité au choix
           saisie = champTexte.value.replace('²', '^2').replace('³', '^3')
           grandeurSaisie = saisieToGrandeur(saisie)
           if (grandeurSaisie) {
             if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
+            else if (precision && grandeurSaisie.estUneApproximation(reponse, precision)) feedbackCorrection = 'Erreur d\'arrondi.'
           } else {
-            resultat = 'essaieEncoreAvecUneSeuleUnite'
+            if ((saisie === '') || isNaN(parseFloat(saisie.replace(',', '.')))) {
+              resultat = 'KO'
+            } else {
+              resultat = 'essaieEncoreAvecUneSeuleUnite'
+            }
           }
           break
         case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
