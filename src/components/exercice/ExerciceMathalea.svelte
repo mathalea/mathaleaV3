@@ -1,16 +1,17 @@
 <script lang="ts">
-  import { globalOptions } from "../store"
-  import { afterUpdate, onMount, tick } from "svelte"
-  import seedrandom from "seedrandom"
-  import { prepareExerciceCliqueFigure } from "../../interactif/interactif"
-  import { loadMathLive } from "../../modules/loaders"
-  import { Mathalea } from "../../Mathalea"
-  import { exerciceInteractif } from "../../interactif/interactif"
-  import { exercicesParams } from "../store"
+  import { globalOptions } from '../store'
+  import { afterUpdate, onMount, tick } from 'svelte'
+  import seedrandom from 'seedrandom'
+  import { prepareExerciceCliqueFigure } from '../../interactif/interactif'
+  import { loadMathLive } from '../../modules/loaders'
+  import { Mathalea } from '../../Mathalea'
+  import { exerciceInteractif } from '../../interactif/interactif'
+  import { exercicesParams } from '../store'
+  import scratchblocks from 'scratchblocks'
+  import scratchFr from '../../json/scratchFr.json'
 
-  import HeaderExercice from "./HeaderExercice.svelte"
-  import Settings from "./Settings.svelte"
-  import { scratchTraductionFr } from "../../modules/scratchBlocksFr"
+  import HeaderExercice from './HeaderExercice.svelte'
+  import Settings from './Settings.svelte'
   export let exercice
   export let indiceExercice
   export let indiceLastExercice
@@ -26,7 +27,7 @@
   let isInteractif = exercice.interactif
   let isMessagesVisible = true
 
-  const title = exercice.id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}` : exercice.titre
+  const title = exercice.id ? `${exercice.id.replace('.js', '')} - ${exercice.titre}` : exercice.titre
 
   let headerExerciceProps: {
     title: string
@@ -43,7 +44,7 @@
   $: {
     if (isContentVisible && isInteractif && buttonScore) initButtonScore()
 
-    if ($globalOptions.v === "eleve") {
+    if ($globalOptions.v === 'eleve') {
       headerExerciceProps.settingsReady = false
       headerExerciceProps.isSortable = false
       headerExerciceProps.isDeletable = false
@@ -59,9 +60,9 @@
   }
 
   onMount(async () => {
-    document.addEventListener("newDataForAll", newData)
-    document.addEventListener("setAllInteractif", setAllInteractif)
-    document.addEventListener("removeAllInteractif", removeAllInteractif)
+    document.addEventListener('newDataForAll', newData)
+    document.addEventListener('setAllInteractif', setAllInteractif)
+    document.addEventListener('removeAllInteractif', removeAllInteractif)
     updateDisplay()
   })
 
@@ -70,7 +71,7 @@
       await tick()
       if (isInteractif) {
         loadMathLive()
-        if (exercice.interactifType === "cliqueFigure") {
+        if (exercice.interactifType === 'cliqueFigure') {
           prepareExerciceCliqueFigure(exercice)
         }
         // Ne pas être noté sur un exercice dont on a déjà vu la correction
@@ -80,20 +81,6 @@
       }
       Mathalea.renderDiv(divExercice)
     }
-    // Prise en compte des messages dans les énoncés des exercices
-    // divExercice.querySelectorAll('[id^="warnMessage"]').forEach(function (elt) {
-    //   if (!isMessagesVisible) {
-    //     if (elt.classList.contains("visible")) {
-    //       elt.classList.remove("visible")
-    //     }
-    //     elt.classList.add("hidden")
-    //   } else {
-    //     if (elt.classList.contains("hidden")) {
-    //       elt.classList.remove("hidden")
-    //     }
-    //     elt.classList.add("visible")
-    //   }
-    // })
   })
 
   async function newData() {
@@ -107,7 +94,7 @@
     exercice.seed = seed
     if (buttonScore) initButtonScore()
     if (isCorrectionVisible) {
-      window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, "true")
+      window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, 'true')
     }
     updateDisplay()
   }
@@ -152,7 +139,7 @@
     }
     if (event.detail.correctionDetaillee !== undefined) {
       exercice.correctionDetaillee = event.detail.correctionDetaillee
-      $exercicesParams[indiceExercice].cd = exercice.correctionDetaillee ? "1" : "0"
+      $exercicesParams[indiceExercice].cd = exercice.correctionDetaillee ? '1' : '0'
     }
     updateDisplay()
   }
@@ -166,7 +153,7 @@
         startsWithLowerCase: false,
       })
     seedrandom(exercice.seed, { global: true })
-    if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, isInteractif)
+    if (exercice.typeExercice === 'simple') Mathalea.handleExerciceSimple(exercice, isInteractif)
     exercice.interactif = isInteractif
     $exercicesParams[indiceExercice].alea = exercice.seed
     $exercicesParams[indiceExercice].i = isInteractif
@@ -174,16 +161,25 @@
     exercice.nouvelleVersion(indiceExercice)
     Mathalea.updateUrl($exercicesParams)
     if (exercice.typeExercice === "Scratch") {
-      await scratchTraductionFr()
-      /* global scratchblocks */
-      scratchblocks.renderMatching("pre.blocks", {
-        style: "scratch3",
-        languages: ["fr"],
+      // Exécuter 2 fois le rendu sur un même élément <pre> semble buguer
+      // Donc le sélectionneur css ne cible que l'exercice en cours
+      // pour ne pas altérer les rendus des autres exercices
+      scratchblocks.loadLanguages({ fr: scratchFr })
+      await tick()
+      scratchblocks.renderMatching(`#exo${indiceExercice} pre.blocks`, {
+        style: 'scratch3',
+        languages: ['fr'],
+        scale: 0.7,
       })
-      scratchblocks.renderMatching("code.b", {
+      // Le code est rendu dans un svg enfant de pre.blocks
+      // Quand le render passe une 2e fois, il essaie de rendre le code svg d'où le bug
+      // Donc une fois le code rendu, on enlève la classe blocks pour ne plus le sélectionner
+      document.querySelectorAll(`#exo${indiceExercice} pre.blocks`).forEach(el => el.classList.remove('blocks'))
+      scratchblocks.renderMatching(`#exo${indiceExercice} code.b`, {
         inline: true,
-        style: "scratch3",
-        languages: ["fr"],
+        style: 'scratch3',
+        languages: ['fr'],
+        scale: 0.7,
       })
     }
   }
@@ -196,36 +192,36 @@
   function initButtonScore() {
     buttonScore.classList.remove(...buttonScore.classList)
     buttonScore.classList.add(
-      "inline-block",
-      "px-6",
-      "py-2.5",
-      "mr-10",
-      "my-5",
-      "ml-6",
-      "bg-coopmaths",
-      "text-white",
-      "font-medium",
-      "text-xs",
-      "leading-tight",
-      "uppercase",
-      "rounded",
-      "shadow-md",
-      "transform",
-      "hover:scale-110",
-      "hover:bg-coopmaths-dark",
-      "hover:shadow-lg",
-      "focus:bg-coopmaths-dark",
-      "focus:shadow-lg",
-      "focus:outline-none",
-      "focus:ring-0",
-      "active:bg-coopmaths-dark",
-      "active:shadow-lg",
-      "transition",
-      "duration-150",
-      "ease-in-out",
-      "checkReponses"
+      'inline-block',
+      'px-6',
+      'py-2.5',
+      'mr-10',
+      'my-5',
+      'ml-6',
+      'bg-coopmaths',
+      'text-white',
+      'font-medium',
+      'text-xs',
+      'leading-tight',
+      'uppercase',
+      'rounded',
+      'shadow-md',
+      'transform',
+      'hover:scale-110',
+      'hover:bg-coopmaths-dark',
+      'hover:shadow-lg',
+      'focus:bg-coopmaths-dark',
+      'focus:shadow-lg',
+      'focus:outline-none',
+      'focus:ring-0',
+      'active:bg-coopmaths-dark',
+      'active:shadow-lg',
+      'transition',
+      'duration-150',
+      'ease-in-out',
+      'checkReponses'
     )
-    if (divScore) divScore.innerHTML = ""
+    if (divScore) divScore.innerHTML = ''
   }
 </script>
 
@@ -239,7 +235,7 @@
       isContentVisible = event.detail.isContentVisible
       isCorrectionVisible = event.detail.isCorrectionVisible
       if (isCorrectionVisible) {
-        window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, "true")
+        window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, 'true')
       }
       if (isInteractif) {
         isInteractif = !isInteractif
@@ -304,16 +300,26 @@
             </div>
           {/if}
           <div style="columns: {columnsCount.toString()}">
-            <ul class="{exercice.listeQuestions.length > 1 ? 'list-decimal' : 'list-none'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold">
+            <ul
+              class="{exercice.listeQuestions.length > 1
+                ? 'list-decimal'
+                : 'list-none'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths marker:font-bold"
+            >
               {#each exercice.listeQuestions as item, i (i)}
                 <div style="break-inside:avoid">
-                  <li style={i < exercice.listeQuestions.length ? `margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: 1` : ""} id="exercice{indiceExercice}Q{i}">
+                  <li
+                    style={i < exercice.listeQuestions.length
+                      ? `margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: 1`
+                      : ''}
+                    id="exercice{indiceExercice}Q{i}"
+                  >
                     {@html Mathalea.formatExercice(item)}
                   </li>
                   {#if isCorrectionVisible}
                     <div
                       class="bg-coopmaths-backcorrection my-2 p-2"
-                      style="margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: {exercice.spacingCorr || 1}; break-inside:avoid"
+                      style="margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: {exercice.spacingCorr ||
+                        1}; break-inside:avoid"
                       id="correction${indiceExercice}Q${i}"
                     >
                       {@html Mathalea.formatExercice(exercice.listeCorrections[i])}
