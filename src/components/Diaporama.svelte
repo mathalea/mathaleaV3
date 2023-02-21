@@ -11,7 +11,7 @@
   import { context } from "../modules/context.js"
   import { shuffle, listOfRandomIndexes } from "./utils/shuffle"
 
-  let divQuestion: HTMLElement
+  let divQuestion: HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
   let stepsUl: HTMLUListElement
   let currentQuestion = -1 // -1 pour l'intro et questions[0].length pour l'outro
@@ -178,9 +178,11 @@
     if (i >= -1 && i <= questions[0].length) currentQuestion = i
     if (i === -1 || i === questions[0].length) pause()
     await tick()
-    if (divQuestion) {
-      currentZoom = userZoom
-      setSize()
+    for (let k = 0; k < nbOfVues; k++) {
+      if (divQuestion[k]) {
+        currentZoom = userZoom
+        setSize()
+      }
     }
 
     if (!isPause) {
@@ -221,12 +223,16 @@
 
   async function setSize() {
     const size = currentZoom * sizes[currentQuestion]
-    divQuestion.style.lineHeight = `1.2`
-    divQuestion.style.fontSize = `${size}rem`
-    Mathalea.renderDiv(divQuestion, size)
-    if (divQuestion.offsetHeight + 180 > window.innerHeight && currentZoom > 0) {
-      currentZoom -= 0.25
-      setSize()
+    for (let k = 0; k < nbOfVues; k++) {
+      if (typeof divQuestion[k] !== "undefined") {
+        divQuestion[k].style.lineHeight = `1.2`
+        divQuestion[k].style.fontSize = `${size}rem`
+        Mathalea.renderDiv(divQuestion[k], size)
+        if (divQuestion[k].offsetHeight + 180 > window.innerHeight && currentZoom > 0) {
+          currentZoom -= 0.25
+          setSize()
+        }
+      }
     }
   }
 
@@ -268,7 +274,7 @@
       }
     }
     await tick()
-    Mathalea.renderDiv(divQuestion)
+    setSize()
   }
 
   function switchPause() {
@@ -357,17 +363,19 @@
   $: displayCurrentDuration = () => {
     return currentDuration === 0 ? "Manuel" : currentDuration + "s"
   }
+
   $: displayCurrentCorrectionMode = () => {
+    let mode = ""
     if (isQuestionVisible && !isCorrectionVisible) {
-      return "Q"
+      mode = "Q"
     }
     if (isQuestionVisible && isCorrectionVisible) {
-      return "Q+C"
+      mode = "Q+C"
     }
     if (!isQuestionVisible && isCorrectionVisible) {
-      return "C"
+      mode = "C"
     }
-    return ""
+    return mode
   }
 
   $: {
@@ -1237,25 +1245,29 @@
       </header>
       <!-- Question -->
       <main class="flex grow max-h-full bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus p-10">
-        <div bind:this={divQuestion} class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : ''} place-content-stretch justify-items-center w-full">
+        <div class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : ''} place-content-stretch justify-items-center w-full">
           {#each Array(nbOfVues) as _, i}
             <div class="relative flex flex-col justify-center justify-self-stretch p-8 {nbOfVues > 1 ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark' : ''} text-center">
-              <div class="font-light mb-8">{@html consignes[$questionsOrder.indexes[currentQuestion]]}</div>
               {#if nbOfVues > 1}
-                <div class="absolute bg-coopmaths-struct text-coopmaths-canvas dark:bg-coopmathsdark-struct dark:text-coopmathsdark-canvas font-black -top-1 -left-1 rounded-tl-2xl w-1/12 h-1/12">
+                <div
+                  class="absolute bg-coopmaths-struct text-coopmaths-canvas dark:bg-coopmathsdark-struct dark:text-coopmathsdark-canvas font-black text-4xl -top-1 -left-1 rounded-tl-2xl w-1/12 h-1/12"
+                >
                   {i + 1}
                 </div>
               {/if}
-              {#if isQuestionVisible}
-                <div class="py-4">
-                  {@html questions[i][$questionsOrder.indexes[currentQuestion]]}
-                </div>
-              {/if}
-              {#if isCorrectionVisible}
-                <div class="py-4 {isCorrectionVisible ? 'bg-coopmaths-warn-light bg-opacity-30 dark:bg-coopmathsdark-warn-light dark:bg-opacity-30 my-10' : ''}">
-                  {@html corrections[i][$questionsOrder.indexes[currentQuestion]]}
-                </div>
-              {/if}
+              <div bind:this={divQuestion[i]}>
+                <div class="font-light mb-8">{@html consignes[$questionsOrder.indexes[currentQuestion]]}</div>
+                {#if isQuestionVisible}
+                  <div class="py-4">
+                    {@html questions[i][$questionsOrder.indexes[currentQuestion]]}
+                  </div>
+                {/if}
+                {#if isCorrectionVisible}
+                  <div class="py-4 {isCorrectionVisible ? 'bg-coopmaths-warn-light bg-opacity-30 dark:bg-coopmathsdark-warn-light dark:bg-opacity-30 my-10' : ''}">
+                    {@html corrections[i][$questionsOrder.indexes[currentQuestion]]}
+                  </div>
+                {/if}
+              </div>
             </div>
           {/each}
         </div>
