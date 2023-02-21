@@ -20,7 +20,7 @@
   let isCorrectionVisible = false
   let isQuestionVisible = true
   let isSameDurationForAll = false
-  let userZoom = 3
+  let userZoom = 1
   let currentZoom = userZoom
   let exercices: Exercice[] = []
   let questions: [string[], string[], string[], string[]] = [[], [], [], []] // Concaténation de toutes les questions des exercices de exercicesParams, vue par vue
@@ -246,11 +246,12 @@
         let diapocell_width = diapocell_div.clientWidth
         let textcell_width = textcell_div.clientWidth
         let textcell_height = textcell_div.clientHeight
-        let start_size = 100
+        let size = currentZoom * (nbOfVues > 1 ? 100 : 200)
         let consigne_width, consigne_height, correction_width, correction_height, question_width, question_height: number
         do {
           if (question_div !== null) {
-            question_div.style.fontSize = start_size-- + "px"
+            size = currentZoom * (size - 2)
+            question_div.style.fontSize = size + "px"
             question_width = question_div.clientWidth
             question_height = question_div.clientHeight
           } else {
@@ -258,7 +259,7 @@
             question_height = 0
           }
           if (consigne_div !== null) {
-            consigne_div.style.fontSize = start_size-- + "px"
+            consigne_div.style.fontSize = size + "px"
             consigne_width = consigne_div.clientWidth
             consigne_height = consigne_div.clientHeight
           } else {
@@ -266,7 +267,7 @@
             consigne_height = 0
           }
           if (correction_div !== null) {
-            correction_div.style.fontSize = start_size-- + "px"
+            correction_div.style.fontSize = size + "px"
             correction_width = correction_div.clientWidth
             correction_height = correction_div.clientHeight
           } else {
@@ -274,37 +275,47 @@
             correction_height = 0
           }
         } while (question_width > textcell_width || consigne_width > textcell_width || correction_width > textcell_width || question_height + consigne_height + correction_height > textcell_height)
-        console.log(
-          "text-width" +
-            i +
-            " : " +
-            textcell_width +
-            " / text-height" +
-            i +
-            " : " +
-            textcell_height +
-            " / width" +
-            i +
-            " : " +
-            question_width +
-            " / height" +
-            i +
-            " : " +
-            (question_height + consigne_height + correction_height)
-        )
+        // console.log(
+        //   "text-width" +
+        //     i +
+        //     " : " +
+        //     textcell_width +
+        //     " / text-height" +
+        //     i +
+        //     " : " +
+        //     textcell_height +
+        //     " / width" +
+        //     i +
+        //     " : " +
+        //     question_width +
+        //     " / height" +
+        //     i +
+        //     " : " +
+        //     (question_height + consigne_height + correction_height)
+        // )
       }
     }
   }
 
   function zoomPlus() {
-    userZoom += 0.25
+    // userZoom += 0.25
+    if (userZoom < 1) {
+      userZoom += 0.05
+    } else {
+      userZoom = 1
+    }
     currentZoom = userZoom
     setSize()
   }
 
   function zoomMoins() {
-    if (userZoom > 1) userZoom -= 0.25
-    else if (userZoom > 0.2) userZoom -= 0.1
+    // if (userZoom > 1) userZoom -= 0.25
+    // else if (userZoom > 0.2) userZoom -= 0.1
+    if (userZoom > 0) {
+      userZoom -= 0.05
+    } else {
+      userZoom = 0
+    }
     currentZoom = userZoom
     setSize()
   }
@@ -1310,7 +1321,7 @@
       </header>
       <!-- Question -->
       <main class="bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus min-h-[80%] p-10">
-        <div class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : ''} place-content-stretch justify-items-center w-full h-full">
+        <div class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : 'grid grid-cols-1'} place-content-stretch justify-items-center w-full h-full">
           {#each Array(nbOfVues) as _, i}
             <div
               id="diapocell{i}"
