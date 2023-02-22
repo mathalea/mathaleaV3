@@ -250,8 +250,8 @@
         // Donner la bonne taille aux figures
         if (svg_divs.length !== 0 && question_div !== null) {
           const nbOfSVG = svg_divs.length
-          const optimalSVGWidth = (textcell_width * 0.6) / nbOfSVG // on divise lorsqu'il y a deux SVG sur la même ligne
-          const coefHeight = correction_div !== null ? 0.3 : 0.5
+          const optimalSVGWidth = textcell_width * 0.6
+          const coefHeight = isCorrectionVisible ? 0.3 : 0.5
           const optimalSVGHeigth = textcell_height * coefHeight
           console.log("optimal SVG width : " + optimalSVGWidth + "/ optimal heigth : " + optimalSVGHeigth)
           for (let k = 0; k < nbOfSVG; k++) {
