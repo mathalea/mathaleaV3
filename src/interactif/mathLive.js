@@ -69,7 +69,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           break
         case 'hms':
           saisie = Hms.fromString(champTexte.value)
-          if (saisie.isEqual(reponse)) {
+          if (saisie.isTheSame(reponse)) {
             resultat = 'OK'
           }
           break
@@ -252,12 +252,6 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           if (formatKO) {
             resultat = 'essaieEncorePuissance'
           }
-          // if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
-          //   resultat = 'OK'
-          // } else {
-          //   resultat = 'KO'
-          // }
-
           break
       }
       ii++

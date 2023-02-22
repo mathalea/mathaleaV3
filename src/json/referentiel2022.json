@@ -5362,7 +5362,7 @@
         "id": "6D11",
         "tags": {
           "AMC": false,
-          "Interactif": false,
+          "Interactif": true,
           "Can": false
         },
         "titre": "Additionner des durées",
