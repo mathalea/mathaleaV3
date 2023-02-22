@@ -10,6 +10,14 @@
   let questions: string[] = []
   let consignes: string[] = []
   let corrections: string[] = []
+
+  /**
+   * Adaptation du titre des pages pour chaque exercice
+   * Plus le nombre d'exercices est élevé, moins le titre contient de caractères
+   * @param {number} num  nombre d'exercices
+   * @returns {string} titre
+   * @author sylvain
+   */
   function buildExoTitle(num: number) {
     if (num <= 6) {
       return "Exercice"
@@ -21,6 +29,13 @@
   }
   $: exerciceTitle = buildExoTitle(exercices.length)
 
+  /**
+   * Adaptation du titre des pages pour chaque question
+   * Plus le nombre de questions est élevé, moins le titre contient de caractères
+   * @param {number} num  nombre de questions
+   * @returns {string} titre
+   * @author sylvain
+   */
   function buildQuestionTitle(num: number) {
     if (num <= 6) {
       return "Question"
