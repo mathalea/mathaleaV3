@@ -1,12 +1,13 @@
 <script lang="ts">
   import { Mathalea } from "../Mathalea"
   import { exercicesParams, darkMode, eleveVueSetUp, globalOptions } from "./store"
+  import type TypeExercice from "./utils/typeExercice"
   import Exercice from "./exercice/Exercice.svelte"
   import { onMount, tick } from "svelte"
   import seedrandom from "seedrandom"
 
   let currentIndex: number = 0
-  let exercices: Exercice[] = []
+  let exercices: TypeExercice[] = []
   let questions: string[] = []
   let consignes: string[] = []
   let corrections: string[] = []
@@ -49,7 +50,7 @@
 
   onMount(async () => {
     for (const paramsExercice of $exercicesParams) {
-      const exercice: Exercice = await Mathalea.load(paramsExercice.uuid)
+      const exercice: TypeExercice = await Mathalea.load(paramsExercice.uuid)
       if (typeof exercice === "undefined") return
       exercice.uuid = paramsExercice.uuid
       if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions

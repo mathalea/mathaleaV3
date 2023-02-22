@@ -2,7 +2,8 @@ import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Exercice from './exercices/Exercice.js'
 import seedrandom from 'seedrandom'
 import {
-  exercicesParams, globalOptions, updateGlobalOptionsInURL
+  eleveVueSetUp,
+  exercicesParams, globalOptions, presModeId, updateGlobalOptionsInURL
 } from './components/store'
 import { get } from 'svelte/store'
 import { setReponse } from './interactif/gestionInteractif'
@@ -123,29 +124,7 @@ export class Mathalea {
       if (ex.cd !== undefined) url.searchParams.append('cd', ex.cd)
       if (ex.cols !== undefined) url.searchParams.append('cols', ex.cols)
     }
-    // const params = get(globalOptions)
-    // if (params.v) {
-    //   url.searchParams.append('v', params.v)
-    // } else {
-    //   url.searchParams.delete('v')
-    // }
-    // if (params.z && params.z !== '1') {
-    //   url.searchParams.append('z', params.z)
-    // } else {
-    //   url.searchParams.delete('z')
-    // }
-    // if (params.nbVues && parseInt(params.nbVues) > 1) {
-    //   url.searchParams.append('nbVues', params.nbVues)
-    // } else {
-    //   url.searchParams.delete('nbVues')
-    // }
-    // if (params.durationGlobal) {
-    //   url.searchParams.append('dGlobal', params.durationGlobal)
-    // } else {
-    //   url.searchParams.delete('dGlobal')
-    // }
     window.history.pushState({}, '', url)
-    // retrieve globalOptions for diaporama
     updateGlobalOptionsInURL(url)
   }
 
@@ -221,6 +200,11 @@ export class Mathalea {
         newListeExercice[indiceExercice].cd = entry[1]
       } else if (entry[0] === 'cols') {
         newListeExercice[indiceExercice].cols = entry[1]
+      } else if (entry[0] === 'title') {
+        eleveVueSetUp.update(l => {
+          l.title = entry[1]
+          return l
+        })
       } else {
         if (entry[0] !== 'id') newListeExercice[indiceExercice][entry[0]] = entry[1]
       }
@@ -230,6 +214,15 @@ export class Mathalea {
     }
     exercicesParams.update((l) => {
       return newListeExercice
+    })
+
+    eleveVueSetUp.update(l => {
+      if (es && es.length === 3) {
+        l.presMode = presModeId[es.charAt(0)]
+        l.isInteractive = (es.charAt(1) === '1')
+        l.isSolutionAccessible = (es.charAt(2) === '1')
+      }
+      return l
     })
 
     return { v, z, durationGlobal, nbVues, shuffle, choice, trans, sound, es }

@@ -1,5 +1,7 @@
 import { writable, get } from 'svelte/store'
 
+interface InterfaceGlobalOptions {v?: string, z?: string, durationGlobal?: number, nbVues?: number, shuffle?: boolean, choice?: number, trans?: boolean, sound?: number, es?: string}
+
 /**
  * listeExercices est un tableau d'objets décrivant l'exercice souhaité
  * {id, uuid, nbQuestions, alea, interactif, cd, sup, sup2, sup3, sup4, n}
@@ -13,7 +15,7 @@ export const exercicesParams = writable([])
  * Le paramètre 'es' est utilisé pour renseigner les réglages de la vue élève :
  * une unique chaîne de caractères contient dans l'ordre : titre + mode présentation + interactivité +  accès solutions
  */
-export const globalOptions = writable({ v: '', z: '1' } as {v?: string, z?: string, durationGlobal?: number, nbVues?: number, shuffle?: boolean, choice?: number, trans?: boolean, sound?: number, es?: string})
+export const globalOptions = writable<InterfaceGlobalOptions>({ v: '', z: '1' })
 
 // utilisé pour les aller-retours entre le composant Diaporam et le composant Can
 export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: [] })
@@ -41,6 +43,7 @@ export function moveExercice (liste, iDepart, iArrivee) {
  */
 export function updateGlobalOptionsInURL () {
   const options = get(globalOptions)
+  const optionsVueEleve = get(eleveVueSetUp)
   const url = new URL(window.location.href)
   if (options.v) {
     url.searchParams.append('v', options.v)
@@ -52,40 +55,62 @@ export function updateGlobalOptionsInURL () {
   } else {
     url.searchParams.delete('z')
   }
-  if (options.nbVues && parseInt(options.nbVues) > 1) {
-    url.searchParams.append('nbVues', options.nbVues)
+  if (options.nbVues && options.nbVues > 1) {
+    url.searchParams.append('nbVues', options.nbVues.toString())
   } else {
     url.searchParams.delete('nbVues')
   }
   if (options.durationGlobal) {
-    url.searchParams.append('dGlobal', options.durationGlobal)
+    url.searchParams.append('dGlobal', options.durationGlobal.toString())
   } else {
     url.searchParams.delete('dGlobal')
   }
   if (options.choice) {
-    url.searchParams.append('choice', options.choice)
+    url.searchParams.append('choice', options.choice.toString())
   } else {
     url.searchParams.delete('choice')
   }
   if (options.shuffle) {
-    url.searchParams.append('shuffle', options.shuffle)
+    url.searchParams.append('shuffle', options.shuffle ? '1' : '0')
   } else {
     url.searchParams.delete('shuffle')
   }
   if (options.trans) {
-    url.searchParams.append('trans', options.trans)
+    url.searchParams.append('trans', options.trans ? '1' : '0')
   } else {
     url.searchParams.delete('trans')
   }
   if (typeof options.sound !== 'undefined') {
-    url.searchParams.append('sound', options.sound)
+    url.searchParams.append('sound', options.sound.toString())
   } else {
     url.searchParams.delete('sound')
   }
-  if (typeof options.es !== 'undefined') {
-    url.searchParams.append('es', options.es)
+  if (options.v === 'eleve') {
+    if (typeof optionsVueEleve.title !== 'undefined') {
+      url.searchParams.append('title', optionsVueEleve.title)
+    } else {
+      url.searchParams.delete('title')
+    }
+    if (typeof optionsVueEleve !== 'undefined') {
+      let es = getKeyByValue(presModeId, optionsVueEleve.presMode)
+      es += optionsVueEleve.isInteractive ? '1' : '0'
+      es += optionsVueEleve.isSolutionAccessible ? '1' : '0'
+      url.searchParams.append('es', es)
+    }
   } else {
+    url.searchParams.delete('title')
     url.searchParams.delete('es')
   }
   window.history.pushState({}, '', url)
+}
+
+export const presModeId = {
+  0: 'page',
+  1: 'exos',
+  2: 'liste',
+  3: 'questions'
+}
+
+function getKeyByValue (object, value) {
+  return Object.keys(object).find(key => object[key] === value)
 }

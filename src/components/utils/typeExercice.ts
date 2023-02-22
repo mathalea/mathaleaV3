@@ -1,4 +1,4 @@
-export type Exercice = {
+type Exercice = {
   titre?: string
   id?: string
   uuid?: string
@@ -57,3 +57,5 @@ export type Exercice = {
   mg32Editable?: boolean
   listeArguments?: string[] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
 }
+
+export default Exercice

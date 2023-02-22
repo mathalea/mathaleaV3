@@ -1245,7 +1245,7 @@
       </header>
       <!-- Question -->
       <main class="flex grow max-h-full bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus p-10">
-        <div bind:this={divQuestion} class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : ''} place-content-stretch justify-items-center w-full">
+        <div class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : ''} place-content-stretch justify-items-center w-full">
           {#each Array(nbOfVues) as _, i}
             <div class="relative flex flex-col justify-center justify-self-stretch p-8 {nbOfVues > 1 ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark' : ''} text-center">
               <div class="font-light mb-8">{@html consignes[$questionsOrder.indexes[currentQuestion]]}</div>
