@@ -253,30 +253,34 @@
           const optimalSVGWidth = textcell_width * 0.6
           const coefHeight = isCorrectionVisible ? 0.3 : 0.5
           const optimalSVGHeigth = textcell_height * coefHeight
-          console.log("optimal SVG width : " + optimalSVGWidth + "/ optimal heigth : " + optimalSVGHeigth)
+          // console.log("optimal SVG width : " + optimalSVGWidth + "/ optimal heigth : " + optimalSVGHeigth)
           for (let k = 0; k < nbOfSVG; k++) {
             const startingWidth = svg_divs[k].clientWidth
             const startingHeight = svg_divs[k].clientHeight
-            console.log("starting size : " + startingWidth + " / strating height : " + startingHeight)
+            // console.log("starting width : " + startingWidth + " / strating height : " + startingHeight)
             const rw = optimalSVGWidth / startingWidth
             const rh = optimalSVGHeigth / startingHeight
             if (startingHeight * rw < optimalSVGHeigth) {
-              svg_divs[k].setAttribute("width", optimalSVGWidth)
-              svg_divs[k].setAttribute("height", svg_divs[k].clientHeight * rw)
+              svg_divs[k].setAttribute("width", optimalSVGWidth * currentZoom)
+              svg_divs[k].setAttribute("height", svg_divs[k].clientHeight * rw * currentZoom)
             } else {
-              svg_divs[k].setAttribute("height", optimalSVGHeigth)
-              svg_divs[k].setAttribute("width", svg_divs[k].clientWidth * rh)
+              svg_divs[k].setAttribute("height", optimalSVGHeigth * currentZoom)
+              svg_divs[k].setAttribute("width", svg_divs[k].clientWidth * rh * currentZoom)
             }
             svg_divs[k].removeAttribute("style")
-            svg_divs[k].setAttribute("style", "margin: auto")
-            console.log("final dimensions : " + svg_divs[k].clientWidth + " x " + svg_divs[k].clientHeight)
+            if (nbOfSVG > 1) {
+              svg_divs[k].setAttribute("style", "display: inline")
+            } else {
+              svg_divs[k].setAttribute("style", "margin: auto")
+            }
+            // console.log("final dimensions : " + svg_divs[k].clientWidth + " x " + svg_divs[k].clientHeight)
           }
         }
         let size = nbOfVues > 1 ? 100 : 200
         let consigne_width, consigne_height, correction_width, correction_height, question_width, question_height: number
         do {
+          size = size - 2
           if (question_div !== null) {
-            size = size - 2
             question_div.style.fontSize = size + "px"
             question_width = question_div.clientWidth
             question_height = question_div.clientHeight
@@ -300,6 +304,9 @@
             correction_width = 0
             correction_height = 0
           }
+          // console.log("question w=" + question_width + "/h=" + question_height)
+          // console.log("consigne w=" + consigne_width + "/h=" + consigne_height)
+          // console.log("correction w=" + correction_width + "/h=" + correction_height)
         } while (question_width > textcell_width || consigne_width > textcell_width || correction_width > textcell_width || question_height + consigne_height + correction_height > textcell_height)
         if (question_div !== null) {
           question_div.style.fontSize = currentZoom * size + "px"
@@ -1354,8 +1361,8 @@
                 </div>
               {/if}
               <div id="textcell{i}" bind:this={divQuestion[i]} class="flex flex-col justify-center w-full  min-h-[100%]  max-h-[100%]">
-                <div class="font-light mb-8" id="consigne{i}">{@html consignes[$questionsOrder.indexes[currentQuestion]]}</div>
                 {#if isQuestionVisible}
+                  <div class="font-light mb-8" id="consigne{i}">{@html consignes[$questionsOrder.indexes[currentQuestion]]}</div>
                   <div class="pb-4" id="question{i}">
                     {@html questions[i][$questionsOrder.indexes[currentQuestion]]}
                   </div>
