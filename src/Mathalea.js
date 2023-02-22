@@ -1,10 +1,7 @@
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Exercice from './exercices/Exercice.js'
 import seedrandom from 'seedrandom'
-import {
-  eleveVueSetUp,
-  exercicesParams, globalOptions, presModeId, updateGlobalOptionsInURL
-} from './components/store'
+import { exercicesParams, globalOptions, presModeId, updateGlobalOptionsInURL } from './components/store'
 import { get } from 'svelte/store'
 import { setReponse } from './interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from './interactif/questionMathLive'
@@ -140,7 +137,9 @@ export class Mathalea {
     let nbVues = 1
     let shuffle = false
     let trans = false
+    let title = 'Exercices'
     let choice, sound, es
+    let presMode, isInteractive, isSolutionAccessible
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     let indiceExercice = -1
@@ -201,10 +200,7 @@ export class Mathalea {
       } else if (entry[0] === 'cols') {
         newListeExercice[indiceExercice].cols = entry[1]
       } else if (entry[0] === 'title') {
-        eleveVueSetUp.update(l => {
-          l.title = entry[1]
-          return l
-        })
+        title = entry[1]
       } else {
         if (entry[0] !== 'id') newListeExercice[indiceExercice][entry[0]] = entry[1]
       }
@@ -216,16 +212,13 @@ export class Mathalea {
       return newListeExercice
     })
 
-    eleveVueSetUp.update(l => {
-      if (es && es.length === 3) {
-        l.presMode = presModeId[es.charAt(0)]
-        l.isInteractive = (es.charAt(1) === '1')
-        l.isSolutionAccessible = (es.charAt(2) === '1')
-      }
-      return l
-    })
+    if (es && es.length === 3) {
+      presMode = presModeId[es.charAt(0)]
+      isInteractive = (es.charAt(1) === '1')
+      isSolutionAccessible = (es.charAt(2) === '1')
+    }
 
-    return { v, z, durationGlobal, nbVues, shuffle, choice, trans, sound, es }
+    return { v, z, durationGlobal, nbVues, shuffle, choice, trans, sound, es, title, presMode, isInteractive, isSolutionAccessible }
   }
 
   static handleExerciceSimple (exercice, isInteractif) {

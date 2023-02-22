@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Mathalea } from "../Mathalea"
-  import { exercicesParams, darkMode, eleveVueSetUp, globalOptions } from "./store"
+  import { exercicesParams, darkMode, globalOptions } from "./store"
   import type TypeExercice from "./utils/typeExercice"
   import Exercice from "./exercice/Exercice.svelte"
   import { onMount, tick } from "svelte"
@@ -105,9 +105,9 @@
     <div class="h-32 w-full  bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct">
       <div class="w-full flex flex-row justify-start p-4 items-center">
         <!-- titre de la feuille -->
-        <div class="inline-flex text-4xl font-extrabold ml-4 mr-10">{$eleveVueSetUp.title}</div>
+        <div class="inline-flex text-4xl font-extrabold ml-4 mr-10">{$globalOptions.title}</div>
         <!-- barre de navigation -->
-        {#if $eleveVueSetUp.presMode === "exos"}
+        {#if $globalOptions.presMode === "exos"}
           <div class="w-full flex flex-row overflow-x-auto justify-center space-x-0 border-b-2 border-coopmaths-struct">
             {#each $exercicesParams as paramsExercice, i (paramsExercice)}
               <div class="">
@@ -127,7 +127,7 @@
             {/each}
           </div>
         {/if}
-        {#if $eleveVueSetUp.presMode === "questions"}
+        {#if $globalOptions.presMode === "questions"}
           <div class="w-full flex flex-row overflow-x-auto justify-center space-x-0 border-b-2 border-coopmaths-struct">
             {#each questions as question, i (question)}
               <div class="">
@@ -150,17 +150,17 @@
       </div>
     </div>
     <div class="px-8">
-      {#if $eleveVueSetUp.presMode === "exos"}
+      {#if $globalOptions.presMode === "exos"}
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <div class={currentIndex === i ? "" : "hidden"}>
             <Exercice {paramsExercice} indiceExercice={currentIndex} indiceLastExercice={$exercicesParams.length} />
           </div>
         {/each}
-      {:else if $eleveVueSetUp.presMode === "page"}
+      {:else if $globalOptions.presMode === "page"}
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
         {/each}
-      {:else if $eleveVueSetUp.presMode === "liste"}
+      {:else if $globalOptions.presMode === "liste"}
         {#each questions as question, k (question)}
           <div class="pb-4 flex flex-col items-start justify-start">
             <div class="text-coopmaths-struct font-bold text-md">Question {k + 1}</div>
@@ -172,7 +172,7 @@
             </div>
           </div>
         {/each}
-      {:else if $eleveVueSetUp.presMode === "questions"}
+      {:else if $globalOptions.presMode === "questions"}
         {#each questions as question, k (question)}
           <div class={currentIndex === k ? "" : "hidden"}>
             <div class="pb-4 flex flex-col items-start justify-start">

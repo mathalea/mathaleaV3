@@ -4,7 +4,7 @@
   import Footer from "./Footer.svelte"
   import Header2 from "./header2/Header2.svelte"
   import NiveauListeExos from "./sidebar/NiveauListeExos.svelte"
-  import { exercicesParams, globalOptions, darkMode, eleveVueSetUp } from "./store"
+  import { exercicesParams, globalOptions, darkMode } from "./store"
   import codeList from "../json/codeToLevelList.json"
   import referentiel from "../json/referentiel2022.json"
   import referentielStatic from "../json/referentielStatic.json"
@@ -413,7 +413,7 @@
                     <input
                       type="text"
                       class="text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border-1 border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0"
-                      bind:value={$eleveVueSetUp.title}
+                      bind:value={$globalOptions.title}
                     />
                   </div>
                 </div>
@@ -426,7 +426,7 @@
                         type="radio"
                         name="presentationMode"
                         id="presentationModeRadio1"
-                        bind:group={$eleveVueSetUp.presMode}
+                        bind:group={$globalOptions.presMode}
                         value={"page"}
                       />
                       <label class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm text-opacity-70 font-light" for="presentationModeRadio1">
@@ -439,7 +439,7 @@
                         type="radio"
                         name="presentationMode"
                         id="presentationModeRadio2"
-                        bind:group={$eleveVueSetUp.presMode}
+                        bind:group={$globalOptions.presMode}
                         value={"exos"}
                       />
                       <label class=" form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm text-opacity-70 font-light" for="presentationModeRadio2">
@@ -453,7 +453,7 @@
                         type="radio"
                         name="presentationMode"
                         id="presentationModeRadio3"
-                        bind:group={$eleveVueSetUp.presMode}
+                        bind:group={$globalOptions.presMode}
                         value={"liste"}
                       />
                       <label class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm text-opacity-70 font-light" for="presentationModeRadio3">
@@ -466,7 +466,7 @@
                         type="radio"
                         name="presentationMode"
                         id="presentationModeRadio4"
-                        bind:group={$eleveVueSetUp.presMode}
+                        bind:group={$globalOptions.presMode}
                         value={"questions"}
                       />
                       <label class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm text-opacity-70 font-light" for="presentationModeRadio4">
@@ -481,19 +481,19 @@
                     <button
                       type="button"
                       on:click={() => {
-                        eleveVueSetUp.update((l) => {
-                          l.isInteractive = !$eleveVueSetUp.isInteractive
+                        globalOptions.update((l) => {
+                          l.isInteractive = !$globalOptions.isInteractive
                           return l
                         })
                       }}
                     >
                       <i
-                        class="mt-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm {$eleveVueSetUp.isInteractive
+                        class="mt-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm {$globalOptions.isInteractive
                           ? 'bx-toggle-right'
                           : 'bx-toggle-left'}"
                       />
                     </button>
-                    <div class="inline-flex pl-2">{$eleveVueSetUp.isInteractive ? "Avec interactivité" : "Sans interactivité"}</div>
+                    <div class="inline-flex pl-2">{$globalOptions.isInteractive ? "Avec interactivité" : "Sans interactivité"}</div>
                   </div>
                 </div>
                 <div class="pb-2">
@@ -502,19 +502,19 @@
                     <button
                       type="button"
                       on:click={() => {
-                        eleveVueSetUp.update((l) => {
-                          l.isSolutionAccessible = !$eleveVueSetUp.isSolutionAccessible
+                        globalOptions.update((l) => {
+                          l.isSolutionAccessible = !$globalOptions.isSolutionAccessible
                           return l
                         })
                       }}
                     >
                       <i
-                        class="mt-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm {$eleveVueSetUp.isSolutionAccessible
+                        class="mt-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm {$globalOptions.isSolutionAccessible
                           ? 'bx-toggle-right'
                           : 'bx-toggle-left'}"
                       />
                     </button>
-                    <div class="inline-flex pl-2">{$eleveVueSetUp.isSolutionAccessible ? "Accès aux corrections" : "Pas de correction"}</div>
+                    <div class="inline-flex pl-2">{$globalOptions.isSolutionAccessible ? "Accès aux corrections" : "Pas de correction"}</div>
                   </div>
                 </div>
               </div>

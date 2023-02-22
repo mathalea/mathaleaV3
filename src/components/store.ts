@@ -1,6 +1,6 @@
 import { writable, get } from 'svelte/store'
 
-interface InterfaceGlobalOptions {v?: string, z?: string, durationGlobal?: number, nbVues?: number, shuffle?: boolean, choice?: number, trans?: boolean, sound?: number, es?: string}
+interface InterfaceGlobalOptions {v?: string, z?: string, durationGlobal?: number, nbVues?: number, shuffle?: boolean, choice?: number, trans?: boolean, sound?: number, es?: string, title: string, presMode: string, isInteractive: boolean, isSolutionAccessible: boolean }
 
 /**
  * listeExercices est un tableau d'objets décrivant l'exercice souhaité
@@ -15,13 +15,12 @@ export const exercicesParams = writable([])
  * Le paramètre 'es' est utilisé pour renseigner les réglages de la vue élève :
  * une unique chaîne de caractères contient dans l'ordre : titre + mode présentation + interactivité +  accès solutions
  */
-export const globalOptions = writable<InterfaceGlobalOptions>({ v: '', z: '1' })
+export const globalOptions = writable<InterfaceGlobalOptions>({ v: '', z: '1', title: 'Évaluation', presMode: 'page', isInteractive: false, isSolutionAccessible: true })
 
 // utilisé pour les aller-retours entre le composant Diaporam et le composant Can
 export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: [] })
 export const selectedExercises = writable({ isActive: false, indexes: [], count: 1 })
 export const transitionsBetweenQuestions = writable({ isActive: true, isNoisy: false, tune: 0 })
-export const eleveVueSetUp = writable({ title: 'Évaluation', presMode: 'page', isInteractive: false, isSolutionAccessible: true } as {title: string, presMode: string, isInteractive: boolean, isSolutionAccessible: boolean})
 
 // pour la gestion du mode sombre
 export const darkMode = writable({ isActive: false })
@@ -43,7 +42,6 @@ export function moveExercice (liste, iDepart, iArrivee) {
  */
 export function updateGlobalOptionsInURL () {
   const options = get(globalOptions)
-  const optionsVueEleve = get(eleveVueSetUp)
   const url = new URL(window.location.href)
   if (options.v) {
     url.searchParams.append('v', options.v)
@@ -86,15 +84,15 @@ export function updateGlobalOptionsInURL () {
     url.searchParams.delete('sound')
   }
   if (options.v === 'eleve') {
-    if (typeof optionsVueEleve.title !== 'undefined') {
-      url.searchParams.append('title', optionsVueEleve.title)
+    if (typeof options.title !== 'undefined') {
+      url.searchParams.append('title', options.title)
     } else {
       url.searchParams.delete('title')
     }
-    if (typeof optionsVueEleve !== 'undefined') {
-      let es = getKeyByValue(presModeId, optionsVueEleve.presMode)
-      es += optionsVueEleve.isInteractive ? '1' : '0'
-      es += optionsVueEleve.isSolutionAccessible ? '1' : '0'
+    if (typeof options !== 'undefined') {
+      let es = getKeyByValue(presModeId, options.presMode)
+      es += options.isInteractive ? '1' : '0'
+      es += options.isSolutionAccessible ? '1' : '0'
       url.searchParams.append('es', es)
     }
   } else {
