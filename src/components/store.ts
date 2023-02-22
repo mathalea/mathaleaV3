@@ -9,8 +9,11 @@ export const exercicesParams = writable([])
 /**
  * globalOptions est utilisé dans Mathalea.updateUrl() et dans Mathalea.loadExercicesFromUrl()
  * Il permet de sauvegarder le type de vue (v=...)
+ *
+ * Le paramètre 'es' est utilisé pour renseigner les réglages de la vue élève :
+ * une unique chaîne de caractères contient dans l'ordre : titre + mode présentation + interactivité +  accès solutions
  */
-export const globalOptions = writable({ v: '', z: '1' } as {v?: string, z?: string, durationGlobal?: number, nbVues?: number, shuffle?: boolean, choice?: number, trans?: boolean, sound?: number})
+export const globalOptions = writable({ v: '', z: '1' } as {v?: string, z?: string, durationGlobal?: number, nbVues?: number, shuffle?: boolean, choice?: number, trans?: boolean, sound?: number, es?: string})
 
 // utilisé pour les aller-retours entre le composant Diaporam et le composant Can
 export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: [] })
@@ -78,6 +81,11 @@ export function updateGlobalOptionsInURL () {
     url.searchParams.append('sound', options.sound)
   } else {
     url.searchParams.delete('sound')
+  }
+  if (typeof options.es !== 'undefined') {
+    url.searchParams.append('es', options.es)
+  } else {
+    url.searchParams.delete('es')
   }
   window.history.pushState({}, '', url)
 }
