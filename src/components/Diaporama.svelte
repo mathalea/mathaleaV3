@@ -10,8 +10,9 @@
   import { getBlobFromImageElement, copyBlobToClipboard, canCopyImagesToClipboard } from "copy-image-clipboard"
   import { context } from "../modules/context.js"
   import { shuffle, listOfRandomIndexes } from "./utils/shuffle"
+  import renderScratch from "../lib/renderScratch"
 
-  let divQuestion: HTMLElement
+  let divQuestions:HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
   let stepsUl: HTMLUListElement
   let currentQuestion = -1 // -1 pour l'intro et questions[0].length pour l'outro
@@ -103,7 +104,7 @@
     if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
   })
 
-  function updateExercices() {
+  async function updateExercices() {
     Mathalea.updateUrl($exercicesParams)
     questions = [[], [], [], []]
     corrections = [[], [], [], []]
@@ -166,6 +167,8 @@
     }
   }
 
+  
+
   function prevQuestion() {
     if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
   }
@@ -178,7 +181,7 @@
     if (i >= -1 && i <= questions[0].length) currentQuestion = i
     if (i === -1 || i === questions[0].length) pause()
     await tick()
-    if (divQuestion) {
+    if (divQuestions[0]) {
       currentZoom = userZoom
       setSize()
     }
@@ -221,13 +224,18 @@
 
   async function setSize() {
     const size = currentZoom * sizes[currentQuestion]
-    divQuestion.style.lineHeight = `1.2`
-    divQuestion.style.fontSize = `${size}rem`
-    Mathalea.renderDiv(divQuestion, size)
-    if (divQuestion.offsetHeight + 180 > window.innerHeight && currentZoom > 0) {
-      currentZoom -= 0.25
-      setSize()
+    for (let i = 0; i < nbOfVues; i++) {
+      if (divQuestions[i] !== undefined) {
+        divQuestions[i].style.lineHeight = `1.2`
+        divQuestions[i].style.fontSize = `${size}rem`
+        Mathalea.renderDiv(divQuestions[i], size)
+        if (divQuestions[i].offsetHeight + 180 > window.innerHeight && currentZoom > 0) {
+          currentZoom -= 0.25
+          setSize()
+        } 
+      }
     }
+    renderScratch()
   }
 
   function zoomPlus() {
@@ -268,7 +276,7 @@
       }
     }
     await tick()
-    Mathalea.renderDiv(divQuestion)
+    setSize()
   }
 
   function switchPause() {

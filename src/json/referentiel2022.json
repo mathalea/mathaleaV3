@@ -660,13 +660,14 @@
         "can6C24": {
           "uuid": "53034",
           "id": "can6C24",
-          "titre": "Multiplier par 0,1 ou 0,01 ou 0,001",
+          "titre": "Multiplier ou diviser par 0,1 ou 0,01 ou 0,001",
           "url": "can/6e/can6C24.js",
           "tags": {
             "AMC": true,
             "Interactif": true,
             "Can": true
-          }
+          },
+          "dateModification": "19/02/2023"
         },
         "can6C25": {
           "uuid": "81a00",
@@ -892,6 +893,30 @@
             "Can": true
           },
           "datePublication": "04/11/2022"
+        },
+        "can6C45": {
+          "uuid": "4a157",
+          "id": "can6C45",
+          "titre": "Résoudre un problème par soustraction/division",
+          "url": "can/6e/can6C45.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "09/02/2023"
+        },
+        "can6C46": {
+          "uuid": "1cee6",
+          "id": "can6C46",
+          "titre": "Résoudre un problème de reste en fraction",
+          "url": "can/6e/can6C46.js",
+          "tags": {
+            "AMC": true,
+            "Interactif": true,
+            "Can": true
+          },
+          "datePublication": "13/02/2023"
         }
       },
       "can6D": {
@@ -1912,7 +1937,7 @@
             "Interactif": true,
             "Can": true
           },
-          "dateModification": "19/12/2021"
+          "dateModification": "17/02/2023"
         },
         "can5P03": {
           "uuid": "57777",
@@ -5337,7 +5362,7 @@
         "id": "6D11",
         "tags": {
           "AMC": false,
-          "Interactif": false,
+          "Interactif": true,
           "Can": false
         },
         "titre": "Additionner des durées",
@@ -5349,7 +5374,7 @@
         "id": "6D12",
         "tags": {
           "AMC": true,
-          "Interactif": false,
+          "Interactif": true,
           "Can": false
         },
         "titre": "Calculer des durées ou déterminer un horaire",
@@ -11047,6 +11072,18 @@
         "url": "2e/2F11-1.js",
         "uuid": "b6cc0"
       },
+      "2F11-2": {
+        "datePublication": "14/02/2023",
+        "id": "2F11-2",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Comparer deux images avec une fonction de référence",
+        "url": "2e/2F11-2.js",
+        "uuid": "9315e"
+      },
       "2F12-1": {
         "datePublication": "07/01/2022",
         "id": "2F12-1",
@@ -11058,6 +11095,18 @@
         "titre": "Résoudre algébriquement une équation f(x)=k avec une fonction de référence",
         "url": "2e/2F12-1.js",
         "uuid": "de0d1"
+      },
+      "2F12-2": {
+        "datePublication": "14/02/2023",
+        "id": "2F12-2",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Résoudre graphiquement $f(x)\\gt k \\quad (\\lt k)$ avec une fonction de référence",
+        "url": "2e/2F12-2.js",
+        "uuid": "277d3"
       }
     },
     "2F2": {
@@ -11084,6 +11133,18 @@
         "url": "2e/2F20-2.js",
         "uuid": "ec059"
       },
+      "2F21-1": {
+        "datePublication": "14/02/2023",
+        "id": "2F21-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Modéliser une situation à l'aide d'une fonction",
+        "url": "2e/2F21-1.js",
+        "uuid": "5621b"
+      },
       "2F25-1": {
         "id": "2F25-1",
         "tags": {
@@ -11108,6 +11169,18 @@
       }
     },
     "2F3": {
+      "2F30-1": {
+        "datePublication": "14/02/2023",
+        "id": "2F30-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Dresser un tableau de variations à partir d'une courbe",
+        "url": "2e/2F30-1.js",
+        "uuid": "05b52"
+      },
       "2F31-1": {
         "datePublication": "07/01/2022",
         "id": "2F31-1",
@@ -12173,6 +12246,30 @@
       }
     },
     "2N6": {
+      "2N60-1": {
+        "datePublication": "14/02/2023",
+        "id": "2N60-1",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Modéliser un problème par une inéquation.",
+        "url": "2e/2N60-1.js",
+        "uuid": "d2084"
+      },
+      "2N60-3": {
+        "datePublication": "14/02/2023",
+        "id": "2N60-3",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Utiliser les propriétés de conservation du sens d'une inégalité",
+        "url": "2e/2N60-3.js",
+        "uuid": "e32f3"
+      },
       "2N60-4": {
         "id": "2N60-4",
         "tags": {

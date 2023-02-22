@@ -29,6 +29,7 @@
     "mathlive": "^0.86.0",
     "mathsteps": "github:mathalea/mathsteps",
     "qrcode": "^1.5.1",
+    "scratchblocks": "^3.6.1",
     "seedrandom": "^3.0.5",
     "simple-svelte-autocomplete": "^2.5.1",
     "ts-import": "4.0.0-beta.10"

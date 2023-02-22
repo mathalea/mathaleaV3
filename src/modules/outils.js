@@ -2155,9 +2155,9 @@ export function minToHoraire (minutes) {
   }
   const nbminuteRestante = (minutes % 60)
   if (nbminuteRestante > 9) {
-    return (nbHour + sp() + 'h' + sp() + nbminuteRestante)
+    return (nbHour + sp() + 'h' + sp() + nbminuteRestante + sp() + 'min')
   } else {
-    return (nbHour + sp() + ' h' + sp() + '0' + nbminuteRestante)
+    return (nbHour + sp() + 'h' + sp() + '0' + nbminuteRestante + sp() + 'min')
   }
 }
 
@@ -2176,9 +2176,9 @@ export function minToHour (minutes) {
     return (nbminuteRestante + sp() + 'min')
   } else {
     if (nbminuteRestante > 9) {
-      return (nbHour + sp() + 'h' + sp() + nbminuteRestante)
+      return (nbHour + sp() + 'h' + sp() + nbminuteRestante + sp() + 'min')
     } else {
-      return (nbHour + sp() + ' h' + sp() + '0' + nbminuteRestante)
+      return (nbHour + sp() + 'h' + sp() + '0' + nbminuteRestante + sp() + 'min')
     }
   }
 }
@@ -2236,7 +2236,7 @@ export function prenom (n = 1) {
 * @author Mireille Gain
 */
 export function objetF () {
-  return choice(['boîtes', 'bougies', 'cartes de voeux', 'gommes', 'photos', 'petites peluches'])
+  return choice(['boîtes', 'bougies', 'cartes de vœux', 'gommes', 'photos', 'petites peluches'])
 }
 
 /**
@@ -2252,7 +2252,7 @@ export function objetM () {
 * @author Mireille Gain
 */
 export function objet () {
-  return choice(['billes', 'bonbons', 'bougies', 'cartes de voeux', 'crayons', 'gâteaux', 'gommes', 'photos', 'stickers', 'cahiers'])
+  return choice(['billes', 'bonbons', 'bougies', 'cartes de vœux', 'crayons', 'gâteaux', 'gommes', 'photos', 'stickers', 'cahiers'])
 }
 
 /**
