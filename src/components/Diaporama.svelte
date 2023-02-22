@@ -20,7 +20,7 @@
   let isCorrectionVisible = false
   let isQuestionVisible = true
   let isSameDurationForAll = false
-  let userZoom = 1
+  let userZoom = 0.85
   let currentZoom = userZoom
   let exercices: Exercice[] = []
   let questions: [string[], string[], string[], string[]] = [[], [], [], []] // Concaténation de toutes les questions des exercices de exercicesParams, vue par vue
@@ -243,14 +243,40 @@
         const consigne_div: HTMLDivElement = document.getElementById("consigne" + i)
         const question_div: HTMLDivElement = document.getElementById("question" + i)
         const correction_div: HTMLDivElement = document.getElementById("correction" + i)
+        const svg_divs: SVGElement[] = document.getElementsByClassName("mathalea2d")
         let diapocell_width = diapocell_div.clientWidth
         let textcell_width = textcell_div.clientWidth
         let textcell_height = textcell_div.clientHeight
-        let size = currentZoom * (nbOfVues > 1 ? 100 : 200)
+        // Donner la bonne taille aux figures
+        if (svg_divs.length !== 0 && question_div !== null) {
+          const nbOfSVG = svg_divs.length
+          const optimalSVGWidth = (textcell_width * 0.6) / nbOfSVG // on divise lorsqu'il y a deux SVG sur la même ligne
+          const coefHeight = correction_div !== null ? 0.3 : 0.5
+          const optimalSVGHeigth = textcell_height * coefHeight
+          console.log("optimal SVG width : " + optimalSVGWidth + "/ optimal heigth : " + optimalSVGHeigth)
+          for (let k = 0; k < nbOfSVG; k++) {
+            const startingWidth = svg_divs[k].clientWidth
+            const startingHeight = svg_divs[k].clientHeight
+            console.log("starting size : " + startingWidth + " / strating height : " + startingHeight)
+            const rw = optimalSVGWidth / startingWidth
+            const rh = optimalSVGHeigth / startingHeight
+            if (startingHeight * rw < optimalSVGHeigth) {
+              svg_divs[k].setAttribute("width", optimalSVGWidth)
+              svg_divs[k].setAttribute("height", svg_divs[k].clientHeight * rw)
+            } else {
+              svg_divs[k].setAttribute("height", optimalSVGHeigth)
+              svg_divs[k].setAttribute("width", svg_divs[k].clientWidth * rh)
+            }
+            svg_divs[k].removeAttribute("style")
+            svg_divs[k].setAttribute("style", "margin: auto")
+            console.log("final dimensions : " + svg_divs[k].clientWidth + " x " + svg_divs[k].clientHeight)
+          }
+        }
+        let size = nbOfVues > 1 ? 100 : 200
         let consigne_width, consigne_height, correction_width, correction_height, question_width, question_height: number
         do {
           if (question_div !== null) {
-            size = currentZoom * (size - 2)
+            size = size - 2
             question_div.style.fontSize = size + "px"
             question_width = question_div.clientWidth
             question_height = question_div.clientHeight
@@ -275,24 +301,15 @@
             correction_height = 0
           }
         } while (question_width > textcell_width || consigne_width > textcell_width || correction_width > textcell_width || question_height + consigne_height + correction_height > textcell_height)
-        // console.log(
-        //   "text-width" +
-        //     i +
-        //     " : " +
-        //     textcell_width +
-        //     " / text-height" +
-        //     i +
-        //     " : " +
-        //     textcell_height +
-        //     " / width" +
-        //     i +
-        //     " : " +
-        //     question_width +
-        //     " / height" +
-        //     i +
-        //     " : " +
-        //     (question_height + consigne_height + correction_height)
-        // )
+        if (question_div !== null) {
+          question_div.style.fontSize = currentZoom * size + "px"
+        }
+        if (consigne_div !== null) {
+          consigne_div.style.fontSize = currentZoom * size + "px"
+        }
+        if (correction_div !== null) {
+          correction_div.style.fontSize = currentZoom * size + "px"
+        }
       }
     }
   }
@@ -328,24 +345,6 @@
     } else {
       document.exitFullscreen()
     }
-  }
-
-  async function switchCorrectionMode() {
-    // isCorrectionVisible = !isCorrectionVisible
-    if (isQuestionVisible && !isCorrectionVisible) {
-      isCorrectionVisible = !isCorrectionVisible
-    } else {
-      if (isQuestionVisible && isCorrectionVisible) {
-        isQuestionVisible = !isQuestionVisible
-      } else {
-        if (!isQuestionVisible && isCorrectionVisible) {
-          isQuestionVisible = !isQuestionVisible
-          isCorrectionVisible = !isCorrectionVisible
-        }
-      }
-    }
-    await tick()
-    setSize()
   }
 
   function switchPause() {
@@ -433,6 +432,24 @@
 
   $: displayCurrentDuration = () => {
     return currentDuration === 0 ? "Manuel" : currentDuration + "s"
+  }
+
+  async function switchCorrectionMode() {
+    // isCorrectionVisible = !isCorrectionVisible
+    if (isQuestionVisible && !isCorrectionVisible) {
+      isCorrectionVisible = !isCorrectionVisible
+    } else {
+      if (isQuestionVisible && isCorrectionVisible) {
+        isQuestionVisible = !isQuestionVisible
+      } else {
+        if (!isQuestionVisible && isCorrectionVisible) {
+          isQuestionVisible = !isQuestionVisible
+          isCorrectionVisible = !isCorrectionVisible
+        }
+      }
+    }
+    await tick()
+    setSize()
   }
 
   $: displayCurrentCorrectionMode = () => {
@@ -1320,12 +1337,12 @@
         </div>
       </header>
       <!-- Question -->
-      <main class="bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus min-h-[80%] p-10">
+      <main class="bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus min-h-[80%] p-4">
         <div class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : 'grid grid-cols-1'} place-content-stretch justify-items-center w-full h-full">
           {#each Array(nbOfVues) as _, i}
             <div
               id="diapocell{i}"
-              class="relative min-h-[100%] max-h-[100%] flex flex-col justify-center justify-self-stretch place-items-stretch p-8 {nbOfVues > 1
+              class="relative min-h-[100%] max-h-[100%] flex flex-col justify-center justify-self-stretch place-items-stretch p-2 {nbOfVues > 1
                 ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'
                 : ''} text-center"
             >
@@ -1339,12 +1356,12 @@
               <div id="textcell{i}" bind:this={divQuestion[i]} class="flex flex-col justify-center w-full  min-h-[100%]  max-h-[100%]">
                 <div class="font-light mb-8" id="consigne{i}">{@html consignes[$questionsOrder.indexes[currentQuestion]]}</div>
                 {#if isQuestionVisible}
-                  <div class="py-4" id="question{i}">
+                  <div class="pb-4" id="question{i}">
                     {@html questions[i][$questionsOrder.indexes[currentQuestion]]}
                   </div>
                 {/if}
                 {#if isCorrectionVisible}
-                  <div id="correction{i}" class="py-4 {isCorrectionVisible ? 'bg-coopmaths-warn-light bg-opacity-30 dark:bg-coopmathsdark-warn-light dark:bg-opacity-30 my-10' : ''}">
+                  <div id="correction{i}" class=" {isCorrectionVisible ? 'bg-coopmaths-warn-light bg-opacity-30 dark:bg-coopmathsdark-warn-light dark:bg-opacity-30 my-10' : ''}">
                     {@html corrections[i][$questionsOrder.indexes[currentQuestion]]}
                   </div>
                 {/if}
