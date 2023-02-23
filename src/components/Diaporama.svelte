@@ -217,36 +217,36 @@
   /**
    * Faire une pause pendant l'exécution d'un programme
    * {@link https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep?page=1&tab=scoredesc#tab-top | Source}
-   * @param ms nb de millisecondes de la pause
+   * @param {number} ms nb de millisecondes de la pause
+   * @author sylvain
    */
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
+  /**
+   * Déterminer les tailles optimales de la fonte et des illustrations dans chaque question.<br>
+   * <u>Principe :</u>
+   * <ul>
+   *  <li> on récupère les dimensions carton (id='textcell...')</li>
+   *  <li> on détermine la hauteur et la largeur optimale pour les figures (class='mathalea2d')</li>
+   *  <li> on ajuste hauteur/largeur des figures en préservant le ratio</li>
+   *  <li> on applique une taille de caractère volontairement grosse aux textes (consigne+question+correction)</li>
+   *  <li> on réduit cette taille jsqu'à ce que la hauteur ne dépasse pas celle du container (id='textcell...')</li>
+   * </ul>
+   * @author sylvain
+   */
   async function setSize() {
-    // const size = currentZoom * sizes[currentQuestion]
-    // for (let k = 0; k < nbOfVues; k++) {
-    //   if (typeof divQuestion[k] !== "undefined") {
-    //     divQuestion[k].style.lineHeight = `1.2`
-    //     divQuestion[k].style.fontSize = `${size}rem`
-    //     Mathalea.renderDiv(divQuestion[k], size)
-    //     if (divQuestion[k].offsetHeight + 180 > window.innerHeight && currentZoom > 0) {
-    //       currentZoom -= 0.25
-    //       setSize()
-    //     }
-    //   }
-    // }
-
+    // let startSize = 0
     for (let i = 0; i < nbOfVues; i++) {
       if (typeof divQuestion[i] !== "undefined") {
         Mathalea.renderDiv(divQuestion[i], -1)
-        const diapocell_div: HTMLDivElement = document.getElementById("diapocell" + i)
         const textcell_div: HTMLDivElement = document.getElementById("textcell" + i)
         const consigne_div: HTMLDivElement = document.getElementById("consigne" + i)
         const question_div: HTMLDivElement = document.getElementById("question" + i)
         const correction_div: HTMLDivElement = document.getElementById("correction" + i)
         const svg_divs: SVGElement[] = document.getElementsByClassName("mathalea2d")
-        let diapocell_width = diapocell_div.clientWidth
         let textcell_width = textcell_div.clientWidth
         let textcell_height = textcell_div.clientHeight
+        let finalSVGHeight = 0
         // Donner la bonne taille aux figures
         if (svg_divs.length !== 0 && question_div !== null) {
           const nbOfSVG = svg_divs.length
@@ -274,40 +274,52 @@
               svg_divs[k].setAttribute("style", "margin: auto")
             }
             // console.log("final dimensions : " + svg_divs[k].clientWidth + " x " + svg_divs[k].clientHeight)
+            if (finalSVGHeight < parseInt(svg_divs[k].getAttribute("height"))) {
+              finalSVGHeight = parseInt(svg_divs[k].getAttribute("height"))
+            }
           }
         }
-        let size = nbOfVues > 1 ? 100 : 200
-        let consigne_width, consigne_height, correction_width, correction_height, question_width, question_height: number
+        // Donner la bonne taille au texte
+        let nbOfCharactersInTextDiv = textcell_div.textContent.length
+        if (finalSVGHeight !== 0) {
+          nbOfCharactersInTextDiv -= 100
+        }
+        // let size = nbOfVues > 1 ? 100 : 300
+        let size = (300 - Math.floor(nbOfCharactersInTextDiv / 50) * 30) * (1 - finalSVGHeight / textcell_height)
+        if (nbOfVues === 2) {
+          size = size * 0.7
+        } else {
+          if (nbOfVues > 2) {
+            size = size / 3
+          }
+        }
+        // startSize = size
+        let consigne_height, correction_height, question_height: number
         do {
           size = size - 2
           if (question_div !== null) {
             question_div.style.fontSize = size + "px"
-            question_width = question_div.clientWidth
             question_height = question_div.clientHeight
           } else {
-            question_width = 0
             question_height = 0
           }
           if (consigne_div !== null) {
             consigne_div.style.fontSize = size + "px"
-            consigne_width = consigne_div.clientWidth
             consigne_height = consigne_div.clientHeight
           } else {
-            consigne_width = 0
             consigne_height = 0
           }
           if (correction_div !== null) {
             correction_div.style.fontSize = size + "px"
-            correction_width = correction_div.clientWidth
             correction_height = correction_div.clientHeight
           } else {
-            correction_width = 0
             correction_height = 0
           }
           // console.log("question w=" + question_width + "/h=" + question_height)
           // console.log("consigne w=" + consigne_width + "/h=" + consigne_height)
           // console.log("correction w=" + correction_width + "/h=" + correction_height)
-        } while (question_width > textcell_width || consigne_width > textcell_width || correction_width > textcell_width || question_height + consigne_height + correction_height > textcell_height)
+          //  question_width > textcell_width || consigne_width > textcell_width || correction_width > textcell_width ||
+        } while (question_height + consigne_height + correction_height > textcell_height)
         if (question_div !== null) {
           question_div.style.fontSize = currentZoom * size + "px"
         }
@@ -317,6 +329,7 @@
         if (correction_div !== null) {
           correction_div.style.fontSize = currentZoom * size + "px"
         }
+        // console.log("nb de caractères : " + nbOfCharactersInTextDiv + " / font-size départ : " + startSize + "font-size calculée : " + size + " / ratio : " + (1 - finalSVGHeight / textcell_height))
       }
     }
   }
@@ -1345,7 +1358,7 @@
       </header>
       <!-- Question -->
       <main class="bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus min-h-[80%] p-4">
-        <div class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : 'grid grid-cols-1'} place-content-stretch justify-items-center w-full h-full">
+        <div class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4 auto-rows-fr' : 'grid grid-cols-1'} place-content-stretch justify-items-center w-full h-full">
           {#each Array(nbOfVues) as _, i}
             <div
               id="diapocell{i}"
@@ -1360,10 +1373,10 @@
                   {i + 1}
                 </div>
               {/if}
-              <div id="textcell{i}" bind:this={divQuestion[i]} class="flex flex-col justify-center w-full  min-h-[100%]  max-h-[100%]">
+              <div id="textcell{i}" bind:this={divQuestion[i]} class="flex flex-col justify-center px-4 w-full  min-h-[100%]  max-h-[100%]">
                 {#if isQuestionVisible}
-                  <div class="font-light mb-8" id="consigne{i}">{@html consignes[$questionsOrder.indexes[currentQuestion]]}</div>
-                  <div class="pb-4" id="question{i}">
+                  <div class="font-light" id="consigne{i}">{@html consignes[$questionsOrder.indexes[currentQuestion]]}</div>
+                  <div class="py-4" id="question{i}">
                     {@html questions[i][$questionsOrder.indexes[currentQuestion]]}
                   </div>
                 {/if}
