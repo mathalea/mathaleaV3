@@ -76,7 +76,6 @@
     exercices = exercices
 
     buildQuestions()
-    await tick()
   })
 
   function buildQuestions() {

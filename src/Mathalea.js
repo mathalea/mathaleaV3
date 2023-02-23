@@ -139,7 +139,9 @@ export class Mathalea {
     let trans = false
     let title = 'Exercices'
     let choice, sound, es
-    let presMode, isInteractive, isSolutionAccessible
+    let presMode = 'page'
+    let isInteractive = false
+    let isSolutionAccessible = true
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     let indiceExercice = -1
@@ -218,7 +220,7 @@ export class Mathalea {
       isSolutionAccessible = (es.charAt(2) === '1')
     }
 
-    return { v, z, durationGlobal, nbVues, shuffle, choice, trans, sound, es, title, presMode, isInteractive, isSolutionAccessible }
+    return { v, z, durationGlobal, nbVues, shuffle, choice, trans, sound, title, presMode, isInteractive, isSolutionAccessible }
   }
 
   static handleExerciceSimple (exercice, isInteractif) {

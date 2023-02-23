@@ -457,7 +457,7 @@
                         value={"liste"}
                       />
                       <label class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm text-opacity-70 font-light" for="presentationModeRadio3">
-                        toutes les questions sur une pages
+                        toutes les questions sur une page
                       </label>
                     </div>
                     <div class="form-check flex flex-row ml-4 items-center">
