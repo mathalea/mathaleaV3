@@ -24,6 +24,8 @@
   let isSettingsVisible = false
   let isInteractif = exercice.interactif
   let isMessagesVisible = true
+  let interactifReady = exercice.interactifReady
+  
 
   const title = exercice.id ? `${exercice.id.replace('.js', '')} - ${exercice.titre}` : exercice.titre
 
@@ -36,9 +38,11 @@
     isHidable?: boolean
     correctionReady?: boolean
     randomReady?: boolean
+    interactifReady?: boolean
   } = {
     title,
     isInteractif,
+    interactifReady
   }
 
   $: {
@@ -50,6 +54,7 @@
       headerExerciceProps.isDeletable = false
       headerExerciceProps.isHidable = false
       if ($globalOptions.isInteractive) setAllInteractif()
+      headerExerciceProps.interactifReady = false
       if (!$globalOptions.isSolutionAccessible) {
         headerExerciceProps.correctionReady = false
         headerExerciceProps.randomReady = false
@@ -239,7 +244,7 @@
     {...headerExerciceProps}
     {indiceExercice}
     {indiceLastExercice}
-    interactifReady={exercice.interactifReady && !isCorrectionVisible}
+    interactifReady={exercice.interactifReady && !isCorrectionVisible && headerExerciceProps.interactifReady}
     on:clickMessages={(event) => {
       isMessagesVisible = event.detail.isMessagesVisible
       updateDisplay()
