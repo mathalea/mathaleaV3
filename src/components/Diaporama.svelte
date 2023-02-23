@@ -943,19 +943,12 @@
           <div class="flex text-lg font-bold pb-2 text-coopmaths-struct  dark:text-coopmathsdark-struct">
             Liens
             <div class="flex flex-row px-4 -mt-2 justify-start">
-              <ModalActionWithDialog on:display={() => copyLinkToClipboard("linkCopiedDialog-1")} message="Le lien est copié dans le presse-papier !" />
-              <div class="tooltip tooltip-bottom tooltip-neutral" data-tip="Lien du diaporama">
-                <button
-                  type="button"
-                  class="mr-4 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                  on:click={() => copyLinkToClipboard("linkCopiedDialog-1")}
-                >
-                  <i class="bx text-2xl bx-link" />
-                </button>
-                <dialog class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light" id="linkCopiedDialog-1">
-                  Le lien est copié dans le presse-papier !
-                </dialog>
-              </div>
+              <ModalActionWithDialog
+                on:display={() => copyLinkToClipboard("linkCopiedDialog-1")}
+                message="Le lien est copié dans le presse-papier !"
+                id="linkCopiedDialog-1"
+                tooltipMessage="Lien du Diaporama"
+              />
               <label for="QRCodeModal-1" class="btn bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
                 <div class="tooltip tooltip-bottom tooltip-neutral" data-tip="QR-code du diaporama">
                   <i
@@ -1359,18 +1352,13 @@
             on:click={() => handleComponentChange("diaporama", "can")}><i class="bx text-[100px] bx-detail" /></button
           >
         </div>
-        <div class="tooltip tooltip-bottom tooltip-neutral" data-tip="Lien du diaporama">
-          <button
-            type="button"
-            class="mx-12 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-            on:click={() => copyLinkToClipboard("linkCopiedDialog-2")}
-          >
-            <i class="bx text-[100px] bx-link" />
-          </button>
-          <dialog class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus" id="linkCopiedDialog-2">
-            Le lien est copié dans le presse-papier !
-          </dialog>
-        </div>
+        <ModalActionWithDialog
+          on:display={() => copyLinkToClipboard("linkCopiedDialog-2")}
+          message="Le lien est copié dans le presse-papier !"
+          id="linkCopiedDialog-2"
+          tooltipMessage="Lien du Diaporama"
+          buttonSize="text-[100px]"
+        />
         <label for="QRCodeModal-2" class="mx-12 my-2 hover:cursor-pointer">
           <div class="tooltip tooltip-bottom tooltip-neutral" data-tip="QR-code du diaporama">
             <i
