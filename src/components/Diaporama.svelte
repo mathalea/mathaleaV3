@@ -993,7 +993,7 @@
                 <div class="tooltip tooltip-bottom tooltip-neutral" data-tip="QR-code du diaporama">
                   <i
                     class="bx text-2xl text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx-qr"
-                    on:click={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")}
+                    on:click={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-1", QRCodeWidth, formatQRCodeIndex)}
                   />
                 </div>
               </label>
@@ -1025,7 +1025,7 @@
                           id="formatQRCodeRadio1"
                           bind:group={formatQRCodeIndex}
                           on:change={() => {
-                            urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")
+                            urlToQRCodeOnWithinImgTag("QRCodeCanvas-1", QRCodeWidth, formatQRCodeIndex)
                           }}
                           value={0}
                         />
@@ -1039,7 +1039,7 @@
                           id="formatQRCodeRadio2"
                           bind:group={formatQRCodeIndex}
                           on:change={() => {
-                            urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")
+                            urlToQRCodeOnWithinImgTag("QRCodeCanvas-1", QRCodeWidth, formatQRCodeIndex)
                           }}
                           value={1}
                         />
@@ -1053,7 +1053,7 @@
                           id="formatQRCodeRadio3"
                           bind:group={formatQRCodeIndex}
                           on:change={() => {
-                            urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")
+                            urlToQRCodeOnWithinImgTag("QRCodeCanvas-1", QRCodeWidth, formatQRCodeIndex)
                           }}
                           value={2}
                         />
@@ -1070,7 +1070,7 @@
                       max="300"
                       bind:value={QRCodeWidth}
                       class="ml-3 w-20 h-8 text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark  border-1 border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
-                      on:change={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-1")}
+                      on:change={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-1", QRCodeWidth, formatQRCodeIndex)}
                     />
                   </div>
                   <div class="flex flex-col justify-center">
@@ -1092,7 +1092,7 @@
                         <button
                           type="button"
                           class="mx-6 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                          on:click={() => downloadQRCodeImage("QRCodeCanvas-1")}
+                          on:click={() => downloadQRCodeImage("QRCodeCanvas-1", formatQRCodeIndex)}
                         >
                           <i class="bx text-[30px] bx-download" />
                         </button>
@@ -1408,7 +1408,7 @@
           <div class="tooltip tooltip-bottom tooltip-neutral" data-tip="QR-code du diaporama">
             <i
               class="bx text-[100px] text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx-qr self-center"
-              on:click={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")}
+              on:click={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-2", QRCodeWidth, formatQRCodeIndex)}
             />
           </div>
         </label>
@@ -1438,7 +1438,7 @@
                     id="formatQRCodeRadio1"
                     bind:group={formatQRCodeIndex}
                     on:change={() => {
-                      urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")
+                      urlToQRCodeOnWithinImgTag("QRCodeCanvas-2", QRCodeWidth, formatQRCodeIndex)
                     }}
                     value={0}
                   />
@@ -1452,7 +1452,7 @@
                     id="formatQRCodeRadio2"
                     bind:group={formatQRCodeIndex}
                     on:change={() => {
-                      urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")
+                      urlToQRCodeOnWithinImgTag("QRCodeCanvas-2", QRCodeWidth, formatQRCodeIndex)
                     }}
                     value={1}
                   />
@@ -1466,7 +1466,7 @@
                     id="formatQRCodeRadio3"
                     bind:group={formatQRCodeIndex}
                     on:change={() => {
-                      urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")
+                      urlToQRCodeOnWithinImgTag("QRCodeCanvas-2", QRCodeWidth, formatQRCodeIndex)
                     }}
                     value={2}
                   />
@@ -1484,7 +1484,7 @@
                 max="300"
                 bind:value={QRCodeWidth}
                 class="ml-3 w-20 h-8 text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark border-2 border-coopmaths-action dark:border-coopmathsdark-action focus:border-1 focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 disabled:opacity-30"
-                on:change={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-2")}
+                on:change={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-2", QRCodeWidth, formatQRCodeIndex)}
               />
             </div>
             <div class="flex flex-col justify-center">
@@ -1505,7 +1505,7 @@
                   <button
                     type="button"
                     class="mx-6 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                    on:click={() => downloadQRCodeImage("QRCodeCanvas-2")}
+                    on:click={() => downloadQRCodeImage("QRCodeCanvas-2", formatQRCodeIndex)}
                   >
                     <i class="bx text-[30px] bx-download" />
                   </button>

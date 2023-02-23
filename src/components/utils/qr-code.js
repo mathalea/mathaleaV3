@@ -1,15 +1,17 @@
 import QRCode from 'qrcode'
 
-const formatQRCodeIndex = 0
 const allowedImageFormats = ['image/jpeg', 'image/png', 'image/webp']
-const QRCodeWidth = 100
+// const formatQRCodeIndex = 0
+// const QRCodeWidth = 100
 /**
-   * Generate QR-Code from current URL and display it in designated image
-   * (format is decided by global variable <i>formatQRCodeIndex</i>)
-   * @param imageId id of the image
-   * @author sylvain
-   */
-export function urlToQRCodeOnWithinImgTag (imageId) {
+ * Generate QR-Code from current URL and display it in designated image
+ * (format is decided by global variable <i>formatQRCodeIndex</i>)
+ * @param imageId id of the image
+ * @param QRCodeWidth largeur du QR-Code (en pixels)
+ * @param formatQRCodeIndex code du format d'image (voir allowedImageFormats)
+ * @author sylvain
+ */
+export function urlToQRCodeOnWithinImgTag (imageId, QRCodeWidth, formatQRCodeIndex = 0) {
   const diapoURL = document.URL
   const options = {
     errorCorrectionLevel: 'H',
@@ -34,9 +36,10 @@ export function urlToQRCodeOnWithinImgTag (imageId) {
 * Download image of QR-Code contained within designated img tag
 * (timestamp is added to the file name)
 * @param imageId ID of the image to download
+* @param formatQRCodeIndex code du format d'image (voir allowedImageFormats)
 * @author sylvain
 */
-export function downloadQRCodeImage (imageId) {
+export function downloadQRCodeImage (imageId, formatQRCodeIndex = 0) {
   // creating a timestamp for file name
   const date = new Date()
   const year = date.getFullYear()

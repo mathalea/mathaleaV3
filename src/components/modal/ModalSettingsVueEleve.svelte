@@ -1,9 +1,9 @@
 <script lang="ts">
-  import FormRadio from '../forms/FormRadio.svelte'
-import { globalOptions } from '../store'
+  import FormRadio from "../forms/FormRadio.svelte"
+  import { globalOptions } from "../store"
   function handleEleveVueSetUp() {
     globalOptions.update((params) => {
-      params.v = 'eleve'
+      params.v = "eleve"
       return params
     })
   }
@@ -24,12 +24,16 @@ import { globalOptions } from '../store'
         </div>
       </div>
       <div class="pb-2">
-        <FormRadio title="Présentation" bind:valueSelected={$globalOptions.presMode} labelsValues={[
-          { label: 'Une page unique', value: 'page' },
-          { label: 'Une page par exercices', value: 'exos' },
-          { label: 'Toutes les questions sur une page', value: 'liste' },
-          { label: 'Une page par question', value: 'question' },
-        ]} />
+        <FormRadio
+          title="Présentation"
+          bind:valueSelected={$globalOptions.presMode}
+          labelsValues={[
+            { label: "Une page unique", value: "page" },
+            { label: "Une page par exercices", value: "exos" },
+            { label: "Toutes les questions sur une page", value: "liste" },
+            { label: "Une page par question", value: "question" },
+          ]}
+        />
       </div>
       <div class="pb-2">
         <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Interactif</div>
@@ -51,9 +55,6 @@ import { globalOptions } from '../store'
           </button>
           <div class="inline-flex pl-2">{$globalOptions.isInteractive ? 'Avec interactivité' : 'Sans interactivité'}</div>
         </div> -->
-
-
-        
       </div>
       <div class="pb-2">
         <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Correction</div>
@@ -73,7 +74,7 @@ import { globalOptions } from '../store'
                 : 'bx-toggle-left'}"
             />
           </button>
-          <div class="inline-flex pl-2">{$globalOptions.isSolutionAccessible ? 'Accès aux corrections' : 'Pas de correction'}</div>
+          <div class="inline-flex pl-2">{$globalOptions.isSolutionAccessible ? "Accès aux corrections" : "Pas de correction"}</div>
         </div>
       </div>
     </div>
