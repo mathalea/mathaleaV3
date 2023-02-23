@@ -34,6 +34,8 @@
     isSortable?: boolean
     isDeletable?: boolean
     isHidable?: boolean
+    correctionReady?: boolean
+    randomReady?: boolean
   } = {
     title,
     isInteractif,
@@ -48,6 +50,10 @@
       headerExerciceProps.isDeletable = false
       headerExerciceProps.isHidable = false
       if ($globalOptions.isInteractive) setAllInteractif()
+      if (!$globalOptions.isSolutionAccessible) {
+        headerExerciceProps.correctionReady = false
+        headerExerciceProps.randomReady = false
+      } 
     } else {
       headerExerciceProps.settingsReady = true
       headerExerciceProps.isSortable = true
