@@ -121,7 +121,6 @@ export class Mathalea {
       if (ex.cd !== undefined) url.searchParams.append('cd', ex.cd)
       if (ex.cols !== undefined) url.searchParams.append('cols', ex.cols)
     }
-    window.history.pushState({}, '', url)
     updateGlobalOptionsInURL(url)
   }
 

@@ -37,12 +37,14 @@ export function moveExercice (liste, iDepart, iArrivee) {
   return liste
 }
 
+let urlToWrite: URL
+let timerId: number
+
 /**
  * Complète l'URL courante avec les éléments relatifs au diaporama
  */
-export function updateGlobalOptionsInURL () {
+export function updateGlobalOptionsInURL (url) {
   const options = get(globalOptions)
-  const url = new URL(window.location.href)
   if (options.v) {
     url.searchParams.append('v', options.v)
   } else {
@@ -99,7 +101,15 @@ export function updateGlobalOptionsInURL () {
     url.searchParams.delete('title')
     url.searchParams.delete('es')
   }
-  window.history.pushState({}, '', url)
+  urlToWrite = url
+  // On ne met à jour l'url qu'une fois toutes les 0,5 s
+  // pour éviter l'erreur Attempt to use history.pushState() more than 100 times per 30 seconds
+  if (timerId === undefined) {
+    timerId = setTimeout(() => {
+      window.history.pushState({}, '', urlToWrite)
+      timerId = undefined
+    }, 500)
+  }
 }
 
 export const presModeId = {
