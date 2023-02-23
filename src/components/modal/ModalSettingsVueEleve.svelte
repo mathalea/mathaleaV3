@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { globalOptions } from '../store'
+  import FormRadio from '../forms/FormRadio.svelte'
+import { globalOptions } from '../store'
   function handleEleveVueSetUp() {
     globalOptions.update((params) => {
       params.v = 'eleve'
@@ -23,78 +24,16 @@
         </div>
       </div>
       <div class="pb-2">
-        <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Présentation</div>
-        <div class="flex flex-col justify-start items-start">
-          <div class="form-check flex flex-row ml-4 items-center">
-            <input
-              class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas-dark text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2 cursor-pointer"
-              type="radio"
-              name="presentationMode"
-              id="presentationModeRadio1"
-              bind:group={$globalOptions.presMode}
-              value={'page'}
-            />
-            <label
-              class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm text-opacity-70 font-light"
-              for="presentationModeRadio1"
-            >
-              une page unique
-            </label>
-          </div>
-          <div class="form-check flex flex-row ml-4 items-center">
-            <input
-              class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas-dark text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2 cursor-pointer"
-              type="radio"
-              name="presentationMode"
-              id="presentationModeRadio2"
-              bind:group={$globalOptions.presMode}
-              value={'exos'}
-            />
-            <label
-              class=" form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm text-opacity-70 font-light"
-              for="presentationModeRadio2"
-            >
-              une page par exercice
-            </label>
-          </div>
-
-          <div class="form-check flex flex-row ml-4 items-center">
-            <input
-              class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas-dark text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2 cursor-pointer"
-              type="radio"
-              name="presentationMode"
-              id="presentationModeRadio3"
-              bind:group={$globalOptions.presMode}
-              value={'liste'}
-            />
-            <label
-              class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm text-opacity-70 font-light"
-              for="presentationModeRadio3"
-            >
-              toutes les questions sur une page
-            </label>
-          </div>
-          <div class="form-check flex flex-row ml-4 items-center">
-            <input
-              class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas-dark text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2 cursor-pointer"
-              type="radio"
-              name="presentationMode"
-              id="presentationModeRadio4"
-              bind:group={$globalOptions.presMode}
-              value={'questions'}
-            />
-            <label
-              class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm text-opacity-70 font-light"
-              for="presentationModeRadio4"
-            >
-              une page par question
-            </label>
-          </div>
-        </div>
+        <FormRadio title="Présentation" bind:valueSelected={$globalOptions.presMode} labelsValues={[
+          { label: 'Une page unique', value: 'page' },
+          { label: 'Une page par exercices', value: 'exos' },
+          { label: 'Toutes les questions sur une page', value: 'liste' },
+          { label: 'Une page par question', value: 'question' },
+        ]} />
       </div>
       <div class="pb-2">
         <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Interactif</div>
-        <div class="flex flex-row justify-start items-center px-4">
+        <!-- <div class="flex flex-row justify-start items-center px-4">
           <button
             type="button"
             on:click={() => {
@@ -111,7 +50,10 @@
             />
           </button>
           <div class="inline-flex pl-2">{$globalOptions.isInteractive ? 'Avec interactivité' : 'Sans interactivité'}</div>
-        </div>
+        </div> -->
+
+
+        
       </div>
       <div class="pb-2">
         <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Correction</div>
