@@ -87,21 +87,23 @@ export class Mathalea {
     const params = get(globalOptions)
     zoom = zoom ?? Number(params.z)
 
-    const qcms = div.querySelectorAll('.monQcm')
-    for (const qcm of qcms) {
-      ;(qcm).style.fontSize = `${zoom}px`
-    }
-    const tables = div.querySelectorAll('#affichage_exercices label') // Pour les propositions des QCM
-    for (const table of tables) {
-      ;(table).style.fontSize = `${zoom}px`
-    }
-    const figures = div.querySelectorAll('.mathalea2d')
-    for (const figureElement of figures) {
-      const figure = figureElement
-      if (!figure.dataset.widthInitiale) figure.dataset.widthInitiale = figure.getAttribute('width')
-      if (!figure.dataset.heightInitiale) figure.dataset.heightInitiale = figure.getAttribute('height')
-      figure.setAttribute('height', (Number(figure.dataset.heightInitiale) * zoom).toString())
-      figure.setAttribute('width', (Number(figure.dataset.widthInitiale) * zoom).toString())
+    if (zoom !== -1) {
+      const qcms = div.querySelectorAll('.monQcm')
+      for (const qcm of qcms) {
+        ;(qcm).style.fontSize = `${zoom}px`
+      }
+      const tables = div.querySelectorAll('#affichage_exercices label') // Pour les propositions des QCM
+      for (const table of tables) {
+        ;(table).style.fontSize = `${zoom}px`
+      }
+      const figures = div.querySelectorAll('.mathalea2d')
+      for (const figureElement of figures) {
+        const figure = figureElement
+        if (!figure.dataset.widthInitiale) figure.dataset.widthInitiale = figure.getAttribute('width')
+        if (!figure.dataset.heightInitiale) figure.dataset.heightInitiale = figure.getAttribute('height')
+        figure.setAttribute('height', (Number(figure.dataset.heightInitiale) * zoom).toString())
+        figure.setAttribute('width', (Number(figure.dataset.widthInitiale) * zoom).toString())
+      }
     }
   }
 

@@ -12,7 +12,7 @@
   import { shuffle, listOfRandomIndexes } from "./utils/shuffle"
   import renderScratch from "../lib/renderScratch"
 
-  let divQuestions:HTMLDivElement[] = []
+  let divQuestion: HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
   let stepsUl: HTMLUListElement
   let currentQuestion = -1 // -1 pour l'intro et questions[0].length pour l'outro
@@ -21,7 +21,7 @@
   let isCorrectionVisible = false
   let isQuestionVisible = true
   let isSameDurationForAll = false
-  let userZoom = 3
+  let userZoom = 0.85
   let currentZoom = userZoom
   let exercices: Exercice[] = []
   let questions: [string[], string[], string[], string[]] = [[], [], [], []] // Concaténation de toutes les questions des exercices de exercicesParams, vue par vue
@@ -181,9 +181,11 @@
     if (i >= -1 && i <= questions[0].length) currentQuestion = i
     if (i === -1 || i === questions[0].length) pause()
     await tick()
-    if (divQuestions[0]) {
-      currentZoom = userZoom
-      setSize()
+    for (let k = 0; k < nbOfVues; k++) {
+      if (divQuestion[k]) {
+        currentZoom = userZoom
+        setSize()
+      }
     }
 
     if (!isPause) {
@@ -218,35 +220,143 @@
   /**
    * Faire une pause pendant l'exécution d'un programme
    * {@link https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep?page=1&tab=scoredesc#tab-top | Source}
-   * @param ms nb de millisecondes de la pause
+   * @param {number} ms nb de millisecondes de la pause
+   * @author sylvain
    */
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
+  /**
+   * Déterminer les tailles optimales de la fonte et des illustrations dans chaque question.<br>
+   * <u>Principe :</u>
+   * <ul>
+   *  <li> on récupère les dimensions carton (id='textcell...')</li>
+   *  <li> on détermine la hauteur et la largeur optimale pour les figures (class='mathalea2d')</li>
+   *  <li> on ajuste hauteur/largeur des figures en préservant le ratio</li>
+   *  <li> on applique une taille de caractère volontairement grosse aux textes (consigne+question+correction)</li>
+   *  <li> on réduit cette taille jsqu'à ce que la hauteur ne dépasse pas celle du container (id='textcell...')</li>
+   * </ul>
+   * @author sylvain
+   */
   async function setSize() {
-    const size = currentZoom * sizes[currentQuestion]
+    // let startSize = 0
     for (let i = 0; i < nbOfVues; i++) {
-      if (divQuestions[i] !== undefined) {
-        divQuestions[i].style.lineHeight = `1.2`
-        divQuestions[i].style.fontSize = `${size}rem`
-        Mathalea.renderDiv(divQuestions[i], size)
-        if (divQuestions[i].offsetHeight + 180 > window.innerHeight && currentZoom > 0) {
-          currentZoom -= 0.25
-          setSize()
-        } 
+      if (typeof divQuestion[i] !== "undefined") {
+        Mathalea.renderDiv(divQuestion[i], -1)
+        const textcell_div: HTMLDivElement = document.getElementById("textcell" + i)
+        const consigne_div: HTMLDivElement = document.getElementById("consigne" + i)
+        const question_div: HTMLDivElement = document.getElementById("question" + i)
+        const correction_div: HTMLDivElement = document.getElementById("correction" + i)
+        const svg_divs: SVGElement[] = document.getElementsByClassName("mathalea2d")
+        let textcell_width = textcell_div.clientWidth
+        let textcell_height = textcell_div.clientHeight
+        let finalSVGHeight = 0
+        // Donner la bonne taille aux figures
+        if (svg_divs.length !== 0 && question_div !== null) {
+          const nbOfSVG = svg_divs.length
+          const optimalSVGWidth = textcell_width * 0.6
+          const coefHeight = isCorrectionVisible ? 0.3 : 0.5
+          const optimalSVGHeigth = textcell_height * coefHeight
+          // console.log("optimal SVG width : " + optimalSVGWidth + "/ optimal heigth : " + optimalSVGHeigth)
+          for (let k = 0; k < nbOfSVG; k++) {
+            const startingWidth = svg_divs[k].clientWidth
+            const startingHeight = svg_divs[k].clientHeight
+            // console.log("starting width : " + startingWidth + " / strating height : " + startingHeight)
+            const rw = optimalSVGWidth / startingWidth
+            const rh = optimalSVGHeigth / startingHeight
+            if (startingHeight * rw < optimalSVGHeigth) {
+              svg_divs[k].setAttribute("width", optimalSVGWidth * currentZoom)
+              svg_divs[k].setAttribute("height", svg_divs[k].clientHeight * rw * currentZoom)
+            } else {
+              svg_divs[k].setAttribute("height", optimalSVGHeigth * currentZoom)
+              svg_divs[k].setAttribute("width", svg_divs[k].clientWidth * rh * currentZoom)
+            }
+            svg_divs[k].removeAttribute("style")
+            if (nbOfSVG > 1) {
+              svg_divs[k].setAttribute("style", "display: inline")
+            } else {
+              svg_divs[k].setAttribute("style", "margin: auto")
+            }
+            // console.log("final dimensions : " + svg_divs[k].clientWidth + " x " + svg_divs[k].clientHeight)
+            if (finalSVGHeight < parseInt(svg_divs[k].getAttribute("height"))) {
+              finalSVGHeight = parseInt(svg_divs[k].getAttribute("height"))
+            }
+          }
+        }
+        // Donner la bonne taille au texte
+        let nbOfCharactersInTextDiv = textcell_div.textContent.length
+        if (finalSVGHeight !== 0) {
+          nbOfCharactersInTextDiv -= 100
+        }
+        // let size = nbOfVues > 1 ? 100 : 300
+        let size = (300 - Math.floor(nbOfCharactersInTextDiv / 50) * 30) * (1 - finalSVGHeight / textcell_height)
+        if (nbOfVues === 2) {
+          size = size * 0.7
+        } else {
+          if (nbOfVues > 2) {
+            size = size / 3
+          }
+        }
+        // startSize = size
+        let consigne_height, correction_height, question_height: number
+        do {
+          size = size - 2
+          if (question_div !== null) {
+            question_div.style.fontSize = size + "px"
+            question_height = question_div.clientHeight
+          } else {
+            question_height = 0
+          }
+          if (consigne_div !== null) {
+            consigne_div.style.fontSize = size + "px"
+            consigne_height = consigne_div.clientHeight
+          } else {
+            consigne_height = 0
+          }
+          if (correction_div !== null) {
+            correction_div.style.fontSize = size + "px"
+            correction_height = correction_div.clientHeight
+          } else {
+            correction_height = 0
+          }
+          // console.log("question w=" + question_width + "/h=" + question_height)
+          // console.log("consigne w=" + consigne_width + "/h=" + consigne_height)
+          // console.log("correction w=" + correction_width + "/h=" + correction_height)
+          //  question_width > textcell_width || consigne_width > textcell_width || correction_width > textcell_width ||
+        } while (question_height + consigne_height + correction_height > textcell_height)
+        if (question_div !== null) {
+          question_div.style.fontSize = currentZoom * size + "px"
+        }
+        if (consigne_div !== null) {
+          consigne_div.style.fontSize = currentZoom * size + "px"
+        }
+        if (correction_div !== null) {
+          correction_div.style.fontSize = currentZoom * size + "px"
+        }
+        // console.log("nb de caractères : " + nbOfCharactersInTextDiv + " / font-size départ : " + startSize + "font-size calculée : " + size + " / ratio : " + (1 - finalSVGHeight / textcell_height))
       }
     }
     renderScratch()
   }
 
   function zoomPlus() {
-    userZoom += 0.25
+    // userZoom += 0.25
+    if (userZoom < 1) {
+      userZoom += 0.05
+    } else {
+      userZoom = 1
+    }
     currentZoom = userZoom
     setSize()
   }
 
   function zoomMoins() {
-    if (userZoom > 1) userZoom -= 0.25
-    else if (userZoom > 0.2) userZoom -= 0.1
+    // if (userZoom > 1) userZoom -= 0.25
+    // else if (userZoom > 0.2) userZoom -= 0.1
+    if (userZoom > 0.1) {
+      userZoom -= 0.05
+    } else {
+      userZoom = 0.1
+    }
     currentZoom = userZoom
     setSize()
   }
@@ -259,24 +369,6 @@
     } else {
       document.exitFullscreen()
     }
-  }
-
-  async function switchCorrectionMode() {
-    // isCorrectionVisible = !isCorrectionVisible
-    if (isQuestionVisible && !isCorrectionVisible) {
-      isCorrectionVisible = !isCorrectionVisible
-    } else {
-      if (isQuestionVisible && isCorrectionVisible) {
-        isQuestionVisible = !isQuestionVisible
-      } else {
-        if (!isQuestionVisible && isCorrectionVisible) {
-          isQuestionVisible = !isQuestionVisible
-          isCorrectionVisible = !isCorrectionVisible
-        }
-      }
-    }
-    await tick()
-    setSize()
   }
 
   function switchPause() {
@@ -365,17 +457,37 @@
   $: displayCurrentDuration = () => {
     return currentDuration === 0 ? "Manuel" : currentDuration + "s"
   }
-  $: displayCurrentCorrectionMode = () => {
+
+  async function switchCorrectionMode() {
+    // isCorrectionVisible = !isCorrectionVisible
     if (isQuestionVisible && !isCorrectionVisible) {
-      return "Q"
+      isCorrectionVisible = !isCorrectionVisible
+    } else {
+      if (isQuestionVisible && isCorrectionVisible) {
+        isQuestionVisible = !isQuestionVisible
+      } else {
+        if (!isQuestionVisible && isCorrectionVisible) {
+          isQuestionVisible = !isQuestionVisible
+          isCorrectionVisible = !isCorrectionVisible
+        }
+      }
+    }
+    await tick()
+    setSize()
+  }
+
+  $: displayCurrentCorrectionMode = () => {
+    let mode = ""
+    if (isQuestionVisible && !isCorrectionVisible) {
+      mode = "Q"
     }
     if (isQuestionVisible && isCorrectionVisible) {
-      return "Q+C"
+      mode = "Q+C"
     }
     if (!isQuestionVisible && isCorrectionVisible) {
-      return "C"
+      mode = "C"
     }
-    return ""
+    return mode
   }
 
   $: {
@@ -700,6 +812,11 @@
 
   function handleCheckManualMode() {
     return null
+  }
+
+  // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
+  window.onresize = (event) => {
+    setSize()
   }
 </script>
 
@@ -1231,7 +1348,7 @@
   {#if currentQuestion > -1 && currentQuestion < questions[0].length}
     <div id="diap" class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" data-theme="daisytheme">
       <!-- Steps -->
-      <header class="flex flex-col h-20 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas pb-1">
+      <header class="flex flex-col h-[10%] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas pb-1">
         <div class:invisible={durationGlobal === 0} class="flex flex-row h-6 border border-coopmaths-warn dark:border-coopmathsdark-warn">
           <div id="diapoProgressBar" class="bg-coopmaths-warn dark:bg-coopmathsdark-warn" style="width: {ratioTime}%; transition: width {currentDuration / 100}s linear" />
         </div>
@@ -1244,26 +1361,35 @@
         </div>
       </header>
       <!-- Question -->
-      <main class="flex grow max-h-full bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus p-10">
-        <div class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4' : ''} place-content-stretch justify-items-center w-full">
+      <main class="bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus min-h-[80%] p-4">
+        <div class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4 auto-rows-fr' : 'grid grid-cols-1'} place-content-stretch justify-items-center w-full h-full">
           {#each Array(nbOfVues) as _, i}
-            <div class="relative flex flex-col justify-center justify-self-stretch p-8 {nbOfVues > 1 ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark' : ''} text-center">
-              <div class="font-light mb-8">{@html consignes[$questionsOrder.indexes[currentQuestion]]}</div>
+            <div
+              id="diapocell{i}"
+              class="relative min-h-[100%] max-h-[100%] flex flex-col justify-center justify-self-stretch place-items-stretch p-2 {nbOfVues > 1
+                ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'
+                : ''} text-center"
+            >
               {#if nbOfVues > 1}
-                <div class="absolute bg-coopmaths-struct text-coopmaths-canvas dark:bg-coopmathsdark-struct dark:text-coopmathsdark-canvas font-black -top-1 -left-1 rounded-tl-2xl w-1/12 h-1/12">
+                <div
+                  class="absolute bg-coopmaths-struct text-coopmaths-canvas dark:bg-coopmathsdark-struct dark:text-coopmathsdark-canvas font-black text-4xl -top-1 -left-1 rounded-tl-2xl w-1/12 h-1/12"
+                >
                   {i + 1}
                 </div>
               {/if}
-              {#if isQuestionVisible}
-                <div class="py-4">
-                  {@html questions[i][$questionsOrder.indexes[currentQuestion]]}
-                </div>
-              {/if}
-              {#if isCorrectionVisible}
-                <div class="py-4 {isCorrectionVisible ? 'bg-coopmaths-warn-light bg-opacity-30 dark:bg-coopmathsdark-warn-light dark:bg-opacity-30 my-10' : ''}">
-                  {@html corrections[i][$questionsOrder.indexes[currentQuestion]]}
-                </div>
-              {/if}
+              <div id="textcell{i}" bind:this={divQuestion[i]} class="flex flex-col justify-center px-4 w-full  min-h-[100%]  max-h-[100%]">
+                {#if isQuestionVisible}
+                  <div class="font-light" id="consigne{i}">{@html consignes[$questionsOrder.indexes[currentQuestion]]}</div>
+                  <div class="py-4" id="question{i}">
+                    {@html questions[i][$questionsOrder.indexes[currentQuestion]]}
+                  </div>
+                {/if}
+                {#if isCorrectionVisible}
+                  <div id="correction{i}" class=" {isCorrectionVisible ? 'bg-coopmaths-warn-light bg-opacity-30 dark:bg-coopmathsdark-warn-light dark:bg-opacity-30 my-10' : ''}">
+                    {@html corrections[i][$questionsOrder.indexes[currentQuestion]]}
+                  </div>
+                {/if}
+              </div>
             </div>
           {/each}
         </div>
@@ -1274,7 +1400,7 @@
         </dialog>
       </main>
       <!-- Boutons de réglages -->
-      <footer class="w-full h-20 py-1 sticky bottom-0 opacity-100 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+      <footer class="w-full h-[10%] py-1 sticky bottom-0 opacity-100 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
         <div class="flex flex-row justify-between w-full">
           <!-- boutons réglagles zoom -->
           <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
