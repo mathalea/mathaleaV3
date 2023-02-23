@@ -11,6 +11,10 @@
   import { context } from "../modules/context.js"
   import { shuffle, listOfRandomIndexes } from "./utils/shuffle"
   import renderScratch from "../lib/renderScratch"
+  import ModalActionWithDialog from "./modal/ModalActionWithDialog.svelte"
+  import { showDialogForLimitedTime } from "./utils/dialogs"
+  import { copyLinkToClipboard, copyQRCodeImageToClipboard } from "./utils/clipboard"
+  import { urlToQRCodeOnWithinImgTag, downloadQRCodeImage } from "./utils/qr-code"
 
   let divQuestion: HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
@@ -51,7 +55,7 @@
     $transitionsBetweenQuestions.isNoisy = true
   }
   let formatQRCodeIndex: number = 0
-  const allowedImageFormats: string[] = ["image/jpeg", "image/png", "image/webp"]
+  // const allowedImageFormats: string[] = ["image/jpeg", "image/png", "image/webp"]
   let QRCodeWidth = 100
   let stringDureeTotale = "0"
   // variables pour les transitions entre questions
@@ -167,8 +171,6 @@
     }
   }
 
-  
-
   function prevQuestion() {
     if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
   }
@@ -202,28 +204,6 @@
     }
     currentDuration = durationGlobal ?? durations[currentQuestion] ?? 10
   }
-
-  /**
-   * Afficher un écran (élément <dialog>) pendant un nombre de millisecondes
-   * @param {string} dialogId id de l'élément <dialog> à activer
-   * @param {number} nbOfMilliseconds durée de l'affichage en ms
-   */
-  async function showDialogForLimitedTime(dialogId: string, nbOfMilliseconds: number) {
-    const dialog = document.getElementById(dialogId)
-    if (dialog) {
-      dialog.showModal()
-      await sleep(nbOfMilliseconds)
-      dialog.close()
-    }
-  }
-
-  /**
-   * Faire une pause pendant l'exécution d'un programme
-   * {@link https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep?page=1&tab=scoredesc#tab-top | Source}
-   * @param {number} ms nb de millisecondes de la pause
-   * @author sylvain
-   */
-  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
   /**
    * Déterminer les tailles optimales de la fonte et des illustrations dans chaque question.<br>
@@ -583,106 +563,6 @@
         return `${nbOfSecondsLeft}s`
       }
     }
-  }
-
-  /**
-   * Copy current URL to clipboard
-   * @param dialogId id of dialog widget where the info is displayed
-   * @author sylvain
-   */
-  function copyLinkToClipboard(dialogId) {
-    const url = document.URL
-    navigator.clipboard.writeText(url).then(
-      () => {
-        showDialogForLimitedTime(dialogId, 1000)
-      },
-      (err) => {
-        console.error("Async: Could not copy text: ", err)
-      }
-    )
-  }
-
-  /**
-   * Generate QR-Code from current URL and display it in designated image
-   * (format is decided by global variable <i>formatQRCodeIndex</i>)
-   * @param imageId id of the image
-   * @author sylvain
-   */
-  function urlToQRCodeOnWithinImgTag(imageId) {
-    const diapoURL = document.URL
-    const options = {
-      errorCorrectionLevel: "H",
-      type: allowedImageFormats[formatQRCodeIndex],
-      quality: 0.9,
-      margin: 1,
-      scale: 2,
-      width: QRCodeWidth,
-      color: {
-        dark: "#000",
-        light: "#fff",
-      },
-    }
-    QRCode.toDataURL(diapoURL, options, (err, url) => {
-      if (err) throw err
-      let img = document.getElementById(imageId) as HTMLImageElement
-      img.src = url
-    })
-  }
-
-  /**
-   * Copy image of QR-Code contained in designated img tag
-   * and displayed that the image has been copied in designated dialog widget
-   * @param imageId id of the canvas
-   * @param dialogId id of dialog widget where the info is displayed
-   * @author sylvain
-   */
-  function copyQRCodeImageToClipboard(imageId, dialogId) {
-    if (canCopyImagesToClipboard()) {
-      const imageElement = document.getElementById(imageId) as HTMLImageElement
-      getBlobFromImageElement(imageElement)
-        .then((blob) => {
-          return copyBlobToClipboard(blob)
-        })
-        .then(() => {
-          showDialogForLimitedTime(dialogId + "-1", 1000)
-        })
-        .catch((e) => {
-          console.log("Error: ", e.message)
-        })
-    } else {
-      showDialogForLimitedTime(dialogId + "-2", 2000)
-    }
-  }
-
-  /**
-   * Download image of QR-Code contained within designated img tag
-   * (timestamp is added to the file name)
-   * @param imageId ID of the image to download
-   * @author sylvain
-   */
-  function downloadQRCodeImage(imageId) {
-    // creating a timestamp for file name
-    let date = new Date()
-    const year = date.getFullYear()
-    const month = ("0" + (date.getMonth() + 1)).slice(-2)
-    const day = ("0" + date.getDate()).slice(-2)
-    const timestamp = `${year}${month}${day}`
-
-    const imageSrc = document.getElementById(imageId).getAttribute("src")
-    fetch(imageSrc)
-      .then((resp) => resp.blob())
-      .then((blob) => {
-        const url = window.URL.createObjectURL(blob)
-        // creating virtual link for download
-        const downloadLink = document.createElement("a")
-        downloadLink.style.display = "none"
-        downloadLink.href = url
-        downloadLink.download = "qrcode_diapo_coopmaths" + timestamp + "." + allowedImageFormats[formatQRCodeIndex].slice(6)
-        document.body.appendChild(downloadLink)
-        downloadLink.click()
-        window.URL.revokeObjectURL(url)
-      })
-      .catch(() => "Erreur avec le téléchargement de l'image du QR-Code")
   }
 
   function isInViewport(element: HTMLElement): boolean {
@@ -1096,6 +976,7 @@
           <div class="flex text-lg font-bold pb-2 text-coopmaths-struct  dark:text-coopmathsdark-struct">
             Liens
             <div class="flex flex-row px-4 -mt-2 justify-start">
+              <ModalActionWithDialog on:display={() => copyLinkToClipboard("linkCopiedDialog-1")} message="Le lien est copié dans le presse-papier !" />
               <div class="tooltip tooltip-bottom tooltip-neutral" data-tip="Lien du diaporama">
                 <button
                   type="button"
