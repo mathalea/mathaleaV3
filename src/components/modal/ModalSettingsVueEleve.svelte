@@ -1,11 +1,11 @@
 <script lang="ts">
-  import Button from '../forms/Button.svelte'
-  import ButtonToggle from '../forms/ButtonToggle.svelte'
-  import FormRadio from '../forms/FormRadio.svelte'
-  import { globalOptions } from '../store'
+  import Button from "../forms/Button.svelte"
+  import ButtonToggle from "../forms/ButtonToggle.svelte"
+  import FormRadio from "../forms/FormRadio.svelte"
+  import { globalOptions } from "../store"
   function handleEleveVueSetUp() {
     globalOptions.update((params) => {
-      params.v = 'eleve'
+      params.v = "eleve"
       return params
     })
   }
@@ -30,10 +30,10 @@
           title="Présentation"
           bind:valueSelected={$globalOptions.presMode}
           labelsValues={[
-            { label: 'Une page unique', value: 'page' },
-            { label: 'Une page par exercices', value: 'exos' },
-            { label: 'Toutes les questions sur une page', value: 'liste' },
-            { label: 'Une page par question', value: 'question' },
+            { label: "Une page unique", value: "page" },
+            { label: "Une page par exercices", value: "exos" },
+            { label: "Toutes les questions sur une page", value: "liste" },
+            { label: "Une page par question", value: "question" },
           ]}
         />
       </div>
@@ -42,20 +42,25 @@
           title="Interactif"
           bind:valueSelected={$globalOptions.setInteractive}
           labelsValues={[
-            { label: 'Laisser tel quel', value: 2 },
-            { label: 'Tout interactif', value: 1 },
-            { label: 'Pas d\'interactivité', value: 0 },
+            { label: "Laisser tel quel", value: 2 },
+            { label: "Tout interactif", value: 1 },
+            { label: "Pas d'interactivité", value: 0 },
           ]}
         />
       </div>
       <div class="pb-2">
         <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Correction</div>
         <div class="flex flex-row justify-start items-center px-4">
-          <ButtonToggle titles={['Accès aux corrections', 'Pas de corrections']} bind:value={$globalOptions.isSolutionAccessible} />
+          <ButtonToggle titles={["Accès aux corrections", "Pas de corrections"]} bind:value={$globalOptions.isSolutionAccessible} />
         </div>
       </div>
+      <ButtonToggle
+        class="pl-4"
+        isDisabled={$globalOptions.setInteractive === 0}
+        titles={["Les élèves peuvent modifier l'interactivité", "Les élèves ne peuvent pas modifier l'interactivité"]}
+        bind:value={$globalOptions.isInteractiveFree}
+      />
     </div>
-    <ButtonToggle titles={['Les élèves peuvent modifier l\'interactivité', 'Les élèves ne peuvent pas modifier l\'interactivité']} bind:value={$globalOptions.isInteractiveFree} />
     <div class="modal-action">
       <Button on:click={handleEleveVueSetUp} />
     </div>
