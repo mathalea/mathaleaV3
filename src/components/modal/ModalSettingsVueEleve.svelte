@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onDestroy } from "svelte"
   import Button from "../forms/Button.svelte"
   import ButtonToggle from "../forms/ButtonToggle.svelte"
   import FormRadio from "../forms/FormRadio.svelte"
@@ -9,7 +10,10 @@
       return params
     })
   }
-  let isOpen = true
+  $: isOpen = true
+  const toggle = () => {
+    isOpen = !isOpen
+  }
 </script>
 
 <input type="checkbox" id="my-modal" class="modal-toggle" checked={isOpen} />
@@ -19,12 +23,9 @@
       for="my-modal"
       class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest cursor-pointer absolute right-6 top-6"
     >
-      <a
-        on:click={() => {
-          isOpen = !isOpen
-        }}
-        href="#"><i class="bx bx-sm bx-x" /></a
-      >
+      <button type="button" on:click={toggle}>
+        <i class="bx bx-sm bx-x" />
+      </button>
     </label>
     <div class="flex flex-row justify-start p-6">
       <h3 class="font-bold text-lg text-coopmaths-struct dark:text-coopmathsdark-struct">Réglages de la feuille Élève</h3>
