@@ -11,9 +11,18 @@
   }
 </script>
 
+<input type="checkbox" id="my-modal" class="modal-toggle" />
 <div class="modal" id="reglages-vue-eleve">
-  <div class="modal-box bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-    <h3 class="font-bold text-lg text-coopmaths-struct dark:text-coopmathsdark-struct">Réglages de la feuille Élève</h3>
+  <div class="modal-box relative bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+    <label
+      for="my-modal"
+      class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest cursor-pointer absolute right-6 top-6"
+    >
+      <i class="bx bx-sm bx-x" />
+    </label>
+    <div class="flex flex-row justify-start p-6">
+      <h3 class="font-bold text-lg text-coopmaths-struct dark:text-coopmathsdark-struct">Réglages de la feuille Élève</h3>
+    </div>
     <div class="py-4 pl-2 grid grid-cols-2 gap-4">
       <div class="pb-2">
         <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light  dark:text-coopmathsdark-struct-light">Titre</div>

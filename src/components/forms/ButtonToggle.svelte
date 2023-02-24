@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte"
-  export let titles = ["", ""]
-  export let value = true
+  export let titles: string[] = ["", ""]
+  export let value: boolean = true
   export let isDisabled: boolean = false
 
   function toggle() {
