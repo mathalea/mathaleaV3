@@ -167,8 +167,6 @@
     }
   }
 
-  
-
   function prevQuestion() {
     if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
   }
