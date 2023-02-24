@@ -5,7 +5,6 @@
   import { globalOptions } from "../store";
   import { exercicesParams } from "../store"
   export let title: string
-  export let interactifReady = true
   export let randomReady = true
   export let settingsReady = true
   export let correctionReady = true

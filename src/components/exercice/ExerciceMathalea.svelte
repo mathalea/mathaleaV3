@@ -53,9 +53,9 @@
       headerExerciceProps.isSortable = false
       headerExerciceProps.isDeletable = false
       headerExerciceProps.isHidable = false
-      if ($globalOptions.setInteractive === 1) {
+      if ($globalOptions.setInteractive === '1') {
         setAllInteractif()
-      } else if ($globalOptions.setInteractive === 0) {
+      } else if ($globalOptions.setInteractive === '0') {
         removeAllInteractif()
       }
       headerExerciceProps.interactifReady = false

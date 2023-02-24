@@ -42,9 +42,9 @@
           title="Interactif"
           bind:valueSelected={$globalOptions.setInteractive}
           labelsValues={[
-            { label: 'Laisser tel quel', value: 2 },
-            { label: 'Tout interactif', value: 1 },
-            { label: 'Pas d\'interactivité', value: 0 },
+            { label: 'Laisser tel quel', value: '2' },
+            { label: 'Tout interactif', value: '1' },
+            { label: 'Pas d\'interactivité', value: '0' },
           ]}
         />
       </div>

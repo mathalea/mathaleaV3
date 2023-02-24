@@ -3,8 +3,8 @@
   import Diaporama from "./Diaporama.svelte"
   import Can from "./Can.svelte"
   import Eleve from "./Eleve.svelte"
-  import { globalOptions, questionsOrder } from "./store"
-  import { onDestroy } from "svelte"
+  import { globalOptions } from "./store"
+
 </script>
 
 <div class="subpixel-antialiased">
