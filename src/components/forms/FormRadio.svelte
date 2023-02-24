@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte"
   type FlexOrientation = "col" | "row"
 
   export let title: string = "Titre"
@@ -8,11 +9,20 @@
   export let orientation: FlexOrientation = "col"
 
   let name = title !== undefined ? title.replaceAll(" ", "") : ""
+
+  const dispatch = createEventDispatcher()
+  function valueHasChanged() {
+    dispatch("newvalue")
+  }
 </script>
 
 <!-- 
   @component
   Formulaire avec boutons radios
+
+  __Action__ :
+
+  `newvalue` est dispatché lorsque la valeur du groupe de question a changé
 
   __Paramètres__ :
 
@@ -29,6 +39,7 @@
           { label: 'Titre du label 1', value: '1' },
           { label: 'Titre du label 2', value: '2' }
       ]}
+      on:newvalue={() => {do_something}}
   />
   ```
  -->
@@ -45,6 +56,7 @@
         bind:group={valueSelected}
         value={labelValue.value}
         disabled={isDisabled}
+        on:change={valueHasChanged}
       />
       <label
         class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm font-light

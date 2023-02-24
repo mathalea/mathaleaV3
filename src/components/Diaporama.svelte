@@ -17,6 +17,7 @@
   import { urlToQRCodeOnWithinImgTag, downloadQRCodeImage } from "./utils/qr-code"
   import { formattedTimeStamp, setPhraseDuree } from "./utils/time"
   import ModalForQrCode from "./modal/ModalForQRCode.svelte"
+  import FormRadio from "./forms/FormRadio.svelte"
 
   let divQuestion: HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
@@ -65,6 +66,18 @@
     new Audio("assets/sounds/transition_sound_02.mp3"),
     new Audio("assets/sounds/transition_sound_03.mp3"),
     new Audio("assets/sounds/transition_sound_04.mp3"),
+  ]
+  const labelsForSounds = [
+    { label: "Son 1", value: 0 },
+    { label: "Son 2", value: 1 },
+    { label: "Son 3", value: 2 },
+    { label: "Son 4", value: 3 },
+  ]
+  const labelsForMultivue = [
+    { label: "Pas de multivue", value: 1 },
+    { label: "Deux vues", value: 2 },
+    { label: "Trois vues", value: 3 },
+    { label: "Quatre vues", value: 4 },
   ]
 
   if ($globalOptions && $globalOptions.durationGlobal) {
@@ -715,56 +728,7 @@
           </div>
           <div class="flex text-lg font-bold mb-2 text-coopmaths-struct  dark:text-coopmathsdark-struct">Multivue</div>
           <div class="flex px-4 pb-8">
-            <div class="grid grid-flow-row auto-rows-max gap-0">
-              <div class="form-check flex flex-row justify-start items-center">
-                <input
-                  class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2 cursor-pointer"
-                  type="radio"
-                  name="multivue"
-                  id="multivueRadio1"
-                  bind:group={nbOfVues}
-                  on:change={updateExercices}
-                  value={1}
-                />
-                <label class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-opacity-60" for="multivueRadio1"> Pas de multivue </label>
-              </div>
-              <div class="form-check flex flex-row justify-start items-center">
-                <input
-                  class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action  dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2 cursor-pointer"
-                  type="radio"
-                  name="multivue"
-                  id="multivueRadio2"
-                  bind:group={nbOfVues}
-                  on:change={updateExercices}
-                  value={2}
-                />
-                <label class=" form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-opacity-60" for="multivueRadio2"> Deux vues </label>
-              </div>
-              <div class="form-check flex flex-row justify-start items-center">
-                <input
-                  class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action  focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2 cursor-pointer"
-                  type="radio"
-                  name="multivue"
-                  id="multivueRadio3"
-                  bind:group={nbOfVues}
-                  on:change={updateExercices}
-                  value={3}
-                />
-                <label class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-opacity-60" for="multivueRadio3"> Trois vues </label>
-              </div>
-              <div class="form-check flex flex-row justify-start items-center">
-                <input
-                  class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action  focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2 cursor-pointer"
-                  type="radio"
-                  name="multivue"
-                  id="multivueRadio4"
-                  bind:group={nbOfVues}
-                  on:change={updateExercices}
-                  value={4}
-                />
-                <label class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-opacity-60" for="multivueRadio4"> Quatre vues </label>
-              </div>
-            </div>
+            <FormRadio bind:valueSelected={nbOfVues} on:newvalue={updateExercices} title="multivue" labelsValues={labelsForMultivue} />
           </div>
 
           <div class="pb-8">
@@ -789,108 +753,17 @@
               </button>
               <div class="inline-flex pl-2">{$transitionsBetweenQuestions.isNoisy ? "Son entre questions" : "Pas de son entre questions"}</div>
             </div>
-            <div class="grid grid-flow-col auto-cols-max gap-2  px-4">
-              <div class="form-check flex flex-row justify-start items-center">
-                <input
-                  disabled={!$transitionsBetweenQuestions.isNoisy}
-                  class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action dark:border-coopmathsdark-action {$transitionsBetweenQuestions.isNoisy
-                    ? 'cursor-pointer'
-                    : 'border-opacity-10 dark:border-opacity-10'} bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-1"
-                  type="radio"
-                  name="sound"
-                  id="soundRadio1"
-                  bind:group={$transitionsBetweenQuestions.tune}
-                  on:change={() => {
-                    transitionSounds[$transitionsBetweenQuestions.tune].play()
-                    handleTuneChange()
-                  }}
-                  value={0}
-                />
-                <label
-                  class="form-check-label inline-block {$transitionsBetweenQuestions.isNoisy
-                    ? 'text-coopmaths-corpus dark:text-coopmathsdark-corpus'
-                    : 'text-coopmaths-corpus dark:text-coopmathsdark-corpus text-opacity-10 dark:text-opacity-10'}"
-                  for="soundRadio1"
-                >
-                  Son 1
-                </label>
-              </div>
-              <div class="form-check flex flex-row justify-start items-center">
-                <input
-                  disabled={!$transitionsBetweenQuestions.isNoisy}
-                  class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action dark:border-coopmathsdark-action {$transitionsBetweenQuestions.isNoisy
-                    ? 'cursor-pointer'
-                    : 'border-opacity-10 dark:border-opacity-10'} bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-1"
-                  type="radio"
-                  name="sound"
-                  id="soundRadio2"
-                  bind:group={$transitionsBetweenQuestions.tune}
-                  on:change={() => {
-                    transitionSounds[$transitionsBetweenQuestions.tune].play()
-                    handleTuneChange()
-                  }}
-                  value={1}
-                />
-                <label
-                  class=" form-check-label inline-block {$transitionsBetweenQuestions.isNoisy
-                    ? 'text-coopmaths-corpus dark:text-coopmathsdark-corpus'
-                    : 'text-coopmaths-corpus dark:text-coopmathsdark-corpus text-opacity-10 dark:text-opacity-10'}"
-                  for="soundRadio2"
-                >
-                  Son 2
-                </label>
-              </div>
-              <div class="form-check flex flex-row justify-start items-center">
-                <input
-                  disabled={!$transitionsBetweenQuestions.isNoisy}
-                  class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action dark:border-coopmathsdark-action {$transitionsBetweenQuestions.isNoisy
-                    ? 'cursor-pointer'
-                    : 'border-opacity-10 dark:border-opacity-10'} bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-1"
-                  type="radio"
-                  name="sound"
-                  id="soundRadio3"
-                  bind:group={$transitionsBetweenQuestions.tune}
-                  on:change={() => {
-                    transitionSounds[$transitionsBetweenQuestions.tune].play()
-                    handleTuneChange()
-                  }}
-                  value={2}
-                />
-                <label
-                  class="form-check-label inline-block {$transitionsBetweenQuestions.isNoisy
-                    ? 'text-coopmaths-corpus dark:text-coopmathsdark-corpus'
-                    : 'text-coopmaths-corpus dark:text-coopmathsdark-corpus text-opacity-10 dark:text-opacity-10'}"
-                  for="soundRadio3"
-                >
-                  Son 3
-                </label>
-              </div>
-              <div class="form-check flex flex-row justify-start items-center">
-                <input
-                  disabled={!$transitionsBetweenQuestions.isNoisy}
-                  class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action dark:border-coopmathsdark-action {$transitionsBetweenQuestions.isNoisy
-                    ? 'cursor-pointer'
-                    : 'border-opacity-10 dark:border-opacity-10'} curs bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-1"
-                  type="radio"
-                  name="sound"
-                  id="soundRadio4"
-                  bind:group={$transitionsBetweenQuestions.tune}
-                  on:change={() => {
-                    transitionSounds[$transitionsBetweenQuestions.tune].play()
-                    handleTuneChange()
-                  }}
-                  value={3}
-                />
-                <label
-                  class="form-check-label inline-block {$transitionsBetweenQuestions.isNoisy
-                    ? 'text-coopmaths-corpus dark:text-coopmathsdark-corpus'
-                    : 'text-coopmaths-corpus dark:text-coopmathsdark-corpus text-opacity-10 dark:text-opacity-10'}"
-                  for="soundRadio4"
-                >
-                  Son 4
-                </label>
-              </div>
-            </div>
+            <FormRadio
+              title="son"
+              isDisabled={!$transitionsBetweenQuestions.isNoisy}
+              bind:valueSelected={$transitionsBetweenQuestions.tune}
+              labelsValues={labelsForSounds}
+              orientation="row"
+              on:newvalue={() => {
+                transitionSounds[$transitionsBetweenQuestions.tune].play()
+                handleTuneChange()
+              }}
+            />
           </div>
           <div class="pb-6">
             <div class="flex text-lg font-bold mb-1 text-coopmaths-struct  dark:text-coopmathsdark-struct">Ordre</div>
@@ -1143,30 +1016,28 @@
                   : 'bx-fullscreen'}"
               />
             </button>
-            <button type="button" on:click={zoomPlus}
-              ><i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-plus" /></button
-            >
-            <button type="button" on:click={zoomMoins}
-              ><i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-minus" /></button
-            >
+            <button type="button" on:click={zoomPlus}>
+              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-plus" />
+            </button>
+            <button type="button" on:click={zoomMoins}>
+              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-minus" />
+            </button>
           </div>
           <!-- boutons contrôle défilement -->
           <div class="flex flex-row justify-center w-[33%] items-center">
-            <button type="button" on:click={prevQuestion}
-              ><i
-                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-skip-previous"
-              /></button
-            >
-            <button type="button" on:click={switchPause} class:invisible={durationGlobal === 0}
-              ><i
+            <button type="button" on:click={prevQuestion}>
+              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-skip-previous" />
+            </button>
+            <button type="button" on:click={switchPause} class:invisible={durationGlobal === 0}>
+              <i
                 class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg {isPause
                   ? 'bx-play'
                   : 'bx-pause'}"
-              /></button
-            >
-            <button type="button" on:click={nextQuestion}
-              ><i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-skip-next" /></button
-            >
+              />
+            </button>
+            <button type="button" on:click={nextQuestion}>
+              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-skip-next" />
+            </button>
           </div>
           <!-- boutons timers correction quitter -->
           <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
@@ -1206,14 +1077,14 @@
                 </div>
               </div>
             </div>
-            <button type="button" on:click={switchCorrectionMode}
-              ><i class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-show">
+            <button type="button" on:click={switchCorrectionMode}>
+              <i class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-show">
                 <div class="absolute -bottom-[8px] left-1/2 -translate-x-1/2 text-sm font-extrabold font-sans">{displayCurrentCorrectionMode()}</div>
-              </i></button
-            >
-            <button type="button" on:click={handleQuit} on:keydown={handleQuit}
-              ><i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-power-off" /></button
-            >
+              </i>
+            </button>
+            <button type="button" on:click={handleQuit} on:keydown={handleQuit}>
+              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-power-off" />
+            </button>
           </div>
         </div>
       </footer>
@@ -1233,15 +1104,19 @@
             type="button"
             class="mx-12 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
             on:click={returnToStart}
-            on:keydown={returnToStart}><i class="bx text-[100px] bx-arrow-back" /></button
+            on:keydown={returnToStart}
           >
+            <i class="bx text-[100px] bx-arrow-back" />
+          </button>
         </div>
         <div class="tooltip tooltip-bottom tooltip-neutral" data-tip="Questions + Réponses">
           <button
             type="button"
             class="mx-12 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-            on:click={() => handleComponentChange("diaporama", "can")}><i class="bx text-[100px] bx-detail" /></button
+            on:click={() => handleComponentChange("diaporama", "can")}
           >
+            <i class="bx text-[100px] bx-detail" />
+          </button>
         </div>
         <ModalActionWithDialog
           on:display={() => copyLinkToClipboard("linkCopiedDialog-2")}

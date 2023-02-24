@@ -62,6 +62,7 @@
     <i
       class="bx {buttonSize} text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest self-center {buttonIcon}"
       on:click={() => urlToQRCodeOnWithinImgTag(imageId, width, format)}
+      on:keydown={() => urlToQRCodeOnWithinImgTag(imageId, width, format)}
     />
   </div>
 </label>

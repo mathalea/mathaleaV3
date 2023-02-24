@@ -36,7 +36,7 @@
 
     __Exemple__ :
 
-    ```
+    ```tsx
     <ModalActionWithDialog
         on:display={() => copyLinkToClipboard("linkCopiedDialog-2")}
         message="Le lien est copié dans le presse-papier !"
@@ -47,7 +47,6 @@
         classForButton = "mr-4 my-2"
     />
     ```
-
  -->
 
 <div class="tooltip tooltip-bottom tooltip-neutral" data-tip={tooltipMessage}>
