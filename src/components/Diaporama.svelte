@@ -16,6 +16,7 @@
   import { copyLinkToClipboard, copyQRCodeImageToClipboard } from "./utils/clipboard"
   import { urlToQRCodeOnWithinImgTag, downloadQRCodeImage } from "./utils/qr-code"
   import { formattedTimeStamp, setPhraseDuree } from "./utils/time"
+  import ModalForQrCode from "./modal/ModalForQRCode.svelte"
 
   let divQuestion: HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
@@ -946,121 +947,11 @@
               <ModalActionWithDialog
                 on:display={() => copyLinkToClipboard("linkCopiedDialog-1")}
                 message="Le lien est copié dans le presse-papier !"
-                id="linkCopiedDialog-1"
+                dialogId="linkCopiedDialog-1"
                 tooltipMessage="Lien du Diaporama"
+                classForButton="mr-4 my-2"
               />
-              <label for="QRCodeModal-1" class="btn bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
-                <div class="tooltip tooltip-bottom tooltip-neutral" data-tip="QR-code du diaporama">
-                  <i
-                    class="bx text-2xl text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx-qr"
-                    on:click={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-1", QRCodeWidth, formatQRCodeIndex)}
-                  />
-                </div>
-              </label>
-              <input type="checkbox" id="QRCodeModal-1" class="modal-toggle" />
-              <div class="modal">
-                <div class="modal-box relative z-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark">
-                  <dialog class="rounded-xl z-10 bg-coopmaths-canvas text-coopmaths-corpus  dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light" id="QRCodeDialog-1-1">
-                    Le QR-Code est copié dans le presse-papier !
-                  </dialog>
-                  <dialog class="rounded-xl z-10 bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light" id="QRCodeDialog-1-2">
-                    Impossible de copier le QR-Code dans ce navigateur !<br /> Vérifier les permissions.
-                  </dialog>
-                  <label for="QRCodeModal-1" class="btn absolute right-2 top-2 bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
-                    <i
-                      class="bx text-3xl bx-x text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest text-opacity-60 cursor-pointer"
-                    />
-                  </label>
-                  <h3 class="text-lg font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">QR-Code du Diaporama</h3>
-                  <p class="py-4 text-base font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus">Choisissez de copier l'image ou de la télécharger.</p>
-                  <!-- format QRCode -->
-                  <div class="flex flex-row items-center justify-start">
-                    <div class="font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct-light">Formats de l'image :</div>
-                    <div class="flex flex-row justify-start items-center">
-                      <div class="form-check flex flex-row ml-4 items-center">
-                        <input
-                          class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas-dark text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2 cursor-pointer"
-                          type="radio"
-                          name="formatQRCode"
-                          id="formatQRCodeRadio1"
-                          bind:group={formatQRCodeIndex}
-                          on:change={() => {
-                            urlToQRCodeOnWithinImgTag("QRCodeCanvas-1", QRCodeWidth, formatQRCodeIndex)
-                          }}
-                          value={0}
-                        />
-                        <label class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm text-opacity-70 font-light" for="formatQRCodeRadio1"> jpeg </label>
-                      </div>
-                      <div class="form-check flex flex-row ml-4 items-center">
-                        <input
-                          class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas-dark text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2 cursor-pointer"
-                          type="radio"
-                          name="formatQRCode"
-                          id="formatQRCodeRadio2"
-                          bind:group={formatQRCodeIndex}
-                          on:change={() => {
-                            urlToQRCodeOnWithinImgTag("QRCodeCanvas-1", QRCodeWidth, formatQRCodeIndex)
-                          }}
-                          value={1}
-                        />
-                        <label class=" form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm text-opacity-70 font-light" for="formatQRCodeRadio2"> png </label>
-                      </div>
-                      <div class="form-check flex flex-row ml-4 items-center">
-                        <input
-                          class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas-dark text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2 cursor-pointer"
-                          type="radio"
-                          name="formatQRCode"
-                          id="formatQRCodeRadio3"
-                          bind:group={formatQRCodeIndex}
-                          on:change={() => {
-                            urlToQRCodeOnWithinImgTag("QRCodeCanvas-1", QRCodeWidth, formatQRCodeIndex)
-                          }}
-                          value={2}
-                        />
-                        <label class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm text-opacity-70 font-light" for="formatQRCodeRadio3"> webp </label>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- taille QR-Code -->
-                  <div class="flex flex-row items-center justify-start my-4">
-                    <div class="text-coopmaths-struct dark:text-coopmathsdark-struct-light font-semibold">Taille du QR-Code</div>
-                    <input
-                      type="number"
-                      min="80"
-                      max="300"
-                      bind:value={QRCodeWidth}
-                      class="ml-3 w-20 h-8 text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark  border-1 border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
-                      on:change={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-1", QRCodeWidth, formatQRCodeIndex)}
-                    />
-                  </div>
-                  <div class="flex flex-col justify-center">
-                    <div class="flex flex-row justify-center p-4">
-                      <!-- <canvas id="QRCodeCanvas-1" /> -->
-                      <img id="QRCodeCanvas-1" alt="QR-Code du diaporama" />
-                    </div>
-                    <div class="flex flex-row justify-center pb-6">
-                      <div class="tooltip tooltip-bottom tooltip-neutral" data-tip="Copier le QR-Code">
-                        <button
-                          type="button"
-                          class="mx-6 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                          on:click={() => copyQRCodeImageToClipboard("QRCodeCanvas-1", "QRCodeDialog-1")}
-                        >
-                          <i class="bx text-[30px] bx-copy-alt" />
-                        </button>
-                      </div>
-                      <div class="tooltip tooltip-bottom tooltip-neutral" data-tip="Télécharger le QR-Code">
-                        <button
-                          type="button"
-                          class="mx-6 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                          on:click={() => downloadQRCodeImage("QRCodeCanvas-1", formatQRCodeIndex)}
-                        >
-                          <i class="bx text-[30px] bx-download" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ModalForQrCode classForButton="mr-4 my-2" dialogId="QRCodeModal-1" imageId="QRCodeCanvas-1" tooltipMessage="QR-code du diaporama" width={QRCodeWidth} format={formatQRCodeIndex} />
             </div>
           </div>
         </div>
@@ -1355,120 +1246,19 @@
         <ModalActionWithDialog
           on:display={() => copyLinkToClipboard("linkCopiedDialog-2")}
           message="Le lien est copié dans le presse-papier !"
-          id="linkCopiedDialog-2"
+          dialogId="linkCopiedDialog-2"
           tooltipMessage="Lien du Diaporama"
           buttonSize="text-[100px]"
         />
-        <label for="QRCodeModal-2" class="mx-12 my-2 hover:cursor-pointer">
-          <div class="tooltip tooltip-bottom tooltip-neutral" data-tip="QR-code du diaporama">
-            <i
-              class="bx text-[100px] text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx-qr self-center"
-              on:click={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-2", QRCodeWidth, formatQRCodeIndex)}
-            />
-          </div>
-        </label>
-        <input type="checkbox" id="QRCodeModal-2" class="modal-toggle" />
-        <div class="modal">
-          <div class="modal-box relative  text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark">
-            <dialog class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus  dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus" id="QRCodeDialog-2-1">
-              Le QR-Code est copié dans le presse-papier !
-            </dialog>
-            <dialog class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus  dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus" id="QRCodeDialog-2-2">
-              Impossible de copier le QR-Code dans ce navigateur !<br /> Vérifier les permissions.
-            </dialog>
-            <label for="QRCodeModal-2" class="absolute right-2 top-2 bg-transparent border-0 active:bg-transparent focus:bg-transparent hover:bg-transparent">
-              <i class="bx text-3xl bx-x text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest cursor-pointer" />
-            </label>
-            <h3 class="text-lg font-bold">QR-Code du Diaporama</h3>
-            <p class="py-4 text-coopmaths-corpus dark:text-coopmathsdark-corpus">Choisissez de copier l'image ou de la télécharger.</p>
-            <!-- format QRCode -->
-            <div class="flex flex-row items-center justify-start">
-              <div class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Formats de l'image :</div>
-              <div class="flex flex-row justify-start items-center">
-                <div class="form-check flex flex-row ml-4 items-center">
-                  <input
-                    class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas-dark text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2 cursor-pointer"
-                    type="radio"
-                    name="formatQRCode"
-                    id="formatQRCodeRadio1"
-                    bind:group={formatQRCodeIndex}
-                    on:change={() => {
-                      urlToQRCodeOnWithinImgTag("QRCodeCanvas-2", QRCodeWidth, formatQRCodeIndex)
-                    }}
-                    value={0}
-                  />
-                  <label class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-opacity-60" for="formatQRCodeRadio1"> jpeg </label>
-                </div>
-                <div class="form-check flex flex-row ml-4 items-center">
-                  <input
-                    class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas-dark text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2 cursor-pointer"
-                    type="radio"
-                    name="formatQRCode"
-                    id="formatQRCodeRadio2"
-                    bind:group={formatQRCodeIndex}
-                    on:change={() => {
-                      urlToQRCodeOnWithinImgTag("QRCodeCanvas-2", QRCodeWidth, formatQRCodeIndex)
-                    }}
-                    value={1}
-                  />
-                  <label class=" form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-opacity-60" for="formatQRCodeRadio2"> png </label>
-                </div>
-                <div class="form-check flex flex-row ml-4 items-center">
-                  <input
-                    class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas-dark text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2 cursor-pointer"
-                    type="radio"
-                    name="formatQRCode"
-                    id="formatQRCodeRadio3"
-                    bind:group={formatQRCodeIndex}
-                    on:change={() => {
-                      urlToQRCodeOnWithinImgTag("QRCodeCanvas-2", QRCodeWidth, formatQRCodeIndex)
-                    }}
-                    value={2}
-                  />
-                  <label class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-opacity-60" for="formatQRCodeRadio3"> webp </label>
-                </div>
-              </div>
-            </div>
-            <!-- taille du QR-Code -->
-            <!-- taille QR-Code -->
-            <div class="flex flex-row items-center justify-start my-4">
-              <div class="font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Taille du QR-Code</div>
-              <input
-                type="number"
-                min="80"
-                max="300"
-                bind:value={QRCodeWidth}
-                class="ml-3 w-20 h-8 text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark border-2 border-coopmaths-action dark:border-coopmathsdark-action focus:border-1 focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 disabled:opacity-30"
-                on:change={() => urlToQRCodeOnWithinImgTag("QRCodeCanvas-2", QRCodeWidth, formatQRCodeIndex)}
-              />
-            </div>
-            <div class="flex flex-col justify-center">
-              <div class="flex flex-row justify-center p-4">
-                <img id="QRCodeCanvas-2" alt="QR-Code du diaporama" />
-              </div>
-              <div class="flex flex-row justify-center pb-6">
-                <div class="tooltip tooltip-bottom tooltip-neutral text-bg-coopmaths-canvas" data-tip="Copier le QR-Code">
-                  <button
-                    type="button"
-                    class="mx-6 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                    on:click={() => copyQRCodeImageToClipboard("QRCodeCanvas-2", "QRCodeDialog-2")}
-                  >
-                    <i class="bx text-[30px] bx-copy-alt" />
-                  </button>
-                </div>
-                <div class="tooltip tooltip-bottom tooltip-neutral text-bg-coopmaths-canvas" data-tip="Télécharger le QR-Code">
-                  <button
-                    type="button"
-                    class="mx-6 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                    on:click={() => downloadQRCodeImage("QRCodeCanvas-2", formatQRCodeIndex)}
-                  >
-                    <i class="bx text-[30px] bx-download" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ModalForQrCode
+          dialogId="QRCodeModal-2"
+          imageId="QRCodeCanvas-2"
+          tooltipMessage="QR-code du diaporama"
+          width={QRCodeWidth}
+          format={formatQRCodeIndex}
+          buttonSize="text-[100px]"
+          classForButton="mx-12 my-2"
+        />
         <div class="tooltip tooltip-bottom tooltip-neutral text-bg-coopmaths-canvas" data-tip="Sortir du diaporama">
           <button
             type="button"

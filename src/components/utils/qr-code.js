@@ -1,8 +1,7 @@
 import QRCode from 'qrcode'
 
-const allowedImageFormats = ['image/jpeg', 'image/png', 'image/webp']
-// const formatQRCodeIndex = 0
-// const QRCodeWidth = 100
+export const allowedImageFormats = ['image/jpeg', 'image/png', 'image/webp']
+
 /**
  * Generate QR-Code from current URL and display it in designated image
  * (format is decided by global variable <i>formatQRCodeIndex</i>)
