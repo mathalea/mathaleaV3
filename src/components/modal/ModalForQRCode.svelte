@@ -1,7 +1,7 @@
 <script lang="ts">
   import { urlToQRCodeOnWithinImgTag, downloadQRCodeImage, allowedImageFormats } from "../utils/qr-code"
   import { copyQRCodeImageToClipboard } from "../utils/clipboard"
-  import ModalActionWithDialog from "./ModalActionWithDialog.svelte"
+  import FormRadio from "../forms/FormRadio.svelte"
 
   // définition d'un type pour le format de l'image afin de rester dans les valeurs possible de `allowedImageFormats`
   // source: https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range/70307091#70307091
@@ -17,6 +17,12 @@
   export let buttonSize: string = "text-2xl"
   export let buttonIcon: string = "bx-qr"
   export let classForButton: string = ""
+
+  const labelsForFormats = [
+    { label: "jpeg", value: 0 },
+    { label: "png", value: 1 },
+    { label: "webp", value: 2 },
+  ]
 </script>
 
 <!-- 
@@ -77,55 +83,12 @@
     <p class="py-4 text-base font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus">Choisissez de copier l'image ou de la télécharger.</p>
     <!-- format QRCode -->
     <div class="flex flex-row items-center justify-start">
-      <div class="font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct-light">Formats de l'image :</div>
-      <div class="flex flex-row justify-start items-center">
-        <div class="form-check flex flex-row ml-4 items-center">
-          <input
-            class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas-dark text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2 cursor-pointer"
-            type="radio"
-            name="formatQRCode"
-            id="formatQRCodeRadio1"
-            bind:group={format}
-            on:change={() => {
-              urlToQRCodeOnWithinImgTag(imageId, width, format)
-            }}
-            value={0}
-          />
-          <label class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm text-opacity-70 font-light" for="formatQRCodeRadio1"> jpeg </label>
-        </div>
-        <div class="form-check flex flex-row ml-4 items-center">
-          <input
-            class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas-dark text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2 cursor-pointer"
-            type="radio"
-            name="formatQRCode"
-            id="formatQRCodeRadio2"
-            bind:group={format}
-            on:change={() => {
-              urlToQRCodeOnWithinImgTag(imageId, width, format)
-            }}
-            value={1}
-          />
-          <label class=" form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm text-opacity-70 font-light" for="formatQRCodeRadio2"> png </label>
-        </div>
-        <div class="form-check flex flex-row ml-4 items-center">
-          <input
-            class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas-dark text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2 cursor-pointer"
-            type="radio"
-            name="formatQRCode"
-            id="formatQRCodeRadio3"
-            bind:group={format}
-            on:change={() => {
-              urlToQRCodeOnWithinImgTag(imageId, width, format)
-            }}
-            value={2}
-          />
-          <label class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm text-opacity-70 font-light" for="formatQRCodeRadio3"> webp </label>
-        </div>
-      </div>
+      <div class="font-semibold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Format de l'image</div>
+      <FormRadio orientation="row" title="Format image" bind:valueSelected={format} labelsValues={labelsForFormats} />
     </div>
     <!-- taille QR-Code -->
     <div class="flex flex-row items-center justify-start my-4">
-      <div class="text-coopmaths-struct dark:text-coopmathsdark-struct-light font-semibold">Taille du QR-Code</div>
+      <div class="text-coopmaths-struct-light dark:text-coopmathsdark-struct-light font-semibold">Taille du QR-Code</div>
       <input
         type="number"
         min="80"
