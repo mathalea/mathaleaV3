@@ -1,16 +1,19 @@
 <script lang="ts">
-  import { onDestroy } from "svelte"
   import Button from "../forms/Button.svelte"
   import ButtonToggle from "../forms/ButtonToggle.svelte"
   import FormRadio from "../forms/FormRadio.svelte"
   import { globalOptions } from "../store"
+  
   function handleEleveVueSetUp() {
+    console.log('ok')
     globalOptions.update((params) => {
       params.v = "eleve"
       return params
     })
   }
-  $: isOpen = true
+  
+  $: isOpen = false
+  
   const toggle = () => {
     isOpen = !isOpen
   }
@@ -71,8 +74,7 @@
         </div>
       </div>
       <ButtonToggle
-        class="pl-4"
-        isDisabled={$globalOptions.setInteractive === 0}
+        isDisabled={$globalOptions.setInteractive === '0'}
         titles={["Les élèves peuvent modifier l'interactivité", "Les élèves ne peuvent pas modifier l'interactivité"]}
         bind:value={$globalOptions.isInteractiveFree}
       />

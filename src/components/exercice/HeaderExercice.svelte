@@ -11,6 +11,7 @@
   export let indiceExercice: number
   export let indiceLastExercice: number
   export let isInteractif = false
+  export let interactifReady: boolean
   export let isSortable = true
   export let isDeletable = true
   export let isHidable = true
@@ -98,7 +99,7 @@
         />
       </button>
       <button
-        class="mx-2 tooltip tooltip-left tooltip-neutral {$globalOptions.isInteractiveFree ? '' : 'invisible'}"
+        class="mx-2 tooltip tooltip-left tooltip-neutral {$globalOptions.isInteractiveFree && interactifReady ? '' : 'invisible'}"
         data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
         type="button"
         on:click={switchInteractif}

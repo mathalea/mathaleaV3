@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte"
-  export let titles: string[] = ["", ""]
+  export let titles: string[] = ['', '']
   export let value: boolean = true
   export let isDisabled: boolean = false
 
@@ -8,8 +7,6 @@
     value = !value
   }
 
-  const dispatch = createEventDispatcher()
-  $: dispatch("click", { value })
 </script>
 
 <!-- 
@@ -39,9 +36,15 @@
         ? 'bx-toggle-right'
         : 'bx-toggle-left'}
         {isDisabled ? 'text-opacity-10' : ''}"
+        on:click
+        on:keydown
     />
   </button>
-  <div class="pl-2 inline-block text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {isDisabled ? 'text-opacity-10' : 'text-opacity-70'}">
+  <div
+    class="pl-2 inline-block text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {isDisabled
+      ? 'text-opacity-10'
+      : 'text-opacity-70'}"
+  >
     {value ? titles[0] : titles[1]}
   </div>
 </div>
