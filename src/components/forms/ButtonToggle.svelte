@@ -1,13 +1,10 @@
 <script lang="ts">
-  import { globalOptions } from "../store"
   import { createEventDispatcher } from "svelte";
   export let titles = ['', '']
   export let value = true
 
   function toggle() {
     value = !value
-    console.log(value)
-    console.log($globalOptions.isSolutionAccessible)
   }
 
   const dispatch = createEventDispatcher();

@@ -49,6 +49,12 @@
   $: questionTitle = buildQuestionTitle(questions.length)
 
   onMount(async () => {
+    if ($globalOptions.presMode === undefined) {
+      const urlOptions = Mathalea.loadExercicesFromUrl()
+      globalOptions.update(() => {
+        return urlOptions
+      })
+    }
     for (const paramsExercice of $exercicesParams) {
       const exercice: TypeExercice = await Mathalea.load(paramsExercice.uuid)
       if (typeof exercice === "undefined") return
@@ -74,7 +80,6 @@
       exercices.push(exercice)
     }
     exercices = exercices
-
     buildQuestions()
   })
 

@@ -1,6 +1,9 @@
 import { writable, get } from 'svelte/store'
 
-interface InterfaceGlobalOptions {v?: string, z?: string, durationGlobal?: number, nbVues?: number, shuffle?: boolean, choice?: number, trans?: boolean, sound?: number, es?: string, title: string, presMode: string, isInteractive: boolean, isSolutionAccessible: boolean }
+/**
+ * setInteractive à 0 on enlève tout, à 1 on les met tous en interactif, à 2 on ne change rien
+ */
+interface InterfaceGlobalOptions {v?: string, z?: string, durationGlobal?: number, nbVues?: number, shuffle?: boolean, choice?: number, trans?: boolean, sound?: number, es?: string, title: string, presMode: string, setInteractive: number, isSolutionAccessible: boolean, isInteractiveFree: boolean }
 
 /**
  * listeExercices est un tableau d'objets décrivant l'exercice souhaité
@@ -15,7 +18,7 @@ export const exercicesParams = writable([])
  * Le paramètre 'es' est utilisé pour renseigner les réglages de la vue élève :
  * une unique chaîne de caractères contient dans l'ordre : titre + mode présentation + interactivité +  accès solutions
  */
-export const globalOptions = writable<InterfaceGlobalOptions>({ v: '', z: '1', title: 'Évaluation', presMode: 'page', isInteractive: false, isSolutionAccessible: true })
+export const globalOptions = writable<InterfaceGlobalOptions>({ v: '', z: '1', title: 'Évaluation', presMode: 'page', setInteractive: 2, isSolutionAccessible: true, isInteractiveFree: true })
 
 // utilisé pour les aller-retours entre le composant Diaporam et le composant Can
 export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: [] })
@@ -93,8 +96,9 @@ export function updateGlobalOptionsInURL (url) {
     }
     if (typeof options !== 'undefined') {
       let es = getKeyByValue(presModeId, options.presMode)
-      es += options.isInteractive ? '1' : '0'
+      es += options.setInteractive
       es += options.isSolutionAccessible ? '1' : '0'
+      es += options.isInteractiveFree ? '1' : '0'
       url.searchParams.append('es', es)
     }
   } else {

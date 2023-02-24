@@ -38,7 +38,15 @@
         />
       </div>
       <div class="pb-2">
-        <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Interactif</div>
+        <FormRadio
+          title="Interactif"
+          bind:valueSelected={$globalOptions.setInteractive}
+          labelsValues={[
+            { label: 'Laisser tel quel', value: 2 },
+            { label: 'Tout interactif', value: 1 },
+            { label: 'Pas d\'interactivité', value: 0 },
+          ]}
+        />
       </div>
       <div class="pb-2">
         <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Correction</div>
@@ -47,6 +55,7 @@
         </div>
       </div>
     </div>
+    <ButtonToggle titles={['Les élèves peuvent modifier l\'interactivité', 'Les élèves ne peuvent pas modifier l\'interactivité']} bind:value={$globalOptions.isInteractiveFree} />
     <div class="modal-action">
       <Button on:click={handleEleveVueSetUp} />
     </div>
