@@ -32,19 +32,20 @@
     * `tooltipMessage` : message affiché au survol
     * `buttonSize` : taille du bouton
     * `buttonIcon` : icone utilisée pour le bouton
+    * `classForButton` : pour ajouter des éléments de positionnement du bouton
 
     __Exemple__ :
 
     ```
     <ModalActionWithDialog
-          on:display={() => copyLinkToClipboard("linkCopiedDialog-2")}
-          message="Le lien est copié dans le presse-papier !"
-          dialogId="linkCopiedDialog-2"
-          tooltipMessage="Lien du Diaporama"
-          buttonSize="text-[100px]"
-          buttonIcon="bx-link"
-          classForButton = "mr-4 my-2"
-        />
+        on:display={() => copyLinkToClipboard("linkCopiedDialog-2")}
+        message="Le lien est copié dans le presse-papier !"
+        dialogId="linkCopiedDialog-2"
+        tooltipMessage="Lien du Diaporama"
+        buttonSize="text-[100px]"
+        buttonIcon="bx-link"
+        classForButton = "mr-4 my-2"
+    />
     ```
 
  -->

@@ -19,6 +19,38 @@
   export let classForButton: string = ""
 </script>
 
+<!-- 
+    @component
+    Bouton pour afficher un modal permettant d'obtenir un QR-Code de l'URL _courante_
+    via copie dans le presse-papier ou téléchargement.
+
+    __Paramètres__ :
+
+    * `imageId` : ID de l'image
+    * `dialogId` : ID de la dialog box
+    * `tooltipMessage` : message affiché au survol
+    * `buttonSize` : taille du bouton
+    * `buttonIcon` : icone utilisée pour le bouton
+    * `classForButton` : pour ajouter des éléments de positionnement du bouton
+    * `width`: largeur du QR-Code
+    * `format`: un chiffre correspondant au format de l'image créée 
+    (basé sur le tableau des formats possible `allowedImageFormats` de `qr-code.js`)
+
+    __Exemple__ :
+
+    ```
+    <ModalForQrCode
+        dialogId="QRCodeModal-2"
+        imageId="QRCodeCanvas-2"
+        tooltipMessage="QR-code du diaporama"
+        width={QRCodeWidth}
+        format={formatQRCodeIndex}
+        buttonSize="text-[100px]"
+        classForButton="mx-12 my-2"
+    />
+    ```
+
+ -->
 <label for={dialogId} class="{classForButton}  hover:cursor-pointer">
   <div class="tooltip tooltip-bottom tooltip-neutral" data-tip={tooltipMessage}>
     <i
