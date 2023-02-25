@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { urlToQRCodeOnWithinImgTag, downloadQRCodeImage, allowedImageFormats } from "../utils/qr-code"
+  import { urlToQRCodeOnWithinImgTag, downloadQRCodeImage, allowedImageFormats } from "../utils/qr-code.js"
   import { copyQRCodeImageToClipboard } from "../utils/clipboard"
   import FormRadio from "../forms/FormRadio.svelte"
 
@@ -7,12 +7,12 @@
   // source: https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range/70307091#70307091
   type Enumerate<N extends number, Acc extends number[] = []> = Acc["length"] extends N ? Acc[number] : Enumerate<N, [...Acc, Acc["length"]]>
   type Range<F extends number, T extends number> = Exclude<Enumerate<T>, Enumerate<F>>
-  type FormatCodeRange = Range<0, allowedImageFormats.length>
+  // type FormatCodeRange = Range<0, allowedImageFormats.length>
 
   export let imageId: string = "QRImage"
   export let dialogId: string = "dialogQR"
   export let width: number = 100
-  export let format: FormatCodeRange = 0
+  export let format = 0
   export let tooltipMessage: string = "My tooltip"
   export let buttonSize: string = "text-2xl"
   export let buttonIcon: string = "bx-qr"

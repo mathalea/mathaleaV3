@@ -2,19 +2,16 @@
   import { onMount, tick } from "svelte"
   import { Mathalea } from "../Mathalea"
   import { exercicesParams, globalOptions, questionsOrder, selectedExercises, transitionsBetweenQuestions, darkMode } from "./store"
-  import type { Exercice } from "./utils/typeExercice"
+  import type Exercice from "./utils/typeExercice"
   import seedrandom from "seedrandom"
   import { tweened } from "svelte/motion"
   import { cubicOut } from "svelte/easing"
-  import QRCode from "qrcode"
-  import { getBlobFromImageElement, copyBlobToClipboard, canCopyImagesToClipboard } from "copy-image-clipboard"
   import { context } from "../modules/context.js"
   import { shuffle, listOfRandomIndexes } from "./utils/shuffle"
   import renderScratch from "../lib/renderScratch"
   import ModalActionWithDialog from "./modal/ModalActionWithDialog.svelte"
   import { showDialogForLimitedTime } from "./utils/dialogs"
   import { copyLinkToClipboard, copyQRCodeImageToClipboard } from "./utils/clipboard"
-  import { urlToQRCodeOnWithinImgTag, downloadQRCodeImage } from "./utils/qr-code"
   import { formattedTimeStamp, setPhraseDuree } from "./utils/time"
   import ModalForQrCode from "./modal/ModalForQRCode.svelte"
   import FormRadio from "./forms/FormRadio.svelte"
@@ -421,11 +418,11 @@
     for (let i = 0; i < nbOfVues; i++) {
       if (typeof divQuestion[i] !== "undefined") {
         Mathalea.renderDiv(divQuestion[i], -1)
-        const textcell_div: HTMLDivElement = document.getElementById("textcell" + i)
-        const consigne_div: HTMLDivElement = document.getElementById("consigne" + i)
-        const question_div: HTMLDivElement = document.getElementById("question" + i)
-        const correction_div: HTMLDivElement = document.getElementById("correction" + i)
-        const svg_divs: SVGElement[] = document.getElementsByClassName("mathalea2d")
+        const textcell_div = document.getElementById("textcell" + i) as HTMLDivElement
+        const consigne_div = document.getElementById("consigne" + i) as HTMLDivElement
+        const question_div = document.getElementById("question" + i) as HTMLDivElement
+        const correction_div = document.getElementById("correction" + i) as HTMLDivElement
+        const svg_divs = document.getElementsByClassName("mathalea2d") as HTMLCollectionOf<SVGElement>
         let textcell_width = textcell_div.clientWidth
         let textcell_height = textcell_div.clientHeight
         let finalSVGHeight = 0
@@ -443,11 +440,11 @@
             const rw = optimalSVGWidth / startingWidth
             const rh = optimalSVGHeigth / startingHeight
             if (startingHeight * rw < optimalSVGHeigth) {
-              svg_divs[k].setAttribute("width", optimalSVGWidth * currentZoom)
-              svg_divs[k].setAttribute("height", svg_divs[k].clientHeight * rw * currentZoom)
+              svg_divs[k].setAttribute("width", (optimalSVGWidth * currentZoom).toString())
+              svg_divs[k].setAttribute("height", (svg_divs[k].clientHeight * rw * currentZoom).toString())
             } else {
-              svg_divs[k].setAttribute("height", optimalSVGHeigth * currentZoom)
-              svg_divs[k].setAttribute("width", svg_divs[k].clientWidth * rh * currentZoom)
+              svg_divs[k].setAttribute("height", (optimalSVGHeigth * currentZoom).toString())
+              svg_divs[k].setAttribute("width", (svg_divs[k].clientWidth * rh * currentZoom).toString())
             }
             svg_divs[k].removeAttribute("style")
             if (nbOfSVG > 1) {
