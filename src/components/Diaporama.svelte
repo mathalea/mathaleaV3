@@ -39,6 +39,7 @@
   let durationGlobal: number = $globalOptions.durationGlobal
   let previousDurationGlobal = 10 // Utile si on décoche puis recoche "Même durée pour toutes les questions"
   let ratioTime = 0 // Pourcentage du temps écoulé (entre 1 et 100)
+  $: isManualModeActive = false
   let progress = tweened(0, {
     duration: durationGlobal ?? durations[currentQuestion] ?? 10,
     easing: cubicOut,
@@ -217,16 +218,18 @@
       }
     }
 
-    if (!isPause) {
-      if ($transitionsBetweenQuestions.isNoisy) {
-        transitionSounds[$transitionsBetweenQuestions.tune].play()
-      }
-      if ($transitionsBetweenQuestions.isActive) {
-        showDialogForLimitedTime("transition", 1000).then(() => {
+    if (!isManualModeActive) {
+      if (!isPause) {
+        if ($transitionsBetweenQuestions.isNoisy) {
+          transitionSounds[$transitionsBetweenQuestions.tune].play()
+        }
+        if ($transitionsBetweenQuestions.isActive) {
+          showDialogForLimitedTime("transition", 1000).then(() => {
+            timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+          })
+        } else {
           timer(durationGlobal ?? durations[currentQuestion] ?? 10)
-        })
-      } else {
-        timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+        }
       }
     }
     currentDuration = durationGlobal ?? durations[currentQuestion] ?? 10
@@ -300,9 +303,16 @@
    * Gère la récupération de la valeur du curseur de temps
    */
   function handleTimerChange(event) {
-    durationGlobal = cursorTimeValue
-    isSameDurationForAll = true
-    handleChangeDurationGlobal()
+    durationGlobal = 0
+    pause()
+    if (cursorTimeValue === 0) {
+      isManualModeActive = true
+    } else {
+      isManualModeActive = false
+      durationGlobal = cursorTimeValue
+      isSameDurationForAll = true
+      handleChangeDurationGlobal()
+    }
     goToQuestion(currentQuestion)
   }
 
@@ -326,7 +336,7 @@
   $: messageDuree = setPhraseDuree(cursorTimeValue)
 
   $: displayCurrentDuration = () => {
-    return currentDuration === 0 ? "Manuel" : currentDuration + "s"
+    return isManualModeActive ? "Manuel" : currentDuration + "s"
   }
 
   /**
@@ -365,7 +375,7 @@
   }
 
   function handleCheckManualMode() {
-    return null
+    isManualModeActive = !isManualModeActive
   }
 
   $: {
@@ -868,6 +878,7 @@
                 id="checkbox-2"
                 aria-describedby="checkbox-2"
                 type="checkbox"
+                checked={isManualModeActive}
                 class="bg-coopmaths-canvas border-coopmaths-action text-coopmaths-action dark:bg-coopmathsdark-canvas dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action h-4 w-4 rounded"
                 on:change={handleCheckManualMode}
               />
@@ -876,19 +887,18 @@
                 id="checkbox-1"
                 aria-describedby="checkbox-1"
                 type="checkbox"
-                class="bg-coopmaths-canvas border-coopmaths-action text-coopmaths-action dark:bg-coopmathsdark-canvas dark:border-coopmathsdark-action dark:text-coopmathsdark-action {exercices.length ==
-                1
+                class="bg-coopmaths-canvas border-coopmaths-action text-coopmaths-action dark:bg-coopmathsdark-canvas dark:border-coopmathsdark-action dark:text-coopmathsdark-action 
+                {exercices.length == 1 || isManualModeActive
                   ? 'border-opacity-30 dark:border-opacity-30'
                   : 'border-opacity-100 dark:border-opacity-100'} focus:ring-3 focus:ring-coopmaths-action h-4 w-4 rounded"
                 bind:checked={isSameDurationForAll}
                 on:change={handleCheckSameDurationForAll}
-                disabled={exercices.length == 1}
+                disabled={exercices.length == 1 || isManualModeActive}
               />
               <label
                 for="checkbox-1"
-                class="ml-3 font-medium text-coopmaths-corpus dark:text-coopmathsdark-corpus {exercices.length == 1
-                  ? 'text-opacity-30 dark:text-opacity-30'
-                  : 'text-opacity-100 dark:text-opacity-100'} "
+                class="ml-3 font-medium text-coopmaths-corpus dark:text-coopmathsdark-corpus 
+                {exercices.length == 1 || isManualModeActive ? 'text-opacity-30 dark:text-opacity-30' : 'text-opacity-100 dark:text-opacity-100'} "
               >
                 Même durée pour toutes les questions
                 <input
@@ -897,7 +907,7 @@
                   on:change={handleChangeDurationGlobal}
                   bind:value={durationGlobal}
                   class="ml-3 w-20 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-2 border-transparent focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
-                  disabled={!isSameDurationForAll}
+                  disabled={!isSameDurationForAll || isManualModeActive}
                 />
               </label>
             </div>
@@ -938,7 +948,7 @@
                             on:change={updateExercices}
                             bind:value={exercice.duration}
                             class="ml-3 w-16 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-1 focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 disabled:opacity-30"
-                            disabled={isSameDurationForAll}
+                            disabled={isSameDurationForAll || isManualModeActive}
                           />
                         </span>
                       </td>
@@ -965,11 +975,15 @@
                 class="animate-pulse inline-flex items-center justify-center shadow-2xl w-2/12 bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest font-extrabold text-coopmaths-canvas dark:text-coopmathsdark-canvas text-3xl py-4 rounded-lg"
                 on:click={() => {
                   goToQuestion(0)
-                  timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+                  if (!isManualModeActive) {
+                    timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+                  }
                 }}
                 on:keydown={() => {
                   goToQuestion(0)
-                  timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+                  if (!isManualModeActive) {
+                    timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+                  }
                 }}
               >
                 Play<i class="bx bx-play" />
@@ -985,7 +999,7 @@
     <div id="diap" class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" data-theme="daisytheme">
       <!-- Steps -->
       <header class="flex flex-col h-[10%] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas pb-1">
-        <div class:invisible={durationGlobal === 0} class="flex flex-row h-6 border border-coopmaths-warn dark:border-coopmathsdark-warn">
+        <div class:invisible={isManualModeActive} class="flex flex-row h-10 border border-coopmaths-warn dark:border-coopmathsdark-warn">
           <div id="diapoProgressBar" class="bg-coopmaths-warn dark:bg-coopmathsdark-warn" style="width: {ratioTime}%; transition: width {currentDuration / 100}s linear" />
         </div>
         <div class="flex flex-row h-full mt-6 w-full justify-center">
@@ -1059,11 +1073,10 @@
             <button type="button" on:click={prevQuestion}>
               <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-skip-previous" />
             </button>
-            <button type="button" on:click={switchPause} class:invisible={durationGlobal === 0}>
+            <button type="button" on:click={switchPause} class:invisible={isManualModeActive}>
               <i
-                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg {isPause
-                  ? 'bx-play'
-                  : 'bx-pause'}"
+                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg 
+                {isPause ? 'bx-play' : 'bx-pause'}"
               />
             </button>
             <button type="button" on:click={nextQuestion}>
