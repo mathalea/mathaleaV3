@@ -5,6 +5,7 @@ export default function renderScratch (selector = '') {
   // Exécuter 2 fois le rendu sur un même élément <pre> semble buguer
   // Donc le sélectionneur css ne cible que l'exercice en cours
   // pour ne pas altérer les rendus des autres exercices
+  if (selector !== '') selector = selector + ' '
   scratchblocks.loadLanguages({ fr: scratchFr })
   scratchblocks.renderMatching(`${selector}pre.blocks`, {
     style: 'scratch3',

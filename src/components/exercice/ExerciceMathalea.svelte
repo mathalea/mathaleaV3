@@ -7,7 +7,6 @@
   import { Mathalea } from '../../Mathalea'
   import { exerciceInteractif } from '../../interactif/interactif'
   import { exercicesParams } from '../store'
-  import renderScratch from '../../lib/renderScratch'
   import HeaderExercice from './HeaderExercice.svelte'
   import Settings from './Settings.svelte'
   export let exercice
@@ -174,10 +173,6 @@
     $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
     exercice.nouvelleVersion(indiceExercice)
     Mathalea.updateUrl($exercicesParams)
-    if (exercice.typeExercice === "Scratch") {
-      await tick()
-      renderScratch(`#exo${indiceExercice} `)
-    }
   }
 
   function verifExercice() {

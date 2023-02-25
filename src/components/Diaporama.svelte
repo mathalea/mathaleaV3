@@ -8,7 +8,6 @@
   import { cubicOut } from "svelte/easing"
   import { context } from "../modules/context.js"
   import { shuffle, listOfRandomIndexes } from "./utils/shuffle"
-  import renderScratch from "../lib/renderScratch"
   import ModalActionWithDialog from "./modal/ModalActionWithDialog.svelte"
   import { showDialogForLimitedTime } from "./utils/dialogs"
   import { copyLinkToClipboard, copyQRCodeImageToClipboard } from "./utils/clipboard"
@@ -511,7 +510,6 @@
         // console.log("nb de caractères : " + nbOfCharactersInTextDiv + " / font-size départ : " + startSize + "font-size calculée : " + size + " / ratio : " + (1 - finalSVGHeight / textcell_height))
       }
     }
-    renderScratch()
   }
 
   function zoomPlus() {

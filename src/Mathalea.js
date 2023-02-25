@@ -8,8 +8,7 @@ import { ajouteChampTexteMathLive } from './interactif/questionMathLive'
 import uuidToUrl from './json/uuidsToUrl.json'
 import refToUuid from './json/refToUuid.json'
 import 'katex/dist/katex.min.css'
-import { context } from './modules/context.js'
-import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from './modules/ElementInstrumenpoche'
+import renderScratch from './lib/renderScratch.js'
 
 // export type Settings = { sup?: boolean | string | number, sup2?: boolean | string | number, sup3?: boolean | string | number, sup4?: boolean | string | number, nbQuestions?: number, seed?: string }
 
@@ -63,7 +62,7 @@ export class Mathalea {
     })
   }
 
-  static renderDiv(div /** HTMLDivElement */, zoom) /** void */ {
+  static renderDiv (div /** HTMLDivElement */, zoom) /** void */ {
     // KaTeX à remplacer par MathLive ?
     // renderMathInElement(div, {
     //   TeX: {
@@ -78,14 +77,15 @@ export class Mathalea {
     renderMathInElement(div, {
       delimiters: [
         { left: '\\[', right: '\\]', display: true },
-        { left: '$', right: '$', display: false },
+        { left: '$', right: '$', display: false }
       ],
       preProcess: (chaine) => chaine.replaceAll(String.fromCharCode(160), '\\,'),
       throwOnError: true,
       errorColor: '#CC0000',
       strict: 'warn',
-      trust: false,
+      trust: false
     })
+    renderScratch('body')
     const params = get(globalOptions)
     zoom = zoom ?? Number(params.z)
 
