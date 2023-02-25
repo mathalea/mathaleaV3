@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { Mathalea } from '../Mathalea'
-  import { exercicesParams, darkMode, globalOptions } from './store'
-  import type TypeExercice from './utils/typeExercice'
-  import Exercice from './exercice/Exercice.svelte'
-  import { onMount, tick } from 'svelte'
-  import seedrandom from 'seedrandom'
-  import { loadMathLive } from '../modules/loaders'
-  import Button from './forms/Button.svelte'
-  import { verifQuestionMathLive } from '../interactif/mathLive'
-  import { verifQuestionQcm } from '../interactif/qcm'
+  import { Mathalea } from "../Mathalea"
+  import { exercicesParams, darkMode, globalOptions, exercicesCheckCount } from "./store"
+  import type TypeExercice from "./utils/typeExercice"
+  import Exercice from "./exercice/Exercice.svelte"
+  import { onMount, tick } from "svelte"
+  import seedrandom from "seedrandom"
+  import { loadMathLive } from "../modules/loaders"
+  import Button from "./forms/Button.svelte"
+  import { verifQuestionMathLive } from "../interactif/mathLive"
+  import { verifQuestionQcm } from "../interactif/qcm"
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -137,9 +137,9 @@
   async function checkQuestion(i) {
     // ToFix il faudra gérer les exercices non MathLive
     const type = exercices[indiceExercice[i]].interactifType
-    if (type === 'mathLive') {
+    if (type === "mathLive") {
       results[i] = verifQuestionMathLive(exercices[indiceExercice[i]], indiceQuestionInExercice[i])
-    } else if (type === 'qcm') {
+    } else if (type === "qcm") {
       results[i] = verifQuestionQcm(exercices[indiceExercice[i]], indiceQuestionInExercice[i])
     }
     isDisabledButton[i] = true
