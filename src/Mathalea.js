@@ -22,7 +22,7 @@ export class Mathalea {
    * @param {string} url
    * @returns {Promise<Exercice>} exercice
    */
-  static async load(uuid) {
+  static async load (uuid) {
     const url = uuidToUrl[uuid]
     const [filename, directory, isCan] = url.split('/').reverse()
     try {
@@ -52,7 +52,7 @@ export class Mathalea {
     }
   }
 
-  static async loadFromUrlWithoutExtension(urlWithoutExtension) {
+  static async loadFromUrlWithoutExtension (urlWithoutExtension) {
     if (urlWithoutExtension === undefined) return
     const uuid = Object.keys(uuidToUrl).find((key) => uuidToUrl[key] === urlWithoutExtension + '.js')
     const newEx = { uuid, id: urlWithoutExtension.split('/')[1] }
@@ -109,7 +109,7 @@ export class Mathalea {
     }
   }
 
-  static updateUrl(exercicesParams) {
+  static updateUrl (exercicesParams) {
     const url = new URL(window.location.protocol + '//' + window.location.host + window.location.pathname)
     for (const ex of exercicesParams) {
       url.searchParams.append('uuid', ex.uuid)
@@ -133,7 +133,7 @@ export class Mathalea {
    * pour en charger tous les exercices demandés
    * @returns vue
    */
-  static loadExercicesFromUrl() {
+  static loadExercicesFromUrl () {
     let v = ''
     let z = '1'
     let durationGlobal = 0
@@ -240,12 +240,12 @@ export class Mathalea {
       presMode,
       setInteractive,
       isSolutionAccessible,
-      isInteractiveFree,
+      isInteractiveFree
     }
   }
 
-  static handleExerciceSimple(exercice, isInteractif, numeroExercice) {
-    if (numeroExercice) exercice.numeroExercice = numeroExercice
+  static handleExerciceSimple (exercice, isInteractif, numeroExercice) {
+    if (numeroExercice !== undefined) exercice.numeroExercice = numeroExercice
     exercice.autoCorrection = []
     exercice.interactif = isInteractif
     exercice.listeQuestions = []
@@ -281,7 +281,7 @@ export class Mathalea {
    *
    * @Source https://www.equinode.com/blog/article/generer-une-chaine-de-caracteres-aleatoire-avec-javascript
    */
-  static generateSeed(o) {
+  static generateSeed (o) {
     let a = 10
     const b = 'abcdefghijklmnopqrstuvwxyz'
     let c = ''
@@ -313,7 +313,7 @@ export class Mathalea {
    * @param {string} texte
    * @returns string
    */
-  static formatExercice(texte = '') {
+  static formatExercice (texte = '') {
     return texte
       .replace(/\\dotfill/g, '..............................')
       .replace(/\\not=/g, '≠')
@@ -321,7 +321,7 @@ export class Mathalea {
   }
 }
 
-function _handleStringFromUrl(txt) {
+function _handleStringFromUrl (txt) {
   if (txt === 'true' || txt === 'false') {
     // "true"=>true
     return txt === 'true'
