@@ -244,12 +244,13 @@ export class Mathalea {
     }
   }
 
-  static handleExerciceSimple(exercice, isInteractif) {
+  static handleExerciceSimple(exercice, isInteractif, numeroExercice) {
+    if (numeroExercice) exercice.numeroExercice = numeroExercice
     exercice.autoCorrection = []
     exercice.interactif = isInteractif
     exercice.listeQuestions = []
     exercice.listeCorrections = []
-    for (let i = 0, cptSecours = 0; i < exercice.nbQuestions && cptSecours < 50; ) {
+    for (let i = 0, cptSecours = 0; i < exercice.nbQuestions && cptSecours < 50;) {
       seedrandom(exercice.seed + i, { global: true })
       exercice.nouvelleVersion()
       if (exercice.questionJamaisPosee(i, exercice.question)) {

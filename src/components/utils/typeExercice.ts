@@ -43,6 +43,7 @@ type Exercice = {
   video?: string
   interactif?: boolean
   interactifObligatoire?: boolean
+  interactifReady?: boolean
   besoinFormulaireNumerique?: boolean | any[]
   besoinFormulaireTexte?: boolean | any[]
   besoinFormulaireCaseACocher?: boolean | any[]

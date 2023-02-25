@@ -102,11 +102,11 @@
 
   async function buildQuestions() {
     for (const [k, exercice] of exercices.entries()) {
-      if ($globalOptions.setInteractive === '1') {
+      if ($globalOptions.setInteractive === '1' && exercice.interactifReady) {
         exercice.interactif = true
       }
       if (exercice.typeExercice === "simple") {
-        Mathalea.handleExerciceSimple(exercice, exercice.interactif)
+        Mathalea.handleExerciceSimple(exercice, exercice.interactif, k)
       } 
       seedrandom(exercice.seed, { global: true })
       exercice.numeroExercice = k
@@ -210,6 +210,9 @@ function checkQuestion (i) {
             <div class="text-coopmaths-corpus pl-2">
               {@html question}
             </div>
+            {#if exercices[indiceExercice[k]].interactif}
+              <Button title="Vérifier" on:click={() => checkQuestion(k)}/>
+              {/if}
           </div>
         {/each}
       {:else if $globalOptions.presMode === "question"}
