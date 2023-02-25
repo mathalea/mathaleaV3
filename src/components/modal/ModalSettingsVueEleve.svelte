@@ -5,7 +5,6 @@
   import { globalOptions } from "../store"
   
   function handleEleveVueSetUp() {
-    console.log('ok')
     globalOptions.update((params) => {
       params.v = "eleve"
       return params

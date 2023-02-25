@@ -1,6 +1,5 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte"
-  import { component_subscribe } from "svelte/internal"
   export let message: string = "Default message"
   export let dialogId: string = "dialogbox"
   export let tooltipMessage: string = ""

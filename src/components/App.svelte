@@ -5,6 +5,7 @@
   import Eleve from "./Eleve.svelte"
   import { globalOptions } from "./store"
 
+
 </script>
 
 <div class="subpixel-antialiased">

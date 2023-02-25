@@ -1,34 +1,34 @@
 <script lang="ts">
-  import Exercice from "./exercice/Exercice.svelte"
-  import NavBar from "./header/NavBar.svelte"
-  import Footer from "./Footer.svelte"
-  import Header2 from "./header2/Header2.svelte"
-  import NiveauListeExos from "./sidebar/NiveauListeExos.svelte"
-  import ModalSettingsVueEleve from "./modal/ModalSettingsVueEleve.svelte"
-  import { exercicesParams, globalOptions, darkMode } from "./store"
-  import codeList from "../json/codeToLevelList.json"
-  import referentiel from "../json/referentiel2022.json"
-  import referentielStatic from "../json/referentielStatic.json"
-  import { Mathalea } from "../Mathalea"
-  import { flip } from "svelte/animate"
-  import { onMount } from "svelte"
-  import { toMap } from "./utils/toMap"
-  import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from "../modules/ElementInstrumenpoche"
+  import Exercice from './exercice/Exercice.svelte'
+  import NavBar from './header/NavBar.svelte'
+  import Footer from './Footer.svelte'
+  import Header2 from './header2/Header2.svelte'
+  import NiveauListeExos from './sidebar/NiveauListeExos.svelte'
+  import ModalSettingsVueEleve from './modal/ModalSettingsVueEleve.svelte'
+  import { exercicesParams, globalOptions, darkMode } from './store'
+  import codeList from '../json/codeToLevelList.json'
+  import referentiel from '../json/referentiel2022.json'
+  import referentielStatic from '../json/referentielStatic.json'
+  import { Mathalea } from '../Mathalea'
+  import { flip } from 'svelte/animate'
+  import { onMount } from 'svelte'
+  import { toMap } from './utils/toMap'
+  import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from '../modules/ElementInstrumenpoche'
 
-  import { context } from "../modules/context"
-  import SearchExercice from "./sidebar/SearchExercice.svelte"
+  import { context } from '../modules/context'
+  import SearchExercice from './sidebar/SearchExercice.svelte'
 
-  import { isRecent } from "./utils/handleDate"
+  import { isRecent } from './utils/handleDate'
 
   context.versionMathalea = 3
 
-  if (customElements.get("alea-instrumenpoche") === undefined) {
-    customElements.define("alea-instrumenpoche", ElementInstrumenpoche)
-    customElements.define("alea-buttoninstrumenpoche", ElementButtonInstrumenpoche)
+  if (customElements.get('alea-instrumenpoche') === undefined) {
+    customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
+    customElements.define('alea-buttoninstrumenpoche', ElementButtonInstrumenpoche)
   }
 
   let isNavBarVisible = true
-  let filtre = "all"
+  let filtre = 'all'
   let divExercices: HTMLDivElement
   let zoom = 1
   let setAllInteractifClicked = false
@@ -47,18 +47,18 @@
     zoom = Number(urlOptions.z)
   }
   onMount(urlToDisplay)
-  addEventListener("popstate", urlToDisplay)
+  addEventListener('popstate', urlToDisplay)
 
   // Mise à jour de l'URL dès que l'on change exercicesParams (sauf pour l'URL d'arrivée sur la page)
   $: {
     if (isInitialUrlHandled) Mathalea.updateUrl($exercicesParams)
-    if ($globalOptions.v === "l") {
+    if ($globalOptions.v === 'l') {
       isSideMenuVisible = false
       isNavBarVisible = false
-    } else if ($globalOptions.v === "l2") {
+    } else if ($globalOptions.v === 'l2') {
       isSideMenuVisible = false
       isNavBarVisible = true
-    } else if ($globalOptions.v === "eleve") {
+    } else if ($globalOptions.v === 'eleve') {
       isSideMenuVisible = false
       isNavBarVisible = false
     } else {
@@ -66,7 +66,7 @@
       isNavBarVisible = true
     }
     // Evènement indispensable pour pointCliquable par exemple
-    const exercicesAffiches = new window.Event("exercicesAffiches", {
+    const exercicesAffiches = new window.Event('exercicesAffiches', {
       bubbles: true,
     })
     document.dispatchEvent(exercicesAffiches)
@@ -76,26 +76,29 @@
   // Suppression de la rubrique calcul mental
   // On renomme les chapitres pour la partie statique
   let filteredReferentiel = { ...referentiel, static: { ...referentielStatic } }
-  delete filteredReferentiel["Calcul mental"]
-  filteredReferentiel["3e"]["Brevet des collèges par thèmes - APMEP"] = filteredReferentiel["static"]["Brevet des collèges par thèmes - APMEP"]
-  filteredReferentiel["CRPE"]["Concours 2022"] = filteredReferentiel["static"]["CRPE (2022) par année"]
-  filteredReferentiel["CRPE"]["Concours 2022 - Par thèmes"] = filteredReferentiel["static"]["CRPE (2022) par thèmes"]
-  filteredReferentiel["CRPE"]["CRPE (2015-2019) par thèmes - COPIRELEM"] = filteredReferentiel["static"]["CRPE (2015-2019) par thèmes - COPIRELEM"]
-  filteredReferentiel["CRPE"]["CRPE (2015-2019) par année - COPIRELEM"] = filteredReferentiel["static"]["CRPE (2015-2019) par année - COPIRELEM"]
+  delete filteredReferentiel['Calcul mental']
+  filteredReferentiel['3e']['Brevet des collèges par thèmes - APMEP'] =
+    filteredReferentiel['static']['Brevet des collèges par thèmes - APMEP']
+  filteredReferentiel['CRPE']['Concours 2022'] = filteredReferentiel['static']['CRPE (2022) par année']
+  filteredReferentiel['CRPE']['Concours 2022 - Par thèmes'] = filteredReferentiel['static']['CRPE (2022) par thèmes']
+  filteredReferentiel['CRPE']['CRPE (2015-2019) par thèmes - COPIRELEM'] =
+    filteredReferentiel['static']['CRPE (2015-2019) par thèmes - COPIRELEM']
+  filteredReferentiel['CRPE']['CRPE (2015-2019) par année - COPIRELEM'] =
+    filteredReferentiel['static']['CRPE (2015-2019) par année - COPIRELEM']
   let referentielMap = toMap(filteredReferentiel)
   let arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
 
   function updateReferentiel() {
     let itemsAccepted
-    if (filtre === "college") {
-      itemsAccepted = ["6e", "5e", "4e", "3e", "Calcul mental"]
-    } else if (filtre === "lycee") {
-      itemsAccepted = ["Seconde", "Première", "Première Technologique", "Terminale exper"]
-    } else if (filtre === "crpe") {
-      itemsAccepted = ["CRPE"]
+    if (filtre === 'college') {
+      itemsAccepted = ['6e', '5e', '4e', '3e', 'Calcul mental']
+    } else if (filtre === 'lycee') {
+      itemsAccepted = ['Seconde', 'Première', 'Première Technologique', 'Terminale exper']
+    } else if (filtre === 'crpe') {
+      itemsAccepted = ['CRPE']
     }
 
-    if (filtre === "all") {
+    if (filtre === 'all') {
       filteredReferentiel = { ...referentiel, static: { ...referentielStatic } }
     } else {
       filteredReferentiel = Object.keys(referentiel)
@@ -122,7 +125,7 @@
        * Détecter si une valeur est un objet
        * @param val valeur à analyser
        */
-      const isObject = (val) => val && typeof val === "object" && !Array.isArray(val)
+      const isObject = (val) => val && typeof val === 'object' && !Array.isArray(val)
 
       let recentExercises = []
       /**
@@ -134,7 +137,7 @@
       const traverseObject = (obj = {}) => {
         return Object.entries(obj).reduce((product, [key, value]) => {
           if (isObject(value)) {
-            if (Object.hasOwn(value, "uuid")) {
+            if (Object.hasOwn(value, 'uuid')) {
               // <-- on arrête la récursivité lorsqu'on tombe sur les données de l'exo
               if (isRecent(value.datePublication) || isRecent(value.dateModification)) {
                 recentExercises.push({ [key]: value })
@@ -153,7 +156,7 @@
       return recentExercisesAsObject
     }
 
-    filteredReferentiel["Nouveautés"] = getRecentExercises(filteredReferentiel)
+    filteredReferentiel['Nouveautés'] = getRecentExercises(filteredReferentiel)
     const keysToBeFirst = { Nouveautés: null }
     filteredReferentiel = Object.assign(keysToBeFirst, filteredReferentiel)
     referentielMap = toMap(filteredReferentiel)
@@ -187,20 +190,20 @@
   }
   const searchOptions = [
     {
-      value: "list",
-      label: "Liste",
+      value: 'list',
+      label: 'Liste',
     },
     {
-      value: "theme",
-      label: "Themes",
+      value: 'theme',
+      label: 'Themes',
     },
   ]
-  let searchOption = "list"
+  let searchOption = 'list'
   function handleSideMenu(event: CustomEvent) {
     isSideMenuVisible = event.detail.isListVisible
     if (!isSideMenuVisible) {
       globalOptions.update((params) => {
-        params.v = "l2"
+        params.v = 'l2'
         return params
       })
     } else {
@@ -220,7 +223,7 @@
 
   function fullScreen() {
     globalOptions.update((params) => {
-      params.v = "l"
+      params.v = 'l'
       return params
     })
   }
@@ -245,14 +248,14 @@
   }
 
   function newDataForAll() {
-    const newDataForAll = new window.Event("newDataForAll", {
+    const newDataForAll = new window.Event('newDataForAll', {
       bubbles: true,
     })
     document.dispatchEvent(newDataForAll)
   }
 
   function setAllInteractif() {
-    const setAllInteractif = new window.Event("setAllInteractif", {
+    const setAllInteractif = new window.Event('setAllInteractif', {
       bubbles: true,
     })
     setAllInteractifClicked = true
@@ -260,7 +263,7 @@
   }
 
   function removeAllInteractif() {
-    const removeAllInteractif = new window.Event("removeAllInteractif", {
+    const removeAllInteractif = new window.Event('removeAllInteractif', {
       bubbles: true,
     })
     setAllInteractifClicked = false
@@ -293,10 +296,16 @@
     <Header2 sideMenuVisible={isSideMenuVisible} on:sideMenuChange={handleSideMenu} />
   {/if}
   <!-- Gestion du mode sombre -->
-  <main class="flex h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus" on:mousemove={resizing}>
+  <main
+    class="flex h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+    on:mousemove={resizing}
+  >
     <!-- side menu -->
     {#if isSideMenuVisible || nbExercisesInList === 0}
-      <aside style="width:{sidebarWidth}px" class="flex flex-col bg-coopmaths-canvas-dark  dark:bg-coopmathsdark-canvas-dark p-4 overflow-hidden h-full">
+      <aside
+        style="width:{sidebarWidth}px"
+        class="flex flex-col bg-coopmaths-canvas-dark  dark:bg-coopmathsdark-canvas-dark p-4 overflow-hidden h-full"
+      >
         <div class="flex flex-col overflow-y-scroll overscroll-auto">
           <h2 class="inline-flex items-center font-bold text-xl mb-6 text-coopmaths-struct dark:text-coopmathsdark-struct">
             <span>Choix des exercices</span>
@@ -317,7 +326,12 @@
           <ul>
             {#each arrayReferentielFiltre as item}
               <li>
-                <NiveauListeExos nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
+                <NiveauListeExos
+                  nestedLevelCount={1}
+                  pathToThisNode={[item.key]}
+                  levelTitle={codeToLevelTitle(item.key)}
+                  items={item.obj}
+                />
               </li>
             {/each}
           </ul>
@@ -327,7 +341,7 @@
       <div
         id="dragbar"
         class="flex w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark  hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize"
-        on:mousedown={startResizing.bind(this, "moving")}
+        on:mousedown={startResizing.bind(this, 'moving')}
       />
     {/if}
     <!-- content -->
@@ -336,10 +350,14 @@
         <!-- barre des boutons de réglages pour tous les exercices de la page -->
         <div class="flex flex-row justify-center items-center p-2">
           <button type="button" on:click={zoomMinus}
-            ><i class="bx bx-md px-2 bx-zoom-out hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" /></button
+            ><i
+              class="bx bx-md px-2 bx-zoom-out hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+            /></button
           >
           <button type="button" on:click={zoomPlus}
-            ><i class="bx bx-md px-2 bx-zoom-in hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" /></button
+            ><i
+              class="bx bx-md px-2 bx-zoom-in hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+            /></button
           >
           <button type="button" on:click={setAllInteractifClicked ? removeAllInteractif : setAllInteractif}
             ><i
@@ -349,7 +367,9 @@
             /></button
           >
           <button type="button" on:click={newDataForAll}>
-            <i class="bx bx-md px-2 bx-refresh  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+            <i
+              class="bx bx-md px-2 bx-refresh  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+            />
           </button>
           <button
             type="button"
@@ -357,10 +377,12 @@
               $exercicesParams.length = 0
             }}
           >
-            <i class="bx text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx-md px-2 bx-trash" />
+            <i
+              class="bx text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx-md px-2 bx-trash"
+            />
           </button>
 
-          {#if $globalOptions.v === "l"}
+          {#if $globalOptions.v === 'l'}
             <div class="flex flex-row justify-end items-center">
               <button type="button" on:click={quitFullScreen}>
                 <i
@@ -369,15 +391,17 @@
               </button>
             </div>
           {/if}
-          {#if $globalOptions.v !== "l"}
+          {#if $globalOptions.v !== 'l'}
             <button
               type="button"
               on:click={() =>
                 globalOptions.update((params) => {
-                  params.v = "l"
+                  params.v = 'l'
                   return params
                 })}
-              ><i class="bx bx-md px-2 bx-fullscreen  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+              ><i
+                class="bx bx-md px-2 bx-fullscreen  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+              />
             </button>
           {/if}
 
@@ -385,16 +409,18 @@
             type="button"
             on:click={() =>
               globalOptions.update((params) => {
-                params.v = "diaporama"
+                params.v = 'diaporama'
                 return params
               })}
           >
-            <i class="bx bx-md px-2 ml-24 bx-slideshow  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+            <i
+              class="bx bx-md px-2 ml-24 bx-slideshow  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+            />
           </button>
           <button type="button">
-            <a href="#reglages-vue-eleve"
-              ><i class="bx bx-md px-2 bxs-graduation  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" /></a
-            >
+            <a href="#reglages-vue-eleve">
+              <i class="bx bx-md px-2 bxs-graduation  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"/>
+            </a>
           </button>
           <ModalSettingsVueEleve />
         </div>

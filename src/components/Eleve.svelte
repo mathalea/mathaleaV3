@@ -19,8 +19,9 @@
   let results: string[] = []
   
   function urlToDisplay() {
-    const urlOptions = Mathalea.loadExercicesFromUrl()
+    let urlOptions = Mathalea.loadExercicesFromUrl()
     globalOptions.update(() => {
+      urlOptions.v = 'eleve'
       return urlOptions
     })
   }
@@ -63,7 +64,8 @@
 
   onMount(async () => {
     if ($globalOptions.presMode === undefined) {
-      const urlOptions = Mathalea.loadExercicesFromUrl()
+      let urlOptions = Mathalea.loadExercicesFromUrl()
+      urlOptions.v = 'eleve'
       globalOptions.update(() => {
         return urlOptions
       })
