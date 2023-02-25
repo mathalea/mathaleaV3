@@ -5,12 +5,25 @@
   import Exercice from "./exercice/Exercice.svelte"
   import { onMount, tick } from "svelte"
   import seedrandom from "seedrandom"
+  import { loadMathLive } from '../modules/loaders'
+  import Button from "./forms/Button.svelte"
+  import { verifQuestionMathLive } from '../interactif/mathLive'
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
   let questions: string[] = []
   let consignes: string[] = []
   let corrections: string[] = []
+  let indiceExercice: number[] = []
+  let indiceQuestionInExercice : number[] = []
+  let results: string[] = []
+  
+  function urlToDisplay() {
+    const urlOptions = Mathalea.loadExercicesFromUrl()
+    globalOptions.update(() => {
+      return urlOptions
+    })
+  }
 
   /**
    * Adaptation du titre des pages pour chaque exercice
@@ -49,6 +62,13 @@
   $: questionTitle = buildQuestionTitle(questions.length)
 
   onMount(async () => {
+    if ($globalOptions.presMode === undefined) {
+      const urlOptions = Mathalea.loadExercicesFromUrl()
+      globalOptions.update(() => {
+        return urlOptions
+      })
+    }
+    urlToDisplay()
     for (const paramsExercice of $exercicesParams) {
       const exercice: TypeExercice = await Mathalea.load(paramsExercice.uuid)
       if (typeof exercice === "undefined") return
@@ -74,17 +94,25 @@
       exercices.push(exercice)
     }
     exercices = exercices
-
+    await tick()
     buildQuestions()
   })
 
-  function buildQuestions() {
+  async function buildQuestions() {
     for (const [k, exercice] of exercices.entries()) {
-      if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
+      if ($globalOptions.setInteractive === '1') {
+        exercice.interactif = true
+      }
+      if (exercice.typeExercice === "simple") {
+        Mathalea.handleExerciceSimple(exercice, exercice.interactif)
+      } 
       seedrandom(exercice.seed, { global: true })
-      exercice.nouvelleVersion()
+      exercice.numeroExercice = k
+      exercice.nouvelleVersion(k)
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
         consignes.push(exercice.consigne)
+        indiceExercice.push(k)
+        indiceQuestionInExercice.push(i)
       }
       questions = [...questions, ...exercice.listeQuestions]
       corrections = [...corrections, ...exercice.listeCorrections]
@@ -92,14 +120,25 @@
       corrections = corrections.map(Mathalea.formatExercice)
       consignes = consignes.map(Mathalea.formatExercice)
     }
+    if ($globalOptions.presMode === 'liste' || $globalOptions.presMode === 'question') {
+      // Pour les autres mode de présentation, cela est géré par ExerciceMathalea
+      Mathalea.updateUrl($exercicesParams)
+      await tick()
+      Mathalea.renderDiv(document.querySelector('section'))
+      loadMathLive()
+    }
   }
+function checkQuestion (i) {
+  // ToFix il faudra gérer les exercices non MathLive
+  results[i] =verifQuestionMathLive(exercices[indiceExercice[i]], indiceQuestionInExercice[i])
+}
 
   function handleIndexChange(exoNum: number) {
     currentIndex = exoNum
   }
 </script>
 
-<div class={$darkMode.isActive ? "dark" : ""}>
+<section class={$darkMode.isActive ? "dark" : ""}>
   <div class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus">
     <div class="h-32 w-full  bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct">
       <div class="w-full flex flex-row justify-start p-4 items-center">
@@ -126,7 +165,7 @@
             {/each}
           </div>
         {/if}
-        {#if $globalOptions.presMode === "questions"}
+        {#if $globalOptions.presMode === "question"}
           <div class="w-full flex flex-row overflow-x-auto justify-center space-x-0 border-b-2 border-coopmaths-struct">
             {#each questions as question, i (question)}
               <div class="">
@@ -171,7 +210,7 @@
             </div>
           </div>
         {/each}
-      {:else if $globalOptions.presMode === "questions"}
+      {:else if $globalOptions.presMode === "question"}
         {#each questions as question, k (question)}
           <div class={currentIndex === k ? "" : "hidden"}>
             <div class="pb-4 flex flex-col items-start justify-start">
@@ -182,10 +221,15 @@
               <div class="text-coopmaths-corpus pl-2">
                 {@html question}
               </div>
+              {#if exercices[indiceExercice[k]].interactif}
+              <div class="pb-4">
+                <Button title="Vérifier" on:click={() => checkQuestion(k)}/>
+              </div>
+              {/if}
             </div>
           </div>
         {/each}
       {/if}
     </div>
   </div>
-</div>
+</section>

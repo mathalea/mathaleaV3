@@ -119,7 +119,7 @@ export class Mathalea {
       if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
       if (ex.sup4 !== undefined) url.searchParams.append('s4', ex.sup4)
       if (ex.alea !== undefined) url.searchParams.append('alea', ex.alea)
-      if (ex.i) url.searchParams.append('i', 1)
+      if (ex.interactif) url.searchParams.append('i', '1')
       if (ex.cd !== undefined) url.searchParams.append('cd', ex.cd)
       if (ex.cols !== undefined) url.searchParams.append('cols', ex.cols)
     }
@@ -141,8 +141,9 @@ export class Mathalea {
     let title = 'Exercices'
     let choice, sound, es
     let presMode = 'page'
-    let isInteractive = false
+    let setInteractive = '2'
     let isSolutionAccessible = true
+    let isInteractiveFree = true
     const url = new URL(window.location.href)
     const entries = url.searchParams.entries()
     let indiceExercice = -1
@@ -176,6 +177,14 @@ export class Mathalea {
         newListeExercice[indiceExercice].sup3 = _handleStringFromUrl(entry[1])
       } else if (entry[0] === 's4') {
         newListeExercice[indiceExercice].sup4 = _handleStringFromUrl(entry[1])
+      } else if (entry[0] === 'alea') {
+        newListeExercice[indiceExercice].alea = entry[1]
+      } else if (entry[0] === 'i' && entry[1] === '1') {
+        newListeExercice[indiceExercice].interactif = true
+      } else if (entry[0] === 'cd') {
+        newListeExercice[indiceExercice].cd = entry[1]
+      } else if (entry[0] === 'cols') {
+        newListeExercice[indiceExercice].cols = entry[1]
       } else if (entry[0] === 'v') {
         v = entry[1]
       } else if (entry[0] === 'z') {
@@ -194,34 +203,29 @@ export class Mathalea {
         sound = parseInt(entry[1])
       } else if (entry[0] === 'es') {
         es = entry[1]
-      } else if (entry[0] === 'alea') {
-        newListeExercice[indiceExercice].alea = entry[1]
-      } else if (entry[0] === 'i' && entry[1] === '1') {
-        newListeExercice[indiceExercice].interactif = true
-      } else if (entry[0] === 'cd') {
-        newListeExercice[indiceExercice].cd = entry[1]
-      } else if (entry[0] === 'cols') {
-        newListeExercice[indiceExercice].cols = entry[1]
       } else if (entry[0] === 'title') {
         title = entry[1]
       } else {
         if (entry[0] !== 'id') newListeExercice[indiceExercice][entry[0]] = entry[1]
       }
-
       if (entry[0] === 'uuid') previousEntryWasUuid = true
       else previousEntryWasUuid = false
     }
     exercicesParams.update((l) => {
       return newListeExercice
     })
-
-    if (es && es.length === 3) {
+    /**
+     * es permet de résumer les réglages de la vue élève
+     * Il est de la forme 2101
+     * Avec un caractère par réglage presMode|setInteractive|isSolutionAccessible|isInteractiveFree
+     */
+    if (es && es.length === 4) {
       presMode = presModeId[es.charAt(0)]
-      isInteractive = (es.charAt(1) === '1')
+      setInteractive = es.charAt(1)
       isSolutionAccessible = (es.charAt(2) === '1')
+      isInteractiveFree = (es.charAt(3) === '1')
     }
-
-    return { v, z, durationGlobal, nbVues, shuffle, choice, trans, sound, title, presMode, isInteractive, isSolutionAccessible }
+    return { v, z, durationGlobal, nbVues, shuffle, choice, trans, sound, title, presMode, setInteractive, isSolutionAccessible, isInteractiveFree }
   }
 
   static handleExerciceSimple (exercice, isInteractif) {

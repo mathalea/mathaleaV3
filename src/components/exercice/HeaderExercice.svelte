@@ -2,15 +2,16 @@
   import { createEventDispatcher } from "svelte"
   import BoutonMonter from "./BoutonMonter.svelte"
   import BoutonDescendre from "./BoutonDescendre.svelte"
+  import { globalOptions } from "../store";
   import { exercicesParams } from "../store"
   export let title: string
-  export let interactifReady = true
   export let randomReady = true
   export let settingsReady = true
   export let correctionReady = true
   export let indiceExercice: number
   export let indiceLastExercice: number
   export let isInteractif = false
+  export let interactifReady: boolean
   export let isSortable = true
   export let isDeletable = true
   export let isHidable = true
@@ -98,7 +99,7 @@
         />
       </button>
       <button
-        class="mx-2 tooltip tooltip-left tooltip-neutral {interactifReady ? '' : 'invisible'}"
+        class="mx-2 tooltip tooltip-left tooltip-neutral {$globalOptions.isInteractiveFree && interactifReady ? '' : 'invisible'}"
         data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
         type="button"
         on:click={switchInteractif}

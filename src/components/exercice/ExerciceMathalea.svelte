@@ -53,7 +53,11 @@
       headerExerciceProps.isSortable = false
       headerExerciceProps.isDeletable = false
       headerExerciceProps.isHidable = false
-      if ($globalOptions.isInteractive) setAllInteractif()
+      if ($globalOptions.setInteractive === '1') {
+        setAllInteractif()
+      } else if ($globalOptions.setInteractive === '0') {
+        removeAllInteractif()
+      }
       headerExerciceProps.interactifReady = false
       if (!$globalOptions.isSolutionAccessible) {
         headerExerciceProps.correctionReady = false

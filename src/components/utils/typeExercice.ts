@@ -8,6 +8,7 @@ type Exercice = {
   sup4?: boolean | string | number
   nouvelleVersion?: (numeroExercice?: number) => void
   seed?: string
+  numeroExercice?: number
   typeExercice?: string
   duration?: number
   boutonAide?: boolean | HTMLButtonElement
