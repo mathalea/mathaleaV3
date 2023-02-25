@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { Mathalea } from '../Mathalea'
-  import { exercicesParams, darkMode, globalOptions } from './store'
-  import type TypeExercice from './utils/typeExercice'
-  import Exercice from './exercice/Exercice.svelte'
-  import { onMount, tick } from 'svelte'
-  import seedrandom from 'seedrandom'
-  import { loadMathLive } from '../modules/loaders'
-  import Button from './forms/Button.svelte'
-  import { verifQuestionMathLive } from '../interactif/mathLive'
+  import { Mathalea } from "../Mathalea"
+  import { exercicesParams, darkMode, globalOptions, exercicesCheckCount } from "./store"
+  import type TypeExercice from "./utils/typeExercice"
+  import Exercice from "./exercice/Exercice.svelte"
+  import { onMount, tick } from "svelte"
+  import seedrandom from "seedrandom"
+  import { loadMathLive } from "../modules/loaders"
+  import Button from "./forms/Button.svelte"
+  import { verifQuestionMathLive } from "../interactif/mathLive"
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -19,12 +19,12 @@
   let results: string[] = []
   let isDisabledButton: boolean[] = []
   let isVisibleCorrection: boolean[] = []
-  let divsCorrection : HTMLDivElement[] = []
+  let divsCorrection: HTMLDivElement[] = []
 
   function urlToDisplay() {
     let urlOptions = Mathalea.loadExercicesFromUrl()
     globalOptions.update(() => {
-      urlOptions.v = 'eleve'
+      urlOptions.v = "eleve"
       return urlOptions
     })
   }
@@ -38,11 +38,11 @@
    */
   function buildExoTitle(num: number) {
     if (num <= 6) {
-      return 'Exercice'
+      return "Exercice"
     } else if (num <= 12) {
-      return 'Ex'
+      return "Ex"
     } else {
-      return ''
+      return ""
     }
   }
   $: exerciceTitle = buildExoTitle(exercices.length)
@@ -56,11 +56,11 @@
    */
   function buildQuestionTitle(num: number) {
     if (num <= 6) {
-      return 'Question'
+      return "Question"
     } else if (num <= 20) {
-      return 'Q'
+      return "Q"
     } else {
-      return ''
+      return ""
     }
   }
   $: questionTitle = buildQuestionTitle(questions.length)
@@ -68,7 +68,7 @@
   onMount(async () => {
     if ($globalOptions.presMode === undefined) {
       let urlOptions = Mathalea.loadExercicesFromUrl()
-      urlOptions.v = 'eleve'
+      urlOptions.v = "eleve"
       globalOptions.update(() => {
         return urlOptions
       })
@@ -76,7 +76,7 @@
     }
     for (const paramsExercice of $exercicesParams) {
       const exercice: TypeExercice = await Mathalea.load(paramsExercice.uuid)
-      if (typeof exercice === 'undefined') return
+      if (typeof exercice === "undefined") return
       exercice.uuid = paramsExercice.uuid
       if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
       exercice.duration = paramsExercice.duration ?? 10
@@ -88,7 +88,7 @@
       if (paramsExercice.sup4) exercice.sup4 = paramsExercice.sup4
       if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif
       if (paramsExercice.alea) exercice.seed = paramsExercice.alea
-      if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === '1'
+      if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === "1"
       if (exercice.seed === undefined)
         exercice.seed = Mathalea.generateSeed({
           includeUpperCase: true,
@@ -105,10 +105,10 @@
 
   async function buildQuestions() {
     for (const [k, exercice] of exercices.entries()) {
-      if ($globalOptions.setInteractive === '1' && exercice.interactifReady) {
+      if ($globalOptions.setInteractive === "1" && exercice.interactifReady) {
         exercice.interactif = true
       }
-      if (exercice.typeExercice === 'simple') {
+      if (exercice.typeExercice === "simple") {
         Mathalea.handleExerciceSimple(exercice, exercice.interactif, k)
       }
       seedrandom(exercice.seed, { global: true })
@@ -125,11 +125,11 @@
       corrections = corrections.map(Mathalea.formatExercice)
       consignes = consignes.map(Mathalea.formatExercice)
     }
-    if ($globalOptions.presMode === 'liste' || $globalOptions.presMode === 'question') {
+    if ($globalOptions.presMode === "liste" || $globalOptions.presMode === "question") {
       // Pour les autres mode de présentation, cela est géré par ExerciceMathalea
       Mathalea.updateUrl($exercicesParams)
       await tick()
-      Mathalea.renderDiv(document.querySelector('section'))
+      Mathalea.renderDiv(document.querySelector("section"))
       loadMathLive()
     }
   }
@@ -146,20 +146,38 @@
     currentIndex = exoNum
   }
 
+  function initializeListChecking(param) {
+    if (!$exercicesCheckCount.has(`${param.uuid}${param.alea}`)) {
+      $exercicesCheckCount.set(`${param.uuid}${param.alea}`, false)
+      console.log("Exo <" + `${param.uuid}${param.alea}` + "> initialisé")
+    }
+    return param
+  }
+
+  function getExoStatus(idToFind) {
+    try {
+      if ($exercicesCheckCount.has(idToFind)) {
+        console.log("Contrôle <" + idToFind + "> : " + $exercicesCheckCount.get(idToFind))
+        return $exercicesCheckCount.get(idToFind)
+      } else {
+        throw idToFind
+      }
+    } catch (error) {
+      console.log("L'exercice <" + idToFind + "> n'est pas référencé")
+    }
+  }
 </script>
 
-<section class={$darkMode.isActive ? 'dark' : ''}>
-  <div
-    class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-  >
+<section class={$darkMode.isActive ? "dark" : ""}>
+  <div class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus">
     <div class="h-32 w-full  bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct">
       <div class="w-full flex flex-row justify-start p-4 items-center">
         <!-- titre de la feuille -->
         <div class="inline-flex text-4xl font-extrabold ml-4 mr-10">{$globalOptions.title}</div>
         <!-- barre de navigation -->
-        {#if $globalOptions.presMode === 'exos'}
+        {#if $globalOptions.presMode === "exos"}
           <div class="w-full flex flex-row overflow-x-auto justify-center space-x-0 border-b-2 border-coopmaths-struct">
-            {#each $exercicesParams as paramsExercice, i (paramsExercice)}
+            {#each $exercicesParams.map(initializeListChecking) as paramsExercice, i (paramsExercice)}
               <div class="">
                 <button
                   class="{currentIndex === i
@@ -168,16 +186,20 @@
                   disabled={currentIndex === i}
                   on:click={() => handleIndexChange(i)}
                 >
-                  <div class="py-2 px-6 text-xl font-bold">
+                  <div class="relative py-2 px-6 text-xl font-bold">
                     {exerciceTitle}
                     {i + 1}
+                    <div
+                      class="absolute left-0 right-0 ml-auto mr-auto bottom-1 h-2 w-2 rounded-full bg-coopmaths-warn
+                    {getExoStatus(`${paramsExercice.uuid}${paramsExercice.alea}`) ? '' : 'invisible'}"
+                    />
                   </div>
                 </button>
               </div>
             {/each}
           </div>
         {/if}
-        {#if $globalOptions.presMode === 'question'}
+        {#if $globalOptions.presMode === "question"}
           <div class="w-full flex flex-row overflow-x-auto justify-center space-x-0 border-b-2 border-coopmaths-struct">
             {#each questions as question, i (question)}
               <div class="">
@@ -188,9 +210,13 @@
                   disabled={currentIndex === i}
                   on:click={() => handleIndexChange(i)}
                 >
-                  <div class="py-2 px-6 text-xl font-bold">
+                  <div class="relative py-2 px-6 text-xl font-bold">
                     {questionTitle}
                     {i + 1}
+                    <div
+                      class="absolute left-0 right-0 ml-auto mr-auto bottom-1 h-2 w-2 rounded-full bg-coopmaths-warn
+                    {isDisabledButton[i] ? '' : 'invisible'}"
+                    />
                   </div>
                 </button>
               </div>
@@ -200,17 +226,17 @@
       </div>
     </div>
     <div class="px-8">
-      {#if $globalOptions.presMode === 'exos'}
+      {#if $globalOptions.presMode === "exos"}
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-          <div class={currentIndex === i ? '' : 'hidden'}>
+          <div class={currentIndex === i ? "" : "hidden"}>
             <Exercice {paramsExercice} indiceExercice={currentIndex} indiceLastExercice={$exercicesParams.length} />
           </div>
         {/each}
-      {:else if $globalOptions.presMode === 'page'}
+      {:else if $globalOptions.presMode === "page"}
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
         {/each}
-      {:else if $globalOptions.presMode === 'liste'}
+      {:else if $globalOptions.presMode === "liste"}
         {#each questions as question, k (question)}
           <div class="pb-4 flex flex-col items-start justify-start">
             <div class="text-coopmaths-struct font-bold text-md">Question {k + 1}</div>
@@ -221,27 +247,27 @@
               {@html question}
             </div>
             {#if isVisibleCorrection[k]}
+              <div
+                class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest my-2 py-2 pl-6"
+                style="break-inside:avoid"
+                bind:this={divsCorrection[k]}
+              >
+                {@html Mathalea.formatExercice(corrections[k])}
                 <div
-                  class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest my-2 py-2 pl-6"
-                  style="break-inside:avoid"
-                  bind:this={divsCorrection[k]}
+                  class="absolute flex flex-row justify-center items-center -left-4 top-0 rounded-full bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-canvas dark:text-coopmathsdark-canvas h-6 w-6"
                 >
-                  {@html Mathalea.formatExercice(corrections[k])}
-                  <div
-                    class="absolute flex flex-row justify-center items-center -left-4 top-0 rounded-full bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-canvas dark:text-coopmathsdark-canvas h-6 w-6"
-                  >
-                    <i class="bx bx-sm bx-check" />
-                  </div>
+                  <i class="bx bx-sm bx-check" />
                 </div>
-              {/if}
-              {#if exercices[indiceExercice[k]].interactif}
+              </div>
+            {/if}
+            {#if exercices[indiceExercice[k]].interactif}
               <Button title="Vérifier" on:click={() => checkQuestion(k)} isDisabled={isDisabledButton[k]} />
             {/if}
           </div>
         {/each}
-      {:else if $globalOptions.presMode === 'question'}
+      {:else if $globalOptions.presMode === "question"}
         {#each questions as question, k (question)}
-          <div class={currentIndex === k ? '' : 'hidden'}>
+          <div class={currentIndex === k ? "" : "hidden"}>
             <div class="pb-4 flex flex-col items-start justify-start">
               <div class="text-coopmaths-struct font-bold text-md">Question {k + 1}</div>
               <div class="text-coopmaths-corpus pl-2">

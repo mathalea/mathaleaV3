@@ -28,6 +28,16 @@ export const transitionsBetweenQuestions = writable({ isActive: true, isNoisy: f
 // pour la gestion du mode sombre
 export const darkMode = writable({ isActive: false })
 
+// pour savoir si un exercice a été vérifié ou pas
+export const exercicesCheckCount = writable(new Map())
+
+// export function changeExoStatus (idToFind: string, value: boolean) {
+//   const listeExercices = get(exercicesCheckCount)
+//   listeExercices.list.forEach((exo) => {
+
+//   })
+// }
+
 /**
  *
  * @param liste
