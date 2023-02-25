@@ -185,13 +185,26 @@
     }
   }
 
-  function prevQuestion() {
-    if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
+  function handleShortcut(e: KeyboardEvent) {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault()
+      prevQuestion()
+    }
+    if (e.key === "ArrowRight") {
+      e.preventDefault()
+      nextQuestion()
+    }
+    if (e.key === " ") {
+      e.preventDefault()
+      if (durationGlobal !== 0) switchPause()
+    }
   }
 
-  function nextQuestion() {
-    if (currentQuestion < questions[0].length) goToQuestion(currentQuestion + 1)
-  }
+  // ================================================================================
+  //
+  //  Gestion de la navigation
+  //
+  // ================================================================================
 
   async function goToQuestion(i: number) {
     if (i >= -1 && i <= questions[0].length) currentQuestion = i
@@ -218,6 +231,168 @@
     }
     currentDuration = durationGlobal ?? durations[currentQuestion] ?? 10
   }
+
+  function prevQuestion() {
+    if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
+  }
+
+  function nextQuestion() {
+    if (currentQuestion < questions[0].length) goToQuestion(currentQuestion + 1)
+  }
+
+  /**
+   * Pour le bouton de retour de la page de fin
+   */
+  function returnToStart() {
+    durationGlobal = 0
+    pause()
+    goToQuestion(0)
+  }
+
+  /**
+   * Gestion du clic sur l'étape dans la progression
+   * @param {number} index index de l'étape
+   */
+  function clickOnStep(index) {
+    goToQuestion(index)
+  }
+
+  // =========================== Fin gestion de la navigation ===============================
+
+  // ================================================================================
+  //
+  //  Gestion du temps
+  //
+  // ================================================================================
+
+  function timer(timeQuestion = 5, reset = true) {
+    // timeQuestion est le temps de la question exprimé en secondes
+    if (timeQuestion === 0) {
+      pause()
+      ratioTime = 0
+    } else {
+      if (reset) ratioTime = 0
+      isPause = false
+      clearInterval(myInterval)
+      myInterval = window.setInterval(() => {
+        ratioTime = ratioTime + 1 // ratioTime est le pourcentage du temps écoulé
+        if (ratioTime >= 100) {
+          clearInterval(myInterval)
+          nextQuestion()
+        }
+      }, timeQuestion * 10)
+    }
+  }
+
+  function switchPause() {
+    if (!isPause) {
+      pause()
+    } else timer(durationGlobal ?? durations[currentQuestion] ?? 10, false)
+  }
+
+  function pause() {
+    clearInterval(myInterval)
+    isPause = true
+  }
+
+  let cursorTimeValue = 10
+  /**
+   * Gère la récupération de la valeur du curseur de temps
+   */
+  function handleTimerChange(event) {
+    durationGlobal = cursorTimeValue
+    isSameDurationForAll = true
+    handleChangeDurationGlobal()
+    goToQuestion(currentQuestion)
+  }
+
+  function handleChangeDurationGlobal() {
+    globalOptions.update((l) => {
+      l.durationGlobal = durationGlobal
+      return l
+    })
+    updateExercices()
+  }
+
+  function handleCheckSameDurationForAll() {
+    globalOptions.update((l) => {
+      l.durationGlobal = null
+      return l
+    })
+    handleChangeDurationGlobal()
+    // updateExercices()  <-- inutile puisque handleCHangeDUrationGlobal() appelle déjà cette fonction
+  }
+
+  $: messageDuree = setPhraseDuree(cursorTimeValue)
+
+  $: displayCurrentDuration = () => {
+    return currentDuration === 0 ? "Manuel" : currentDuration + "s"
+  }
+
+  /**
+   * Calcule la durée totale du diaporama
+   * (durée par question x nombre de questions)
+   */
+  function getTotalDuration() {
+    let sum = 0
+    for (let [i, exercice] of exercices.entries()) {
+      if ($selectedExercises.isActive) {
+        if ($selectedExercises.indexes.includes(i)) {
+          sum += (isSameDurationForAll ? durationGlobal : exercice.duration) * exercice.nbQuestions
+        }
+      } else {
+        sum += (isSameDurationForAll ? durationGlobal : exercice.duration) * exercice.nbQuestions
+      }
+    }
+    return sum
+  }
+
+  /**
+   * Calcule le nombre total de questions
+   */
+  $: getTotalNbOfQuestions = () => {
+    let sum = 0
+    for (let [i, exercice] of exercices.entries()) {
+      if ($selectedExercises.isActive) {
+        if ($selectedExercises.indexes.includes(i)) {
+          sum += exercice.nbQuestions
+        }
+      } else {
+        sum += exercice.nbQuestions
+      }
+    }
+    return sum
+  }
+
+  function handleCheckManualMode() {
+    return null
+  }
+
+  $: {
+    if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
+    if (durationGlobal) previousDurationGlobal = durationGlobal
+    if (isSameDurationForAll && previousDurationGlobal) durationGlobal = previousDurationGlobal
+
+    if (isSameDurationForAll && durationGlobal === null) {
+      durationGlobal = 10
+    } else if (!isSameDurationForAll) {
+      durationGlobal = null
+    }
+    let steps: NodeListOf<HTMLLIElement>
+    if (stepsUl) steps = stepsUl.querySelectorAll("li")
+    if (steps) {
+      if (steps[currentQuestion]) steps[currentQuestion].scrollIntoView()
+      if (steps[currentQuestion + 5]) steps[currentQuestion + 5].scrollIntoView()
+      if (steps[currentQuestion - 5] && !isInViewport(steps[currentQuestion - 5])) steps[currentQuestion - 5].scrollIntoView()
+    }
+  }
+  // =========================== Fin gestion du temps ===============================
+
+  // ================================================================================
+  //
+  //  Gestion de la taille
+  //
+  // ================================================================================
 
   /**
    * Déterminer les tailles optimales de la fonte et des illustrations dans chaque question.<br>
@@ -355,93 +530,18 @@
     setSize()
   }
 
-  function switchFullScreen() {
-    isFullScreen = !isFullScreen
-    if (isFullScreen) {
-      const app = document.querySelector("#diaporama")
-      app.requestFullscreen()
-    } else {
-      document.exitFullscreen()
-    }
+  // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
+  window.onresize = (event) => {
+    setSize()
   }
 
-  function switchPause() {
-    if (!isPause) {
-      pause()
-    } else timer(durationGlobal ?? durations[currentQuestion] ?? 10, false)
-  }
+  // =========================== Fin gestion de la taille ===========================
 
-  function pause() {
-    clearInterval(myInterval)
-    isPause = true
-  }
-
-  function timer(timeQuestion = 5, reset = true) {
-    // timeQuestion est le temps de la question exprimé en secondes
-    if (timeQuestion === 0) {
-      pause()
-      ratioTime = 0
-    } else {
-      if (reset) ratioTime = 0
-      isPause = false
-      clearInterval(myInterval)
-      myInterval = window.setInterval(() => {
-        ratioTime = ratioTime + 1 // ratioTime est le pourcentage du temps écoulé
-        if (ratioTime >= 100) {
-          clearInterval(myInterval)
-          nextQuestion()
-        }
-      }, timeQuestion * 10)
-    }
-  }
-
-  function handleShortcut(e: KeyboardEvent) {
-    if (e.key === "ArrowLeft") {
-      e.preventDefault()
-      prevQuestion()
-    }
-    if (e.key === "ArrowRight") {
-      e.preventDefault()
-      nextQuestion()
-    }
-    if (e.key === " ") {
-      e.preventDefault()
-      if (durationGlobal !== 0) switchPause()
-    }
-  }
-
-  let valueCursorTime = 10
-  /**
-   * Gère la récupération de la valeur du curseur de temps
-   */
-  function handleTimerChange(event) {
-    durationGlobal = parseInt(event.target.value)
-    isSameDurationForAll = true
-    goToQuestion(currentQuestion)
-  }
-
-  function handleChangeDurationGlobal() {
-    globalOptions.update((l) => {
-      l.durationGlobal = durationGlobal
-      return l
-    })
-    updateExercices()
-  }
-
-  function handleCheckSameDurationForAll() {
-    globalOptions.update((l) => {
-      l.durationGlobal = null
-      return l
-    })
-    handleChangeDurationGlobal()
-    updateExercices()
-  }
-
-  $: messageDuree = setPhraseDuree(valueCursorTime)
-
-  $: displayCurrentDuration = () => {
-    return currentDuration === 0 ? "Manuel" : currentDuration + "s"
-  }
+  // ================================================================================
+  //
+  //  Organisation des questions et du contenu de l'affichage
+  //
+  // ================================================================================
 
   async function switchCorrectionMode() {
     // isCorrectionVisible = !isCorrectionVisible
@@ -473,82 +573,6 @@
       mode = "C"
     }
     return mode
-  }
-
-  $: {
-    if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
-    if (durationGlobal) previousDurationGlobal = durationGlobal
-    if (isSameDurationForAll && previousDurationGlobal) durationGlobal = previousDurationGlobal
-
-    if (isSameDurationForAll && durationGlobal === null) {
-      durationGlobal = 10
-    } else if (!isSameDurationForAll) {
-      durationGlobal = null
-    }
-    let steps: NodeListOf<HTMLLIElement>
-    if (stepsUl) steps = stepsUl.querySelectorAll("li")
-    if (steps) {
-      if (steps[currentQuestion]) steps[currentQuestion].scrollIntoView()
-      if (steps[currentQuestion + 5]) steps[currentQuestion + 5].scrollIntoView()
-      if (steps[currentQuestion - 5] && !isInViewport(steps[currentQuestion - 5])) steps[currentQuestion - 5].scrollIntoView()
-    }
-  }
-
-  /**
-   * Pour le bouton de retour de la page de fin
-   */
-  function returnToStart() {
-    durationGlobal = 0
-    pause()
-    goToQuestion(0)
-  }
-
-  /**
-   * Gestion du clic sur l'étape dans la progression
-   * @param {number} index index de l'étape
-   */
-  function clickOnStep(index) {
-    goToQuestion(index)
-  }
-
-  /**
-   * Calcule la durée totale du diaporama
-   * (durée par question x nombre de questions)
-   */
-  function getTotalDuration() {
-    let sum = 0
-    for (let [i, exercice] of exercices.entries()) {
-      if ($selectedExercises.isActive) {
-        if ($selectedExercises.indexes.includes(i)) {
-          sum += (isSameDurationForAll ? durationGlobal : exercice.duration) * exercice.nbQuestions
-        }
-      } else {
-        sum += (isSameDurationForAll ? durationGlobal : exercice.duration) * exercice.nbQuestions
-      }
-    }
-    return sum
-  }
-
-  /**
-   * Calcule le nombre total de questions
-   */
-  $: getTotalNbOfQuestions = () => {
-    let sum = 0
-    for (let [i, exercice] of exercices.entries()) {
-      if ($selectedExercises.isActive) {
-        if ($selectedExercises.indexes.includes(i)) {
-          sum += exercice.nbQuestions
-        }
-      } else {
-        sum += exercice.nbQuestions
-      }
-    }
-    return sum
-  }
-
-  function isInViewport(element: HTMLElement): boolean {
-    const rect = element.getBoundingClientRect()
-    return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   }
 
   /**
@@ -600,16 +624,11 @@
     updateExercices()
   }
 
-  function handleQuit() {
-    handleComponentChange("diaporama", "")
-    // $selectedExercises.isActive = false
-    updateExercices()
-  }
-
   /**
    * Gérer le changement d'affichage (quel composant remplace l'autre dans App.svelte)
    * @param {string} oldComponent composant à changer
    * @param {string} newComponent composant à afficher
+   * @author sylvain
    */
   function handleComponentChange(oldComponent, newComponent) {
     const oldPart = "&v=" + oldComponent
@@ -671,13 +690,25 @@
     updateExercices()
   }
 
-  function handleCheckManualMode() {
-    return null
+  function switchFullScreen() {
+    isFullScreen = !isFullScreen
+    if (isFullScreen) {
+      const app = document.querySelector("#diaporama")
+      app.requestFullscreen()
+    } else {
+      document.exitFullscreen()
+    }
   }
 
-  // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
-  window.onresize = (event) => {
-    setSize()
+  function handleQuit() {
+    handleComponentChange("diaporama", "")
+    // $selectedExercises.isActive = false
+    updateExercices()
+  }
+
+  function isInViewport(element: HTMLElement): boolean {
+    const rect = element.getBoundingClientRect()
+    return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   }
 </script>
 
@@ -1066,7 +1097,7 @@
                       min="0"
                       name="duration"
                       id="duration"
-                      bind:value={valueCursorTime}
+                      bind:value={cursorTimeValue}
                       on:change={handleTimerChange}
                     />
                     <label class="w-3/4 text-sm text-coopmaths-corpus" for="duration">{messageDuree}</label>
