@@ -69,8 +69,8 @@
       globalOptions.update(() => {
         return urlOptions
       })
+      urlToDisplay()
     }
-    urlToDisplay()
     for (const paramsExercice of $exercicesParams) {
       const exercice: TypeExercice = await Mathalea.load(paramsExercice.uuid)
       if (typeof exercice === "undefined") return
