@@ -8,6 +8,8 @@ import { ajouteChampTexteMathLive } from './interactif/questionMathLive'
 import uuidToUrl from './json/uuidsToUrl.json'
 import refToUuid from './json/refToUuid.json'
 import 'katex/dist/katex.min.css'
+import { context } from './modules/context.js'
+import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from './modules/ElementInstrumenpoche'
 
 // export type Settings = { sup?: boolean | string | number, sup2?: boolean | string | number, sup3?: boolean | string | number, sup4?: boolean | string | number, nbQuestions?: number, seed?: string }
 
@@ -16,12 +18,12 @@ import 'katex/dist/katex.min.css'
  */
 export class Mathalea {
   /**
- * Charge un exercice
- * Exemple : const exercice = loadExercice('3cvng')
- * @param {string} url
- * @returns {Promise<Exercice>} exercice
- */
-  static async load (uuid) {
+   * Charge un exercice
+   * Exemple : const exercice = loadExercice('3cvng')
+   * @param {string} url
+   * @returns {Promise<Exercice>} exercice
+   */
+  static async load(uuid) {
     const url = uuidToUrl[uuid]
     const [filename, directory, isCan] = url.split('/').reverse()
     try {
@@ -35,8 +37,8 @@ export class Mathalea {
         module = await import(`./exercices/${directory}/${filename.replace('.js', '')}.js`)
       }
       const ClasseExercice = module.default
-      const exercice /** Promise<Exercice> */= new ClasseExercice()
-          ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach((p) => {
+      const exercice /** Promise<Exercice> */ = new ClasseExercice()
+      ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach((p) => {
         if (module[p] !== undefined) exercice[p] = module[p]
       })
       ;(await exercice).id = filename
@@ -51,17 +53,17 @@ export class Mathalea {
     }
   }
 
-  static async loadFromUrlWithoutExtension (urlWithoutExtension) {
+  static async loadFromUrlWithoutExtension(urlWithoutExtension) {
     if (urlWithoutExtension === undefined) return
-    const uuid = Object.keys(uuidToUrl).find(key => uuidToUrl[key] === urlWithoutExtension + '.js')
+    const uuid = Object.keys(uuidToUrl).find((key) => uuidToUrl[key] === urlWithoutExtension + '.js')
     const newEx = { uuid, id: urlWithoutExtension.split('/')[1] }
-    exercicesParams.update(l => {
+    exercicesParams.update((l) => {
       l.push(newEx)
       return l
     })
   }
 
-  static renderDiv (div/** HTMLDivElement */, zoom)/** void */ {
+  static renderDiv(div /** HTMLDivElement */, zoom) /** void */ {
     // KaTeX à remplacer par MathLive ?
     // renderMathInElement(div, {
     //   TeX: {
@@ -76,13 +78,13 @@ export class Mathalea {
     renderMathInElement(div, {
       delimiters: [
         { left: '\\[', right: '\\]', display: true },
-        { left: '$', right: '$', display: false }
+        { left: '$', right: '$', display: false },
       ],
       preProcess: (chaine) => chaine.replaceAll(String.fromCharCode(160), '\\,'),
       throwOnError: true,
       errorColor: '#CC0000',
       strict: 'warn',
-      trust: false
+      trust: false,
     })
     const params = get(globalOptions)
     zoom = zoom ?? Number(params.z)
@@ -90,11 +92,11 @@ export class Mathalea {
     if (zoom !== -1) {
       const qcms = div.querySelectorAll('.monQcm')
       for (const qcm of qcms) {
-        ;(qcm).style.fontSize = `${zoom}px`
+        qcm.style.fontSize = `${zoom}px`
       }
       const tables = div.querySelectorAll('#affichage_exercices label') // Pour les propositions des QCM
       for (const table of tables) {
-        ;(table).style.fontSize = `${zoom}px`
+        table.style.fontSize = `${zoom}px`
       }
       const figures = div.querySelectorAll('.mathalea2d')
       for (const figureElement of figures) {
@@ -107,7 +109,7 @@ export class Mathalea {
     }
   }
 
-  static updateUrl (exercicesParams) {
+  static updateUrl(exercicesParams) {
     const url = new URL(window.location.protocol + '//' + window.location.host + window.location.pathname)
     for (const ex of exercicesParams) {
       url.searchParams.append('uuid', ex.uuid)
@@ -131,7 +133,7 @@ export class Mathalea {
    * pour en charger tous les exercices demandés
    * @returns vue
    */
-  static loadExercicesFromUrl () {
+  static loadExercicesFromUrl() {
     let v = ''
     let z = '1'
     let durationGlobal = 0
@@ -153,7 +155,7 @@ export class Mathalea {
       if (entry[0] === 'uuid') {
         indiceExercice++
         const uuid = entry[1]
-        const id = Object.keys(refToUuid).find(key => refToUuid[key] === uuid)
+        const id = Object.keys(refToUuid).find((key) => refToUuid[key] === uuid)
         if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = {}
         newListeExercice[indiceExercice].uuid = uuid // string
         newListeExercice[indiceExercice].id = id // string
@@ -222,23 +224,39 @@ export class Mathalea {
     if (es && es.length === 4) {
       presMode = presModeId[es.charAt(0)]
       setInteractive = es.charAt(1)
-      isSolutionAccessible = (es.charAt(2) === '1')
-      isInteractiveFree = (es.charAt(3) === '1')
+      isSolutionAccessible = es.charAt(2) === '1'
+      isInteractiveFree = es.charAt(3) === '1'
     }
-    return { v, z, durationGlobal, nbVues, shuffle, choice, trans, sound, title, presMode, setInteractive, isSolutionAccessible, isInteractiveFree }
+    return {
+      v,
+      z,
+      durationGlobal,
+      nbVues,
+      shuffle,
+      choice,
+      trans,
+      sound,
+      title,
+      presMode,
+      setInteractive,
+      isSolutionAccessible,
+      isInteractiveFree,
+    }
   }
 
-  static handleExerciceSimple (exercice, isInteractif) {
+  static handleExerciceSimple(exercice, isInteractif) {
     exercice.autoCorrection = []
     exercice.interactif = isInteractif
     exercice.listeQuestions = []
     exercice.listeCorrections = []
-    for (let i = 0, cptSecours = 0; i < exercice.nbQuestions && cptSecours < 50;) {
+    for (let i = 0, cptSecours = 0; i < exercice.nbQuestions && cptSecours < 50; ) {
       seedrandom(exercice.seed + i, { global: true })
       exercice.nouvelleVersion()
       if (exercice.questionJamaisPosee(i, exercice.question)) {
         setReponse(exercice, i, exercice.reponse, { formatInteractif: exercice.formatInteractif } || {})
-        exercice.listeQuestions.push(exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte || {}, exercice.optionsChampTexte || {}))
+        exercice.listeQuestions.push(
+          exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte || {}, exercice.optionsChampTexte || {})
+        )
         exercice.listeCorrections.push(exercice.correction)
         cptSecours = 0
         i++
@@ -249,20 +267,20 @@ export class Mathalea {
   }
 
   /**
-  * Créé un string aléatoire
-  *
-  * generateSeed({
-  *  includeUpperCase: true,
-  *  includeNumbers: true,
-  *  length: 5,
-  *  startsWithLowerCase: true
-  * });
-  *
-  * // renvoie par exemple : "iL0v3"
-  *
-  * @Source https://www.equinode.com/blog/article/generer-une-chaine-de-caracteres-aleatoire-avec-javascript
-  */
-  static generateSeed (o) {
+   * Créé un string aléatoire
+   *
+   * generateSeed({
+   *  includeUpperCase: true,
+   *  includeNumbers: true,
+   *  length: 5,
+   *  startsWithLowerCase: true
+   * });
+   *
+   * // renvoie par exemple : "iL0v3"
+   *
+   * @Source https://www.equinode.com/blog/article/generer-une-chaine-de-caracteres-aleatoire-avec-javascript
+   */
+  static generateSeed(o) {
     let a = 10
     const b = 'abcdefghijklmnopqrstuvwxyz'
     let c = ''
@@ -294,7 +312,7 @@ export class Mathalea {
    * @param {string} texte
    * @returns string
    */
-  static formatExercice (texte = '') {
+  static formatExercice(texte = '') {
     return texte
       .replace(/\\dotfill/g, '..............................')
       .replace(/\\not=/g, '≠')
@@ -302,10 +320,12 @@ export class Mathalea {
   }
 }
 
-function _handleStringFromUrl (txt) {
-  if (txt === 'true' || txt === 'false') { // "true"=>true
-    return (txt === 'true')
-  } else if (!isNaN(txt)) { // "17"=>17
+function _handleStringFromUrl(txt) {
+  if (txt === 'true' || txt === 'false') {
+    // "true"=>true
+    return txt === 'true'
+  } else if (!isNaN(txt)) {
+    // "17"=>17
     return parseInt(txt)
   } else {
     return txt

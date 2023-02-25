@@ -4,7 +4,17 @@
   import Can from "./Can.svelte"
   import Eleve from "./Eleve.svelte"
   import { globalOptions } from "./store"
+  import { context } from '../modules/context'
+  import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from "../modules/ElementInstrumenpoche"
 
+  context.versionMathalea = 3
+  // ToFix fonction à lier avec bugsnag
+  window.notify = (arg) => console.log(arg)
+
+  if (customElements.get('alea-instrumenpoche') === undefined) {
+    customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
+    customElements.define('alea-buttoninstrumenpoche', ElementButtonInstrumenpoche)
+  }
 
 </script>
 

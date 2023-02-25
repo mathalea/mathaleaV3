@@ -224,7 +224,7 @@ function checkQuestion (i) {
                 {@html question}
               </div>
               {#if exercices[indiceExercice[k]].interactif}
-              <div class="pb-4">
+              <div class="pb-4 mt-10">
                 <Button title="Vérifier" on:click={() => checkQuestion(k)}/>
               </div>
               {/if}

@@ -13,28 +13,16 @@
   import { flip } from 'svelte/animate'
   import { onMount } from 'svelte'
   import { toMap } from './utils/toMap'
-  import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from '../modules/ElementInstrumenpoche'
 
-  import { context } from '../modules/context'
   import SearchExercice from './sidebar/SearchExercice.svelte'
 
   import { isRecent } from './utils/handleDate'
-
-  context.versionMathalea = 3
-
-  if (customElements.get('alea-instrumenpoche') === undefined) {
-    customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
-    customElements.define('alea-buttoninstrumenpoche', ElementButtonInstrumenpoche)
-  }
-
+  
   let isNavBarVisible = true
   let filtre = 'all'
   let divExercices: HTMLDivElement
   let zoom = 1
   let setAllInteractifClicked = false
-
-  // ToFix fonction à lier avec bugsnag
-  window.notify = (arg) => console.log(arg)
 
   // Récupération des informations de l'URL
   let isInitialUrlHandled = false
