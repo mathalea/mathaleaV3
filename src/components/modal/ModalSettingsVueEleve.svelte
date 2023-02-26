@@ -49,7 +49,7 @@
           bind:valueSelected={$globalOptions.presMode}
           labelsValues={[
             { label: "Une page unique", value: "page" },
-            { label: "Une page par exercices", value: "exos" },
+            { label: "Une page par exercice", value: "exos" },
             { label: "Toutes les questions sur une page", value: "liste" },
             { label: "Une page par question", value: "question" },
           ]}
