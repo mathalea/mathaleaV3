@@ -163,6 +163,10 @@
         alea: exercice.seed.substring(0, 4),
         nbQuestions: exercice.nbQuestions,
         duration: exercice.duration,
+        sup: exercice.sup,
+        sup2: exercice.sup2,
+        sup3: exercice.sup3,
+        sup4: exercice.sup4
       })
     }
     globalOptions.update((l) => {
