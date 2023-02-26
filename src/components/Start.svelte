@@ -17,7 +17,7 @@
   import SearchExercice from './sidebar/SearchExercice.svelte'
 
   import { isRecent } from './utils/handleDate'
-  
+
   let isNavBarVisible = true
   let filtre = 'all'
   let divExercices: HTMLDivElement
@@ -337,24 +337,28 @@
       <div class="flex-1 flex flex-col px-6 overflow-hidden h-full" bind:this={divExercices}>
         <!-- barre des boutons de réglages pour tous les exercices de la page -->
         <div class="flex flex-row justify-center items-center p-2">
-          <button type="button" on:click={zoomMinus}
+          <button type="button" on:click={zoomMinus} class="tooltip tooltip-left tooltip-neutral" data-tip="Réduire la taille du texte"
             ><i
               class="bx bx-md px-2 bx-zoom-out hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
             /></button
           >
-          <button type="button" on:click={zoomPlus}
+          <button type="button" on:click={zoomPlus} class="tooltip tooltip-left tooltip-neutral" data-tip="Augmenter la taille du texte"
             ><i
               class="bx bx-md px-2 bx-zoom-in hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
             /></button
           >
-          <button type="button" on:click={setAllInteractifClicked ? removeAllInteractif : setAllInteractif}
+          <button
+            type="button"
+            on:click={setAllInteractifClicked ? removeAllInteractif : setAllInteractif}
+            class="tooltip tooltip-left tooltip-neutral"
+            data-tip={setAllInteractifClicked ? "Supprimer l'interactivité" : 'Tous les exercices en interactif'}
             ><i
-              class="bx bx-md px-2  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest {setAllInteractifClicked
+              class="bx bx-md px-2 tooltip-left tooltip-neutral  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest {setAllInteractifClicked
                 ? 'bxs-edit'
                 : 'bx-edit'}"
             /></button
           >
-          <button type="button" on:click={newDataForAll}>
+          <button type="button" on:click={newDataForAll} class="tooltip tooltip-left tooltip-neutral" data-tip="Nouveaux énoncés">
             <i
               class="bx bx-md px-2 bx-refresh  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
             />
@@ -364,6 +368,8 @@
             on:click={() => {
               $exercicesParams.length = 0
             }}
+            class="tooltip tooltip-left tooltip-neutral"
+            data-tip="Supprimer tous les exercices"
           >
             <i
               class="bx text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx-md px-2 bx-trash"
@@ -372,7 +378,12 @@
 
           {#if $globalOptions.v === 'l'}
             <div class="flex flex-row justify-end items-center">
-              <button type="button" on:click={quitFullScreen}>
+              <button
+                type="button"
+                on:click={quitFullScreen}
+                class="tooltip tooltip-left tooltip-neutral"
+                data-tip="Quitter le plein écran"
+              >
                 <i
                   class="bx ml-2 bx-md px-2 bx-exit-fullscreen  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
                 />
@@ -382,6 +393,8 @@
           {#if $globalOptions.v !== 'l'}
             <button
               type="button"
+              class="tooltip tooltip-left tooltip-neutral"
+              data-tip="Plein écran"
               on:click={() =>
                 globalOptions.update((params) => {
                   params.v = 'l'
@@ -395,6 +408,8 @@
 
           <button
             type="button"
+            class="tooltip tooltip-left tooltip-neutral ml-24 "
+            data-tip="Diaporama"
             on:click={() =>
               globalOptions.update((params) => {
                 params.v = 'diaporama'
@@ -402,11 +417,13 @@
               })}
           >
             <i
-              class="bx bx-md px-2 ml-24 bx-slideshow  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+              class="bx bx-md px-2 bx-slideshow  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
             />
           </button>
-          <label for="my-modal">
-              <i class="bx bx-md px-2 bxs-graduation  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"/>
+          <label for="my-modal" class="tooltip tooltip-left tooltip-neutral" data-tip="Lien pour les élèves">
+            <i
+              class="bx bx-md px-2 bxs-graduation  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+            />
           </label>
           <ModalSettingsVueEleve />
         </div>
@@ -427,9 +444,5 @@
       </div>
     {/if}
   </main>
-  <!-- Modals ne sont pas utilisés pour le moment
-  <Modals>
-    <div slot="backdrop" class="backdrop" on:click={closeModal} />
-  </Modals> -->
   <Footer />
 </div>

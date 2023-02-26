@@ -13,6 +13,7 @@
   import ButtonToggle from './forms/ButtonToggle.svelte'
   import { verifQuestionCliqueFigure } from '../modules/interactif/cliqueFigure'
   import { prepareExerciceCliqueFigure } from '../interactif/interactif'
+  import Footer from './Footer.svelte'
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -180,9 +181,9 @@
   }
 </script>
 
-<section class={$darkMode.isActive ? 'dark' : ''}>
+<section class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive ? 'dark' : ''}">
   <div
-    class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+    class="mb-auto"
   >
     <div class="h-32 w-full  bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct">
       <div class="w-full flex flex-row justify-start p-4 items-center">
@@ -335,4 +336,5 @@
       {/if}
     </div>
   </div>
+  <Footer/>
 </section>
