@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { globalOptions } from "../store"
+  import { globalOptions, resultsByExercice } from "../store"
   import { afterUpdate, onMount, tick } from "svelte"
   import seedrandom from "seedrandom"
   import { prepareExerciceCliqueFigure } from "../../interactif/interactif"
@@ -170,13 +170,17 @@
     $exercicesParams[indiceExercice].alea = exercice.seed
     $exercicesParams[indiceExercice].i = isInteractif
     $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
+    exercice.numeroExercice = indiceExercice
     exercice.nouvelleVersion(indiceExercice)
     Mathalea.updateUrl($exercicesParams)
   }
 
   function verifExercice() {
     isCorrectionVisible = true
-    exerciceInteractif(exercice, divScore, buttonScore)
+    resultsByExercice.update(l => {
+      l[exercice.numeroExercice] = exerciceInteractif(exercice, divScore, buttonScore)
+      return l
+    })
     console.log("Actualise <" + `${$exercicesParams[indiceExercice].uuid}${$exercicesParams[indiceExercice].alea}` + ">")
     $exercicesCheckCount.set(`${$exercicesParams[indiceExercice].uuid}${$exercicesParams[indiceExercice].alea}`, true)
   }

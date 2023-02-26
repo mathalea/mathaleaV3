@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Mathalea } from "../Mathalea"
-  import { exercicesParams, darkMode, globalOptions, exercicesCheckCount } from "./store"
+  import { exercicesParams, darkMode, globalOptions, exercicesCheckCount, resultsByExercice } from "./store"
   import type TypeExercice from "./utils/typeExercice"
   import Exercice from "./exercice/Exercice.svelte"
   import { onMount, tick } from "svelte"
@@ -17,7 +17,7 @@
   let corrections: string[] = []
   let indiceExercice: number[] = []
   let indiceQuestionInExercice: number[] = []
-  let results: boolean[] = []
+  let resultsByQuestion: boolean[] = []
   let isDisabledButton: boolean[] = []
   let isVisibleCorrection: boolean[] = []
   let divsCorrection: HTMLDivElement[] = []
@@ -67,6 +67,8 @@
   $: questionTitle = buildQuestionTitle(questions.length)
 
   onMount(async () => {
+    // Si presMode est undefined cela signifie que l'on charge cet url
+    // sinon en venant du modal il existerait
     if ($globalOptions.presMode === undefined) {
       let urlOptions = Mathalea.loadExercicesFromUrl()
       urlOptions.v = "eleve"
@@ -138,9 +140,9 @@
     // ToFix il faudra gérer les exercices non MathLive
     const type = exercices[indiceExercice[i]].interactifType
     if (type === "mathLive") {
-      results[i] = (verifQuestionMathLive(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK')
+      resultsByQuestion[i] = (verifQuestionMathLive(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK')
     } else if (type === "qcm") {
-      results[i] = (verifQuestionQcm(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK')
+      resultsByQuestion[i] = (verifQuestionQcm(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK')
     }
     isDisabledButton[i] = true
     isVisibleCorrection[i] = true
@@ -195,10 +197,11 @@
                   <div class="relative py-2 px-6 text-xl font-bold">
                     {exerciceTitle}
                     {i + 1}
-                    <div
-                      class="absolute left-0 right-0 ml-auto mr-auto bottom-1 h-2 w-2 rounded-full bg-coopmaths-warn
-                    {getExoStatus(`${paramsExercice.uuid}${paramsExercice.alea}`) ? '' : 'invisible'}"
-                    />
+                    {#if $resultsByExercice[i] !== undefined}
+                      <div class="text-xs">
+                        {$resultsByExercice[i].numberOfPoints + '/' + $resultsByExercice[i].numberOfQuestions }
+                      </div>
+                    {/if}
                   </div>
                 </button>
               </div>
@@ -221,11 +224,11 @@
                     {i + 1}
                     <div
                       class="absolute left-0 right-0 ml-auto mr-auto bottom-1 h-2 w-2 rounded-full bg-coopmaths-warn
-                    {(results[i] === true) ? '' : 'invisible'}"
+                    {(resultsByQuestion[i] === true) ? '' : 'invisible'}"
                     />
                     <div
                       class="absolute left-0 right-0 ml-auto mr-auto bottom-1 h-2 w-2 rounded-full bg-red-600
-                    {(results[i] === false) ? '' : 'invisible'}"
+                    {(resultsByQuestion[i] === false) ? '' : 'invisible'}"
                     />
                   </div>
                 </button>
@@ -239,7 +242,7 @@
       {#if $globalOptions.presMode === "exos"}
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <div class={currentIndex === i ? "" : "hidden"}>
-            <Exercice {paramsExercice} indiceExercice={currentIndex} indiceLastExercice={$exercicesParams.length} />
+            <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
           </div>
         {/each}
       {:else if $globalOptions.presMode === "page"}

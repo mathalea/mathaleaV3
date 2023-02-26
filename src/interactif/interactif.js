@@ -4,7 +4,7 @@ import { verifQuestionQcm } from './qcm'
 import { verifQuestionListeDeroulante } from './questionListeDeroulante'
 
 export function exerciceInteractif (exercice /** Exercice */, divScore /** HTMLDivElement */, buttonScore /** HTMLButtonElement */) {
-  if (exercice.interactifType === 'mathLive') verifExerciceMathLive(exercice, divScore, buttonScore)
+  if (exercice.interactifType === 'mathLive') return verifExerciceMathLive(exercice, divScore, buttonScore)
   if (exercice.interactifType === 'qcm') verifExerciceQcm(exercice, divScore, buttonScore)
   if (exercice.interactifType === 'listeDeroulante')verifExerciceListeDeroulante(exercice, divScore, buttonScore)
   if (exercice.interactifType === 'cliqueFigure')verifExerciceCliqueFigure(exercice, divScore, buttonScore)
@@ -28,7 +28,7 @@ function verifExerciceMathLive (exercice /** Exercice */, divScore /** HTMLDivEl
     }
   }
   if (!besoinDe2eEssai) {
-    afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses, divScore, divButton)
+    return afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses, divScore, divButton)
   }
 }
 
@@ -178,4 +178,5 @@ function afficheScore (exercice /** Exercice */, nbBonnesReponses /** number */,
   divScore.style.fontWeight = 'bold'
   divScore.style.fontSize = 'x-large'
   divScore.style.display = 'inline'
+  return { numberOfPoints: nbBonnesReponses, numberOfQuestions: nbBonnesReponses + nbMauvaisesReponses }
 }

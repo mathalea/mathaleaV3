@@ -31,6 +31,9 @@ export const darkMode = writable({ isActive: false })
 // pour savoir si un exercice a été vérifié ou pas
 export const exercicesCheckCount = writable(new Map())
 
+// sauvegarde des résultats des exercices
+export const resultsByExercice = writable([])
+
 // export function changeExoStatus (idToFind: string, value: boolean) {
 //   const listeExercices = get(exercicesCheckCount)
 //   listeExercices.list.forEach((exo) => {
