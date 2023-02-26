@@ -56,7 +56,6 @@
       } else if ($globalOptions.setInteractive === "0") {
         removeAllInteractif()
       }
-      headerExerciceProps.interactifReady = false
       if (!$globalOptions.isSolutionAccessible) {
         headerExerciceProps.correctionReady = false
         headerExerciceProps.randomReady = false
