@@ -17,7 +17,7 @@
   let corrections: string[] = []
   let indiceExercice: number[] = []
   let indiceQuestionInExercice: number[] = []
-  let results: string[] = []
+  let results: boolean[] = []
   let isDisabledButton: boolean[] = []
   let isVisibleCorrection: boolean[] = []
   let divsCorrection: HTMLDivElement[] = []
@@ -138,9 +138,9 @@
     // ToFix il faudra gérer les exercices non MathLive
     const type = exercices[indiceExercice[i]].interactifType
     if (type === "mathLive") {
-      results[i] = verifQuestionMathLive(exercices[indiceExercice[i]], indiceQuestionInExercice[i])
+      results[i] = (verifQuestionMathLive(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK')
     } else if (type === "qcm") {
-      results[i] = verifQuestionQcm(exercices[indiceExercice[i]], indiceQuestionInExercice[i])
+      results[i] = (verifQuestionQcm(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK')
     }
     isDisabledButton[i] = true
     isVisibleCorrection[i] = true
@@ -221,7 +221,11 @@
                     {i + 1}
                     <div
                       class="absolute left-0 right-0 ml-auto mr-auto bottom-1 h-2 w-2 rounded-full bg-coopmaths-warn
-                    {isDisabledButton[i] ? '' : 'invisible'}"
+                    {(results[i] === true) ? '' : 'invisible'}"
+                    />
+                    <div
+                      class="absolute left-0 right-0 ml-auto mr-auto bottom-1 h-2 w-2 rounded-full bg-red-600
+                    {(results[i] === false) ? '' : 'invisible'}"
                     />
                   </div>
                 </button>
