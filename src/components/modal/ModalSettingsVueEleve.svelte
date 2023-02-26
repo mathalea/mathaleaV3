@@ -44,8 +44,8 @@
         </div>
       </div>
       <div class="pb-2">
+        <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Présentation</div>
         <FormRadio
-          title="Présentation"
           bind:valueSelected={$globalOptions.presMode}
           labelsValues={[
             { label: "Une page unique", value: "page" },
@@ -56,6 +56,7 @@
         />
       </div>
       <div class="pb-2">
+        <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Interactivité</div>
         <FormRadio
           title="Interactif"
           bind:valueSelected={$globalOptions.setInteractive}
