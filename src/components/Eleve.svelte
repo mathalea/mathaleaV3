@@ -1,14 +1,15 @@
 <script lang="ts">
-  import { Mathalea } from "../Mathalea"
-  import { exercicesParams, darkMode, globalOptions, resultsByExercice } from "./store"
-  import type TypeExercice from "./utils/typeExercice"
-  import Exercice from "./exercice/Exercice.svelte"
-  import { onMount, tick } from "svelte"
-  import seedrandom from "seedrandom"
-  import { loadMathLive } from "../modules/loaders"
-  import Button from "./forms/Button.svelte"
-  import { verifQuestionMathLive } from "../interactif/mathLive"
-  import { verifQuestionQcm } from "../interactif/qcm"
+  import { Mathalea } from '../Mathalea'
+  import { exercicesParams, darkMode, globalOptions, resultsByExercice } from './store'
+  import type TypeExercice from './utils/typeExercice'
+  import Exercice from './exercice/Exercice.svelte'
+  import { onMount, tick } from 'svelte'
+  import seedrandom from 'seedrandom'
+  import { loadMathLive } from '../modules/loaders'
+  import Button from './forms/Button.svelte'
+  import { verifQuestionMathLive } from '../interactif/mathLive'
+  import { verifQuestionQcm } from '../interactif/qcm'
+  import ButtonToggle from './forms/ButtonToggle.svelte'
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -19,13 +20,13 @@
   let indiceQuestionInExercice: number[] = []
   let resultsByQuestion: boolean[] = []
   let isDisabledButton: boolean[] = []
-  let isVisibleCorrection: boolean[] = []
+  let isCorrectionVisible: boolean[] = []
   let divsCorrection: HTMLDivElement[] = []
 
   function urlToDisplay() {
     let urlOptions = Mathalea.loadExercicesFromUrl()
     globalOptions.update(() => {
-      urlOptions.v = "eleve"
+      urlOptions.v = 'eleve'
       return urlOptions
     })
   }
@@ -39,11 +40,11 @@
    */
   function buildExoTitle(num: number) {
     if (num <= 6) {
-      return "Exercice"
+      return 'Exercice'
     } else if (num <= 12) {
-      return "Ex"
+      return 'Ex'
     } else {
-      return ""
+      return ''
     }
   }
   $: exerciceTitle = buildExoTitle(exercices.length)
@@ -57,11 +58,11 @@
    */
   function buildQuestionTitle(num: number) {
     if (num <= 6) {
-      return "Question"
+      return 'Question'
     } else if (num <= 20) {
-      return "Q"
+      return 'Q'
     } else {
-      return ""
+      return ''
     }
   }
   $: questionTitle = buildQuestionTitle(questions.length)
@@ -71,15 +72,18 @@
     // sinon en venant du modal il existerait
     if ($globalOptions.presMode === undefined) {
       let urlOptions = Mathalea.loadExercicesFromUrl()
-      urlOptions.v = "eleve"
+      urlOptions.v = 'eleve'
       globalOptions.update(() => {
         return urlOptions
       })
       urlToDisplay()
+    } else {
+      // Si ce n'est pas un chargement d'url alors il faut initialiser le store des résultats
+      resultsByExercice.update(() => [])
     }
     for (const paramsExercice of $exercicesParams) {
       const exercice: TypeExercice = await Mathalea.load(paramsExercice.uuid)
-      if (typeof exercice === "undefined") return
+      if (typeof exercice === 'undefined') return
       exercice.uuid = paramsExercice.uuid
       if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
       exercice.duration = paramsExercice.duration ?? 10
@@ -91,7 +95,7 @@
       if (paramsExercice.sup4) exercice.sup4 = paramsExercice.sup4
       if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif
       if (paramsExercice.alea) exercice.seed = paramsExercice.alea
-      if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === "1"
+      if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === '1'
       if (exercice.seed === undefined)
         exercice.seed = Mathalea.generateSeed({
           includeUpperCase: true,
@@ -108,15 +112,16 @@
 
   async function buildQuestions() {
     for (const [k, exercice] of exercices.entries()) {
-      if ($globalOptions.setInteractive === "1" && exercice.interactifReady) {
+      if ($globalOptions.setInteractive === '1' && exercice.interactifReady) {
         exercice.interactif = true
       }
-      if (exercice.typeExercice === "simple") {
+      if (exercice.typeExercice === 'simple') {
         Mathalea.handleExerciceSimple(exercice, exercice.interactif, k)
       }
       seedrandom(exercice.seed, { global: true })
       exercice.numeroExercice = k
       exercice.nouvelleVersion(k)
+      isCorrectionVisible[k] = false
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
         consignes.push(exercice.consigne)
         indiceExercice.push(k)
@@ -128,42 +133,51 @@
       corrections = corrections.map(Mathalea.formatExercice)
       consignes = consignes.map(Mathalea.formatExercice)
     }
-    if ($globalOptions.presMode === "liste" || $globalOptions.presMode === "question") {
+    if ($globalOptions.presMode === 'liste' || $globalOptions.presMode === 'question') {
       // Pour les autres mode de présentation, cela est géré par ExerciceMathalea
       Mathalea.updateUrl($exercicesParams)
       await tick()
-      Mathalea.renderDiv(document.querySelector("section"))
+      Mathalea.renderDiv(document.querySelector('section'))
       loadMathLive()
     }
   }
   async function checkQuestion(i) {
     // ToFix il faudra gérer les exercices non MathLive
     const type = exercices[indiceExercice[i]].interactifType
-    if (type === "mathLive") {
-      resultsByQuestion[i] = (verifQuestionMathLive(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK')
-    } else if (type === "qcm") {
-      resultsByQuestion[i] = (verifQuestionQcm(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK')
+    if (type === 'mathLive') {
+      resultsByQuestion[i] = verifQuestionMathLive(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK'
+    } else if (type === 'qcm') {
+      resultsByQuestion[i] = verifQuestionQcm(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK'
     }
     isDisabledButton[i] = true
-    isVisibleCorrection[i] = true
+    isCorrectionVisible[i] = true
     await tick()
     Mathalea.renderDiv(divsCorrection[i])
+  }
+
+  async function switchCorrectionVisible(i: number) {
+    isCorrectionVisible[i] = !isCorrectionVisible[i]
+    if (isCorrectionVisible[i]) {
+      await tick()
+      Mathalea.renderDiv(divsCorrection[i])
+    }
   }
 
   function handleIndexChange(exoNum: number) {
     currentIndex = exoNum
   }
-
 </script>
 
-<section class={$darkMode.isActive ? "dark" : ""}>
-  <div class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+<section class={$darkMode.isActive ? 'dark' : ''}>
+  <div
+    class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+  >
     <div class="h-32 w-full  bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct">
       <div class="w-full flex flex-row justify-start p-4 items-center">
         <!-- titre de la feuille -->
         <div class="inline-flex text-4xl font-extrabold ml-4 mr-10">{$globalOptions.title}</div>
         <!-- barre de navigation -->
-        {#if $globalOptions.presMode === "exos"}
+        {#if $globalOptions.presMode === 'exos'}
           <div class="w-full flex flex-row overflow-x-auto justify-center space-x-0 border-b-2 border-coopmaths-struct">
             {#each $exercicesParams as paramsExercice, i (paramsExercice)}
               <div class="">
@@ -179,7 +193,7 @@
                     {i + 1}
                     {#if $resultsByExercice[i] !== undefined}
                       <div class="text-xs">
-                        {$resultsByExercice[i].numberOfPoints + '/' + $resultsByExercice[i].numberOfQuestions }
+                        {$resultsByExercice[i].numberOfPoints + '/' + $resultsByExercice[i].numberOfQuestions}
                       </div>
                     {/if}
                   </div>
@@ -188,7 +202,7 @@
             {/each}
           </div>
         {/if}
-        {#if $globalOptions.presMode === "question"}
+        {#if $globalOptions.presMode === 'question'}
           <div class="w-full flex flex-row overflow-x-auto justify-center space-x-0 border-b-2 border-coopmaths-struct">
             {#each questions as question, i (question)}
               <div class="">
@@ -204,11 +218,11 @@
                     {i + 1}
                     <div
                       class="absolute left-0 right-0 ml-auto mr-auto bottom-1 h-2 w-2 rounded-full bg-coopmaths-warn
-                    {(resultsByQuestion[i] === true) ? '' : 'invisible'}"
+                    {resultsByQuestion[i] === true ? '' : 'invisible'}"
                     />
                     <div
                       class="absolute left-0 right-0 ml-auto mr-auto bottom-1 h-2 w-2 rounded-full bg-red-600
-                    {(resultsByQuestion[i] === false) ? '' : 'invisible'}"
+                    {resultsByQuestion[i] === false ? '' : 'invisible'}"
                     />
                   </div>
                 </button>
@@ -218,18 +232,27 @@
         {/if}
       </div>
     </div>
+    <!-- Exercices -->
     <div class="px-8">
-      {#if $globalOptions.presMode === "exos"}
+      {#if $globalOptions.presMode === 'exos'}
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-          <div class={currentIndex === i ? "" : "hidden"}>
-            <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
+          <div class={currentIndex === i ? '' : 'hidden'}>
+            <Exercice
+              {paramsExercice}
+              indiceExercice={i}
+              indiceLastExercice={$exercicesParams.length}
+              isCorrectionVisible={isCorrectionVisible[i]}
+            />
+            {#if exercices[i] && $globalOptions.isSolutionAccessible && !exercices[i].interactif}
+              <ButtonToggle titles={['Masquer la correction', 'Voir la correction']} bind:value={isCorrectionVisible[i]} />
+            {/if}
           </div>
         {/each}
-      {:else if $globalOptions.presMode === "page"}
+      {:else if $globalOptions.presMode === 'page'}
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
         {/each}
-      {:else if $globalOptions.presMode === "liste"}
+      {:else if $globalOptions.presMode === 'liste'}
         {#each questions as question, k (question)}
           <div class="pb-4 flex flex-col items-start justify-start">
             <div class="text-coopmaths-struct font-bold text-md">Question {k + 1}</div>
@@ -239,7 +262,7 @@
             <div class="text-coopmaths-corpus pl-2">
               {@html question}
             </div>
-            {#if isVisibleCorrection[k]}
+            {#if isCorrectionVisible[k]}
               <div
                 class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest my-2 py-2 pl-6"
                 style="break-inside:avoid"
@@ -255,12 +278,14 @@
             {/if}
             {#if exercices[indiceExercice[k]].interactif}
               <Button title="Vérifier" on:click={() => checkQuestion(k)} isDisabled={isDisabledButton[k]} />
+            {:else if $globalOptions.isSolutionAccessible}
+              <ButtonToggle titles={['Masquer la correction', 'Voir la correction']} on:click={() => switchCorrectionVisible(k)} />
             {/if}
           </div>
         {/each}
-      {:else if $globalOptions.presMode === "question"}
+      {:else if $globalOptions.presMode === 'question'}
         {#each questions as question, k (question)}
-          <div class={currentIndex === k ? "" : "hidden"}>
+          <div class={currentIndex === k ? '' : 'hidden'}>
             <div class="pb-4 flex flex-col items-start justify-start">
               <div class="text-coopmaths-struct font-bold text-md">Question {k + 1}</div>
               <div class="text-coopmaths-corpus pl-2">
@@ -273,8 +298,10 @@
                 <div class="pb-4 mt-10">
                   <Button title="Vérifier" on:click={() => checkQuestion(k)} isDisabled={isDisabledButton[k]} />
                 </div>
+              {:else if $globalOptions.isSolutionAccessible}
+                <ButtonToggle titles={['Masquer la correction', 'Voir la correction']} on:click={() => switchCorrectionVisible(k)} />
               {/if}
-              {#if isVisibleCorrection[k]}
+              {#if isCorrectionVisible[k]}
                 <div
                   class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest my-2 py-2 pl-6"
                   style="break-inside:avoid"

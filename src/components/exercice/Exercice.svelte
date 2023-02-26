@@ -6,6 +6,7 @@
   export let paramsExercice
   export let indiceExercice: number
   export let indiceLastExercice: number
+  export let isCorrectionVisible = false
 
   let exercice
   let ComponentExercice
@@ -35,7 +36,7 @@
 </script>
 
 <div class="z-0 flex-1 overflow-hidden">
-  <svelte:component this={ComponentExercice} {...optionsComponent} {indiceExercice} {indiceLastExercice} />
+  <svelte:component this={ComponentExercice} {...optionsComponent} {indiceExercice} {indiceLastExercice} {isCorrectionVisible} />
 </div>
 
 <style>

@@ -12,6 +12,7 @@
   export let exercice
   export let indiceExercice
   export let indiceLastExercice
+  export let isCorrectionVisible = false
 
   let divExercice: HTMLDivElement
   let divScore: HTMLDivElement
@@ -19,7 +20,6 @@
   let columnsCount = $exercicesParams[indiceExercice].cols || 1
   let isVisible = true
   let isContentVisible = true
-  let isCorrectionVisible = false
   let isSettingsVisible = false
   let isInteractif = exercice.interactif
   let isMessagesVisible = true
@@ -181,7 +181,6 @@
       l[exercice.numeroExercice] = exerciceInteractif(exercice, divScore, buttonScore)
       return l
     })
-    // $exercicesCheckCount.set(`${$exercicesParams[indiceExercice].uuid}${$exercicesParams[indiceExercice].alea}`, true)
   }
 
   function initButtonScore() {
