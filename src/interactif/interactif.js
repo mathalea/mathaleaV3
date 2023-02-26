@@ -5,11 +5,11 @@ import { verifQuestionListeDeroulante } from './questionListeDeroulante'
 
 export function exerciceInteractif (exercice /** Exercice */, divScore /** HTMLDivElement */, buttonScore /** HTMLButtonElement */) {
   if (exercice.interactifType === 'mathLive') return verifExerciceMathLive(exercice, divScore, buttonScore)
-  if (exercice.interactifType === 'qcm') verifExerciceQcm(exercice, divScore, buttonScore)
-  if (exercice.interactifType === 'listeDeroulante')verifExerciceListeDeroulante(exercice, divScore, buttonScore)
-  if (exercice.interactifType === 'cliqueFigure')verifExerciceCliqueFigure(exercice, divScore, buttonScore)
+  if (exercice.interactifType === 'qcm') return verifExerciceQcm(exercice, divScore, buttonScore)
+  if (exercice.interactifType === 'listeDeroulante') return verifExerciceListeDeroulante(exercice, divScore, buttonScore)
+  if (exercice.interactifType === 'cliqueFigure') return verifExerciceCliqueFigure(exercice, divScore, buttonScore)
   // Pour les exercices de type custom, on appelle la méthode correctionInteractive() définie dans l'exercice
-  if (exercice.interactifType === 'custom') verifExerciceCustom(exercice, divScore, buttonScore)
+  if (exercice.interactifType === 'custom') return verifExerciceCustom(exercice, divScore, buttonScore)
   //  if (exercice.interactifType === undefined) exerciceNonInteractif(exercice)
   // Il faudra gérer ces exercices non interactifs qui pourraient apparaitre dans une évaluation
 }
@@ -44,7 +44,7 @@ function verifExerciceQcm (exercice /** Exercice */, divScore /** HTMLDivElement
   uichecks.forEach(function (uicheck) {
     uicheck.classList.add('read-only')
   })
-  afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees, divScore, divButton)
+  return afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees, divScore, divButton)
 }
 
 function verifExerciceListeDeroulante (exercice /** Exercice */, divScore /** HTMLDivElement */, divButton /** HTMLButtonElement */) {
@@ -58,7 +58,7 @@ function verifExerciceListeDeroulante (exercice /** Exercice */, divScore /** HT
     const resultat = verifQuestionListeDeroulante(exercice, i)
     resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
   }
-  afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees, divScore, divButton)
+  return afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees, divScore, divButton)
 }
 
 function verifExerciceCustom (exercice /** Exercice */, divScore /** HTMLDivElement */, buttonScore /** HTMLButtonElement */) {
@@ -83,7 +83,7 @@ function verifExerciceCustom (exercice /** Exercice */, divScore /** HTMLDivElem
     for (let i = 0; i < exercice.nbQuestions; i++) {
       exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
     }
-    afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses, divScore, buttonScore)
+    return afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses, divScore, buttonScore)
   }
 }
 
@@ -113,7 +113,7 @@ function verifExerciceCliqueFigure (exercice /** Exercice */, divScore /** HTMLD
   for (let i = 0; i < exercice.nbQuestions; i++) {
     verifQuestionCliqueFigure(exercice, i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
   }
-  afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses, divScore, buttonScore)
+  return afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses, divScore, buttonScore)
 }
 
 function verifQuestionCliqueFigure (exercice, i) {

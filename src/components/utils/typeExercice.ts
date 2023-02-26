@@ -7,6 +7,7 @@ type Exercice = {
   sup3?: boolean | string | number
   sup4?: boolean | string | number
   nouvelleVersion?: (numeroExercice?: number) => void
+  correctionInteractive?: (i?: number) => string
   seed?: string
   numeroExercice?: number
   typeExercice?: string

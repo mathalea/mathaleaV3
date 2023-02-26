@@ -9,7 +9,10 @@
   import Button from './forms/Button.svelte'
   import { verifQuestionMathLive } from '../interactif/mathLive'
   import { verifQuestionQcm } from '../interactif/qcm'
+  import { verifQuestionListeDeroulante } from '../interactif/questionListeDeroulante'
   import ButtonToggle from './forms/ButtonToggle.svelte'
+  import { verifQuestionCliqueFigure } from '../modules/interactif/cliqueFigure'
+  import { prepareExerciceCliqueFigure } from '../interactif/interactif'
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -142,12 +145,18 @@
     }
   }
   async function checkQuestion(i) {
-    // ToFix il faudra gérer les exercices non MathLive
+    // ToFix exercices custom avec pointsCliquable
     const type = exercices[indiceExercice[i]].interactifType
     if (type === 'mathLive') {
       resultsByQuestion[i] = verifQuestionMathLive(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK'
     } else if (type === 'qcm') {
       resultsByQuestion[i] = verifQuestionQcm(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK'
+    } else if (type === 'listeDeroulante') {
+      resultsByQuestion[i] = verifQuestionListeDeroulante(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK'
+    } else if (type === 'cliqueFigure') {
+      resultsByQuestion[i] = verifQuestionCliqueFigure(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK'
+    } else if (type === 'custom') {
+      resultsByQuestion[i] = exercices[indiceExercice[i]].correctionInteractive(i) === 'OK'
     }
     isDisabledButton[i] = true
     isCorrectionVisible[i] = true
@@ -165,6 +174,9 @@
 
   function handleIndexChange(exoNum: number) {
     currentIndex = exoNum
+    if (exercices[exoNum].interactifType === "cliqueFigure" && exercices[exoNum].interactif) {
+          prepareExerciceCliqueFigure(exercices[exoNum])
+        }
   }
 </script>
 
@@ -254,13 +266,14 @@
         {/each}
       {:else if $globalOptions.presMode === 'liste'}
         {#each questions as question, k (question)}
-          <div class="pb-4 flex flex-col items-start justify-start">
+          <div class="pb-4 flex flex-col items-start justify-start" id={`exercice${indiceExercice[k]}Q${k}`}>
             <div class="text-coopmaths-struct font-bold text-md">Question {k + 1}</div>
             <div class="text-coopmaths-corpus pl-2">
               {@html consignes[k]}
             </div>
             <div class="text-coopmaths-corpus pl-2">
               {@html question}
+              <span id={`resultatCheckEx${indiceExercice[k]}Q${k}`}></span>
             </div>
             {#if isCorrectionVisible[k]}
               <div
@@ -285,7 +298,7 @@
         {/each}
       {:else if $globalOptions.presMode === 'question'}
         {#each questions as question, k (question)}
-          <div class={currentIndex === k ? '' : 'hidden'}>
+          <div class={currentIndex === k ? '' : 'hidden'} id={`exercice${indiceExercice[k]}Q${k}`}>
             <div class="pb-4 flex flex-col items-start justify-start">
               <div class="text-coopmaths-struct font-bold text-md">Question {k + 1}</div>
               <div class="text-coopmaths-corpus pl-2">
@@ -293,6 +306,7 @@
               </div>
               <div class="text-coopmaths-corpus pl-2">
                 {@html question}
+                <span id={`resultatCheckEx${indiceExercice[k]}Q${k}`}></span>
               </div>
               {#if exercices[indiceExercice[k]].interactif}
                 <div class="pb-4 mt-10">

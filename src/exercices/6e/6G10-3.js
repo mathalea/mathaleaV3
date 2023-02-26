@@ -7,7 +7,7 @@ export const titre = 'Choisir la bonne figure'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
-export const interactifType = ['cliqueFigure']
+export const interactifType = 'cliqueFigure'
 
 /**
  * Plusieurs éléments sont proposés, il faut choisir le bon (par clic si interactif, par case à cocher par AMC)
