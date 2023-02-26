@@ -9,25 +9,18 @@
       params.v = "eleve"
       return params
     })
-  }
+  }  
   
-  $: isOpen = false
-  
-  const toggle = () => {
-    isOpen = !isOpen
-  }
 </script>
 
-<input type="checkbox" id="my-modal" class="modal-toggle" checked={isOpen} />
+<input type="checkbox" id="my-modal" class="modal-toggle" />
 <div class="modal" id="reglages-vue-eleve">
   <div class="modal-box relative bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <label
       for="my-modal"
       class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest cursor-pointer absolute right-6 top-6"
     >
-      <button type="button" on:click={toggle}>
         <i class="bx bx-sm bx-x" />
-      </button>
     </label>
     <div class="flex flex-row justify-start p-6">
       <h3 class="font-bold text-lg text-coopmaths-struct dark:text-coopmathsdark-struct">Réglages de la feuille Élève</h3>
