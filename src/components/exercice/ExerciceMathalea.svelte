@@ -6,7 +6,7 @@
   import { loadMathLive } from "../../modules/loaders"
   import { Mathalea } from "../../Mathalea"
   import { exerciceInteractif } from "../../interactif/interactif"
-  import { exercicesParams, exercicesCheckCount } from "../store"
+  import { exercicesParams } from "../store"
   import HeaderExercice from "./HeaderExercice.svelte"
   import Settings from "./Settings.svelte"
   export let exercice
