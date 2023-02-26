@@ -154,26 +154,6 @@
     currentIndex = exoNum
   }
 
-  function initializeListChecking(param) {
-    if (!$exercicesCheckCount.has(`${param.uuid}${param.alea}`)) {
-      $exercicesCheckCount.set(`${param.uuid}${param.alea}`, false)
-      console.log("Exo <" + `${param.uuid}${param.alea}` + "> initialisé")
-    }
-    return param
-  }
-
-  function getExoStatus(idToFind) {
-    try {
-      if ($exercicesCheckCount.has(idToFind)) {
-        console.log("Contrôle <" + idToFind + "> : " + $exercicesCheckCount.get(idToFind))
-        return $exercicesCheckCount.get(idToFind)
-      } else {
-        throw idToFind
-      }
-    } catch (error) {
-      console.log("L'exercice <" + idToFind + "> n'est pas référencé")
-    }
-  }
 </script>
 
 <section class={$darkMode.isActive ? "dark" : ""}>
@@ -185,7 +165,7 @@
         <!-- barre de navigation -->
         {#if $globalOptions.presMode === "exos"}
           <div class="w-full flex flex-row overflow-x-auto justify-center space-x-0 border-b-2 border-coopmaths-struct">
-            {#each $exercicesParams.map(initializeListChecking) as paramsExercice, i (paramsExercice)}
+            {#each $exercicesParams as paramsExercice, i (paramsExercice)}
               <div class="">
                 <button
                   class="{currentIndex === i

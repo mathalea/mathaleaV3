@@ -28,9 +28,6 @@ export const transitionsBetweenQuestions = writable({ isActive: true, isNoisy: f
 // pour la gestion du mode sombre
 export const darkMode = writable({ isActive: false })
 
-// pour savoir si un exercice a été vérifié ou pas
-export const exercicesCheckCount = writable(new Map())
-
 // sauvegarde des résultats des exercices
 export const resultsByExercice = writable([])
 

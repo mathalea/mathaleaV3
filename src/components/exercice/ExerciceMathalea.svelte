@@ -181,8 +181,7 @@
       l[exercice.numeroExercice] = exerciceInteractif(exercice, divScore, buttonScore)
       return l
     })
-    console.log("Actualise <" + `${$exercicesParams[indiceExercice].uuid}${$exercicesParams[indiceExercice].alea}` + ">")
-    $exercicesCheckCount.set(`${$exercicesParams[indiceExercice].uuid}${$exercicesParams[indiceExercice].alea}`, true)
+    // $exercicesCheckCount.set(`${$exercicesParams[indiceExercice].uuid}${$exercicesParams[indiceExercice].alea}`, true)
   }
 
   function initButtonScore() {
