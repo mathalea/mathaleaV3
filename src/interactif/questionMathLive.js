@@ -5,7 +5,7 @@ import { sp, texteExposant } from '../modules/outils.js'
 import { context } from '../modules/context'
 import { afficheScore } from './gestionInteractif.js'
 import * as pkg from '@cortex-js/compute-engine'
-import Hms from '../modules/Hms'
+import Hms from '../modules/Hms.js'
 const { ComputeEngine } = pkg
 let engine
 if (context.versionMathalea) engine = new ComputeEngine()

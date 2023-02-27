@@ -27,19 +27,22 @@ function getAllFiles (dir) {
 const files6e = getAllFiles('./src/exercices/6e')
 
 const dictionnaire = {}
+let errors = ''
 
 for (let url of files6e) {
   url = '../' + url
-//   try {
+  try {
     const { titre, datePublication, dateDeModifImportante, ref, uuid, interactifType, interactifReady, amcReady, amcType } = await import(url)
     url = url.replace('../src/exercices/', '')
-    dictionnaire[ref] = { ref, uuid, url, titre, datePublication, dateDeModifImportante, tags: {interactif: interactifReady, interactifType, amc: amcReady, amcType} }
-//   } catch (error) {
-//     console.log(error)
-//   }
+    dictionnaire[ref] = { ref, uuid, url, titre, datePublication, dateDeModifImportante, tags: { interactif: interactifReady, interactifType, amc: amcReady, amcType } }
+  } catch (error) {
+    console.log(error)
+    errors = error + '\n'
+  }
 }
 
 console.log(dictionnaire)
+console.log(errors)
 
 //  "3L11-10": {
 //     "datePublication": "23/02/2023",
