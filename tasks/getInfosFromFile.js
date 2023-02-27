@@ -30,13 +30,13 @@ const dictionnaire = {}
 
 for (let url of files6e) {
   url = '../' + url
-  try {
+//   try {
     const { titre, datePublication, dateDeModifImportante, ref, uuid, interactifType, interactifReady, amcReady, amcType } = await import(url)
     url = url.replace('../src/exercices/', '')
     dictionnaire[ref] = { ref, uuid, url, titre, datePublication, dateDeModifImportante, tags: {interactif: interactifReady, interactifType, amc: amcReady, amcType} }
-  } catch (error) {
-    console.log(error)
-  }
+//   } catch (error) {
+//     console.log(error)
+//   }
 }
 
 console.log(dictionnaire)

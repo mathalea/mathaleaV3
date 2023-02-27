@@ -5358,17 +5358,6 @@
         "url": "6e/6D101.js",
         "uuid": "6b3e4"
       },
-      "6D11": {
-        "id": "6D11",
-        "tags": {
-          "AMC": false,
-          "Interactif": true,
-          "Can": false
-        },
-        "titre": "Additionner des durées",
-        "url": "6e/6D11.js",
-        "uuid": "5f315"
-      },
       "6D12": {
         "dateModification": "02/01/2022",
         "id": "6D12",
@@ -5992,13 +5981,13 @@
     "6G5": {
       "6G51-1": {
         "datePublication": "22/02/2023",
+        "id": "6G51-1",
         "tags": {
           "AMC": false,
           "Interactif": false,
           "Can": false
         },
         "titre": "Reconnaître des points alignés",
-        "id": "6G51-1",
         "url": "6e/6G51-1.js",
         "uuid": "02320"
       },
@@ -10681,13 +10670,13 @@
       },
       "3L11-10": {
         "datePublication": "23/02/2023",
+        "id": "3L11-10",
         "tags": {
           "AMC": false,
           "Interactif": false,
           "Can": false
         },
         "titre": "Table de double distributivité",
-        "id": "3L11-10",
         "url": "3e/3L11-10.js",
         "uuid": "c8403"
       },
