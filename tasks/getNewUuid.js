@@ -43,6 +43,11 @@ for (let url of allExercices) {
   url = '../' + url
   try {
     const { uuid } = await import(url)
+    if (uuid === undefined) {
+      console.log(url + 'n\'a pas d\'UUID')
+    } else if (uuids.has(uuid)) {
+      console.log(uuid + ' en doublon !!!!!!!')
+    }
     uuids.add(uuid)
   } catch (error) {
     console.log(error)
