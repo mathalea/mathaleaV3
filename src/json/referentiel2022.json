@@ -5990,6 +5990,18 @@
       }
     },
     "6G5": {
+      "6G51-1": {
+        "datePublication": "22/02/2023",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Reconnaître des points alignés",
+        "id": "6G51-1",
+        "url": "6e/6G51-1.js",
+        "uuid": "02320"
+      },
       "6G52": {
         "datePublication": "11/09/2022",
         "id": "6G52",
@@ -10656,6 +10668,7 @@
         "uuid": "77a62"
       },
       "3L11-1": {
+        "dateModification": "26/02/2023",
         "id": "3L11-1",
         "tags": {
           "AMC": true,
@@ -10666,7 +10679,20 @@
         "url": "3e/3L11-1.js",
         "uuid": "4197c"
       },
+      "3L11-10": {
+        "datePublication": "23/02/2023",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Table de double distributivité",
+        "id": "3L11-10",
+        "url": "3e/3L11-10.js",
+        "uuid": "c8403"
+      },
       "3L11-2": {
+        "dateModification": "20/02/2023",
         "id": "3L11-2",
         "tags": {
           "AMC": true,
@@ -10758,6 +10784,7 @@
         "uuid": "4963b"
       },
       "3L12": {
+        "dateModification": "26/02/2023",
         "id": "3L12",
         "tags": {
           "AMC": false,
@@ -10769,7 +10796,7 @@
         "uuid": "81fd2"
       },
       "3L12-1": {
-        "dateModification": "27/12/2022",
+        "dateModification": "26/02/2023",
         "id": "3L12-1",
         "tags": {
           "AMC": true,

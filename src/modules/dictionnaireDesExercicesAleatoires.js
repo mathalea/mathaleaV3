@@ -3849,6 +3849,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "3L11-10": {
+    "titre": "Table de double distributivité",
+    "url": "/exercices/3e/3L11-10.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "3L11-10",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
       "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
@@ -3868,7 +3883,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -4026,7 +4041,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -4042,7 +4057,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -7505,7 +7520,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -8927,7 +8942,8 @@ export default {
     "titre": "Additionner des durées",
     "url": "/exercices/6e/6D11.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6D11",
     "newEx": {
       "isNew": false,
@@ -9670,7 +9686,7 @@ export default {
     "interactifReady": false,
     "name": "6G32",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9801,6 +9817,21 @@ export default {
     "name": "6G44",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6G51-1": {
+    "titre": "Reconnaître des points alignés",
+    "url": "/exercices/6e/6G51-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "6G51-1",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -20395,7 +20426,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3C14",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -20414,7 +20445,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3C15",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -20649,7 +20680,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3N07",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
