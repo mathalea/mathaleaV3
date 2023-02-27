@@ -44,7 +44,11 @@
     let results = []
     for (const input of inputs) {
       // Pour les exercices statiques exercice.titre n'existe pas
-      results.push(exercice.titre && (exercice.titre.toLowerCase().includes(input.toLowerCase()) || exercice.id.toLowerCase().includes(input.toLowerCase())))
+      try {
+        results.push(exercice.titre && (exercice.titre.toLowerCase().includes(input.toLowerCase()) || exercice.id.toLowerCase().includes(input.toLowerCase())))
+      } catch (error) {
+        console.log(error)        
+      }
     }
     if (!isCanPossible) {
       // Pour les exercices statiques exercice.id n'existe pas

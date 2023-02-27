@@ -39,7 +39,7 @@ export default class PuissancesEtPrefixe extends Exercice {
       const prefixe = listeExposants[i][1]
       const description = listeExposants[i][2]
       if (this.sup === 1) {
-        texte = `$10^{${exposant}}$` + choixDeroulant(this, i, 0, shuffle(['nano', 'micro', 'milli', 'centi', 'déci', 'déca', 'hecto', 'kilo', 'Mega', 'Giga', 'Tera']), false, 'margin-left: 15px;')
+        texte = `$10^{${exposant}}$` + choixDeroulant(this, i, 0, shuffle(['nano', 'micro', 'milli', 'centi', 'déci', 'déca', 'hecto', 'kilo', 'Mega', 'Giga', 'Tera']), false)
         setReponse(this, i, prefixe)
         texteCorr = `$10^{${exposant}}$ c'est ${description} donc : ${prefixe}.`
       } else {
