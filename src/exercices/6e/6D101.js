@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import Hms from '../../modules/Hms.js'
+import Hms from '../../modules/Hms'
 export const titre = 'Utiliser les heures décimales'
 export const interactifReady = true
 export const interactifType = 'mathLive'
