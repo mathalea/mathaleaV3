@@ -6,7 +6,7 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "build:dicos": "node tasks/buildJson.js",
+    "build:dicos": "node --loader ts-node/esm tasks/buildJson.js",
     "makeJson": "node --loader ts-node/esm tasks/getInfosFromFile.js",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",

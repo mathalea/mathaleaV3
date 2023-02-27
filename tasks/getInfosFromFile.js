@@ -43,16 +43,3 @@ for (let url of files6e) {
 
 console.log(dictionnaire)
 console.log(errors)
-
-//  "3L11-10": {
-//     "datePublication": "23/02/2023",
-//     "tags": {
-//       "AMC": false,
-//       "Interactif": false,
-//       "Can": false
-//     },
-//     "titre": "Table de double distributivité",
-//     "id": "3L11-10",
-//     "url": "3e/3L11-10.js",
-//     "uuid": "c8403"
-//   },

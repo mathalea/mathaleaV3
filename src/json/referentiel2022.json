@@ -5358,6 +5358,17 @@
         "url": "6e/6D101.js",
         "uuid": "6b3e4"
       },
+      "6D11": {
+        "id": "6D11",
+        "tags": {
+          "AMC": false,
+          "Interactif": true,
+          "Can": false
+        },
+        "titre": "Additionner des durées",
+        "url": "6e/6D11.js",
+        "uuid": "5f315"
+      },
       "6D12": {
         "dateModification": "02/01/2022",
         "id": "6D12",
