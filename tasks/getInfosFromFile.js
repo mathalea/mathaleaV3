@@ -24,17 +24,21 @@ function getAllFiles (dir) {
   return files
 }
 
-const files6e = getAllFiles('./src/exercices/6e')
+const allExercices = getAllFiles('./src/exercices/')
 
 const dictionnaire = {}
+const uuidUrls = {}
+const exercicesList = []
 let errors = ''
 
-for (let url of files6e) {
+for (let url of allExercices) {
   url = '../' + url
   try {
     const { titre, datePublication, dateDeModifImportante, ref, uuid, interactifType, interactifReady, amcReady, amcType } = await import(url)
     url = url.replace('../src/exercices/', '')
     dictionnaire[ref] = { ref, uuid, url, titre, datePublication, dateDeModifImportante, tags: { interactif: interactifReady, interactifType, amc: amcReady, amcType } }
+    uuidUrls[uuid] = url
+    exercicesList.push(url)
   } catch (error) {
     console.log(error)
     errors = error + '\n'
@@ -42,4 +46,9 @@ for (let url of files6e) {
 }
 
 console.log(dictionnaire)
+console.log(uuidUrls)
 console.log(errors)
+
+fs.writeFileSync('./src/json/uuidToUrl.json', JSON.stringify(uuidUrls, null, 2))
+fs.writeFileSync('./src/json/exercicesList.json', JSON.stringify(exercicesList, null, 2))
+fs.writeFileSync('./src/json/allExercice.json', JSON.stringify(dictionnaire, null, 2))
