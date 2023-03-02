@@ -296,7 +296,7 @@
               {@html exercice.consigneCorrection}
             </div>
           {/if}
-          <div style="columns: {columnsCount.toString()}">
+          <div style="columns: {columnsCount.toString()}" class="mt-5">
             <ul
               class="{exercice.listeQuestions.length > 1
                 ? 'list-decimal'
@@ -304,7 +304,7 @@
             >
               {#each exercice.listeQuestions as item, i (i)}
                 <div style="break-inside:avoid">
-                  <li style={i < exercice.listeQuestions.length ? `margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: 1` : ""} id="exercice{indiceExercice}Q{i}">
+                  <li style={i < exercice.listeQuestions.length ? `margin-bottom: ${exercice.spacing}em; line-height: 1` : ""} id="exercice{indiceExercice}Q{i}">
                     {@html Mathalea.formatExercice(item)}
                   </li>
                   {#if isCorrectionVisible}
