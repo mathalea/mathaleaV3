@@ -5992,15 +5992,27 @@
     "6G5": {
       "6G51-1": {
         "datePublication": "22/02/2023",
+        "id": "6G51-1",
         "tags": {
           "AMC": false,
           "Interactif": false,
           "Can": false
         },
         "titre": "Reconnaître des points alignés",
-        "id": "6G51-1",
         "url": "6e/6G51-1.js",
         "uuid": "02320"
+      },
+      "6G51-2": {
+        "datePublication": "27/02/2023",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Utiliser les symboles ∈ et ∉",
+        "url": "6e/6G51-2.js",
+        "id": "6G51-2",
+        "uuid": "a8f1f"
       },
       "6G52": {
         "datePublication": "11/09/2022",
@@ -6025,6 +6037,18 @@
         "titre": "Utiliser les propriétés des droites perpendiculaires",
         "url": "6e/6G52-2.js",
         "uuid": "c46e8"
+      },
+      "6G53": {
+        "datePublication": "01/03/2023",
+        "tags": {
+          "AMC": false,
+          "Interactif": false,
+          "Can": false
+        },
+        "titre": "Mesurer la distance d'un point à une droite",
+        "url": "6e/6G53.js",
+        "id": "6G53",
+        "uuid": "29c3b"
       }
     },
     "6I1": {
@@ -10681,13 +10705,13 @@
       },
       "3L11-10": {
         "datePublication": "23/02/2023",
+        "id": "3L11-10",
         "tags": {
           "AMC": false,
           "Interactif": false,
           "Can": false
         },
         "titre": "Table de double distributivité",
-        "id": "3L11-10",
         "url": "3e/3L11-10.js",
         "uuid": "c8403"
       },

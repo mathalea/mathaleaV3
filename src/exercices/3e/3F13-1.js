@@ -90,9 +90,6 @@ export default function AntecedentEtImageGraphique () {
       this.contenuCorrection += `<br>${numAlpha(3)} $${b}$ a pour unique antécédent $${x0 + 4}$, on note $f(${x0 + 4})=${b}$.`
       setReponse(this, 3, x0 + 4)
     }
-    if (context.versionMathalea > 2) {
-      this.listeQuestions[0] = this.contenu
-    }
     if (this.interactif && context.isHtml) {
       this.contenu += `<br><button class="ui button checkReponses" type="submit" style="margin-bottom: 20px" id="btnValidationEx${this.numeroExercice}-${this.id}">Vérifier les réponses</button>`
     }
