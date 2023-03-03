@@ -16,6 +16,14 @@
     customElements.define('alea-buttoninstrumenpoche', ElementButtonInstrumenpoche)
   }
 
+  $: {
+    if ($globalOptions.v === 'diaporama') {
+      context.isDiaporama = true
+    } else {
+      context.isDiaporama = false
+    }
+  }
+
 </script>
 
 <div class="subpixel-antialiased">
