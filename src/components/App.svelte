@@ -6,6 +6,7 @@
   import { globalOptions } from "./store"
   import { context } from '../modules/context'
   import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from "../modules/ElementInstrumenpoche"
+  import Latex from "./Latex.svelte"
 
   context.versionMathalea = 3
   // ToFix fonction à lier avec bugsnag
@@ -22,6 +23,11 @@
     } else {
       context.isDiaporama = false
     }
+    if ($globalOptions.v === 'latex') {
+      context.isHtml = false
+    } else {
+      context.isHtml = true
+    }
   }
 
 </script>
@@ -33,6 +39,8 @@
     <Can />
   {:else if $globalOptions.v === "eleve"}
     <Eleve />
+  {:else if $globalOptions.v === "latex"}
+    <Latex />
   {:else}
     <Start />
   {/if}
