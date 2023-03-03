@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { globalOptions, resultsByExercice } from "../store"
-  import { afterUpdate, onMount, tick } from "svelte"
-  import seedrandom from "seedrandom"
-  import { prepareExerciceCliqueFigure } from "../../interactif/interactif"
-  import { loadMathLive } from "../../modules/loaders"
-  import { Mathalea } from "../../Mathalea"
-  import { exerciceInteractif } from "../../interactif/interactif"
-  import { exercicesParams } from "../store"
-  import HeaderExercice from "./HeaderExercice.svelte"
-  import Settings from "./Settings.svelte"
+  import { globalOptions, resultsByExercice } from '../store'
+  import { afterUpdate, onMount, tick } from 'svelte'
+  import seedrandom from 'seedrandom'
+  import { prepareExerciceCliqueFigure } from '../../interactif/interactif'
+  import { loadMathLive } from '../../modules/loaders'
+  import { Mathalea } from '../../Mathalea'
+  import { exerciceInteractif } from '../../interactif/interactif'
+  import { exercicesParams } from '../store'
+  import HeaderExercice from './HeaderExercice.svelte'
+  import Settings from './Settings.svelte'
   export let exercice
   export let indiceExercice
   export let indiceLastExercice
@@ -25,7 +25,7 @@
   let isMessagesVisible = true
   let interactifReady = exercice.interactifReady
 
-  const title = exercice.id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}` : exercice.titre
+  const title = exercice.id ? `${exercice.id.replace('.js', '')} - ${exercice.titre}` : exercice.titre
 
   let headerExerciceProps: {
     title: string
@@ -46,14 +46,14 @@
   $: {
     if (isContentVisible && isInteractif && buttonScore) initButtonScore()
 
-    if ($globalOptions.v === "eleve") {
+    if ($globalOptions.v === 'eleve') {
       headerExerciceProps.settingsReady = false
       headerExerciceProps.isSortable = false
       headerExerciceProps.isDeletable = false
       headerExerciceProps.isHidable = false
-      if ($globalOptions.setInteractive === "1") {
+      if ($globalOptions.setInteractive === '1') {
         setAllInteractif()
-      } else if ($globalOptions.setInteractive === "0") {
+      } else if ($globalOptions.setInteractive === '0') {
         removeAllInteractif()
       }
       if (!$globalOptions.isSolutionAccessible) {
@@ -71,9 +71,9 @@
   }
 
   onMount(async () => {
-    document.addEventListener("newDataForAll", newData)
-    document.addEventListener("setAllInteractif", setAllInteractif)
-    document.addEventListener("removeAllInteractif", removeAllInteractif)
+    document.addEventListener('newDataForAll', newData)
+    document.addEventListener('setAllInteractif', setAllInteractif)
+    document.addEventListener('removeAllInteractif', removeAllInteractif)
     updateDisplay()
   })
 
@@ -82,7 +82,7 @@
       await tick()
       if (isInteractif) {
         loadMathLive()
-        if (exercice.interactifType === "cliqueFigure") {
+        if (exercice.interactifType === 'cliqueFigure') {
           prepareExerciceCliqueFigure(exercice)
         }
         // Ne pas être noté sur un exercice dont on a déjà vu la correction
@@ -105,7 +105,7 @@
     exercice.seed = seed
     if (buttonScore) initButtonScore()
     if (isCorrectionVisible) {
-      window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, "true")
+      window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, 'true')
     }
     updateDisplay()
   }
@@ -150,7 +150,7 @@
     }
     if (event.detail.correctionDetaillee !== undefined) {
       exercice.correctionDetaillee = event.detail.correctionDetaillee
-      $exercicesParams[indiceExercice].cd = exercice.correctionDetaillee ? "1" : "0"
+      $exercicesParams[indiceExercice].cd = exercice.correctionDetaillee ? '1' : '0'
     }
     updateDisplay()
   }
@@ -164,7 +164,7 @@
         startsWithLowerCase: false,
       })
     seedrandom(exercice.seed, { global: true })
-    if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, isInteractif)
+    if (exercice.typeExercice === 'simple') Mathalea.handleExerciceSimple(exercice, isInteractif)
     exercice.interactif = isInteractif
     $exercicesParams[indiceExercice].alea = exercice.seed
     $exercicesParams[indiceExercice].i = isInteractif
@@ -176,7 +176,7 @@
 
   function verifExercice() {
     isCorrectionVisible = true
-    resultsByExercice.update(l => {
+    resultsByExercice.update((l) => {
       l[exercice.numeroExercice] = exerciceInteractif(exercice, divScore, buttonScore)
       return l
     })
@@ -185,36 +185,36 @@
   function initButtonScore() {
     buttonScore.classList.remove(...buttonScore.classList)
     buttonScore.classList.add(
-      "inline-block",
-      "px-6",
-      "py-2.5",
-      "mr-10",
-      "my-5",
-      "ml-6",
-      "bg-coopmaths",
-      "text-white",
-      "font-medium",
-      "text-xs",
-      "leading-tight",
-      "uppercase",
-      "rounded",
-      "shadow-md",
-      "transform",
-      "hover:scale-110",
-      "hover:bg-coopmaths-dark",
-      "hover:shadow-lg",
-      "focus:bg-coopmaths-dark",
-      "focus:shadow-lg",
-      "focus:outline-none",
-      "focus:ring-0",
-      "active:bg-coopmaths-dark",
-      "active:shadow-lg",
-      "transition",
-      "duration-150",
-      "ease-in-out",
-      "checkReponses"
+      'inline-block',
+      'px-6',
+      'py-2.5',
+      'mr-10',
+      'my-5',
+      'ml-6',
+      'bg-coopmaths',
+      'text-white',
+      'font-medium',
+      'text-xs',
+      'leading-tight',
+      'uppercase',
+      'rounded',
+      'shadow-md',
+      'transform',
+      'hover:scale-110',
+      'hover:bg-coopmaths-dark',
+      'hover:shadow-lg',
+      'focus:bg-coopmaths-dark',
+      'focus:shadow-lg',
+      'focus:outline-none',
+      'focus:ring-0',
+      'active:bg-coopmaths-dark',
+      'active:shadow-lg',
+      'transition',
+      'duration-150',
+      'ease-in-out',
+      'checkReponses'
     )
-    if (divScore) divScore.innerHTML = ""
+    if (divScore) divScore.innerHTML = ''
   }
 </script>
 
@@ -228,7 +228,7 @@
       isContentVisible = event.detail.isContentVisible
       isCorrectionVisible = event.detail.isCorrectionVisible
       if (isCorrectionVisible) {
-        window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, "true")
+        window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, 'true')
       }
       if (isInteractif) {
         isInteractif = !isInteractif
@@ -264,7 +264,9 @@
                 updateDisplay()
               }}
             >
-              <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 bx-xs bx-minus" />
+              <i
+                class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 bx-xs bx-minus"
+              />
             </button>
           {/if}
           <i class="bx ml-1 bx-xs bx-columns" />
@@ -275,7 +277,9 @@
               updateDisplay()
             }}
           >
-            <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest  bx ml-1 bx-xs bx-plus" />
+            <i
+              class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest  bx ml-1 bx-xs bx-plus"
+            />
           </button>
         </div>
         <article class="lg:text-base" style="font-size: {($globalOptions.z || 1).toString()}rem">
@@ -292,7 +296,9 @@
             </div>
           {/if}
           {#if isCorrectionVisible}
-            <div class="bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus leading-relaxed mt-2  ml-2 lg:mx-5">
+            <div
+              class="bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus leading-relaxed mt-2  ml-2 lg:mx-5"
+            >
               {@html exercice.consigneCorrection}
             </div>
           {/if}
@@ -304,21 +310,20 @@
             >
               {#each exercice.listeQuestions as item, i (i)}
                 <div style="break-inside:avoid">
-                  <li style={i < exercice.listeQuestions.length ? `margin-bottom: ${exercice.spacing}em; line-height: 1` : ""} id="exercice{indiceExercice}Q{i}">
+                  <li
+                    style={i < exercice.listeQuestions.length ? `margin-bottom: ${exercice.spacing}em; line-height: 1` : ''}
+                    id="exercice{indiceExercice}Q{i}"
+                  >
                     {@html Mathalea.formatExercice(item)}
                   </li>
                   {#if isCorrectionVisible}
                     <div
                       class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest my-2 py-2 pl-6"
-                      style="margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: {exercice.spacingCorr || 1}; break-inside:avoid"
+                      style="margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: {exercice.spacingCorr ||
+                        1}; break-inside:avoid"
                       id="correction${indiceExercice}Q${i}"
                     >
                       {@html Mathalea.formatExercice(exercice.listeCorrections[i])}
-                      <div
-                        class="absolute flex flex-row justify-center items-center -left-4 top-0 rounded-full bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-canvas dark:text-coopmathsdark-canvas h-6 w-6"
-                      >
-                        <i class="bx bx-sm bx-check" />
-                      </div>
                     </div>
                   {/if}
                 </div>
@@ -331,7 +336,11 @@
         {/if}
         <div bind:this={divScore} />
       </div>
-      <div class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark {isSettingsVisible ? 'visible lg:w-1/4' : 'hidden lg:w-0'} flex flex-col duration-500">
+      <div
+        class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark {isSettingsVisible
+          ? 'visible lg:w-1/4'
+          : 'hidden lg:w-0'} flex flex-col duration-500"
+      >
         {#if isSettingsVisible}
           <Settings {exercice} on:settings={handleNewSettings} />
         {/if}
