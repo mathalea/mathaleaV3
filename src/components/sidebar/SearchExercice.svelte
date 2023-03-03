@@ -9,6 +9,8 @@
     const exercices = []
     function recursiveSearch(object) {
       Object.keys(object).forEach((key) => {
+        // Les exercces "nouveaux" apparaissent en doublon dans le référentiel
+        if (key === 'Nouveautés') return
         const value = object[key]
         if (key === "uuid" && typeof value !== "object") {
           exercices.push(object)
