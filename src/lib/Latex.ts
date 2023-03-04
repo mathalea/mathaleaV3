@@ -1,4 +1,4 @@
-import preambule from '../../public/latex/preambule.tex?raw'
+import preambule from '../lib/latex/preambule.tex?raw'
 class Latex {
   content: string
   contentCorr: string
@@ -37,19 +37,19 @@ class Latex {
   }
 
   addExercice ({ title, id, consigne, introduction, questions, spacing = 1, corrections, spacingCorr = 1, introductionCorr = '' } : { title: string, consigne: string, introduction: string, id: string, questions: string[], spacing: number, corrections: string[], spacingCorr: number, introductionCorr: string}) {
-    this.content += `\n\\begin{EXOcoop}{${consigne}}{${id.replace('.js', '')}}\n`
+    this.content += `\n\\begin{EXO}{${consigne}}{${id.replace('.js', '')}}\n`
     this.content += this.writeIntroduction(introduction)
     this.content += this.writeQuestions(questions, spacing)
-    this.content += '\n\\end{EXOcoop}\n'
-    this.contentCorr += `\n\\begin{EXOcoop}{${consigne}}{${id.replace('.js', '')}}\n`
+    this.content += '\n\\end{EXO}\n'
+    this.contentCorr += `\n\\begin{EXO}{${consigne}}{${id.replace('.js', '')}}\n`
     this.contentCorr += this.writeIntroduction(introductionCorr)
     this.contentCorr += this.writeQuestions(corrections, spacingCorr)
-    this.contentCorr += '\n\\end{EXOcoop}\n'
+    this.contentCorr += '\n\\end{EXO}\n'
   }
 
   getFile () {
     let result = '\\documentclass[a4paper,11pt,fleqn]{article}\n\n' + preambule + '\n\n\\Theme[Coopmaths]{nombres}{}{}{}\n\n\\begin{document}\n' + this.content
-    result += '\n\n\\clearpage\n\n\\begin{Correction}' + this.contentCorr + '\\end{Correction}\n\\end{document}'
+    result += '\n\n\\clearpage\n\n\\begin{Correction}' + this.contentCorr + '\n\\clearpage\n\\end{Correction}\n\\end{document}'
     return result
   }
 
