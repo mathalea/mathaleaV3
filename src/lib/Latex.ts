@@ -1,26 +1,31 @@
+import preambule from '../../public/latex/preambule.tex?raw'
 class Latex {
   content: string
+  contentCorr: string
   constructor () {
     this.content = ''
+    this.contentCorr = ''
   }
 
   private writeTitle (title: string): string {
     return '\n\n' + this.format(title) + '\n'
   }
 
-  private writeIntroduction (consigne: string, introduction = ''): string {
+  private writeIntroduction (introduction = ''): string {
     let content = ''
-    content += '\n' + this.format(consigne) + '\n'
     if (introduction.length > 0) {
       content += '\n' + this.format(introduction) + '\n'
     }
     return content
   }
 
-  private writeQuestions (questions: string[]): string {
+  private writeQuestions (questions: string[], spacing = 1): string {
     let content = ''
     if (questions.length > 1) {
       content += '\n\\begin{enumerate}'
+      if (spacing !== 1) {
+        content += `[itemsep=${spacing}em]`
+      }
       for (const question of questions) {
         content += '\n\t\\item ' + this.format(question)
       }
@@ -31,11 +36,21 @@ class Latex {
     return content
   }
 
-  addExercice ({ title, id, consigne, introduction, questions } : { title: string, consigne: string, introduction: string, id: string, questions: string[]}) {
-    this.content += `\n\\begin{Exo}{${title}}{${id.replace('.js', '')}}\n`
-    this.content += this.writeIntroduction(consigne, introduction)
-    this.content += this.writeQuestions(questions)
-    this.content += '\n\\end{Exo}\n'
+  addExercice ({ title, id, consigne, introduction, questions, spacing = 1, corrections, spacingCorr = 1, introductionCorr = '' } : { title: string, consigne: string, introduction: string, id: string, questions: string[], spacing: number, corrections: string[], spacingCorr: number, introductionCorr: string}) {
+    this.content += `\n\\begin{EXOcoop}{${consigne}}{${id.replace('.js', '')}}\n`
+    this.content += this.writeIntroduction(introduction)
+    this.content += this.writeQuestions(questions, spacing)
+    this.content += '\n\\end{EXOcoop}\n'
+    this.contentCorr += `\n\\begin{EXOcoop}{${consigne}}{${id.replace('.js', '')}}\n`
+    this.contentCorr += this.writeIntroduction(introductionCorr)
+    this.contentCorr += this.writeQuestions(corrections, spacingCorr)
+    this.contentCorr += '\n\\end{EXOcoop}\n'
+  }
+
+  getFile () {
+    let result = '\\documentclass[a4paper,11pt,fleqn]{article}\n\n' + preambule + '\n\n\\Theme[Coopmaths]{nombres}{}{}{}\n\n\\begin{document}\n' + this.content
+    result += '\n\n\\clearpage\n\n\\begin{Correction}' + this.contentCorr + '\\end{Correction}\n\\end{document}'
+    return result
   }
 
   /**

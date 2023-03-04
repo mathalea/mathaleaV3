@@ -5,7 +5,6 @@
   import Footer from './Footer.svelte'
   import NavBar from './header/NavBar.svelte'
   import seedrandom from 'seedrandom'
-  import { exerciceSimpleToContenu } from '../modules/outils'
   import Latex from '../lib/Latex'
   import Button from './forms/Button.svelte'
 
@@ -59,16 +58,26 @@
   }
   const latex = new Latex()
   for (const exercice of exercices) {
-    latex.addExercice({ title: exercice.titre, id: exercice.id, introduction: exercice.introduction, consigne: exercice.consigne, questions: exercice.listeQuestions })
+    latex.addExercice({ title: exercice.titre, id: exercice.id, introduction: exercice.introduction, consigne: exercice.consigne, questions: exercice.listeQuestions, spacing: exercice.spacing, corrections: exercice.listeCorrections, introductionCorr: '', spacingCorr: exercice.spacingCorr })
   }
-  return latex.content
+  return {file: latex.getFile(), exercices: latex.content}
 }
 
-let content = getContentOfDocument ()
+let contents = getContentOfDocument()
 
-  const copyLatex = async () => {
+  const copyExercices = async () => {
     try {
-      const text = await content
+      const text = (await contents).exercices
+      await navigator.clipboard.writeText(text)
+      console.log('Content copied to clipboard')
+    } catch (err) {
+      console.error('Failed to copy: ', err)
+    }
+  }
+  
+  const copyDocument = async () => {
+    try {
+      const text = (await contents).file
       await navigator.clipboard.writeText(text)
       console.log('Content copied to clipboard')
     } catch (err) {
@@ -81,12 +90,13 @@ let content = getContentOfDocument ()
 <NavBar />
 
 <section class="ml-10 my-10">
-  <Button title="Copier le code LaTeX" on:click={copyLatex} />
+  <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} />
+  <Button title="Copier le code LaTeX complet (avec preambule)" on:click={copyDocument} />
   <pre class="my-10">
-    {#await content }
+    {#await contents }
         Chargement...
-      {:then content } 
-      {content}        
+      {:then contents } 
+      {contents.exercices}        
       {/await}
 </pre>
 </section>

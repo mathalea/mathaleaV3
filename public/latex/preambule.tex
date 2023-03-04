@@ -1,0 +1,510 @@
+% pb avec les symboles mathématiques particuliers dans le "titre" de l'exercice -> Redéfinition de la commande \exo
+% Pb de "dimension too large" à la première compilation
+% Pb des fontes amssymb chargé alors que fourier-otf les inclue déjà -> suppression de amssymb
+% Imposition d'une compilation en lualatex ?
+% babel mis à la fin du préambule
+% suppression du package enumerate : à voir si d'éventuels pb de compilation
+% remplacement de lmodern par fourier par cohérence entre les deux compilations (luatex/reste)
+% suppression du package graphics (obsolete par rapport à graphicx)
+% remplacement du package amsmath par mathtools. Et donc suppression de amsfonts : pas possible pour \Leadto
+% remplacement du package numprint par siunitx ?
+% le theme s'écrit après la fin du préambule et non dans le fichier.tex ?
+% package mdframed pose soucis. Remplacement par une macro tikz ?
+% transformation automatique des \degree en \degres de french.
+
+\usepackage{mathtools,amssymb,amsfonts,mathrsfs} 
+
+\usepackage{unicode-math}
+\setmainfont{TeX Gyre Schola}
+\setmathfont{TeX Gyre Schola Math}
+
+%\newfontfamily\myfontScratch[]{FreeSans}
+
+\setmathfont{STIX Two Math}[
+  range={\blacktriangledown}%\mdlgblklozenge,\mdblksquare,\blacktriangle,\bigstar
+]
+
+%%% COULEURS %%%
+\usepackage[table,svgnames]{xcolor}
+\definecolor{nombres}{cmyk}{0,.8,.95,0}
+\definecolor{gestion}{cmyk}{.75,1,.11,.12}
+\definecolor{gestionbis}{cmyk}{.75,1,.11,.12}
+\definecolor{grandeurs}{cmyk}{.02,.44,1,0}
+\definecolor{geo}{cmyk}{.62,.1,0,0}
+\definecolor{algo}{cmyk}{.69,.02,.36,0}
+\definecolor{correction}{cmyk}{.63,.23,.93,.06}
+\arrayrulecolor{couleur_theme} % Couleur des filets des tableaux
+
+\usepackage[autolanguage,np]{numprint}
+
+\newcommand\degree{\degres}
+
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{documentation}
+
+\usepackage{hyperref}
+\usepackage{multicol} 
+\usepackage{calc}
+
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{tabularx}
+
+\setlength{\parindent}{0mm}
+\renewcommand{\arraystretch}{1.5}
+\renewcommand{\labelenumi}{\textbf{\theenumi{}.}}
+\renewcommand{\labelenumii}{\textbf{\theenumii{}.}}
+\setlength{\fboxsep}{3mm}
+
+\setlength{\headheight}{14.5pt}
+
+\setlength{\premulticols}{0pt}
+
+\newcounter{ExoMA}
+
+\newlength{\parindentMA}%
+\setlength{\parindentMA}{\parindent}
+\addtolength{\parindentMA}{30pt}
+
+\usepackage{simplekv}
+
+\setKVdefault[Theme]{Coopmath,Libres=false,CANs=false}
+\defKV[Theme]{Libre=\setKV[Theme]{Coopmath=false}\setKV[Theme]{Libres}}
+\defKV[Theme]{CAN=\setKV[Theme]{Coopmath=false}\setKV[Theme]{CANs}}
+
+\usepackage{fancyhdr}%,lastpage}
+\fancyhead[C]{}%
+\fancyfoot{}%
+
+\NewDocumentCommand\Theme{o m m m m}{%
+  \useKVdefault[Theme]%
+  \setKV[Theme]{#1}%
+  \ifboolKV[Theme]{CANs}{%
+    \usepackage[a4paper,left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}%
+    \fancypagestyle{premierePage}{%
+      \fancyhead[C]{\textsc{Course aux nombres}}%
+      \fancyfoot[R]{\scriptsize Coopmaths.fr -- CC-BY-SA}%
+      \setlength{\headheight}{14.5pt}%
+    }%
+    \pagestyle{premierePage}
+    \colorlet{couleur_theme}{black}%
+    \colorlet{couleur_numerotation}{couleur_theme}%
+  }{%
+    \usepackage[a4paper,left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+    \pagestyle{fancy}
+    \fancyhead[L]{}
+    \fancyhead[R]{}
+    \ifboolKV[Theme]{Libres}{%
+      \let\EXO\EXOlibre\let\endEXO\endEXOlibre%
+      \colorlet{couleur_theme}{black}%
+      \colorlet{couleur_numerotation}{couleur_theme}%
+    }{%
+      \theme{nombres}{}{}{}%
+      \let\EXO\EXOcoop\let\endEXO\endEXOcoop%
+    }%
+  }%
+}%
+
+\NewDocumentEnvironment{EXOcoop}{m m +b}{%
+  \begin{tcolorbox}[%
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=white,%couleur_theme,
+    coltitle=black,
+    title=\IfNoValueTF{#1}{}{\textmd{#1}},%
+    overlay unbroken and first={%
+      \IfNoValueTF{#2}{}{%
+        \node[%
+        fill=white,
+        anchor=east,
+        xshift=10pt,
+        text=black
+        ]
+        at (frame.north east)
+        {\scriptsize #2};
+      }
+      \node[anchor=west,xshift=-20pt,yshift=-15pt] at (frame.north west) {\stepcounter{ExoMA}\numb{\arabic{ExoMA}}};
+    }
+    ]
+    #3
+  \end{tcolorbox}
+}
+
+\NewDocumentEnvironment{EXOlibre}{m m +b}{%
+  \begin{tcolorbox}[%
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=white,%couleur_theme,
+    coltitle=black,
+    title=\stepcounter{ExoMA}\textbf{Exercice \arabic{ExoMA}},%
+    ]
+    \IfNoValueTF{#1}{}{#1\par}%
+    #3
+  \end{tcolorbox}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SPÉCIFIQUE SUJETS CAN                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{longtable}
+
+\tikzset{
+  mybox/.style={
+    rectangle,
+    drop shadow, 
+    inner sep=17pt,
+    draw=gray,
+    shade,
+    top color=gray,
+    every shadow/.append style={fill=gray!40}, 
+    bottom color=gray!20
+    }
+  }
+  
+  \newcommand\MyBox[2][]{%
+    \tikz\node[mybox,#1] {#2}; 
+  }
+  % Un compteur pour les questions CAN
+  \newcounter{nbEx}
+  % Pour travailler avec les compteurs
+  \usepackage{totcount}
+  \regtotcounter{nbEx}  
+
+  % Une checkmark !
+  \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}  
+  % Repiqué sans vergogne dans lemanuel TikZ pour l'impatient
+  \def\arete{3}   \def\epaisseur{5}   \def\rayon{2}
+
+  \newcommand{\ruban}{(0,0)
+    ++(0:0.57735*\arete-0.57735*\epaisseur+2*\rayon)
+    ++(-30:\epaisseur-1.73205*\rayon)
+    arc (60:0:\rayon)   -- ++(90:\epaisseur)
+    arc (0:60:\rayon)   -- ++(150:\arete)
+    arc (60:120:\rayon) -- ++(210:\epaisseur)
+    arc (120:60:\rayon) -- cycle}
+
+  \newcommand{\dureeCan}{[Temps total à modifier juste après le \textbackslash begin\{document\}]}  
+
+  \newcommand{\titreSujetCan}{\textbf{[Ligne ci-dessous à modifier juste après le \textbackslash begin\{document\}]\\Sujet niveau NN - Mois Année}}
+
+  \newcommand{\mobiusCan}{
+    % Repiqué sans vergogne dans lemanuel TikZ pour l'impatient
+    \begin{tikzpicture}[very thick,top color=white,bottom color=gray,scale=1.2]
+      \shadedraw \ruban;
+      \shadedraw [rotate=120] \ruban;
+      \shadedraw [rotate=-120] \ruban;
+      \draw (-60:4) node[scale=5,rotate=30]{CAN};
+      \draw (180:4) node[scale=3,rotate=-90]{MathALEA};
+      \clip (0,-6) rectangle (6,6); % pour croiser
+      \shadedraw  \ruban;
+      \draw (60:4) node [gray,xscale=2.5,yscale=2.5,rotate=-30]{CoopMaths};
+    \end{tikzpicture} 
+  }
+  
+  \newcommand{\pageDeGardeCan}[1]{
+    % #1 --> nom du compteur pour le nombre de questions
+
+    %\vspace*{10mm}
+    \textsc{Nom} : \makebox[.35\linewidth]{\dotfill} \hfill \textsc{Prénom} : \makebox[.35\linewidth]{\dotfill}
+
+    \vspace{10mm}
+    \textsc{Classe} : \makebox[.33\linewidth]{\dotfill} \hfill
+    \MyBox{\Large\textsc{Score} : \makebox[.15\linewidth]{\dotfill} / \total{#1}}      
+    \par\medskip \hrulefill \par
+    \checkmark \textit{\textbf{Durée :  \dureeCan~minutes}}
+
+    \smallskip
+    \checkmark \textit{L'épreuve comporte \total{#1} questions.}
+
+    \smallskip  
+    \checkmark \textit{L'usage de la calculatrice et du brouillon sont interdits.}
+
+    \smallskip
+    \checkmark \textit{Il n'est pas permis d'écrire des calculs intermédiaires.}
+    \par \hrulefill \par\vspace{5mm}
+    \begin{center}
+      \textsc{\titreSujetCan}
+      \par\vspace{5mm}
+      \mobiusCan
+    \end{center}
+  }
+
+  \newlength{\Largeurcp}
+  
+  % Structure globale pour les tableaux des livrets CAN
+  \newcommand{\structureTableauCan}[1]{%
+    % #1 --> corps de tableau
+    \setlength{\Largeurcp}{0.35\textwidth-8\tabcolsep}
+    \renewcommand*{\arraystretch}{2.5}
+    \begin{spacing}{1.1}
+      \begin{longtable}{|>{\columncolor{gray!20}\centering}m{0.05\textwidth}|>{\centering}m{0.45\textwidth}|>{\centering}m{\Largeurcp}|>{\centering}p{0.1\textwidth}|}%
+        \hline
+        \rowcolor{gray!20}\#&Énoncé&Réponse&Jury\tabularnewline \hline
+        % \endfirsthead
+        % \hline
+        % \rowcolor{gray!20}\#&Énoncé&Réponse&Jury\tabularnewline \hline
+        % \endhead
+        #1
+      \end{longtable}
+    \end{spacing}
+    \renewcommand*{\arraystretch}{1}
+  }
+
+%%% MISE EN PAGE %%%
+
+\usepackage{setspace}
+
+\usepackage{tkz-tab,tkz-fct}
+\usepackage{tkz-euclide}
+\usepackage{pgf}%
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
+
+\spaceskip=2\fontdimen2\font plus 3\fontdimen3\font minus3\fontdimen4\font\relax %Pour doubler l'espace entre les mots
+\newcommand\numb[1]{ % Dessin autour du numéro d'exercice
+  \begin{tikzpicture}[overlay,scale=.8]%,yshift=-.3cm
+    \draw[fill=couleur_numerotation,couleur_numerotation](-.3,0)rectangle(.5,.8);
+    \draw[line width=.05cm,couleur_numerotation,fill=white] (0,0)--(.5,.5)--(1,0)--(.5,-.5)--cycle;
+    \draw (0.5,0) node[anchor=center,couleur_numerotation]{\large\bfseries#1};
+    \draw (-.4,.8) node[white,anchor=north west]{\bfseries EX}; 
+  \end{tikzpicture}
+}
+
+% echelle pour le dé
+\def\globalscale {0.04}
+% abscisse initiale pour les chevrons
+\def\xini {3}
+
+\newcommand\theme[4]{%
+  \fancyhead[C]{%
+    % Tracé du dé
+    \begin{tikzpicture}[y=0.80pt, x=0.80pt, yscale=-\globalscale, xscale=\globalscale,remember picture, overlay,transform canvas={xshift=-0.5\linewidth,yshift=2.7cm},fill=couleur_theme]%,xshift=17cm,yshift=9.5cm
+      %%%% Arc supérieur gauche%%%%
+      \path[fill](523,1424)..controls(474,1413)and(404,1372)..(362,1333)..controls(322,1295)and(313,1272)..(331,1254)..controls(348,1236)and(369,1245)..(410,1283)..controls(458,1328)and(517,1356)..(575,1362)..controls(635,1368)and(646,1375)..(643,1404)..controls(641,1428)and(641,1428)..(596,1430)..controls(571,1431)and(538,1428)..(523,1424)--cycle;
+      %%%% Dé face supérieur%%%%
+      \path[fill](512,1272)..controls(490,1260)and(195,878)..(195,861)..controls(195,854)and(198,846)..(202,843)..controls(210,838)and(677,772)..(707,772)..controls(720,772)and(737,781)..(753,796)..controls(792,833)and(1057,1179)..(1057,1193)..controls(1057,1200)and(1053,1209)..(1048,1212)..controls(1038,1220)and(590,1283)..(551,1282)..controls(539,1282)and(521,1278)..(512,1272)--cycle;
+      %%%% Dé faces gauche et droite%%%%
+      \path[fill](1061,1167)..controls(1050,1158)and(978,1068)..(900,967)..controls(792,829)and(756,777)..(753,756)--(748,729)--(724,745)..controls(704,759)and(660,767)..(456,794)..controls(322,813)and(207,825)..(200,822)..controls(193,820)and(187,812)..(187,804)..controls(188,797)and(229,688)..(279,563)..controls(349,390)and(376,331)..(391,320)..controls(406,309)and(462,299)..(649,273)..controls(780,254)and(897,240)..(907,241)..controls(918,243)and(927,249)..(928,256)..controls(930,264)and(912,315)..(889,372)..controls(866,429)and(848,476)..(849,477)..controls(851,479)and(872,432)..(897,373)..controls(936,276)and(942,266)..(960,266)..controls(975,266)and(999,292)..(1089,408)..controls(1281,654)and(1290,666)..(1290,691)..controls(1290,720)and(1104,1175)..(1090,1180)..controls(1085,1182)and (1071,1176)..(1061,1167)--cycle;
+      %%%% Arc inférieur bas%%%%
+      \path[fill](1329,861)..controls(1316,848)and(1317,844)..(1339,788)..controls(1364,726)and(1367,654)..(1347,591)..controls(1330,539)and(1338,522)..(1375,526)..controls(1395,528)and(1400,533)..(1412,566)..controls(1432,624)and(1426,760)..(1401,821)..controls(1386,861)and(1380,866)..(1361,868)..controls(1348,870)and(1334,866)..(1329,861)--cycle;
+      %%%% Arc inférieur gauche%%%%
+      \path[fill](196,373)..controls(181,358)and(186,335)..(213,294)..controls(252,237)and(304,190)..(363,161)..controls(435,124)and(472,127)..(472,170)..controls(472,183)and(462,192)..(414,213)..controls(350,243)and(303,283)..(264,343)..controls(239,383)and(216,393)..(196,373)--cycle;
+    \end{tikzpicture}
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {};
+      \node[anchor=east, fill=white] at ($(current page.north east)+(-18.8,-2.3cm)$) {\footnotesize \bfseries{MathALEA}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[line cap=round,line join=round,remember picture, overlay, shift={(current page.north west)},yshift=-8.5cm]
+      \fill[fill=couleur_theme] (0,5) rectangle (21,6);
+      \fill[fill=couleur_theme] (\xini,6)--(\xini+1.5,6)--(\xini+2.5,7)--(\xini+1.5,8)--(\xini,8)--(\xini+1,7)-- cycle;
+      \fill[fill=couleur_theme] (\xini+2,6)--(\xini+2.5,6)--(\xini+3.5,7)--(\xini+2.5,8)--(\xini+2,8)--(\xini+3,7)-- cycle;  
+      \fill[fill=couleur_theme] (\xini+3,6)--(\xini+3.5,6)--(\xini+4.5,7)--(\xini+3.5,8)--(\xini+3,8)--(\xini+4,7)-- cycle;   
+      \node[color=white] at (10.5,5.5) {\LARGE \bfseries{ \MakeUppercase{ #4}}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {};
+      \node[anchor=east, fill=white] at ($(current page.north east)+(-2,-1.5cm)$) {\Huge \textcolor{couleur_theme}{\bfseries{\#}} \bfseries{#2} \textcolor{couleur_theme}{\bfseries \MakeUppercase{#3}}};
+    \end{tikzpicture}
+  }%
+  \fancyfoot[R]{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=south east] at ($(current page.south east)+(-2,0.25cm)$) {\scriptsize {\bfseries \href{https://coopmaths.fr/}{Coopmaths.fr} -- \href{http://creativecommons.fr/licences/}{CC-BY-SA}}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[line cap=round,line join=round,remember picture, overlay,xscale=0.5,yscale=0.5, shift={(current page.south west)},xshift=35.7cm,yshift=-6cm]
+      \fill[fill=couleur_theme] (\xini,6)--(\xini+1.5,6)--(\xini+2.5,7)--(\xini+1.5,8)--(\xini,8)--(\xini+1,7)-- cycle;
+      \fill[fill=couleur_theme] (\xini+2,6)--(\xini+2.5,6)--(\xini+3.5,7)--(\xini+2.5,8)--(\xini+2,8)--(\xini+3,7)-- cycle;  
+      \fill[fill=couleur_theme] (\xini+3,6)--(\xini+3.5,6)--(\xini+4.5,7)--(\xini+3.5,8)--(\xini+3,8)--(\xini+4,7)-- cycle;  
+    \end{tikzpicture}
+  }
+  \fancyfoot[C]{}
+  \colorlet{couleur_theme}{#1}
+  \colorlet{couleur_numerotation}{couleur_theme}
+  \def\iconeobjectif{icone-objectif-#1}
+  \def\urliconeomethode{icone-methode-#1}
+}%
+
+%%%%%%% NOTATIONS DES ENSEMBLES %%%%%%%
+\newcommand\R{\mathbb{R}}
+\newcommand\N{\mathbb{N}}
+\newcommand\D{\mathbb{D}}
+\newcommand\Z{\mathbb{Z}}
+\newcommand\Q{\mathbb{Q}}
+
+\newcommand*\tikzfootMA{%
+  \begin{tikzpicture}[remember picture,overlay,shift=(current page.south west)]
+  \begin{scope}[x={(current page.south east)},y={(current page.north west)}]
+    \draw[correction,line width=4pt,dashed,dash pattern= on 10pt off 10pt] ($(0,0)+(5mm,1.5cm)$) rectangle ($(1,1)+(-5mm,-3.75cm)$); 
+  \end{scope}
+\end{tikzpicture} 
+}
+
+\newenvironment{Correction}{%
+  \setcounter{ExoMA}{0}%
+  \cfoot{\tikzfootMA}
+}{}%
+
+\newcommand\version[1]{
+  \fancyhead[R]{
+    \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(-.5,-.5cm)$) {\large \textcolor{couleur_theme}{\bfseries V#1}};
+    \end{tikzpicture}
+  }
+}
+
+%%%%% NOMBRES PREMIERS %%%%%
+\input{xlop} % JM pour les opérations
+\opset{voperator=bottom}
+%%% Table des nombres premiers  %%%%
+\newcount\primeindex
+\newcount\tryindex
+\newif\ifprime
+\newif\ifagain
+\newcommand\getprime[1]{%
+  \opcopy{2}{P0}%
+  \opcopy{3}{P1}%
+  \opcopy{5}{try}
+  \primeindex=2
+  \loop
+  \ifnum\primeindex<#1\relax
+  \testprimality
+  \ifprime
+  \opcopy{try}{P\the\primeindex}%
+  \advance\primeindex by1
+  \fi
+  \opadd*{try}{2}{try}%
+  \ifnum\primeindex<#1\relax
+  \testprimality
+  \ifprime
+  \opcopy{try}{P\the\primeindex}%
+  \advance\primeindex by1
+  \fi
+  \opadd*{try}{4}{try}%
+  \fi
+  \repeat
+}
+\newcommand\testprimality{%
+  \begingroup
+  \againtrue
+  \global\primetrue
+  \tryindex=0
+  \loop
+  \opidiv*{try}{P\the\tryindex}{q}{r}%
+  \opcmp{r}{0}%
+  \ifopeq \global\primefalse \againfalse \fi
+  \opcmp{q}{P\the\tryindex}%
+  \ifoplt \againfalse \fi
+  \advance\tryindex by1
+  \ifagain
+  \repeat
+  \endgroup
+}
+
+%%% Décomposition en nombres premiers %%%
+\newcommand\primedecomp[2][nil]{%
+  \begingroup
+  \opset{#1}%
+  \opcopy{#2}{NbtoDecompose}%
+  \opabs{NbtoDecompose}{NbtoDecompose}%
+  \opinteger{NbtoDecompose}{NbtoDecompose}%
+  \opcmp{NbtoDecompose}{0}%
+  \ifopeq
+  Je refuse de décomposer zéro.
+  \else
+  \setbox1=\hbox{\opdisplay{operandstyle.1}%
+    {NbtoDecompose}}%
+  {\setbox2=\box2{}}%
+  \count255=1
+  \primeindex=0
+  \loop
+  \opcmp{NbtoDecompose}{1}\ifopneq
+  \opidiv*{NbtoDecompose}{P\the\primeindex}{q}{r}%
+  \opcmp{0}{r}\ifopeq
+  \ifvoid2
+  \setbox2=\hbox{%
+    \opdisplay{intermediarystyle.\the\count255}%
+    {P\the\primeindex}}%
+  \else
+  \setbox2=\vtop{%
+    \hbox{\box2}
+    \hbox{%
+      \opdisplay{intermediarystyle.\the\count255}%
+      {P\the\primeindex}}}
+  \fi
+  \opcopy{q}{NbtoDecompose}%
+  \advance\count255 by1
+  \setbox1=\vtop{%
+    \hbox{\box1}
+    \hbox{%
+      \opdisplay{operandstyle.\the\count255}%
+      {NbtoDecompose}}
+  }%
+  \else
+  \advance\primeindex by1
+  \fi
+  \repeat
+  \hbox{\box1
+    \kern0.5\opcolumnwidth
+    \opvline(0,0.75){\the\count255.25}
+    \kern0.5\opcolumnwidth
+    \box2}%
+  \fi
+  \endgroup
+}
+
+\usepackage{scratch3}
+\usepackage{cancel}
+
+\usepackage[tikz]{bclogo}
+
+%%%%%%% PSTRICKS %%%%%%%
+\usepackage{pstricks,pst-plot,pst-tree,pstricks-add}
+\usepackage{pst-eucl}% permet de faire des dessins de géométrie simplement
+\usepackage{pst-text}
+\usepackage{pst-node,pst-all}
+\usepackage{pst-func,pst-math,pst-bspline,pst-3dplot}  %%% POUR LE BAC %%%
+
+\renewcommand{\pstEllipse}[5][]{% arc d'ellipse pour le sujet de Polynésie septembre 2013
+  \psset{#1}
+  \parametricplot{#4}{#5}{#2\space t cos mul #3\space t sin mul}
+}
+
+%%%%% TRACÉS DANS UN REPÈRE %%%%%
+\newcommand{\vect}[1]{\overrightarrow{\,\mathstrut#1\,}}
+\def\Oij{$\left(\text{O}~;~\vect{\imath},~\vect{\jmath}\right)$}
+\def\Oijk{$\left(\text{O}~;~\vect{\imath},~\vect{\jmath},~\vect{k}\right)$}
+\def\Ouv{$\left(\text{O}~;~\vect{u},~\vect{v}\right)$}
+
+\newcommand{\e}{\mathrm{\,e\,}} %%% POUR LE BAC %%% le e de l'exponentielle
+\newcommand{\ds}{\displaystyle} %%% POUR LE BAC %%%
+
+%%%%% COMMANDES SPRECIFIQUES %%%%%
+\usepackage{esvect} %%% POUR LE BAC %%%
+\newcommand{\vvt}[1]{\vv{\text{#1}}} %%% POUR LE BAC %%%
+\newcommand{\vectt}[1]{\overrightarrow{\,\mathstrut\text{#1}\,}} %%% POUR LE BAC %%%
+
+\usepackage{multirow} % fusionner plusieurs lignes de tableau
+\usepackage{diagbox} % des diagonales dans une cellule de tableau
+\usepackage{forest} % arbre en proba
+
+%%%%% PROBABILITÉS %%%%%
+% Structure servant à avoir l'événement et la probabilité.
+\def\getEvene#1/#2\endget{$#1$}
+\def\getProba#1/#2\endget{$#2$}
+
+\usepackage{pifont} % symboles
+\newcommand{\textding}[1]{\text{\ding{#1}}}
+
+\usepackage{booktabs} % tableaux de qualité
+
+\usepackage[french]{babel}
+\usepackage{eurosym}        
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Fin du préambule %%%
+%%%%%%%%%%%%%%%%%%%%%%%%
