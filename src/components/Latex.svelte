@@ -7,6 +7,7 @@
   import seedrandom from 'seedrandom'
   import Latex from '../lib/Latex'
   import Button from './forms/Button.svelte'
+  import FormRadio from './forms/FormRadio.svelte'
 
   Mathalea.loadExercicesFromUrl()
 
@@ -14,6 +15,7 @@
   let title = ''
   let reference = ''
   let subtitle = ''
+  let style = 'Coopmaths'
 
   async function uuidToExercice(
     {
@@ -48,7 +50,7 @@
     if (sup3 !== undefined) exercice.sup3 = sup3
     if (sup4 !== undefined) exercice.sup4 = sup4
     exercice.interactif = interactif
-    const seedSup = (version === 1) ? '' : `v${version}`
+    const seedSup = version === 1 ? '' : `v${version}`
     seedrandom(exercice.seed + seedSup, { global: true })
     if (exercice.typeExercice === 'simple') {
       Mathalea.handleExerciceSimple(exercice)
@@ -57,7 +59,7 @@
     return exercice
   }
 
-  async function getContentsOfExercices (version = 1) {
+  async function getContentsOfExercices(version = 1) {
     const exercices: TypeExercice[] = []
     for (const param of $exercicesParams) {
       const exercice = await uuidToExercice(param, version)
@@ -67,34 +69,34 @@
     for (const exercice of exercices) {
       latex.addExercice(exercice)
     }
-    return { content: latex.content, contentCorr: latex.contentCorr}
+    return { content: latex.content, contentCorr: latex.contentCorr }
   }
 
-  async function getContentOfDocument({nbVersions, title, reference, subtitle, style}) {
-   const latex = new Latex()
-   const tampon = (nbVersions > 1)
-   for (let i = 1; i < nbVersions + 1; i++) {
-    let newContents = {content: '', contentCorr: ''}
-    if (tampon) {
-      newContents.content = `\n\\version{${i}}`
-      if (i > 1) newContents.content += '\\setcounter{ExoMA}{0}'
-      newContents.contentCorr = `\n\\version{${i}}`
-      if (i > 1) newContents.contentCorr += '\\setcounter{ExoMA}{0}'
-      newContents.content += (await getContentsOfExercices(i)).content + '\n\\clearpage'
-      newContents.contentCorr += (await getContentsOfExercices(i)).contentCorr + '\n\\clearpage'
-    } else {
-      newContents = await getContentsOfExercices(i)
+  async function getContentOfDocument({ nbVersions, title, reference, subtitle, style }) {
+    const latex = new Latex()
+    const tampon = nbVersions > 1
+    for (let i = 1; i < nbVersions + 1; i++) {
+      let newContents = { content: '', contentCorr: '' }
+      if (tampon) {
+        newContents.content = `\n\\version{${i}}`
+        if (i > 1) newContents.content += '\\setcounter{ExoMA}{0}'
+        newContents.contentCorr = `\n\\version{${i}}`
+        if (i > 1) newContents.contentCorr += '\\setcounter{ExoMA}{0}'
+        newContents.content += (await getContentsOfExercices(i)).content + '\n\\clearpage'
+        newContents.contentCorr += (await getContentsOfExercices(i)).contentCorr + '\n\\clearpage'
+      } else {
+        newContents = await getContentsOfExercices(i)
+      }
+      latex.content = latex.content + newContents.content
+      latex.contentCorr = latex.contentCorr + newContents.contentCorr
     }
-    latex.content = latex.content + newContents.content
-    latex.contentCorr = latex.contentCorr + newContents.contentCorr
-   }
-    return { file: latex.getFile({title, reference, subtitle, style}), exercices: latex.text, corrections: latex.contentCorr }
+    return { file: latex.getFile({ title, reference, subtitle, style }), exercices: latex.text, corrections: latex.contentCorr }
   }
 
-  let contents = getContentOfDocument({nbVersions, title, subtitle, reference, style: 'Coopmaths'})
+  let contents = getContentOfDocument({ nbVersions, title, subtitle, reference, style })
   $: {
-    contents = getContentOfDocument({nbVersions, title, subtitle, reference, style: 'Coopmaths'})
-  } 
+    contents = getContentOfDocument({ nbVersions, title, subtitle, reference, style })
+  }
 
   const copyExercices = async () => {
     try {
@@ -115,45 +117,53 @@
   }
 </script>
 
-<NavBar />
+<main class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+  <NavBar />
 
-<section class="ml-10 my-10 bg-coopmaths-canvas">
-  <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} />
-  <Button title="Copier le code LaTeX complet (avec preambule)" on:click={copyDocument} />
-  <div class="my-5 flex-auto w-full space-x-5">
-    <input type="text" placeholder="Titre" bind:value={title}>
-    <input type="text" placeholder="Référence" bind:value={reference}>
-    <input type="text" placeholder="Sous-titre" bind:value={subtitle}>
-    <label for="numberOfVersions">Nombre de versions des exercices</label>
-    <input type="number" name="numberOfVersions" maxlength="2" min="1" max="20" class="ml-2" bind:value={nbVersions}>
-  </div>
-  <pre class="my-10">
-    {#await contents}
-      Chargement...
-    {:then contents}
-      {contents.exercices}
+  <section class="ml-10 my-10 ">
+    <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} />
+    <Button title="Copier le code LaTeX complet (avec preambule)" on:click={copyDocument} />
 
-      %%%%%%%%%%%%%%%%%%%%%%
-      %%%   CORRECTION   %%%
-      %%%%%%%%%%%%%%%%%%%%%%
-
-      {contents.corrections}
-    {/await}
-</pre>
-</section>
-<footer>
-  <Footer />
-</footer>
+    <div class="my-5 flex-auto w-full space-x-5">
+      <div class="inline-flex align-top">
+        <FormRadio
+          title="Style"
+          bind:valueSelected={style}
+          labelsValues={[
+            { label: 'Coopmaths', value: 'Coopmaths' },
+            { label: 'Classique', value: 'Libre' },
+          ]}
+        />
+      </div>
+      {#if style === 'Coopmaths'}
+        <input type="text" placeholder="Titre" bind:value={title} />
+        <input type="text" placeholder="Référence" bind:value={reference} />
+        <input type="text" placeholder="Sous-titre" bind:value={subtitle} />
+      {/if}
+      <label for="numberOfVersions">Nombre de versions des exercices</label>
+      <input type="number" name="numberOfVersions" maxlength="2" min="1" max="20" class="ml-2" bind:value={nbVersions} />
+    </div>
+    <pre class="my-10 shadow-md bg-coopmaths-canvas-dark p-4 w-4/6 overflow-auto">
+      {#await contents}
+        Chargement...
+      {:then contents}
+        {contents.exercices}
+  
+        %%%%%%%%%%%%%%%%%%%%%%
+        %%%   CORRECTION   %%%
+        %%%%%%%%%%%%%%%%%%%%%%
+  
+        {contents.corrections}
+      {/await}
+  </pre>
+  </section>
+  <footer>
+    <Footer />
+  </footer>
+</main>
 
 <style>
   footer {
     margin-top: auto;
-  }
-
-  pre {
-    width: 80%;
-    background-color: lightgray;
-    overflow: scroll;
-    padding: 10px;
   }
 </style>
