@@ -10,27 +10,32 @@
 
   Mathalea.loadExercicesFromUrl()
 
-  async function uuidToExercice({
-    uuid,
-    alea,
-    nbQuestions,
-    interactif = false,
-    cd,
-    sup,
-    sup2,
-    sup3,
-    sup4,
-  }: {
-    uuid: string
-    alea: string
-    nbQuestions?: number
-    interactif: boolean
-    cd?: boolean
-    sup?: string
-    sup2?: string
-    sup3?: string
-    sup4?: string
-  }) {
+  let version = 1
+
+  async function uuidToExercice(
+    {
+      uuid,
+      alea,
+      nbQuestions,
+      interactif = false,
+      cd,
+      sup,
+      sup2,
+      sup3,
+      sup4,
+    }: {
+      uuid: string
+      alea: string
+      nbQuestions?: number
+      interactif: boolean
+      cd?: boolean
+      sup?: string
+      sup2?: string
+      sup3?: string
+      sup4?: string
+    },
+    version = 1
+  ) {
     const exercice: TypeExercice = await Mathalea.load(uuid)
     exercice.seed = alea
     if (nbQuestions !== undefined) exercice.nbQuestions = nbQuestions
@@ -40,64 +45,94 @@
     if (sup3 !== undefined) exercice.sup3 = sup3
     if (sup4 !== undefined) exercice.sup4 = sup4
     exercice.interactif = interactif
-    seedrandom(alea, { global: true })
+    const seedSup = (version === 1) ? '' : `v${version}`
+    seedrandom(exercice.seed + seedSup, { global: true })
     if (exercice.typeExercice === 'simple') {
       Mathalea.handleExerciceSimple(exercice)
-      // exerciceSimpleToContenu(exercice)
     }
     exercice.nouvelleVersion()
     return exercice
   }
 
-  
-  async function getContentOfDocument () {
-  const exercices: TypeExercice[] = []
-  for (const param of $exercicesParams) {
-    const exercice = await uuidToExercice(param)
-    exercices.push(exercice)
+  async function getContentsOfExercices (version = 1) {
+    const exercices: TypeExercice[] = []
+    for (const param of $exercicesParams) {
+      const exercice = await uuidToExercice(param, version)
+      exercices.push(exercice)
+    }
+    const latex = new Latex()
+    for (const exercice of exercices) {
+      latex.addExercice(exercice)
+    }
+    return { content: latex.content, contentCorr: latex.contentCorr}
   }
-  const latex = new Latex()
-  for (const exercice of exercices) {
-    latex.addExercice({ title: exercice.titre, id: exercice.id, introduction: exercice.introduction, consigne: exercice.consigne, questions: exercice.listeQuestions, spacing: exercice.spacing, corrections: exercice.listeCorrections, introductionCorr: '', spacingCorr: exercice.spacingCorr })
-  }
-  return {file: latex.getFile(), exercices: latex.content}
-}
 
-let contents = getContentOfDocument()
+  async function getContentOfDocument(version) {
+   const latex = new Latex()
+   const tampon = (version > 1)
+   for (let i = 1; i < version + 1; i++) {
+    let newContents = {content: '', contentCorr: ''}
+    if (tampon) {
+      newContents.content = `\n\\version{${i}}`
+      if (i > 1) newContents.content += '\\setcounter{ExoMA}{0}'
+      newContents.contentCorr = `\n\\version{${i}}`
+      if (i > 1) newContents.contentCorr += '\\setcounter{ExoMA}{0}'
+      newContents.content += (await getContentsOfExercices(i)).content + '\n\\clearpage'
+      newContents.contentCorr += (await getContentsOfExercices(i)).contentCorr + '\n\\clearpage'
+    } else {
+      newContents = await getContentsOfExercices(i)
+    }
+    latex.content = latex.content + newContents.content
+    latex.contentCorr = latex.contentCorr + newContents.contentCorr
+   }
+    return { file: latex.getFile(), exercices: latex.text, corrections: latex.contentCorr }
+  }
+
+  let contents = getContentOfDocument(version)
+  $: {
+    contents = getContentOfDocument(version)
+  } 
 
   const copyExercices = async () => {
     try {
-      const text = (await contents).exercices
+      const text = document.querySelector('pre').innerText
       await navigator.clipboard.writeText(text)
-      console.log('Content copied to clipboard')
     } catch (err) {
-      console.error('Failed to copy: ', err)
+      console.error('Accès au presse-papier impossible: ', err)
     }
   }
-  
+
   const copyDocument = async () => {
     try {
       const text = (await contents).file
       await navigator.clipboard.writeText(text)
-      console.log('Content copied to clipboard')
     } catch (err) {
-      console.error('Failed to copy: ', err)
+      console.error('Accès au presse-papier impossible: ', err)
     }
   }
-
 </script>
 
 <NavBar />
 
-<section class="ml-10 my-10">
+<section class="ml-10 my-10 bg-coopmaths-canvas">
   <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} />
   <Button title="Copier le code LaTeX complet (avec preambule)" on:click={copyDocument} />
+  <div class="my-5">
+    <label for="numberOfVersions">Nombre de versions des exercices</label>
+    <input type="number" name="numberOfVersions" maxlength="2" min="1" max="20" class="ml-2" bind:value={version}>
+  </div>
   <pre class="my-10">
-    {#await contents }
-        Chargement...
-      {:then contents } 
-      {contents.exercices}        
-      {/await}
+    {#await contents}
+      Chargement...
+    {:then contents}
+      {contents.exercices}
+
+      %%%%%%%%%%%%%%%%%%%%%%
+      %%%   CORRECTION   %%%
+      %%%%%%%%%%%%%%%%%%%%%%
+
+      {contents.corrections}
+    {/await}
 </pre>
 </section>
 <footer>

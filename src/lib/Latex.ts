@@ -1,4 +1,6 @@
 import preambule from '../lib/latex/preambule.tex?raw'
+import type TypeExercice from '../components/utils/typeExercice'
+
 class Latex {
   content: string
   contentCorr: string
@@ -14,7 +16,7 @@ class Latex {
   private writeIntroduction (introduction = ''): string {
     let content = ''
     if (introduction.length > 0) {
-      content += '\n' + this.format(introduction) + '\n'
+      content += '\n' + this.format(introduction)
     }
     return content
   }
@@ -36,14 +38,19 @@ class Latex {
     return content
   }
 
-  addExercice ({ title, id, consigne, introduction, questions, spacing = 1, corrections, spacingCorr = 1, introductionCorr = '' } : { title: string, consigne: string, introduction: string, id: string, questions: string[], spacing: number, corrections: string[], spacingCorr: number, introductionCorr: string}) {
-    this.content += `\n\\begin{EXO}{${consigne}}{${id.replace('.js', '')}}\n`
-    this.content += this.writeIntroduction(introduction)
-    this.content += this.writeQuestions(questions, spacing)
+  private writeInCols (text, nb: number): string {
+    if (nb < 2) return text
+    return `\\begin{multicols}{${nb}}${text}\n\\end{multicols}`
+  }
+
+  addExercice (exercice: TypeExercice) {
+    this.content += `\n\\begin{EXO}{${exercice.consigne}}{${exercice.id.replace('.js', '')}}\n`
+    this.content += this.writeIntroduction(exercice.introduction)
+    this.content += this.writeInCols(this.writeQuestions(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
     this.content += '\n\\end{EXO}\n'
-    this.contentCorr += `\n\\begin{EXO}{${consigne}}{${id.replace('.js', '')}}\n`
-    this.contentCorr += this.writeIntroduction(introductionCorr)
-    this.contentCorr += this.writeQuestions(corrections, spacingCorr)
+    this.contentCorr += '\n\\begin{EXO}{}{}\n'
+    this.contentCorr += this.writeIntroduction(exercice.consigneCorrection)
+    this.contentCorr += this.writeInCols(this.writeQuestions(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
     this.contentCorr += '\n\\end{EXO}\n'
   }
 
@@ -51,6 +58,10 @@ class Latex {
     let result = '\\documentclass[a4paper,11pt,fleqn]{article}\n\n' + preambule + '\n\n\\Theme[Coopmaths]{nombres}{}{}{}\n\n\\begin{document}\n' + this.content
     result += '\n\n\\clearpage\n\n\\begin{Correction}' + this.contentCorr + '\n\\clearpage\n\\end{Correction}\n\\end{document}'
     return result
+  }
+
+  get text () {
+    return this.content.replaceAll('\\\\\n', '\n')
   }
 
   /**

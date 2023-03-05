@@ -69,7 +69,10 @@
           alert("Non disponible")
         },
         () => {
-          document.location.href = urlV2("latex")
+          globalOptions.update((params) => {
+            params.v = "latex"
+            return params
+          })
         },
         () => {
           document.location.href = urlV2("moodle")
