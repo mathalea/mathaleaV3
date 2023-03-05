@@ -1,24 +1,15 @@
-% pb avec les symboles mathématiques particuliers dans le "titre" de l'exercice -> Redéfinition de la commande \exo
-% Pb de "dimension too large" à la première compilation
-% Pb des fontes amssymb chargé alors que fourier-otf les inclue déjà -> suppression de amssymb
-% Imposition d'une compilation en lualatex ?
-% babel mis à la fin du préambule
-% suppression du package enumerate : à voir si d'éventuels pb de compilation
-% remplacement de lmodern par fourier par cohérence entre les deux compilations (luatex/reste)
-% suppression du package graphics (obsolete par rapport à graphicx)
-% remplacement du package amsmath par mathtools. Et donc suppression de amsfonts : pas possible pour \Leadto
-% remplacement du package numprint par siunitx ?
-% le theme s'écrit après la fin du préambule et non dans le fichier.tex ?
-% package mdframed pose soucis. Remplacement par une macro tikz ?
-% transformation automatique des \degree en \degres de french.
+% !TEX TS-program = lualatex
+% Préambule pour les fiches coopmaths.fr et les annales de l'APMEP
+% Licence : CC-BY-SA
+% Auteur : Christophe Poulain
+
+\documentclass[a4paper,11pt,fleqn]{article}
 
 \usepackage{mathtools,amssymb,amsfonts,mathrsfs} 
 
 \usepackage{unicode-math}
 \setmainfont{TeX Gyre Schola}
 \setmathfont{TeX Gyre Schola Math}
-
-%\newfontfamily\myfontScratch[]{FreeSans}
 
 \setmathfont{STIX Two Math}[
   range={\blacktriangledown}%\mdlgblklozenge,\mdblksquare,\blacktriangle,\bigstar
@@ -68,13 +59,13 @@
 
 \usepackage{simplekv}
 
-\setKVdefault[Theme]{Coopmath,Libres=false,CANs=false}
-\defKV[Theme]{Libre=\setKV[Theme]{Coopmath=false}\setKV[Theme]{Libres}}
+\setKVdefault[Theme]{Coopmath,Classiques=false,CANs=false}
+\defKV[Theme]{Classique=\setKV[Theme]{Coopmath=false}\setKV[Theme]{Classiques}}
 \defKV[Theme]{CAN=\setKV[Theme]{Coopmath=false}\setKV[Theme]{CANs}}
 
-\usepackage{fancyhdr}%,lastpage}
-\fancyhead[C]{}%
-\fancyfoot{}%
+\usepackage{fancyhdr}
+\fancyhead[C]{}
+\fancyfoot{}
 
 \NewDocumentCommand\Theme{o m m m m}{%
   \useKVdefault[Theme]%
@@ -91,16 +82,17 @@
     \colorlet{couleur_numerotation}{couleur_theme}%
     \let\EXO\EXOCan\let\endEXO\endEXOCan%
   }{%
-    \usepackage[a4paper,left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
-    \renewcommand{\headrulewidth}{0pt}
+    \usepackage[a4paper,left=1.5cm,right=1.5cm,top=3cm,bottom=2cm]{geometry}
+    \renewcommand{\headrulewidth}{1pt}
     \renewcommand{\footrulewidth}{0pt}
     \pagestyle{fancy}
-    \ifboolKV[Theme]{Libres}{%
+    \ifboolKV[Theme]{Classiques}{%
       \let\EXO\EXOlibre\let\endEXO\endEXOlibre%
       \colorlet{couleur_theme}{black}%
       \colorlet{couleur_numerotation}{couleur_theme}%
-      \fancyhead[L]{}
-      \fancyhead[R]{}
+      \fancyhead[C]{ \bfseries #3}
+      \fancyhead[L]{\bfseries #4}
+      \fancyfoot[R]{#5}
     }{%
       \theme{#2}{#3}{#4}{#5}%
       \let\EXO\EXOcoop\let\endEXO\endEXOcoop%
@@ -117,7 +109,7 @@
     enhanced,
     breakable,
     colback=white,
-    colframe=white,%couleur_theme,
+    colframe=white,
     coltitle=black,
     title=\IfNoValueTF{#1}{}{\textmd{#1}},%
     overlay unbroken and first={%
@@ -363,7 +355,7 @@
 }
 
 %%%%% NOMBRES PREMIERS %%%%%
-\usepackage{xlop} % JM pour les opérations
+\input{xlop} % JM pour les opérations
 \opset{voperator=bottom}
 %%% Table des nombres premiers  %%%%
 \newcount\primeindex
