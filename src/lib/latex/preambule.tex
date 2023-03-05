@@ -89,23 +89,28 @@
     \pagestyle{premierePage}
     \colorlet{couleur_theme}{black}%
     \colorlet{couleur_numerotation}{couleur_theme}%
+    \let\EXO\EXOCan\let\endEXO\endEXOCan%
   }{%
     \usepackage[a4paper,left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
     \renewcommand{\headrulewidth}{0pt}
     \renewcommand{\footrulewidth}{0pt}
     \pagestyle{fancy}
-    \fancyhead[L]{}
-    \fancyhead[R]{}
     \ifboolKV[Theme]{Libres}{%
       \let\EXO\EXOlibre\let\endEXO\endEXOlibre%
       \colorlet{couleur_theme}{black}%
       \colorlet{couleur_numerotation}{couleur_theme}%
+      \fancyhead[L]{}
+      \fancyhead[R]{}
     }{%
-      \theme{nombres}{}{}{}%
+      \theme{#2}{#3}{#4}{#5}%
       \let\EXO\EXOcoop\let\endEXO\endEXOcoop%
     }%
   }%
 }%
+
+\NewDocumentEnvironment{EXOCan}{m m +b}{%
+  #3
+}
 
 \NewDocumentEnvironment{EXOcoop}{m m +b}{%
   \begin{tcolorbox}[%
@@ -237,7 +242,7 @@
   \newlength{\Largeurcp}
   
   % Structure globale pour les tableaux des livrets CAN
-  \newcommand{\structureTableauCan}[1]{%
+  \NewDocumentEnvironment{TableauCan}{+b}{%
     % #1 --> corps de tableau
     \setlength{\Largeurcp}{0.35\textwidth-8\tabcolsep}
     \renewcommand*{\arraystretch}{2.5}
@@ -305,7 +310,7 @@
       \fill[fill=couleur_theme] (\xini,6)--(\xini+1.5,6)--(\xini+2.5,7)--(\xini+1.5,8)--(\xini,8)--(\xini+1,7)-- cycle;
       \fill[fill=couleur_theme] (\xini+2,6)--(\xini+2.5,6)--(\xini+3.5,7)--(\xini+2.5,8)--(\xini+2,8)--(\xini+3,7)-- cycle;  
       \fill[fill=couleur_theme] (\xini+3,6)--(\xini+3.5,6)--(\xini+4.5,7)--(\xini+3.5,8)--(\xini+3,8)--(\xini+4,7)-- cycle;   
-      \node[color=white] at (10.5,5.5) {\LARGE \bfseries{ \MakeUppercase{ #4}}};
+      \node[color=white] at (10.5,5.5) {\LARGE \bfseries{ \MakeUppercase{#4}}};
     \end{tikzpicture}
     \begin{tikzpicture}[remember picture,overlay]
       \node[anchor=north east,inner sep=0pt] at ($(current page.north east)+(0,-.8cm)$) {};

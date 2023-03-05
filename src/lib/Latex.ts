@@ -54,8 +54,8 @@ class Latex {
     this.contentCorr += '\n\\end{EXO}\n'
   }
 
-  getFile () {
-    let result = '\\documentclass[a4paper,11pt,fleqn]{article}\n\n' + preambule + '\n\n\\Theme[Coopmaths]{nombres}{}{}{}\n\n\\begin{document}\n' + this.content
+  getFile ({ title, reference, subtitle, style }: { title: string, reference: string, subtitle: string, style: 'Coopmaths' | 'Libre' }) {
+    let result = '\\documentclass[a4paper,11pt,fleqn]{article}\n\n' + preambule + `\n\n\\Theme[${style}]{nombres}{${title}}{${reference}}{${subtitle}}\n\n\\begin{document}\n` + this.content
     result += '\n\n\\clearpage\n\n\\begin{Correction}' + this.contentCorr + '\n\\clearpage\n\\end{Correction}\n\\end{document}'
     return result
   }

@@ -10,7 +10,10 @@
 
   Mathalea.loadExercicesFromUrl()
 
-  let version = 1
+  let nbVersions = 1
+  let title = ''
+  let reference = ''
+  let subtitle = ''
 
   async function uuidToExercice(
     {
@@ -67,10 +70,10 @@
     return { content: latex.content, contentCorr: latex.contentCorr}
   }
 
-  async function getContentOfDocument(version) {
+  async function getContentOfDocument({nbVersions, title, reference, subtitle, style}) {
    const latex = new Latex()
-   const tampon = (version > 1)
-   for (let i = 1; i < version + 1; i++) {
+   const tampon = (nbVersions > 1)
+   for (let i = 1; i < nbVersions + 1; i++) {
     let newContents = {content: '', contentCorr: ''}
     if (tampon) {
       newContents.content = `\n\\version{${i}}`
@@ -85,12 +88,12 @@
     latex.content = latex.content + newContents.content
     latex.contentCorr = latex.contentCorr + newContents.contentCorr
    }
-    return { file: latex.getFile(), exercices: latex.text, corrections: latex.contentCorr }
+    return { file: latex.getFile({title, reference, subtitle, style}), exercices: latex.text, corrections: latex.contentCorr }
   }
 
-  let contents = getContentOfDocument(version)
+  let contents = getContentOfDocument({nbVersions, title, subtitle, reference, style: 'Coopmaths'})
   $: {
-    contents = getContentOfDocument(version)
+    contents = getContentOfDocument({nbVersions, title, subtitle, reference, style: 'Coopmaths'})
   } 
 
   const copyExercices = async () => {
@@ -117,9 +120,12 @@
 <section class="ml-10 my-10 bg-coopmaths-canvas">
   <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} />
   <Button title="Copier le code LaTeX complet (avec preambule)" on:click={copyDocument} />
-  <div class="my-5">
+  <div class="my-5 flex-auto w-full space-x-5">
+    <input type="text" placeholder="Titre" bind:value={title}>
+    <input type="text" placeholder="Référence" bind:value={reference}>
+    <input type="text" placeholder="Sous-titre" bind:value={subtitle}>
     <label for="numberOfVersions">Nombre de versions des exercices</label>
-    <input type="number" name="numberOfVersions" maxlength="2" min="1" max="20" class="ml-2" bind:value={version}>
+    <input type="number" name="numberOfVersions" maxlength="2" min="1" max="20" class="ml-2" bind:value={nbVersions}>
   </div>
   <pre class="my-10">
     {#await contents}
