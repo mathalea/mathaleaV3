@@ -160,7 +160,7 @@
       </div>
       <input type="text" placeholder="Titre" bind:value={title} />
       <input type="text" placeholder={style === 'Coopmaths' ? 'Référence' : 'Haut de page gauche'} bind:value={reference} />
-      <input type="text" placeholder={style === 'Coopmaths' ? 'Référence' : 'Pied de page droit'} bind:value={subtitle} />
+      <input type="text" placeholder={style === 'Coopmaths' ? 'Sous-titre / Chapitre' : 'Pied de page droit'} bind:value={subtitle} />
       <label for="numberOfVersions">Nombre de versions des exercices</label>
       <input type="number" name="numberOfVersions" maxlength="2" min="1" max="20" class="ml-2" bind:value={nbVersions} />
     </div>
