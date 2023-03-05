@@ -16,6 +16,8 @@
   let reference = ''
   let subtitle = ''
   let style = 'Coopmaths'
+  let textForOverleaf : HTMLInputElement
+  let dialogLua: HTMLDialogElement
 
   async function uuidToExercice(
     {
@@ -111,9 +113,17 @@
     try {
       const text = (await contents).file
       await navigator.clipboard.writeText(text)
+      dialogLua.showModal()
+      setTimeout(()=>{
+        dialogLua.close()
+      }, 2000)
     } catch (err) {
       console.error('Accès au presse-papier impossible: ', err)
     }
+  }
+  const copyDocumentToOverleaf = async () => {
+    const text = (await contents).file
+    textForOverleaf.value = encodeURIComponent(text)
   }
 </script>
 
@@ -121,8 +131,21 @@
   <NavBar />
 
   <section class="ml-10 my-10 ">
-    <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} />
-    <Button title="Copier le code LaTeX complet (avec preambule)" on:click={copyDocument} />
+    <form class="my-5 flex-auto w-full space-x-5" method="POST" action="https://www.overleaf.com/docs" target="_blank">
+        <input type="hidden" name="encoded_snip" value="" bind:this={textForOverleaf} autocomplete="off" />
+        <input type="hidden" name="snip_name" value="CoopMaths" autocomplete="off" />
+        <input type="hidden" name="engine" value="lualatex" autocomplete="off" />
+        <button
+          id="btn_overleaf"
+          type="submit"
+          on:click={copyDocumentToOverleaf}
+          class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-blue-600 hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
+        >
+          Compiler en PDF sur Overleaf.com
+        </button>
+        <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} />
+        <Button title="Copier le code LaTeX complet (avec preambule)" on:click={copyDocument} />
+    </form>
 
     <div class="my-5 flex-auto w-full space-x-5">
       <div class="inline-flex align-top">
@@ -135,12 +158,18 @@
           ]}
         />
       </div>
-        <input type="text" placeholder="Titre" bind:value={title} />
-        <input type="text" placeholder={style === 'Coopmaths' ? "Référence" : 'Haut de page gauche'} bind:value={reference} />
-        <input type="text" placeholder={style === 'Coopmaths' ? "Référence" : 'Pied de page droit'} bind:value={subtitle} />
+      <input type="text" placeholder="Titre" bind:value={title} />
+      <input type="text" placeholder={style === 'Coopmaths' ? 'Référence' : 'Haut de page gauche'} bind:value={reference} />
+      <input type="text" placeholder={style === 'Coopmaths' ? 'Référence' : 'Pied de page droit'} bind:value={subtitle} />
       <label for="numberOfVersions">Nombre de versions des exercices</label>
       <input type="number" name="numberOfVersions" maxlength="2" min="1" max="20" class="ml-2" bind:value={nbVersions} />
     </div>
+
+    <dialog bind:this={dialogLua} class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg">
+      <p>Le contenu a été copié dans le presse-papier.</p> 
+      <p>Il faudra utiliser <em class="text-coopmaths font-bold">LuaLaTeX</em> pour compiler le document</p>
+    </dialog>
+      
     <pre class="my-10 shadow-md bg-coopmaths-canvas-dark p-4 w-4/6 overflow-auto">
       {#await contents}
         Chargement...
