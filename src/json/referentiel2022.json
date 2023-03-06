@@ -6004,6 +6004,7 @@
       },
       "6G51-2": {
         "datePublication": "27/02/2023",
+        "id": "6G51-2",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -6011,7 +6012,6 @@
         },
         "titre": "Utiliser les symboles ∈ et ∉",
         "url": "6e/6G51-2.js",
-        "id": "6G51-2",
         "uuid": "a8f1f"
       },
       "6G52": {
@@ -6040,6 +6040,7 @@
       },
       "6G53": {
         "datePublication": "01/03/2023",
+        "id": "6G53",
         "tags": {
           "AMC": false,
           "Interactif": false,
@@ -6047,7 +6048,6 @@
         },
         "titre": "Mesurer la distance d'un point à une droite",
         "url": "6e/6G53.js",
-        "id": "6G53",
         "uuid": "29c3b"
       }
     },
@@ -7481,7 +7481,7 @@
         "uuid": "2d343"
       },
       "5G13": {
-        "dateModification": "16/05/2022",
+        "dateModification": "06/03/2023",
         "id": "5G13",
         "tags": {
           "AMC": false,
@@ -7630,6 +7630,7 @@
         "uuid": "19812"
       },
       "5G31": {
+        "dateModification": "04/03/2023",
         "id": "5G31",
         "tags": {
           "AMC": false,
@@ -10015,11 +10016,11 @@
       "3F10": {
         "id": "3F10",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": true,
           "Can": false
         },
-        "titre": "Lectures d'images et d'antécédents depuis un tableau de valeurs",
+        "titre": "Lire images et antécédents depuis un tableau de valeurs",
         "url": "3e/3F10.js",
         "uuid": "b92da"
       },
@@ -10071,7 +10072,7 @@
       "3F12-2": {
         "id": "3F12-2",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": true,
           "Can": false
         },
@@ -10115,11 +10116,11 @@
       "3F13-1": {
         "id": "3F13-1",
         "tags": {
-          "AMC": false,
+          "AMC": true,
           "Interactif": true,
           "Can": false
         },
-        "titre": "Lecture graphique d'images et d'antécédents",
+        "titre": "Lire graphiquement images et antécédents",
         "url": "3e/3F13-1.js",
         "uuid": "4b121"
       },
