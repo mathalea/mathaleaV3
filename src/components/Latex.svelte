@@ -144,7 +144,7 @@
           Compiler en PDF sur Overleaf.com
         </button>
         <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} />
-        <Button title="Copier le code LaTeX complet (avec preambule)" on:click={copyDocument} />
+        <Button title="Copier le code LaTeX complet (avec préambule)" on:click={copyDocument} />
     </form>
 
     <div class="my-5 flex-auto w-full space-x-5">
