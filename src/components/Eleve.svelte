@@ -302,7 +302,7 @@
             {#if exercices[indiceExercice[k]].interactif}
               <Button title="Vérifier" on:click={() => checkQuestion(k)} isDisabled={isDisabledButton[k]} />
             {:else if $globalOptions.isSolutionAccessible}
-              <ButtonToggle titles={['Masquer la correction', 'Voir la correction']} on:click={() => switchCorrectionVisible(k)} />
+              <ButtonToggle titles={['Voir la correction', 'Masquer la correction']} on:click={() => switchCorrectionVisible(k)} />
             {/if}
           </div>
         {/each}
@@ -323,7 +323,7 @@
                   <Button title="Vérifier" on:click={() => checkQuestion(k)} isDisabled={isDisabledButton[k]} />
                 </div>
               {:else if $globalOptions.isSolutionAccessible}
-                <ButtonToggle titles={['Masquer la correction', 'Voir la correction']} on:click={() => switchCorrectionVisible(k)} />
+                <ButtonToggle titles={['Voir la correction', 'Masquer la correction']} on:click={() => switchCorrectionVisible(k)} />
               {/if}
               {#if isCorrectionVisible[k]}
                 <div
