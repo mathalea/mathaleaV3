@@ -17,6 +17,7 @@
   export let buttonSize: string = "text-2xl"
   export let buttonIcon: string = "bx-qr"
   export let classForButton: string = ""
+  export let urlAddendum: string = ""
 
   const labelsForFormats = [
     { label: "jpeg", value: 0 },
@@ -40,11 +41,12 @@
     * `classForButton` : pour ajouter des éléments de positionnement du bouton
     * `width`: largeur du QR-Code
     * `format`: un chiffre correspondant au format de l'image créée 
+    * `urlAddendum` : chaîne à ajouter à l'URL
     (basé sur le tableau des formats possible `allowedImageFormats` de `qr-code.js`)
 
     __Exemple__ :
 
-    ```
+    ```tsx
     <ModalForQrCode
         dialogId="QRCodeModal-2"
         imageId="QRCodeCanvas-2"
@@ -53,6 +55,7 @@
         format={formatQRCodeIndex}
         buttonSize="text-[100px]"
         classForButton="mx-12 my-2"
+        urlAddendum={buildUrlAddendumForEsParam()}
     />
     ```
 
@@ -61,8 +64,8 @@
   <div class="tooltip tooltip-bottom tooltip-neutral" data-tip={tooltipMessage}>
     <i
       class="bx {buttonSize} text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest self-center {buttonIcon}"
-      on:click={() => urlToQRCodeOnWithinImgTag(imageId, width, format)}
-      on:keydown={() => urlToQRCodeOnWithinImgTag(imageId, width, format)}
+      on:click={() => urlToQRCodeOnWithinImgTag(imageId, width, format, urlAddendum)}
+      on:keydown={() => urlToQRCodeOnWithinImgTag(imageId, width, format, urlAddendum)}
     />
   </div>
 </label>
@@ -96,7 +99,7 @@
         max="300"
         bind:value={width}
         class="ml-3 w-20 h-8 text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark  border-1 border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
-        on:change={() => urlToQRCodeOnWithinImgTag(imageId, width, format)}
+        on:change={() => urlToQRCodeOnWithinImgTag(imageId, width, format, urlAddendum)}
       />
     </div>
     <div class="flex flex-col justify-center">

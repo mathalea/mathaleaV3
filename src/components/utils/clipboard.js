@@ -4,10 +4,11 @@ import { getBlobFromImageElement, copyBlobToClipboard, canCopyImagesToClipboard 
 /**
    * Copy current URL to clipboard
    * @param dialogId id of dialog widget where the info is displayed
+   * @param urlAddendum string to be added at the end of the URL
    * @author sylvain
    */
-export function copyLinkToClipboard (dialogId) {
-  const url = document.URL
+export function copyLinkToClipboard (dialogId, urlAddendum = '') {
+  const url = document.URL + urlAddendum
   navigator.clipboard.writeText(url).then(
     () => {
       showDialogForLimitedTime(dialogId, 1000)

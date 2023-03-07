@@ -29,9 +29,9 @@ const config = {
           darkmode: '#2e2e2b',
           darkmodelight: '#363633',
           canvas: {
-            DEFAULT: '#F8FCFC', // Anciennement '#EDEDF0'
-            dark: '#e1e1e6',
-            darkest: '#d6d6db'
+            DEFAULT: '#ffffff', // Anciennement '#EDEDF0'
+            dark: '#f6f6f6',
+            darkest: '#f0f0f0'
           },
           corpus: {
             DEFAULT: '#1F2429',

@@ -3,14 +3,20 @@
   import ButtonToggle from "../forms/ButtonToggle.svelte"
   import FormRadio from "../forms/FormRadio.svelte"
   import { globalOptions } from "../store"
-  
+  import ModalActionWithDialog from "../modal/ModalActionWithDialog.svelte"
+  import ModalForQrCode from "../modal/ModalForQRCode.svelte"
+  import { copyLinkToClipboard } from "../utils/clipboard"
+  import { buildUrlAddendumForEsParam } from "../utils/urls"
+
+  let formatQRCodeIndex: number = 0
+  let QRCodeWidth = 100
+
   function handleEleveVueSetUp() {
     globalOptions.update((params) => {
       params.v = "eleve"
       return params
     })
-  }  
-  
+  }
 </script>
 
 <input type="checkbox" id="my-modal" class="modal-toggle" />
@@ -20,7 +26,7 @@
       for="my-modal"
       class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest cursor-pointer absolute right-6 top-6"
     >
-        <i class="bx bx-sm bx-x" />
+      <i class="bx bx-sm bx-x" />
     </label>
     <div class="flex flex-row justify-start p-6">
       <h3 class="font-bold text-lg text-coopmaths-struct dark:text-coopmathsdark-struct">Réglages de la feuille Élève</h3>
@@ -54,11 +60,19 @@
           title="Interactif"
           bind:valueSelected={$globalOptions.setInteractive}
           labelsValues={[
-            { label: 'Laisser tel quel', value: '2' },
-            { label: 'Tout interactif', value: '1' },
-            { label: 'Pas d\'interactivité', value: '0' },
+            { label: "Laisser tel quel", value: "2" },
+            { label: "Tout interactif", value: "1" },
+            { label: "Pas d'interactivité", value: "0" },
           ]}
         />
+
+        <div class="pl-2 pt-2">
+          <ButtonToggle
+            isDisabled={$globalOptions.setInteractive === "0"}
+            titles={["Les élèves peuvent modifier l'interactivité", "Les élèves ne peuvent pas modifier l'interactivité"]}
+            bind:value={$globalOptions.isInteractiveFree}
+          />
+        </div>
       </div>
       <div class="pb-2">
         <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Correction</div>
@@ -66,12 +80,29 @@
           <ButtonToggle titles={["Accès aux corrections", "Pas de corrections"]} bind:value={$globalOptions.isSolutionAccessible} />
         </div>
       </div>
-      <ButtonToggle
-        isDisabled={$globalOptions.setInteractive === '0'}
-        titles={["Les élèves peuvent modifier l'interactivité", "Les élèves ne peuvent pas modifier l'interactivité"]}
-        bind:value={$globalOptions.isInteractiveFree}
-      />
+      <div class="pb-2">
+        <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Liens</div>
+        <div class="flex flex-row px-4 -mt-2 justify-start">
+          <ModalActionWithDialog
+            on:display={() => copyLinkToClipboard("linkCopiedDialog-1", buildUrlAddendumForEsParam())}
+            message="Le lien de la fiche élève est copié dans le presse-papier !"
+            dialogId="linkCopiedDialog-1"
+            tooltipMessage="Lien de la fiche élève"
+            classForButton="mr-4 my-2"
+          />
+          <ModalForQrCode
+            classForButton="mr-4 my-2"
+            dialogId="QRCodeModal-1"
+            imageId="QRCodeCanvas-1"
+            tooltipMessage="QR-code de la fiche élève"
+            width={QRCodeWidth}
+            format={formatQRCodeIndex}
+            urlAddendum={buildUrlAddendumForEsParam()}
+          />
+        </div>
+      </div>
     </div>
+
     <div class="modal-action">
       <Button on:click={handleEleveVueSetUp} />
     </div>

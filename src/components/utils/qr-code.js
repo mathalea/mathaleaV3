@@ -8,10 +8,11 @@ export const allowedImageFormats = ['image/jpeg', 'image/png', 'image/webp']
  * @param imageId id of the image
  * @param QRCodeWidth largeur du QR-Code (en pixels)
  * @param formatQRCodeIndex code du format d'image (voir allowedImageFormats)
+ * @param urlAddendum chaîne à ajouter à l'URL courante
  * @author sylvain
  */
-export function urlToQRCodeOnWithinImgTag (imageId, QRCodeWidth, formatQRCodeIndex = 0) {
-  const diapoURL = document.URL
+export function urlToQRCodeOnWithinImgTag (imageId, QRCodeWidth, formatQRCodeIndex = 0, urlAddendum = '') {
+  const currentURL = document.URL + urlAddendum
   const options = {
     errorCorrectionLevel: 'H',
     type: allowedImageFormats[formatQRCodeIndex],
@@ -24,7 +25,7 @@ export function urlToQRCodeOnWithinImgTag (imageId, QRCodeWidth, formatQRCodeInd
       light: '#fff'
     }
   }
-  QRCode.toDataURL(diapoURL, options, (err, url) => {
+  QRCode.toDataURL(currentURL, options, (err, url) => {
     if (err) throw err
     const img = document.getElementById(imageId)
     img.src = url
