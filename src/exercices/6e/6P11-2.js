@@ -235,8 +235,8 @@ export default function ProportionnaliteParLineariteTableau () {
             np = randint(10, 13)
             cm = randint(2, 5)
             ng = np * cm
-            texte = `${prenom()} pèse $${texNombre(tp)}$ kg à $${np}$ ans. Quel sera son poids à $${ng}$ ans ?`
-            texteCorr = 'On ne peut pas savoir car le poids (plus précisément la masse) n\'est pas proportionnel à l\'âge.'
+            texte = `${prenom()} pèse $${texNombre(tp)}$ kg à $${np}$ ans. Quelle sera sa masse à $${ng}$ ans ?`
+            texteCorr = 'On ne peut pas savoir car la masse n\'est pas proportionnelle à l\'âge.'
           } else if (a === 3) {
             tp = randint(35, 39)
             np = randint(10, 13)
