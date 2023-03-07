@@ -239,6 +239,7 @@
     on:clickInteractif={(event) => {
       isInteractif = event.detail.isInteractif
       exercice.interactif = isInteractif
+      $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
       updateDisplay()
     }}
     on:clickNewData={newData}
