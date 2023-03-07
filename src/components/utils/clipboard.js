@@ -1,20 +1,34 @@
 import { showDialogForLimitedTime } from './dialogs'
 import { getBlobFromImageElement, copyBlobToClipboard, canCopyImagesToClipboard } from 'copy-image-clipboard'
+import { crypt, getShortenedCurrentUrl } from './urls'
 
 /**
    * Copy current URL to clipboard
    * @param dialogId id of dialog widget where the info is displayed
    * @param urlAddendum string to be added at the end of the URL
+   * @param {boolean} shorten does the URL has to be shorten ?
+   * @param {boolean} crypted does the URL need to be crypted ?
    * @author sylvain
    */
-export function copyLinkToClipboard (dialogId, urlAddendum = '') {
-  const url = document.URL + urlAddendum
+export async function copyLinkToClipboard (dialogId, urlAddendum = '', shorten = false, crypted = false) {
+  let url
+  if (shorten) {
+    try {
+      url = await getShortenedCurrentUrl(urlAddendum)
+    } catch (error) {
+      showDialogForLimitedTime(dialogId + '-2', 1000)
+      throw error
+    }
+  } else {
+    url = crypted ? crypt(document.URL + urlAddendum) : document.URL + urlAddendum
+  }
   navigator.clipboard.writeText(url).then(
     () => {
-      showDialogForLimitedTime(dialogId, 1000)
+      showDialogForLimitedTime(dialogId + '-1', 1000)
     },
     (err) => {
       console.error('Async: Could not copy text: ', err)
+      showDialogForLimitedTime(dialogId + '-2', 1000)
     }
   )
 }

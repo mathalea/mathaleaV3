@@ -6,7 +6,7 @@
   import ModalActionWithDialog from "../modal/ModalActionWithDialog.svelte"
   import ModalForQrCode from "../modal/ModalForQRCode.svelte"
   import { copyLinkToClipboard } from "../utils/clipboard"
-  import { buildUrlAddendumForEsParam } from "../utils/urls"
+  import { buildUrlAddendumForEsParam, getShortenedCurrentUrl } from "../utils/urls"
 
   let formatQRCodeIndex: number = 0
   let QRCodeWidth = 100
@@ -83,22 +83,39 @@
       <div class="pb-2">
         <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Liens</div>
         <div class="flex flex-row px-4 -mt-2 justify-start">
-          <ModalActionWithDialog
-            on:display={() => copyLinkToClipboard("linkCopiedDialog-1", buildUrlAddendumForEsParam())}
-            message="Le lien de la fiche élève est copié dans le presse-papier !"
-            dialogId="linkCopiedDialog-1"
-            tooltipMessage="Lien de la fiche élève"
-            classForButton="mr-4 my-2"
-          />
-          <ModalForQrCode
-            classForButton="mr-4 my-2"
-            dialogId="QRCodeModal-1"
-            imageId="QRCodeCanvas-1"
-            tooltipMessage="QR-code de la fiche élève"
-            width={QRCodeWidth}
-            format={formatQRCodeIndex}
-            urlAddendum={buildUrlAddendumForEsParam()}
-          />
+          <div class="mr-4 my-2">
+            <ModalActionWithDialog
+              on:display={() => copyLinkToClipboard("linkCopiedDialog-1", buildUrlAddendumForEsParam())}
+              message="Le lien de la fiche élève est copié dans le presse-papier !"
+              messageError="Impossible de créer le lien dans le presse-papier !"
+              dialogId="linkCopiedDialog-1"
+              tooltipMessage="Lien en clair"
+              buttonSecondIcon="bx-glasses-alt"
+            />
+          </div>
+          <div class="mr-4 my-2">
+            <ModalActionWithDialog
+              on:display={() => copyLinkToClipboard("linkCopiedDialog-2", buildUrlAddendumForEsParam(), true)}
+              message="Le lien de la fiche élève est copié dans le presse-papier !"
+              messageError="Impossible de créer le lien dans le presse-papier !"
+              dialogId="linkCopiedDialog-2"
+              tooltipMessage="Lien raccourci"
+              buttonSecondIcon="bx-move-horizontal"
+            />
+          </div>
+          <div class="mr-4 my-2">
+            <ModalActionWithDialog
+              on:display={() => copyLinkToClipboard("linkCopiedDialog-3", buildUrlAddendumForEsParam(), false, true)}
+              message="Le lien de la fiche élève est copié dans le presse-papier !"
+              messageError="Impossible de créer le lien dans le presse-papier !"
+              dialogId="linkCopiedDialog-3"
+              tooltipMessage="Lien crypté"
+              buttonSecondIcon="bx-lock"
+            />
+          </div>
+          <div class="mr-4 my-2">
+            <ModalForQrCode dialogId="QRCodeModal-1" imageId="QRCodeCanvas-1" tooltipMessage="QR-code" width={QRCodeWidth} format={formatQRCodeIndex} urlAddendum={buildUrlAddendumForEsParam()} />
+          </div>
         </div>
       </div>
     </div>
