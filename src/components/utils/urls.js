@@ -25,8 +25,6 @@ export function buildUrlAddendumForEsParam () {
 export async function getShortenedCurrentUrl (addendum = '') {
 //   const url = document.URL + addendum
   const url = 'https://coopmaths.fr/beta/?uuid=322a0&id=6C10-0&alea=uf2K&uuid=a5c5a&id=6C10-3&alea=3yIA&uuid=fd4d8&id=6C10-5&alea=yuEs&v=eleve&title=Exercices&es=1111'
-  console.log('url to be shortened : ' + url)
-  console.log('url to be fetched : ' + `https://api.shrtco.de/v2/shorten?url=${url}`)
   let response
   try {
     const request = await fetch(`https://api.shrtco.de/v2/shorten?url=${encodeURIComponent(url)}`)
@@ -35,46 +33,71 @@ export async function getShortenedCurrentUrl (addendum = '') {
     console.log(error)
   }
   const shortUrl = '' + response.result.full_short_link
-  console.log('url shortened : ' + shortUrl)
   return '' + shortUrl
 }
 
 /**
  * Encrypte la partie de l'URL après le point d'interrogation '?'
  * Principe : on ajoute 'EEEE' après le '?' pour reconnaître une URL encryptée
- * par la suite et on remplace chaque caractère de la vraie URL par le caractère
- * UTF8 7 rangs après...
+ * par la suite et on encode le reste de l'URL en suivant l'algorithme montré
+ * [ici](https://stackoverflow.com/questions/67855828/encrypt-and-decrypt-a-string-using-simple-javascript-without-using-any-external)...
  * @param {string} url URL a encrypter
- * @returns {string} URL encryptée
+ * @returns {URL} URL encryptée
  * @author sylvain
  */
-export function crypt (url) {
+export function encrypt (url) {
   const urlParts = url.split('?')
   let newUrl = urlParts[0] + '?EEEE'
-  for (let i = 0; i < urlParts[1].length; i++) {
-    newUrl += String.fromCharCode(urlParts[1].charCodeAt(i) + 7)
+  let char, nextChar, combinedCharCode
+  let partEncrypted = ''
+  const partToEncrypt = unescape(encodeURIComponent(urlParts[1]))
+  for (let i = 0; i < partToEncrypt.length; i += 2) {
+    char = partToEncrypt.charCodeAt(i)
+    if ((i + 1) < partToEncrypt.length) {
+      nextChar = partToEncrypt.charCodeAt(i + 1) - 31
+      combinedCharCode = char + '' + nextChar.toLocaleString('en', { minimumIntegerDigits: 2 })
+      partEncrypted += String.fromCharCode(parseInt(combinedCharCode, 10))
+    } else {
+      partEncrypted += partToEncrypt.charAt(i)
+    }
   }
-  return newUrl
+  const hexPartEncrypted = partEncrypted.split('').reduce((hex, c) => { hex += c.charCodeAt(0).toString(16).padStart(4, '0'); return hex }, '')
+  newUrl += hexPartEncrypted
+  return new URL(newUrl)
 }
 
 /**
  * Décrypte _si besoin_ une URL sur la base du cryptage précédent
  * @param {string} url URL à décrypter
- * @returns {string} URL décryptée
+ * @returns {URL} URL décryptée
  * @author sylvain
  */
-export function uncrypt (url) {
-  const part1 = url.slice(0, url.indexOf('?'))
-  const part2 = url.replace(part1 + '?', '')
+export function decrypt (url) {
+  const oldUrl = url.href
+  const part1 = oldUrl.slice(0, oldUrl.indexOf('?'))
+  const part2withEEEE = oldUrl.replace(part1 + '?', '')
   let newUrl = ''
-  if (part2.substring(0, 4) !== 'EEEE') {
+  if (part2withEEEE.substring(0, 4) !== 'EEEE') {
     newUrl = url
   } else {
+    let char, codeStr, firstCharCode, lastCharCode
+    let decryptedPart = ''
     newUrl = part1 + '?'
-    const urlPart2 = part2.slice(4, part2.length)
-    for (let i = 0; i < urlPart2.length; i++) {
-      newUrl += String.fromCharCode(urlPart2.charCodeAt(i) - 7)
+    let part2 = part2withEEEE.slice(4, part2withEEEE.length) // on enlève les `EEEE`
+    part2 = part2.match(/.{1,4}/g).reduce((acc, char) => acc + String.fromCharCode(parseInt(char, 16)), '')
+
+    for (let i = 0; i < part2.length; i++) {
+      char = part2.charCodeAt(i)
+      if (char > 132) {
+        codeStr = char.toString(10)
+        firstCharCode = parseInt(codeStr.substring(0, codeStr.length - 2), 10)
+        lastCharCode = parseInt(codeStr.substring(codeStr.length - 2, codeStr.length), 10) + 31
+        decryptedPart += String.fromCharCode(firstCharCode) + String.fromCharCode(lastCharCode)
+      } else {
+        decryptedPart += part2.charAt(i)
+      }
     }
+    newUrl += decryptedPart
   }
-  return newUrl
+  return new URL(newUrl)
 }

@@ -1,6 +1,6 @@
 import { showDialogForLimitedTime } from './dialogs'
 import { getBlobFromImageElement, copyBlobToClipboard, canCopyImagesToClipboard } from 'copy-image-clipboard'
-import { crypt, getShortenedCurrentUrl } from './urls'
+import { decrypt, encrypt, getShortenedCurrentUrl } from './urls'
 
 /**
    * Copy current URL to clipboard
@@ -20,7 +20,10 @@ export async function copyLinkToClipboard (dialogId, urlAddendum = '', shorten =
       throw error
     }
   } else {
-    url = crypted ? crypt(document.URL + urlAddendum) : document.URL + urlAddendum
+    console.log('à encoder : ' + document.URL + urlAddendum)
+    url = crypted ? encrypt(document.URL + urlAddendum) : document.URL + urlAddendum
+    console.log('encodée : ' + url)
+    console.log('décodée : ' + decrypt(url))
   }
   navigator.clipboard.writeText(url).then(
     () => {
