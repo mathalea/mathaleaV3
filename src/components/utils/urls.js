@@ -50,7 +50,7 @@ export function encrypt (url) {
   let newUrl = urlParts[0] + '?EEEE'
   let char, nextChar, combinedCharCode
   let partEncrypted = ''
-  const partToEncrypt = unescape(encodeURIComponent(urlParts[1]))
+  const partToEncrypt = encodeURI(urlParts[1])
   for (let i = 0; i < partToEncrypt.length; i += 2) {
     char = partToEncrypt.charCodeAt(i)
     if ((i + 1) < partToEncrypt.length) {
