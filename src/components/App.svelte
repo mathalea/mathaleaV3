@@ -3,7 +3,7 @@
   import Diaporama from "./Diaporama.svelte"
   import Can from "./Can.svelte"
   import Eleve from "./Eleve.svelte"
-  import { globalOptions } from "./store"
+  import { freezeUrl, globalOptions } from "./store"
   import { context } from '../modules/context'
   import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from "../modules/ElementInstrumenpoche"
   import Latex from "./Latex.svelte"

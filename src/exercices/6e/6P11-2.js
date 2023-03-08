@@ -39,7 +39,6 @@ export default function ProportionnaliteParLineariteTableau () {
     } else if (this.sup === 4) {
       typeDeQuestionsDisponibles = [1, 2, 3, 2, 4]
     }
-
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
     let np, cm, ng, o, pp, pg, pu, tp, index, a
@@ -68,7 +67,6 @@ export default function ProportionnaliteParLineariteTableau () {
     for (let i = 0, texte, texteCorr, monTableau, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = choice([1, 2, 3])
       // Boucle principale où i+1 correspond au numéro de la question
-      listeTypeQuestions[i] = 4
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 1: // multiplication
           if (a === 1) {
@@ -237,8 +235,8 @@ export default function ProportionnaliteParLineariteTableau () {
             np = randint(10, 13)
             cm = randint(2, 5)
             ng = np * cm
-            texte = `${prenom()} pèse $${texNombre(tp)}$ kg à $${np}$ ans. Quelle sera son poids à $${ng}$ ans ?`
-            texteCorr = 'On ne peut pas savoir car le poids (plus précisément la masse) n\'est pas proportionnel à l\'âge.'
+            texte = `${prenom()} pèse $${texNombre(tp)}$ kg à $${np}$ ans. Quelle sera sa masse à $${ng}$ ans ?`
+            texteCorr = 'On ne peut pas savoir car la masse n\'est pas proportionnelle à l\'âge.'
           } else if (a === 3) {
             tp = randint(35, 39)
             np = randint(10, 13)

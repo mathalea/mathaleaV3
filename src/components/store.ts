@@ -1,6 +1,11 @@
 import { writable, get } from 'svelte/store'
 
 /**
+ * Pour bloquer la mise à jour de l'url
+ */
+export const freezeUrl = writable(false)
+
+/**
  * setInteractive à 0 on enlève tout, à 1 on les met tous en interactif, à 2 on ne change rien
  */
 interface InterfaceGlobalOptions {v?: string, z?: string, durationGlobal?: number, nbVues?: number, shuffle?: boolean, choice?: number, trans?: boolean, sound?: number, es?: string, title: string, presMode: string, setInteractive: string, isSolutionAccessible: boolean, isInteractiveFree: boolean }
