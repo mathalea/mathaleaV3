@@ -29,7 +29,7 @@ const config = {
           darkmode: '#2e2e2b',
           darkmodelight: '#363633',
           canvas: {
-            DEFAULT: '#EDEDF0',
+            DEFAULT: '#F8FCFC', // Anciennement '#EDEDF0'
             dark: '#e1e1e6',
             darkest: '#d6d6db'
           },

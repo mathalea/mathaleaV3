@@ -14,6 +14,7 @@
   import { verifQuestionCliqueFigure } from '../modules/interactif/cliqueFigure'
   import { prepareExerciceCliqueFigure } from '../interactif/interactif'
   import Footer from './Footer.svelte'
+  import BtnZoom from './ui/btnZoom.svelte'
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -175,16 +176,18 @@
 
   function handleIndexChange(exoNum: number) {
     currentIndex = exoNum
-    if (exercices[exoNum].interactifType === "cliqueFigure" && exercices[exoNum].interactif) {
-          prepareExerciceCliqueFigure(exercices[exoNum])
-        }
+    if (exercices[exoNum].interactifType === 'cliqueFigure' && exercices[exoNum].interactif) {
+      prepareExerciceCliqueFigure(exercices[exoNum])
+    }
   }
 </script>
 
-<section class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive ? 'dark' : ''}">
-  <div
-    class="mb-auto"
-  >
+<section
+  class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive
+    ? 'dark'
+    : ''}"
+>
+  <div class="mb-auto">
     <div class="h-32 w-full  bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct">
       <div class="w-full flex flex-row justify-start p-4 items-center">
         <!-- titre de la feuille -->
@@ -248,6 +251,9 @@
     <!-- Exercices -->
     <div class="px-8">
       {#if $globalOptions.presMode === 'exos'}
+        <div class="absolute top-2 right-2">
+          <BtnZoom size="xs" />
+        </div>
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <div class={currentIndex === i ? '' : 'hidden'}>
             <Exercice
@@ -262,6 +268,9 @@
           </div>
         {/each}
       {:else if $globalOptions.presMode === 'page'}
+        <div class="absolute top-2 right-2">
+          <BtnZoom size="xs" />
+        </div>
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
         {/each}
@@ -274,7 +283,7 @@
             </div>
             <div class="text-coopmaths-corpus pl-2">
               {@html question}
-              <span id={`resultatCheckEx${indiceExercice[k]}Q${k}`}></span>
+              <span id={`resultatCheckEx${indiceExercice[k]}Q${k}`} />
             </div>
             {#if isCorrectionVisible[k]}
               <div
@@ -293,7 +302,7 @@
             {#if exercices[indiceExercice[k]].interactif}
               <Button title="Vérifier" on:click={() => checkQuestion(k)} isDisabled={isDisabledButton[k]} />
             {:else if $globalOptions.isSolutionAccessible}
-              <ButtonToggle titles={['Masquer la correction', 'Voir la correction']} on:click={() => switchCorrectionVisible(k)} />
+              <ButtonToggle titles={['Voir la correction', 'Masquer la correction']} on:click={() => switchCorrectionVisible(k)} />
             {/if}
           </div>
         {/each}
@@ -307,14 +316,14 @@
               </div>
               <div class="text-coopmaths-corpus pl-2">
                 {@html question}
-                <span id={`resultatCheckEx${indiceExercice[k]}Q${k}`}></span>
+                <span id={`resultatCheckEx${indiceExercice[k]}Q${k}`} />
               </div>
               {#if exercices[indiceExercice[k]].interactif}
                 <div class="pb-4 mt-10">
                   <Button title="Vérifier" on:click={() => checkQuestion(k)} isDisabled={isDisabledButton[k]} />
                 </div>
               {:else if $globalOptions.isSolutionAccessible}
-                <ButtonToggle titles={['Masquer la correction', 'Voir la correction']} on:click={() => switchCorrectionVisible(k)} />
+                <ButtonToggle titles={['Voir la correction', 'Masquer la correction']} on:click={() => switchCorrectionVisible(k)} />
               {/if}
               {#if isCorrectionVisible[k]}
                 <div
@@ -336,5 +345,5 @@
       {/if}
     </div>
   </div>
-  <Footer/>
+  <Footer />
 </section>

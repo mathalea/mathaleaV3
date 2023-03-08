@@ -9,7 +9,14 @@
       params.v = "eleve"
       return params
     })
-  }  
+  } 
+
+  $: {
+    if ($globalOptions.setInteractive !== '0') globalOptions.update(l => {
+      l.isSolutionAccessible = true
+      return l
+    })
+  }
   
 </script>
 
@@ -63,14 +70,18 @@
       <div class="pb-2">
         <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Correction</div>
         <div class="flex flex-row justify-start items-center px-4">
-          <ButtonToggle titles={["Accès aux corrections", "Pas de corrections"]} bind:value={$globalOptions.isSolutionAccessible} />
+          <ButtonToggle titles={["Accès aux corrections", "Pas de corrections"]} 
+          isDisabled={$globalOptions.setInteractive !== '0'}
+          bind:value={$globalOptions.isSolutionAccessible} />
         </div>
       </div>
+      <div class="pb-2">
       <ButtonToggle
-        isDisabled={$globalOptions.setInteractive === '0'}
+        isDisabled={$globalOptions.isSolutionAccessible === false}
         titles={["Les élèves peuvent modifier l'interactivité", "Les élèves ne peuvent pas modifier l'interactivité"]}
         bind:value={$globalOptions.isInteractiveFree}
       />
+      </div>
     </div>
     <div class="modal-action">
       <Button on:click={handleEleveVueSetUp} />
