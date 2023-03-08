@@ -1,7 +1,7 @@
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Exercice from './exercices/Exercice.js'
 import seedrandom from 'seedrandom'
-import { exercicesParams, globalOptions, presModeId, updateGlobalOptionsInURL } from './components/store'
+import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from './components/store'
 import { get } from 'svelte/store'
 import { setReponse } from './interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from './interactif/questionMathLive'
@@ -111,6 +111,7 @@ export class Mathalea {
   }
 
   static updateUrl (exercicesParams) {
+    if (get(freezeUrl) === true) return
     const url = new URL(window.location.protocol + '//' + window.location.host + window.location.pathname)
     for (const ex of exercicesParams) {
       url.searchParams.append('uuid', ex.uuid)
