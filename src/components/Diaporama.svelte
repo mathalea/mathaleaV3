@@ -12,7 +12,7 @@
   import { showDialogForLimitedTime } from "./utils/dialogs"
   import { copyLinkToClipboard, copyQRCodeImageToClipboard } from "./utils/clipboard"
   import { formattedTimeStamp, setPhraseDuree } from "./utils/time"
-  import ModalForQrCode from "./modal/ModalForQRCode.svelte"
+  import ModalForQRCode from "./modal/ModalForQRCode.svelte"
   import FormRadio from "./forms/FormRadio.svelte"
 
   let divQuestion: HTMLDivElement[] = []
@@ -871,7 +871,7 @@
                 tooltipMessage="Lien du Diaporama"
                 classForButton="mr-4 my-2"
               />
-              <ModalForQrCode classForButton="mr-4 my-2" dialogId="QRCodeModal-1" imageId="QRCodeCanvas-1" tooltipMessage="QR-code du diaporama" width={QRCodeWidth} format={formatQRCodeIndex} />
+              <ModalForQRCode classForButton="mr-4 my-2" dialogId="QRCodeModal-1" imageId="QRCodeCanvas-1" tooltipMessage="QR-code du diaporama" width={QRCodeWidth} format={formatQRCodeIndex} />
             </div>
           </div>
         </div>
@@ -1175,7 +1175,7 @@
           tooltipMessage="Lien du Diaporama"
           buttonSize="text-[100px]"
         />
-        <ModalForQrCode
+        <ModalForQRCode
           dialogId="QRCodeModal-2"
           imageId="QRCodeCanvas-2"
           tooltipMessage="QR-code du diaporama"

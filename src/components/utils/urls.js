@@ -23,7 +23,9 @@ export function buildUrlAddendumForEsParam () {
 }
 
 export async function getShortenedCurrentUrl (addendum = '') {
-//   const url = document.URL + addendum
+  //  La ligne ci-dessous devra être celle de la version définitive
+  //   const url = document.URL + addendum
+  // ci-dessous, URL en dur pour test (le service ne fonctionne pas avec des localhost dans l'URL)
   const url = 'https://coopmaths.fr/beta/?uuid=322a0&id=6C10-0&alea=uf2K&uuid=a5c5a&id=6C10-3&alea=3yIA&uuid=fd4d8&id=6C10-5&alea=yuEs&v=eleve&title=Exercices&es=1111'
   let response
   try {

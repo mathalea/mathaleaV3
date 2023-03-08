@@ -61,7 +61,7 @@
   >
     <i class="relative bx {buttonIcon} {buttonSize}" />
     {#if buttonSecondIcon.length !== 0}
-      <i class="absolute bottom-0 bx {buttonSecondIcon} text-sm -translate-x-3 text-coopmaths-warn" />
+      <i class="absolute -bottom-1 bx {buttonSecondIcon} text-sm -translate-x-3 text-coopmaths-warn dark:text-coopmathsdark-warn" />
     {/if}
   </button>
   <dialog class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg" id={dialogId + "-1"}>

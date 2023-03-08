@@ -57,3 +57,32 @@ export function copyQRCodeImageToClipboard (imageId, dialogId) {
     showDialogForLimitedTime(dialogId + '-2', 2000)
   }
 }
+
+export async function copyEmbeddedCodeToClipboard (dialogId, urlAddendum = '', shorten = false, crypted = false) {
+  let url
+  if (shorten) {
+    try {
+      url = await getShortenedCurrentUrl(urlAddendum)
+    } catch (error) {
+      showDialogForLimitedTime(dialogId + '-2', 1000)
+      throw error
+    }
+  } else {
+    url = crypted ? encrypt(document.URL + urlAddendum) : document.URL + urlAddendum
+  }
+  const embeddedCode =
+  `<iframe
+      height="400" 
+      src="${url}"
+      frameborder="0" >
+  </iframe>`
+  navigator.clipboard.writeText(embeddedCode).then(
+    () => {
+      showDialogForLimitedTime(dialogId + '-1', 1000)
+    },
+    (err) => {
+      console.error('Async: Could not copy text: ', err)
+      showDialogForLimitedTime(dialogId + '-2', 1000)
+    }
+  )
+}

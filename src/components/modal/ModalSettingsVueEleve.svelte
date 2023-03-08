@@ -4,22 +4,42 @@
   import FormRadio from "../forms/FormRadio.svelte"
   import { globalOptions } from "../store"
   import ModalActionWithDialog from "../modal/ModalActionWithDialog.svelte"
-  import ModalForQrCode from "../modal/ModalForQRCode.svelte"
-  import { copyLinkToClipboard } from "../utils/clipboard"
+  import ModalForQRCode from "../modal/ModalForQRCode.svelte"
+  import { copyLinkToClipboard, copyEmbeddedCodeToClipboard } from "../utils/clipboard"
   import { buildUrlAddendumForEsParam, getShortenedCurrentUrl } from "../utils/urls"
 
   let formatQRCodeIndex: number = 0
   let QRCodeWidth = 100
+
+  const availableLinkFormats = {
+    clear: {
+      toolTipsMessage: "en clair",
+      icon: "bx-glasses-alt",
+      isShort: false,
+      isEncrypted: false,
+    },
+    short: {
+      toolTipsMessage: "raccourci",
+      icon: "bx-move-horizontal",
+      isShort: true,
+      isEncrypted: false,
+    },
+    crypt: {
+      toolTipsMessage: "crypté",
+      icon: "bx-lock",
+      isShort: false,
+      isEncrypted: true,
+    },
+  }
+
+  type LinkFormat = "clear" | "short" | "crypt"
+  let currentLinkFormat: LinkFormat = "clear"
 
   function handleEleveVueSetUp() {
     let url = document.URL + "&v=eleve"
     url += "&title=" + $globalOptions.title
     url += "&es=" + buildUrlAddendumForEsParam()
     window.open(url, "_blank").focus()
-    // globalOptions.update((params) => {
-    //   params.v = "eleve"
-    //   return params
-    // })
   }
 
   $: {
@@ -40,10 +60,10 @@
     >
       <i class="bx bx-sm bx-x" />
     </label>
-    <div class="flex flex-row justify-start p-6">
+    <div class="flex flex-row justify-start px-4 py-2">
       <h3 class="font-bold text-lg text-coopmaths-struct dark:text-coopmathsdark-struct">Réglages de la feuille Élève</h3>
     </div>
-    <div class="py-4 pl-2 grid grid-cols-2 gap-4">
+    <div class="pt-2 pl-2 grid grid-cols-2 gap-4">
       <div class="pb-2">
         <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light  dark:text-coopmathsdark-struct-light">Titre</div>
         <div class="pl-4">
@@ -57,6 +77,7 @@
       <div class="pb-2">
         <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Présentation</div>
         <FormRadio
+          title="présentation"
           bind:valueSelected={$globalOptions.presMode}
           labelsValues={[
             { label: "Une page unique", value: "page" },
@@ -92,48 +113,77 @@
           <ButtonToggle titles={["Accès aux corrections", "Pas de corrections"]} isDisabled={$globalOptions.setInteractive !== "0"} bind:value={$globalOptions.isSolutionAccessible} />
         </div>
       </div>
-      <div class="pb-2">
-        <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Liens</div>
-        <div class="flex flex-row px-4 -mt-2 justify-start">
-          <div class="mr-4 my-2">
-            <ModalActionWithDialog
-              on:display={() => copyLinkToClipboard("linkCopiedDialog-1", buildUrlAddendumForEsParam())}
-              message="Le lien de la fiche élève est copié dans le presse-papier !"
-              messageError="Impossible de créer le lien dans le presse-papier !"
-              dialogId="linkCopiedDialog-1"
-              tooltipMessage="Lien en clair"
-              buttonSecondIcon="bx-glasses-alt"
-            />
-          </div>
-          <div class="mr-4 my-2">
-            <ModalActionWithDialog
-              on:display={() => copyLinkToClipboard("linkCopiedDialog-2", buildUrlAddendumForEsParam(), true)}
-              message="Le lien de la fiche élève est copié dans le presse-papier !"
-              messageError="Impossible de créer le lien dans le presse-papier !"
-              dialogId="linkCopiedDialog-2"
-              tooltipMessage="Lien raccourci"
-              buttonSecondIcon="bx-move-horizontal"
-            />
-          </div>
-          <div class="mr-4 my-2">
-            <ModalActionWithDialog
-              on:display={() => copyLinkToClipboard("linkCopiedDialog-3", buildUrlAddendumForEsParam(), false, true)}
-              message="Le lien de la fiche élève est copié dans le presse-papier !"
-              messageError="Impossible de créer le lien dans le presse-papier !"
-              dialogId="linkCopiedDialog-3"
-              tooltipMessage="Lien crypté"
-              buttonSecondIcon="bx-lock"
-            />
-          </div>
-          <div class="mr-4 my-2">
-            <ModalForQrCode dialogId="QRCodeModal-1" imageId="QRCodeCanvas-1" tooltipMessage="QR-code" width={QRCodeWidth} format={formatQRCodeIndex} urlAddendum={buildUrlAddendumForEsParam()} />
-          </div>
-        </div>
-      </div>
     </div>
-
     <div class="modal-action">
       <Button on:click={handleEleveVueSetUp} title="Visualiser" />
+    </div>
+    <div class="flex flex-row justify-start px-4 py-2">
+      <h3 class="font-bold text-lg text-coopmaths-struct dark:text-coopmathsdark-struct">Utilisation</h3>
+    </div>
+    <div class="flex flex-row justify-between items-center px-4">
+      <div class="text-coopmaths-struct-light dark:text-coopmathsdark-struct-light font-semibold">Format de l'URL</div>
+      <div class="flex">
+        <FormRadio
+          title="linkFormat"
+          bind:valueSelected={currentLinkFormat}
+          labelsValues={[
+            { label: "en clair", value: "clear" },
+            { label: "racourci", value: "short" },
+            { label: "crypté", value: "crypt" },
+          ]}
+          orientation="row"
+        />
+      </div>
+    </div>
+    <div class="grid grid-cols-3 gap-4 pt-3 pl-4">
+      <div class="flex flex-col justify-center items-center px-2">
+        <div class="text-coopmaths-struct-lightest dark:text-coopmathsdark-struct-light font-semibold">Lien</div>
+        <div class="my-1">
+          <ModalActionWithDialog
+            on:display={() =>
+              copyLinkToClipboard("linkCopiedDialog", buildUrlAddendumForEsParam(), availableLinkFormats[currentLinkFormat].isShort, availableLinkFormats[currentLinkFormat].isEncrypted)}
+            message="Le lien de la fiche élève est copié dans le presse-papier !"
+            messageError="Impossible de créer le lien dans le presse-papier !"
+            dialogId="linkCopiedDialog"
+            tooltipMessage={"Lien " + availableLinkFormats[currentLinkFormat].toolTipsMessage}
+            buttonSecondIcon={availableLinkFormats[currentLinkFormat].icon}
+          />
+        </div>
+      </div>
+      <div class="flex flex-col justify-center items-center px-2">
+        <div class="text-coopmaths-struct-lightest dark:text-coopmathsdark-struct-lightest font-semibold">QR-Code</div>
+        <div class="my-1">
+          <ModalForQRCode
+            tooltipMessage={"QR-code (lien " + availableLinkFormats[currentLinkFormat].toolTipsMessage + ")"}
+            width={QRCodeWidth}
+            format={formatQRCodeIndex}
+            isEncrypted={availableLinkFormats[currentLinkFormat].isEncrypted}
+            isShort={availableLinkFormats[currentLinkFormat].isShort}
+            urlAddendum={buildUrlAddendumForEsParam()}
+            buttonSecondIcon={availableLinkFormats[currentLinkFormat].icon}
+          />
+        </div>
+      </div>
+      <div class="flex flex-col justify-center items-center px-2">
+        <div class="text-coopmaths-struct-lightest dark:text-coopmathsdark-struct-light font-semibold">Embarqué</div>
+        <div class="my-1">
+          <ModalActionWithDialog
+            on:display={() =>
+              copyEmbeddedCodeToClipboard(
+                "embeddedCodeCopiedDialog",
+                buildUrlAddendumForEsParam(),
+                availableLinkFormats[currentLinkFormat].isShort,
+                availableLinkFormats[currentLinkFormat].isEncrypted
+              )}
+            message="Le code de la fiche élève est copié dans le presse-papier !"
+            messageError="Impossible de créer le code dans le presse-papier !"
+            dialogId="embeddedCodeCopiedDialog"
+            tooltipMessage={"Code (lien " + availableLinkFormats[currentLinkFormat].toolTipsMessage + ")"}
+            buttonIcon={"bx-code-alt"}
+            buttonSecondIcon={availableLinkFormats[currentLinkFormat].icon}
+          />
+        </div>
+      </div>
     </div>
   </div>
 </div>

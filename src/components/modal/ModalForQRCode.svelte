@@ -16,8 +16,11 @@
   export let tooltipMessage: string = "My tooltip"
   export let buttonSize: string = "text-2xl"
   export let buttonIcon: string = "bx-qr"
+  export let buttonSecondIcon: string = ""
   export let classForButton: string = ""
   export let urlAddendum: string = ""
+  export let isShort: boolean = false
+  export let isEncrypted: boolean = false
 
   const labelsForFormats = [
     { label: "jpeg", value: 0 },
@@ -38,11 +41,14 @@
     * `tooltipMessage` : message affiché au survol
     * `buttonSize` : taille du bouton
     * `buttonIcon` : icone utilisée pour le bouton
+    * `buttonSecondIcon` : icone à ajouter
     * `classForButton` : pour ajouter des éléments de positionnement du bouton
     * `width`: largeur du QR-Code
     * `format`: un chiffre correspondant au format de l'image créée 
-    * `urlAddendum` : chaîne à ajouter à l'URL
     (basé sur le tableau des formats possible `allowedImageFormats` de `qr-code.js`)
+    * `urlAddendum` : chaîne à ajouter à l'URL
+    * `isShorten`: l'URL attendue doit-elle être raccourcie ou non.
+    * `isEncrypted`: l'URL attendue doit-elle être cryptée ou non.
 
     __Exemple__ :
 
@@ -63,10 +69,13 @@
 <label for={dialogId} class="{classForButton}  hover:cursor-pointer">
   <div class="tooltip tooltip-bottom tooltip-neutral" data-tip={tooltipMessage}>
     <i
-      class="bx {buttonSize} text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest self-center {buttonIcon}"
-      on:click={() => urlToQRCodeOnWithinImgTag(imageId, width, format, urlAddendum)}
-      on:keydown={() => urlToQRCodeOnWithinImgTag(imageId, width, format, urlAddendum)}
+      class="relative bx {buttonSize} text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest self-center {buttonIcon}"
+      on:click={() => urlToQRCodeOnWithinImgTag(imageId, width, format, urlAddendum, isShort, isEncrypted)}
+      on:keydown={() => urlToQRCodeOnWithinImgTag(imageId, width, format, urlAddendum, isShort, isEncrypted)}
     />
+    {#if buttonSecondIcon.length !== 0}
+      <i class="absolute -bottom-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas rounded-full bx {buttonSecondIcon} text-sm -translate-x-3 text-coopmaths-warn  dark:text-coopmathsdark-warn" />
+    {/if}
   </div>
 </label>
 <input type="checkbox" id={dialogId} class="modal-toggle" />
@@ -99,7 +108,7 @@
         max="300"
         bind:value={width}
         class="ml-3 w-20 h-8 text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark  border-1 border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
-        on:change={() => urlToQRCodeOnWithinImgTag(imageId, width, format, urlAddendum)}
+        on:change={() => urlToQRCodeOnWithinImgTag(imageId, width, format, urlAddendum, isShort, isEncrypted)}
       />
     </div>
     <div class="flex flex-col justify-center">
