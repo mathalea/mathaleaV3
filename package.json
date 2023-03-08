@@ -7,7 +7,7 @@
     "start": "vite",
     "build": "vite build",
     "build:dicos": "node --loader ts-node/esm tasks/buildJson.js",
-    "makeJson": "node --loader ts-node/esm tasks/getInfosFromFile.js",
+    "makeJson": "node --loader ts-node/esm tasks/buildJson.js",
     "getNewUuid": "node --loader ts-node/esm tasks/getNewUuid.js",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
