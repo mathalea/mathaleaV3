@@ -55,7 +55,7 @@ export function encrypt (url) {
     char = partToEncrypt.charCodeAt(i)
     if ((i + 1) < partToEncrypt.length) {
       nextChar = partToEncrypt.charCodeAt(i + 1) - 31
-      combinedCharCode = char + '' + nextChar.toLocaleString('en', { minimumIntegerDigits: 2 })
+      combinedCharCode = char + '' + nextChar.toLocaleString('fr-FR', { minimumIntegerDigits: 2 })
       partEncrypted += String.fromCharCode(parseInt(combinedCharCode, 10))
     } else {
       partEncrypted += partToEncrypt.charAt(i)

@@ -12,10 +12,14 @@
   let QRCodeWidth = 100
 
   function handleEleveVueSetUp() {
-    globalOptions.update((params) => {
-      params.v = "eleve"
-      return params
-    })
+    let url = document.URL + "&v=eleve"
+    url += "&title=" + $globalOptions.title
+    url += "&es=" + buildUrlAddendumForEsParam()
+    window.open(url, "_blank").focus()
+    // globalOptions.update((params) => {
+    //   params.v = "eleve"
+    //   return params
+    // })
   }
 </script>
 
@@ -121,7 +125,7 @@
     </div>
 
     <div class="modal-action">
-      <Button on:click={handleEleveVueSetUp} />
+      <Button on:click={handleEleveVueSetUp} title="Visualiser" />
     </div>
   </div>
 </div>
