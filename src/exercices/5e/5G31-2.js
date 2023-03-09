@@ -30,11 +30,13 @@ export default class anglesTrianglesTableau extends Exercice {
     context.isHtml ? this.spacing = 2 : this.spacing = 2
     this.consigneModifiable = false
     this.correctionDetailleeDisponible = true
+    // Correction détaillée par défaut
+    this.correctionDetaillee = true
     this.besoinFormulaireNumerique = ['Type de triangle', 4, ' 1 : Quelconque \n 2 : Rectangle \n 3 : Isocèle-Équlatéral \n 4 : Mélange']
     // Une fonction pour calculer le troisième angle d'un triangle
     this.troisiemeAngle = function (a1, a2) {
       let sortie = -1
-      if (a1 + a2 <= 180) {
+      if (a1 + a2 < 180) {
         sortie = 180 - (a1 + a2)
       }
       return sortie
@@ -42,10 +44,6 @@ export default class anglesTrianglesTableau extends Exercice {
     // Une fonction pour factoriser
     this.affichageFactorise = function (triangle, type, choix) {
       const sortie = { enonce: { valeurs: [], noms: [], tableau: '' }, correction: { valeurs: [], noms: [], tableau: '', details: '' } }
-      // Le problème ne vient pas du choix, si mais du moment du choix
-      // const choix = randint(0, 2)
-      console.log(choix)
-      // const choix = 2
       sortie.enonce.noms = [triangle.getAngles()[0], triangle.getAngles()[1], triangle.getAngles()[2]]
       sortie.correction.valeurs = [triangle.a1, triangle.a2, triangle.a3]
       sortie.correction.noms = [triangle.getAngles()[0], triangle.getAngles()[1], triangle.getAngles()[2]]
@@ -105,18 +103,33 @@ export default class anglesTrianglesTableau extends Exercice {
           triangle.a1 = randint(10, 40, [90])
           triangle.a2 = randint(20, 100, [triangle.a1, 90, 90 - triangle.a1])
           triangle.a3 = this.troisiemeAngle(triangle.a1, triangle.a2)
-          sortie.natureTriangleCorr = `Le triangle ${triangle.getNom()} ne présente aucune particularité donc c'est un triangle ${type}.`
+          while (triangle.a3 === -1) {
+            triangle.a1 = randint(10, 40, [90])
+            triangle.a2 = randint(20, 100, [triangle.a1, 90, 90 - triangle.a1])
+            triangle.a3 = this.troisiemeAngle(triangle.a1, triangle.a2)
+          }
+          sortie.natureTriangleCorr = `Le triangle ${triangle.getNom()} ne présente aucune particularité donc c'est un triangle ${type}.`          
           break
         case 'rectangle':
           triangle.a1 = 90
           triangle.a2 = randint(20, 100, [triangle.a1])
           triangle.a3 = this.troisiemeAngle(triangle.a1, triangle.a2)
+          while (triangle.a3 === -1) {
+            triangle.a1 = 90
+            triangle.a2 = randint(20, 100, [triangle.a1])
+            triangle.a3 = this.troisiemeAngle(triangle.a1, triangle.a2)
+          }
           sortie.natureTriangleCorr = `Le triangle ${triangle.getNom()} a un angle droit donc c'est un triangle ${type}.`
           break
         case 'isocèle':
           triangle.a1 = randint(20, 100, [90])
           triangle.a2 = triangle.a1
           triangle.a3 = this.troisiemeAngle(triangle.a1, triangle.a2)
+          while (triangle.a3 === -1) {
+            triangle.a1 = randint(20, 100, [90])
+            triangle.a2 = triangle.a1
+            triangle.a3 = this.troisiemeAngle(triangle.a1, triangle.a2)
+          }
           sortie.natureTriangleCorr = `Le triangle ${triangle.getNom()} a deux angles égaux donc c'est un triangle ${type}.`
           break
         case 'isocèle rectangle':
@@ -132,7 +145,7 @@ export default class anglesTrianglesTableau extends Exercice {
           sortie.natureTriangleCorr = `Le triangle ${triangle.getNom()} a trois angles égaux donc c'est un triangle ${type}.`
           break
       }
-      // On choisit l'angle çà cauleur aléatoirement
+      // On choisit l'angle çà calculer aléatoirement
       const choix = randint(0, 2)
       // On mélange pour l'affichage
       const anglesEnonce = this.affichageFactorise(triangle, type, choix).enonce
