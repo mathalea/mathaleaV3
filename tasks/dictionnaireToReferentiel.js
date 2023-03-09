@@ -1,3 +1,8 @@
+/**
+ * Ce script met à jour le référentiel des exercices statiques en récupérant les mots clé et les url
+ * dans les différents dictionnaires
+ */
+
 import fs from 'fs'
 import { dictionnaireCrpe } from '../src/modules/dictionnaireCrpe.js'
 import { dictionnaireCrpeCoop } from '../src/modules/dictionnaireCrpeCoop.js'

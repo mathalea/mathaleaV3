@@ -1,9 +1,11 @@
+/**
+ * Ce script met à jours les fichiers json/referentiel2022.json, json/uuidsToUrl.json et json/refToUuid.json
+ * qui servent au menu des exercices et aux chargements.
+ * Remarque : une erreur sur un fichier est bloquante sauf si elle est à l'intérieur d'une fonction exportée
+ */
+
 import fs, { readFileSync } from 'fs'
 import path from 'path'
-
-/**
- * Une erreur sur un fichier est bloquante sauf si elle est à l'intérieur d'une fonction exportée
- */
 
 const uuidUrls = {}
 const refToUuid = {}
@@ -12,7 +14,9 @@ let errors = ''
 
 /**
  * On utilise emptyRef2022 pour initialiser referentiel2022 avec les niveaux et les catégories
+ * En cas de création de niveau ou de chapitre, il faudra mettre à jour ce fichier
  */
+
 const json = readFileSync('tasks/emptyRef2022.json')
 const dictionnaire = JSON.parse(json)
 
@@ -67,8 +71,11 @@ async function handleLevels () {
   }
 }
 
+/**
+ * Fonction similaire à la précédente mais pour les CAN
+ */
 async function handleCanLevels () {
-  for (let niveau of ['6e', '5e', '4e', '3e', '2e', '1e', 'c3', 'Ex']) {
+  for (const niveau of ['6e', '5e', '4e', '3e', '2e', '1e', 'c3', 'Ex']) {
     const dir = `./src/exercices/can/${niveau}`
     const files = fs.readdirSync(dir)
     for await (const file of files) {
@@ -94,6 +101,10 @@ async function handleCanLevels () {
   }
 }
 
+/**
+ * Le rangement des exercices dans une catégorie suit une règle par rapport au nom du fichier
+ * mais cette règle dépend, hélas, des niveaux
+ */
 function categoryByNiveau (niveau, ref) {
   if (ref === undefined) return
   switch (niveau) {

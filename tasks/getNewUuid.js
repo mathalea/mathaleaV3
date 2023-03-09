@@ -1,3 +1,8 @@
+/**
+ * Ce script récupère les uuid de tous les exercices des sous-répertoires de src/exercices.
+ * Il vérifie qu'il n'y a pas de doublon et en propose un nouveau qui pourra être utilisé dans un nouvel exercice
+ */
+
 import fs from 'fs'
 import path from 'path'
 
