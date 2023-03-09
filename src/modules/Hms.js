@@ -73,14 +73,13 @@ class Hms {
     return (this.toSeconds() > time.toSeconds())
   }
 
-  /** Durées identiques */
   isEqual (time) {
     return (this.toSeconds() === time.toSeconds())
   }
 
   /** Durées identiques et écrites de la même manière
-    * 1 min et 60 s => false
-    */
+  * 1 min et 60 s => false
+  */
   isTheSame (time) {
     return (this.hour === time.hour && this.minute === time.minute && this.second === time.second)
   }
