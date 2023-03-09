@@ -64,12 +64,15 @@
   // Suppression de la rubrique calcul mental
   // On renomme les chapitres pour la partie statique
   let filteredReferentiel = { ...referentiel, static: { ...referentielStatic } }
-  delete filteredReferentiel["Calcul mental"]
-  filteredReferentiel["3e"]["Brevet des collèges par thèmes - APMEP"] = filteredReferentiel["static"]["Brevet des collèges par thèmes - APMEP"]
-  filteredReferentiel["CRPE"]["Concours 2022"] = filteredReferentiel["static"]["CRPE (2022) par année"]
-  filteredReferentiel["CRPE"]["Concours 2022 - Par thèmes"] = filteredReferentiel["static"]["CRPE (2022) par thèmes"]
-  filteredReferentiel["CRPE"]["CRPE (2015-2019) par thèmes - COPIRELEM"] = filteredReferentiel["static"]["CRPE (2015-2019) par thèmes - COPIRELEM"]
-  filteredReferentiel["CRPE"]["CRPE (2015-2019) par année - COPIRELEM"] = filteredReferentiel["static"]["CRPE (2015-2019) par année - COPIRELEM"]
+  delete filteredReferentiel['Calcul mental']
+  filteredReferentiel['3e']['Brevet des collèges par thèmes - APMEP'] =
+    filteredReferentiel['static']['Brevet des collèges par thèmes - APMEP']
+  filteredReferentiel['PE']['Concours 2022'] = filteredReferentiel['static']['CRPE (2022) par année']
+  filteredReferentiel['PE']['Concours 2022 - Par thèmes'] = filteredReferentiel['static']['CRPE (2022) par thèmes']
+  filteredReferentiel['PE']['CRPE (2015-2019) par thèmes - COPIRELEM'] =
+    filteredReferentiel['static']['CRPE (2015-2019) par thèmes - COPIRELEM']
+  filteredReferentiel['PE']['CRPE (2015-2019) par année - COPIRELEM'] =
+    filteredReferentiel['static']['CRPE (2015-2019) par année - COPIRELEM']
   let referentielMap = toMap(filteredReferentiel)
   let arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
 
