@@ -40,9 +40,12 @@ export default class anglesTrianglesTableau extends Exercice {
       return sortie
     }
     // Une fonction pour factoriser
-    this.affichageFactorise = function (triangle, type) {
+    this.affichageFactorise = function (triangle, type, choix) {
       const sortie = { enonce: { valeurs: [], noms: [], tableau: '' }, correction: { valeurs: [], noms: [], tableau: '', details: '' } }
-      const choix = randint(0, 2)
+      // Le problème ne vient pas du choix, si mais du moment du choix
+      // const choix = randint(0, 2)
+      console.log(choix)
+      // const choix = 2
       sortie.enonce.noms = [triangle.getAngles()[0], triangle.getAngles()[1], triangle.getAngles()[2]]
       sortie.correction.valeurs = [triangle.a1, triangle.a2, triangle.a3]
       sortie.correction.noms = [triangle.getAngles()[0], triangle.getAngles()[1], triangle.getAngles()[2]]
@@ -129,9 +132,11 @@ export default class anglesTrianglesTableau extends Exercice {
           sortie.natureTriangleCorr = `Le triangle ${triangle.getNom()} a trois angles égaux donc c'est un triangle ${type}.`
           break
       }
+      // On choisit l'angle çà cauleur aléatoirement
+      const choix = randint(0, 2)
       // On mélange pour l'affichage
-      const anglesEnonce = this.affichageFactorise(triangle, type).enonce
-      const anglesCorrection = this.affichageFactorise(triangle, type).correction
+      const anglesEnonce = this.affichageFactorise(triangle, type, choix).enonce
+      const anglesCorrection = this.affichageFactorise(triangle, type, choix).correction
       sortie.texte = anglesEnonce.tableau
       if (this.correctionDetaillee) {
         sortie.texteCorr = `Dans le triangle ${triangle.getNom()}, `
