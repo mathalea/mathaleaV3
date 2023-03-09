@@ -577,7 +577,7 @@ export default function SujetCAN2023Sixieme () {
             objets = []
             objets.push(
               texteParPosition('1 unité', milieu(C, D).x, milieu(C, D).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              a, s1, s2, labelPoint(A, B), point(A, B))
+              a, s1, s2, labelPoint(A, B))
             reponse = fraction(b, 4)
             texte = `Quelle est la longueur du segment $[AB]$ ? <br>
             `
@@ -603,7 +603,7 @@ export default function SujetCAN2023Sixieme () {
             objets = []
             objets.push(
               texteParPosition('1 unité', milieu(C, D).x, milieu(C, D).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              a, s1, s2, labelPoint(A, B), point(A, B))
+              a, s1, s2, labelPoint(A, B))
             reponse = fraction(b, 5)
             texte = `Quelle est la longueur du segment $[AB]$ ? <br>
             `
