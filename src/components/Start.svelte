@@ -79,11 +79,11 @@
   function updateReferentiel() {
     let itemsAccepted
     if (filtre === 'college') {
-      itemsAccepted = ['6e', '5e', '4e', '3e', 'Calcul mental']
+      itemsAccepted = ['6e', '5e', '4e', '3e']
     } else if (filtre === 'lycee') {
-      itemsAccepted = ['Seconde', 'Première', 'Première Technologique', 'Terminale exper']
+      itemsAccepted = ['2e', '1e', '1techno', 'Ex', 'HP']
     } else if (filtre === 'crpe') {
-      itemsAccepted = ['CRPE']
+      itemsAccepted = ['PE']
     }
 
     if (filtre === 'all') {
