@@ -29,6 +29,7 @@
   let isCorrectionVisible: boolean[] = []
   let divsCorrection: HTMLDivElement[] = []
   let currentWindowWidth: number = document.body.clientWidth
+  let menuNeeded: boolean = false
 
   function urlToDisplay() {
     let urlOptions = Mathalea.loadExercicesFromUrl()
@@ -41,7 +42,8 @@
   /**
    * Adaptation du titre des pages pour chaque exercice
    * Plus le nombre d'exercices est élevé, moins le titre contient de caractères
-   * @param {number} num  nombre d'exercices
+   * @param {numer} dim largeur disponible à considérer pour le calcul si élément non dispo (déclenche le re-calcul)
+   * @param {number} nbOfExercises  nombre d'exercices
    * @returns {string} titre
    * @author sylvain
    */
@@ -52,18 +54,25 @@
     const roomForQuestionsTitles = navigationHeaderElt ? navigationHeaderElt.offsetWidth : ((dim - 2 * remToPixels(1)) * 11) / 12
     const roomForOne = roomForQuestionsTitles / nbOfExercises - 2 * remToPixels(1.5)
     if (roomForOne >= getTextWidth("Exercice 10", getCanvasFont(exerciseTitleElt ?? document.body))) {
+      menuNeeded = false
       return "Exercice"
     } else if (roomForOne >= getTextWidth("Ex 10", getCanvasFont(exerciseTitleElt ?? document.body)) + 20) {
+      menuNeeded = false
       return "Ex"
+    } else if (roomForOne >= getTextWidth("10", getCanvasFont(exerciseTitleElt ?? document.body)) + 20) {
+      menuNeeded = false
+      return ""
     } else {
+      menuNeeded = true
       return ""
     }
   }
-  $: exerciceTitle = buildExoTitle(currentWindowWidth, exercices.length)
+  $: exerciseTitle = buildExoTitle(currentWindowWidth, exercices.length)
 
   /**
    * Adaptation du titre des pages pour chaque question
    * Plus le nombre de questions est élevé, moins le titre contient de caractères
+   * @param {numer} dim largeur disponible à considérer pour le calcul si élément non dispo (déclenche le re-calcul)
    * @param {number} nbOfQuestions  nombre de questions
    * @returns {string} titre
    * @author sylvain
@@ -76,10 +85,16 @@
     const roomForQuestionsTitles = navigationHeaderElt ? navigationHeaderElt.offsetWidth : ((dim - 2 * remToPixels(1)) * 11) / 12
     const roomForOne = roomForQuestionsTitles / nbOfQuestions - 2 * remToPixels(0.5)
     if (roomForOne >= getTextWidth("Question 10", getCanvasFont(questionTitleElt ?? document.body))) {
+      menuNeeded = false
       return "Question"
     } else if (roomForOne >= getTextWidth("Q 10", getCanvasFont(questionTitleElt ?? document.body)) + 20) {
+      menuNeeded = false
       return "Q"
+    } else if (roomForOne >= getTextWidth("10", getCanvasFont(questionTitleElt ?? document.body))) {
+      menuNeeded = false
+      return ""
     } else {
+      menuNeeded = true
       return ""
     }
   }
@@ -198,28 +213,29 @@
 <svelte:window bind:innerWidth={currentWindowWidth} />
 <section class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive ? 'dark' : ''}">
   <div class="mb-auto">
-    <div class="h-32 w-full  bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct">
-      <div class="w-full flex flex-col md:flex-row justify-between p-4 items-center">
+    <div class="h-32 w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct">
+      <div class="w-full flex {menuNeeded ? 'flex-col justify-center items-center' : 'flex-row justify-between items-center'} p-4">
         <!-- titre de la feuille -->
-        <div class="w-full md:w-1/12 inline-flex text-4xl font-extrabold ml-4 mr-10">{$globalOptions.title}</div>
+        <div class="{menuNeeded ? 'w-full text-center' : 'w-1/12 ml-4 mr-10'} text-4xl font-extrabold ">{$globalOptions.title}</div>
         <!-- barre de navigation -->
         <div
           id="navigationHeaderID"
-          class="w-full md:w-9/12 grid grid-cols-1 md:grid-cols-{$globalOptions.presMode === 'exos' ? exercices.length : questions.length} justify-items-center border-b-2 border-coopmaths-struct"
+          class="{menuNeeded ? 'w-full' : 'w-9/12'}  hidden md:grid grid-cols-{$globalOptions.presMode === 'exos'
+            ? exercices.length
+            : questions.length} justify-items-center border-b-2 border-coopmaths-struct"
         >
           {#if $globalOptions.presMode === "exos"}
-            <!-- <div class="w-full lg:w-11/12 flex flex-row overflow-x-auto justify-center space-x-0 border-b-2 border-coopmaths-struct"> -->
             {#each $exercicesParams as paramsExercice, i (paramsExercice)}
               <div class="">
                 <button
                   class="{currentIndex === i
                     ? 'border-b-4'
-                    : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
+                    : 'border-b-0'} hover:border-b-4 border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
                   disabled={currentIndex === i}
                   on:click={() => handleIndexChange(i)}
                 >
                   <div id="exerciseTitleID{i}" class="relative pt-2 pb-4 px-6 text-xl font-bold">
-                    {exerciceTitle}
+                    {exerciseTitle}
                     {i + 1}
                     {#if $resultsByExercice[i] !== undefined}
                       <div class="absolute bottom-0 left-0 right-0 mx-auto text-xs text-coopmaths-warn dark:text-coopmathsdark-warn">
@@ -230,16 +246,14 @@
                 </button>
               </div>
             {/each}
-            <!-- </div> -->
           {/if}
           {#if $globalOptions.presMode === "question"}
-            <!-- <div id="questionsHeader" class="w-full lg:w-11/12 grid grid-cols-1 lg:grid-cols-{questions.length} border-b-2 border-coopmaths-struct"> -->
             {#each questions as question, i (question)}
               <div class="">
                 <button
                   class="{currentIndex === i
                     ? 'border-b-4'
-                    : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
+                    : 'border-b-0'} hover:border-b-4 border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
                   disabled={currentIndex === i}
                   on:click={() => handleIndexChange(i)}
                 >
@@ -258,7 +272,6 @@
                 </button>
               </div>
             {/each}
-            <!-- </div> -->
           {/if}
         </div>
       </div>
@@ -270,11 +283,33 @@
           <BtnZoom size="xs" />
         </div>
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-          <div class={currentIndex === i ? "" : "hidden"}>
-            <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={isCorrectionVisible[i]} />
-            {#if exercices[i] && $globalOptions.isSolutionAccessible && !exercices[i].interactif}
-              <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} bind:value={isCorrectionVisible[i]} />
-            {/if}
+          <div class="flex flex-col">
+            <div class="md:hidden">
+              <button
+                class="w-full {currentIndex === i
+                  ? 'bg-coopmaths-canvas-darkest'
+                  : 'bg-coopmaths-canvas-dark'} hover:bg-coopmaths-canvas-darkest text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
+                disabled={currentIndex === i}
+                on:click={() => handleIndexChange(i)}
+              >
+                <div id="exerciseTitleID2{i}" class="flex flex-row items-center justify-center py-3 px-2 text-xl font-bold">
+                  Exercice {i + 1}
+                  {#if $resultsByExercice[i] !== undefined}
+                    <div class="ml-4 text-sm text-coopmaths-warn dark:text-coopmathsdark-warn">
+                      {$resultsByExercice[i].numberOfPoints + "/" + $resultsByExercice[i].numberOfQuestions}
+                    </div>
+                  {:else}
+                    <div class="ml-4 text-sm invisible">8/8</div>
+                  {/if}
+                </div>
+              </button>
+            </div>
+            <div class={currentIndex === i ? "" : "hidden"}>
+              <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={isCorrectionVisible[i]} />
+              {#if exercices[i] && $globalOptions.isSolutionAccessible && !exercices[i].interactif}
+                <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} bind:value={isCorrectionVisible[i]} />
+              {/if}
+            </div>
           </div>
         {/each}
       {:else if $globalOptions.presMode === "page"}
@@ -289,7 +324,6 @@
           <div class="pb-4 flex flex-col items-start justify-start" id={`exercice${indiceExercice[k]}Q${k}`}>
             <div class="flex flex-row justify-start items-center">
               <div class="text-coopmaths-struct font-bold text-md">Question {k + 1}</div>
-
               {#if exercices[indiceExercice[k]].interactif}
                 <Button title="Vérifier" classDeclaration="p-1 font-bold rounded-xl text-xs ml-2" on:click={() => checkQuestion(k)} isDisabled={isDisabledButton[k]} />
               {:else if $globalOptions.isSolutionAccessible}
@@ -325,46 +359,64 @@
         {/each}
       {:else if $globalOptions.presMode === "question"}
         {#each questions as question, k (question)}
-          <div class={currentIndex === k ? "" : "hidden"} id={`exercice${indiceExercice[k]}Q${k}`}>
-            <div class="pb-4 flex flex-col items-start justify-start">
-              <!-- <div class="text-coopmaths-struct font-bold text-md">Question {k + 1}</div> -->
-              <div class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10">
-                <div class="flex flex-col my-2 py-2">
-                  <div class="text-coopmaths-corpus pl-2">
-                    {@html consignes[k]}
-                  </div>
-                  <div class="text-coopmaths-corpus pl-2">
-                    {@html question}
-                    <span id={`resultatCheckEx${indiceExercice[k]}Q${k}`} />
+          <div class="flex flex-col">
+            <div class="md:hidden">
+              <button
+                class="w-full {currentIndex === k
+                  ? 'bg-coopmaths-canvas-darkest'
+                  : 'bg-coopmaths-canvas-dark'} hover:bg-coopmaths-canvas-darkest text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
+                disabled={currentIndex === k}
+                on:click={() => handleIndexChange(k)}
+              >
+                <div id="questionTitleID2{k}" class="flex flex-row items-center justify-center py-3 px-2 text-xl font-bold">
+                  Question {k + 1}
+                  <div class="relative ml-2 h-2 w-2 rounded-full bg-coopmaths-canvas-dark">
+                    <div class="absolute h-2 w-2 rounded-full bg-coopmaths-warn {resultsByQuestion[k] === true ? '' : 'hidden'}" />
+                    <div class="absolute h-2 w-2 rounded-full bg-red-600 {resultsByQuestion[k] === false ? '' : 'hidden'}" />
                   </div>
                 </div>
-                {#if isCorrectionVisible[k]}
-                  <div
-                    class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest my-2 py-2 pl-6"
-                    style="break-inside:avoid"
-                    bind:this={divsCorrection[k]}
-                  >
-                    {@html Mathalea.formatExercice(corrections[k])}
-                    <div
-                      class="absolute flex flex-row justify-center items-center -left-4 top-0 rounded-full bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-canvas dark:text-coopmathsdark-canvas h-6 w-6"
-                    >
-                      <i class="bx bx-sm bx-check" />
+              </button>
+            </div>
+            <div class={currentIndex === k ? "" : "hidden"} id={`exercice${indiceExercice[k]}Q${k}`}>
+              <div class="pb-4 flex flex-col items-start justify-start">
+                <!-- <div class="text-coopmaths-struct font-bold text-md">Question {k + 1}</div> -->
+                <div class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10">
+                  <div class="flex flex-col my-2 py-2">
+                    <div class="text-coopmaths-corpus pl-2">
+                      {@html consignes[k]}
+                    </div>
+                    <div class="text-coopmaths-corpus pl-2">
+                      {@html question}
+                      <span id={`resultatCheckEx${indiceExercice[k]}Q${k}`} />
                     </div>
                   </div>
+                  {#if isCorrectionVisible[k]}
+                    <div
+                      class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest my-2 py-2 pl-6"
+                      style="break-inside:avoid"
+                      bind:this={divsCorrection[k]}
+                    >
+                      {@html Mathalea.formatExercice(corrections[k])}
+                      <div
+                        class="absolute flex flex-row justify-center items-center -left-4 top-0 rounded-full bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-canvas dark:text-coopmathsdark-canvas h-6 w-6"
+                      >
+                        <i class="bx bx-sm bx-check" />
+                      </div>
+                    </div>
+                  {/if}
+                </div>
+                {#if exercices[indiceExercice[k]].interactif}
+                  <div class="pb-4 mt-10">
+                    <Button title="Vérifier" on:click={() => checkQuestion(k)} isDisabled={isDisabledButton[k]} />
+                  </div>
+                {:else if $globalOptions.isSolutionAccessible}
+                  <ButtonToggle titles={["Voir la correction", "Masquer la correction"]} on:click={() => switchCorrectionVisible(k)} />
                 {/if}
               </div>
-              {#if exercices[indiceExercice[k]].interactif}
-                <div class="pb-4 mt-10">
-                  <Button title="Vérifier" on:click={() => checkQuestion(k)} isDisabled={isDisabledButton[k]} />
-                </div>
-              {:else if $globalOptions.isSolutionAccessible}
-                <ButtonToggle titles={["Voir la correction", "Masquer la correction"]} on:click={() => switchCorrectionVisible(k)} />
-              {/if}
             </div>
           </div>
         {/each}
       {/if}
     </div>
   </div>
-  <Footer />
 </section>
