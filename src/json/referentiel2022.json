@@ -6437,6 +6437,7 @@
         "uuid": "87479",
         "url": "6e/6N14.js",
         "titre": "Représenter des fractions",
+        "dateDeModifImportante": "07/03/2023",
         "tags": {
           "amc": true,
           "amcType": "AMCHybride"
@@ -6514,6 +6515,7 @@
         "uuid": "c75b6",
         "url": "6e/6N22.js",
         "titre": "Effectuer des calculs simples avec des fractions",
+        "dateDeModifImportante": "07/03/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6778,7 +6780,10 @@
         "uuid": "c28e5",
         "url": "6e/6N32.js",
         "titre": "Représenter une fraction de l'unité",
-        "tags": {}
+        "tags": {
+          "amc": true,
+          "amcType": "AMCHybride"
+        }
       },
       "6N33-0": {
         "id": "6N33-0",
@@ -6860,7 +6865,10 @@
         "url": "6e/6N41-1.js",
         "titre": "Parcourir un labyrinthe de fractions égales",
         "dateDeModifImportante": "05/10/2022",
-        "tags": {}
+        "tags": {
+          "amc": true,
+          "amcType": "AMCHybride"
+        }
       },
       "6N41": {
         "id": "6N41",
@@ -6891,6 +6899,7 @@
         "uuid": "bbdd6",
         "url": "6e/6N43-3.js",
         "titre": "Reconnaître diviseur, multiple, divisible",
+        "dateDeModifImportante": "07/03/2023",
         "tags": {
           "interactif": true,
           "interactifType": "qcm",
@@ -10306,7 +10315,12 @@
         "uuid": "a8e6c",
         "url": "3e/3L14-1.js",
         "titre": "Résoudre une équation produit nul (niveau 2)",
-        "tags": {}
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amc": true,
+          "amcType": "AMCOpen"
+        }
       },
       "3L14": {
         "id": "3L14",
@@ -10316,7 +10330,9 @@
         "dateDeModifImportante": "18/03/2022",
         "tags": {
           "interactif": true,
-          "interactifType": "mathLive"
+          "interactifType": "mathLive",
+          "amc": true,
+          "amcType": "AMCOpen"
         }
       },
       "3L15-1": {
