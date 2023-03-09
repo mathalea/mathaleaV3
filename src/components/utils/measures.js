@@ -36,7 +36,6 @@ export function getCanvasFontDetails (el = document.body) {
 }
 
 export function getCanvasFont (el = document.body) {
-  console.log('elt : ' + el.id)
   const fontWeight = getCssStyle(el, 'font-weight') || 'normal'
   const fontSize = getCssStyle(el, 'font-size') || '16px'
   const fontFamily = getCssStyle(el, 'font-family') || 'Times New Roman'
