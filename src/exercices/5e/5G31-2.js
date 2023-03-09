@@ -108,7 +108,7 @@ export default class anglesTrianglesTableau extends Exercice {
             triangle.a2 = randint(20, 100, [triangle.a1, 90, 90 - triangle.a1])
             triangle.a3 = this.troisiemeAngle(triangle.a1, triangle.a2)
           }
-          sortie.natureTriangleCorr = `Le triangle ${triangle.getNom()} ne présente aucune particularité donc c'est un triangle ${type}.`          
+          sortie.natureTriangleCorr = `Le triangle ${triangle.getNom()} ne présente aucune particularité donc c'est un triangle ${type}.`
           break
         case 'rectangle':
           triangle.a1 = 90
