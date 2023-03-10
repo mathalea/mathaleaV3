@@ -220,29 +220,35 @@
         <!-- barre de navigation -->
         <div
           id="navigationHeaderID"
-          class="{menuNeeded ? 'w-full' : 'w-9/12'}  hidden md:grid grid-cols-{$globalOptions.presMode === 'exos'
-            ? exercices.length
-            : questions.length} justify-items-center border-b-2 border-coopmaths-struct"
+          class="hidden md:grid justify-items-center 
+            {menuNeeded ? 'w-full' : 'w-9/12'}   grid-cols-{$globalOptions.presMode === 'exos' ? exercices.length : questions.length}
+            {$globalOptions.presMode === 'exos' || $globalOptions.presMode === 'question' ? 'border-b-2 border-coopmaths-struct' : 'border-b-0'}"
         >
           {#if $globalOptions.presMode === "exos"}
             {#each $exercicesParams as paramsExercice, i (paramsExercice)}
               <div class="">
                 <button
-                  class="{currentIndex === i
+                  class="relative group {currentIndex === i
                     ? 'border-b-4'
-                    : 'border-b-0'} hover:border-b-4 border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
+                    : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
                   disabled={currentIndex === i}
                   on:click={() => handleIndexChange(i)}
                 >
-                  <div id="exerciseTitleID{i}" class="relative pt-2 pb-4 px-6 text-xl font-bold">
+                  <div id="exerciseTitleID{i}" class="pt-2 pb-4 px-6 text-xl font-bold">
                     {exerciseTitle}
                     {i + 1}
                     {#if $resultsByExercice[i] !== undefined}
-                      <div class="absolute bottom-0 left-0 right-0 mx-auto text-xs text-coopmaths-warn dark:text-coopmathsdark-warn">
+                      <div class="absolute bottom-1 left-0 right-0 mx-auto text-xs text-coopmaths-warn dark:text-coopmathsdark-warn">
                         {$resultsByExercice[i].numberOfPoints + "/" + $resultsByExercice[i].numberOfQuestions}
                       </div>
                     {/if}
                   </div>
+                  <span
+                    class="absolute -bottom-1 left-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
+                  />
+                  <span
+                    class="absolute -bottom-1 right-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
+                  />
                 </button>
               </div>
             {/each}
@@ -251,13 +257,13 @@
             {#each questions as question, i (question)}
               <div class="">
                 <button
-                  class="{currentIndex === i
+                  class="relative group {currentIndex === i
                     ? 'border-b-4'
-                    : 'border-b-0'} hover:border-b-4 border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
+                    : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
                   disabled={currentIndex === i}
                   on:click={() => handleIndexChange(i)}
                 >
-                  <div id="questionTitleID{i}" class="relative py-2 px-2 text-xl font-bold">
+                  <div id="questionTitleID{i}" class="py-2 px-2 text-xl font-bold">
                     {questionTitle}
                     {i + 1}
                     <div
@@ -269,6 +275,12 @@
                     {resultsByQuestion[i] === false ? '' : 'invisible'}"
                     />
                   </div>
+                  <span
+                    class="absolute -bottom-1 left-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
+                  />
+                  <span
+                    class="absolute -bottom-1 right-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
+                  />
                 </button>
               </div>
             {/each}
@@ -292,7 +304,7 @@
                 disabled={currentIndex === i}
                 on:click={() => handleIndexChange(i)}
               >
-                <div id="exerciseTitleID2{i}" class="flex flex-row items-center justify-center py-3 px-2 text-xl font-bold">
+                <div id="exerciseTitleID2{i}" class="flex flex-row items-center justify-center py-3 px-2 text-2xl font-bold">
                   Exercice {i + 1}
                   {#if $resultsByExercice[i] !== undefined}
                     <div class="ml-4 text-sm text-coopmaths-warn dark:text-coopmathsdark-warn">
