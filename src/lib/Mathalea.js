@@ -1,14 +1,14 @@
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
-import Exercice from './exercices/Exercice.js'
+import Exercice from '../exercices/Exercice.js'
 import seedrandom from 'seedrandom'
-import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from './components/store'
+import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from '../components/store'
 import { get } from 'svelte/store'
-import { setReponse } from './interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from './interactif/questionMathLive'
-import uuidToUrl from './json/uuidsToUrl.json'
-import refToUuid from './json/refToUuid.json'
+import { setReponse } from '../interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../interactif/questionMathLive.js'
+import uuidToUrl from '../json/uuidsToUrl.json'
+import refToUuid from '../json/refToUuid.json'
 import 'katex/dist/katex.min.css'
-import renderScratch from './lib/renderScratch.js'
+import renderScratch from './renderScratch.js'
 
 // export type Settings = { sup?: boolean | string | number, sup2?: boolean | string | number, sup3?: boolean | string | number, sup4?: boolean | string | number, nbQuestions?: number, seed?: string }
 
@@ -31,9 +31,9 @@ export class Mathalea {
       // L'extension doit-être visible donc on l'enlève avant de la remettre...
       let module
       if (isCan) {
-        module = await import(`./exercices/can/${directory}/${filename.replace('.js', '')}.js`)
+        module = await import(`../exercices/can/${directory}/${filename.replace('.js', '')}.js`)
       } else {
-        module = await import(`./exercices/${directory}/${filename.replace('.js', '')}.js`)
+        module = await import(`../exercices/${directory}/${filename.replace('.js', '')}.js`)
       }
       const ClasseExercice = module.default
       const exercice /** Promise<Exercice> */ = new ClasseExercice()
@@ -50,6 +50,36 @@ export class Mathalea {
       exercice.nouvelleVersion = () => {}
       return exercice
     }
+  }
+
+  static async getExercicesFromParams (params) {
+    const exercices = []
+    for (const param of params) {
+      const exercice = await Mathalea.load(param.uuid)
+      if (typeof exercice === 'undefined') continue
+      exercice.uuid = param.uuid
+      if (param.nbQuestions) exercice.nbQuestions = param.nbQuestions
+      exercice.duration = param.duration ?? 10
+      if (param.titre) exercice.titre = param.titre
+      if (param.id) exercice.id = param.id
+      if (param.sup) exercice.sup = param.sup
+      if (param.sup2) exercice.sup2 = param.sup2
+      if (param.sup3) exercice.sup3 = param.sup3
+      if (param.sup4) exercice.sup4 = param.sup4
+      if (param.interactif) exercice.interactif = param.interactif
+      if (param.alea) exercice.seed = param.alea
+      if (param.cd !== undefined) exercice.correctionDetaillee = param.cd === '1'
+      if (exercice.seed === undefined) {
+        exercice.seed = this.generateSeed({
+          includeUpperCase: true,
+          includeNumbers: true,
+          length: 4,
+          startsWithLowerCase: false
+        })
+      }
+      exercices.push(exercice)
+    }
+    return exercices
   }
 
   static async loadFromUrlWithoutExtension (urlWithoutExtension) {
@@ -132,7 +162,8 @@ export class Mathalea {
 
   /**
    * Analyse l'url courante de la fenêtre
-   * pour en charger tous les exercices demandés
+   * pour mettre à jour exercicesParams
+   * avec tous les exercices et les options
    * @returns vue
    */
   static loadExercicesFromUrl () {
@@ -252,6 +283,8 @@ export class Mathalea {
     exercice.interactif = isInteractif
     exercice.listeQuestions = []
     exercice.listeCorrections = []
+    exercice.listeCanEnonces = []
+    exercice.lsiteCanReponsesACompleter = []
     for (let i = 0, cptSecours = 0; i < exercice.nbQuestions && cptSecours < 50;) {
       seedrandom(exercice.seed + i, { global: true })
       exercice.nouvelleVersion()
@@ -261,6 +294,8 @@ export class Mathalea {
           exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte || {}, exercice.optionsChampTexte || {})
         )
         exercice.listeCorrections.push(exercice.correction)
+        exercice.listeCanEnonces.push(exercice.canEnonce)
+        exercice.lsiteCanReponsesACompleter.push(exercice.canRepnseACompleter)
         cptSecours = 0
         i++
       } else {
@@ -334,3 +369,5 @@ function _handleStringFromUrl (txt) {
     return txt
   }
 }
+
+export default Mathalea

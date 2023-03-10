@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Mathalea } from "../../Mathalea"
+  import { Mathalea } from "../../lib/Mathalea"
   import { onMount } from "svelte"
 
   // paramsExercice est de type {url, nbQuestions, sup, sup2, sup3, sup4, duration}

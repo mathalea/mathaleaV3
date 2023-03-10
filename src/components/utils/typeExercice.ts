@@ -18,6 +18,8 @@ type Exercice = {
   introduction?: string
   listeQuestions?: string[]
   listeCorrections?: string[]
+  listeCanReponsesACompleter?: string[]
+  listeCanEnonces?: string[]
   contenu?: string
   contenuCorrection?: string
   autoCorrection?: object[]

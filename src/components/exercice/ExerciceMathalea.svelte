@@ -4,7 +4,7 @@
   import seedrandom from 'seedrandom'
   import { prepareExerciceCliqueFigure } from '../../interactif/interactif'
   import { loadMathLive } from '../../modules/loaders'
-  import { Mathalea } from '../../Mathalea'
+  import { Mathalea } from '../../lib/Mathalea'
   import { exerciceInteractif } from '../../interactif/interactif'
   import { exercicesParams } from '../store'
   import HeaderExercice from './HeaderExercice.svelte'

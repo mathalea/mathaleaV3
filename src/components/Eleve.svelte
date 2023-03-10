@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Mathalea } from '../Mathalea'
+  import { Mathalea } from '../lib/Mathalea'
   import { exercicesParams, darkMode, globalOptions, resultsByExercice } from './store'
   import type TypeExercice from './utils/typeExercice'
   import Exercice from './exercice/Exercice.svelte'

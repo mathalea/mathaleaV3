@@ -9,7 +9,7 @@
   import codeList from '../json/codeToLevelList.json'
   import referentiel from '../json/referentiel2022.json'
   import referentielStatic from '../json/referentielStatic.json'
-  import { Mathalea } from '../Mathalea'
+  import { Mathalea } from '../lib/Mathalea'
   import { flip } from 'svelte/animate'
   import { onMount } from 'svelte'
   import { toMap } from './utils/toMap'

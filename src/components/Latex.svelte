@@ -1,104 +1,120 @@
 <script lang="ts">
   import { exercicesParams } from './store'
-  import { Mathalea } from '../Mathalea.js'
+  import { Mathalea } from '../lib/Mathalea.js'
   import type TypeExercice from './utils/typeExercice'
   import Footer from './Footer.svelte'
   import NavBar from './header/NavBar.svelte'
-  import seedrandom from 'seedrandom'
   import Latex from '../lib/Latex'
   import Button from './forms/Button.svelte'
   import FormRadio from './forms/FormRadio.svelte'
-
-  Mathalea.loadExercicesFromUrl()
 
   let nbVersions = 1
   let title = ''
   let reference = ''
   let subtitle = ''
-  let style = 'Coopmaths'
+  let style: 'coopmaths' | 'classique' | 'can' = 'coopmaths'
   let textForOverleaf : HTMLInputElement
   let dialogLua: HTMLDialogElement
-
-  async function uuidToExercice(
-    {
-      uuid,
-      alea,
-      nbQuestions,
-      interactif = false,
-      cd,
-      sup,
-      sup2,
-      sup3,
-      sup4,
-    }: {
-      uuid: string
-      alea: string
-      nbQuestions?: number
-      interactif: boolean
-      cd?: boolean
-      sup?: string
-      sup2?: string
-      sup3?: string
-      sup4?: string
-    },
-    version = 1
-  ) {
-    const exercice: TypeExercice = await Mathalea.load(uuid)
-    exercice.seed = alea
-    if (nbQuestions !== undefined) exercice.nbQuestions = nbQuestions
-    if (cd !== undefined) exercice.correctionDetaillee = cd
-    if (sup !== undefined) exercice.sup = sup
-    if (sup2 !== undefined) exercice.sup2 = sup2
-    if (sup3 !== undefined) exercice.sup3 = sup3
-    if (sup4 !== undefined) exercice.sup4 = sup4
-    exercice.interactif = interactif
-    const seedSup = version === 1 ? '' : `v${version}`
-    seedrandom(exercice.seed + seedSup, { global: true })
-    if (exercice.typeExercice === 'simple') {
-      Mathalea.handleExerciceSimple(exercice)
-    }
-    exercice.nouvelleVersion()
-    return exercice
+  let exercices: TypeExercice[]
+  let contents = { content: '', contentCorr : ''}
+  
+  const latex = new Latex()
+  async function initExercices () {
+    Mathalea.loadExercicesFromUrl()
+    exercices = await Mathalea.getExercicesFromParams($exercicesParams)
+    latex.addExercices(exercices)
+    contents = latex.getContents(style)
   }
 
-  async function getContentsOfExercices(version = 1) {
-    const exercices: TypeExercice[] = []
-    for (const param of $exercicesParams) {
-      const exercice = await uuidToExercice(param, version)
-      exercices.push(exercice)
-    }
-    const latex = new Latex()
-    for (const exercice of exercices) {
-      latex.addExercice(exercice)
-    }
-    return { content: latex.content, contentCorr: latex.contentCorr }
-  }
+  initExercices()
 
-  async function getContentOfDocument({ nbVersions, title, reference, subtitle, style }) {
-    const latex = new Latex()
-    const tampon = nbVersions > 1
-    for (let i = 1; i < nbVersions + 1; i++) {
-      let newContents = { content: '', contentCorr: '' }
-      if (tampon) {
-        newContents.content = `\n\\version{${i}}`
-        if (i > 1) newContents.content += '\\setcounter{ExoMA}{0}'
-        newContents.contentCorr = `\n\\version{${i}}`
-        if (i > 1) newContents.contentCorr += '\\setcounter{ExoMA}{0}'
-        newContents.content += (await getContentsOfExercices(i)).content + '\n\\clearpage'
-        newContents.contentCorr += (await getContentsOfExercices(i)).contentCorr + '\n\\clearpage'
-      } else {
-        newContents = await getContentsOfExercices(i)
-      }
-      latex.content = latex.content + newContents.content
-      latex.contentCorr = latex.contentCorr + newContents.contentCorr
-    }
-    return { file: latex.getFile({ title, reference, subtitle, style }), exercices: latex.text, corrections: latex.contentCorr }
-  }
-
-  let contents = getContentOfDocument({ nbVersions, title, subtitle, reference, style })
   $: {
-    contents = getContentOfDocument({ nbVersions, title, subtitle, reference, style })
+    contents = latex.getContents(style)
   }
+  
+
+
+
+  // async function uuidToExercice(
+  //   {
+  //     uuid,
+  //     alea,
+  //     nbQuestions,
+  //     interactif = false,
+  //     cd,
+  //     sup,
+  //     sup2,
+  //     sup3,
+  //     sup4,
+  //   }: {
+  //     uuid: string
+  //     alea: string
+  //     nbQuestions?: number
+  //     interactif: boolean
+  //     cd?: boolean
+  //     sup?: string
+  //     sup2?: string
+  //     sup3?: string
+  //     sup4?: string
+  //   },
+  //   version = 1
+  // ) {
+  //   const exercice: TypeExercice = await Mathalea.load(uuid)
+  //   exercice.seed = alea
+  //   if (nbQuestions !== undefined) exercice.nbQuestions = nbQuestions
+  //   if (cd !== undefined) exercice.correctionDetaillee = cd
+  //   if (sup !== undefined) exercice.sup = sup
+  //   if (sup2 !== undefined) exercice.sup2 = sup2
+  //   if (sup3 !== undefined) exercice.sup3 = sup3
+  //   if (sup4 !== undefined) exercice.sup4 = sup4
+  //   exercice.interactif = interactif
+  //   const seedSup = version === 1 ? '' : `v${version}`
+  //   seedrandom(exercice.seed + seedSup, { global: true })
+  //   if (exercice.typeExercice === 'simple') {
+  //     Mathalea.handleExerciceSimple(exercice)
+  //   }
+  //   exercice.nouvelleVersion()
+  //   return exercice
+  // }
+
+  // async function getContentsOfExercices(version = 1, style = '') {
+  //   const exercices: TypeExercice[] = []
+  //   for (const param of $exercicesParams) {
+  //     const exercice = await uuidToExercice(param, version)
+  //     exercices.push(exercice)
+  //   }
+  //   const latex = new Latex()
+  //   for (const exercice of exercices) {
+  //     latex.addExercice(exercice)
+  //   }
+  //   return { content: latex.content, contentCorr: latex.contentCorr }
+  // }
+
+  // async function getContentOfDocument({ nbVersions, title, reference, subtitle, style }) {
+  //   const latex = new Latex()
+  //   const tampon = nbVersions > 1
+  //   for (let i = 1; i < nbVersions + 1; i++) {
+  //     let newContents = { content: '', contentCorr: '' }
+  //     if (tampon) {
+  //       newContents.content = `\n\\version{${i}}`
+  //       if (i > 1) newContents.content += '\\setcounter{ExoMA}{0}'
+  //       newContents.contentCorr = `\n\\version{${i}}`
+  //       if (i > 1) newContents.contentCorr += '\\setcounter{ExoMA}{0}'
+  //       newContents.content += (await getContentsOfExercices(i, style)).content + '\n\\clearpage'
+  //       newContents.contentCorr += (await getContentsOfExercices(i, style)).contentCorr + '\n\\clearpage'
+  //     } else {
+  //       newContents = await getContentsOfExercices(i, style)
+  //     }
+  //     latex.content = latex.content + newContents.content
+  //     latex.contentCorr = latex.contentCorr + newContents.contentCorr
+  //   }
+  //   return { file: latex.getFile({ title, reference, subtitle, style }), exercices: latex.text, corrections: latex.contentCorr }
+  // }
+
+  // let contents = getContentOfDocument({ nbVersions, title, subtitle, reference, style })
+  // $: {
+  //   contents = getContentOfDocument({ nbVersions, title, subtitle, reference, style })
+  // }
 
   const copyExercices = async () => {
     try {
@@ -111,7 +127,7 @@
 
   const copyDocument = async () => {
     try {
-      const text = (await contents).file
+      const text = (await latex.getFile({title, reference, subtitle, style}))
       await navigator.clipboard.writeText(text)
       dialogLua.showModal()
       setTimeout(()=>{
@@ -121,8 +137,9 @@
       console.error('Accès au presse-papier impossible: ', err)
     }
   }
+
   const copyDocumentToOverleaf = async () => {
-    const text = (await contents).file
+    const text = (await latex.getFile({title, reference, subtitle, style}))
     textForOverleaf.value = encodeURIComponent(text)
   }
 </script>
@@ -153,14 +170,15 @@
           title="Style"
           bind:valueSelected={style}
           labelsValues={[
-            { label: 'Coopmaths', value: 'Coopmaths' },
-            { label: 'Classique', value: 'Classique' },
+            { label: 'Coopmaths', value: 'coopmaths' },
+            { label: 'Classique', value: 'classique' },
+            { label: 'Course aux nombres', value: 'can' },
           ]}
         />
       </div>
       <input type="text" placeholder="Titre" bind:value={title} />
-      <input type="text" placeholder={style === 'Coopmaths' ? 'Référence' : 'Haut de page gauche'} bind:value={reference} />
-      <input type="text" placeholder={style === 'Coopmaths' ? 'Sous-titre / Chapitre' : 'Pied de page droit'} bind:value={subtitle} />
+      <input type="text" placeholder={style === 'coopmaths' ? 'Référence' : 'Haut de page gauche'} bind:value={reference} />
+      <input type="text" placeholder={style === 'coopmaths' ? 'Sous-titre / Chapitre' : 'Pied de page droit'} bind:value={subtitle} />
       <label for="numberOfVersions">Nombre de versions des exercices</label>
       <input type="number" name="numberOfVersions" maxlength="2" min="1" max="20" class="ml-2" bind:value={nbVersions} />
     </div>
@@ -171,17 +189,22 @@
     </dialog>
       
     <pre class="my-10 shadow-md bg-coopmaths-canvas-dark p-4 w-4/6 overflow-auto">
-      {#await contents}
+      {contents.content}
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%   CORRECTION   %%%
+%%%%%%%%%%%%%%%%%%%%%%
+
+      {contents.contentCorr}
+      <!-- {#await contents}
         Chargement...
       {:then contents}
         {contents.exercices}
   
-        %%%%%%%%%%%%%%%%%%%%%%
-        %%%   CORRECTION   %%%
-        %%%%%%%%%%%%%%%%%%%%%%
+       
   
         {contents.corrections}
-      {/await}
+      {/await} -->
   </pre>
   </section>
   <footer>
