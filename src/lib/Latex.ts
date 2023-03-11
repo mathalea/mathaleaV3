@@ -32,7 +32,7 @@ class Latex {
       for (const exercice of this.exercices) {
         if (exercice.typeExercice === 'simple') {
           for (let i = 0; i < exercice.listeQuestions.length; i++) {
-            content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeCanEnonces[i])} &&\\tabularnewline ${format(exercice.listeCanReponsesACompleter[i])} \\hline\n`
+            content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeCanEnonces[i])} &  ${format(exercice.listeCanReponsesACompleter[i])} &\\tabularnewline \\hline\n`
           }
         } else {
           for (let i = 0; i < exercice.listeQuestions.length; i++) {
