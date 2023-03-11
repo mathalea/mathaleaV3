@@ -1,6 +1,13 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, texNombre, puissanceEnProduit } from '../../modules/outils.js'
+import { fraction } from '../../modules/fractions.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Écriture décimale ou fractionnaire d\'une puissance'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 /**
  * Donner l'écriture décimale d'une puissance de 10
@@ -36,26 +43,27 @@ export default function EcritureDecimalePuissance () {
     if (this.sup === 3) {
       listeTypeDeQuestions = combinaisonListes(['+', '-'], this.nbQuestions)
     }
-    for (let i = 0, texte, texteCorr, a, n, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, a, n, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
         case '+':
           a = listeDeCalculs[i][0]
           n = listeDeCalculs[i][1]
           texte = `$${a}^{${n}}$`
-          if (n < 2) {
-            texteCorr = `${a}^${n}=$${a}**n}$`
-          } else {
-            texteCorr = `$${a}^{${n}}=${puissanceEnProduit(a, n)}=${texNombre(a ** n)}$`
-          }
+          texteCorr = `$${a}^{${n}}=${puissanceEnProduit(a, n)}=${texNombre(a ** n)}$`
+          reponse = a ** n
           break
         case '-':
           a = listeDeCalculs[i][0]
           n = listeDeCalculs[i][1]
           texte = `$${a}^{${-n}}$`
           texteCorr = `$${a}^{${-n}}=\\dfrac{1}{${a}^{${n}}}=\\dfrac{1}{${puissanceEnProduit(a, n)}}=\\dfrac{1}{${texNombre(a ** n)}}$`
+          reponse = fraction(1, a ** n)
           break
       }
-
+      setReponse(this, i, reponse)
+      if (this.interactif) {
+        texte += ' = ' + ajouteChampTexteMathLive(this, i, 'inline')
+      }
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, n)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
