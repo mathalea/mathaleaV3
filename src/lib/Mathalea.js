@@ -295,7 +295,7 @@ export class Mathalea {
         )
         exercice.listeCorrections.push(exercice.correction)
         exercice.listeCanEnonces.push(exercice.canEnonce)
-        exercice.listeCanReponsesACompleter.push(exercice.canRepnseACompleter)
+        exercice.listeCanReponsesACompleter.push(exercice.canReponseACompleter)
         cptSecours = 0
         i++
       } else {
