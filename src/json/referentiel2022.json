@@ -8568,7 +8568,12 @@
         "uuid": "36f8b",
         "url": "4e/4C30-3.js",
         "titre": "Écriture décimale ou fractionnaire d'une puissance",
-        "tags": {}
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amc": true,
+          "amcType": "AMCNum"
+        }
       },
       "4C30-4": {
         "id": "4C30-4",
