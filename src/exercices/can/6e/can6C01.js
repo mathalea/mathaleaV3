@@ -76,8 +76,10 @@ $${(a + 1) * 100}\\times ${d}=${((a + 1) * 100) * d}$ et on sélectionne le rés
         if (i === 0) this.canReponseACompleter = monQcm.texte // FIXME Dans un exercice permettant plusieurs questions il n'y a qu'un this.canReponseACompleter ???
         i++
       }
-      cpt++
       this.canReponseACompleter = monQcm.texte
+      this.listeCanEnonces.push(this.canEnonce)
+      this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+      cpt++
     }
     listeQuestionsToContenu(this)
   }
