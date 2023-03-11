@@ -284,7 +284,7 @@ export class Mathalea {
     exercice.listeQuestions = []
     exercice.listeCorrections = []
     exercice.listeCanEnonces = []
-    exercice.lsiteCanReponsesACompleter = []
+    exercice.listeCanReponsesACompleter = []
     for (let i = 0, cptSecours = 0; i < exercice.nbQuestions && cptSecours < 50;) {
       seedrandom(exercice.seed + i, { global: true })
       exercice.nouvelleVersion()
@@ -295,7 +295,7 @@ export class Mathalea {
         )
         exercice.listeCorrections.push(exercice.correction)
         exercice.listeCanEnonces.push(exercice.canEnonce)
-        exercice.lsiteCanReponsesACompleter.push(exercice.canRepnseACompleter)
+        exercice.listeCanReponsesACompleter.push(exercice.canRepnseACompleter)
         cptSecours = 0
         i++
       } else {
