@@ -31,7 +31,7 @@ async function handleLevels () {
       let url = path.join(dir, file)
       /** On ignore les fichiers qui commencent par _ qui sont des méta-exercices */
       if (fs.statSync(url).isDirectory() || file.charAt(0) === '_') continue
-      url = path.join('../', url)
+      url = path.join('../', url).replaceAll('\\', '/')
       try {
         const { titre, datePublication, dateDeModifImportante, ref, uuid, interactifType, interactifReady, amcReady, amcType } = await import(url)
         url = url.replace('../src/exercices/', '')
@@ -82,7 +82,7 @@ async function handleCanLevels () {
     for await (const file of files) {
       let url = path.join(dir + path.sep, file)
       if (fs.statSync(url).isDirectory() || file.charAt(0) === '_') continue
-      url = path.join('../', url)
+      url = path.join('../', url).replaceAll('\\', '/')
       try {
         const { titre, dateDePublication, dateDeModifImportante, ref, uuid, interactifType, interactifReady, amcReady, amcType } = await import(url)
         url = url.replace('../src/exercices/', '')
