@@ -1,14 +1,11 @@
-import { context } from '../modules/context.js'
-import { addElement, get, setStyles } from '../modules/dom.js'
-import { exerciceCliqueFigure } from '../modules/interactif/cliqueFigure.js'
-import { exerciceListeDeroulante } from '../modules/interactif/questionListeDeroulante.js'
+import { context } from '../../modules/context.js'
+import { addElement, get, setStyles } from '../../modules/dom.js'
+import { exerciceCliqueFigure } from '../../modules/interactif/cliqueFigure.js'
+import { exerciceListeDeroulante } from '../../modules/interactif/questionListeDeroulante.js'
 import { verifExerciceMathLive } from './questionMathLive.js'
-import { exerciceQcm } from '../modules/interactif/questionQcm.js'
-import { isUserIdOk } from '../modules/interactif/isUserIdOk.js'
-import { gestionCan } from '../modules/interactif/gestionCan.js'
-import FractionX from '../modules/FractionEtendue.js'
-import Grandeur from '../modules/Grandeur.js'
-import { ComputeEngine } from '@cortex-js/compute-engine'
+import { exerciceQcm } from '../../modules/interactif/questionQcm.js'
+import { isUserIdOk } from '../../modules/interactif/isUserIdOk.js'
+import { gestionCan } from '../../modules/interactif/gestionCan.js'
 
 export function exerciceInteractif (exercice, divScore, buttonScore) {
   if (exercice.interactifType === 'qcm')exerciceQcm(exercice)
@@ -18,131 +15,6 @@ export function exerciceInteractif (exercice, divScore, buttonScore) {
   // Pour les exercices de type custom, on appelle la méthode correctionInteractive() définie dans l'exercice
   if (exercice.interactifType === 'mathLive') verifExerciceMathLive(exercice, divScore, buttonScore)
   if (exercice.interactifType === undefined) exerciceNonInteractif(exercice)
-}
-
-/**
- *
- * @param {Exercice} exercice
- * @param {number} i
- * @param {object} param2
- * @returns {string} code HTML du champ texte avec identifiant champTexteEx__Q__ et le span pour le résultat de la question
- */
-export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', inline = true, numeric = false, indice } = {}) {
-  if (context.isHtml && exercice.interactif) {
-    return `<div class="ui form ${inline ? 'inline' : ''}" >
-      <div class="inline  field" >
-      <label>${texte}</label>
-        <input type="text" ${numeric ? 'type="number" min="0" inputmode="numeric" pattern="[0-9]*"' : ''}  id="champTexteEx${exercice.numeroExercice}Q${i}${indice || ''}" >
-        <span>${texteApres}</span>
-        <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>
-      </div>
-      </div>`
-  } else {
-    return ''
-  }
-}
-
-/**
- * Précise la réponse attendue
- * @param {Exercice} exercice
- * @param {number} i
- * @param {array | number} valeurs
- * @param {object}
- */
-
-export function setReponse (exercice, i, valeurs, { digits = 0, formatInteractif = 'calcul', decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, aussiCorrect = undefined, digitsNum = undefined, digitsDen = undefined, basePuissance = undefined, exposantPuissance = undefined, baseNbChiffres = undefined, milieuIntervalle = undefined } = {}) {
-  let reponses = []
-
-  if (Array.isArray(valeurs)) {
-    reponses = valeurs // reponses contient donc directement le tableau valeurs
-    // si valeur est un tableau ou prend le signe de la première valeur
-    if (valeurs[0].num === undefined) {
-      signe = valeurs[0] < 0 ? true : signe // on teste si elle est négative, si oui, on force la case signe pour AMC
-    } else {
-      signe = valeurs[0].signe === -1 ? true : signe // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
-    }
-  } else {
-    reponses = [valeurs] // ici, valeurs n'est pas un tableau mais on le met dans reponses sous forme de tableau
-    if (valeurs.num === undefined) {
-      signe = (valeurs < 0) ? true : signe // on teste si elle est négative, si oui, on force la case signe pour AMC
-    } else {
-      signe = valeurs.signe === -1 ? true : signe // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
-    }
-  }
-  let laReponseDemandee
-  let test
-  const engine = new ComputeEngine()
-  switch (formatInteractif) {
-    case 'Num':
-      if (!(reponses[0] instanceof FractionX)) window.notify('setReponse : type "Num" une fraction est attendue !', { reponses })
-      else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
-      break
-    case 'Den':
-      if (!(reponses[0] instanceof FractionX)) window.notify('setReponse : type "Den" une fraction est attendue !', { reponses })
-      break
-    case 'calcul':
-      laReponseDemandee = reponses[0]
-      if (typeof laReponseDemandee === 'string') {
-        laReponseDemandee = laReponseDemandee.replaceAll('dfrac', 'frac')
-      }
-      if (typeof laReponseDemandee === 'number' || typeof laReponseDemandee === 'string') {
-        laReponseDemandee = laReponseDemandee.toString().replace(/\s/g, '').replace(',', '.')
-      }
-      try {
-        test = engine.parse(laReponseDemandee).canonical
-      } catch (error) {
-        window.notify("setReponse : type \"calcul\" la réponse n'est pas un nombre valide", { reponses, test })
-      }
-      break
-    case 'nombreDecimal':
-      if (isNaN(reponses[0])) window.notify('setReponse : type "nombreDecimal" un nombre est attendu !', { reponses })
-      break
-    case 'ecritureScientifique':
-      if (!(typeof reponses[0] === 'string')) window.notify("setReponse : type \"ecritureScientifique\" la réponse n'est pas un string !", { reponses })
-      // ToFix : vérifier que la chaine est au bon format
-      break
-
-    case 'texte':
-      if (!(typeof reponses[0] === 'string')) window.notify("setReponse : type \"texte\" la réponse n'est pas un string !", { reponses })
-      break
-
-    case 'ignorerCasse':
-      if (!(typeof reponses[0] === 'string')) window.notify("setReponse : type \"ignorerCasse\" la réponse n'est pas un string !", { reponses })
-      break
-    case 'fractionPlusSimple':
-      if (!(reponses[0] instanceof FractionX)) window.notify('setReponse : type "fractionPlusSimple" une fraction est attendue !', { reponses })
-      else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
-      break
-    case 'fractionEgale':
-      if (!(reponses[0] instanceof FractionX)) window.notify('setReponse : type "fractionEgale" une fraction est attendue !', { reponses })
-      else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
-      break
-    case 'fraction':
-      if (!(reponses[0] instanceof FractionX)) window.notify('setReponse : type "fraction" une fraction est attendue !', { reponses })
-      else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
-      break
-    case 'longueur': // Pour les exercices où l'on attend une mesure avec une unité au choix
-      if (!(reponses[0] instanceof Grandeur)) window.notify("setReponse : type \"longueur\" la réponse n'est pas une instance de Grandeur !", { reponses })
-      break
-    case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
-    // ToFix : vérifier que la réponse est bien un intervalle valide
-      break
-    case 'intervalle' :
-      // ToFix : vérifier que la réponse est bien un intervalle valide
-      break
-    case 'puissance' :
-    // ToFix : vérifier que la réponse est bien l'écriture d'une puissance ou en tout cas une réponse acceptable pour ce format
-      break
-  }
-
-  if (exercice.autoCorrection[i] === undefined) {
-    exercice.autoCorrection[i] = {}
-  }
-  if (exercice.autoCorrection[i].reponse === undefined) {
-    exercice.autoCorrection[i].reponse = {}
-  }
-  exercice.autoCorrection[i].reponse.param = { digits, decimals, signe, exposantNbChiffres, exposantSigne, approx, aussiCorrect, digitsNum, digitsDen, basePuissance, exposantPuissance, milieuIntervalle, baseNbChiffres, formatInteractif }
-  exercice.autoCorrection[i].reponse.valeur = reponses
 }
 
 /**
