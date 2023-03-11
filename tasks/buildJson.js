@@ -94,7 +94,7 @@ async function handleCanLevels () {
           dictionnaire.CAN[niveau][category][ref] = { id: ref, uuid, url, titre, datePublication: dateDePublication, dateModification: dateDeModifImportante, tags: { interactif: interactifReady, interactifType, amc: amcReady, amcType } }
         } else {
           if (ref === undefined) {
-            console.log(`${url} n\'a pas de référence, il sera utilisable mais absent des menus`)
+            console.log(`${url} n'a pas de référence, il sera utilisable mais absent des menus`)
           } else {
             console.log(`${url} non géré`)
           }

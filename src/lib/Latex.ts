@@ -13,7 +13,11 @@ class Latex {
     this.exercices.push(...exercices)
   }
 
-  getContentsForAVersion (style: 'Coopmaths' | 'Classique' | 'Can', indiceVersion: number = 1, printNumberOfVersion = true): { content: string, contentCorr: string } {
+  getContentsForAVersion (
+    style: 'Coopmaths' | 'Classique' | 'Can',
+    indiceVersion: number = 1,
+    printNumberOfVersion = true
+  ): { content: string; contentCorr: string } {
     let content = ''
     let contentCorr = ''
     if (printNumberOfVersion) {
@@ -22,7 +26,7 @@ class Latex {
     }
     for (const exercice of this.exercices) {
       if (exercice.typeExercice === 'simple') Mathalea.handleExerciceSimple(exercice, false)
-      const seed = (indiceVersion > 1) ? exercice.seed + indiceVersion.toString() : exercice.seed
+      const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
       seedrandom(seed, { global: true })
       exercice.nouvelleVersion()
     }
@@ -30,12 +34,12 @@ class Latex {
       content += '\\begin{TableauCan}\n'
       contentCorr += '\n\\begin{Correction}\n\\begin{enumerate}'
       for (const exercice of this.exercices) {
-        if (exercice.typeExercice === 'simple') {
-          for (let i = 0; i < exercice.listeQuestions.length; i++) {
-            content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeCanEnonces[i])} &  ${format(exercice.listeCanReponsesACompleter[i])} &\\tabularnewline \\hline\n`
-          }
-        } else {
-          for (let i = 0; i < exercice.listeQuestions.length; i++) {
+        for (let i = 0; i < exercice.listeQuestions.length; i++) {
+          if (exercice.listeCanEnonces[i] !== undefined && exercice.listeCanReponsesACompleter[i] !== undefined) {
+            content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeCanEnonces[i])} &  ${format(
+              exercice.listeCanReponsesACompleter[i]
+            )} &\\tabularnewline \\hline\n`
+          } else {
             content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeQuestions[i])} &&\\tabularnewline \\hline\n`
           }
         }
@@ -64,9 +68,9 @@ class Latex {
     return { content, contentCorr }
   }
 
-  getContents (style: 'Coopmaths' | 'Classique' | 'Can', nbVersions: number = 1): { content: string, contentCorr: string } {
+  getContents (style: 'Coopmaths' | 'Classique' | 'Can', nbVersions: number = 1): { content: string; contentCorr: string } {
     const contents = { content: '', contentCorr: '' }
-    const printNumberOfVersion = (nbVersions > 1)
+    const printNumberOfVersion = nbVersions > 1
     for (let i = 1; i < nbVersions + 1; i++) {
       const contentVersion = this.getContentsForAVersion(style, i, printNumberOfVersion)
       if (i > 1) {
@@ -84,7 +88,19 @@ class Latex {
     return contents
   }
 
-  getFile ({ title, reference, subtitle, style, nbVersions }: { title: string, reference: string, subtitle: string, style: 'Coopmaths' | 'Classique' | 'Can', nbVersions: number }) {
+  getFile ({
+    title,
+    reference,
+    subtitle,
+    style,
+    nbVersions
+  }: {
+    title: string
+    reference: string
+    subtitle: string
+    style: 'Coopmaths' | 'Classique' | 'Can'
+    nbVersions: number
+  }) {
     const contents = this.getContents(style, nbVersions)
     const content = contents.content
     const contentCorr = contents.contentCorr
@@ -137,13 +153,16 @@ function writeInCols (text, nb: number): string {
 }
 
 /**
-   * Pour les exercices Mathalea on a des conventions pour les sauts de ligne qui fonctionnent en HTML comme en LaTeX
-   * * `<br>` est remplacé par un saut de paragraphe
-   * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
-   */
+ * Pour les exercices Mathalea on a des conventions pour les sauts de ligne qui fonctionnent en HTML comme en LaTeX
+ * * `<br>` est remplacé par un saut de paragraphe
+ * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
+ */
 function format (text: string) {
   if (text === undefined) return ''
-  return text.replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/gim, '\n\n\\medskip\n').replace(/<br>/g, '\\\\').replace(/\\\\\s*\n\n/gm, '\\\\')
+  return text
+    .replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/gim, '\n\n\\medskip\n')
+    .replace(/<br>/g, '\\\\')
+    .replace(/\\\\\s*\n\n/gm, '\\\\')
 }
 
 export default Latex
