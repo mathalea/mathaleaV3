@@ -33,7 +33,7 @@ export default function OrdreDeGrandeur () {
       // Ajout avant l'ajout des propositions de réponse
       // ça serait mieux en uniformisant avec this.question pour tous les exos can
       this.canEnonce = texte
-      this.autoCorrection[0] = {
+      this.autoCorrection[i] = {
         enonce: texte,
         propositions: [
           {
@@ -50,7 +50,7 @@ export default function OrdreDeGrandeur () {
           }
         ]
       }
-      const monQcm = propositionsQcm(this, 0)
+      const monQcm = propositionsQcm(this, i)
       if (!context.isAmc) {
         texte += monQcm.texte
       }
@@ -73,7 +73,6 @@ $${(a + 1) * 100}\\times ${d}=${((a + 1) * 100) * d}$ et on sélectionne le rés
       // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        if (i === 0) this.canReponseACompleter = monQcm.texte // FIXME Dans un exercice permettant plusieurs questions il n'y a qu'un this.canReponseACompleter ???
         i++
       }
       this.canReponseACompleter = monQcm.texte
@@ -82,5 +81,6 @@ $${(a + 1) * 100}\\times ${d}=${((a + 1) * 100) * d}$ et on sélectionne le rés
       cpt++
     }
     listeQuestionsToContenu(this)
+    console.log(this)
   }
 }
