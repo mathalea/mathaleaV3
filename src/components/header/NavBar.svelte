@@ -95,9 +95,9 @@
   }
 
   function goToMathalea () {
-    globalOptions.update(l=> {
-      l.v = ''
-      return l
+    globalOptions.update((params) => {
+      delete params.v
+      return params
     })
   }
 
