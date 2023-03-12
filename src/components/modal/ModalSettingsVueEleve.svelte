@@ -13,19 +13,19 @@
 
   const availableLinkFormats = {
     clear: {
-      toolTipsMessage: "en clair",
+      toolTipsMessage: "En clair",
       icon: "bx-glasses-alt",
       isShort: false,
       isEncrypted: false,
     },
     short: {
-      toolTipsMessage: "raccourci",
+      toolTipsMessage: "Raccourci",
       icon: "bx-move-horizontal",
       isShort: true,
       isEncrypted: false,
     },
     crypt: {
-      toolTipsMessage: "crypté",
+      toolTipsMessage: "Crypté",
       icon: "bx-lock",
       isShort: false,
       isEncrypted: true,
@@ -43,11 +43,12 @@
   }
 
   $: {
-    if ($globalOptions.setInteractive !== "0")
+    if ($globalOptions.setInteractive !== "0") {
       globalOptions.update((l) => {
         l.isSolutionAccessible = true
         return l
       })
+    }
   }
 </script>
 
@@ -127,9 +128,9 @@
           title="linkFormat"
           bind:valueSelected={currentLinkFormat}
           labelsValues={[
-            { label: "en clair", value: "clear" },
-            { label: "racourci", value: "short" },
-            { label: "crypté", value: "crypt" },
+            { label: "En clair", value: "clear" },
+            { label: "Racourci", value: "short" },
+            { label: "Crypté", value: "crypt" },
           ]}
           orientation="row"
         />

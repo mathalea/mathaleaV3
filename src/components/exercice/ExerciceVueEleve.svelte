@@ -2,13 +2,11 @@
   import { globalOptions, resultsByExercice } from "../store"
   import { afterUpdate, onMount, tick } from "svelte"
   import seedrandom from "seedrandom"
-  import { prepareExerciceCliqueFigure } from "../../interactif/interactif"
+  import { prepareExerciceCliqueFigure, exerciceInteractif } from "../../lib/interactif/interactif"
   import { loadMathLive } from "../../modules/loaders"
-  import { Mathalea } from "../../Mathalea"
-  import { exerciceInteractif } from "../../interactif/interactif"
+  import { Mathalea } from "../../lib/Mathalea"
   import { exercicesParams } from "../store"
   import HeaderExerciceVueEleve from "./HeaderExerciceVueEleve.svelte"
-  import Settings from "./Settings.svelte"
   export let exercice
   export let indiceExercice
   export let isCorrectionVisible = false
