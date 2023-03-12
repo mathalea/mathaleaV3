@@ -15,15 +15,10 @@ class Latex {
 
   getContentsForAVersion (
     style: 'Coopmaths' | 'Classique' | 'Can',
-    indiceVersion: number = 1,
-    printNumberOfVersion = true
+    indiceVersion: number = 1
   ): { content: string; contentCorr: string } {
     let content = ''
     let contentCorr = ''
-    if (printNumberOfVersion) {
-      content += `\n\\version{${indiceVersion}}`
-      contentCorr += `\n\\version{${indiceVersion}}`
-    }
     for (const exercice of this.exercices) {
       if (exercice.typeExercice === 'simple') Mathalea.handleExerciceSimple(exercice, false)
       const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
@@ -70,17 +65,21 @@ class Latex {
 
   getContents (style: 'Coopmaths' | 'Classique' | 'Can', nbVersions: number = 1): { content: string; contentCorr: string } {
     const contents = { content: '', contentCorr: '' }
-    const printNumberOfVersion = nbVersions > 1
     for (let i = 1; i < nbVersions + 1; i++) {
-      const contentVersion = this.getContentsForAVersion(style, i, printNumberOfVersion)
+      const contentVersion = this.getContentsForAVersion(style, i)
       if (i > 1) {
         contents.content += '\n\\clearpage'
-        if (style === 'Can') {
-          contents.content += '\n\\setcounter{nbEx}{1}'
-        }
         contents.content += '\n\\setcounter{ExoMA}{0}'
         contents.contentCorr += '\n\\clearpage'
         contents.contentCorr += '\n\\setcounter{ExoMA}{0}'
+      }
+      if (nbVersions > 1) {
+        contents.content += `\n\\version{${i}}`
+        contents.contentCorr += `\n\\version{${i}}`
+        if (i > 1 && style === 'Can') {
+          contents.content += '\n\\setcounter{nbEx}{1}'
+          contents.content += '\n\\pageDeGardeCan{nbEx}\n\\clearpage'
+        }
       }
       contents.content += contentVersion.content
       contents.contentCorr += contentVersion.contentCorr
