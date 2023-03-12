@@ -156,7 +156,7 @@
       exercice.nouvelleVersion(k)
       isCorrectionVisible[k] = false
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
-        consignes.push(exercice.consigne)
+        consignes.push(exercice.consigne + exercice.introduction)
         indiceExercice.push(k)
         indiceQuestionInExercice.push(i)
       }
