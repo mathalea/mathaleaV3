@@ -28,7 +28,7 @@ export default function QuestionDePerimetres () {
       const VF = [false, true]
       let texte = `Est-il vrai qu'un carré de côté $${a}$ cm a le même périmètre qu'un rectangle de largeur $${a - b}$ cm et de longueur $${a + 1}$ cm ? `
       this.canEnonce = texte
-      this.autoCorrection[0] = {
+      this.autoCorrection[i] = {
         enonce: texte,
         propositions: [
           {
@@ -41,7 +41,7 @@ export default function QuestionDePerimetres () {
           }
         ]
       }
-      const monQcm = propositionsQcm(this, 0)
+      const monQcm = propositionsQcm(this, i)
       if (!context.isAmc) {
         texte += monQcm.texte
       }

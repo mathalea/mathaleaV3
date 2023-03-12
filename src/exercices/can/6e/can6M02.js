@@ -36,7 +36,7 @@ export default function LaBonneUnite () {
       enleveElement(unites, hauteurs[a][3])
       let texte = `Choisir parmi les propositions suivantes la hauteur d'une ${hauteurs[a][0]}.<br>`
       this.canEnonce = texte
-      this.autoCorrection[0] = {
+      this.autoCorrection[i] = {
         enonce: texte,
         propositions: [
           {
@@ -53,7 +53,7 @@ export default function LaBonneUnite () {
           }
         ]
       }
-      const monQcm = propositionsQcm(this, 0)
+      const monQcm = propositionsQcm(this, i)
       if (!context.isAmc) {
         texte += monQcm.texte
       }

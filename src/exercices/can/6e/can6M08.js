@@ -37,7 +37,7 @@ export default function QuestionDAires () {
         texte = `Est-il vrai qu'un carré de côté $${a}$ cm et un rectangle de largeur $${Math.min(a, b)}$ cm et de longueur $${Math.max(a, b)}$ cm ont une aire qui diffère de $${Math.max(a * a, a * b) - Math.min(a * a, a * b) + c}$ cm${texteExposant(2)} ?`
         this.canEnonce = texte
       }
-      this.autoCorrection[0] = {
+      this.autoCorrection[i] = {
         enonce: texte,
         propositions: [
           {
@@ -50,7 +50,7 @@ export default function QuestionDAires () {
           }
         ]
       }
-      const monQcm = propositionsQcm(this, 0)
+      const monQcm = propositionsQcm(this, i)
       if (!context.isAmc) {
         texte += monQcm.texte
       }
