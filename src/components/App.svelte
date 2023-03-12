@@ -7,6 +7,7 @@
   import { context } from '../modules/context'
   import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from "../modules/ElementInstrumenpoche"
   import Latex from "./Latex.svelte"
+  import Amc from "./Amc.svelte"
 
   context.versionMathalea = 3
   // ToFix fonction à lier avec bugsnag
@@ -29,6 +30,10 @@
     } else {
       context.isHtml = true
     }
+    if ($globalOptions.v === 'amc') {
+      context.isAmc = true
+      context.isHtml = false
+    }
   }
 
 </script>
@@ -42,6 +47,8 @@
     <Eleve />
   {:else if $globalOptions.v === "latex"}
     <Latex />
+  {:else if $globalOptions.v === "amc"}
+   <Amc />
   {:else}
     <Start />
   {/if}
