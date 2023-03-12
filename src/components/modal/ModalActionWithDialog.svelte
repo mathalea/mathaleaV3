@@ -1,10 +1,12 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte"
   export let message: string = "Default message"
+  export let messageError: string = "Default error message"
   export let dialogId: string = "dialogbox"
   export let tooltipMessage: string = ""
   export let buttonSize: string = "text-2xl"
   export let buttonIcon: string = "bx-link"
+  export let buttonSecondIcon: string = ""
   export let classForButton: string = ""
 
   const dispatch = createEventDispatcher()
@@ -31,6 +33,7 @@
     * `tooltipMessage` : message affiché au survol
     * `buttonSize` : taille du bouton
     * `buttonIcon` : icone utilisée pour le bouton
+    * `buttonSecondIcon` : icone à ajouter
     * `classForButton` : pour ajouter des éléments de positionnement du bouton
 
     __Exemple__ :
@@ -39,10 +42,12 @@
     <ModalActionWithDialog
         on:display={() => copyLinkToClipboard("linkCopiedDialog-2")}
         message="Le lien est copié dans le presse-papier !"
+        messageError="Impossible de copier le lien dans le presse-papier"
         dialogId="linkCopiedDialog-2"
         tooltipMessage="Lien du Diaporama"
         buttonSize="text-[100px]"
         buttonIcon="bx-link"
+        buttonSecondIcon=""
         classForButton = "mr-4 my-2"
     />
     ```
@@ -54,9 +59,15 @@
     class="{classForButton} text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
     on:click={fireMessage}
   >
-    <i class="bx {buttonIcon} {buttonSize}" />
+    <i class="relative bx {buttonIcon} {buttonSize}" />
+    {#if buttonSecondIcon.length !== 0}
+      <i class="absolute -bottom-1 bx {buttonSecondIcon} text-sm -translate-x-3 text-coopmaths-warn dark:text-coopmathsdark-warn" />
+    {/if}
   </button>
-  <dialog class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg" id={dialogId}>
+  <dialog class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg" id={dialogId + "-1"}>
     {message}
+  </dialog>
+  <dialog class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg" id={dialogId + "-2"}>
+    {messageError}
   </dialog>
 </div>

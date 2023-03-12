@@ -12,7 +12,7 @@
   import { showDialogForLimitedTime } from "./utils/dialogs"
   import { copyLinkToClipboard, copyQRCodeImageToClipboard } from "./utils/clipboard"
   import { formattedTimeStamp, setPhraseDuree } from "./utils/time"
-  import ModalForQrCode from "./modal/ModalForQRCode.svelte"
+  import ModalForQRCode from "./modal/ModalForQRCode.svelte"
   import FormRadio from "./forms/FormRadio.svelte"
 
   let divQuestion: HTMLDivElement[] = []
@@ -30,7 +30,7 @@
   let questions: [string[], string[], string[], string[]] = [[], [], [], []] // Concaténation de toutes les questions des exercices de exercicesParams, vue par vue
   let corrections: [string[], string[], string[], string[]] = [[], [], [], []]
   let sizes: number[] = []
-  let consignes: string[] = []
+  let consignes: [string[], string[], string[], string[]] = [[], [], [], []]
   let durations: number[] = []
   let durationGlobal: number = $globalOptions.durationGlobal
   let previousDurationGlobal = 10 // Utile si on décoche puis recoche "Même durée pour toutes les questions"
@@ -123,10 +123,11 @@
     Mathalea.updateUrl($exercicesParams)
     questions = [[], [], [], []]
     corrections = [[], [], [], []]
-    consignes = []
+    consignes = [[], [], [], []]
     sizes = []
     durations = []
     for (let idVue = 0; idVue < nbOfVues; idVue++) {
+      consignes[idVue] = []
       questions[idVue] = []
       corrections[idVue] = []
       for (const [k, exercice] of exercices.entries()) {
@@ -138,9 +139,19 @@
         if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
         seedrandom(exercice.seed, { global: true })
         exercice.nouvelleVersion()
+        let consigne: string = ""
         if ($selectedExercises.indexes.includes(k)) {
+          if (exercice.introduction) {
+            consigne = exercice.consigne + "\n" + exercice.introduction
+          } else {
+            consigne = exercice.consigne
+          }
+          for (let j = 0; j < exercice.listeQuestions.length; j++) {
+            consignes[idVue].push(consigne) // même consigne pour toutes les questions
+          }
           questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
           corrections[idVue] = [...corrections[idVue], ...exercice.listeCorrections]
+          consignes[idVue] = consignes[idVue].map(Mathalea.formatExercice)
           questions[idVue] = questions[idVue].map(Mathalea.formatExercice)
           corrections[idVue] = corrections[idVue].map(Mathalea.formatExercice)
         }
@@ -150,11 +161,6 @@
     for (const [k, exercice] of exercices.entries()) {
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
         sizes.push(exercice.tailleDiaporama)
-        if (exercice.introduction) {
-          consignes.push(exercice.consigne + "\n" + exercice.introduction)
-        } else {
-          consignes.push(exercice.consigne)
-        }
         durations.push(exercice.duration)
       }
       newParams.push({
@@ -166,7 +172,7 @@
         sup: exercice.sup,
         sup2: exercice.sup2,
         sup3: exercice.sup3,
-        sup4: exercice.sup4
+        sup4: exercice.sup4,
       })
     }
     globalOptions.update((l) => {
@@ -726,7 +732,8 @@
 <div id="diaporama" class={$darkMode.isActive ? "dark" : ""}>
   {#if currentQuestion === -1}
     <div id="start" class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-corpus  dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus" data-theme="daisytheme">
-      <div class="flex flex-row justify-end p-6">
+      <div class="flex flex-row justify-between p-6">
+        <div class="text-4xl text-coopmaths-struct font-bold">Réglages du Diaporama</div>
         <button type="button">
           <i
             class="relative bx ml-2 bx-lg bx-x text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest cursor-pointer"
@@ -864,7 +871,7 @@
                 tooltipMessage="Lien du Diaporama"
                 classForButton="mr-4 my-2"
               />
-              <ModalForQrCode classForButton="mr-4 my-2" dialogId="QRCodeModal-1" imageId="QRCodeCanvas-1" tooltipMessage="QR-code du diaporama" width={QRCodeWidth} format={formatQRCodeIndex} />
+              <ModalForQRCode classForButton="mr-4 my-2" dialogId="QRCodeModal-1" imageId="QRCodeCanvas-1" tooltipMessage="QR-code du diaporama" width={QRCodeWidth} format={formatQRCodeIndex} />
             </div>
           </div>
         </div>
@@ -1028,7 +1035,7 @@
               {/if}
               <div id="textcell{i}" bind:this={divQuestion[i]} class="flex flex-col justify-center px-4 w-full  min-h-[100%]  max-h-[100%]">
                 {#if isQuestionVisible}
-                  <div class="font-light" id="consigne{i}">{@html consignes[$questionsOrder.indexes[currentQuestion]]}</div>
+                  <div class="font-light" id="consigne{i}">{@html consignes[i][$questionsOrder.indexes[currentQuestion]]}</div>
                   <div class="py-4" id="question{i}">
                     {@html questions[i][$questionsOrder.indexes[currentQuestion]]}
                   </div>
@@ -1168,7 +1175,7 @@
           tooltipMessage="Lien du Diaporama"
           buttonSize="text-[100px]"
         />
-        <ModalForQrCode
+        <ModalForQRCode
           dialogId="QRCodeModal-2"
           imageId="QRCodeCanvas-2"
           tooltipMessage="QR-code du diaporama"

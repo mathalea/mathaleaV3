@@ -3,8 +3,34 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 const config = {
   darkMode: 'class',
   content: ['./src/**/*.{html,js,svelte,ts}'],
+  safelist: [
+    {
+      pattern: /grid-cols-./,
+      variants: ['lg', 'md']
+    }
+  ],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        13: 'repeat(13, minmax(0, 1fr))',
+        14: 'repeat(14, minmax(0, 1fr))',
+        15: 'repeat(15, minmax(0, 1fr))',
+        16: 'repeat(16, minmax(0, 1fr))',
+        17: 'repeat(17, minmax(0, 1fr))',
+        18: 'repeat(18, minmax(0, 1fr))',
+        19: 'repeat(19, minmax(0, 1fr))',
+        20: 'repeat(20, minmax(0, 1fr))',
+        21: 'repeat(21, minmax(0, 1fr))',
+        22: 'repeat(22, minmax(0, 1fr))',
+        23: 'repeat(23, minmax(0, 1fr))',
+        24: 'repeat(24, minmax(0, 1fr))',
+        25: 'repeat(25, minmax(0, 1fr))',
+        26: 'repeat(26, minmax(0, 1fr))',
+        27: 'repeat(27, minmax(0, 1fr))',
+        28: 'repeat(28, minmax(0, 1fr))',
+        29: 'repeat(29, minmax(0, 1fr))',
+        30: 'repeat(30, minmax(0, 1fr))'
+      },
       scale: {
         175: '1.75',
         200: '2.00'
@@ -29,9 +55,9 @@ const config = {
           darkmode: '#2e2e2b',
           darkmodelight: '#363633',
           canvas: {
-            DEFAULT: '#F8FCFC', // Anciennement '#EDEDF0'
-            dark: '#e1e1e6',
-            darkest: '#d6d6db'
+            DEFAULT: '#ffffff', // Anciennement '#EDEDF0'
+            dark: '#f6f6f6',
+            darkest: '#f0f0f0'
           },
           corpus: {
             DEFAULT: '#1F2429',

@@ -9,6 +9,7 @@ import uuidToUrl from '../json/uuidsToUrl.json'
 import refToUuid from '../json/refToUuid.json'
 import 'katex/dist/katex.min.css'
 import renderScratch from './renderScratch.js'
+import { decrypt } from '../components/utils/urls.js'
 
 // export type Settings = { sup?: boolean | string | number, sup2?: boolean | string | number, sup3?: boolean | string | number, sup4?: boolean | string | number, nbQuestions?: number, seed?: string }
 
@@ -23,6 +24,7 @@ export class Mathalea {
    * @returns {Promise<Exercice>} exercice
    */
   static async load (uuid) {
+    // console.log('from load -> uuid : ' + uuid)
     const url = uuidToUrl[uuid]
     const [filename, directory, isCan] = url.split('/').reverse()
     try {
@@ -179,7 +181,8 @@ export class Mathalea {
     let setInteractive = '2'
     let isSolutionAccessible = true
     let isInteractiveFree = true
-    const url = new URL(window.location.href)
+    let url = new URL(window.location.href)
+    url = decrypt(url)
     const entries = url.searchParams.entries()
     let indiceExercice = -1
     const newListeExercice = []
