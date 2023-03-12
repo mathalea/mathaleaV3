@@ -1,21 +1,21 @@
 <script lang="ts">
-  import { Mathalea } from "../Mathalea"
-  import { exercicesParams, darkMode, globalOptions, resultsByExercice } from "./store"
-  import type TypeExercice from "./utils/typeExercice"
-  import Exercice from "./exercice/Exercice.svelte"
-  import { onMount, tick } from "svelte"
-  import seedrandom from "seedrandom"
-  import { loadMathLive } from "../modules/loaders"
-  import Button from "./forms/Button.svelte"
-  import { verifQuestionMathLive } from "../interactif/mathLive"
-  import { verifQuestionQcm } from "../interactif/qcm"
-  import { verifQuestionListeDeroulante } from "../interactif/questionListeDeroulante"
-  import ButtonToggle from "./forms/ButtonToggle.svelte"
-  import { verifQuestionCliqueFigure } from "../modules/interactif/cliqueFigure"
-  import { prepareExerciceCliqueFigure } from "../interactif/interactif"
-  import Footer from "./Footer.svelte"
-  import BtnZoom from "./ui/btnZoom.svelte"
-  import { getCanvasFont, getTextWidth, remToPixels } from "./utils/measures"
+  import { Mathalea } from '../lib/Mathalea'
+  import { exercicesParams, darkMode, globalOptions, resultsByExercice } from './store'
+  import type TypeExercice from './utils/typeExercice'
+  import Exercice from './exercice/Exercice.svelte'
+  import { onMount, tick } from 'svelte'
+  import seedrandom from 'seedrandom'
+  import { loadMathLive } from '../modules/loaders'
+  import Button from './forms/Button.svelte'
+  import { verifQuestionMathLive } from '../lib/interactif/mathLive'
+  import { verifQuestionQcm } from '../lib/interactif/qcm'
+  import { verifQuestionListeDeroulante } from '../lib/interactif/questionListeDeroulante'
+  import ButtonToggle from './forms/ButtonToggle.svelte'
+  import { verifQuestionCliqueFigure } from '../modules/interactif/cliqueFigure'
+  import { prepareExerciceCliqueFigure } from '../lib/interactif/interactif'
+  import BtnZoom from './ui/btnZoom.svelte'
+  import { getCanvasFont, getTextWidth, remToPixels } from './utils/measures'
+  import Footer2 from './Footer2.svelte'
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -431,4 +431,5 @@
       {/if}
     </div>
   </div>
+  <Footer2/>
 </section>

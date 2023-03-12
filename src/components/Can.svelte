@@ -1,7 +1,7 @@
 <script lang="ts">
   import { globalOptions, questionsOrder, selectedExercises, darkMode } from "./store"
   import { onMount, tick } from "svelte"
-  import { Mathalea } from "../Mathalea"
+  import { Mathalea } from "../lib/Mathalea"
   import { exercicesParams } from "./store"
   import type { Exercice } from "./utils/typeExercice"
   import seedrandom from "seedrandom"

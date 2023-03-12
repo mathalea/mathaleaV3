@@ -15,7 +15,7 @@ export const dateDePublication = '05/02/2023'
  * * 6I10-2
  * @author Guillaume Valmont // d'après 6I10 de Erwan Duplessy
  */
-export const uuid = 'a36d7'
+export const uuid = '594eb'
 export const ref = '6I10'
 export default function ColorierDeplacement () {
   Exercice.call(this) // Héritage de la classe Exercice()

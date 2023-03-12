@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { globalOptions, resultsByExercice } from "../store"
-  import { afterUpdate, onMount, tick } from "svelte"
-  import seedrandom from "seedrandom"
-  import { prepareExerciceCliqueFigure } from "../../interactif/interactif"
-  import { loadMathLive } from "../../modules/loaders"
-  import { Mathalea } from "../../Mathalea"
-  import { exerciceInteractif } from "../../interactif/interactif"
-  import { exercicesParams } from "../store"
-  import HeaderExercice from "./HeaderExercice.svelte"
-  import Settings from "./Settings.svelte"
+  import { globalOptions, resultsByExercice } from '../store'
+  import { afterUpdate, onMount, tick } from 'svelte'
+  import seedrandom from 'seedrandom'
+  import { prepareExerciceCliqueFigure } from '../../lib/interactif/interactif'
+  import { loadMathLive } from '../../modules/loaders'
+  import { Mathalea } from '../../lib/Mathalea'
+  import { exerciceInteractif } from '../../lib/interactif/interactif'
+  import { exercicesParams } from '../store'
+  import HeaderExercice from './HeaderExercice.svelte'
+  import Settings from './Settings.svelte'
   export let exercice
   export let indiceExercice
   export let indiceLastExercice

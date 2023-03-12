@@ -69,6 +69,8 @@ export default function ConversionHeuresDecimalesMinutes () {
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        this.listeCanEnonces.push(this.canEnonce)
+        this.listeCanReponsesACompleter.push(this.canReponseACompleter)
         i++
         index += nbChamps
       }

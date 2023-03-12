@@ -1,7 +1,6 @@
 % !TEX TS-program = lualatex
 % Préambule pour les fiches coopmaths.fr et les annales de l'APMEP
 % Licence : CC-BY-SA
-% Auteur : Christophe Poulain
 
 \usepackage{mathtools,amssymb,amsfonts,mathrsfs} 
 
@@ -183,9 +182,9 @@
     arc (60:120:\rayon) -- ++(210:\epaisseur)
     arc (120:60:\rayon) -- cycle}
 
-  \newcommand{\dureeCan}{[Temps total à modifier juste après le \textbackslash begin\{document\}]}  
+  \newcommand{\dureeCan}{\qquad}  
 
-  \newcommand{\titreSujetCan}{\textbf{[Ligne ci-dessous à modifier juste après le \textbackslash begin\{document\}]\\Sujet niveau NN - Mois Année}}
+  \newcommand{\titreSujetCan}{\textbf{}}
 
   \newcommand{\mobiusCan}{
     % Repiqué sans vergogne dans lemanuel TikZ pour l'impatient
@@ -232,7 +231,7 @@
   \newlength{\Largeurcp}
   
   % Structure globale pour les tableaux des livrets CAN
-  \NewDocumentEnvironment{TableauCan}{+b}{%
+  \NewDocumentEnvironment{TableauCan}{b}{%
     % #1 --> corps de tableau
     \setlength{\Largeurcp}{0.35\textwidth-8\tabcolsep}
     \renewcommand*{\arraystretch}{2.5}
@@ -248,7 +247,7 @@
       \end{longtable}
     \end{spacing}
     \renewcommand*{\arraystretch}{1}
-  }
+  }{}
 
 %%% MISE EN PAGE %%%
 
@@ -332,11 +331,12 @@
 \newcommand\Q{\mathbb{Q}}
 
 \newcommand*\tikzfootMA{%
-  \begin{tikzpicture}[remember picture,overlay,shift=(current page.south west)]
-  \begin{scope}[x={(current page.south east)},y={(current page.north west)}]
-    \draw[correction,line width=4pt,dashed,dash pattern= on 10pt off 10pt] ($(0,0)+(5mm,1.5cm)$) rectangle ($(1,1)+(-5mm,-3.75cm)$); 
-  \end{scope}
-\end{tikzpicture} 
+  % \begin{tikzpicture}[remember picture,overlay,shift=(current page.south west)]
+  %   \begin{scope}[x={(current page.south east)},y={(current page.north west)}]
+  %     % \draw[correction,line width=4pt,dashed,dash pattern= on 10pt off 10pt] ($(0,0)+(5mm,1.5cm)$) rectangle ($(1,1)+(-5mm,-3.75cm)$);
+  %     \draw[correction,line width=4pt,dashed,dash pattern= on 10pt off 10pt] ($(0,0)+(5mm,0)$) rectangle ($(1,1)+(-5mm,-5.25cm)$); 
+  %   \end{scope}
+  % \end{tikzpicture} 
 }
 
 \newenvironment{Correction}{%
@@ -502,4 +502,4 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %%% Fin du préambule %%%
-%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%% 

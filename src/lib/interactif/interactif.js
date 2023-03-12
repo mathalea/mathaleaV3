@@ -1,4 +1,4 @@
-import { addElement, get, setStyles } from '../modules/dom'
+import { addElement, get, setStyles } from '../../modules/dom'
 import { verifQuestionMathLive } from './mathLive'
 import { verifQuestionQcm } from './qcm'
 import { verifQuestionListeDeroulante } from './questionListeDeroulante'

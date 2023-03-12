@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Mathalea } from "../../Mathalea"
+  import { Mathalea } from "../../lib/Mathalea"
   import { onMount } from "svelte"
   import { globalOptions } from "../store"
 

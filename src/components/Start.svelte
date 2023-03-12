@@ -1,18 +1,18 @@
 <script lang="ts">
-  import Exercice from "./exercice/Exercice.svelte"
-  import NavBar from "./header/NavBar.svelte"
-  import Footer from "./Footer.svelte"
-  import Header2 from "./header2/Header2.svelte"
-  import NiveauListeExos from "./sidebar/NiveauListeExos.svelte"
-  import ModalSettingsVueEleve from "./modal/ModalSettingsVueEleve.svelte"
-  import { exercicesParams, globalOptions, darkMode } from "./store"
-  import codeList from "../json/codeToLevelList.json"
-  import referentiel from "../json/referentiel2022.json"
-  import referentielStatic from "../json/referentielStatic.json"
-  import { Mathalea } from "../Mathalea"
-  import { flip } from "svelte/animate"
-  import { onMount } from "svelte"
-  import { toMap } from "./utils/toMap"
+  import Exercice from './exercice/Exercice.svelte'
+  import NavBar from './header/NavBar.svelte'
+  import Footer from './Footer.svelte'
+  import Header2 from './header2/Header2.svelte'
+  import NiveauListeExos from './sidebar/NiveauListeExos.svelte'
+  import ModalSettingsVueEleve from './modal/ModalSettingsVueEleve.svelte'
+  import { exercicesParams, globalOptions, darkMode } from './store'
+  import codeList from '../json/codeToLevelList.json'
+  import referentiel from '../json/referentiel2022.json'
+  import referentielStatic from '../json/referentielStatic.json'
+  import { Mathalea } from '../lib/Mathalea'
+  import { flip } from 'svelte/animate'
+  import { onMount } from 'svelte'
+  import { toMap } from './utils/toMap'
 
   import SearchExercice from "./sidebar/SearchExercice.svelte"
 
@@ -78,12 +78,12 @@
 
   function updateReferentiel() {
     let itemsAccepted
-    if (filtre === "college") {
-      itemsAccepted = ["6e", "5e", "4e", "3e", "Calcul mental"]
-    } else if (filtre === "lycee") {
-      itemsAccepted = ["Seconde", "Première", "Première Technologique", "Terminale exper"]
-    } else if (filtre === "crpe") {
-      itemsAccepted = ["CRPE"]
+    if (filtre === 'college') {
+      itemsAccepted = ['6e', '5e', '4e', '3e']
+    } else if (filtre === 'lycee') {
+      itemsAccepted = ['2e', '1e', '1techno', 'Ex', 'HP']
+    } else if (filtre === 'crpe') {
+      itemsAccepted = ['PE']
     }
 
     if (filtre === "all") {

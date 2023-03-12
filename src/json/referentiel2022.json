@@ -8568,7 +8568,12 @@
         "uuid": "36f8b",
         "url": "4e/4C30-3.js",
         "titre": "Écriture décimale ou fractionnaire d'une puissance",
-        "tags": {}
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amc": true,
+          "amcType": "AMCNum"
+        }
       },
       "4C30-4": {
         "id": "4C30-4",
@@ -10319,7 +10324,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amc": true,
-          "amcType": "AMCOpen"
+          "amcType": "AMCHybride"
         }
       },
       "3L14": {
@@ -10327,12 +10332,12 @@
         "uuid": "ecf62",
         "url": "3e/3L14.js",
         "titre": "Résoudre une équation produit nul",
-        "dateDeModifImportante": "18/03/2022",
+        "dateDeModifImportante": "09/03/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
           "amc": true,
-          "amcType": "AMCOpen"
+          "amcType": "AMCHybride"
         }
       },
       "3L15-1": {

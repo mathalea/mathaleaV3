@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import { Mathalea } from "../../Mathalea"
+  import { Mathalea } from "../../lib/Mathalea"
   import { exercicesParams, globalOptions } from "../store"
 
   export let size : 'xs' | 'sm' | 'md' | 'lg' = 'sm' 
