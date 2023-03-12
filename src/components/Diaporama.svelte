@@ -14,6 +14,7 @@
   import { formattedTimeStamp, setPhraseDuree } from "./utils/time"
   import ModalForQRCode from "./modal/ModalForQRCode.svelte"
   import FormRadio from "./forms/FormRadio.svelte"
+  import { handleComponentChange } from "./utils/navigation"
 
   let divQuestion: HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
@@ -637,23 +638,6 @@
       return l
     })
     updateExercices()
-  }
-
-  /**
-   * Gérer le changement d'affichage (quel composant remplace l'autre dans App.svelte)
-   * @param {string} oldComponent composant à changer
-   * @param {string} newComponent composant à afficher
-   * @author sylvain
-   */
-  function handleComponentChange(oldComponent, newComponent) {
-    const oldPart = "&v=" + oldComponent
-    const newPart = newComponent === "" ? "" : "&v=" + newComponent
-    const urlString = window.location.href.replace(oldPart, newPart)
-    window.history.pushState(null, "", urlString)
-    globalOptions.update((l) => {
-      l.v = newComponent
-      return l
-    })
   }
 
   /**

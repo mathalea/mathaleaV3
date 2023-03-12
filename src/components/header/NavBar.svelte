@@ -1,9 +1,10 @@
 <script>
-  import { globalOptions, darkMode } from "../store"
+import { globalOptions, darkMode } from "../store"
+  import { handleComponentChange } from "../utils/navigation"
 
   import NavBarMenuV2 from "./NavBarMenuV2.svelte"
   let isNavBarVisible = false
-  export let title = 'MathALEA'
+  export let title = 'MathALÉA'
   export let subtitle = ''
   const menus = {
     referentiels: {
@@ -95,10 +96,7 @@
   }
 
   function goToMathalea () {
-    globalOptions.update((params) => {
-      delete params.v
-      return params
-    })
+    handleComponentChange('latex', '')
   }
 
 </script>
@@ -120,7 +118,12 @@
         on:keydown={goToMathalea}
         class="inline-flex p-2 cursor-pointer text-2xl font-logo6 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest tracking-wider"
         >{title}</span
-      ><span class="inline-flex p-2 text-2xl font-logo6 text-coopmaths-action dark:text-coopmathsdark-action tracking-wider">{subtitle}</span><span class="text-xs text-coopmaths-action dark:text-coopmathsdark-action tracking-wider">par CoopMaths</span>
+      >
+       {#if subtitle}
+        <span class="inline-flex p-2 text-2xl font-logo6 text-coopmaths-action dark:text-coopmathsdark-action tracking-wider">{subtitle}</span>
+       {:else}
+       <a href="https://coopmaths.fr" target="_blank" rel="noreferrer" class="text-xs p-2 text-coopmaths-action dark:text-coopmathsdark-action tracking-wider">par CoopMaths</a>
+       {/if}
     </div>
     <!-- menu -->
     <div class="flex flex-col mt-2 lg:inline-flex lg:grow lg:flex-row lg:mt-0 {isNavBarVisible ? 'flex' : 'hidden'}">

@@ -7,6 +7,7 @@
   import Latex from '../lib/Latex'
   import Button from './forms/Button.svelte'
   import FormRadio from './forms/FormRadio.svelte'
+  import { onMount } from 'svelte'
 
   let nbVersions = 1
   let title = ''
@@ -17,7 +18,7 @@
   let dialogLua: HTMLDialogElement
   let exercices: TypeExercice[]
   let contents = { content: '', contentCorr : ''}
-  
+
   const latex = new Latex()
   async function initExercices () {
     Mathalea.loadExercicesFromUrl()
@@ -25,6 +26,10 @@
     latex.addExercices(exercices)
     contents = latex.getContents(style, nbVersions)
   }
+
+  onMount(()=>{
+    Mathalea.updateUrl($exercicesParams)
+  })
 
   initExercices()
 
