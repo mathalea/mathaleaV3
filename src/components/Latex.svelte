@@ -61,7 +61,7 @@
 </script>
 
 <main class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-  <NavBar />
+  <NavBar subtitle=">> LaTeX"/>
 
   <section class="ml-10 my-10 ">
     <form class="my-5 flex-auto w-full space-x-5" method="POST" action="https://www.overleaf.com/docs" target="_blank">
