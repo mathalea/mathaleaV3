@@ -1,4 +1,3 @@
-/* global jQuery */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, arrondi, texNombre, texTexte, calcul, deuxColonnesResp } from '../../modules/outils.js'
@@ -211,27 +210,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
       }
       cpt++
     }
-    function insertInDom () {
-      const div = document.getElementById('exercice' + numeroExercice)
-      if (div) {
-        const button1 = document.createElement('button')
-        button1.setAttribute('data-tooltip', 'Moins d\'espace vertical')
-        button1.innerText = '- ⇕'
-        button1.onclick = function () { jQuery('#exercice' + numeroExercice + ' ol > li').css({ 'margin-top': '-=5px', 'margin-bottom': '-=5px' }) }
-        div.appendChild(button1)
-        const button2 = document.createElement('button')
-        button2.innerText = '+ ⇕'
-        button2.setAttribute('data-tooltip', 'Plus d\'espace vertical')
-        button2.onclick = function () { jQuery('#exercice' + numeroExercice + ' ol > li').css({ 'margin-top': '+=5px', 'margin-bottom': '+=5px' }) }
-        div.appendChild(button2)
-        button1.classList.add('btn', 'ui', 'icon', 'button')
-        button2.classList.add('btn', 'ui', 'icon', 'button')
-        document.removeEventListener('exercicesAffiches', insertInDom)
-      }
-    }
-    if (context.vue !== 'diap' && context.isHtml) {
-      document.addEventListener('exercicesAffiches', insertInDom)
-    }
+
     listeQuestionsToContenu(this)
     if (context.vue === 'latex' && this.sup3) {
       this.contenu += '\n\n' + buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true)
