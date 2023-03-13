@@ -215,7 +215,7 @@
   <div class="mb-auto">
     <div class="h-[10%] w-full flex flex-col justify-center items-center">
       <!-- titre de la feuille -->
-      <div class="w-full p-8 text-center text-4xl font-extrabold bg-coopmaths-struct dark:bg-coopmathsdark-struct text-coopmaths-canvas dark:text-coopmathsdark-canvas">
+      <div class="w-full p-8 text-center text-4xl font-light bg-coopmaths-struct dark:bg-coopmathsdark-struct text-coopmaths-canvas dark:text-coopmathsdark-canvas">
         {$globalOptions.title}
       </div>
       <!-- barre de navigation -->
@@ -235,7 +235,7 @@
                 disabled={currentIndex === i}
                 on:click={() => handleIndexChange(i)}
               >
-                <div id="exerciseTitleID{i}" class="pt-2 pb-4 px-6 text-xl font-bold">
+                <div id="exerciseTitleID{i}" class="pt-2 pb-4 px-6 text-xl font-light">
                   {exerciseTitle}
                   {i + 1}
                   {#if $resultsByExercice[i] !== undefined}
@@ -262,7 +262,7 @@
                 disabled={currentIndex === i}
                 on:click={() => handleIndexChange(i)}
               >
-                <div id="questionTitleID{i}" class="py-2 px-2 text-xl font-bold">
+                <div id="questionTitleID{i}" class="py-2 px-2 text-xl font-light">
                   {questionTitle}
                   {i + 1}
                   <div
