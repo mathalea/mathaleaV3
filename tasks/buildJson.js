@@ -99,6 +99,9 @@ async function handleCanLevels () {
             console.log(`${url} non géré`)
           }
         }
+        if (ref !== undefined && uuid !== undefined) {
+          refToUuid[ref] = uuid
+        }
       } catch (error) {
         console.log(error)
         errors = error + '\n'
