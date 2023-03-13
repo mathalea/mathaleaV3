@@ -1,18 +1,18 @@
 <script lang="ts">
-  import Exercice from './exercice/Exercice.svelte'
-  import NavBar from './header/NavBar.svelte'
-  import Footer from './Footer.svelte'
-  import Header2 from './header2/Header2.svelte'
-  import NiveauListeExos from './sidebar/NiveauListeExos.svelte'
-  import ModalSettingsVueEleve from './modal/ModalSettingsVueEleve.svelte'
-  import { exercicesParams, globalOptions, darkMode } from './store'
-  import codeList from '../json/codeToLevelList.json'
-  import referentiel from '../json/referentiel2022.json'
-  import referentielStatic from '../json/referentielStatic.json'
-  import { Mathalea } from '../lib/Mathalea'
-  import { flip } from 'svelte/animate'
-  import { onMount } from 'svelte'
-  import { toMap } from './utils/toMap'
+  import Exercice from "./exercice/Exercice.svelte"
+  import NavBar from "./header/NavBar.svelte"
+  import Footer from "./Footer.svelte"
+  import Header2 from "./header2/Header2.svelte"
+  import NiveauListeExos from "./sidebar/NiveauListeExos.svelte"
+  import ModalSettingsVueEleve from "./modal/ModalSettingsVueEleve.svelte"
+  import { exercicesParams, globalOptions, darkMode } from "./store"
+  import codeList from "../json/codeToLevelList.json"
+  import referentiel from "../json/referentiel2022.json"
+  import referentielStatic from "../json/referentielStatic.json"
+  import { Mathalea } from "../lib/Mathalea"
+  import { flip } from "svelte/animate"
+  import { onMount } from "svelte"
+  import { toMap } from "./utils/toMap"
 
   import SearchExercice from "./sidebar/SearchExercice.svelte"
 
@@ -64,26 +64,23 @@
   // Suppression de la rubrique calcul mental
   // On renomme les chapitres pour la partie statique
   let filteredReferentiel = { ...referentiel, static: { ...referentielStatic } }
-  delete filteredReferentiel['Calcul mental']
-  filteredReferentiel['3e']['Brevet des collèges par thèmes - APMEP'] =
-    filteredReferentiel['static']['Brevet des collèges par thèmes - APMEP']
-  filteredReferentiel['PE']['Concours 2022'] = filteredReferentiel['static']['CRPE (2022) par année']
-  filteredReferentiel['PE']['Concours 2022 - Par thèmes'] = filteredReferentiel['static']['CRPE (2022) par thèmes']
-  filteredReferentiel['PE']['CRPE (2015-2019) par thèmes - COPIRELEM'] =
-    filteredReferentiel['static']['CRPE (2015-2019) par thèmes - COPIRELEM']
-  filteredReferentiel['PE']['CRPE (2015-2019) par année - COPIRELEM'] =
-    filteredReferentiel['static']['CRPE (2015-2019) par année - COPIRELEM']
+  delete filteredReferentiel["Calcul mental"]
+  filteredReferentiel["3e"]["Brevet des collèges par thèmes - APMEP"] = filteredReferentiel["static"]["Brevet des collèges par thèmes - APMEP"]
+  filteredReferentiel["PE"]["Concours 2022"] = filteredReferentiel["static"]["CRPE (2022) par année"]
+  filteredReferentiel["PE"]["Concours 2022 - Par thèmes"] = filteredReferentiel["static"]["CRPE (2022) par thèmes"]
+  filteredReferentiel["PE"]["CRPE (2015-2019) par thèmes - COPIRELEM"] = filteredReferentiel["static"]["CRPE (2015-2019) par thèmes - COPIRELEM"]
+  filteredReferentiel["PE"]["CRPE (2015-2019) par année - COPIRELEM"] = filteredReferentiel["static"]["CRPE (2015-2019) par année - COPIRELEM"]
   let referentielMap = toMap(filteredReferentiel)
   let arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
 
   function updateReferentiel() {
     let itemsAccepted
-    if (filtre === 'college') {
-      itemsAccepted = ['6e', '5e', '4e', '3e']
-    } else if (filtre === 'lycee') {
-      itemsAccepted = ['2e', '1e', '1techno', 'Ex', 'HP']
-    } else if (filtre === 'crpe') {
-      itemsAccepted = ['PE']
+    if (filtre === "college") {
+      itemsAccepted = ["6e", "5e", "4e", "3e"]
+    } else if (filtre === "lycee") {
+      itemsAccepted = ["2e", "1e", "1techno", "Ex", "HP"]
+    } else if (filtre === "crpe") {
+      itemsAccepted = ["PE"]
     }
 
     if (filtre === "all") {
