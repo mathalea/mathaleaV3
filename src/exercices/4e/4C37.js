@@ -146,20 +146,18 @@ export default class SignePuissance extends Exercice {
           }
           break
       }
+      this.autoCorrection[i].options = { ordered: true }
       monQcm = propositionsQcm(this, i)
-      texte += monQcm.texte
       if (this.questionJamaisPosee(i, n)) {
-        this.listeQuestions.push(texte)
+        this.listeQuestions.push(texte + monQcm.texte)
         this.listeCorrections.push(texteCorr)
-        if (i === 0) this.canReponseACompleter = monQcm.texte // FIXME Dans un exercice permettant plusieurs questions il n'y a qu'un this.canReponseACompleter ???
+        this.listeCanReponsesACompleter[i] = monQcm.texte
+        this.listeCanEnonces[i] = 'Quel est le signe de ' + texte + '?'
+        this.correction = this.listeCorrections[i]
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
-    if (!context.isHtml) {
-      this.canEnonce = 'Quel est le signe de ' + this.listeQuestions[0] + '?'
-      this.correction = this.listeCorrections[0]
-    }
   }
 }
