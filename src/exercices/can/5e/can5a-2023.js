@@ -520,17 +520,15 @@ export default function SujetCAN2023Cinquieme () {
           reponse = c * k
 
           texte = 'Complète ce tableau de proportionnalité :'
-          texte += context.isHtml ? '<br>' : '\\par\\smallskip'
+          texte += context.isHtml ? '<br>' : '\\\\\\smallskip'
           texte += context.isHtml ? '' : '{\\renewcommand{\\arraystretch}{1}'
-          texte += `$
-          \\begin{array}{|c|c|}
+          texte += `$\\begin{array}{|c|c|}
           \\hline
           ${a}&${b}${context.isHtml ? '\\\\' : '\\tabularnewline'}
           \\hline
           ${c}&${context.isHtml ? '\\\\' : '\\tabularnewline'}
           \\hline
-          \\end{array}
-          $`
+          \\end{array}$`
           texte += context.isHtml ? '' : '}\\medskip'
           texteCorr = `On constate que $${b}$ s'obtient en multipliant $${a}$ par $${k}$.
             Ainsi, on obtient la quatrième proportionnelle en multipliant $${c}$ par $${k}$.<br>

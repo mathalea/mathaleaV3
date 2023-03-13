@@ -325,7 +325,10 @@
           <BtnZoom size="xs" />
         </div>
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-          <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
+          <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={isCorrectionVisible[i]} />
+          {#if exercices[i] && $globalOptions.isSolutionAccessible && !exercices[i].interactif}
+                <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} bind:value={isCorrectionVisible[i]} />
+          {/if}
         {/each}
       {:else if $globalOptions.presMode === "liste"}
         {#each questions as question, k (question)}

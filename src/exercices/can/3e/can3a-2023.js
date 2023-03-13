@@ -454,17 +454,16 @@ export default function SujetCAN2023troisieme () {
           reponse = b + d
 
           texte = 'Voici un tableau de proportionnalité :'
-          texte += context.isHtml ? '<br>' : '\\par\\smallskip'
+          texte += context.isHtml ? '<br>' : '\\\\\\smallskip'
           texte += context.isHtml ? '' : '{\\renewcommand{\\arraystretch}{1}'
-          texte += `$
-          \\begin{array}{|c|c|c|}
+          texte += `$\\begin{array}{|c|c|c|}
           \\hline
           ${texNombre(a, 1)}&${c}&${texNombre(e, 1)}${context.isHtml ? '\\\\' : '\\tabularnewline'}
           \\hline
           ${b}&${d}&x${context.isHtml ? '\\\\' : '\\tabularnewline'}
           \\hline
           \\end{array}
-          $${sp(6)} $x=$`
+          ${sp(6)} x=$`
           texte += context.isHtml ? '' : '}\\medskip'
           texteCorr = `$${texNombre(e, 1)}$ s'obtient par la somme de $${texNombre(a, 1)}$ et $${c}$. <br>
           $x$ est donc la somme de $${b}$ et $${d}$. Ainsi, $x=${miseEnEvidence(b + d)}$.`
