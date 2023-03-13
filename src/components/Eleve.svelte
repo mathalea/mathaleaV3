@@ -1,21 +1,21 @@
 <script lang="ts">
-  import { Mathalea } from '../lib/Mathalea'
-  import { exercicesParams, darkMode, globalOptions, resultsByExercice } from './store'
-  import type TypeExercice from './utils/typeExercice'
-  import Exercice from './exercice/Exercice.svelte'
-  import { onMount, tick } from 'svelte'
-  import seedrandom from 'seedrandom'
-  import { loadMathLive } from '../modules/loaders'
-  import Button from './forms/Button.svelte'
-  import { verifQuestionMathLive } from '../lib/interactif/mathLive'
-  import { verifQuestionQcm } from '../lib/interactif/qcm'
-  import { verifQuestionListeDeroulante } from '../lib/interactif/questionListeDeroulante'
-  import ButtonToggle from './forms/ButtonToggle.svelte'
-  import { verifQuestionCliqueFigure } from '../modules/interactif/cliqueFigure'
-  import { prepareExerciceCliqueFigure } from '../lib/interactif/interactif'
-  import BtnZoom from './ui/btnZoom.svelte'
-  import { getCanvasFont, getTextWidth, remToPixels } from './utils/measures'
-  import Footer2 from './Footer2.svelte'
+  import { Mathalea } from "../lib/Mathalea"
+  import { exercicesParams, darkMode, globalOptions, resultsByExercice } from "./store"
+  import type TypeExercice from "./utils/typeExercice"
+  import Exercice from "./exercice/Exercice.svelte"
+  import { onMount, tick } from "svelte"
+  import seedrandom from "seedrandom"
+  import { loadMathLive } from "../modules/loaders"
+  import Button from "./forms/Button.svelte"
+  import { verifQuestionMathLive } from "../lib/interactif/mathLive"
+  import { verifQuestionQcm } from "../lib/interactif/qcm"
+  import { verifQuestionListeDeroulante } from "../lib/interactif/questionListeDeroulante"
+  import ButtonToggle from "./forms/ButtonToggle.svelte"
+  import { verifQuestionCliqueFigure } from "../modules/interactif/cliqueFigure"
+  import { prepareExerciceCliqueFigure } from "../lib/interactif/interactif"
+  import BtnZoom from "./ui/btnZoom.svelte"
+  import { getCanvasFont, getTextWidth, remToPixels } from "./utils/measures"
+  import Footer2 from "./Footer2.svelte"
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -213,79 +213,75 @@
 <svelte:window bind:innerWidth={currentWindowWidth} />
 <section class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive ? 'dark' : ''}">
   <div class="mb-auto">
-    <div class="h-32 w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct">
-      <div class="w-full flex {menuNeeded ? 'flex-col justify-center items-center' : 'flex-row justify-between items-center'} p-4">
-        <!-- titre de la feuille -->
-        <div class="{menuNeeded ? 'w-full text-center' : 'w-1/12 ml-4 mr-10'} text-4xl font-extrabold ">{$globalOptions.title}</div>
-        <!-- barre de navigation -->
-        <div
-          id="navigationHeaderID"
-          class="hidden md:grid justify-items-center 
-            {menuNeeded ? 'w-full' : 'w-9/12'}   grid-cols-{$globalOptions.presMode === 'exos' ? exercices.length : questions.length}
-            {$globalOptions.presMode === 'exos' || $globalOptions.presMode === 'question' ? 'border-b-2 border-coopmaths-struct' : 'border-b-0'}"
-        >
-          {#if $globalOptions.presMode === "exos"}
-            {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-              <div class="">
-                <button
-                  class="relative group {currentIndex === i
-                    ? 'border-b-4'
-                    : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
-                  disabled={currentIndex === i}
-                  on:click={() => handleIndexChange(i)}
-                >
-                  <div id="exerciseTitleID{i}" class="pt-2 pb-4 px-6 text-xl font-bold">
-                    {exerciseTitle}
-                    {i + 1}
-                    {#if $resultsByExercice[i] !== undefined}
-                      <div class="absolute bottom-1 left-0 right-0 mx-auto text-xs text-coopmaths-warn dark:text-coopmathsdark-warn">
-                        {$resultsByExercice[i].numberOfPoints + "/" + $resultsByExercice[i].numberOfQuestions}
-                      </div>
-                    {/if}
-                  </div>
-                  <span
-                    class="absolute -bottom-1 left-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
-                  />
-                  <span
-                    class="absolute -bottom-1 right-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
-                  />
-                </button>
-              </div>
-            {/each}
-          {/if}
-          {#if $globalOptions.presMode === "question"}
-            {#each questions as question, i (question)}
-              <div class="">
-                <button
-                  class="relative group {currentIndex === i
-                    ? 'border-b-4'
-                    : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
-                  disabled={currentIndex === i}
-                  on:click={() => handleIndexChange(i)}
-                >
-                  <div id="questionTitleID{i}" class="py-2 px-2 text-xl font-bold">
-                    {questionTitle}
-                    {i + 1}
-                    <div
-                      class="absolute left-0 right-0 mx-auto bottom-1 h-2 w-2 rounded-full bg-coopmaths-warn
+    <div class="h-[10%] w-full flex flex-col justify-center items-center">
+      <!-- titre de la feuille -->
+      <div class="w-full p-8 text-center text-4xl font-extrabold bg-coopmaths-struct dark:bg-coopmathsdark-struct text-coopmaths-canvas dark:text-coopmathsdark-canvas">
+        {$globalOptions.title}
+      </div>
+      <!-- barre de navigation -->
+      <div
+        id="navigationHeaderID"
+        class="hidden md:grid justify-items-center w-full mt-4 mb-8  grid-cols-{$globalOptions.presMode === 'exos' ? exercices.length : questions.length}
+            {$globalOptions.presMode === 'exos' || $globalOptions.presMode === 'question' ? 'border-b-2 border-coopmaths-struct' : 'border-b-0'}
+            bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct"
+      >
+        {#if $globalOptions.presMode === "exos"}
+          {#each $exercicesParams as paramsExercice, i (paramsExercice)}
+            <div class="">
+              <button
+                class="relative group {currentIndex === i
+                  ? 'border-b-4'
+                  : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
+                disabled={currentIndex === i}
+                on:click={() => handleIndexChange(i)}
+              >
+                <div id="exerciseTitleID{i}" class="pt-2 pb-4 px-6 text-xl font-bold">
+                  {exerciseTitle}
+                  {i + 1}
+                  {#if $resultsByExercice[i] !== undefined}
+                    <div class="absolute bottom-1 left-0 right-0 mx-auto text-xs text-coopmaths-warn dark:text-coopmathsdark-warn">
+                      {$resultsByExercice[i].numberOfPoints + "/" + $resultsByExercice[i].numberOfQuestions}
+                    </div>
+                  {/if}
+                </div>
+                <span class="absolute -bottom-1 left-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300" />
+                <span
+                  class="absolute -bottom-1 right-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
+                />
+              </button>
+            </div>
+          {/each}
+        {/if}
+        {#if $globalOptions.presMode === "question"}
+          {#each questions as question, i (question)}
+            <div class="">
+              <button
+                class="relative group {currentIndex === i
+                  ? 'border-b-4'
+                  : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
+                disabled={currentIndex === i}
+                on:click={() => handleIndexChange(i)}
+              >
+                <div id="questionTitleID{i}" class="py-2 px-2 text-xl font-bold">
+                  {questionTitle}
+                  {i + 1}
+                  <div
+                    class="absolute left-0 right-0 mx-auto bottom-1 h-2 w-2 rounded-full bg-coopmaths-warn
                     {resultsByQuestion[i] === true ? '' : 'invisible'}"
-                    />
-                    <div
-                      class="absolute left-0 right-0 mx-auto bottom-1 h-2 w-2 rounded-full bg-red-600
+                  />
+                  <div
+                    class="absolute left-0 right-0 mx-auto bottom-1 h-2 w-2 rounded-full bg-red-600
                     {resultsByQuestion[i] === false ? '' : 'invisible'}"
-                    />
-                  </div>
-                  <span
-                    class="absolute -bottom-1 left-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
                   />
-                  <span
-                    class="absolute -bottom-1 right-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
-                  />
-                </button>
-              </div>
-            {/each}
-          {/if}
-        </div>
+                </div>
+                <span class="absolute -bottom-1 left-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300" />
+                <span
+                  class="absolute -bottom-1 right-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
+                />
+              </button>
+            </div>
+          {/each}
+        {/if}
       </div>
     </div>
     <!-- Exercices -->
@@ -431,5 +427,5 @@
       {/if}
     </div>
   </div>
-  <Footer2/>
+  <Footer2 />
 </section>
