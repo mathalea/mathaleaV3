@@ -708,39 +708,39 @@ src: local(''),
                                                    "Y88P"                     */
 /*warnMessage*/
 div[id^="warnMessage"]{
-  @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark p-4 border-l-4 border-l-coopmaths-warn dark:border-l-coopmathsdark-warn  font-light relative w-2/3
+  @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 my-2 border-l-4 border-l-coopmaths-warn dark:border-l-coopmathsdark-warn  font-light relative w-2/3
 }
 div[id^="warnMessage"]:before{
     content: "🌬";
     float: left;
-    @apply mr-3 text-lg text-white bg-coopmaths rounded-full h-6 w-6 inline-flex items-center justify-center
+    @apply mr-3 text-lg text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark rounded-full h-6 w-6 inline-flex items-center justify-center
 }
 div[id^="title-warnMessage"]{
-  @apply font-bold pb-2
+  @apply font-bold pb-2 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark
 }
 /* info message */
 div[id^="infoMessage"]{
-  @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark p-4 border-l-4 border-l-coopmaths-warn dark:border-l-coopmathsdark-warn  font-light relative w-2/3
+  @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas px-4 py-2 my-2 border-l-4 border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark  font-light relative w-2/3
 }
 div[id^="infoMessage"]:before{
     content: "ℹ";
     float: left;
-    @apply mr-3 text-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas font-black bg-coopmaths-warn dark:bg-coopmathsdark-warn rounded-full h-6 w-6 inline-flex items-center justify-center
+    @apply mr-3 text-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas font-black bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark rounded-full h-6 w-6 inline-flex items-center justify-center
 }
 div[id^="title-infoMessage"]{
-  @apply font-bold pb-2
+  @apply font-bold pb-2 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark
 }
 /* lampe message */
 div[id^="lampeMessage"]{
-  @apply bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-4 border-l-4 border-l-coopmaths-warn dark:border-l-coopmathsdark-warn font-light relative w-2/3 mb-4
+  @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas px-4 py-2 my-2 border-l-4 border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark font-light relative w-2/3 mb-4
 }
 div[id^="lampeMessage"]:before{
     content: "📚";
     float: left;
-    @apply mr-3 text-xl text-coopmaths-warn dark:text-coopmathsdark-warn inline-block
+    @apply mr-3 text-xl text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark inline-block
 }
 div[id^="title-lampeMessage"]{
-  @apply font-bold pb-2
+  @apply font-bold pb-2 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark
 }
 
 
