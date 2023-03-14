@@ -822,7 +822,11 @@ export default function SujetCAN2023Quatrieme () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += context.isHtml ? '$\\ldots$' : ''
+          }
           nbChamps = 1
           break
 
