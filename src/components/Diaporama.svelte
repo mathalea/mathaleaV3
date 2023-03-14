@@ -476,8 +476,12 @@
         while (elementsKaTeX.length > 0) {
           elementsKaTeX[0].parentNode.removeChild(elementsKaTeX[0])
         }
+        const elementsSVG = clone.getElementsByClassName("mathalea2d")
+        while (elementsSVG.length > 0) {
+          elementsSVG[0].parentNode.removeChild(elementsSVG[0])
+        }
         let nbOfCharactersInTextDiv = clone.innerText.length
-        // console.log("nb caractères : " + nbOfCharactersInTextDiv)
+        console.log("nb caractères : " + nbOfCharactersInTextDiv)
         if (finalSVGHeight !== 0) {
           nbOfCharactersInTextDiv -= 100
         }
