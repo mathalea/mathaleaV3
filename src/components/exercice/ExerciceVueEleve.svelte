@@ -216,43 +216,50 @@
         </button>
       </div>
       <article class="text-base mt-4 md:mt-0" style="font-size: {($globalOptions.z || 1).toString()}rem">
-        {#if typeof exercice.consigne !== undefined && exercice.consigne.length !== 0}
-          <div>
-            <p class="leading-relaxed mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-              {@html exercice.consigne}
-            </p>
-          </div>
-        {/if}
-        {#if exercice.introduction}
-          <div>
-            <p class="leading-relaxed mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-              {@html exercice.introduction}
-            </p>
-          </div>
-        {/if}
-        {#if isCorrectionVisible}
-          <div class="bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus leading-relaxed mt-2  ml-2 lg:mx-5">
-            {@html exercice.consigneCorrection}
-          </div>
-        {/if}
-        <div style="columns: {columnsCount.toString()}" class="mb-5">
+        <div class="flex flex-col">
+          {#if typeof exercice.consigne !== undefined && exercice.consigne.length !== 0}
+            <div>
+              <p class="leading-relaxed mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+                {@html exercice.consigne}
+              </p>
+            </div>
+          {/if}
+          {#if exercice.introduction}
+            <div>
+              <p class="leading-relaxed mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+                {@html exercice.introduction}
+              </p>
+            </div>
+          {/if}
+          {#if isCorrectionVisible}
+            <div class="bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus leading-relaxed mt-2  ml-2 lg:mx-5">
+              {@html exercice.consigneCorrection}
+            </div>
+          {/if}
+        </div>
+        <div style="columns: {columnsCount.toString()}">
           <ul
             class="{exercice.listeQuestions.length > 1
               ? 'list-decimal'
               : 'list-none'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
           >
             {#each exercice.listeQuestions as item, i (i)}
-              <div style="break-inside:avoid">
+              <div style="break-inside:avoid" class="container grid grid-cols-1 lg:grid-cols-2 auto-cols-min gap-4 lg:gap-10 mb-2 lg:mb-4">
                 <li style={i < exercice.listeQuestions.length ? `margin-bottom: ${exercice.spacing}em; line-height: 1` : ""} id="exercice{indiceExercice}Q{i}">
                   {@html Mathalea.formatExercice(item)}
                 </li>
                 {#if isCorrectionVisible}
                   <div
-                    class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest my-2 py-2 pl-6"
+                    class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest mb-2 lg:mb-0 ml-4 lg:ml-0 py-2 pl-6"
                     style="margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: {exercice.spacingCorr || 1}; break-inside:avoid"
                     id="correction${indiceExercice}Q${i}"
                   >
                     {@html Mathalea.formatExercice(exercice.listeCorrections[i])}
+                    <div
+                      class="absolute flex flex-row justify-center items-center -left-4 top-0 rounded-full bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-canvas dark:text-coopmathsdark-canvas h-6 w-6"
+                    >
+                      <i class="bx bx-sm bx-check" />
+                    </div>
                   </div>
                 {/if}
               </div>

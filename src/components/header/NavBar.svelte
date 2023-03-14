@@ -1,11 +1,11 @@
 <script>
-import { globalOptions, darkMode } from "../store"
+  import { globalOptions, darkMode } from "../store"
   import { handleComponentChange } from "../utils/navigation"
 
   import NavBarMenuV2 from "./NavBarMenuV2.svelte"
   let isNavBarVisible = false
-  export let title = 'MathALÉA'
-  export let subtitle = ''
+  export let title = "MathALÉA"
+  export let subtitle = ""
   const menus = {
     referentiels: {
       titre: "Classes",
@@ -88,20 +88,19 @@ import { globalOptions, darkMode } from "../store"
     },
   }
 
-  function urlV2 (vue) {
+  function urlV2(vue) {
     const params = new URLSearchParams(document.location.search)
     if (vue) params.set("v", vue)
     params.delete("uuid")
     return ("https://coopmaths.fr/mathalea.html?" + params.toString()).replaceAll("id=", "ex=").replaceAll("&s", ",s").replaceAll("&n", ",n")
   }
 
-  function goToMathalea () {
-    handleComponentChange('latex', '')
+  function goToMathalea() {
+    handleComponentChange("latex", "")
   }
-
 </script>
 
-<nav class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas z-50">
+<nav class="p-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas z-50">
   <!-- container -->
   <div class="flex flex-wrap w-full mx-auto lg:space-x-6 lg:items-center">
     <!-- bouton menu -->
@@ -113,17 +112,33 @@ import { globalOptions, darkMode } from "../store"
         <i class="bx bx-menu" />
       </button>
       <!-- logo -->
-      <span
-        on:click={goToMathalea}
-        on:keydown={goToMathalea}
-        class="inline-flex p-2 cursor-pointer text-2xl font-logo6 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest tracking-wider"
-        >{title}</span
-      >
-       {#if subtitle}
-        <span class="inline-flex p-2 text-2xl font-logo6 text-coopmaths-action dark:text-coopmathsdark-action tracking-wider">{subtitle}</span>
-       {:else}
-       <a href="https://coopmaths.fr" target="_blank" rel="noreferrer" class="text-xs p-2 text-coopmaths-action dark:text-coopmathsdark-action tracking-wider">par CoopMaths</a>
-       {/if}
+      <div class="relative">
+        <div
+          on:click={goToMathalea}
+          on:keydown={goToMathalea}
+          class="inline-flex cursor-pointer text-6xl font-logo13Condensed font-black text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+        >
+          {title}
+        </div>
+        <div class="absolute -bottom-4 right-0 font-logo13Condensed font-normal text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+          par <a
+            href="https://coopmaths.fr"
+            target="_blank"
+            rel="noreferrer"
+            class="font-extrabold text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest">CoopMaths</a
+          >
+        </div>
+      </div>
+      {#if subtitle}
+        <div class="inline-flex text-6xl font-logo13Condensed">
+          <div class="px-4 font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"><i class="bx bx-export bx-rotate-90" /></div>
+          <div class=" font-black text-coopmaths-struct dark:text-coopmathsdark-struct">{subtitle}</div>
+        </div>
+        <!-- {:else}
+        <div class="absolute bottom-0 right-0 font-logo13Condensed text-xs text-coopmaths-struct dark:text-coopmathsdark-struct">
+          par <a href="https://coopmaths.fr" target="_blank" rel="noreferrer" class=" text-coopmaths-action dark:text-coopmathsdark-action">CoopMaths</a>
+        </div> -->
+      {/if}
     </div>
     <!-- menu -->
     <div class="flex flex-col mt-2 lg:inline-flex lg:grow lg:flex-row lg:mt-0 {isNavBarVisible ? 'flex' : 'hidden'}">

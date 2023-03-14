@@ -155,7 +155,9 @@ const config = {
         logo9: 'jelleebold',
         logo10: '"League Gothic Condensed"',
         logo11: '"FFF Tusj"',
-        logo12: 'Days'
+        logo12: 'Days',
+        logo13: 'Barlow',
+        logo13Condensed: 'Barlow Condensed'
       },
       transitionProperty: {
         width: 'width'

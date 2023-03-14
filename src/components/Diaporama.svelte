@@ -439,8 +439,8 @@
         // Donner la bonne taille aux figures
         if (svg_divs.length !== 0 && question_div !== null) {
           const nbOfSVG = svg_divs.length
-          const optimalSVGWidth = textcell_width * 0.6
-          const coefHeight = isCorrectionVisible ? 0.3 : 0.5
+          const optimalSVGWidth = textcell_width * 0.8
+          const coefHeight = isCorrectionVisible ? 0.33 : 0.66
           const optimalSVGHeigth = textcell_height * coefHeight
           // console.log("optimal SVG width : " + optimalSVGWidth + "/ optimal heigth : " + optimalSVGHeigth)
           for (let k = 0; k < nbOfSVG; k++) {
@@ -469,7 +469,15 @@
           }
         }
         // Donner la bonne taille au texte
-        let nbOfCharactersInTextDiv = textcell_div.textContent.length
+        // let nbOfCharactersInTextDiv = textcell_div.innerText.length
+        // on retire les balises KaTeX (car trop bavardes) pour le décompte des caractères
+        const clone = textcell_div.cloneNode(true)
+        const elementsKaTeX = clone.getElementsByClassName("katex")
+        while (elementsKaTeX.length > 0) {
+          elementsKaTeX[0].parentNode.removeChild(elementsKaTeX[0])
+        }
+        let nbOfCharactersInTextDiv = clone.innerText.length
+        // console.log("nb caractères : " + nbOfCharactersInTextDiv)
         if (finalSVGHeight !== 0) {
           nbOfCharactersInTextDiv -= 100
         }
