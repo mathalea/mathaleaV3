@@ -127,7 +127,7 @@ export default function SolutionInequation () {
           Faites deux calculs séparés puis comparez les résultats :<br>
           $\\bullet$  $${ecritureParentheseSiNegatif(d)}^2=${d ** 2}$.<br>
           $\\bullet$ $${a}\\times ${ecritureParentheseSiNegatif(d)}${ecritureAlgebrique(b)}=${a * d + b}$.<br>
-          et $${d ** 2}$ est  inférieur ou égal à $${a * d + b}$.        
+          et $${d ** 2}$ est  inférieur ou égal à $${a * d + b}$.
             `)
           } else {
             texteCorr = monQcm.texteCorr + `<br>$${d}$ n'est pas solution car : $${d ** 2}>${a * d + b}$<br>
@@ -136,7 +136,7 @@ export default function SolutionInequation () {
           Faites deux calculs séparés puis comparez les résultats :<br>
           $\\bullet$  $${ecritureParentheseSiNegatif(d)}^2=${d ** 2}$.<br>
           $\\bullet$ $${a}\\times ${ecritureParentheseSiNegatif(d)}${ecritureAlgebrique(b)}=${a * d + b}$.<br>
-          et $${d ** 2}$ n'est pas inférieur ou égal à $${a * d + b}$.         
+          et $${d ** 2}$ n'est pas inférieur ou égal à $${a * d + b}$.
             `)
           }
 
