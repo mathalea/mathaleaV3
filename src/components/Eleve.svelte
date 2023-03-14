@@ -327,7 +327,9 @@
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={isCorrectionVisible[i]} />
           {#if exercices[i] && $globalOptions.isSolutionAccessible && !exercices[i].interactif}
-                <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} bind:value={isCorrectionVisible[i]} />
+            <div class="ml-2 lg:mx-5">
+              <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} bind:value={isCorrectionVisible[i]} />
+            </div>
           {/if}
         {/each}
       {:else if $globalOptions.presMode === "liste"}
@@ -343,10 +345,10 @@
             </div>
             <div class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10">
               <div class="flex flex-col my-2 py-2">
-                <div class="text-coopmaths-corpus pl-2">
+                <div class="text-coopmaths-corpus pl-2 pb-2">
                   {@html consignes[k]}
                 </div>
-                <div class="text-coopmaths-corpus pl-2">
+                <div class="text-coopmaths-corpus pl-2 pb-2">
                   {@html question}
                   <span id={`resultatCheckEx${indiceExercice[k]}Q${k}`} />
                 </div>
