@@ -263,7 +263,8 @@ export default function SujetCAN2023Quatrieme () {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'dm$^2$'
-            } else { texte += context.isHtml ? '  $\\ldots$ dm$^2$' : `${this.listeCanReponsesACompleter[5] = '$\\ldots\\Aire[dm]{}$'}` }
+            } else { texte += context.isHtml ? '  $\\ldots$ dm$^2$' : '' }
+            this.listeCanReponsesACompleter[5] = '$\\ldots\\Aire[dm]{}$'
           } else {
             a = new Decimal(randint(101, 199)).div(10)
             reponse = new Decimal(a).div(100)
@@ -274,7 +275,10 @@ export default function SujetCAN2023Quatrieme () {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm$^2$'
-            } else { texte += context.isHtml ? '  $\\ldots$ m$^2$' : `${this.listeCanReponsesACompleter[5] = '$\\ldots\\Aire[m]{}$'}` }
+            } else {
+              texte += context.isHtml ? '  $\\ldots$ m$^2$' : ''
+              this.listeCanReponsesACompleter[5] = '$\\ldots\\Aire[m]{}$'
+            }
           }
           this.listeCanEnonces[5] = texte
           break
@@ -327,7 +331,7 @@ export default function SujetCAN2023Quatrieme () {
           reponse = f
           texte = `Quelle fraction du disque représente ${context.isHtml ? '' : '<br>'}l'aire grisée ?<br>`
           texte += context.isHtml ? '' : '\\begin{center}'
-          texte += context.isHtml ? mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'gray')) : `\\Fraction[Reponse,Couleur=LightGray,Rayon=1cm]{${num}/${den}}`
+          texte += context.isHtml ? mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'gray')) : `\\Fraction[Reponse,Couleur=LightGray,Rayon=0.8cm]{${num}/${den}}`
           texte += context.isHtml ? '' : '\\end{center}'
           texteCorr = `L'aire grisée représente $${f.texFraction}$ de l'aire du disque.`
 
@@ -442,26 +446,39 @@ export default function SujetCAN2023Quatrieme () {
             texte = `$${texNombre(a, 1)}$ dm$^3=$`
             texteCorr = `$1$ dm$^3= 1$ L, donc $${texNombre(a, 1)}$ dm$^3=${miseEnEvidence(texNombre(a, 1))}$ L.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L' } else { texte += ' $\\ldots$ L' }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L'
+            } else {
+              texte += ' $\\ldots$ L'
+              texte += context.isHtml ? ' $\\ldots$ L' : ''
+              this.listeCanReponsesACompleter[12] = '$\\ldots\\Capa{}$'
+            }
           }
           if (choix === 'b') {
             reponse = new Decimal(a).mul(1000)
             texte = `$${texNombre(a, 1)}$ m$^3$ $=$`
             texteCorr = `$1$ m$^3= ${texNombre(1000)}$ L, donc $${texNombre(a, 1)}$ m$^3= ${miseEnEvidence(texNombre(a * 1000))}$ L.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L' } else { texte += ' $\\ldots$ L' }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L'
+            } else {
+              texte += context.isHtml ? ' $\\ldots$ L' : ''
+              this.listeCanReponsesACompleter[12] = '$\\ldots\\Capa{}$'
+            }
           }
 
           nbChamps = 1
+          this.listeCanEnonces[12] = texte
           break
         case 14:
           a = randint(3, 10)
           b = a - randint(-1, 1, 0)
           choix1 = choice([true, false])
           reponse = choix1 ? `${a};${a + b}` : `${b};${a + b}`
-          texte = `Une urne contient $${a}$ boules rouges et $${b}$ boules vertes. <br>
-            On tire une boule au hasard. <br>
-            Compléte : « On a $\\ldots$ chances sur $\\ldots$ de tirer une boule ${choix1 ? 'rouge' : 'verte'} ». `
+          texte = `Une urne contient $${a}$ boules rouges et $${b}$ boules vertes.`
+          texte += context.isHtml ? '<br>' : ''
+          texte += 'On tire une boule au hasard.'
+          texte += context.isHtml ? `<br>Complète : $\\text{\\textquotedblleft}$ On a $\\ldots$ chances sur $\\ldots$ de tirer une boule ${choix1 ? 'rouge' : 'verte'} $\\text{\\textquotedblright}$.` : ''
           texteCorr = `Dans l'urne, il y a $${a}$ boules rouges et $${b}$ boules vertes, soit un total de $${a + b}$ boules. <br>
             On a donc $${miseEnEvidence(choix1 ? `${a}` : `${b}`)}$ chances sur $${miseEnEvidence(a + b)}$ de tirer une boule ${choix1 ? 'rouge' : 'verte'}.`
 
@@ -471,6 +488,8 @@ export default function SujetCAN2023Quatrieme () {
             texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline')
           }
           nbChamps = 1
+          this.listeCanEnonces[13] = texte
+          this.listeCanReponsesACompleter[13] = `On a $\\ldots$ chances <br> sur $\\ldots$ de tirer une boule ${choix1 ? 'rouge' : 'verte'}.`
           break
 
         case 15:
@@ -567,6 +586,8 @@ export default function SujetCAN2023Quatrieme () {
           // if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' pas' } else { texte += '$\\ldots$ pas' }
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' pas' }
           nbChamps = 1
+          this.listeCanEnonces[16] = texte
+          this.listeCanReponsesACompleter[16] = '$\\ldots$ pas.'
         }
           break
 
