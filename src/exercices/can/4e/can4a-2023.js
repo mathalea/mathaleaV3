@@ -67,7 +67,6 @@ export default function SujetCAN2023Quatrieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
-
           break
         case 2:
           a = randint(1, 3)
@@ -123,7 +122,7 @@ export default function SujetCAN2023Quatrieme () {
           d = choice([10, 30, 40, 50])
           reponse = 60 - b + d
           prenom1 = prenomF()
-          texte = `${prenom1} part à  $${a}$ h $${b}$ min et arrive à  $${a + 1}$ h $${d}$ min.<br>
+          texte = `${prenom1} part à  $${a}$ h $${b}$ min et<br> arrive à  $${a + 1}$ h $${d}$ min.<br>
             Quelle est la durée de son trajet ?`
           texteCorr = `Pour atteindre $${a + 1}$ h, il faut $${60 - b}$ min, puis il faut ajouter encore $${d}$
              min pour atteindre $${a + 1}$ h $${d}$ min. Son trajet aura  duré  $${miseEnEvidence(60 - b + d)}$ min.`
@@ -133,7 +132,8 @@ export default function SujetCAN2023Quatrieme () {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           }
           nbChamps = 1
-
+          this.listeCanEnonces[3] = texte
+          this.listeCanReponsesACompleter[3] = '\\dots{} min'
           break
 
         case 4:
