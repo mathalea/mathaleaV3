@@ -610,11 +610,14 @@ export default function SujetCAN2023Quatrieme () {
             texte += mathalea2d({ xmin: -1.8, ymin: -1.1, xmax: 7.1, ymax: 5.1, scale: 0.4 }, poly, labelPoint(A, B, C), codageAngleDroit(B, A, C), d, e)
             texteCorr = `L'aire du triangle est $\\dfrac{\\text{AB}\\times \\text{AC}}{2}=\\dfrac{${a}\\times \\text{AC}}{2}$.<br>
           On obtient ainsi,  $\\dfrac{${a}\\times \\text{AC}}{2}=${c}$ soit $${a}\\times AC=2\\times ${c}$, soit $AC=\\dfrac{${c * 2}}{${a}}=${reponse}$ cm.`
-            texte += `${sp(4)}$AC= $`
+            texte += context.isHtml ? `${sp(4)}$AC= $` : ''
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
-            } else { texte += ' $\\ldots$ cm' }
+            } else {
+              texte += context.isHtml ? ' $\\ldots$ cm' : ''
+              this.listeCanReponsesACompleter[17] = '$AC=\\ldots$ cm.'
+            }
           } else {
             listeTriplet = [[3, 4, 5], [6, 8, 10], [5, 12, 13]]
             triplet = choice(listeTriplet)
@@ -640,9 +643,11 @@ export default function SujetCAN2023Quatrieme () {
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm$^2$'
             }
+            this.listeCanReponsesACompleter[17] = '$\\ldots\\Aire[cm]{}$'
           }
 
           nbChamps = 1
+          this.listeCanEnonces[17] = texte
           break
 
         case 19:
@@ -781,14 +786,14 @@ export default function SujetCAN2023Quatrieme () {
           if (choice([true, false])) {
             a = choice([75, 33, 60, 45, 90])
             reponse = arrondi(2 * a / 3, 0)
-            texte = `Je bois le tiers d'une bouteille d'eau de $${a}$ cL.<br>
+            texte = `Je bois le tiers d'une bouteille d'eau ${context.isHtml ? '' : '<br>'} de $${a}$ cL.<br>
               Quelle quantité d'eau reste-t-il ?`
             texteCorr = `J'ai bu $\\dfrac{${a}}{3}=${texNombre(a / 3, 0)}$ cL. Il reste donc 
               $${a}$ cL $-${texNombre(a / 3, 0)}$ cL $=${miseEnEvidence(reponse)}$ cL.`
           } else {
             a = choice([75, 90, 100, 60, 50])
             reponse = arrondi(4 * a / 5, 0)
-            texte = `Je bois le cinquième  d'une bouteille d'eau de $${a}$ cL.<br>
+            texte = `Je bois le cinquième  d'une bouteille d'eau ${context.isHtml ? '' : '<br>'} de $${a}$ cL.<br>
               Quelle quantité d'eau reste-t-il ?`
             texteCorr = `J'ai bu $\\dfrac{${a}}{5}=${texNombre(a / 5, 0)}$ cL. Il reste donc 
               $${a}$ cL $-${texNombre(a / 5, 0)}$ cL $=${miseEnEvidence(reponse)}$ cL.`
@@ -797,6 +802,8 @@ export default function SujetCAN2023Quatrieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cL' }
           nbChamps = 1
+          this.listeCanEnonces[23] = texte
+          this.listeCanReponsesACompleter[23] = '$\\ldots\\Capa[cL]{}$'
           break
 
         case 25:
@@ -824,7 +831,7 @@ export default function SujetCAN2023Quatrieme () {
           b = choice([0.25, 0.5, 0.75])
           d = b * 60
           if (!this.interactif) {
-            texte = `$${texNombre(a + b)}$ h $=$ ..... h ..... min`
+            texte = `$${texNombre(a + b)}$ h $=$ ${context.isHtml ? '..... h ..... min' : ''}`
           } else {
             texte = `Convertir en heures/minutes : <br>$${texNombre(a + b)}$ h $=$`
             texte += ajouteChampTexteMathLive(this, i, 'clavierHms inline')
@@ -832,6 +839,8 @@ export default function SujetCAN2023Quatrieme () {
           }
           texteCorr = `$${texNombre(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombre(b)} \\times 60$ min $  = ${miseEnEvidence(a)}$ h $${miseEnEvidence(d)}$ min`
           nbChamps = 1
+          this.listeCanEnonces[25] = texte
+          this.listeCanReponsesACompleter[25] = '$\\ldots\\text{ h}\\ldots \\text{ min}$'
           break
 
         case 27:
@@ -907,13 +916,17 @@ export default function SujetCAN2023Quatrieme () {
           texte += '<br>' + mathalea2d({ xmin: -1.5, ymin: -1, xmax: 7.1, ymax: 5, scale: 0.5 }, labelPoint(A, B, C, D, I, J, K, L), d, e, f, poly1, poly2, poly3, s1, s2, s3)
           texteCorr = `Le volume d'un pavé droit est donné par le produit  longueur $\\times$ largeur $\\times$ hauteur.<br>
             Ainsi, $AI=\\dfrac{${v}}{${a}\\times ${b}}=${miseEnEvidence(c)}$.`
-          texte += `${sp(4)}$AI= $`
+          texte += context.isHtml ? `${sp(4)}$AI= $` : ''
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
-          } else { texte += ' $\\ldots$ cm' }
+          } else {
+            texte += context.isHtml ? ' $\\ldots$ cm' : ''
+          }
 
           nbChamps = 1
+          this.listeCanEnonces[28] = texte
+          this.listeCanReponsesACompleter[28] = '$AI= \\ldots\\Lg[cm]{}$'
           break
 
         case 30:
