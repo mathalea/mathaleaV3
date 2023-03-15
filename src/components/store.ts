@@ -3,20 +3,28 @@ import { writable, get } from 'svelte/store'
 /**
  * Pour bloquer la mise à jour de l'url
  */
-export const freezeUrl = writable(false)
+export const freezeUrl = writable<Boolean>(false)
 
 /**
  * setInteractive à 0 on enlève tout, à 1 on les met tous en interactif, à 2 on ne change rien
  */
-interface InterfaceGlobalOptions {v?: string, z?: string, durationGlobal?: number, nbVues?: number, shuffle?: boolean, choice?: number, trans?: boolean, sound?: number, es?: string, title: string, presMode: string, setInteractive: string, isSolutionAccessible: boolean, isInteractiveFree: boolean }
+export interface InterfaceGlobalOptions {v?: string, z?: string, durationGlobal?: number, nbVues?: number, shuffle?: boolean, choice?: number, trans?: boolean, sound?: number, es?: string, title: string, presMode: 'page'|'exos'|'liste'|'questions', setInteractive: string, isSolutionAccessible: boolean, isInteractiveFree: boolean }
 
+interface params {uuid: string, id?:string, alea?: string, interactif?: 0|1, cd?: 0|1, sup?: string, sup2?: string, sup3?: string }
 /**
- * listeExercices est un tableau d'objets décrivant l'exercice souhaité
- * {id, uuid, nbQuestions, alea, interactif, cd, sup, sup2, sup3, sup4, n}
+ * exercicesParams est un tableau d'objets décrivant les exercices
+ * {id, uuid, alea, interactif, cd, sup, sup2, sup3, sup4, n}
  */
-export const exercicesParams = writable([])
+export const exercicesParams = writable<params[]>([])
 
 /**
+ * * v: vue
+ * * z: zoom
+ * * title : titre pour la vue élève uniquement
+ * * presMode : type d'affichage pour la vue eleve uniquement (page, exos, liste, questions)
+ * * setInteractive : uniquement pour la vue eleve (0 : pas d'interactivité, 1 : tout interactif, 2 : au choix exercice par exercice)
+ * * isSolutionAccessible : uniquement pour la vue eleve, pour savoir si les corrections sont disponibles ou pas
+ * * isInteractiveFree : uniquement pour la vue eleve, pour savoir si l'élève peut changer l'interactivité ou pas
  * globalOptions est utilisé dans Mathalea.updateUrl() et dans Mathalea.loadExercicesFromUrl()
  * Il permet de sauvegarder le type de vue (v=...)
  *
@@ -40,32 +48,21 @@ export const resultsByExercice = writable([])
 export const isMenuNeededForExercises = writable<boolean>(false)
 export const isMenuNeededForQuestions = writable<boolean>(false)
 
-// export function changeExoStatus (idToFind: string, value: boolean) {
-//   const listeExercices = get(exercicesCheckCount)
-//   listeExercices.list.forEach((exo) => {
-
-//   })
-// }
-
 /**
- *
- * @param liste
- * @param {number} iDepart
- * @param {number} iArrivee
- * @returns liste
+ * Déplace un exercice dans exercicesParams
  */
-export function moveExercice (liste, iDepart, iArrivee) {
+export function moveExercice (liste: params[], iDepart: number, iArrivee: number): params[] {
   liste.splice(iArrivee, 0, liste.splice(iDepart, 1)[0])
   return liste
 }
 
 let urlToWrite: URL
-let timerId: number
+let timerId: ReturnType<typeof setTimeout>
 
 /**
  * Complète l'URL courante avec les éléments relatifs au diaporama
  */
-export function updateGlobalOptionsInURL (url) {
+export function updateGlobalOptionsInURL (url: URL) {
   const options = get(globalOptions)
   if (options.v) {
     url.searchParams.append('v', options.v)
