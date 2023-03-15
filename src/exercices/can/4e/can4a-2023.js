@@ -22,9 +22,9 @@ export const dateDePublication = '09/03/2023' // La date de publication initiale
 export const uuid = 'cae4f'
 
 /**
- * Aléatoirisation du sujet 2023 de CAN 5e
+ * Aléatoirisation du sujet 2023 de CAN 4e
  * Gilles Mora
- * Référence can5a-2023
+ * Référence can4a-2023
 */
 
 function compareNombres (a, b) {
@@ -40,7 +40,7 @@ export default function SujetCAN2023Quatrieme () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.typeExercice = 'Scratch'
-  this.listePackages = 'scratch3'
+  // this.listePackages = ['scratch3', 'ProfCollege']
   this.comment = `Cet exercice fait partie des annales des Courses aux nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
   les 10 premières questions parfois communes à plusieurs niveaux font appels à des questions automatisées élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
@@ -67,7 +67,6 @@ export default function SujetCAN2023Quatrieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
-
           break
         case 2:
           a = randint(1, 3)
@@ -78,7 +77,7 @@ export default function SujetCAN2023Quatrieme () {
           f = randint(1, 9, [a, b, c, d, e])
           n = new Decimal(a * 100 + b * 10 + c + d * 0.1 + e * 0.01 + f * 0.001)
           m = choice(['centaines', 'dizaines', 'dixièmes', 'centièmes', 'millièmes'])
-          texte = `Dans $${texNombre(n)}$ quel est le chiffre des ${m} ? `
+          texte = `Dans $${texNombre(n)}$ le chiffre des ${m} est : `
           switch (m) {
             case 'centaines':
               reponse = a
@@ -123,7 +122,7 @@ export default function SujetCAN2023Quatrieme () {
           d = choice([10, 30, 40, 50])
           reponse = 60 - b + d
           prenom1 = prenomF()
-          texte = `${prenom1} part à  $${a}$ h $${b}$ min et arrive à  $${a + 1}$ h $${d}$ min.<br>
+          texte = `${prenom1} part à  $${a}$ h $${b}$ min et${context.isHtml ? '' : '<br>'} arrive à  $${a + 1}$ h $${d}$ min.<br>
             Quelle est la durée de son trajet ?`
           texteCorr = `Pour atteindre $${a + 1}$ h, il faut $${60 - b}$ min, puis il faut ajouter encore $${d}$
              min pour atteindre $${a + 1}$ h $${d}$ min. Son trajet aura  duré  $${miseEnEvidence(60 - b + d)}$ min.`
@@ -133,7 +132,8 @@ export default function SujetCAN2023Quatrieme () {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           }
           nbChamps = 1
-
+          this.listeCanEnonces[2] = texte
+          this.listeCanReponsesACompleter[2] = '\\dots{} min'
           break
 
         case 4:
@@ -190,7 +190,7 @@ export default function SujetCAN2023Quatrieme () {
             reponse = 180 - ang1
             texte = '$A$, $O$ et $B$ sont alignés.<br>'
             texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
-            texte += '? $=$'
+            texte += context.isHtml ? '? $=$' : ''
             texteCorr = `Un angle plat a une mesure de  $180°$.<br>
              Ainsi, ?$=180-${ang1}=${miseEnEvidence(180 - ang1)}°$.`
           } else {
@@ -230,7 +230,7 @@ export default function SujetCAN2023Quatrieme () {
               reponse = 90 - ang1
               texte = 'L\'angle $\\widehat{BOD}$ est un angle droit.<br>'
               texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
-              texte += '? $=$'
+              texte += context.isHtml ? '? $=$' : ''
               texteCorr = `
                ?$=90-${ang1}=${miseEnEvidence(90 - ang1)}°$.`
             } else {
@@ -240,16 +240,17 @@ export default function SujetCAN2023Quatrieme () {
               reponse = ang1 - 90
               texte = 'L\'angle $\\widehat{BOD}$ est un angle droit.<br>'
               texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
-              texte += '? $=$'
+              texte += context.isHtml ? '? $=$' : ''
               texteCorr = `?$=${ang1}-90=${miseEnEvidence(ang1 - 90)}°$.  `
             }
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '°' } else { texte += ' $\\ldots °$' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '°' } else { texte += context.isHtml ? ' $\\ldots °$' : '' }
 
           nbChamps = 1
-
+          this.listeCanEnonces[4] = texte
+          this.listeCanReponsesACompleter[4] = '? $=\\ldots °$'
           break
         case 6:
           if (choice([true, false])) {
@@ -262,7 +263,8 @@ export default function SujetCAN2023Quatrieme () {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'dm$^2$'
-            } else { texte += '  $\\ldots$ dm$^2$' }
+            } else { texte += context.isHtml ? '  $\\ldots$ dm$^2$' : '' }
+            this.listeCanReponsesACompleter[5] = '$\\ldots\\Aire[dm]{}$'
           } else {
             a = new Decimal(randint(101, 199)).div(10)
             reponse = new Decimal(a).div(100)
@@ -273,8 +275,12 @@ export default function SujetCAN2023Quatrieme () {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm$^2$'
-            } else { texte += '  $\\ldots$ m$^2$' }
+            } else {
+              texte += context.isHtml ? '  $\\ldots$ m$^2$' : ''
+              this.listeCanReponsesACompleter[5] = '$\\ldots\\Aire[m]{}$'
+            }
           }
+          this.listeCanEnonces[5] = texte
           break
 
         case 7:
@@ -283,7 +289,7 @@ export default function SujetCAN2023Quatrieme () {
             k = randint(2, 4)
             b = k * a
             reponse = k * b
-            texte = `$${a}$ classeurs identiques coûtent $${b}$ €, combien coûtent $${b}$ classeurs ? `
+            texte = `$${a}$ classeurs identiques coûtent $${b}$ €. ${context.isHtml ? '' : '<br>'} Combien coûtent $${b}$ classeurs ? `
 
             texteCorr = `$${a}$ classeurs coûtent $${b}$ €.<br>
             $${k}\\times${a}=${k * a}$ classeurs coûtent $${k}\\times${b}=${miseEnEvidence(k * b)}$ €.`
@@ -292,7 +298,7 @@ export default function SujetCAN2023Quatrieme () {
             k = choice([new Decimal('1.5'), new Decimal('2.5')])
             b = k * a
             reponse = new Decimal(b).mul(k)
-            texte = `$${a}$ classeurs identiques coûtent $${b}$ €, combien coûtent $${b}$ classeurs ? `
+            texte = `$${a}$ classeurs identiques coûtent $${b}$ €. ${context.isHtml ? '' : '<br>'} Combien coûtent $${b}$ classeurs ? `
 
             texteCorr = `$${a}$ classeurs coûtent $${b}$ €.<br>
               $${a / 2}$ ${a / 2 === 1 ? 'classeur coûte' : 'classeurs coûtent'}  $${texPrix(b / 2)}$ €.<br>
@@ -305,6 +311,8 @@ export default function SujetCAN2023Quatrieme () {
             }
           }
           nbChamps = 1
+          this.listeCanEnonces[6] = texte
+          this.listeCanReponsesACompleter[6] = '$\\ldots €$'
           break
 
         case 8:
@@ -321,8 +329,10 @@ export default function SujetCAN2023Quatrieme () {
           }
           f = new FractionX(num, den)
           reponse = f
-          texte = 'Quelle fraction du disque représente l\'aire grisée ?<br>'
-          texte += mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'gray'))
+          texte = `Quelle fraction du disque représente ${context.isHtml ? '' : '<br>'}l'aire grisée ?<br>`
+          texte += context.isHtml ? '' : '\\begin{center}'
+          texte += context.isHtml ? mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'gray')) : `\\Fraction[Reponse,Couleur=LightGray,Rayon=0.8cm]{${num}/${den}}`
+          texte += context.isHtml ? '' : '\\end{center}'
           texteCorr = `L'aire grisée représente $${f.texFraction}$ de l'aire du disque.`
 
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
@@ -436,26 +446,39 @@ export default function SujetCAN2023Quatrieme () {
             texte = `$${texNombre(a, 1)}$ dm$^3=$`
             texteCorr = `$1$ dm$^3= 1$ L, donc $${texNombre(a, 1)}$ dm$^3=${miseEnEvidence(texNombre(a, 1))}$ L.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L' } else { texte += ' $\\ldots$ L' }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L'
+            } else {
+              texte += ' $\\ldots$ L'
+              texte += context.isHtml ? ' $\\ldots$ L' : ''
+              this.listeCanReponsesACompleter[12] = '$\\ldots\\Capa{}$'
+            }
           }
           if (choix === 'b') {
             reponse = new Decimal(a).mul(1000)
             texte = `$${texNombre(a, 1)}$ m$^3$ $=$`
             texteCorr = `$1$ m$^3= ${texNombre(1000)}$ L, donc $${texNombre(a, 1)}$ m$^3= ${miseEnEvidence(texNombre(a * 1000))}$ L.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L' } else { texte += ' $\\ldots$ L' }
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L'
+            } else {
+              texte += context.isHtml ? ' $\\ldots$ L' : ''
+              this.listeCanReponsesACompleter[12] = '$\\ldots\\Capa{}$'
+            }
           }
 
           nbChamps = 1
+          this.listeCanEnonces[12] = texte
           break
         case 14:
           a = randint(3, 10)
           b = a - randint(-1, 1, 0)
           choix1 = choice([true, false])
           reponse = choix1 ? `${a};${a + b}` : `${b};${a + b}`
-          texte = `Une urne contient $${a}$ boules rouges et $${b}$ boules vertes. <br>
-            On tire une boule au hasard. <br>
-            Compléte : « On a $\\ldots$ chances sur $\\ldots$ de tirer une boule ${choix1 ? 'rouge' : 'verte'} ». `
+          texte = `Une urne contient $${a}$ boules rouges et $${b}$ boules vertes.`
+          texte += context.isHtml ? '<br>' : ''
+          texte += 'On tire une boule au hasard.'
+          texte += context.isHtml ? `<br>Complète : $\\text{\\textquotedblleft}$ On a $\\ldots$ chances sur $\\ldots$ de tirer une boule ${choix1 ? 'rouge' : 'verte'} $\\text{\\textquotedblright}$.` : ''
           texteCorr = `Dans l'urne, il y a $${a}$ boules rouges et $${b}$ boules vertes, soit un total de $${a + b}$ boules. <br>
             On a donc $${miseEnEvidence(choix1 ? `${a}` : `${b}`)}$ chances sur $${miseEnEvidence(a + b)}$ de tirer une boule ${choix1 ? 'rouge' : 'verte'}.`
 
@@ -465,6 +488,8 @@ export default function SujetCAN2023Quatrieme () {
             texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline')
           }
           nbChamps = 1
+          this.listeCanEnonces[13] = texte
+          this.listeCanReponsesACompleter[13] = `On a $\\ldots$ chances <br> sur $\\ldots$ de tirer une boule ${choix1 ? 'rouge' : 'verte'}.`
           break
 
         case 15:
@@ -561,6 +586,8 @@ export default function SujetCAN2023Quatrieme () {
           // if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' pas' } else { texte += '$\\ldots$ pas' }
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' pas' }
           nbChamps = 1
+          this.listeCanEnonces[16] = texte
+          this.listeCanReponsesACompleter[16] = '$\\ldots$ pas.'
         }
           break
 
@@ -583,11 +610,14 @@ export default function SujetCAN2023Quatrieme () {
             texte += mathalea2d({ xmin: -1.8, ymin: -1.1, xmax: 7.1, ymax: 5.1, scale: 0.4 }, poly, labelPoint(A, B, C), codageAngleDroit(B, A, C), d, e)
             texteCorr = `L'aire du triangle est $\\dfrac{\\text{AB}\\times \\text{AC}}{2}=\\dfrac{${a}\\times \\text{AC}}{2}$.<br>
           On obtient ainsi,  $\\dfrac{${a}\\times \\text{AC}}{2}=${c}$ soit $${a}\\times AC=2\\times ${c}$, soit $AC=\\dfrac{${c * 2}}{${a}}=${reponse}$ cm.`
-            texte += `${sp(4)}$AC= $`
+            texte += context.isHtml ? `${sp(4)}$AC= $` : ''
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
-            } else { texte += ' $\\ldots$ cm' }
+            } else {
+              texte += context.isHtml ? ' $\\ldots$ cm' : ''
+              this.listeCanReponsesACompleter[17] = '$AC=\\ldots$ cm.'
+            }
           } else {
             listeTriplet = [[3, 4, 5], [6, 8, 10], [5, 12, 13]]
             triplet = choice(listeTriplet)
@@ -613,9 +643,11 @@ export default function SujetCAN2023Quatrieme () {
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm$^2$'
             }
+            this.listeCanReponsesACompleter[17] = '$\\ldots\\Aire[cm]{}$'
           }
 
           nbChamps = 1
+          this.listeCanEnonces[17] = texte
           break
 
         case 19:
@@ -754,14 +786,14 @@ export default function SujetCAN2023Quatrieme () {
           if (choice([true, false])) {
             a = choice([75, 33, 60, 45, 90])
             reponse = arrondi(2 * a / 3, 0)
-            texte = `Je bois le tiers d'une bouteille d'eau de $${a}$ cL.<br>
+            texte = `Je bois le tiers d'une bouteille d'eau ${context.isHtml ? '' : '<br>'} de $${a}$ cL.<br>
               Quelle quantité d'eau reste-t-il ?`
             texteCorr = `J'ai bu $\\dfrac{${a}}{3}=${texNombre(a / 3, 0)}$ cL. Il reste donc 
               $${a}$ cL $-${texNombre(a / 3, 0)}$ cL $=${miseEnEvidence(reponse)}$ cL.`
           } else {
             a = choice([75, 90, 100, 60, 50])
             reponse = arrondi(4 * a / 5, 0)
-            texte = `Je bois le cinquième  d'une bouteille d'eau de $${a}$ cL.<br>
+            texte = `Je bois le cinquième  d'une bouteille d'eau ${context.isHtml ? '' : '<br>'} de $${a}$ cL.<br>
               Quelle quantité d'eau reste-t-il ?`
             texteCorr = `J'ai bu $\\dfrac{${a}}{5}=${texNombre(a / 5, 0)}$ cL. Il reste donc 
               $${a}$ cL $-${texNombre(a / 5, 0)}$ cL $=${miseEnEvidence(reponse)}$ cL.`
@@ -770,6 +802,8 @@ export default function SujetCAN2023Quatrieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cL' }
           nbChamps = 1
+          this.listeCanEnonces[23] = texte
+          this.listeCanReponsesACompleter[23] = '$\\ldots\\Capa[cL]{}$'
           break
 
         case 25:
@@ -788,7 +822,11 @@ export default function SujetCAN2023Quatrieme () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          } else {
+            texte += context.isHtml ? '$\\ldots$' : ''
+          }
           nbChamps = 1
           break
 
@@ -797,7 +835,7 @@ export default function SujetCAN2023Quatrieme () {
           b = choice([0.25, 0.5, 0.75])
           d = b * 60
           if (!this.interactif) {
-            texte = `$${texNombre(a + b)}$ h $=$ ..... h ..... min`
+            texte = `$${texNombre(a + b)}$ h $=$ ${context.isHtml ? '..... h ..... min' : ''}`
           } else {
             texte = `Convertir en heures/minutes : <br>$${texNombre(a + b)}$ h $=$`
             texte += ajouteChampTexteMathLive(this, i, 'clavierHms inline')
@@ -805,6 +843,8 @@ export default function SujetCAN2023Quatrieme () {
           }
           texteCorr = `$${texNombre(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombre(b)} \\times 60$ min $  = ${miseEnEvidence(a)}$ h $${miseEnEvidence(d)}$ min`
           nbChamps = 1
+          this.listeCanEnonces[25] = texte
+          this.listeCanReponsesACompleter[25] = '$\\ldots\\text{ h}\\ldots \\text{ min}$'
           break
 
         case 27:
@@ -880,13 +920,17 @@ export default function SujetCAN2023Quatrieme () {
           texte += '<br>' + mathalea2d({ xmin: -1.5, ymin: -1, xmax: 7.1, ymax: 5, scale: 0.5 }, labelPoint(A, B, C, D, I, J, K, L), d, e, f, poly1, poly2, poly3, s1, s2, s3)
           texteCorr = `Le volume d'un pavé droit est donné par le produit  longueur $\\times$ largeur $\\times$ hauteur.<br>
             Ainsi, $AI=\\dfrac{${v}}{${a}\\times ${b}}=${miseEnEvidence(c)}$.`
-          texte += `${sp(4)}$AI= $`
+          texte += context.isHtml ? `${sp(4)}$AI= $` : ''
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
-          } else { texte += ' $\\ldots$ cm' }
+          } else {
+            texte += context.isHtml ? ' $\\ldots$ cm' : ''
+          }
 
           nbChamps = 1
+          this.listeCanEnonces[28] = texte
+          this.listeCanReponsesACompleter[28] = '$AI= \\ldots\\Lg[cm]{}$'
           break
 
         case 30:
