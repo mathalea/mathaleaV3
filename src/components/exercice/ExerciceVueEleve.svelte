@@ -1,11 +1,12 @@
 <script lang="ts">
+  import ButtonToggle from "../forms/ButtonToggle.svelte"
   import { globalOptions, resultsByExercice } from "../store"
   import { afterUpdate, onMount, tick } from "svelte"
   import seedrandom from "seedrandom"
   import { prepareExerciceCliqueFigure, exerciceInteractif } from "../../lib/interactif/interactif"
   import { loadMathLive } from "../../modules/loaders"
   import { Mathalea } from "../../lib/Mathalea"
-  import { exercicesParams } from "../store"
+  import { exercicesParams, isMenuNeededForExercises } from "../store"
   import HeaderExerciceVueEleve from "./HeaderExerciceVueEleve.svelte"
   export let exercice
   export let indiceExercice
@@ -74,7 +75,7 @@
   })
 
   async function newData() {
-    if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
+    if (isCorrectionVisible) isCorrectionVisible = false
     const seed = Mathalea.generateSeed({
       includeUpperCase: true,
       includeNumbers: true,
@@ -192,30 +193,37 @@
 
   <div class="flex flex-col-reverse lg:flex-row">
     <div class="flex flex-col w-full" id="exercice{indiceExercice}">
-      <div class="hidden md:flex flex-row justify-end items-center text-coopmaths-struct dark:text-coopmathsdark-struct text-xs mt-2">
-        {#if columnsCount > 1}
+      <div class="flex flex-row {$globalOptions.isSolutionAccessible && !isInteractif ? 'justify-between' : 'justify-end'} items-center">
+        {#if $globalOptions.isSolutionAccessible && !isInteractif}
+          <div class="ml-2 lg:mx-5">
+            <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} bind:value={isCorrectionVisible} />
+          </div>
+        {/if}
+        <div class="hidden md:flex flex-row justify-end items-center text-coopmaths-struct dark:text-coopmathsdark-struct text-xs mt-2">
+          {#if columnsCount > 1}
+            <button
+              type="button"
+              on:click={() => {
+                columnsCount--
+                updateDisplay()
+              }}
+            >
+              <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 bx-xs bx-minus" />
+            </button>
+          {/if}
+          <i class="bx ml-1 bx-xs bx-columns" />
           <button
             type="button"
             on:click={() => {
-              columnsCount--
+              columnsCount++
               updateDisplay()
             }}
           >
-            <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 bx-xs bx-minus" />
+            <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest  bx ml-1 bx-xs bx-plus" />
           </button>
-        {/if}
-        <i class="bx ml-1 bx-xs bx-columns" />
-        <button
-          type="button"
-          on:click={() => {
-            columnsCount++
-            updateDisplay()
-          }}
-        >
-          <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest  bx ml-1 bx-xs bx-plus" />
-        </button>
+        </div>
       </div>
-      <article class="text-base mt-4 md:mt-0" style="font-size: {($globalOptions.z || 1).toString()}rem">
+      <article class=" {$isMenuNeededForExercises ? 'text-2xl' : 'text-base'}">
         <div class="flex flex-col">
           {#if typeof exercice.consigne !== undefined && exercice.consigne.length !== 0}
             <div>

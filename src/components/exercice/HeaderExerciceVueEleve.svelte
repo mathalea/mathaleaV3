@@ -3,7 +3,7 @@
   import BoutonMonter from "./BoutonMonter.svelte"
   import BoutonDescendre from "./BoutonDescendre.svelte"
   import { globalOptions } from "../store"
-  import { exercicesParams } from "../store"
+  import { exercicesParams, isMenuNeededForExercises } from "../store"
   export let title: string
   export let randomReady = true
   export let indiceExercice: number
@@ -45,18 +45,23 @@
  -->
 
 <div class="z-0 flex-1 overflow-hidden">
-  <h1 class=" text-coopmaths-struct dark:text-coopmathsdark-struct  mt-4 pb-2 flex flex-col md:flex-row items-center">
+  <h1 class=" text-coopmaths-struct dark:text-coopmathsdark-struct  mt-8 pb-2 flex {$isMenuNeededForExercises ? 'flex-col items-center' : 'flex-row items-center'}">
     <!-- titre -->
     <div class="flex flex-row justify-start items-center" id="exerciceHeader{indiceExercice}">
-      <div class="hidden md:inline-flex items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg lg:text-normal">
+      <div class="{$isMenuNeededForExercises ? 'hidden' : 'inline-flex'} items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg lg:text-normal">
         {indiceExercice + 1}
       </div>
-      <div class="font-light text-3xl lg:text-xl ml-2">
+      <div class="font-light {$isMenuNeededForExercises ? 'text-3xl' : 'text-2xl'} ml-2">
         {title}
       </div>
     </div>
     <!-- boutons contrôle -->
-    <div class="flex justify-start md:text-xl mt-1 text-3xl mr-1">
+    <div class="flex justify-start items-center {$isMenuNeededForExercises ? 'text-3xl mt-4' : 'text-2xl ml-10 mt-2'}">
+      <button class="mx-2 tooltip tooltip-right" data-tip="Nouvel énoncé" type="button" on:click={newData}>
+        <i
+          class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh {randomReady ? '' : 'hidden'}"
+        />
+      </button>
       <button
         class="mx-2 tooltip tooltip-right tooltip-neutral {$globalOptions.isInteractiveFree && interactifReady ? '' : 'hidden'}"
         data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
@@ -64,11 +69,6 @@
         on:click={switchInteractif}
       >
         <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {isInteractif ? 'bxs-edit' : 'bx-edit'}" />
-      </button>
-      <button class="mx-2 tooltip tooltip-right" data-tip="Nouvel énoncé" type="button" on:click={newData}>
-        <i
-          class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh {randomReady ? '' : 'hidden'}"
-        />
       </button>
     </div>
   </h1>

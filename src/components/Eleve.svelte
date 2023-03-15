@@ -241,7 +241,11 @@
                   {exerciseTitle}
                   {i + 1}
                   {#if $resultsByExercice[i] !== undefined}
-                    <div class="absolute bottom-1 left-0 right-0 mx-auto text-xs text-coopmaths-warn dark:text-coopmathsdark-warn">
+                    <div
+                      class="absolute bottom-0 left-0 right-0 mx-auto text-xs font-bold {$resultsByExercice[i].numberOfPoints < $resultsByExercice[i].numberOfQuestions
+                        ? 'bg-red-500'
+                        : 'bg-coopmaths-warn'} dark:bg-coopmathsdark-warn text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+                    >
                       {$resultsByExercice[i].numberOfPoints + "/" + $resultsByExercice[i].numberOfQuestions}
                     </div>
                   {/if}
@@ -305,20 +309,17 @@
                 <div id="exerciseTitleID2{i}" class="flex flex-row items-center justify-center py-3 px-2 text-2xl font-bold">
                   Exercice {i + 1}
                   {#if $resultsByExercice[i] !== undefined}
-                    <div class="ml-4 text-sm text-coopmaths-warn dark:text-coopmathsdark-warn">
+                    <div class="ml-4 text-sm font-bold text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark">
                       {$resultsByExercice[i].numberOfPoints + "/" + $resultsByExercice[i].numberOfQuestions}
                     </div>
                   {:else}
-                    <div class="ml-4 text-sm invisible">8/8</div>
+                    <div class="ml-4 text-sm font-bold invisible">8/8</div>
                   {/if}
                 </div>
               </button>
             </div>
             <div class={currentIndex === i ? "" : "hidden"}>
               <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={isCorrectionVisible[i]} />
-              {#if exercices[i] && $globalOptions.isSolutionAccessible && !exercices[i].interactif}
-                <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} bind:value={isCorrectionVisible[i]} />
-              {/if}
             </div>
           </div>
         {/each}
@@ -328,11 +329,6 @@
         </div>
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={isCorrectionVisible[i]} />
-          {#if exercices[i] && $globalOptions.isSolutionAccessible && !exercices[i].interactif}
-            <div class="ml-2 lg:mx-5">
-              <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} bind:value={isCorrectionVisible[i]} />
-            </div>
-          {/if}
         {/each}
       {:else if $globalOptions.presMode === "liste"}
         {#each questions as question, k (question)}
@@ -394,7 +390,6 @@
             </div>
             <div class={currentIndex === k ? "" : "hidden"} id={`exercice${indiceExercice[k]}Q${k}`}>
               <div class="pb-4 flex flex-col items-start justify-start">
-                <!-- <div class="text-coopmaths-struct font-bold text-md">Question {k + 1}</div> -->
                 <div class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10">
                   <div class="flex flex-col my-2 py-2">
                     <div class="text-coopmaths-corpus pl-2">
@@ -425,7 +420,9 @@
                     <Button title="Vérifier" on:click={() => checkQuestion(k)} isDisabled={isDisabledButton[k]} />
                   </div>
                 {:else if $globalOptions.isSolutionAccessible}
-                  <ButtonToggle titles={["Voir la correction", "Masquer la correction"]} on:click={() => switchCorrectionVisible(k)} />
+                  <div class={$isMenuNeededForExercises ? "ml-4" : ""}>
+                    <ButtonToggle titles={["Voir la correction", "Masquer la correction"]} on:click={() => switchCorrectionVisible(k)} />
+                  </div>
                 {/if}
               </div>
             </div>
