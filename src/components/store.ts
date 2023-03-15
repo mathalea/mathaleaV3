@@ -1,4 +1,3 @@
-import { boolean } from 'mathjs'
 import { writable, get } from 'svelte/store'
 
 /**
@@ -38,7 +37,8 @@ export const darkMode = writable({ isActive: false })
 export const resultsByExercice = writable([])
 
 // vue Élève : détecter la nécessité d'un menu
-export const vueEleve = writable({ isMenuNeeded: boolean })
+export const isMenuNeededForExercises = writable<boolean>(false)
+export const isMenuNeededForQuestions = writable<boolean>(false)
 
 // export function changeExoStatus (idToFind: string, value: boolean) {
 //   const listeExercices = get(exercicesCheckCount)

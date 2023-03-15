@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Mathalea } from "../lib/Mathalea"
-  import { exercicesParams, darkMode, globalOptions, resultsByExercice } from "./store"
+  import { exercicesParams, darkMode, globalOptions, resultsByExercice, isMenuNeededForExercises, isMenuNeededForQuestions } from "./store"
   import type TypeExercice from "./utils/typeExercice"
   import Exercice from "./exercice/Exercice.svelte"
   import { onMount, tick } from "svelte"
@@ -29,7 +29,6 @@
   let isCorrectionVisible: boolean[] = []
   let divsCorrection: HTMLDivElement[] = []
   let currentWindowWidth: number = document.body.clientWidth
-  let displayNeedsMenu: boolean = false
 
   function urlToDisplay() {
     let urlOptions = Mathalea.loadExercicesFromUrl()
@@ -54,20 +53,16 @@
     const roomForQuestionsTitles = navigationHeaderElt ? navigationHeaderElt.offsetWidth : ((dim - 2 * remToPixels(1)) * 11) / 12
     const roomForOne = roomForQuestionsTitles / nbOfExercises - 2 * remToPixels(1.5)
     if (roomForOne >= getTextWidth("Exercice 10", getCanvasFont(exerciseTitleElt ?? document.body))) {
-      displayNeedsMenu = false
-      console.log("Menu is needed ? " + displayNeedsMenu)
+      $isMenuNeededForExercises = false
       return "Exercice"
     } else if (roomForOne >= getTextWidth("Ex 10", getCanvasFont(exerciseTitleElt ?? document.body)) + 20) {
-      displayNeedsMenu = false
-      console.log("Menu is needed ? " + displayNeedsMenu)
+      $isMenuNeededForExercises = false
       return "Ex"
     } else if (roomForOne >= getTextWidth("10", getCanvasFont(exerciseTitleElt ?? document.body)) + 20) {
-      displayNeedsMenu = false
-      console.log("Menu is needed ? " + displayNeedsMenu)
+      $isMenuNeededForExercises = false
       return ""
     } else {
-      displayNeedsMenu = true
-      console.log("Menu is needed ? " + displayNeedsMenu)
+      $isMenuNeededForExercises = true
       return ""
     }
   }
@@ -89,16 +84,16 @@
     const roomForQuestionsTitles = navigationHeaderElt ? navigationHeaderElt.offsetWidth : ((dim - 2 * remToPixels(1)) * 11) / 12
     const roomForOne = roomForQuestionsTitles / nbOfQuestions - 2 * remToPixels(0.5)
     if (roomForOne >= getTextWidth("Question 10", getCanvasFont(questionTitleElt ?? document.body))) {
-      displayNeedsMenu = false
+      $isMenuNeededForQuestions = false
       return "Question"
     } else if (roomForOne >= getTextWidth("Q 10", getCanvasFont(questionTitleElt ?? document.body)) + 20) {
-      displayNeedsMenu = false
+      $isMenuNeededForQuestions = false
       return "Q"
-    } else if (roomForOne >= getTextWidth("10", getCanvasFont(questionTitleElt ?? document.body))) {
-      displayNeedsMenu = false
+    } else if (roomForOne >= getTextWidth("10", getCanvasFont(questionTitleElt ?? document.body)) + 20) {
+      $isMenuNeededForQuestions = false
       return ""
     } else {
-      displayNeedsMenu = true
+      $isMenuNeededForQuestions = true
       return ""
     }
   }
@@ -222,79 +217,73 @@
       <!-- titre de la feuille -->
       <div class="w-full p-8 text-center text-4xl font-light bg-coopmaths-struct dark:bg-coopmathsdark-struct text-coopmaths-canvas dark:text-coopmathsdark-canvas">
         {$globalOptions.title}
-        {displayNeedsMenu}
       </div>
       <!-- barre de navigation -->
-
-      <div class={displayNeedsMenu ? "hidden" : ""}>
-        <div
-          id="navigationHeaderID"
-          class="grid justify-items-center w-full mt-4 mb-8  grid-cols-{$globalOptions.presMode === 'exos' ? exercices.length : questions.length}
-              {$globalOptions.presMode === 'exos' || $globalOptions.presMode === 'question' ? 'border-b-2 border-coopmaths-struct' : 'border-b-0'}
+      <div
+        id="navigationHeaderID"
+        class="grid justify-items-center w-full mt-4 mb-8  grid-cols-{$globalOptions.presMode === 'exos' ? exercices.length : questions.length}
+          {($globalOptions.presMode === 'exos' && !$isMenuNeededForExercises) || ($globalOptions.presMode === 'question' && !$isMenuNeededForQuestions)
+          ? 'border-b-2 border-coopmaths-struct'
+          : 'border-b-0'}
               bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct"
-        >
-          {#if $globalOptions.presMode === "exos"}
-            {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-              <div class="">
-                <button
-                  class="relative group {currentIndex === i
-                    ? 'border-b-4'
-                    : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
-                  disabled={currentIndex === i}
-                  on:click={() => handleIndexChange(i)}
-                >
-                  <div id="exerciseTitleID{i}" class="pt-2 pb-4 px-6 text-xl font-light">
-                    {exerciseTitle}
-                    {i + 1}
-                    {#if $resultsByExercice[i] !== undefined}
-                      <div class="absolute bottom-1 left-0 right-0 mx-auto text-xs text-coopmaths-warn dark:text-coopmathsdark-warn">
-                        {$resultsByExercice[i].numberOfPoints + "/" + $resultsByExercice[i].numberOfQuestions}
-                      </div>
-                    {/if}
-                  </div>
-                  <span
-                    class="absolute -bottom-1 left-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
-                  />
-                  <span
-                    class="absolute -bottom-1 right-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
-                  />
-                </button>
-              </div>
-            {/each}
-          {/if}
-          {#if $globalOptions.presMode === "question"}
-            {#each questions as question, i (question)}
-              <div class="">
-                <button
-                  class="relative group {currentIndex === i
-                    ? 'border-b-4'
-                    : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
-                  disabled={currentIndex === i}
-                  on:click={() => handleIndexChange(i)}
-                >
-                  <div id="questionTitleID{i}" class="py-2 px-2 text-xl font-light">
-                    {questionTitle}
-                    {i + 1}
-                    <div
-                      class="absolute left-0 right-0 mx-auto bottom-1 h-2 w-2 rounded-full bg-coopmaths-warn
+      >
+        {#if $globalOptions.presMode === "exos" && !$isMenuNeededForExercises}
+          {#each $exercicesParams as paramsExercice, i (paramsExercice)}
+            <div class="">
+              <button
+                class="relative group {currentIndex === i
+                  ? 'border-b-4'
+                  : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
+                disabled={currentIndex === i}
+                on:click={() => handleIndexChange(i)}
+              >
+                <div id="exerciseTitleID{i}" class="pt-2 pb-4 px-6 text-xl font-light">
+                  {exerciseTitle}
+                  {i + 1}
+                  {#if $resultsByExercice[i] !== undefined}
+                    <div class="absolute bottom-1 left-0 right-0 mx-auto text-xs text-coopmaths-warn dark:text-coopmathsdark-warn">
+                      {$resultsByExercice[i].numberOfPoints + "/" + $resultsByExercice[i].numberOfQuestions}
+                    </div>
+                  {/if}
+                </div>
+                <span class="absolute -bottom-1 left-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300" />
+                <span
+                  class="absolute -bottom-1 right-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
+                />
+              </button>
+            </div>
+          {/each}
+        {/if}
+        {#if $globalOptions.presMode === "question" && !$isMenuNeededForQuestions}
+          {#each questions as question, i (question)}
+            <div class="">
+              <button
+                class="relative group {currentIndex === i
+                  ? 'border-b-4'
+                  : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
+                disabled={currentIndex === i}
+                on:click={() => handleIndexChange(i)}
+              >
+                <div id="questionTitleID{i}" class="py-2 px-2 text-xl font-light">
+                  {questionTitle}
+                  {i + 1}
+                  <div
+                    class="absolute left-0 right-0 mx-auto bottom-1 h-2 w-2 rounded-full bg-coopmaths-warn
                       {resultsByQuestion[i] === true ? '' : 'invisible'}"
-                    />
-                    <div
-                      class="absolute left-0 right-0 mx-auto bottom-1 h-2 w-2 rounded-full bg-red-600
+                  />
+                  <div
+                    class="absolute left-0 right-0 mx-auto bottom-1 h-2 w-2 rounded-full bg-red-600
                       {resultsByQuestion[i] === false ? '' : 'invisible'}"
-                    />
-                  </div>
-                  <span
-                    class="absolute -bottom-1 left-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
                   />
-                  <span
-                    class="absolute -bottom-1 right-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
-                  />
-                </button>
-              </div>
-            {/each}
-          {/if}
-        </div>
+                </div>
+                <span class="absolute -bottom-1 left-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300" />
+                <span
+                  class="absolute -bottom-1 right-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
+                />
+              </button>
+            </div>
+          {/each}
+        {/if}
       </div>
     </div>
     <!-- Exercices -->
@@ -305,7 +294,7 @@
         </div>
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <div class="flex flex-col">
-            <div class={displayNeedsMenu ? "hidden" : ""}>
+            <div class={$isMenuNeededForExercises ? "" : "hidden"}>
               <button
                 class="w-full {currentIndex === i
                   ? 'bg-coopmaths-canvas-darkest'
@@ -386,7 +375,7 @@
       {:else if $globalOptions.presMode === "question"}
         {#each questions as question, k (question)}
           <div class="flex flex-col">
-            <div class="md:hidden">
+            <div class={$isMenuNeededForQuestions ? "" : "hidden"}>
               <button
                 class="w-full {currentIndex === k
                   ? 'bg-coopmaths-canvas-darkest'
