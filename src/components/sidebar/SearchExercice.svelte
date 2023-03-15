@@ -42,6 +42,9 @@
     if (!inputSearch || exercice.annee) return false
     // Cela permet de trouver les problèmes de construction du dictionnaire
     if (!exercice.id) console.log("Manque id", exercice)
+    if (inputSearch.includes('can')) {
+      isCanInclusDansResultats = true
+    }
     const inputs = inputSearch.split(" ")
     let results = []
     for (const input of inputs) {

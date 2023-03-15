@@ -1,9 +1,9 @@
 import { ComputeEngine } from '@cortex-js/compute-engine'
-import Grandeur from '../modules/Grandeur'
+import Grandeur from '../../modules/Grandeur'
 import { number } from 'mathjs'
-import FractionEtendue from '../modules/FractionEtendue'
-import { texteExposant } from '../modules/outils'
-import Hms from '../modules/Hms'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { texteExposant } from '../../modules/outils'
+import Hms from '../../modules/Hms'
 
 export function verifQuestionMathLive (exercice, i, writeResult = true) {
   const engine = new ComputeEngine()

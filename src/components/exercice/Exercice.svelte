@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { Mathalea } from "../../Mathalea"
+  import { Mathalea } from "../../lib/Mathalea"
   import { onMount } from "svelte"
+  import { globalOptions } from "../store"
 
   // paramsExercice est de type {url, nbQuestions, sup, sup2, sup3, sup4, duration}
   export let paramsExercice
@@ -13,9 +14,14 @@
   let optionsComponent
 
   onMount(async () => {
-    if (paramsExercice.uuid.substring(0, 5) === 'crpe-' || paramsExercice.uuid.substring(0, 4) === 'dnb_' || paramsExercice.uuid.substring(0, 4) === 'e3c_' || paramsExercice.uuid.substring(0, 4) === 'bac_') {
-      optionsComponent = {uuid: paramsExercice.uuid}
-      ComponentExercice = (await import('./ExerciceStatic.svelte')).default
+    if (
+      paramsExercice.uuid.substring(0, 5) === "crpe-" ||
+      paramsExercice.uuid.substring(0, 4) === "dnb_" ||
+      paramsExercice.uuid.substring(0, 4) === "e3c_" ||
+      paramsExercice.uuid.substring(0, 4) === "bac_"
+    ) {
+      optionsComponent = { uuid: paramsExercice.uuid }
+      ComponentExercice = (await import("./ExerciceStatic.svelte")).default
     } else {
       exercice = await Mathalea.load(paramsExercice.uuid)
       if (exercice === undefined) return
@@ -29,8 +35,12 @@
       if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif
       if (paramsExercice.alea) exercice.seed = paramsExercice.alea
       if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === "1"
-      optionsComponent = {exercice}
-      ComponentExercice = (await import("./ExerciceMathalea.svelte")).default
+      optionsComponent = { exercice }
+      if ($globalOptions.v === "eleve") {
+        ComponentExercice = (await import("./ExerciceVueEleve.svelte")).default
+      } else {
+        ComponentExercice = (await import("./ExerciceMathalea.svelte")).default
+      }
     }
   })
 </script>

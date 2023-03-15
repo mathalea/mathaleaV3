@@ -963,7 +963,7 @@ export default function SujetCAN2023Sixieme () {
             c = randint(2, 3)
             texte = `À la cantine, il y a toujours $${a}$ entrées différentes, $${b}$ plats différents et $${c}$ desserts différents.<br>
             Combien de menus (composés d'une entrée, d'un plat et d'un dessert) différents peut-on avoir dans cette cantine ?`
-            texteCorr = `On peut avoir : $${a}\\times ${b}\\times ${c} =${miseEnEvidence(a * b * c)}$ menus diférents.`
+            texteCorr = `On peut avoir : $${a}\\times ${b}\\times ${c} =${miseEnEvidence(a * b * c)}$ menus différents.`
             reponse = a * b * c
           } else {
             a = randint(2, 5)
@@ -971,7 +971,7 @@ export default function SujetCAN2023Sixieme () {
 
             texte = `En prenant un plat au choix parmi $${a}$ plats et un dessert au choix parmi $${b}$ desserts.<br>
             Combien de repas différents peut-on réaliser ?  `
-            texteCorr = `On peut avoir : $${a}\\times ${b}=${miseEnEvidence(a * b)}$ repas diférents.`
+            texteCorr = `On peut avoir : $${a}\\times ${b}=${miseEnEvidence(a * b)}$ repas différents.`
             reponse = a * b
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })

@@ -1,8 +1,3 @@
-% !TEX TS-program = lualatex
-% Préambule pour les fiches coopmaths.fr et les annales de l'APMEP
-% Licence : CC-BY-SA
-% Auteur : Christophe Poulain
-
 \usepackage{mathtools,amssymb,amsfonts,mathrsfs} 
 
 \usepackage{unicode-math}
@@ -10,7 +5,7 @@
 \setmathfont{TeX Gyre Schola Math}
 
 \setmathfont{STIX Two Math}[
-  range={\blacktriangledown}%\mdlgblklozenge,\mdblksquare,\blacktriangle,\bigstar
+  range={\blacktriangledown}
 ]
 
 %%% COULEURS %%%
@@ -65,22 +60,26 @@
 \fancyhead[C]{}
 \fancyfoot{}
 
+\def\bla{}
+
 \NewDocumentCommand\Theme{o m m m m}{%
   \useKVdefault[Theme]%
   \setKV[Theme]{#1}%
   \ifboolKV[Theme]{CANs}{%
-    \usepackage[a4paper,left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}%
+    \usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}%
     \fancypagestyle{premierePage}{%
-      \fancyhead[C]{\textsc{Course aux nombres}}%
+      \fancyhead[C]{\textsc{\ifx\bla#2\bla Course aux nombres\else#2\fi}}%
       \fancyfoot[R]{\scriptsize Coopmaths.fr -- CC-BY-SA}%
       \setlength{\headheight}{14.5pt}%
+      \NewDocumentCommand\dureeCan{}{\ifx\bla#4\bla 9 minutes\else #4\fi}
+      \NewDocumentCommand\titreSujetCan{}{\ifx\bla#3\bla\else\textbf{#3}\fi}
     }%
     \pagestyle{premierePage}
     \colorlet{couleur_theme}{black}%
     \colorlet{couleur_numerotation}{couleur_theme}%
     \let\EXO\EXOCan\let\endEXO\endEXOCan%
   }{%
-    \usepackage[a4paper,left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
+    \usepackage[left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
     \renewcommand{\headrulewidth}{0pt}
     \renewcommand{\footrulewidth}{0pt}
     \pagestyle{fancy}
@@ -88,7 +87,7 @@
       \let\EXO\EXOlibre\let\endEXO\endEXOlibre%
       \colorlet{couleur_theme}{black}%
       \colorlet{couleur_numerotation}{couleur_theme}%
-      \fancyhead[C]{ \bfseries #3}
+      \fancyhead[C]{\bfseries #3}
       \fancyhead[L]{\bfseries #4}
       \fancyfoot[R]{#5}
     }{%
@@ -183,10 +182,6 @@
     arc (60:120:\rayon) -- ++(210:\epaisseur)
     arc (120:60:\rayon) -- cycle}
 
-  \newcommand{\dureeCan}{[Temps total à modifier juste après le \textbackslash begin\{document\}]}  
-
-  \newcommand{\titreSujetCan}{\textbf{[Ligne ci-dessous à modifier juste après le \textbackslash begin\{document\}]\\Sujet niveau NN - Mois Année}}
-
   \newcommand{\mobiusCan}{
     % Repiqué sans vergogne dans lemanuel TikZ pour l'impatient
     \begin{tikzpicture}[very thick,top color=white,bottom color=gray,scale=1.2]
@@ -232,7 +227,7 @@
   \newlength{\Largeurcp}
   
   % Structure globale pour les tableaux des livrets CAN
-  \NewDocumentEnvironment{TableauCan}{+b}{%
+  \NewDocumentEnvironment{TableauCan}{b}{%
     % #1 --> corps de tableau
     \setlength{\Largeurcp}{0.35\textwidth-8\tabcolsep}
     \renewcommand*{\arraystretch}{2.5}
@@ -248,7 +243,7 @@
       \end{longtable}
     \end{spacing}
     \renewcommand*{\arraystretch}{1}
-  }
+  }{}
 
 %%% MISE EN PAGE %%%
 
@@ -258,7 +253,7 @@
 \usepackage{tkz-euclide}
 \usepackage{pgf}%
 \usepackage{pgfplots}
-\pgfplotsset{compat=1.17}
+\pgfplotsset{compat=1.18}
 \usetikzlibrary{babel,arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows}
 
 \spaceskip=2\fontdimen2\font plus 3\fontdimen3\font minus3\fontdimen4\font\relax %Pour doubler l'espace entre les mots
@@ -332,11 +327,19 @@
 \newcommand\Q{\mathbb{Q}}
 
 \newcommand*\tikzfootMA{%
-  \begin{tikzpicture}[remember picture,overlay,shift=(current page.south west)]
-  \begin{scope}[x={(current page.south east)},y={(current page.north west)}]
-    \draw[correction,line width=4pt,dashed,dash pattern= on 10pt off 10pt] ($(0,0)+(5mm,1.5cm)$) rectangle ($(1,1)+(-5mm,-3.75cm)$); 
-  \end{scope}
-\end{tikzpicture} 
+  \ifboolKV[Theme]{CANs}{
+    \begin{tikzpicture}[remember picture,overlay,shift=(current page.north west)]
+      \begin{scope}[x=\textwidth-\oddsidemargin,y=\textheight+5pt]
+        \draw[correction,line width=4pt,dashed,dash pattern= on 10pt off 10pt,shift={(-\oddsidemargin,\topmargin)}] (0,0) rectangle (1,-1);
+      \end{scope}
+    \end{tikzpicture} 
+  }{%
+    \begin{tikzpicture}[remember picture,overlay,shift=(current page.south west)]
+      \begin{scope}[x={(current page.south east)},y={(current page.north west)}]
+        \draw[correction,line width=4pt,dashed,dash pattern= on 10pt off 10pt] ($(0,0)+(5mm,1.5cm)$) rectangle ($(1,1)+(-5mm,-3.75cm)$);
+      \end{scope}
+    \end{tikzpicture} 
+  }
 }
 
 \newenvironment{Correction}{%
@@ -352,8 +355,10 @@
   }
 }
 
+\newcommand\dotfills[1][4cm]{\makebox[#1]{\dotfill}}
+
 %%%%% NOMBRES PREMIERS %%%%%
-\input{xlop} % JM pour les opérations
+\usepackage{xlop} % JM pour les opérations
 \opset{voperator=bottom}
 %%% Table des nombres premiers  %%%%
 \newcount\primeindex
@@ -498,8 +503,4 @@
 \usepackage{booktabs} % tableaux de qualité
 
 \usepackage[french]{babel}
-\usepackage{eurosym}        
-
-%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Fin du préambule %%%
-%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}

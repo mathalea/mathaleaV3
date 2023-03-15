@@ -9,7 +9,7 @@
   export let pathToThisNode: string[]
   export let nestedLevelCount: number
   import themesList from "../../json/levelsThemesList.json"
-  import { Mathalea } from "../../Mathalea"
+  import { Mathalea } from "../../lib/Mathalea"
 
   const themes = toMap(themesList)
   let listeExercices: HTMLUListElement

@@ -1,4 +1,5 @@
 import QRCode from 'qrcode'
+import { encrypt, getShortenedCurrentUrl } from './urls'
 
 export const allowedImageFormats = ['image/jpeg', 'image/png', 'image/webp']
 
@@ -8,10 +9,24 @@ export const allowedImageFormats = ['image/jpeg', 'image/png', 'image/webp']
  * @param imageId id of the image
  * @param QRCodeWidth largeur du QR-Code (en pixels)
  * @param formatQRCodeIndex code du format d'image (voir allowedImageFormats)
+ * @param urlAddendum chaîne à ajouter à l'URL courante
+ * @param shorten l'URL doit être raccourcie ou pas ?
+ * @param crypted l'URL doit être encryptée ou pas ?
  * @author sylvain
  */
-export function urlToQRCodeOnWithinImgTag (imageId, QRCodeWidth, formatQRCodeIndex = 0) {
-  const diapoURL = document.URL
+export async function urlToQRCodeOnWithinImgTag (imageId, QRCodeWidth, formatQRCodeIndex = 0, urlAddendum = '', shorten = false, crypted = false) {
+  // const currentURL = document.URL + urlAddendum
+  let currentURL
+  if (shorten) {
+    try {
+      currentURL = await getShortenedCurrentUrl(urlAddendum)
+    } catch (error) {
+      console.log('Impossible de créer le QR-Code avec lien raccourci')
+      throw error
+    }
+  } else {
+    currentURL = crypted ? encrypt(document.URL + urlAddendum) + '' : document.URL + urlAddendum
+  }
   const options = {
     errorCorrectionLevel: 'H',
     type: allowedImageFormats[formatQRCodeIndex],
@@ -24,7 +39,7 @@ export function urlToQRCodeOnWithinImgTag (imageId, QRCodeWidth, formatQRCodeInd
       light: '#fff'
     }
   }
-  QRCode.toDataURL(diapoURL, options, (err, url) => {
+  QRCode.toDataURL(currentURL, options, (err, url) => {
     if (err) throw err
     const img = document.getElementById(imageId)
     img.src = url

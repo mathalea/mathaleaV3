@@ -37,7 +37,7 @@
       bind:valueSelected={maVariable} 
       labelsValues={[
           { label: 'Titre du label 1', value: '1' },
-          { label: 'Titre du label 2', value: '2' }
+          { label: 'Titre du label 2', value: '2', isDisabled: true }
       ]}
       on:newvalue={() => {do_something}}
   />
@@ -55,12 +55,12 @@
         id={name + i.toString()}
         bind:group={valueSelected}
         value={labelValue.value}
-        disabled={isDisabled}
+        disabled={isDisabled || labelValue.isDisabled}
         on:change={valueHasChanged}
       />
       <label
         class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm font-light
-        {isDisabled ? 'text-opacity-10 dark:text-opacity-10' : 'text-opacity-70 dark:text-opacity-70'}"
+        {(isDisabled || labelValue.isDisabled) ? 'text-opacity-10 dark:text-opacity-10' : 'text-opacity-70 dark:text-opacity-70'}"
         for="presentationModeRadio1"
       >
         {labelValue.label}
