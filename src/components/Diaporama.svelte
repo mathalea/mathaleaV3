@@ -439,7 +439,7 @@
         // Donner la bonne taille aux figures
         if (svg_divs.length !== 0 && question_div !== null) {
           const nbOfSVG = svg_divs.length
-          const optimalSVGWidth = textcell_width * 0.8
+          const optimalSVGWidth = textcell_width * 0.9
           const coefHeight = isCorrectionVisible ? 0.33 : 0.66
           const optimalSVGHeigth = textcell_height * coefHeight
           // console.log("optimal SVG width : " + optimalSVGWidth + "/ optimal heigth : " + optimalSVGHeigth)
@@ -475,6 +475,10 @@
         const elementsKaTeX = clone.getElementsByClassName("katex")
         while (elementsKaTeX.length > 0) {
           elementsKaTeX[0].parentNode.removeChild(elementsKaTeX[0])
+        }
+        const elementsSVG = clone.getElementsByClassName("mathalea2d")
+        while (elementsSVG.length > 0) {
+          elementsSVG[0].parentNode.removeChild(elementsSVG[0])
         }
         let nbOfCharactersInTextDiv = clone.innerText.length
         // console.log("nb caractères : " + nbOfCharactersInTextDiv)
