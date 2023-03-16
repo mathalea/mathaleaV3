@@ -34,6 +34,9 @@
     isInitialUrlHandled = true
     zoom = Number(urlOptions.z)
   }
+
+  // À la construction du component ou à la navigation dans l'historique du navigateur
+  // on met à jour l'url
   onMount(urlToDisplay)
   addEventListener("popstate", urlToDisplay)
 
@@ -74,7 +77,7 @@
   let arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
 
   function updateReferentiel() {
-    let itemsAccepted
+    let itemsAccepted: string[]
     if (filtre === "college") {
       itemsAccepted = ["6e", "5e", "4e", "3e"]
     } else if (filtre === "lycee") {

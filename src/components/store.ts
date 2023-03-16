@@ -111,7 +111,7 @@ export function updateGlobalOptionsInURL (url: URL) {
       url.searchParams.delete('title')
     }
     if (typeof options !== 'undefined') {
-      let es = getKeyByValue(presModeId, options.presMode)
+      let es = presModeId.indexOf(options.presMode).toString()
       es += options.setInteractive
       es += options.isSolutionAccessible ? '1' : '0'
       es += options.isInteractiveFree ? '1' : '0'
@@ -132,13 +132,4 @@ export function updateGlobalOptionsInURL (url: URL) {
   }
 }
 
-export const presModeId = {
-  0: 'page',
-  1: 'exos',
-  2: 'liste',
-  3: 'question'
-}
-
-function getKeyByValue (object, value) {
-  return Object.keys(object).find(key => object[key] === value)
-}
+export const presModeId = ['page', 'exos', 'liste', 'questions']

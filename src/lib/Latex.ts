@@ -146,7 +146,7 @@ function writeQuestions (questions: string[], spacing = 1): string {
   return content
 }
 
-function writeInCols (text, nb: number): string {
+function writeInCols (text: string, nb: number): string {
   if (nb < 2) return text
   return `\\begin{multicols}{${nb}}${text}\n\\end{multicols}`
 }
