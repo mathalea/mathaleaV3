@@ -13,10 +13,12 @@
   import { flip } from "svelte/animate"
   import { onMount } from "svelte"
   import { toMap } from "./utils/toMap"
+  import type TypeExercice from './utils/typeExercice'
 
   import SearchExercice from "./sidebar/SearchExercice.svelte"
 
   import { isRecent } from "./utils/handleDate"
+  import type { InterfaceParams, InterfaceReferentiel } from "src/lib/types";
 
   let isNavBarVisible = true
   let filtre = "all"
@@ -67,11 +69,17 @@
   // Suppression de la rubrique calcul mental
   // On renomme les chapitres pour la partie statique
   let filteredReferentiel = { ...referentiel, static: { ...referentielStatic } }
+  // @ts-ignore
   delete filteredReferentiel["Calcul mental"]
+  // @ts-ignore
   filteredReferentiel["3e"]["Brevet des collèges par thèmes - APMEP"] = filteredReferentiel["static"]["Brevet des collèges par thèmes - APMEP"]
+  // @ts-ignore
   filteredReferentiel["PE"]["Concours 2022"] = filteredReferentiel["static"]["CRPE (2022) par année"]
+  // @ts-ignore
   filteredReferentiel["PE"]["Concours 2022 - Par thèmes"] = filteredReferentiel["static"]["CRPE (2022) par thèmes"]
+  // @ts-ignore
   filteredReferentiel["PE"]["CRPE (2015-2019) par thèmes - COPIRELEM"] = filteredReferentiel["static"]["CRPE (2015-2019) par thèmes - COPIRELEM"]
+  // @ts-ignore
   filteredReferentiel["PE"]["CRPE (2015-2019) par année - COPIRELEM"] = filteredReferentiel["static"]["CRPE (2015-2019) par année - COPIRELEM"]
   let referentielMap = toMap(filteredReferentiel)
   let arrayReferentielFiltre = Array.from(referentielMap, ([key, obj]) => ({ key, obj }))
@@ -108,27 +116,28 @@
      * @return {[string]} objet des exos nouveaux
      * @author sylvain
      */
-    function getRecentExercises(obj) {
+    function getRecentExercises(obj: InterfaceReferentiel[]): InterfaceReferentiel[] {
       /**
        * Détecter si une valeur est un objet
        * @param val valeur à analyser
        */
-      const isObject = (val) => val && typeof val === "object" && !Array.isArray(val)
+      const isObject = (val: unknown) => val && typeof val === "object" && !Array.isArray(val)
 
-      let recentExercises = []
+      let recentExercises: InterfaceReferentiel[] = []
       /**
        * On parcourt récursivement l'objet référentiel et on en profite pour peupler
        * le tableau recentExercises avec les exercices dont les dates de publication
        * ou de modification sont récentes
        * @param obj Objet à parcourir
        */
-      const traverseObject = (obj = {}) => {
+      const traverseObject = (obj: InterfaceReferentiel[]): InterfaceReferentiel[] => {
         return Object.entries(obj).reduce((product, [key, value]) => {
-          if (isObject(value)) {
+          if (isObject(value as InterfaceReferentiel)) {
             if (Object.hasOwn(value, "uuid")) {
               // <-- on arrête la récursivité lorsqu'on tombe sur les données de l'exo
               if (isRecent(value.datePublication) || isRecent(value.dateModification)) {
-                recentExercises.push({ [key]: value })
+                // @ts-ignore
+                recentExercises.push({ [key]: value})
               }
               return null
             } else {
@@ -225,7 +234,7 @@
     expanding = null
   }
 
-  function startResizing(type, event) {
+  function startResizing(type, event: MouseEvent) {
     expanding = type
   }
 

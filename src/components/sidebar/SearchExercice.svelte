@@ -1,19 +1,21 @@
-<script>
-  import { exercicesParams } from "../store.ts"
-  export let referentiel
+<script lang='ts'>
+  import { exercicesParams } from '../store'
+  import type { InterfaceReferentiel } from '../../lib/types'
+  export let referentiel: object
 
   /**
    * Renvoie tous les objets qui ont une clé uuid
    */
-  export function getAllExercices(referentiel) {
-    const exercices = []
-    function recursiveSearch(object) {
+  export function getAllExercices(referentiel: object) {
+    const exercices: InterfaceReferentiel[] = []
+    function recursiveSearch(object: object) {
       Object.keys(object).forEach((key) => {
         // Les exercces "nouveaux" apparaissent en doublon dans le référentiel
         if (key === 'Nouveautés') return
+        //@ts-ignore
         const value = object[key]
         if (key === "uuid" && typeof value !== "object") {
-          exercices.push(object)
+          exercices.push(object as InterfaceReferentiel)
         } else if (typeof value === "object") {
           recursiveSearch(value)
         }
@@ -24,8 +26,8 @@
   }
 
   let listeDesExercices = getAllExercices(referentiel)
-  let filteredList
-  let isCanInclusDansResultats
+  let filteredList: InterfaceReferentiel[]
+  let isCanInclusDansResultats: boolean
 
   $: {
     referentiel = referentiel
@@ -34,10 +36,20 @@
   }
   let inputSearch = ""
 
+  function handlePressEnter (e: KeyboardEvent) {
+    if (e.key === "Enter") {
+      if (filteredList.length === 1) {
+        addToList(filteredList[0])
+      }
+    }
+  }
+
+
+
   /**
    * Détermine si un exercice est dans les résultats de la recherche ou pas
    */
-  function filtre(exercice, inputSearch, isCanPossible) {
+  function filtre(exercice: InterfaceReferentiel, inputSearch: string, isCanPossible: boolean) {
     // Les exercices statiques ont une année on les exclue de la recherche
     if (!inputSearch || exercice.annee) return false
     // Cela permet de trouver les problèmes de construction du dictionnaire
@@ -65,7 +77,7 @@
   /**
    * Ajouter l'exercice courant à la liste
    */
-  function addToList(exercice) {
+  function addToList(exercice: InterfaceReferentiel) {
     const newExercise = {
       url: exercice.url,
       id: exercice.id,
@@ -75,6 +87,7 @@
   }
 </script>
 
+<svelte:window on:keydown={handlePressEnter} />
 <div class="mb-2 items-center font-bold text-large text-coopmaths-struct dark:text-coopmathsdark-struct">Recherche</div>
 <div class="mb-4 w-full">
   <!-- <span class="block"> -->

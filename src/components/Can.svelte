@@ -28,7 +28,6 @@
       exercice.uuid = paramsExercice.uuid
       if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
       exercice.duration = paramsExercice.duration ?? 10
-      if (paramsExercice.titre) exercice.titre = paramsExercice.titre
       if (paramsExercice.id) exercice.id = paramsExercice.id
       if (paramsExercice.sup) exercice.sup = paramsExercice.sup
       if (paramsExercice.sup2) exercice.sup2 = paramsExercice.sup2

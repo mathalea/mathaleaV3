@@ -109,7 +109,7 @@ export class Mathalea {
     return exercices
   }
 
-  static renderDiv (div: HTMLDivElement, zoom: number): void {
+  static renderDiv (div: HTMLElement, zoom?: number): void {
     // KaTeX à remplacer par MathLive ?
     // renderMathInElement(div, {
     //   TeX: {

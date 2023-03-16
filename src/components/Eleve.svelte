@@ -119,13 +119,12 @@
       exercice.uuid = paramsExercice.uuid
       if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
       exercice.duration = paramsExercice.duration ?? 10
-      if (paramsExercice.titre) exercice.titre = paramsExercice.titre
       if (paramsExercice.id) exercice.id = paramsExercice.id
       if (paramsExercice.sup) exercice.sup = paramsExercice.sup
       if (paramsExercice.sup2) exercice.sup2 = paramsExercice.sup2
       if (paramsExercice.sup3) exercice.sup3 = paramsExercice.sup3
       if (paramsExercice.sup4) exercice.sup4 = paramsExercice.sup4
-      if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif
+      if (paramsExercice.interactif) exercice.interactif = (paramsExercice.interactif === '1')
       if (paramsExercice.alea) exercice.seed = paramsExercice.alea
       if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === "1"
       if (exercice.seed === undefined)
@@ -165,16 +164,16 @@
       corrections = corrections.map(Mathalea.formatExercice)
       consignes = consignes.map(Mathalea.formatExercice)
     }
-    if ($globalOptions.presMode === "liste" || $globalOptions.presMode === "question") {
+    if ($globalOptions.presMode === "liste" || $globalOptions.presMode === "questions") {
       // Pour les autres mode de présentation, cela est géré par ExerciceMathalea
       Mathalea.updateUrl($exercicesParams)
       await tick()
-      Mathalea.renderDiv(document.querySelector("section"))
+      Mathalea.renderDiv(document.querySelector<HTMLElement>("section"))
       loadMathLive()
     }
   }
 
-  async function checkQuestion(i) {
+  async function checkQuestion(i: number) {
     // ToFix exercices custom avec pointsCliquable
     const type = exercices[indiceExercice[i]].interactifType
     if (type === "mathLive") {
@@ -222,7 +221,7 @@
       <div
         id="navigationHeaderID"
         class="grid justify-items-center w-full mt-4 mb-8  grid-cols-{$globalOptions.presMode === 'exos' ? exercices.length : questions.length}
-          {($globalOptions.presMode === 'exos' && !$isMenuNeededForExercises) || ($globalOptions.presMode === 'question' && !$isMenuNeededForQuestions)
+          {($globalOptions.presMode === 'exos' && !$isMenuNeededForExercises) || ($globalOptions.presMode === 'questions' && !$isMenuNeededForQuestions)
           ? 'border-b-2 border-coopmaths-struct'
           : 'border-b-0'}
               bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct"
@@ -258,7 +257,7 @@
             </div>
           {/each}
         {/if}
-        {#if $globalOptions.presMode === "question" && !$isMenuNeededForQuestions}
+        {#if $globalOptions.presMode === "questions" && !$isMenuNeededForQuestions}
           {#each questions as question, i (question)}
             <div class="">
               <button
@@ -368,7 +367,7 @@
             </div>
           </div>
         {/each}
-      {:else if $globalOptions.presMode === "question"}
+      {:else if $globalOptions.presMode === "questions"}
         {#each questions as question, k (question)}
           <div class="flex flex-col">
             <div class={$isMenuNeededForQuestions ? "" : "hidden"}>
