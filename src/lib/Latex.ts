@@ -28,7 +28,7 @@ class Latex {
     }
     if (style === 'Can') {
       content += '\\begin{TableauCan}\n'
-      contentCorr += '\n\\begin{Correction}\n\\begin{enumerate}'
+      contentCorr += '\n\\begin{enumerate}'
       for (const exercice of this.exercices) {
         for (let i = 0; i < exercice.listeQuestions.length; i++) {
           if (exercice.listeCanEnonces[i] !== undefined && exercice.listeCanReponsesACompleter[i] !== undefined) {
@@ -46,7 +46,7 @@ class Latex {
       content += '\\end{TableauCan}\n\\addtocounter{nbEx}{-1}'
       /** On supprime les lignes vides car elles posent problème dans l'environnement TableauCan */
       content = content.replace(/\n\s*\n/gm, '')
-      contentCorr += '\n\\end{enumerate}\n\\end{Correction}'
+      contentCorr += '\n\\end{enumerate}\n'
     } else {
       for (const exercice of this.exercices) {
         if (exercice.typeExercice === 'statique') {
