@@ -1,5 +1,5 @@
 import { writable, get } from 'svelte/store'
-import type { InterfaceGlobalOptions, InterfaceParams} from '../lib/types'
+import type { InterfaceGlobalOptions, InterfaceParams } from '../lib/types'
 
 /**
  * Pour bloquer la mise à jour de l'url
@@ -46,7 +46,7 @@ export const isMenuNeededForQuestions = writable<boolean>(false)
 /**
  * Déplace un exercice dans exercicesParams
  */
-export function moveExercice (liste: params[], iDepart: number, iArrivee: number): params[] {
+export function moveExercice (liste: InterfaceParams[], iDepart: number, iArrivee: number): InterfaceParams[] {
   liste.splice(iArrivee, 0, liste.splice(iDepart, 1)[0])
   return liste
 }

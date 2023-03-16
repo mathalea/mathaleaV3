@@ -266,7 +266,7 @@ export class Mathalea {
     }
   }
 
-  static handleExerciceSimple (exercice: TypeExercice, isInteractif: boolean, numeroExercice: number) {
+  static handleExerciceSimple (exercice: TypeExercice, isInteractif: boolean, numeroExercice?: number) {
     if (numeroExercice !== undefined) exercice.numeroExercice = numeroExercice
     exercice.autoCorrection = []
     exercice.interactif = isInteractif
