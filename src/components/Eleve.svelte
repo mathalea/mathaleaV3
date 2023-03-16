@@ -31,7 +31,7 @@
   let currentWindowWidth: number = document.body.clientWidth
 
   function urlToDisplay() {
-    let urlOptions = Mathalea.loadExercicesFromUrl()
+    let urlOptions = Mathalea.updateExercicesParamsFromUrl()
     globalOptions.update(() => {
       urlOptions.v = "eleve"
       return urlOptions
@@ -103,7 +103,7 @@
     // Si presMode est undefined cela signifie que l'on charge cet url
     // sinon en venant du modal il existerait
     if ($globalOptions.presMode === undefined) {
-      let urlOptions = Mathalea.loadExercicesFromUrl()
+      let urlOptions = Mathalea.updateExercicesParamsFromUrl()
       urlOptions.v = "eleve"
       globalOptions.update(() => {
         return urlOptions

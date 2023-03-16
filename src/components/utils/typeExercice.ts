@@ -71,6 +71,12 @@ type Exercice = {
   besoinFormulaire4CaseACocher?: boolean | any[]
   mg32Editable?: boolean
   listeArguments?: string[] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
+  examen?: string // Pour les exercices statiques
+  mois?: string // Pour les exercices statiques
+  annee?: string // Pour les exercices statiques
+  lieu?: string // Pour les exercices statiques
+  content?: string // Pour les exercices statiques
+  contentCorr?: string // Pour les exercices statiques
 }
 
 export default Exercice

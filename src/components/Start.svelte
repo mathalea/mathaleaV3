@@ -27,7 +27,7 @@
   // Récupération des informations de l'URL
   let isInitialUrlHandled = false
   function urlToDisplay() {
-    const urlOptions = Mathalea.loadExercicesFromUrl()
+    const urlOptions = Mathalea.updateExercicesParamsFromUrl()
     globalOptions.update(() => {
       return urlOptions
     })

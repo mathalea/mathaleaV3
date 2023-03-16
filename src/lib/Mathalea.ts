@@ -1,3 +1,4 @@
+// @ts-ignore
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Exercice from '../exercices/Exercice.js'
 import type TypeExercice from '../components/utils/typeExercice'
@@ -8,6 +9,7 @@ import { setReponse } from '../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../modules/interactif/questionMathLive.js'
 import uuidToUrl from '../json/uuidsToUrl.json'
 import refToUuid from '../json/refToUuid.json'
+import referentielStatic from '../json/referentielStatic.json'
 import 'katex/dist/katex.min.css'
 import renderScratch from './renderScratch.js'
 import { decrypt } from '../components/utils/urls.js'
@@ -58,28 +60,51 @@ export class Mathalea {
   static async getExercicesFromParams (params: InterfaceParams[]) {
     const exercices = []
     for (const param of params) {
-      const exercice = await Mathalea.load(param.uuid)
-      if (typeof exercice === 'undefined') continue
-      exercice.uuid = param.uuid
-      if (param.nbQuestions) exercice.nbQuestions = param.nbQuestions
-      exercice.duration = param.duration ?? 10
-      if (param.id) exercice.id = param.id
-      if (param.sup) exercice.sup = param.sup
-      if (param.sup2) exercice.sup2 = param.sup2
-      if (param.sup3) exercice.sup3 = param.sup3
-      if (param.sup4) exercice.sup4 = param.sup4
-      if (param.interactif) exercice.interactif = param.interactif
-      if (param.alea) exercice.seed = param.alea
-      if (param.cd !== undefined) exercice.correctionDetaillee = param.cd === '1'
-      if (exercice.seed === undefined) {
-        exercice.seed = this.generateSeed({
-          includeUpperCase: true,
-          includeNumbers: true,
-          length: 4,
-          startsWithLowerCase: false
-        })
+      if (
+        param.uuid.substring(0, 5) === 'crpe-' ||
+        param.uuid.substring(0, 4) === 'dnb_' ||
+        param.uuid.substring(0, 4) === 'e3c_' ||
+        param.uuid.substring(0, 4) === 'bac_'
+      ) {
+        const infosExerciceStatique = getExerciceStaticByUuid(param.uuid)
+        let content = ''
+        let contentCorr = ''
+        if (infosExerciceStatique.url) content = await (await window.fetch(infosExerciceStatique.url)).text()
+        if (infosExerciceStatique.urlcor) contentCorr = await (await window.fetch(infosExerciceStatique.urlcor)).text()
+        const annee = infosExerciceStatique.annee
+        const lieu = infosExerciceStatique.lieu
+        const mois = infosExerciceStatique.mois
+        const numeroInitial = infosExerciceStatique.numeroInitial
+        let examen: string
+        if (param.uuid.substring(0, 5) === 'crpe-') examen = 'CRPE'
+        if (param.uuid.substring(0, 4) === 'dnb_') examen = 'DNB'
+        if (param.uuid.substring(0, 4) === 'e3c_') examen = 'E3C'
+        if (param.uuid.substring(0, 4) === 'bac_') examen = 'BAC'
+        exercices.push({ typeExercice: 'statique', content, contentCorr, annee, lieu, mois, numeroInitial, examen })
+      } else {
+        const exercice = await Mathalea.load(param.uuid)
+        if (typeof exercice === 'undefined') continue
+        exercice.uuid = param.uuid
+        if (param.nbQuestions) exercice.nbQuestions = param.nbQuestions
+        exercice.duration = param.duration ?? 10
+        if (param.id) exercice.id = param.id
+        if (param.sup) exercice.sup = param.sup
+        if (param.sup2) exercice.sup2 = param.sup2
+        if (param.sup3) exercice.sup3 = param.sup3
+        if (param.sup4) exercice.sup4 = param.sup4
+        if (param.interactif) exercice.interactif = param.interactif
+        if (param.alea) exercice.seed = param.alea
+        if (param.cd !== undefined) exercice.correctionDetaillee = param.cd === '1'
+        if (exercice.seed === undefined) {
+          exercice.seed = this.generateSeed({
+            includeUpperCase: true,
+            includeNumbers: true,
+            length: 4,
+            startsWithLowerCase: false
+          })
+        }
+        exercices.push(exercice)
       }
-      exercices.push(exercice)
     }
     return exercices
   }
@@ -158,7 +183,7 @@ export class Mathalea {
    * avec tous les exercices et les options
    * @returns vue
    */
-  static loadExercicesFromUrl (): InterfaceGlobalOptions {
+  static updateExercicesParamsFromUrl (): InterfaceGlobalOptions {
     let v = ''
     let z = '1'
     let durationGlobal = 0
@@ -344,6 +369,21 @@ export class Mathalea {
       .replace(/\\dotfill/g, '..............................')
       .replace(/\\not=/g, '≠')
       .replace(/\\ldots/g, '....')
+  }
+}
+
+function getExerciceStaticByUuid (uuid: string) {
+  for (const examen in referentielStatic) {
+    for (const anneOuTag in referentielStatic[examen as keyof typeof referentielStatic]) {
+      // @ts-ignore
+      for (const exercice in referentielStatic[examen][anneOuTag]) {
+        // @ts-ignore
+        if (referentielStatic[examen][anneOuTag][exercice].uuid === uuid) {
+          // @ts-ignore
+          return referentielStatic[examen][anneOuTag][exercice]
+        }
+      }
+    }
   }
 }
 
