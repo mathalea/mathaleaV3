@@ -271,6 +271,10 @@
       return params
     })
   }
+
+  function toggleSideMenu() {
+    isSideMenuVisible = !isSideMenuVisible
+  }
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
@@ -284,7 +288,7 @@
   <main class="flex h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus" on:mousemove={resizing}>
     <!-- side menu -->
     {#if isSideMenuVisible || nbExercisesInList === 0}
-      <aside style="width:{sidebarWidth}px" class="flex flex-col bg-coopmaths-canvas-dark  dark:bg-coopmathsdark-canvas-dark p-4 overflow-hidden h-full">
+      <div style="width:{sidebarWidth}px" class="flex flex-col bg-coopmaths-canvas-dark  dark:bg-coopmathsdark-canvas-dark p-4 overflow-hidden h-full">
         <div class="flex flex-col overflow-y-scroll overscroll-auto">
           <h2 class="inline-flex items-center font-bold text-xl mb-6 text-coopmaths-struct dark:text-coopmathsdark-struct">
             <span>Choix des exercices</span>
@@ -310,7 +314,7 @@
             {/each}
           </ul>
         </div>
-      </aside>
+      </div>
       <!-- drag bar -->
       <div
         id="dragbar"
@@ -320,7 +324,16 @@
     {/if}
     <!-- content -->
     {#if $exercicesParams.length !== 0}
-      <div class="flex-1 flex flex-col px-6 overflow-hidden h-full" bind:this={divExercices}>
+      <div class="relative flex-1 flex flex-col px-6 overflow-hidden h-full" bind:this={divExercices}>
+        <div class="absolute top-0 left-0">
+          <button
+            type="button"
+            class="rounded-r-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest text-xl p-2"
+            on:click={toggleSideMenu}
+          >
+            <i class="bx {isSideMenuVisible ? 'bxs-left-arrow' : 'bx-sidebar'} translate-y-1" />
+          </button>
+        </div>
         <!-- barre des boutons de réglages pour tous les exercices de la page -->
         <div class="flex flex-row justify-center items-center p-2">
           <button type="button" on:click={zoomMinus} class="tooltip tooltip-left tooltip-neutral" data-tip="Réduire la taille du texte"
