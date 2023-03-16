@@ -1,12 +1,12 @@
 import Exercice from '../../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 import {
-  point, segment, milieu, repere, codageAngle, rotation, polygoneAvecNom, labelPoint, demiDroite, codageSegments, droite, segmentAvecExtremites, tracePoint, codageAngleDroit, texteParPosition, polygone, droiteGraduee
+  point, segment, milieu, repere, courbeInterpolee, grille, labelPoint, demiDroite, codageSegments, droite, segmentAvecExtremites, tracePoint, texteParPosition
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
-import { listeQuestionsToContenu, miseEnEvidence, ecritureParentheseSiNegatif, ecritureAlgebrique, signe, creerNomDePolygone, printlatex, stringNombre, randint, texNombre, prenomF, texPrix, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, miseEnEvidence, texteEnCouleurEtGras, abs, ecritureAlgebrique, stringNombre, randint, texNombre, texPrix, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
@@ -20,7 +20,7 @@ export const uuid = '9bc44'
 /**
  * Aléatoirisation du sujet 2023 de CAN seconde
  * Gilles Mora
- * Référence 
+ * Référence
 */
 
 function compareNombres (a, b) {
@@ -47,751 +47,564 @@ export default function SujetCAN2023Seconde () {
     this.listeCorrections = [] // Liste de questions corrigées
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
-    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)//
+    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
     const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
     const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
+    const xA26 = randint(2, 6)
+    const yA26 = randint(2, 4)
+    const yB26 = randint(0, 1)
+    const A26 = point(xA26, yA26)
+    const B26 = point(0, yB26)
+    const x0 = randint(-6, -4)
+    const y0 = randint(3, 5)
+    const x1 = randint(-2, 1)
+    const y1 = y0 - randint(5, 8)
+    const x2 = randint(3, 4)
+    const y2 = y1 + randint(2, 7)
+    const x3 = randint(5, 6)
+    const y3 = y2 - randint(1, 4)
 
-    for (let i = 0, index = 0, nbChamps, m, nom, pol, n, xA, yA, xB, yB, xC, yC, reponse1, reponse2, traceC, choix1, r, o, listeFraction, maFraction, sCote1, sCote2, poly1, poly2, poly3, poly4, K, F, G, H, I, num, den, params, inconnue, triplet, origine, traceA, traceD, traceB, traceorigine, ang1, s3, J, texte, texteCorr, reponse, prenom1, L, E, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, m, lA, s26,
+      A0, A1, A2, A3, s26B, ld, r1, Tk, listeB, moy, objet, graphique, truc, bases, n, gr,
+      prix1, N, n1, n2, s, p, nbre, couplenm, r, o, sCote1, sCote2, traceA, texte, texteCorr, reponse, E, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
-          a = randint(4, 9)
-          b = randint(4, 9)
-          texte = `$${a} \\times ${b}$ `
-          texteCorr = `$${a} \\times ${b}=${miseEnEvidence(a * b)}$`
-          reponse = a * b
+          a = randint(3, 9)
+          b = new Decimal(randint(4, 9)).div(10)
+          reponse = new Decimal(a).mul(b)
+          texte = `$${a} \\times ${texNombre(b, 1)}$ `
+          texteCorr = `$${a} \\times ${texNombre(b, 1)}=${miseEnEvidence(texNombre(reponse, 1))}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.canEnonce = `$${a} \\times ${texNombre(b, 1)}$`
+          this.canReponseACompleter = ''
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
 
           break
         case 2:
-          a = randint(1, 3)
-          b = randint(1, 9, a)
-          c = randint(1, 9, [a, b])
-          d = randint(1, 9, [a, b, c])
-          e = randint(1, 9, [a, b, c, d])
-          f = randint(1, 9, [a, b, c, d, e])
-          n = new Decimal(a * 100 + b * 10 + c + d * 0.1 + e * 0.01 + f * 0.001)
-          m = choice(['centaines', 'dizaines', 'dixièmes', 'centièmes', 'millièmes'])
-          texte = `Dans $${texNombre(n)}$ quel est le chiffre des ${m} ? `
-          switch (m) {
-            case 'centaines':
-              reponse = a
-              break
-            case 'dizaines':
-              reponse = b
-              break
-            case 'dixièmes':
-              reponse = d
-              break
-            case 'centièmes':
-              reponse = e
-              break
-            case 'millièmes':
-              reponse = f
-              break
+          c = choice([10, 100])
+          if (c === 10) { b = randint(1, 9) } else { b = randint(21, 59, [30, 40, 50]) }
+          d = new Decimal(b).div(c)
+          reponse = new Decimal(1).sub(d)
+
+          texte = `Écriture décimale de $1-\\dfrac{${b}}{${c}}$`
+          texteCorr = `$1-\\dfrac{${b}}{${c}}=1-${texNombre(b / c, 2)}=${miseEnEvidence(texNombre(reponse, 2))}$`
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
+
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+          nbChamps = 1
+          break
+        case 3:
+          couplenm = choice([[2, 3], [3, 4], [2, 5], [3, 5], [4, 5], [5, 6], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [3, 8], [5, 8], [7, 8], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [3, 10], [7, 10], [9, 10]]) // n et m sont premiers entre eux
+          n = couplenm[0]
+          m = couplenm[1] * choice([-1, 1])
+          f = choice(['a', 'b', 'y', 'x'])
+          reponse = [`${f}(${n}+${m}${f})`, `${f}(${m}${f}+${n})`]
+          if (choice([true, false])) {
+            texte = ` Factoriser $${n}${f}${ecritureAlgebrique(m)}${f}^2$.`
+            texteCorr = `$x$ est un facteur commun aux deux termes : $${n}${f}$ et $${abs(m)}${f}^2$.<br>
+          En effet :<br>
+          $${n}${f}${ecritureAlgebrique(m)}${f}^2=\\underbrace{${f}\\times ${n}}_{${n}${f}} ${m < 0 ? '-' : '+'}\\underbrace{${f}\\times ${m}${f}}_{${m}${f}^2}=${f}(${n}${ecritureAlgebrique(m)}${f})$`
+          } else {
+            texte = ` Factoriser $${m}${f}^2+${n}${f}$.`
+            texteCorr = `$x$ est un facteur commun aux deux termes : $${n}${f}$ et $${abs(m)}${f}^2$.<br>
+          En effet :<br>
+          $${m}${f}^2+${n}${f}=\\underbrace{${f}\\times ${m}${f}}_{${m}${f}^2}+\\underbrace{${f}\\times ${n}}_{${n}${f}} =${f}(${m}${f}+${n})$`
           }
 
-          texteCorr = `Le chiffre des ${m} est $${miseEnEvidence(reponse)}$.<br>
-          Dans le tableau suivant : C : centaines<br>
-          $D$ : dizaines et $U$ : unités. <br>
-          $\\begin{array}{|c|c|c|c|c|c|c|}
-              \\hline
-              \\text{\\small{C}} &  \\text{\\small{D}} & \\text{\\small{U}}&  \\Large{\\textbf{,}}& \\text{\\small{Dixièmes}} & \\text{\\small{Centièmes}} & \\text{\\small{Millièmes}}${context.isHtml ? '\\\\' : '\\tabularnewline'}
-              \\hline
-              ${a}&${b}&${c} & \\Large{\\textbf{,}}& ${d}&${e}& ${f}${context.isHtml ? '\\\\' : '\\tabularnewline'}
-              \\hline
-              \\end{array}
-              $
-              `
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline')
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           }
-          nbChamps = 1
-
-          break
-        case 3:
-          a = randint(14, 19)
-          b = choice([20, 25, 35, 45, 55])
-
-          d = choice([10, 30, 40, 50])
-          reponse = 60 - b + d
-          prenom1 = prenomF()
-          texte = `${prenom1} part à  $${a}$ h $${b}$ min et arrive à  $${a + 1}$ h $${d}$ min.<br>
-            Quelle est la durée de son trajet ?`
-          texteCorr = `Pour atteindre $${a + 1}$ h, il faut $${60 - b}$ min, puis il faut ajouter encore $${d}$
-             min pour atteindre $${a + 1}$ h $${d}$ min. Son trajet aura  duré  $${miseEnEvidence(60 - b + d)}$ min.`
-
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline', { texteApres: sp(5) + 'min' })
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          }
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
 
           break
 
         case 4:
 
-          if (choice([true, false])) {
-            k = randint(12, 18)
-            reponse = 3 * k
-            texte = `Le triple de $${k}$ est :`
-            texteCorr = `Le triple de $${k}$ est : $${k}\\times 3=${miseEnEvidence(reponse)}$.`
+          a = randint(2, 9)
+          b = randint(11, 13, 12)
+          k = randint(1, 5)
+          c = choice([b * k, b * k - 1, b * k + 1])
 
-            reponse = 3 * k
+          texte = `Vrai/Faux<br>
+          $\\dfrac{${a}}{${b}}\\times ${c}$ est un entier.`
+          if (c === b * k) {
+            texteCorr = `${texteEnCouleurEtGras('Vrai')}<br>$\\dfrac{${a}}{${b}}\\times ${c}=\\dfrac{${a}\\times${b}\\times${k}}{${b}}=${a * k}$ qui est un entier.`
+            reponse = 'V'
           } else {
-            k = randint(21, 29)
-            reponse = 2 * k
-            texte = `Le double de $${k}$ est :`
-            texteCorr = `Le double de $${k}$ est : $${k}\\times 2=${miseEnEvidence(reponse)}$.`
+            texteCorr = `${texteEnCouleurEtGras('Faux')}<br>$${c}$ n'est pas divisible par $${b}$, donc ce n'est pas un entier.`
+            reponse = 'F'
           }
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          setReponse(this, index, reponse, { formatInteractif: 'texte' })
+          if (this.interactif) {
+            texte += '<br>Écrire V pour Vrai et F pour Faux.'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
+          this.canEnonce = `$\\dfrac{${a}}{${b}}\\times ${c}$ est un entier.`
+          this.canReponseACompleter = `Entoure la bonne réponse : <br>
+         Vrai ${sp(4)}Faux `
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
 
         case 5:
-          if (choice([true, false])) {
-            ang1 = choice([20, 30, 40, 60, 70, 80, 100, 110, 120, 130, 140, 150, 160])
-            A = point(0, 0, 'A', 'below')
-            B = point(6, 0, 'B', 'below')
-            origine = point(3, 0, 'O', 'below')
-            C = rotation(B, origine, ang1)
-            s1 = segment(A, B)
-            s2 = segment(origine, C)
-            traceA = tracePoint(A)
-            traceA.taille = context.isHtml ? 2 : 1
-            traceB = tracePoint(B)
-            traceB.taille = context.isHtml ? 2 : 1
-            traceorigine = tracePoint(origine)
-            traceorigine.taille = context.isHtml ? 2 : 1
-            xmin = -1
-            ymin = -0.8
-            xmax = 6.5
-            ymax = 2.5
-            objets = []
-            reponse = 180 - ang1
-            objets.push(texteParPosition('$A$', 0, -0.55, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              texteParPosition('$B$', 6, -0.55, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              texteParPosition('$O$', 3, -0.55, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              s1, s2, traceA, traceorigine, traceB, codageAngle(C, origine, A, 0.6), codageAngle(B, origine, C, 0.5)
-            )
-            if (ang1 < 50) {
-              objets.push(texteParPosition('?', 2.2, 0.6, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-                texteParPosition(`${stringNombre(ang1)}°`, 3.8, 0.2, 'milieu', 'black', context.isHtml ? 1 : 0.7))
-            } else { objets.push(texteParPosition('?', 2.2, 0.2, 'milieu', 'black', context.isHtml ? 1 : 0.7), texteParPosition(`${stringNombre(ang1)}°`, 3.8, 0.5, 'milieu', 'black', context.isHtml ? 1 : 0.7)) }
-            reponse = 180 - ang1
-            texte = '$A$, $O$ et $B$ sont alignés.<br>'
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
-            texte += '? $=$'
-            texteCorr = `Un angle plat a une mesure de  $180°$.<br>
-             Ainsi, ?$=180-${ang1}=${miseEnEvidence(180 - ang1)}°$.`
-          } else {
-            ang1 = choice([30, 40, 60, 70, 110, 120, 130, 140, 150, 160])
-            A = point(0, 0, 'A', 'below')
-            B = point(2, 0, 'B', 'below')
-            origine = point(0, 0, 'O', 'below')
-            D = point(0, 2, 'D', 'right')
-            C = rotation(B, origine, ang1)
-            traceD = tracePoint(D)
-            traceD.taille = context.isHtml ? 2 : 1
-            traceB = tracePoint(B)
-            traceB.taille = context.isHtml ? 2 : 1
-            traceorigine = tracePoint(origine)
-            traceorigine.taille = context.isHtml ? 2 : 1
-            s1 = segment(origine, B)
-            s2 = segment(origine, C)
-            s3 = segment(origine, D)
-            xmin = -2
-            ymin = -0.8
-            xmax = 4
-            ymax = 2.5
-            objets = []
-            reponse = 180 - ang1
-            objets.push(
-              traceD, traceB, texteParPosition('$D$', 0.2, 1.8, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              texteParPosition('$B$', 2, -0.55, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              texteParPosition('$O$', 0, -0.55, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              s1, s2, s3, traceorigine, codageAngleDroit(B, origine, D, 'black', 0.3), codageAngle(B, origine, C, 0.8),
-              codageAngle(D, origine, C, 0.4))
-
-            if (ang1 < 90) {
-              objets.push(
-                texteParPosition('?', 0.2, 0.8, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-                texteParPosition(`${stringNombre(ang1)}°`, 1.2, 0.3, 'milieu', 'black', context.isHtml ? 1 : 0.5))
-
-              reponse = 90 - ang1
-              texte = 'L\'angle $\\widehat{BOD}$ est un angle droit.<br>'
-              texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
-              texte += '? $=$'
-              texteCorr = `
-               ?$=90-${ang1}=${miseEnEvidence(90 - ang1)}°$.`
-            } else {
-              objets.push(texteParPosition('?', -0.15, 0.6, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-                texteParPosition(`${stringNombre(ang1)}°`, 1, 0.8, 'milieu', 'black', context.isHtml ? 1 : 0.7))
-
-              reponse = ang1 - 90
-              texte = 'L\'angle $\\widehat{BOD}$ est un angle droit.<br>'
-              texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
-              texte += '? $=$'
-              texteCorr = `?$=${ang1}-90=${miseEnEvidence(ang1 - 90)}°$.  `
-            }
-          }
-
+          a = randint(10, 15)
+          b = randint(2, 6)
+          c = randint(8, 10)
+          reponse = a - b * c
+          texte = `$${a} -${b}\\times ${c}$ `
+          texteCorr = `$${a} -${b}\\times ${c}=${a}-${b * c}=${miseEnEvidence(reponse)}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '°' } else { texte += ' $\\ldots °$' }
-
+          if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
 
           break
         case 6:
-          if (choice([true, false])) {
-            a = new Decimal(randint(101, 199)).div(10)
-            reponse = new Decimal(a).mul(100)
-            texte = `$${texNombre(a, 1)}$ m$^2$  $=$`
+          a = randint(6, 15) * 4
+          b = randint(6, 15) * 3
+          m = choice(['trois quarts', 'deux tiers'])
 
-            texteCorr = `
-        Comme $1$ m$^2$ $=100$ dm$^2$, alors $${texNombre(a, 1)}$ m$^2$  $=${texNombre(a, 1)}\\times 100$ dm$^2=${miseEnEvidence(texNombre(reponse, 0))}$ dm$^2$. `
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'dm$^2$'
-            } else { texte += '  $\\ldots$ dm$^2$' }
-          } else {
-            a = new Decimal(randint(101, 199)).div(10)
-            reponse = new Decimal(a).div(100)
-            texte = `$${texNombre(a, 1)}$ dm$^2$  $=$`
-
-            texteCorr = `
-        Comme $1$ dm$^2$ $=0,01$ m$^2$, alors $${texNombre(a, 1)}$ dm$^2$  $=${texNombre(a, 1)}\\times 0,01$ m$^2=${miseEnEvidence(texNombre(reponse, 3))}$ m$^2$. `
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm$^2$'
-            } else { texte += '  $\\ldots$ m$^2$' }
+          if (m === 'trois quarts') {
+            reponse = Math.round(3 * a / 4)
+            texte = `Les  ${m} de $${a}$`
+            texteCorr = `Prendre les ${m} d'un nombre revient à le diviser par $4$ puis multiplier le résulat par $3$.<br>
+                Ainsi les ${m}  de $${a}$ sont : $(${a}\\div 4)\\times 3  =${miseEnEvidence(reponse)}$.`
+          } if (m === 'deux tiers') {
+            reponse = Math.round(2 * b / 3)
+            texte = `Les ${m} de $${b}$ `
+            texteCorr = `Prendre les ${m} d'un nombre revient à le diviser par $3$ puis multiplier le résultat par $2$.<br>
+                Ainsi les ${m} de $${b}$ sont : $(${b}\\div 3)\\times 2 =${miseEnEvidence(reponse)}$.`
           }
+
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+          nbChamps = 1
           break
 
         case 7:
-          if (choice([true, false])) {
-            a = randint(2, 6)
-            k = randint(2, 4)
-            b = k * a
-            reponse = k * b
-            texte = `$${a}$ classeurs identiques coûtent $${b}$ €, combien coûtent $${b}$ classeurs ? `
+          a = choice([2, 4, 6, 8])
+          prix1 = new Decimal(randint(11, 15)).div(10)
+          k = randint(3, 4)
+          nbre = choice([3 * a / 2, a + 1, a - 1, a / 2, k * a])
 
-            texteCorr = `$${a}$ classeurs coûtent $${b}$ €.<br>
-            $${k}\\times${a}=${k * a}$ classeurs coûtent $${k}\\times${b}=${miseEnEvidence(k * b)}$ €.`
-          } else {
-            a = randint(1, 4) * 2
-            k = choice([new Decimal('1.5'), new Decimal('2.5')])
-            b = k * a
-            reponse = new Decimal(b).mul(k)
-            texte = `$${a}$ classeurs identiques coûtent $${b}$ €, combien coûtent $${b}$ classeurs ? `
+          reponse = new Decimal(nbre).mul(prix1)
+          texte = `$${a}$ m de ruban  coûtent $${texPrix(prix1 * a)}$ €, combien coûtent $${nbre}$ m de ruban ? `
 
-            texteCorr = `$${a}$ classeurs coûtent $${b}$ €.<br>
-              $${a / 2}$ ${a / 2 === 1 ? 'classeur coûte' : 'classeurs coûtent'}  $${texPrix(b / 2)}$ €.<br>
-              Ainsi,   $${b}$ classeurs coûtent ${k > 2 ? `$2\\times ${b}+ ${texPrix(b / 2)} =${miseEnEvidence(texPrix(reponse))}$ €.` : `$${b}+ ${texPrix(b / 2)} =${miseEnEvidence(texPrix(reponse))}$ €.`}`
-          }
+          texteCorr = `$${a}$ m de ruban  coûtent $${texPrix(prix1 * a)}$ €, donc $1$ m coûte $${texPrix(prix1)}$ €. <br>
+            Ainsi, $${nbre}$ m de ruban ${nbre === 1 ? 'coûte' : 'coûtent'} $${miseEnEvidence(texPrix(reponse))}$ €.`
+
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') +
             '€'
           }
-
+          this.canEnonce = texte
+          this.canReponseACompleter = '$\\ldots$ €'
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
 
         case 8:
-          den = randint(5, 7)
-          num = randint(1, 4)
-          params = {
-            xmin: -2.2,
-            ymin: -2.2,
-            xmax: 8,
-            ymax: 3,
-            pixelsParCm: 20,
-            scale: 0.4,
-            style: 'margin: auto'
-          }
-          f = new FractionX(num, den)
-          reponse = f
-          texte = 'Quelle fraction du disque représente l\'aire grisée ?<br>'
-          texte += mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'gray'))
-          texteCorr = `L'aire grisée représente $${f.texFraction}$ de l'aire du disque.`
-
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
-          }
+          a = randint(11, 29, 20)
+          p = randint(2, 4) * 10
+          reponse = new Decimal(a * p).div(100)
+          texte = `$${p}\\,\\%$ de $${a}$`
+          texteCorr = ` Prendre $${p}\\,\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\,\\%$  de $${a}$.<br>
+          Comme $10\\,\\%$  de $${a}$ vaut $${texNombre(a / 10, 1)}$ (pour prendre $10\\,\\%$  d'une quantité, on la divise par $10$), alors
+          $${p}\\,\\%$ de $${a}=${p / 10}\\times ${texNombre(a / 10, 1)}=${miseEnEvidence(texNombre(reponse, 1))}$.
+         `
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
 
         case 9:
-
-          a = new Decimal(randint(41, 61, [50, 60])).div(10)
-          b = new Decimal(randint(111, 149, [120, 130, 140])).div(100)
-          reponse = new Decimal(a).add(b)
-          texte = `$${texNombre(a, 1)}+${texNombre(b, 2)}$ `
-          texteCorr = `$${texNombre(a, 1)}+${texNombre(b, 2)}=${miseEnEvidence(texNombre(reponse, 2))}$`
+          n1 = randint(2, 4)
+          n2 = randint(-3, 0)
+          reponse = arrondi(10 ** n1 + 10 ** n2, 3)
+          texte = `$10^{${n1}}+10^{${n2}}$`
+          texteCorr = `$10^{${n1}}+10^{${n2}}=${texNombre(10 ** n1)} +${texNombre(10 ** n2, 3)}=${miseEnEvidence(texNombre(reponse, 3))}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
 
         case 10:
-          a = randint(1, 20)
-          b = randint(0, 9, 5)
-          c = randint(1, 9, b)
-          e = randint(1, 9)
-          d = new Decimal(a + b * 0.1 + c * 0.01 + e * 0.001)
           if (choice([true, false])) {
-            texte = `Quel est l'arrondi au dixième de $${texNombre(d)}$ ?`
-            if (c > 4) {
-              texteCorr = `Pour arrondir au dixième, on regarde le chiffre des centièmes : $${c}$.<br>
-             Comme $${c}\\geqslant 5$, alors l'arrondi au dixième de $${texNombre(d)}$ est $${miseEnEvidence(texNombre(arrondi(d, 1)))}$.`
-              reponse = arrondi(d, 1)
+            b = randint(10, 15)
+            a = randint(2, 9)
+
+            texte = 'Soit le script python : <br>'
+            if (context.isHtml) {
+              texte += '$\\begin{array}{|l|}\n'
+              texte += '\\hline\n'
+              texte += '\\\n \\texttt{def calcul(a) :}  \\\n '
+              texte += `\\\\\n${sp(9)} \\texttt{return a*a-${b}} \\\\\n`
+              texte += '\\hline\n'
+              texte += '\\end{array}\n$'
             } else {
-              texteCorr = `Pour arrondir au dixième, on regarde le chiffre des centièmes : $${c}$.<br>
-                Comme $${c}< 5$, alors l'arrondi au dixième de $${texNombre(d)}$  est $${miseEnEvidence(texNombre(arrondi(d, 1)))}$.`
-              reponse = arrondi(d, 1)
+              texte += '\\medskip'
+              texte += '\\fbox{'
+              texte += '\\parbox{0.5\\linewidth}{'
+              texte += '\\setlength{\\parskip}{.5cm}'
+              texte += ' \\texttt{def calcul(a) :}\\newline'
+              texte += ` \\hspace*{7mm}\\texttt{return a*a-${b}}`
+              texte += '}'
+              texte += '}\\newline'
+              texte += '\\medskip'
             }
+            if (context.isHtml) { texte += `<br> Que renvoie  $\\texttt{calcul(${a})}$ ?` }
+            reponse = a * a - b
+            texteCorr = ` L'algorithme retourne $${a}\\times${a}-${b}=${miseEnEvidence(reponse)}$. `
+            this.canEnonce = texte
+            this.canReponseACompleter = `Que renvoie  $\\texttt{calcul(${a})}$ ?<br>
+            $\\ldots$`
           } else {
-            texte = `Quel est l'arrondi au centième de $${texNombre(d)}$ ?`
-            if (e > 4) {
-              texteCorr = `Pour arrondir au centième, on regarde le chiffre des millièmes : $${e}$.<br>
-             Comme $${e}\\geqslant 5$, alors l'arrondi au centième de $${texNombre(d)}$ est $${miseEnEvidence(texNombre(arrondi(d, 2)))}$.`
-              reponse = arrondi(d, 2)
+            b = randint(2, 9)
+            a = randint(2, 9)
+            c = randint(2, 9)
+            texte = 'Soit le script python : <br>'
+            if (context.isHtml) {
+              texte += '$\\begin{array}{|l|}\n'
+              texte += '\\hline\n'
+              texte += '\\\n \\texttt{def calcul(a,b) :}  \\\n '
+              texte += `\\\\\n${sp(9)} \\texttt{return a*b-${c}} \\\\\n`
+              texte += '\\hline\n'
+              texte += '\\end{array}\n$'
             } else {
-              texteCorr = `Pour arrondir au centième, on regarde le chiffre des millièmes : $${e}$.<br>
-                Comme $${e}< 5$, alors l'arrondi au centième de $${texNombre(d)}$ est $${miseEnEvidence(texNombre(arrondi(d, 2)))}$.`
-              reponse = arrondi(d, 2)
+              texte += '\\medskip'
+              texte += '\\fbox{'
+              texte += '\\parbox{0.5\\linewidth}{'
+              texte += '\\setlength{\\parskip}{.5cm}'
+              texte += ' \\texttt{def calcul(a,b) :}\\newline'
+              texte += ` \\hspace*{7mm}\\texttt{return a*b-${c}}`
+              texte += '}'
+              texte += '}\\newline'
+              texte += '\\medskip'
             }
+            if (context.isHtml) { texte += `<br> Que renvoie  $\\texttt{calcul(${a},${b})}$ ?` }
+            reponse = a * b - c
+            texteCorr = ` L'algorithme retourne $${a}\\times${b}-${c}=${miseEnEvidence(reponse)}$. `
+            this.canEnonce = texte
+            this.canReponseACompleter = `Que renvoie  $\\texttt{calcul(${a})}$ ?<br>
+            $\\ldots$`
           }
+
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
         case 11:
-          if (choice([true, false])) {
-            nom = creerNomDePolygone(3, ['QD'])
-            a = choice([20, 30, 40, 50, 70, 80])
-
-            texte = `Quelle est la mesure de $\\widehat{${nom[0]}${nom[2]}${nom[1]}}$ ? <br>
+          a = randint(-5, 5, [0, -1, 1])
+          reponse = randint(-9, 9, [-1, 0, 1])
+          c = randint(-9, 9, [0])
+          b = c - a * reponse
+          texte = `Solution de l'équation  <br>$${a}x${ecritureAlgebrique(b)}=${c}$`
+          texteCorr = `On procède par étapes successives :<br>
+          On commence par isoler $${a}x$ dans le membre de gauche en ajoutant 
+          $${ecritureAlgebrique(-b)}$ dans chacun des membres, puis on divise 
+          par $${a}$ pour obtenir la solution : <br>
+           $\\begin{aligned}
+           ${a}x${ecritureAlgebrique(b)}&=${c}\\\\
+          ${a}x&=${c}${ecritureAlgebrique(-b)}\\\\
+          ${a}x&=${c - b}\\\\
+          x&=\\dfrac{${c - b}}{${a}}\\\\
+          x&=${reponse}
+          \\end{aligned}$<br>
+          La solution de l'équation est : $${miseEnEvidence(reponse)}$.
           `
-            texteCorr = ` Le triangle est isocèle. Ses deux angles à la base sont égaux.<br>
-          Ainsi $\\widehat{${nom[0]}${nom[2]}${nom[1]}}=180°-2\\times ${a}°=${miseEnEvidence(texNombre(180 - 2 * a, 0))}°$.
-      <br>`
-            reponse = 180 - 2 * a
-
-            A = point(0, 0, nom[0])
-            if (a > 60) {
-              B = point(4, 0, nom[1])
-              C = point(2, 3.5, nom[2])
-            } else {
-              B = point(6, 0, nom[1])
-              C = point(3, 2.1, nom[2])
-            }
-            pol = polygoneAvecNom(A, B, C)
-
-            objets = []
-            xmin = -1
-            ymin = -0.5
-            xmax = B.x + 1
-            ymax = C.y + 1
-            objets.push(pol[0], pol[1])
-            objets.push(codageSegments('||', 'blue', C, A, C, B), texteParPosition('?', C.x, C.y - 1, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              texteParPosition(`${stringNombre(a)}°`, A.x + 1.2, A.y + 0.4, 'milieu', 'black', context.isHtml ? 1 : 0.7), codageAngle(A, C, B, 0.6), codageAngle(C, A, B, 0.5))
-
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, mainlevee: false, amplitude: 0.3, scale: 0.6, style: 'margin: auto' }, objets)
-          } else {
-            nom = creerNomDePolygone(3, ['QD'])
-            a = choice([30, 40, 50, 70, 80, 100, 110, 120, 130])
-
-            texte = `Quelle est la mesure de $\\widehat{${nom[2]}${nom[0]}${nom[1]}}$ ? <br>
-          `
-            texteCorr = ` Le triangle est isocèle. Ses deux angles à la base sont égaux.<br>
-          Ainsi $\\widehat{${nom[2]}${nom[0]}${nom[1]}}=(180-${a})\\div 2=${miseEnEvidence(texNombre((180 - a) / 2, 0))}°$.
-      <br>`
-            reponse = arrondi((180 - a) / 2)
-
-            A = point(0, 0, nom[0])
-            if (a < 100) {
-              B = point(4, 0, nom[1])
-              C = point(2, 3.5, nom[2])
-            } else {
-              B = point(6, 0, nom[1])
-              C = point(3, 2.1, nom[2])
-            }
-            pol = polygoneAvecNom(A, B, C)
-
-            objets = []
-            xmin = -1
-            ymin = -0.5
-            xmax = B.x + 1
-            ymax = C.y + 1
-            objets.push(pol[0], pol[1])
-            objets.push(codageSegments('||', 'blue', C, A, C, B), texteParPosition(`${stringNombre(a)}°`, C.x, C.y - 1, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              texteParPosition('?', A.x + 1.1, A.y + 0.4, 'milieu', 'black', context.isHtml ? 1 : 0.7), codageAngle(A, C, B, 0.6), codageAngle(C, A, B, 0.5))
-
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, mainlevee: false, amplitude: 0.3, scale: 0.6, style: 'margin: auto' }, objets)
-          }
-
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '$°$' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
 
         case 12:
+          a = randint(21, 46, [30, 40]) * 2
 
-          a = new Decimal(choice([15, 25, 35, 45, 55, 65, 75, 85, 95])).div(10)
-          b = randint(3, 9)
-          c = a.mul(2)
-          d = b * 2
-          e = a.add(c)
-
-          reponse = b + d
-
-          texte = 'Voici un tableau de proportionnalité :'
-          texte += context.isHtml ? '<br>' : '\\par\\smallskip'
-          texte += context.isHtml ? '' : '{\\renewcommand{\\arraystretch}{1}'
-          texte += `$
-          \\begin{array}{|c|c|c|}
-          \\hline
-          ${texNombre(a, 1)}&${c}&${texNombre(e, 1)}${context.isHtml ? '\\\\' : '\\tabularnewline'}
-          \\hline
-          ${b}&${d}&x${context.isHtml ? '\\\\' : '\\tabularnewline'}
-          \\hline
-          \\end{array}
-          $${sp(6)} $x=$`
-          texte += context.isHtml ? '' : '}\\medskip'
-          texteCorr = `$${texNombre(e, 1)}$ s'obtient par la somme de $${texNombre(a, 1)}$ et $${c}$. <br>
-          $x$ est donc la somme de $${b}$ et $${d}$. Ainsi, $x=${miseEnEvidence(b + d)}$.`
-
+          reponse = new Decimal(a).div(2)
+          texte = `$${a} \\times 0,5$ `
+          texteCorr = `Multiplier par $0,5$ revient à diviser par $2$. <br>
+          Ainsi, $${a} \\times 0,5=${miseEnEvidence(texNombre(reponse, 0))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
-
+          if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.canEnonce = `$${a} \\times 0,5$ `
+          this.canReponseACompleter = ''
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
-
           break
 
         case 13:
+          a = randint(-12, -2)
 
-          a = randint(-4, 4, [0, 1])
-          b = randint(-5, 5, [-1, 0, 1])
-          reponse = b * a ** 2
-          texte = `Pour $x=${a}$, ${sp(5)} $${b}x^2=$ `
-          texteCorr = `Pour $x=${a}$, ${sp(5)} $${b}x^2=${b}\\times${ecritureParentheseSiNegatif(a)}=${miseEnEvidence(reponse)}$.`
+          b = randint(3, 12)
+          A = point(0, 0, '1', 'below')
+          B = point(4, 0, 'M', 'below')
+          C = point(8, 0)
+          D = point(9, 0)
+          s = segment(C, D)
+          s.styleExtremites = '->'
+          objets = []
+          objets.push(segmentAvecExtremites(A, B), segmentAvecExtremites(B, C), s, codageSegments('||', 'blue', A, B, B, C))
+          objets.push(texteParPosition(`${stringNombre(a)}`, 0, -0.7, 'milieu', 'black', context.isHtml ? 1.5 : 0.7)
+          )
+          objets.push(texteParPosition('A', 4, -0.7, 'milieu', 'black', context.isHtml ? 1.5 : 0.7)
+          )
+          objets.push(texteParPosition(`${stringNombre(b)}`, 8, -0.7, 'milieu', 'black', context.isHtml ? 1.5 : 0.7)
+          )
+          texte = `Donner l'abscisse du point $A$.<br>
+          
+          `
+          texte += mathalea2d({
+            xmin: -1,
+            ymin: -1,
+            xmax: 10,
+            ymax: 1,
+            pixelsParCm: 30,
+            mainlevee: false,
+            amplitude: 0.5,
+            scale: 0.6,
+            style: 'margin: auto'
+          }, objets)
+          texte += '<br>'
+          texteCorr = `On calcule la moyenne de $${texNombre(a)}$ et $${texNombre(b)}$ :<br>  
+          $x_A=\\dfrac{${texNombre(a)}+${texNombre(b)}}{2}=
+          \\dfrac{${texNombre(a + b)}}{2}=${miseEnEvidence(texNombre((a + b) / 2, 1))}$`
 
+          reponse = new Decimal(a + b).div(2)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.canEnonce = texte// 'Compléter'
+          this.canReponseACompleter = `Abscisse de $A$ : <br>
+          $\\ldots$`
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
 
         case 14:
-          triplet = [[3, 4, 5], [6, 8, 10]]
-          a = choice(triplet)
+          a = randint(2, 15, 10) * 4
 
-          C = point(0, 0, 'C', 'below')
-          A = point(2, 0, 'A', 'below')
-          B = point(2, 3, 'B', 'above')
-
-          xmin = -1
-          ymin = -1
-          xmax = 3.5
-          ymax = 4
-          pol = polygoneAvecNom(A, B, C)
-          objets = []
-          choix = choice(['a', 'b', 'c'])
-          if (choix === 'a') {
-            objets.push(pol[0])
-            objets.push(
-              texteParPosition(`${stringNombre(a[0])} cm`, milieu(A, C).x, milieu(A, C).y - 0.4, 'milieu', 'black', context.isHtml ? 1 : 0.7)
-              , texteParPosition(`${stringNombre(a[2])} cm`, milieu(B, C).x - 0.8, milieu(B, C).y, 'milieu', 'black', context.isHtml ? 1 : 0.7)
-
-              , labelPoint(A, B, C), codageAngleDroit(B, A, C))
-            reponse = a[1]
-            texte = `Calcule la longueur $AB$.
-                            `
-
-            texte += '<br>' + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.3, scale: 0.6, style: 'margin: auto' }, objets)
-            texte += '<br>$AB=$'
-
-            texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
-                On a $AB^2=BC^2-AC^2$, soit $AB^2=${a[2]}^2-${a[0]}^2=${a[2] ** 2 - a[0] ** 2}$.<br>
-                Par conséquent, $AB=${miseEnEvidence(a[1])}$ cm.`
-          }
-          if (choix === 'b') {
-            objets.push(pol[0])
-            objets.push(
-              texteParPosition(`${stringNombre(a[1])} cm`, milieu(A, B).x + 0.6, milieu(A, B).y, 'milieu', 'black', context.isHtml ? 1 : 0.7)
-              , texteParPosition(`${stringNombre(a[2])} cm`, milieu(B, C).x - 0.8, milieu(B, C).y, 'milieu', 'black', context.isHtml ? 1 : 0.7)
-              , labelPoint(A, B, C), codageAngleDroit(B, A, C))
-            reponse = a[0]
-            texte = `Calcule la longueur $AC$.
-              `
-
-            texte += '<br>' + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.3, scale: 0.6, style: 'margin: auto' }, objets)
-            texte += '<br>$AC=$'
-
-            texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
-                  On a $AC^2=BC^2-AB^2$, soit $AC^2=${a[2]}^2-${a[1]}^2=${a[2] ** 2 - a[1] ** 2}$.<br>
-                  Par conséquent, $AC=${miseEnEvidence(a[0])}$ cm.`
-          }
-          if (choix === 'c') {
-            objets.push(pol[0])
-            objets.push(
-              texteParPosition(`${stringNombre(a[1])} cm`, milieu(A, B).x + 0.8, milieu(A, B).y, 'milieu', 'black', context.isHtml ? 1 : 0.7)
-              , texteParPosition(`${stringNombre(a[0])} cm`, milieu(A, C).x, milieu(A, C).y - 0.4, 'milieu', 'black', context.isHtml ? 1 : 0.7)
-              , labelPoint(A, B, C), codageAngleDroit(B, A, C))
-            reponse = a[2]
-            texte = `Calcule la longueur $BC$.
-              `
-
-            texte += '<br>' + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.3, scale: 0.6, style: 'margin: auto' }, objets)
-            texte += '<br>$BC=$'
-
-            texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
-                    On a $BC^2=AB^2+AC^2$, soit $BC^2=${a[0]}^2+${a[1]}^2=${a[0] ** 2 + a[1] ** 2}$.<br>
-                    Par conséquent, $BC=${miseEnEvidence(a[2])}$ cm.`
-          }
-
+          reponse = new Decimal(a).div(4)
+          texte = `$0,25\\times ${a}$ `
+          texteCorr = `Multiplier par $0,25$ revient à diviser par $4$. <br>
+          Ainsi, $${a} \\times 0,5=${miseEnEvidence(texNombre(reponse, 0))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm' } else { texte += ' $\\ldots$ cm' }
+          if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
 
         case 15:
 
-          a = choice([new Decimal('0.1'), new Decimal('0.2'),
-            new Decimal('0.3'), new Decimal('0.4'), new Decimal('0.6'), new Decimal('0.7'),
-            new Decimal('0.8'), new Decimal('0.9'), new Decimal('0.25'), new Decimal('0.75')])
+          b = randint(6, 10)
+          bases = [2, 3, 5]
+          d = randint(0, 2)
+          a = bases[d]
+          c = [['e double', 'a moitié'], ['e triple', 'e tiers'], ['e quintuple', 'e cinquième']]
+          if (choice([true, false])) {
+            texte = `L${c[d][0]} de  $${a}^{${b}}$ `
+            setReponse(this, index, [`${a}^{${b + 1}}`], { formatInteractif: 'calcul' })
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+            texteCorr = `L${c[d][0]} de $${a}^{${b}}$ se calcule  par
+           : <br>
+           $${a}\\times ${a}^{${b}}=${a}^{${b} + 1}=${miseEnEvidence(a)}^{${miseEnEvidence(b + 1)}}$`
+          } else {
+            texte = `L${c[d][1]} de $${a}^{${b}}$ `
 
-          reponse = new Decimal(a).mul(60)
-          texte = `$${texNombre(a, 2)}$ h $=$ `
-          texteCorr = `$${texNombre(a, 2)}\\text{ h }=${texNombre(a, 2)}\\times 60 \\text{ min }=${miseEnEvidence(texNombre(reponse, 0))} \\text{ min}$`
+            setReponse(this, index, [`${a}^{${b - 1}}`], { formatInteractif: 'calcul' })
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+            texteCorr = `L${c[d][1]} de $${a}^{${b}}$ se calcule  par 
+       : <br> 
+       $ ${a}^{${b}}\\div ${a}=\\dfrac{${a}^{${b}}}{${a}}=${a}^{${b} - 1}=${miseEnEvidence(a)}^{${miseEnEvidence(b - 1)}}$`
+          }
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'min' } else { texte += ' $\\ldots$ min' }
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
 
         case 16:
+          if (choice([true, false])) {
+            a = new Decimal(randint(1, 12) * 10 + randint(1, 9)).div(10)
+            reponse = a * 1000
+            texte = ` $${texNombre(a, 1)}$ m$^3$`
+            texteCorr = `Comme $1$ m$^3$= $1000$ L, $${texNombre(a, 1)}$ m$^3=${miseEnEvidence(texNombre(reponse, 0))}$ L.`
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) { texte += '$=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L' } else { texte += ' $=\\ldots$ L' }
+            this.canEnonce = ` $${texNombre(a, 1)}$ m$^3$`
+            this.canReponseACompleter = '$\\ldots\\ldots$ L'
+          } else {
+            a = new Decimal(randint(1, 12) * 10 + randint(1, 9)).div(10)
+            reponse = new Decimal(a).div(1000)
+            texte = ` $${texNombre(a, 1)}$ L`
+            texteCorr = `Comme $1$ L = $0,001$ m$^3$, $${texNombre(a, 1)}$ L $=${miseEnEvidence(texNombre(reponse, 4))}$  m$^3$.`
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' m$^3$' } else { texte += ' $=\\ldots$ m$^3$' }
+            this.canEnonce = ` $${texNombre(a, 1)}$ L`
+            this.canReponseACompleter = '$\\ldots\\ldots$ m$^3$'
+          }
 
-          a = randint(-9, -2)
-          b = randint(-9, -2, a)
-          c = choice([-10, -5])
-          reponse = a * b * c
-          texte = `$(${a})\\times (${b})\\times(${c})$ `
-          texteCorr = `$(${a})\\times (${b})\\times(${c})=${miseEnEvidence(reponse)}$`
-
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
-
         case 17:
+          choix = choice(['a', 'b', 'c'])//
+          if (choix === 'a') {
+            a = randint(11, 39, [10, 20, 30]) / 1000
+            truc = a * 100
+            reponse = `${stringNombre(truc)}\\times 10^{-2}`
+            texte = `Écriture  scientifique de $${texNombre(a, 3)}$`
 
-          a = randint(31, 99, [40, 50, 60, 70, 80, 90]) * 10
+            texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
+            Ici : $${texNombre(a, 3)}=\\underbrace{${texNombre(truc, 3)}}_{1\\leqslant ${texNombre(truc, 3)} <10}\\times 10^{-2}$. `
+          }
+          if (choix === 'b') {
+            a = randint(111, 399, [200, 300]) / 100000
+            truc = a * 1000
+            reponse = `${stringNombre(truc)}\\times 10^{-3}`
+            texte = `Écriture  scientifique de $${texNombre(a, 5)}$`
 
-          b = randint(-4, -1)
-          reponse = new Decimal(a).mul(10 ** b)
-          texte = `Écriture décimale de $${a}\\times 10^{${b}}$ `
-          texteCorr = `$${a}\\times 10^{${b}}=${a}\\times ${texNombre(10 ** b, 4)}=${miseEnEvidence(texNombre(reponse, 4))}$`
+            texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
+              Ici : $${texNombre(a, 5)}=\\underbrace{${miseEnEvidence(texNombre(truc, 5))}}_{1\\leqslant ${texNombre(truc, 5)} <10}\\times 10^{-3}$. `
+          }
+          if (choix === 'c') {
+            a = randint(111, 399, [200, 300]) / 1000000
+            truc = a * 10000
+            reponse = `${stringNombre(truc)}\\times 10^{-4}`
+            texte = `Écriture  scientifique de $${texNombre(a, 6)}$`
 
+            texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
+                Ici : $${texNombre(a, 6)}=\\underbrace{${texNombre(truc, 6)}}_{1\\leqslant ${texNombre(truc, 6)} <10}\\times 10^{-4}$. `
+          }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
         case 18:
-          a = randint(1, 4)
-          b = randint(1, 9) * choice([-1, 1])
-          k = randint(2, 7) * choice([-1, 1])
-          inconnue = choice(['x', 'y'])
 
-          if (a === 1) {
-            // ne pas écrire 1x
-            texte = `Développe $${k}${inconnue}(${inconnue}${ecritureAlgebrique(b)})$`
-            texteCorr = `$${k}${inconnue}(${inconnue}${ecritureAlgebrique(b)})=${k}${inconnue}\\times ${inconnue} ${signe(k * b)}${k}${inconnue}\\times ${Math.abs(b)}=${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}$`
-            reponse = printlatex(`${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}`)
+          a = randint(1, 10)
+
+          if (choice([true, false])) {
+            texte = `Développer  $(x+${a})^2$`
+            texteCorr = `On utilise l'égalité remarquable $(a+b)^2=a^2+2ab+b^2$ avec $a=x$ et $b=${a}$.<br>
+            $(x+${a})^2=x^2+2 \\times x \\times ${a} + ${a}^2=x^2+${2 * a}x+${a * a}$`
+            reponse = [`x^2+${2 * a}x+${a * a}`]
           } else {
-            texte = `Développe $${k}${inconnue}(${a}${inconnue}${ecritureAlgebrique(b)})$`
-            if (k > 0) {
-              texteCorr = `$${k}${inconnue}(${a}${inconnue}${ecritureAlgebrique(b)})=${k}${inconnue}\\times ${a}${inconnue} + ${k}${inconnue}\\times ${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}$`
-              reponse = printlatex(`${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}`)
-            } else {
-              texteCorr = `$${k}${inconnue}(${a}${inconnue}${ecritureAlgebrique(b)})=${k}${inconnue}\\times ${a}${inconnue} + (${k}${inconnue})\\times ${ecritureParentheseSiNegatif(b)}=${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}$`
-              reponse = printlatex(`${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}`)
-            }
+            texte = `Développer et réduire $(x-${a})(x+${a})$`
+            texteCorr = `On utilise l'égalité remarquable $(a+b)(a-b)=a^2-b^2$ avec $a=x$ et $b=${a}$.<br>
+          $(x-${a})(x+${a})=x^2- ${a}^2=x^2-${a * a}$`
+            reponse = [`x^2-${a * a}`]
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
+
           break
         case 19:
-          if (choice([true, false])) {
-            d = new Decimal(randint(112, 199, [120, 130, 140, 150, 160, 170, 180, 190])).div(10)
-            e = randint(3, 7)
+          a = randint(3, 9) * 10
+          b = choice([10, 20, 30, 40])
+          d = new Decimal(b).div(100)
+          reponse = a - a * d
 
-            texte = `$${texNombre(e)} \\times ${texNombre(d, 1)}+${texNombre(10 - e, 1)}\\times ${texNombre(d, 1)}$`
-            texteCorr = `$${texNombre(e)} \\times ${texNombre(d, 1)}+${texNombre(10 - e)}\\times ${texNombre(d, 1)}=${texNombre(d, 1)}\\times (${e}+${10 - e})=${texNombre(d, 1)}\\times 10=${miseEnEvidence(texNombre(10 * d, 0))}$`
-            reponse = new Decimal(d).mul(10)
-          } else {
-            d = new Decimal(randint(112, 199, [120, 130, 140, 150, 160, 170, 180, 190])).div(10)
-            e = randint(3, 49, [10, 20, 30, 40])
-
-            texte = `$${texNombre(e)} \\times ${texNombre(d, 1)}+${texNombre(100 - e, 1)}\\times ${texNombre(d, 1)}$`
-            texteCorr = `$${texNombre(e)} \\times ${texNombre(d, 1)}+${texNombre(100 - e)}\\times ${texNombre(d, 1)}=${texNombre(d, 1)}\\times (${e}+${100 - e})=${texNombre(d, 1)}\\times 100=${miseEnEvidence(texNombre(100 * d, 0))}$`
-            reponse = new Decimal(d).mul(100)
-          }
+          texte = `Un jeu vidéo coûte  $${a}$ €. Son prix baisse de $${b}$ $\\%$.<br>
+          Quel est son nouveau prix ?
+          `
+          texteCorr = ` $${b}$ $\\%$ de $${a}=${texNombre(d, 1)}\\times ${a}= ${texNombre(a * d, 0)}$.<br>
+          Le prix du jeu viéo après la réduction est donc : $${a}-${texNombre(a * d, 0)}=${miseEnEvidence(texNombre(reponse, 0))}$ €. `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€' }
+          this.canEnonce = texte
+          this.canReponseACompleter = '$\\ldots$ €'
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
 
         case 20:
-
+          a = randint(2, 9)
           if (choice([true, false])) {
-            b = randint(2, 4)
-            a = randint(5, 9)
-            c = 2 * a + b
-            A = point(0, 0)
-            B = point(10, 0)
-            C = point(10, 0.7)
-            D = point(0, 0.7)
-            E = point(4, 0.7)
-            F = point(4, 0)
-            G = point(8, 0.7)
-            H = point(8, 0)
-            I = point(0, 1)
-            J = point(10, 1)
+            reponse = a * 8
 
-            s1 = segmentAvecExtremites(I, J)
-            s1.styleExtremites = '<->'
-            xmin = -1
-            ymin = -0.5
-            xmax = 11
-            ymax = 2
-            poly1 = polygone(A, F, E, D)
-            poly2 = polygone(E, F, H, G)
-            poly3 = polygone(G, H, B, C)
-            poly1.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
-            poly2.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
-            objets = []
-            objets.push(poly1, poly2, poly3, s1)
-            objets.push(
-              context.isHtml ? texteParPosition('$a$', milieu(A, F).x, milieu(A, F).y, 'milieu', 'black') : texteParPosition('$a$', milieu(A, F).x, milieu(A, F).y + 0.3, 'milieu', 'black', 0.7)
-              , context.isHtml ? texteParPosition('$a$', milieu(F, H).x, milieu(F, H).y, 'milieu', 'black') : texteParPosition('$a$', milieu(F, H).x, milieu(F, H).y + 0.3, 'milieu', 'black', 0.7)
-              , context.isHtml ? texteParPosition(`$${b}$`, milieu(B, H).x, milieu(B, H).y, 'milieu', 'black') : texteParPosition(`$${b}$`, milieu(B, H).x, milieu(B, H).y + 0.3, 'milieu', 'black', 0.7)
-              , context.isHtml ? texteParPosition(`$${c}$`, milieu(I, J).x, milieu(I, J).y + 0.1, 'milieu', 'black') : texteParPosition(`$${c}$`, milieu(I, J).x, milieu(I, J).y + 0.3, 'milieu', 'black', 0.7))
-            reponse = a
-            texte = `Loïs a représenté un problème : 
-                            `
-
-            texte += '<br>' + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.3, scale: 0.6, style: 'margin: auto' }, objets)
-            texte += `<br>
-            
-            $a=$`
-
-            texteCorr = `$a=\\dfrac{${c}-${b}}{2}=${miseEnEvidence(a)}$.`
+            texte = `On double les longueurs des côtés d'un cube de volume $${a}$ m$^3$.<br>
+          Quel est le volume du cube agrandi ?
+          `
+            texteCorr = `Si les longueurs sont multipliées par $2$, le volume est multiplié par $2^3=8$.<br>
+          Ainsi, le cube agrandit a un volume de $${miseEnEvidence(texNombre(reponse))}$ m$^3$. `
+            this.canEnonce = texte
+            this.canReponseACompleter = '$\\ldots$ m$^3$'
           } else {
-            b = randint(7, 9)
-            a = randint(2, 5)
-            c = 3 * a + b
-            A = point(0, 0)
-            B = point(10, 0)
-            C = point(10, 0.7)
-            D = point(0, 0.7)
-            E = point(2, 0.7)
-            F = point(2, 0)
-            G = point(4, 0.7)
-            H = point(4, 0)
-            I = point(6, 0.7)
-            J = point(6, 0)
-            K = point(0, 1)
-            L = point(10, 1)
-            s1 = segmentAvecExtremites(K, L)
-            s1.styleExtremites = '<->'
-            xmin = -1
-            ymin = -0.5
-            xmax = 11
-            ymax = 2
-            poly1 = polygone(A, F, E, D)
-            poly2 = polygone(E, F, H, G)
-            poly3 = polygone(G, H, J, I)
-            poly4 = polygone(G, H, B, C)
-            poly1.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
-            poly2.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
-            poly3.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
-            objets = []
-            objets.push(poly1, poly2, poly3, poly4, s1)
-            objets.push(
-              context.isHtml ? texteParPosition('$a$', milieu(A, F).x, milieu(A, F).y, 'milieu', 'black') : texteParPosition('$a$', milieu(A, F).x, milieu(A, F).y + 0.3, 'milieu', 'black', 0.7)
-              , context.isHtml ? texteParPosition('$a$', milieu(F, H).x, milieu(F, H).y, 'milieu', 'black') : texteParPosition('$a$', milieu(F, H).x, milieu(F, H).y + 0.3, 'milieu', 'black', 0.7)
-              , context.isHtml ? texteParPosition('$a$', milieu(H, J).x, milieu(H, J).y, 'milieu', 'black') : texteParPosition('$a$', milieu(H, J).x, milieu(H, J).y + 0.3, 'milieu', 'black', 0.7), context.isHtml ? texteParPosition(`$${b}$`, milieu(B, J).x, milieu(B, J).y, 'milieu', 'black') : texteParPosition(`$${b}$`, milieu(B, J).x, milieu(B, J).y + 0.3, 'milieu', 'black', 0.7)
-              , context.isHtml ? texteParPosition(`$${c}$`, milieu(K, L).x, milieu(K, L).y + 0.1, 'milieu', 'black') : texteParPosition(`$${c}$`, milieu(K, L).x, milieu(K, L).y + 0.3, 'milieu', 'black', 0.7))
-            reponse = a
-            texte = `Loïs a représenté un problème : 
-                            `
+            reponse = a * 4
 
-            texte += '<br>' + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.3, scale: 0.6, style: 'margin: auto' }, objets)
-            texte += `<br>
-            
-            $a=$`
-
-            texteCorr = `$a=\\dfrac{${c}-${b}}{2}=${miseEnEvidence(a)}$.`
+            texte = `On double les longueurs des côtés d'un carré d'aire $${a}$ m$^2$.<br>
+            Quel est l'aire du carré agrandi ?
+            `
+            texteCorr = `Si les longueurs sont multipliées par $2$, l'aire  est multipliée par $2^2=4$.<br>
+            Ainsi, le carré agrandit a une aire de $${miseEnEvidence(texNombre(reponse))}$ m$^2$. `
+            this.canEnonce = texte
+            this.canReponseACompleter = '$\\ldots$ m$^2$'
           }
-
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$ ' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm$^2$' }
+
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
-
         case 21:
-
-          listeFraction = [
-            [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5]
-          ]
-          maFraction = choice(listeFraction)
-          a = randint(1, 4)
-          b = maFraction[0]
-          c = maFraction[1]
-          f = new FractionX(b, c)
-          d = new FractionX(a * c + b, c).simplifie()
-          e = new FractionX(a * c - b, c).simplifie()
-
-          if (choice([true, false])) {
-            texte = `$${a}+${f.texFraction}$`
-            texteCorr = `$${a}+${f.texFraction} = \\dfrac{${a} \\times ${c}}{${c}} + \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} + \\dfrac{${b}}{${c}}  =${miseEnEvidence(d.texFraction)}$`
-            reponse = d
-          } else {
-            texte = `$${a}-${f.texFraction}$`
-            texteCorr = `$${a}-${f.texFraction} = \\dfrac{${a} \\times ${c}}{${c}} - \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} - \\dfrac{${b}}{${c}}  =${miseEnEvidence(e.texFraction)}$`
-            reponse = e
-          }
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
-          nbChamps = 1
-          break
-        case 22:
-          a = randint(2, 6)
-          b = randint(8, 15)
-          c = randint(7, 11)
-          e = choice([36, 40, 44, 48, 52, 60])
-          d = e - a - b - c
-          texte = `$${a}$ ${sp(2)} ; ${sp(2)} $${b}$ ${sp(2)} ; ${sp(2)} $${c}$${sp(2)} ; ${sp(2)} $${d}$<br>
-Quelle est la moyenne de ces nombres ?`
-          texteCorr = `La somme des $4$ valeurs est : $${a}+${b}+${c}+${d} =${e}$.<br>
- La moyenne est donc $\\dfrac{${e}}{4}=${miseEnEvidence(texNombre(e / 4, 0))}$.`
-          reponse = arrondi(e / 4, 0)
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
-          nbChamps = 1
-          break
-
-        case 23:
           if (choice([true, false])) {
             a = randint(1, 9)// longueur BE
             k = randint(2, 4)
@@ -829,6 +642,8 @@ Quelle est la moyenne de ces nombres ?`
               texte += '<br>$AE=$'
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
             }
+            this.canEnonce = '$(BE)$ et $(DC)$ sont parallèles.<br>' + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
+            this.canReponseACompleter = '$AE=\\ldots$'
           } else {
             a = randint(1, 4)// AB
             k = randint(2, 3)// coeff
@@ -852,7 +667,7 @@ Quelle est la moyenne de ces nombres ?`
               texteParPosition(`${c}`, milieu(D, C).x - 0.3, milieu(C, B).y + 0.5, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               labelPoint(A, B, C, D, E), droite(B, C), droite(D, A), droite(C, D), droite(A, B))
             reponse = k * c
-            texte = `$(AB)//(CD)$<br><br>
+            texte = `$(AB)//(CD)$. Détermine la longueur $CE$.<br><br>
           `
             texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
             texteCorr = `Le triangle $ECD$ est un agrandissement du triangle $EAB$. La longueur $BE$ est $${k}$ fois plus grande que la longueur $AB$. 
@@ -862,206 +677,453 @@ Quelle est la moyenne de ces nombres ?`
             if (this.interactif) {
               texte += '<br>$CE=$'
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
-            } else { texte += ' $CE=\\ldots$ ' }
+            }
+            this.canEnonce = '$(AB)$ et $(DC)$ sont parallèles.<br>' + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.6, style: 'margin: auto' }, objets)
+            this.canReponseACompleter = '$CE=\\ldots$'
           }
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+          nbChamps = 1
+          break
+        case 22:
+          if (choice([true, false])) {
+            a = randint(1, 4) * (-1)
+            b = randint(1, 4)
+            c = new Decimal(randint(-99, -41, [-80, -70, -6, -50, -90])).div(10)
+            d = new Decimal(c).add(randint(2, 4))
+            e = randint(-8, -1)
+            N = choice(['a', 'b', 'c', 'd'])//,
+            if (N === 'a') {
+              texte = `Plus petit entier de l'intervalle $\\bigg]${a}  ${sp(1)} ; ${sp(1)} ${b}\\bigg[$ `
+              texteCorr = `C'est le plus petit entier strictement supérieur à  $${a}$ : il s'agit de $${miseEnEvidence(a + 1)}$.`
+              reponse = a + 1
+            }
+            if (N === 'b') {
+              texte = `Plus petit entier de l'intervalle $\\bigg]${texNombre(c, 1)}  ${sp(1)} ; ${sp(1)} ${b}\\bigg[$ `
+              texteCorr = `C'est le plus petit entier strictement supérieur à  $${texNombre(c, 1)}$ : il s'agit de $${miseEnEvidence(Math.trunc(c))}$.`
+              reponse = Math.trunc(c)
+            }
+            if (N === 'c') {
+              texte = `Plus grand entier de l'intervalle $\\bigg]${texNombre(c, 1)}  ${sp(1)} ; ${sp(1)} ${texNombre(d, 1)}\\bigg[$ `
+              texteCorr = `C'est le plus grand entier strictement inférieur à  $${texNombre(d, 1)}$ : il s'agit de $${miseEnEvidence(Math.trunc(d) - 1)}$.`
+              reponse = Math.trunc(d) - 1
+            }
+            if (N === 'd') {
+              texte = `Plus grand entier de l'intervalle $\\bigg]${texNombre(e - 4, 1)}  ${sp(1)} ; ${sp(1)} ${texNombre(e, 1)}\\bigg[$ `
+              texteCorr = `C'est le plus grand entier strictement inférieur à  $${texNombre(e, 1)}$ : il s'agit de $${miseEnEvidence(e - 1)}$.`
+              reponse = e - 1
+            }
+          } else {
+            a = randint(3, 7)
+            k = randint(2, 7)
+
+            texte = `Plus grand entier de l'intervalle $\\bigg]1  ${sp(1)} ; ${sp(1)} \\dfrac{${k * a + 1}}{${a}}\\bigg[$ `
+            texteCorr = `C'est le plus grand entier strictement inférieur à  $\\dfrac{${k * a + 1}}{${a}}$ : il s'agit de $${miseEnEvidence(k)}$.`
+            reponse = k
+          }
+
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+          nbChamps = 1
+          break
+
+        case 23:
+          a = randint(1, 9)
+
+          b = new Decimal(a).div(10)
+          reponse = new Decimal(b).mul(60)
+
+          texte = `$${texNombre(b, 1)}$ h
+          `
+          texteCorr = ` $${texNombre(b)}$ h $=${texNombre(b)} \\times 60$ min $=${miseEnEvidence(texNombre(reponse, 0))}$ min. `
+
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += '$=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'min' } else { texte += '$=\\ldots$ min' }
+          this.canEnonce = `$${texNombre(b, 1)}$ h`
+          this.canReponseACompleter = '$\\ldots$ min'
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
         case 24:
-          a = randint(-4, 1, -2)
-          b = randint(-1, 0)
-          xA = 2 + a
-          yA = 2 + b
-          xB = 2 + a
-          yB = -1 + b
-          xC = -1 + a
-          yC = -1 + b
-          r = repere({
-            xMin: -6,
-            xMax: 5,
-            xUnite: 1,
-            yMin: -3,
-            yMax: 3,
-            thickHauteur: 0.1,
-            xLabelMin: -4,
-            xLabelMax: 3,
-            yLabelMax: 2,
-            yLabelMin: -2,
-            axeXStyle: '->',
-            axeYStyle: '->',
-            yLabelDistance: 1,
-            yLabelEcart: 0.6,
-            grilleSecondaire: true,
-            grilleSecondaireYDistance: 1,
-            grilleSecondaireXDistance: 1,
-            grilleSecondaireYMin: -3,
-            grilleSecondaireYMax: 3,
-            grilleSecondaireXMin: -5,
-            grilleSecondaireXMax: 5
-            //   labelPointTaille: context.isHtml ? 10 : 7
-          })
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-          A = point(xA, yA, 'A', 'above')
-          B = point(xB, yB, 'B', 'below')
-          C = point(xC, yC, 'C', 'below left')
-          traceA = tracePoint(A) // Variable qui trace les points avec une croix
-          traceB = tracePoint(B)
-          traceC = tracePoint(C)
-          texte = `$ABCD$ est un carré.<br>
-            Quelles sont les coordonnées du point $D$ ?<br>
-            
-            `
-          texte += mathalea2d({ xmin: -6, xmax: 5, ymin: -3, ymax: 3, pixelsParCm: 25, scale: 0.7 },
-            r, o, traceA, traceB, traceC, labelPoint(A, B, C))
-          texteCorr = `L'abscisse du point $D$ est l'abscisse du point $C$ et l'ordonnée du point $D$ est l'ordonnée du point $A$.<br>
-            Ainsi : $D(${miseEnEvidence(xC)};${miseEnEvidence(yA)})$.
-              `
-          reponse = `${xC};${yA}`
-          setReponse(this, index, reponse, { formatInteractif: 'texte' })
-          if (this.interactif) {
-            texte += '$D($' + ajouteChampTexteMathLive(this, index, 'inline largeur12') + '$)$'
-          }
-          nbChamps = 1
+          if (choice([true, false])) {
+            a = grille(-2, -2, 9, 4, 'gray', 1, 1)
 
+            b = randint(1, 6, 4)
+
+            A = point(0, 0, 'A', 'below')
+            B = point(b, 0, 'B', 'below')
+            C = point(0, 2, 'C', 'above')
+            D = point(4, 2, 'D', 'above')
+            s1 = segmentAvecExtremites(C, D)
+            s1.epaisseur = 4
+            s2 = segment(A, B)
+            s2.epaisseur = 4
+            xmin = -1
+            ymin = -2
+            xmax = 9
+            ymax = 4
+            objets = []
+            objets.push(
+              texteParPosition('1 u.l', milieu(C, D).x, milieu(C, D).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              a, s1, s2, labelPoint(A, B))
+            reponse = new FractionX(b, 4)
+            texte = `Quelle est la longueur du segment $[AB]$ ? <br>
+            `
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.3, style: 'margin: auto' }, objets)
+            texteCorr = `Une unité correspond à $4$ carreaux, le segment $[AB]$ mesure $${b}$ carreaux, soit $\\dfrac{${b}}{4}=${miseEnEvidence(texNombre(b / 4))}$ unité. `
+            this.canEnonce = 'Longueur du segment $[AB]$ ' + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
+            this.canReponseACompleter = '$\\ldots$ u.l'
+          } else {
+            a = grille(-2, -2, 10, 4, 'gray', 1, 1)
+
+            b = randint(1, 9, 5)
+
+            A = point(0, 0, 'A', 'below')
+            B = point(b, 0, 'B', 'below')
+            C = point(0, 2, 'C', 'above')
+            D = point(5, 2, 'D', 'above')
+            s1 = segmentAvecExtremites(C, D)
+            s1.epaisseur = 4
+            s2 = segment(A, B)
+            s2.epaisseur = 4
+            xmin = -1
+            ymin = -2
+            xmax = 10
+            ymax = 4
+            objets = []
+            objets.push(
+              texteParPosition('1 u.l', milieu(C, D).x, milieu(C, D).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              a, s1, s2, labelPoint(A, B))
+            reponse = new FractionX(b, 5)
+            texte = `Quelle est la longueur du segment $[AB]$ ? <br>
+            `
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.3, style: 'margin: auto' }, objets)
+            texteCorr = `Une unité correspond à $5$ carreaux, le segment $[AB]$ mesure $${b}$ carreaux, soit $\\dfrac{${b}}{5}=${miseEnEvidence(texNombre(b / 5))}$ unité. `
+            this.canEnonce = 'Longueur du segment $[AB]$ ' + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
+            this.canReponseACompleter = '$\\ldots$ u.l'
+          }
+          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          if (this.interactif) {
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'unité'
+          } else { texte += ' <br>$\\ldots$ unité' }
+
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+          nbChamps = 1
           break
         case 25:
-          a = randint(3, 99, [4, 9, 16, 25, 36, 49, 64, 81])
-          reponse = `${Math.floor(Math.sqrt(a))};${Math.floor(Math.sqrt(a)) + 1}`
-          texte = 'Complète avec deux entiers consécutifs.<br>'
-          texte += `$\\ldots < \\sqrt{${a}} < \\ldots$<br>`
+          a = randint(5, 10)
+          b = randint(1, 8) * 3
+          reponse = arrondi((a * b) / 3, 0)
+          texte = `Volume d'une pyramide dont la base a une aire de $${a}$ cm$^2$ et de hauteur $${b}$ cm`
 
-          texteCorr = ` On cherche le carré parfait le plus proche de $${a}$ inférieur à $${a}$.<br>
-         Comme $${Math.floor(Math.sqrt(a)) ** 2}=${Math.floor(Math.sqrt(a))}^2$, alors :
-       $${Math.floor(Math.sqrt(a))}< \\sqrt{${a}} < ${Math.floor(Math.sqrt(a)) + 1}$.`
-          setReponse(this, index, reponse, { formatInteractif: 'texte' })
+          texteCorr = ` Le volume d'une pyramide est $\\dfrac{1}{3}\\times \\text{aire de la base} \\times \\text{hauteur}$.<br>
+          Le volume de cette pyramide est donc : $\\dfrac{${a}\\times ${b}}{3}=${miseEnEvidence(texNombre(reponse, 0))}$ cm$^3$.`
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += 'Écrire les entiers dans l’ordre croissant, séparés par un point virgule'
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm$^3$'
           }
+          this.canEnonce = texte
+          this.canReponseACompleter = '$\\ldots$ cm$^3$'
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
         case 26:
-          a = randint(3, 10)
-          b = a - randint(-1, 1, 0)
-          choix1 = choice([true, false])
-          reponse1 = new FractionX(a, a + b)
-          reponse2 = new FractionX(b, a + b)
-          if (choix1 === true) { reponse = reponse1 } else { reponse = reponse2 }
-          texte = `Une urne contient $${a}$ boules rouges et $${b}$ boules bleues. <br>
-                On tire une boule au hasard. <br>
-              La probabilité de tirer une boule ${choix1 ? 'rouge' : 'bleue'} est : `
-          texteCorr = `Dans l'urne, il y a $${a}$ boules rouges et $${b}$ boules bleues, soit un total de $${a + b}$ boules. <br>
-                On a donc $${miseEnEvidence(choix1 ? `${a}` : `${b}`)}$ chances sur $${miseEnEvidence(a + b)}$ de tirer une boule ${choix1 ? 'rouge' : 'bleue'}.<br>
-                Ainsi, la probabilité de tirer une boule ${choix1 ? 'rouge' : 'bleue'} est $\\dfrac{${miseEnEvidence(choix1 ? `${a}` : `${b}`)}}{${miseEnEvidence(a + b)}}$.`
+          A0 = point(xA26, 0)
+          A1 = point(0, yA26)
 
+          s26 = segment(A26, A0)
+          s26B = segment(A26, A1)
+          s26.epaisseur = 1.5
+          s26.pointilles = 5
+          s26B.epaisseur = 1.5
+          s26B.pointilles = 5
+          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+
+          m = new FractionX(yB26 - yA26, -xA26)
+
+          lA = texteParPosition('A', xA26, yA26 + 0.5, 'milieu', 'black', 1.5)
+          traceA = tracePoint(A26, 'black') // Variable qui trace les points avec une croix
+          d = droite(A26, B26, '', 'blue')
+          d.epaisseur = 2
+          traceA.taille = 3
+          traceA.epaisseur = 2
+          xmin = -2
+          ymin = -1
+          xmax = 8
+          ymax = 5
+
+          r = repere({
+            xMin: xmin,
+            xMax: xmax,
+            xUnite: 1,
+            yMin: ymin,
+            yMax: ymax,
+            grille: false,
+            yUnite: 1,
+            thickHauteur: 0,
+            axeXStyle: '->',
+            axeYStyle: '->',
+            xLabelListe: [xA26],
+            yLabelListe: yB26 === 0 ? [yA26] : [yA26, 1]
+          })
+
+          objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r, o, ld, lA, traceA, s26, s26B)
+
+          texte = 'Donner le coefficient directeur $m$ de la droite .<br>'
+          texte += `${objet}<br>`
+          texteCorr = `En partant de l'ordonnée à l'origine de la droite pour aller jusqu'au point $A$, on se décale de $${xA26}$ unités vers la droite et on monte de $${yA26 - yB26}$ unités vers le haut. <br>
+            Ainsi, le coefficient directeur de la droite est $\\dfrac{${yA26 - yB26}}{${xA26}}${m.texSimplificationAvecEtapes()}$.`
+
+          reponse = m
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline')
           }
+          this.canEnonce = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r, o, lA, ld, s26, s26B, traceA)
+          this.canReponseACompleter = `Quel est le coefficient directeur de cette droite (d) ?<br>
+          $\\ldots$`
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
 
         case 27:
-          a = randint(3, 6)
-          b = choice([a ** 2 + 1, a ** 2 - 1])
-          reponse = new FractionX(b, a)// .simplifie()
-          texte = 'Quelle  fraction repère le point d’interrogation ?<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 21, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, droiteGraduee({
-            Unite: 2.5,
-            Min: 2,
-            Max: 7,
-            x: 0,
-            y: 0,
-            thickSecDist: 1 / a,
-            thickSec: true,
-            thickoffset: 0,
-            axeStyle: '|->',
-            pointListe: [[b / a, '?']],
-            labelPointTaille: 15,
-            pointCouleur: 'blue',
-            pointStyle: 'x',
-            labelsPrincipaux: true,
-            step1: 1,
-            step2: 1
-          }))
-          texteCorr = `L'unité est divisée en $${a}$. Ainsi, le point d'interrogation est   $\\dfrac{${miseEnEvidence(b)}}{${miseEnEvidence(a)}}$.`
-          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
-          nbChamps = 1
+          a = xA26 * 2
+          b = 2 * (yA26 - yB26) + randint(0, 1)
+          reponse = 'V'
+          texte = `Vrai/Faux<br>
+          Sur le graphique de la question précédente, $M(${a};${b})$ est un point de la droite.`
 
+          if (yB26 === 0) {
+            if (b === 2 * (yA26 - yB26)) {
+              texteCorr = `${texteEnCouleurEtGras('Vrai')}<br>La droite passe par l'origine du repère, elle traduit donc une situation de proportionnalité.<br>
+          L'abscisse du point $M$ est deux fois plus grande que celle du point $A$. Son ordonnée est aussi deux plus grande que celle du point $A$, 
+          donc le point $M$ est bien sur la droite.`
+              reponse = 'V'
+            } else {
+              texteCorr = `${texteEnCouleurEtGras('Faux')}<br>La droite passe par l'origine du repère, elle traduit donc une situation de proportionnalité.<br>
+        L'abscisse du point $M$ est deux fois plus grande que celle du point $A$. Son ordonnée n'est pas  deux plus grande que celle du point $A$, 
+        donc le point $M$ n'est pas sur la droite.`
+              reponse = 'F'
+            }
+          } else {
+            if (b === 2 * (yA26 - yB26) + yB26) {
+              texteCorr = `${texteEnCouleurEtGras('Vrai')}<br>Le point $A$ a pour abscisse $${xA26}$. En se décalant de $${xA26}$ unités sur la droite, la droite monte de $${yA26 - yB26}$ unités.<br>
+            Ainsi l'ordonnée du point de la droite d'abscisse $${2 * xA26}$ est $${2 * (yA26 - yB26) + yB26}$. Donc le point $M$ est sur la droite.`
+              reponse = 'V'
+            } else {
+              texteCorr = `${texteEnCouleurEtGras('Faux')}<br>
+           En se décalant de $${xA26}$ unités sur la droite, la droite monte de $${yA26 - yB26}$ unités.<br>
+           Le point $A$ a pour abscisse $${xA26}$. En partant de ce point, en se décalant de $${xA26}$ unités, il faut monter de $${yA26 - yB26}$ unités pour obtenir un nouveau point de la droite.<br>
+            Ainsi l'ordonnée du point de la droite d'abscisse $${2 * xA26}$ est $${2 * (yA26 - yB26) + yB26}$. Donc le point $M$ n'est pas sur la droite.`
+              reponse = 'F'
+            }
+          }
+          setReponse(this, index, reponse, { formatInteractif: 'texte' })
+          if (this.interactif) {
+            texte += '<br>Écrire V pour Vrai et F pour Faux.<br>'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 ')
+          }
+          this.canEnonce = `Cette question utilise le graphique de la question précédente.<br>
+           Le point $M$ a pour coordonnées $(${a};${b})$.`
+          this.canReponseACompleter = `Complète avec $\\in$ ou $\\notin$.<br>
+          $M \\ldots (d)$`
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+          nbChamps = 1
           break
         case 28:
-          a = randint(-5, 5, [0, -1, 1])
-          reponse = randint(-9, 9, [-1, 0, 1])
-          c = randint(-9, 9, [0])
-          b = c - a * reponse
-          texte = `Solution de l'équation : <br>$${a}x${ecritureAlgebrique(b)}=${c}$`
-          texteCorr = `On procède par étapes successives :<br>
-          On commence par isoler $${a}x$ dans le membre de gauche en ajoutant 
-          $${ecritureAlgebrique(-b)}$ dans chacun des membres, puis on divise 
-          par $${a}$ pour obtenir la solution : <br>
-           $\\begin{aligned}
-           ${a}x${ecritureAlgebrique(b)}&=${c}\\\\
-          ${a}x&=${c}${ecritureAlgebrique(-b)}\\\\
-          ${a}x&=${c - b}\\\\
-          x&=\\dfrac{${c - b}}{${a}}\\\\
-          x&=${reponse}
-          \\end{aligned}$<br>
-          La solution de l'équation est : $${miseEnEvidence(reponse)}$.
-          `
+          A0 = point(x0, y0)
+          A1 = point(x1, y1)
+          A2 = point(x2, y2)
+          A3 = point(x3, y3)
+          listeB = choice([[x0, y0], [x1, y1], [x2, y2]])
+          reponse = listeB[1]
+          Tk = tracePoint(A0, A1, A2, A3)
+          Tk.epaisseur = 2
+          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          r1 = repere({
+            xMin: x0 - 1,
+            yMin: Math.min(y1 - 1, y3 - 1),
+            yMax: Math.max(y2 + 1, y0 + 1),
+            xMax: 7,
+            xUnite: 1,
+            yUnite: 1,
+            xThickDistance: 1,
+            yThickDistance: 1,
+            xLabelMin: x0,
+            yLabelMin: y1 - 1,
+            yLabelEcart: 0.6,
+            grilleXDistance: 1,
+            grilleYDistance: 1,
+            grilleXMin: x0 - 1,
+            grilleYMin: Math.min(y1 - 1, y3 - 1),
+            grilleXMax: 7,
+            grilleYMax: Math.max(y2 + 1, y0 + 1)
+          })
+          gr = courbeInterpolee(
+            [
+              [x0, y0], [x1, y1], [x2, y2], [x3, y3]
+            ],
+            {
+              color: 'blue',
+              epaisseur: 2,
+              repere: r1,
+              xMin: x0 - 1,
+              xMax: 6
+            })
+          graphique = mathalea2d({
+            xmin: x0 - 1,
+            xmax: 7,
+            ymin: Math.min(y1 - 2, y3 - 2),
+            ymax: Math.max(y2 + 1, y0 + 1),
+            pixelsParCm: 30,
+            scale: 0.55,
+            style: 'margin: auto'
+          }, r1, o, gr, Tk)
+          texte = `  Voici la courbe  d'une fonction $f$.<br>
+       `
+          texte += `${graphique}`
+
+          texteCorr = `L'ordonnée du point $B$ est $${miseEnEvidence(listeB[1])}$.`
+
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) {
+            texte += '$B$ est un point de la courbe. Compléter : <br>'
+            texte += `$B(${listeB[0]}\\,;$` + ajouteChampTexteMathLive(this, index, 'inline largeur10 ') + '$)$'
+          } else {
+            texte += `$B$ est un point de la courbe. <br>
+          Compléter : $B(${listeB[0]}\\,;\\, \\ldots)$`
+          }
+          this.canEnonce = `  Voici la courbe d'une fonction $f$.<br>
+          ${graphique}`
+          this.canReponseACompleter = `$B$ est un point de la courbe.<br>
+          Compléter : $B( ${listeB[0]}\\,;\\, \\ldots)$`
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
 
         case 29:
-          choix = choice(['a', 'b', 'b', 'c', 'c', 'c'])//
-          if (choix === 'a') {
-            a = randint(2, 9) * 4
-            texte = `Un article à $${texPrix(a)}$ € est soldé à $${texPrix(a * 0.75)}$ €.<br>
-          Quel est le pourcentage de réduction ?`
-            texteCorr = `La réduction est de $${texPrix(a)}-${texPrix(a * 0.75, 2)}=${texPrix(0.25 * a)}$.<br>
-          Le prix de départ était de $${texPrix(a)}$  €. Le pourcentage de réduction est donné par : $\\dfrac{${texPrix(0.25 * a)}}{${texPrix(a)}}=0,25=${miseEnEvidence(25)}\\,\\%$. `
-            reponse = 25
-          }
-          if (choix === 'b') {
-            a = randint(2, 7) * 10
-            b = randint(1, 4) * 10
-            c = arrondi(1 - b / 100, 2)
-            texte = `Un article à $${texPrix(a)}$ € est soldé à $${texPrix(a * c)}$ €.<br>
-            Quel est le pourcentage de réduction ?`
-            texteCorr = `La réduction est de $${texPrix(a)}-${texPrix(a * c)}=${texPrix(a - a * c)}$.<br>
-            Le prix de départ était de $${texPrix(a)}$  €. Le pourcentage de réduction est donné par : $\\dfrac{${texPrix(a - a * c)}}{${texPrix(a)}}=${texNombre(b / 100, 2)}=${miseEnEvidence(b)}\\,\\%$. `
-            reponse = b
-          }
-          if (choix === 'c') {
-            a = randint(2, 5) * 100
-            b = randint(1, 4) * 10
-            c = arrondi(1 - b / 100, 2)
-            texte = `Une montre valant $${texPrix(a)}$ € est soldée à $${texPrix(a * c)}$ €.<br>
-            Quel est le pourcentage de réduction ?`
-            texteCorr = `La réduction est de $${texPrix(a)}-${texPrix(a * c)}=${texPrix(a - a * c)}$.<br>
-            Le prix de départ était de $${texPrix(a)}$  €. Le pourcentage de réduction est donné par : $\\dfrac{${texPrix(a - a * c)}}{${texPrix(a)}}=${texNombre(b / 100, 2)}=${miseEnEvidence(b)}\\,\\%$. `
-            reponse = b
-          }
 
+          a = choice([-1.5, -1, -0.5, 0.5, 1, 1.5, 2, 2.5, 3, 3.5])
+          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          r1 = repere({
+            xMin: -6,
+            yMin: -4,
+            yMax: 4,
+            xMax: 7,
+            xUnite: 1,
+            yUnite: 1,
+            xThickDistance: 1,
+            yThickDistance: 1,
+            yLabelEcart: 0.6,
+            grilleXDistance: 1,
+            grilleYDistance: 1,
+            grilleXMin: -6,
+            grilleYMin: -3,
+            grilleXMax: 7,
+            grilleYMax: 4,
+            xLabelListe: [1],
+            yLabelListe: [1],
+            thickHauteur: 0
+          })
+          gr = courbeInterpolee(
+            [
+              [-5, 0], [-3, 3], [0, 2], [2, 3], [6, -2]
+            ],
+            {
+              color: 'blue',
+              epaisseur: 2,
+              repere: r1,
+              xMin: -6,
+              xMax: 7
+            })
+          graphique = mathalea2d({
+            xmin: x0 - 1,
+            xmax: 7,
+            ymin: -3,
+            ymax: 4,
+            pixelsParCm: 30,
+            scale: 0.55,
+            style: 'margin: auto'
+          }, r1, o, gr)
+          texte = `  Voici la courbe  d'une fonction $f$.<br>
+       `
+          texte += `${graphique}
+          `
+          texte += `<br> Quel est le nombre d'antécédents de $${texNombre(a, 1)}$ par la fonction $f$ ?
+          `
+          if (a < 0) {
+            texteCorr = `La droite horizontale d'équation $y=${texNombre(a, 1)}$  coupe la courbe en un point. <br>
+          $${a}$ a donc $${miseEnEvidence(1)}$ antécédent par $f$.`
+            reponse = 1
+          }
+          if (a > 0 && a < 2) {
+            texteCorr = `La droite horizontale d'équation $y=${texNombre(a, 1)}$  coupe la courbe en deux points. <br>
+          $${a}$ a donc $${miseEnEvidence(2)}$ antécédents par $f$.`
+            reponse = 2
+          }
+          if (a === 3) {
+            texteCorr = `La droite horizontale d'équation $y=${texNombre(a, 1)}$  coupe la courbe en deux points. <br>
+          $${a}$ a donc $${miseEnEvidence(2)}$ antécédents par $f$.`
+            reponse = 2
+          }
+          if (a === 2) {
+            texteCorr = `La droite horizontale d'équation $y=${texNombre(a, 1)}$  coupe la courbe en trois points. <br>
+          $${a}$ a donc $${miseEnEvidence(3)}$ antécédents par $f$.`
+            reponse = 3
+          }
+          if (a > 2 && a < 3) {
+            texteCorr = `La droite horizontale d'équation $y=${texNombre(a, 1)}$  coupe la courbe en quatre points. <br>
+          $${a}$ a donc $${miseEnEvidence(4)}$ antécédents par $f$.`
+            reponse = 4
+          }
+          if (a > 3) {
+            texteCorr = `La droite horizontale d'équation $y=${texNombre(a, 1)}$ ne coupe pas la courbe. <br>
+          $${a}$ a donc $${miseEnEvidence(0)}$ antécédent par $f$.`
+            reponse = 0
+          }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '%' }
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 ')
+          }
+          this.canEnonce = texte
+          this.canReponseACompleter = ''
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
 
         case 30:
 
-          a = randint(1, 6) * 1000
-          b = choice([6, 12, 15, 20, 10])
-          reponse = new Decimal(60 * a).div(1000 * b)
-          texte = `Zoé a parcouru $${texNombre(a)}$ m en $${b}$ minutes.<br>
-              Quelle est sa vitesse moyenne en km/h ?`
-          texteCorr = `$1$ heure $=${texNombre(new Decimal(60).div(b))}\\times ${b}$ min. <br>
-              Donc en une heure, Zoé parcourt $${texNombre(new Decimal(60).div(b))}\\times ${texNombre(a)}$ m $= ${miseEnEvidence(texNombre(reponse * 1000, 0))}$ m, soit $${texNombre(reponse, 0)}$ km.<br>
-              Sa vitesse moyenne est donc $${miseEnEvidence(texNombre(reponse))}$ km/h.
+          a = randint(3, 8)
+          b = randint(-15, -10)
+          c = randint(10, 20)
+          d = randint(5, 10)
+          e = choice([30, 35, 40, 45, 50, 55]) - a - b - c - d
+
+          moy = (a + b + c + d + e) / 5
+          reponse = c
+          texte = `La moyenne des cinq nombres suivants est $${moy}$.<br>
+          $${a}${sp(2)};${sp(2)}${b}${sp(2)};${sp(2)}n${sp(2)};${sp(2)}${d}${sp(2)};${sp(2)}${e}$`
+          texteCorr = `Puisque la moyenne de ces cinq nombres est $${moy}$, la somme de ces cinq nombres est $5\\times ${moy}=${5 * moy}$.<br>
+          La valeur de $n$ est donnée par :  $${5 * moy}-${a}-(${b})-${c}-${d}=${miseEnEvidence(texNombre(reponse))}$.
               `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'km/h' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.canEnonce = texte
+          this.canReponseACompleter = '$n=\\ldots$'
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
           break
       }
