@@ -1,4 +1,5 @@
 import { writable, get } from 'svelte/store'
+import type { InterfaceGlobalOptions, InterfaceParams} from '../lib/types'
 
 /**
  * Pour bloquer la mise à jour de l'url
@@ -6,16 +7,10 @@ import { writable, get } from 'svelte/store'
 export const freezeUrl = writable<Boolean>(false)
 
 /**
- * setInteractive à 0 on enlève tout, à 1 on les met tous en interactif, à 2 on ne change rien
- */
-export interface InterfaceGlobalOptions {v?: string, z?: string, durationGlobal?: number, nbVues?: number, shuffle?: boolean, choice?: number, trans?: boolean, sound?: number, es?: string, title: string, presMode: 'page'|'exos'|'liste'|'questions', setInteractive: string, isSolutionAccessible: boolean, isInteractiveFree: boolean }
-
-interface params {uuid: string, id?:string, alea?: string, interactif?: 0|1, cd?: 0|1, sup?: string, sup2?: string, sup3?: string }
-/**
  * exercicesParams est un tableau d'objets décrivant les exercices
  * {id, uuid, alea, interactif, cd, sup, sup2, sup3, sup4, n}
  */
-export const exercicesParams = writable<params[]>([])
+export const exercicesParams = writable<InterfaceParams[]>([])
 
 /**
  * * v: vue
@@ -132,4 +127,4 @@ export function updateGlobalOptionsInURL (url: URL) {
   }
 }
 
-export const presModeId = ['page', 'exos', 'liste', 'questions']
+export const presModeId: ['page', 'exos', 'liste', 'questions'] = ['page', 'exos', 'liste', 'questions']

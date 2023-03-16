@@ -125,4 +125,5 @@ export default function Exercice () {
       return true
     }
   }
+  this.nouvelleVersion = () => {}
 }
