@@ -13,12 +13,11 @@
   import { flip } from "svelte/animate"
   import { onMount } from "svelte"
   import { toMap } from "./utils/toMap"
-  import type TypeExercice from './utils/typeExercice'
 
   import SearchExercice from "./sidebar/SearchExercice.svelte"
 
   import { isRecent } from "./utils/handleDate"
-  import type { InterfaceParams, InterfaceReferentiel } from "src/lib/types";
+  import type { InterfaceReferentiel } from "src/lib/types";
 
   let isNavBarVisible = true
   let filtre = "all"
