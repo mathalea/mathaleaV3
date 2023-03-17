@@ -256,7 +256,10 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
           } else {
             donneLeDiametre = choice([true, false])
             if (donneLeDiametre) {
-              texte = `Un cercle de $${texNombre(2 * R)}$ cm de diamètre.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+              texte = `Un cercle de $${texNombre(2 * R)}$ cm de diamètre.`
+              if (this.interactif) {
+                texte += '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
+              }
               texteCorr = `Le diamètre est de $${texNombre(2 * R)}$ cm donc le rayon est de $${texNombre(R)}$ cm.<br>`
             } else {
               texte = `Un cercle de $${R}$ cm de rayon.` + sp(2) + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
