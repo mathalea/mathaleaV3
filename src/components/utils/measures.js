@@ -42,3 +42,19 @@ export function getCanvasFont (el = document.body) {
 
   return `${fontWeight} ${fontSize} ${fontFamily}`
 }
+
+/**
+   * Détecter le type de machine sur lequel le site est utilisé
+   * ([Source](https://attacomsian.com/blog/javascript-detect-mobile-device))
+   * @return {('mobile'|'tablet'|'desktop')} nom du type de machine
+   * @author sylvain
+   */
+export const deviceType = () => {
+  const ua = navigator.userAgent
+  if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+    return 'tablet'
+  } else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
+    return 'mobile'
+  }
+  return 'desktop'
+}
