@@ -11,6 +11,7 @@
 ::-webkit-scrollbar {
   display:none;
 }
+:root{ scrollbar-width: none }
 /*
  .d8888b.                                                               
 d88P  Y88b                                                              
