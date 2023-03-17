@@ -131,17 +131,26 @@ export default function CalculerCoeffPropo () {
         nbColonnes: 4,
         ligne1: ligne1Corr,
         ligne2: ligne2Corr,
-        flecheDroite: `× ${stringNombre(coefficient)}`,
+        flecheDroite: coefficient instanceof FractionX ? `$\\times ${coefficient.texFraction}$` : `× ${stringNombre(coefficient)}`,
         flecheDroiteSens: 'bas'
       })
       texte = '<br>' + numAlpha(0) + 'Calculer le coefficient de proportionnalité.<br>'
       texte += numAlpha(1) + 'Compléter le tableau de proportionnalité.<br>'
       texte += mathalea2d(Object.assign({}, fixeBordures([monTableau])), monTableau)
       texteCorr = '<br>' + numAlpha(0) +
-        `Le coefficient de proportionnalité est donné
- par le quotient de $${texNombre(deuxiemeLigne[colonneReference].nombre)}$
- par $${texNombre(premiereLigne[colonneReference].nombre)}$.<br>
- Soit $\\dfrac{${texNombre(deuxiemeLigne[colonneReference].nombre)}}{${texNombre(premiereLigne[colonneReference].nombre)}}=${texNombre(coefficient)}$`
+        `Le coefficient de proportionnalité est donné par le quotient de $${texNombre(deuxiemeLigne[colonneReference].nombre)}$
+ par $${texNombre(premiereLigne[colonneReference].nombre)}$.<br>Soit $\\dfrac{${texNombre(deuxiemeLigne[colonneReference].nombre)}}{${texNombre(premiereLigne[colonneReference].nombre)}}`
+
+      if (coefficient instanceof FractionX) {
+        const quotient = new FractionX(deuxiemeLigne[colonneReference].nombre, premiereLigne[colonneReference].nombre)
+        if (!quotient.estIrreductible) {
+          texteCorr += `= ${coefficient.texFraction}$`
+        } else {
+          texteCorr += '$'
+        }
+      } else {
+        texteCorr += `= ${texNombre(coefficient)}$`
+      }
       texteCorr += mathalea2d(Object.assign({}, fixeBordures([monTableauCorr])), monTableauCorr)
 
       console.log(premiereLigne, deuxiemeLigne, coefficient)
