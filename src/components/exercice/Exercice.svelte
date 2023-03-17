@@ -26,7 +26,6 @@
     } else {
       exercice = await Mathalea.load(paramsExercice.uuid)
       if (exercice === undefined) return
-      console.log(exercice, paramsExercice)
       exercice.numeroExercice = indiceExercice
       if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
       if (paramsExercice.duration) exercice.duree = paramsExercice.duration
