@@ -38,18 +38,25 @@ export default function SujetCAN2023Seconde () {
   this.listePackages = 'scratch3'
   this.comment = `Cet exercice fait partie des annales des Courses aux nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
-  les 10 premières questions parfois communes à plusieurs niveaux font appels à des questions automatisées élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
+  les 10 premières questions parfois communes à plusieurs niveaux font appel à des questions automatisées élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>
   Par défaut, les questions sont rangées dans le même ordre que le sujet officiel avec des données aléatoires. Ainsi, en cliquant sur « Nouvelles données », on obtient une nouvelle course aux nombres avec des données différentes.
   En choisissant un nombre de questions différents de 30, on fabrique une « mini » course aux nombres qui respecte la proportion de nombre de questions élémentaires par rapport aux autres.
   Par exemple, en choisissant 20 questions, la course aux nombres sera composée de 7 questions automatisées élémentaires choisies aléatoirement dans les 10 premières questions du sujet officiel puis de 13 autres questions choisies aléatoirement parmi les 20 autres questions du sujet officiel.`
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
+    const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 10 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-    const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+    const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30
     const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
+    if (typeQuestionsDisponibles.includes(26)) {
+      if (typeQuestionsDisponibles.indexOf(26) !== typeQuestionsDisponibles.length - 1) typeQuestionsDisponibles.fill(27, typeQuestionsDisponibles.indexOf(26) + 1, typeQuestionsDisponibles.indexOf(26) + 2)
+      else {
+        typeQuestionsDisponibles.fill(27, typeQuestionsDisponibles.length - 1, typeQuestionsDisponibles.length)
+        typeQuestionsDisponibles.fill(26, typeQuestionsDisponibles.length - 2, typeQuestionsDisponibles.length - 1)
+      }
+    }
     const xA26 = randint(2, 6)
     const yA26 = randint(2, 4)
     const yB26 = randint(0, 1)
@@ -590,7 +597,7 @@ export default function SujetCAN2023Seconde () {
             reponse = a * 4
 
             texte = `On double les longueurs des côtés d'un carré d'aire $${a}$ m$^2$.<br>
-            Quel est l'aire du carré agrandi ?
+            Quelle est l'aire du carré agrandi ?
             `
             texteCorr = `Si les longueurs sont multipliées par $2$, l'aire  est multipliée par $2^2=4$.<br>
             Ainsi, le carré agrandit a une aire de $${miseEnEvidence(texNombre(reponse))}$ m$^2$. `
