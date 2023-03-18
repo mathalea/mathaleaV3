@@ -10734,17 +10734,19 @@ function flecheV (D, A, texte, h = 1, flip = false) {
 
 /**
  * Réalise un tableau typique des exercices de proportionnalité avec d'éventuelles flèches
- * @param largeurTitre
- * @param largeur
- * @param hauteur
- * @param nbColonnes
- * @param origine
- * @param ligne1
- * @param ligne2
- * @param flecheHaut
- * @param flecheBas
- * @param flecheDroite
- * @param flecheDroiteSens
+ * @param { number } largeurTitre
+ * @param { number } largeur
+ * @param { number } hauteur
+ * @param { number } nbColonnes
+ * @param { Point } origine
+ * @param { string[] } ligne1
+ * @param { string[] } ligne2
+ * @param { [number, number, string] } flecheHaut
+ * @param { [number, number, string] } flecheBas
+ * @param { string | boolean } flecheDroite
+ * @param { string } flecheDroiteSens
+ * @param { string | boolean } flecheGauche
+ * @param { string } flecheGaucheSens
  * @constructor
  * @author Rémi Angot
  */
