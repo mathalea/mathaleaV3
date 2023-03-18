@@ -6,7 +6,7 @@ import {
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
-import { listeQuestionsToContenu, miseEnEvidence, texteEnCouleurEtGras, abs, ecritureAlgebrique, stringNombre, randint, texNombre, texPrix, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
+import { range1, listeQuestionsToContenu, miseEnEvidence, texteEnCouleurEtGras, abs, ecritureAlgebrique, stringNombre, randint, texNombre, texPrix, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
@@ -45,18 +45,24 @@ export default function SujetCAN2023Seconde () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 10 possibles.
-    const nbQ2 = min(this.nbQuestions - nbQ1, 20)
-    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-    const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30
-    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
-    if (typeQuestionsDisponibles.includes(26) && choice([true, false])) { // Si Q26 choisie, alors on insère (ou pas) Q27 à sa suite
-      if (typeQuestionsDisponibles.indexOf(26) !== typeQuestionsDisponibles.length - 1) typeQuestionsDisponibles.fill(27, typeQuestionsDisponibles.indexOf(26) + 1, typeQuestionsDisponibles.indexOf(26) + 2)
-      else {
-        typeQuestionsDisponibles.fill(27, typeQuestionsDisponibles.length - 1, typeQuestionsDisponibles.length)
-        typeQuestionsDisponibles.fill(26, typeQuestionsDisponibles.length - 2, typeQuestionsDisponibles.length - 1)
+    let typeQuestionsDisponibles = []
+    if (this.nbQuestions === 30) {
+      typeQuestionsDisponibles = range1(30)
+    } else {
+      const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 10 possibles.
+      const nbQ2 = min(this.nbQuestions - nbQ1, 20)
+      const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+      const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30
+      typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
+      if (typeQuestionsDisponibles.includes(26) && choice([true, false])) { // Si Q26 choisie, alors on insère (ou pas) Q27 à sa suite
+        if (typeQuestionsDisponibles.indexOf(26) !== typeQuestionsDisponibles.length - 1) typeQuestionsDisponibles.fill(27, typeQuestionsDisponibles.indexOf(26) + 1, typeQuestionsDisponibles.indexOf(26) + 2)
+        else {
+          typeQuestionsDisponibles.fill(27, typeQuestionsDisponibles.length - 1, typeQuestionsDisponibles.length)
+          typeQuestionsDisponibles.fill(26, typeQuestionsDisponibles.length - 2, typeQuestionsDisponibles.length - 1)
+        }
       }
     }
+    console.log(typeQuestionsDisponibles)
     const xA26 = randint(2, 6)
     const yA26 = randint(2, 4)
     const yB26 = randint(0, 1)
