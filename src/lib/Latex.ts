@@ -34,7 +34,7 @@ class Latex {
           if (exercice.listeCanEnonces[i] !== undefined && exercice.listeCanReponsesACompleter[i] !== undefined) {
             content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeCanEnonces[i])} &  ${format(
               exercice.listeCanReponsesACompleter[i]
-            )} &\\tabularnewline \\hline\n`
+              )} &\\tabularnewline \\hline\n`
           } else {
             content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeQuestions[i])} &&\\tabularnewline \\hline\n`
           }
@@ -43,10 +43,10 @@ class Latex {
           contentCorr += `\n\\item ${format(correction)}`
         }
       }
+      contentCorr += '\n\\end{enumerate}\n'
       content += '\\end{TableauCan}\n\\addtocounter{nbEx}{-1}'
       /** On supprime les lignes vides car elles posent problème dans l'environnement TableauCan */
       content = content.replace(/\n\s*\n/gm, '')
-      contentCorr += '\n\\end{enumerate}\n'
     } else {
       for (const exercice of this.exercices) {
         if (exercice.typeExercice === 'statique') {
@@ -59,10 +59,19 @@ class Latex {
               content += '\n\\begin{EXO}{}{}\n'
             }
             content += exercice.content
-            contentCorr += exercice.contentCorr
             content += '\n\\end{EXO}\n'
+            contentCorr += '\n\\begin{EXO}{}{}\n'
+            contentCorr += exercice.contentCorr
+            contentCorr += '\n\\end{EXO}\n'
           }
         } else {
+          contentCorr += '\n\\begin{EXO}{}{}\n'
+          contentCorr += '\n\\begin{enumerate}'
+          for (const correction of exercice.listeCorrections) {
+            contentCorr += `\n\\item ${format(correction)}`
+          }
+          contentCorr += '\n\\end{enumerate}\n'
+          contentCorr += '\n\\end{EXO}\n'
           content += `\n\\begin{EXO}{${exercice.consigne}}{${exercice.id.replace('.js', '')}}\n`
           content += writeIntroduction(exercice.introduction)
           content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
