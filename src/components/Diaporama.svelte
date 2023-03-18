@@ -1058,38 +1058,40 @@
           <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
             <button type="button" on:click={switchFullScreen}>
               <i
-                class=" text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg {isFullScreen
+                class=" text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg {isFullScreen
                   ? 'bx-exit-fullscreen'
                   : 'bx-fullscreen'}"
               />
             </button>
             <button type="button" on:click={zoomPlus}>
-              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-plus" />
+              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-plus" />
             </button>
             <button type="button" on:click={zoomMoins}>
-              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-minus" />
+              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-minus" />
             </button>
           </div>
           <!-- boutons contrôle défilement -->
           <div class="flex flex-row justify-center w-[33%] items-center">
             <button type="button" on:click={prevQuestion}>
-              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-skip-previous" />
+              <i
+                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-skip-previous"
+              />
             </button>
             <button type="button" on:click={switchPause} class:invisible={isManualModeActive}>
               <i
-                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg 
+                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg 
                 {isPause ? 'bx-play' : 'bx-pause'}"
               />
             </button>
             <button type="button" on:click={nextQuestion}>
-              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-skip-next" />
+              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-skip-next" />
             </button>
           </div>
           <!-- boutons timers correction quitter -->
           <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
             <label for="timerSettings" class="modal-button">
               <i
-                class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-stopwatch"
+                class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-stopwatch"
                 on:click={pause}
                 on:keydown={pause}
               >
@@ -1124,12 +1126,14 @@
               </div>
             </div>
             <button type="button" on:click={switchCorrectionMode}>
-              <i class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-show">
+              <i
+                class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-show"
+              >
                 <div class="absolute -bottom-[8px] left-1/2 -translate-x-1/2 text-sm font-extrabold font-sans">{displayCurrentCorrectionMode()}</div>
               </i>
             </button>
             <button type="button" on:click={handleQuit} on:keydown={handleQuit}>
-              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-power-off" />
+              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-power-off" />
             </button>
           </div>
         </div>
