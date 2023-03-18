@@ -255,16 +255,17 @@
     {/if}
   {/if}
   {#if exercice.besoinFormulaireTexte}
-    <div class="tooltip tooltip-left" data-tip={exercice.besoinFormulaireTexte[1]}>
-      <form id="formText1" name="formText1" on:submit|preventDefault={newSettings}>
-        <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formText1">{exercice.besoinFormulaireTexte[0]} :</label>
+    <form id="formText1" name="formText1" on:submit|preventDefault={newSettings}>
+      <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formText1">{exercice.besoinFormulaireTexte[0]} :</label>
+      <div class="tooltip tooltip-left w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left" data-tip={exercice.besoinFormulaireTexte[1]}>
         <input
           class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
           name="formText1"
           type="text"
           bind:value={sup}
         />
-        <!-- <fieldset>
+      </div>
+      <!-- <fieldset>
           <legend class="text-coopmaths-struct dark:text-coopmathsdark-struct opacity-35">{formText1.titre}</legend>
           <div class="flex flex-col  ml-3 mt-1">
             {#each formText1.champsDecortiques as entree, i}
@@ -281,8 +282,7 @@
             {/each}
           </div>
         </fieldset> -->
-      </form>
-    </div>
+    </form>
   {/if}
 
   <!-- sup2 -->
@@ -335,16 +335,17 @@
     {/if}
   {/if}
   {#if exercice.besoinFormulaire2Texte}
-    <div class=" tooltip tooltip-left" data-tip={exercice.besoinFormulaire2Texte[1]}>
-      <form id="formText2" name="formText2" on:submit|preventDefault={newSettings}>
-        <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formText2">{exercice.besoinFormulaire2Texte[0]} :</label>
+    <form id="formText2" name="formText2" on:submit|preventDefault={newSettings}>
+      <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formText2">{exercice.besoinFormulaire2Texte[0]} :</label>
+      <div class=" tooltip tooltip-left w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left" data-tip={exercice.besoinFormulaire2Texte[1]}>
         <input
           class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
           name="formText2"
           type="text"
           bind:value={sup2}
         />
-        <!-- <fieldset>
+      </div>
+      <!-- <fieldset>
           <legend class="text-coopmaths-struct dark:text-coopmathsdark-struct opacity-35">{formText2.titre}</legend>
           <div class="flex flex-col  ml-3 mt-1">
             {#each formText2.champsDecortiques as entree, i}
@@ -361,8 +362,7 @@
             {/each}
           </div>
         </fieldset> -->
-      </form>
-    </div>
+    </form>
   {/if}
 
   <!-- sup3 -->
@@ -415,16 +415,17 @@
     {/if}
   {/if}
   {#if exercice.besoinFormulaire3Texte}
-    <div class=" tooltip tooltip-left" data-tip={exercice.besoinFormulaire3Texte[1]}>
-      <form id="formText3" name="formText3" on:submit|preventDefault={newSettings}>
-        <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formText3">{exercice.besoinFormulaire3Texte[0]} :</label>
+    <form id="formText3" name="formText3" on:submit|preventDefault={newSettings}>
+      <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formText3">{exercice.besoinFormulaire3Texte[0]} :</label>
+      <div class=" tooltip tooltip-left w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left" data-tip={exercice.besoinFormulaire3Texte[1]}>
         <input
           class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
           name="formText3"
           type="text"
           bind:value={sup3}
         />
-        <!-- <div>
+      </div>
+      <!-- <div>
       <form id="formText3" name="formText3">
         <fieldset>
           <legend class="text-coopmaths-struct dark:text-coopmathsdark-struct opacity-35">{formText3.titre}</legend>
@@ -443,8 +444,7 @@
             {/each}
           </div>
         </fieldset> -->
-      </form>
-    </div>
+    </form>
   {/if}
 
   <!-- sup4 -->
@@ -497,17 +497,17 @@
     {/if}
   {/if}
   {#if exercice.besoinFormulaire4Texte}
-    <div class="tooltip tooltip-left" data-tip={exercice.besoinFormulaire4Texte[1]}>
-      <form id="formText4" name="formText4" on:submit|preventDefault={newSettings}>
-        <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formText4">{exercice.besoinFormulaire4Texte[0]} :</label>
+    <form id="formText4" name="formText4" class="flex flex-col justify-start" on:submit|preventDefault={newSettings}>
+      <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formText4">{exercice.besoinFormulaire4Texte[0]} :</label>
+      <div class="tooltip tooltip-left w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left" data-tip={exercice.besoinFormulaire4Texte[1]}>
         <input
           class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
           name="formText4"
           type="text"
           bind:value={sup4}
         />
-      </form>
-    </div>
+      </div>
+    </form>
     <!-- <div>
       <form id="formText4" name="formText4">
         <fieldset>

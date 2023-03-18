@@ -157,7 +157,8 @@ const config = {
         logo11: '"FFF Tusj"',
         logo12: 'Days',
         logo13: 'Barlow',
-        logo13Condensed: 'Barlow Condensed'
+        logo13Condensed: 'Barlow Condensed',
+        logo14: 'Orbiton'
       },
       transitionProperty: {
         width: 'width'

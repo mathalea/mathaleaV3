@@ -116,11 +116,11 @@
         <div
           on:click={goToMathalea}
           on:keydown={goToMathalea}
-          class="inline-flex cursor-pointer text-6xl font-logo13Condensed font-black text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+          class="inline-flex cursor-pointer text-6xl font-logo14 font-black text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
         >
           {title}
         </div>
-        <div class="absolute -bottom-4 right-0 font-logo13Condensed font-normal text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+        <div class="absolute -bottom-4 right-0 font-logo14 font-normal text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
           par <a
             href="https://coopmaths.fr"
             target="_blank"
@@ -130,7 +130,7 @@
         </div>
       </div>
       {#if subtitle}
-        <div class="inline-flex text-6xl font-logo13Condensed">
+        <div class="inline-flex text-6xl font-logo14">
           <div class="px-4 font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"><i class="bx bx-export bx-rotate-90" /></div>
           <div class=" font-black text-coopmaths-struct dark:text-coopmathsdark-struct">{subtitle}</div>
         </div>
