@@ -14,7 +14,7 @@ export const titre = 'CAN Seconde sujet 2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '11/03/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '18/03/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '9bc44'
 /**
@@ -48,7 +48,7 @@ export default function SujetCAN2023Seconde () {
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 10 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-    const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30
+    const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)// 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30
     const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
     if (typeQuestionsDisponibles.includes(26) && choice([true, false])) { // Si Q26 choisie, alors on insère (ou pas) Q27 à sa suite
       if (typeQuestionsDisponibles.indexOf(26) !== typeQuestionsDisponibles.length - 1) typeQuestionsDisponibles.fill(27, typeQuestionsDisponibles.indexOf(26) + 1, typeQuestionsDisponibles.indexOf(26) + 2)
@@ -73,7 +73,7 @@ export default function SujetCAN2023Seconde () {
 
     for (let i = 0, index = 0, nbChamps, m, lA, s26,
       A0, A1, A2, A3, s26B, ld, r1, Tk, listeB, moy, objet, graphique, truc, bases, n, gr,
-      prix1, N, n1, n2, s, p, nbre, couplenm, r, o, sCote1, sCote2, traceA, texte, texteCorr, reponse, E, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      prix1, N, n1, n2, s, p, nbre, couplenm, r, o, sCote1, sCote2, traceA, texte, texteCorr, reponse, E, choix, a, b, c, d, e, f, k, s1, s2, s3, s4, s5, s6, A, B, C, D, F, G, H, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(3, 9)
@@ -757,67 +757,181 @@ export default function SujetCAN2023Seconde () {
           nbChamps = 1
           break
         case 24:
-          if (choice([true, false])) {
-            a = grille(-2, -2, 9, 4, 'gray', 1, 1)
-
-            b = randint(1, 6, 4)
-
-            A = point(0, 0, 'A', 'below')
-            B = point(b, 0, 'B', 'below')
-            C = point(0, 2, 'C', 'above')
-            D = point(4, 2, 'D', 'above')
-            s1 = segmentAvecExtremites(C, D)
-            s1.epaisseur = 4
+          choix = choice(['a', 'b', 'd', 'e'])//
+          texte = 'Quelle est la longueur de la ligne brisée en unité de longueur (u.l) ? <br>'
+          if (choix === 'a') {
+            a = grille(-2, -2, 7, 4, 'gray', 1, 1)
+            b = choice([3, 4, 5, 6])
+            A = point(0, 2, 'A', 'below')
+            B = point(1, 2, 'B', 'below')
+            C = point(1, 0, 'C', 'above')
+            D = point(2, 0, 'D', 'above')
+            E = point(2, 2, 'C', 'above')
+            F = point(3, 2, 'D', 'above')
+            G = point(0, 4, 'C', 'above')
+            H = point(b, 4, 'D', 'above')
+            s1 = segmentAvecExtremites(G, H)
+            s1.epaisseur = 2
             s2 = segment(A, B)
-            s2.epaisseur = 4
+            s2.epaisseur = 2
+            s3 = segment(C, B)
+            s3.epaisseur = 2
+            s4 = segment(C, D)
+            s4.epaisseur = 2
+            s5 = segment(D, E)
+            s5.epaisseur = 2
+            s6 = segment(E, F)
+            s6.epaisseur = 2
             xmin = -1
             ymin = -2
-            xmax = 9
-            ymax = 4
+            xmax = 7
+            ymax = 5
             objets = []
             objets.push(
-              texteParPosition('1 u.l', milieu(C, D).x, milieu(C, D).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              a, s1, s2, labelPoint(A, B))
-            reponse = new FractionX(b, 4)
-            texte = `Quelle est la longueur du segment $[AB]$ ? <br>
-            `
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.3, style: 'margin: auto' }, objets)
-            texteCorr = `Une unité correspond à $4$ carreaux, le segment $[AB]$ mesure $${b}$ carreaux, soit $\\dfrac{${b}}{4}=${miseEnEvidence(texNombre(b / 4))}$ unité. `
-            this.canEnonce = 'Longueur du segment $[AB]$ ' + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
-            this.canReponseACompleter = '$\\ldots$ u.l'
-          } else {
-            a = grille(-2, -2, 10, 4, 'gray', 1, 1)
-
-            b = randint(1, 9, 5)
-
-            A = point(0, 0, 'A', 'below')
-            B = point(b, 0, 'B', 'below')
-            C = point(0, 2, 'C', 'above')
-            D = point(5, 2, 'D', 'above')
-            s1 = segmentAvecExtremites(C, D)
-            s1.epaisseur = 4
-            s2 = segment(A, B)
-            s2.epaisseur = 4
-            xmin = -1
-            ymin = -2
-            xmax = 10
-            ymax = 4
-            objets = []
-            objets.push(
-              texteParPosition('1 u.l', milieu(C, D).x, milieu(C, D).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              a, s1, s2, labelPoint(A, B))
-            reponse = new FractionX(b, 5)
-            texte = `Quelle est la longueur du segment $[AB]$ ? <br>
-            `
-            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.3, style: 'margin: auto' }, objets)
-            texteCorr = `Une unité correspond à $5$ carreaux, le segment $[AB]$ mesure $${b}$ carreaux, soit $\\dfrac{${b}}{5}=${miseEnEvidence(texNombre(b / 5))}$ unité. `
-            this.canEnonce = 'Longueur du segment $[AB]$ ' + mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
-            this.canReponseACompleter = '$\\ldots$ u.l'
+              texteParPosition('1 u.l', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              a, s1, s2, s3, s4, s5, s6)
+            reponse = new FractionX(7, b)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $7$ carreaux, soit $\\dfrac{7}{${b}}=\\dfrac{${miseEnEvidence(7)}}{${miseEnEvidence(b)}}$ unité. `
           }
+          if (choix === 'b') {
+            a = grille(-2, -1, 7, 4, 'gray', 1, 1)
+            b = choice([3, 4, 5, 6])
+            A = point(0, 2, 'A', 'below')
+            B = point(1, 2, 'B', 'below')
+            C = point(1, 0, 'C', 'above')
+            D = point(4, 0, 'D', 'above')
+            E = point(4, 1, 'C', 'above')
+            G = point(0, 4, 'C', 'above')
+            H = point(b, 4, 'D', 'above')
+            s1 = segmentAvecExtremites(G, H)
+            s1.epaisseur = 2
+            s2 = segment(A, B)
+            s2.epaisseur = 2
+            s3 = segment(C, B)
+            s3.epaisseur = 2
+            s4 = segment(C, D)
+            s4.epaisseur = 2
+            s5 = segment(D, E)
+            s5.epaisseur = 2
+
+            xmin = -1
+            ymin = -1
+            xmax = 7
+            ymax = 5
+            objets = []
+            objets.push(
+              texteParPosition('1 u.l', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              a, s1, s2, s3, s4, s5)
+            reponse = new FractionX(7, b)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $7$ carreaux, soit $\\dfrac{7}{${b}}=\\dfrac{${miseEnEvidence(7)}}{${miseEnEvidence(b)}}$ unité. `
+          }
+          if (choix === 'c') {
+            a = grille(-2, -1, 7, 4, 'gray', 1, 1)
+            b = choice([3, 4, 5, 6])
+            A = point(0, 2, 'A', 'below')
+            B = point(1, 2, 'B', 'below')
+            C = point(1, 0, 'C', 'above')
+            D = point(3, 0, 'D', 'above')
+            E = point(3, 2, 'C', 'above')
+            G = point(0, 4, 'C', 'above')
+            H = point(b, 4, 'D', 'above')
+            s1 = segmentAvecExtremites(G, H)
+            s1.epaisseur = 2
+            s2 = segment(A, B)
+            s2.epaisseur = 2
+            s3 = segment(C, B)
+            s3.epaisseur = 2
+            s4 = segment(C, D)
+            s4.epaisseur = 2
+            s5 = segment(D, E)
+            s5.epaisseur = 2
+
+            xmin = -1
+            ymin = -1
+            xmax = 7
+            ymax = 5
+            objets = []
+            objets.push(
+              texteParPosition('1 u.l', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              a, s1, s2, s3, s4, s5)
+            reponse = new FractionX(7, b)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $7$ carreaux, soit $\\dfrac{${miseEnEvidence(7)}}{${miseEnEvidence(b)}}$ u.l. `
+          }
+          if (choix === 'd') {
+            a = grille(-2, -1, 7, 4, 'gray', 1, 1)
+            b = choice([3, 4, 6])
+            A = point(0, 2, 'A', 'below')
+            B = point(1, 2, 'B', 'below')
+            C = point(1, 1, 'C', 'above')
+            D = point(3, 1, 'D', 'above')
+            E = point(3, 2, 'C', 'above')
+            G = point(0, 4, 'C', 'above')
+            H = point(b, 4, 'D', 'above')
+            s1 = segmentAvecExtremites(G, H)
+            s1.epaisseur = 2
+            s2 = segment(A, B)
+            s2.epaisseur = 2
+            s3 = segment(C, B)
+            s3.epaisseur = 2
+            s4 = segment(C, D)
+            s4.epaisseur = 2
+            s5 = segment(D, E)
+            s5.epaisseur = 2
+
+            xmin = -1
+            ymin = -1
+            xmax = 7
+            ymax = 5
+            objets = []
+            objets.push(
+              texteParPosition('1 u.l', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              a, s1, s2, s3, s4, s5)
+            reponse = new FractionX(5, b)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $5$ carreaux, soit $\\dfrac{${miseEnEvidence(5)}}{${miseEnEvidence(b)}}$ u.l. `
+          }
+          if (choix === 'e') {
+            a = grille(-2, -1, 7, 4, 'gray', 1, 1)
+            b = choice([3, 4, 6])
+            A = point(0, 2, 'A', 'below')
+            B = point(1, 2, 'B', 'below')
+            C = point(2, 2, 'C', 'above')
+            D = point(2, 1, 'D', 'above')
+            E = point(4, 1, 'C', 'above')
+            G = point(0, 4, 'C', 'above')
+            H = point(b, 4, 'D', 'above')
+            s1 = segmentAvecExtremites(G, H)
+            s1.epaisseur = 2
+            s2 = segment(A, B)
+            s2.epaisseur = 2
+            s3 = segment(C, B)
+            s3.epaisseur = 2
+            s4 = segment(C, D)
+            s4.epaisseur = 2
+            s5 = segment(D, E)
+            s5.epaisseur = 2
+
+            xmin = -1
+            ymin = -1
+            xmax = 7
+            ymax = 5
+            objets = []
+            objets.push(
+              texteParPosition('1 u.l', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              a, s1, s2, s3, s4, s5)
+            reponse = new FractionX(5, b)
+            texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $5$ carreaux, soit $\\dfrac{${miseEnEvidence(5)}}{${miseEnEvidence(b)}}$ u.l. `
+          }
+          this.canEnonce = texte
+          this.canReponseACompleter = '$\\ldots$ u.l'
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'unité'
-          } else { texte += ' <br>$\\ldots$ unité' }
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'u.l'
+          }
 
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
