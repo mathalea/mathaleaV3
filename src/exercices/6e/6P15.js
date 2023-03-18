@@ -176,7 +176,7 @@ export default function CalculerCoeffPropo () {
       if (context.isHtml) { // Pour HTML on utilise mathalea2d
         texte += mathalea2d(Object.assign({}, fixeBordures([monTableau])), monTableau)
       } else { // pour LAtex, c'est profCollege dans le texte
-        texte += '\\Propor[Math,\nStretch=2,\nGrandeurA=série 1\n,GrandeurB=série 2\n,largeur=1.5]{'
+        texte += '\\Propor[Math,\nStretch=2,\nlargeur=1.5,\nGrandeurA=,\nGrandeurB=]{'
         for (let colonne = 0; colonne < 3; colonne++) {
           texte += `$${ligne1[colonne + 1]}$/`
           texte += `$${ligne2[colonne + 1]}$`
@@ -214,18 +214,21 @@ export default function CalculerCoeffPropo () {
             texteCorr += `${ligne1Corr[colonne]}$.`
           }
         }
-        if (colonne < 3 && colonne !== colonneReference + 1) texteCorr += '<br>'
+        if (colonne < 4 && colonne !== colonneReference + 1) texteCorr += '<br>'
       }
       // dessin du tableau selon le contexte
       if (context.isHtml) { // Pour HTML on utilise mathalea2d
         texteCorr += mathalea2d(Object.assign({}, fixeBordures([monTableauCorr])), monTableauCorr)
       } else { // pour LAtex, c'est profCollege dans le texte
-        texteCorr += '\\Propor[Math,Stretch=2, GrandeurA=série 1, GrandeurB=série 2, largeur=1.5]{'
+        texteCorr += '\\Propor[Math,\nStretch=2,\nlargeur=1.5,\nGrandeurA=,\nGrandeurB=]{'
         for (let colonne = 0; colonne < 3; colonne++) {
           texteCorr += `$${ligne1Corr[colonne + 1]}$/`
           texteCorr += `$${ligne2Corr[colonne + 1]}$`
           if (colonne < 2) texteCorr += ','
-          else texteCorr += '}'
+          else texteCorr += '}\n'
+        }
+        if (coefficientRationnel) {
+          texteCorr += `\\FlechesPG{2}{1}{$\\times ${coefficient.inverse().texFraction}$}\n`
         }
         texteCorr += `\\FlechesPD{1}{2}{$\\times ${coefficientTex}$}`
       }
