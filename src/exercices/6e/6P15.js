@@ -120,11 +120,11 @@ export default function CalculerCoeffPropo () {
       const coefficientRationnel = coefficient instanceof FractionX
       const coefficientTex = coefficientRationnel ? coefficient.texFraction : texNombre(coefficient)
       // remplissage du tableau énoncé et correction.
-      const ligne1 = ['\\text{Série 1}'].concat(premiereLigne.map(elt => elt.visible ? texNombre(elt.nombre) : '\\ldots'))
-      const ligne2 = ['\\text{Série 2}'].concat(deuxiemeLigne.map(elt => elt.visible ? texNombre(elt.nombre) : '\\ldots'))
+      const ligne1 = [null].concat(premiereLigne.map(elt => elt.visible ? texNombre(elt.nombre) : '\\ldots'))
+      const ligne2 = [null].concat(deuxiemeLigne.map(elt => elt.visible ? texNombre(elt.nombre) : '\\ldots'))
       const monTableau = listeTypesDeCoefficient[i] === 'Fraction'
         ? new Tableau({
-          largeurTitre: 5,
+          largeurTitre: 0,
           largeur: 3,
           hauteur: 2,
           nbColonnes: 4,
@@ -136,7 +136,7 @@ export default function CalculerCoeffPropo () {
           flecheGaucheSens: 'haut'
         })
         : new Tableau({
-          largeurTitre: 5,
+          largeurTitre: 0,
           largeur: 3,
           hauteur: 2,
           nbColonnes: 4,
@@ -145,11 +145,11 @@ export default function CalculerCoeffPropo () {
           flecheDroite: '$\\times \\ldots$',
           flecheDroiteSens: 'bas'
         })
-      const ligne1Corr = ['\\text{Série 1}'].concat(premiereLigne.map(elt => texNombre(elt.nombre)))
-      const ligne2Corr = ['\\text{Série 2}'].concat(deuxiemeLigne.map(elt => texNombre(elt.nombre)))
+      const ligne1Corr = [null].concat(premiereLigne.map(elt => texNombre(elt.nombre)))
+      const ligne2Corr = [null].concat(deuxiemeLigne.map(elt => texNombre(elt.nombre)))
       const monTableauCorr = listeTypesDeCoefficient[i] === 'Fraction'
         ? new Tableau({
-          largeurTitre: 5,
+          largeurTitre: 0,
           largeur: 3,
           hauteur: 2,
           nbColonnes: 4,
@@ -161,7 +161,7 @@ export default function CalculerCoeffPropo () {
           flecheGaucheSens: 'haut'
         })
         : new Tableau({
-          largeurTitre: 5,
+          largeurTitre: 0,
           largeur: 3,
           hauteur: 2,
           nbColonnes: 4,
