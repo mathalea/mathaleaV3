@@ -177,7 +177,7 @@
   }
 </script>
 
-<div class="text-2xl lg:text-base ml-2 lg:ml-4 space-y-4 p-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+<div class="text-xl lg:text-base ml-2 lg:ml-4 space-y-4 p-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
   <h3 class="text-coopmaths-struct dark:text-coopmathsdark-struct font-bold">Paramètres</h3>
   {#if !exercice.nbQuestionsModifiable && !exercice.besoinFormulaireCaseACocher && !exercice.besoinFormulaireNumerique && !exercice.besoinFormulaireTexte}
     <div class="italic">Cet exercice ne peut pas être paramétré.</div>

@@ -413,10 +413,18 @@
             <!-- réglages pour tous les exercices de la page -->
             <div class="grid grid-flow-col gap-2 place-content-center place-items-start">
               <button type="button" on:click={zoomMinus} class="tooltip tooltip-left tooltip-neutral" data-tip="Réduire la taille du texte">
-                <i class="bx bx-md px-2 bx-zoom-out hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+                <i
+                  class="bx {deviceType() === 'mobile'
+                    ? 'bx-sm'
+                    : 'bx-md'} px-2 bx-zoom-out hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                />
               </button>
               <button type="button" on:click={zoomPlus} class="tooltip tooltip-left tooltip-neutral" data-tip="Augmenter la taille du texte">
-                <i class="bx bx-md px-2 bx-zoom-in hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+                <i
+                  class="bx {deviceType() === 'mobile'
+                    ? 'bx-sm'
+                    : 'bx-md'} px-2 bx-zoom-in hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                />
               </button>
               <button
                 type="button"
@@ -425,13 +433,19 @@
                 data-tip={setAllInteractifClicked ? "Supprimer l'interactivité" : "Tous les exercices en interactif"}
               >
                 <i
-                  class="bx bx-md px-2 tooltip-left tooltip-neutral  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest {setAllInteractifClicked
+                  class="bx {deviceType() === 'mobile'
+                    ? 'bx-sm'
+                    : 'bx-md'} px-2 tooltip-left tooltip-neutral  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest {setAllInteractifClicked
                     ? 'bxs-edit'
                     : 'bx-edit'}"
                 />
               </button>
               <button type="button" on:click={newDataForAll} class="tooltip tooltip-left tooltip-neutral" data-tip="Nouveaux énoncés">
-                <i class="bx bx-md px-2 bx-refresh  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+                <i
+                  class="bx {deviceType() === 'mobile'
+                    ? 'bx-sm'
+                    : 'bx-md'} px-2 bx-refresh  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                />
               </button>
               <button
                 type="button"
@@ -441,7 +455,10 @@
                 class="tooltip tooltip-left tooltip-neutral"
                 data-tip="Supprimer tous les exercices"
               >
-                <i class="bx text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx-md px-2 bx-trash" />
+                <i
+                  class="bx text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest px-2 bx-trash
+                  {deviceType() === 'mobile' ? 'bx-sm' : 'bx-md'}"
+                />
               </button>
               {#if $globalOptions.v === "l"}
                 <div class="flex flex-row justify-end items-center">
@@ -462,12 +479,16 @@
                       params.v = "l"
                       return params
                     })}
-                  ><i class="bx bx-md px-2 bx-fullscreen  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+                  ><i
+                    class="bx {deviceType() === 'mobile'
+                      ? 'bx-sm'
+                      : 'bx-md'} px-2 bx-fullscreen  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                  />
                 </button>
               {/if}
             </div>
             <!-- boutons d'exports -->
-            <div class="grid grid-cols-2 gap-2 place-content-center lg:place-content-end place-items-center lg:place-items-end">
+            <div class="grid grid-cols-2 gap-2 place-content-center lg:place-content-end place-items-center lg:place-items-end mt-4 lg:mt-0">
               <button
                 type="button"
                 class="tooltip tooltip-left tooltip-neutral "
@@ -478,11 +499,17 @@
                     return params
                   })}
               >
-                <i class="bx bx-md px-2 bx-slideshow  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+                <i
+                  class="bx {deviceType() === 'mobile'
+                    ? 'bx-sm'
+                    : 'bx-md'} px-2 bx-slideshow  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                />
               </button>
               <label for="my-modal" class="tooltip tooltip-left tooltip-neutral" data-tip="Lien pour les élèves">
                 <i
-                  class="bx bx-md px-2 bxs-graduation cursor-pointer hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                  class="bx {deviceType() === 'mobile'
+                    ? 'bx-sm'
+                    : 'bx-md'} px-2 bxs-graduation cursor-pointer hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
                 />
               </label>
               <ModalSettingsVueEleve />
