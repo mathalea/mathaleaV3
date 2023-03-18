@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, texteSurSegment, texteSurArc, rotation, homothetie } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, texNum, combinaisonListes, contraindreValeur, compteOccurences } from '../../modules/outils.js'
+import { range, choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, texNum, combinaisonListes, contraindreValeur, compteOccurences } from '../../modules/outils.js'
 import { fraction, abs, multiply, evaluate, divide, isInteger, pow, round, subtract, max } from 'mathjs'
 export const titre = 'Homothétie (calculs)'
 // eslint-disable-next-line no-debugger
@@ -34,7 +34,6 @@ export default function CalculsHomothetie () {
   this.sup2 = 3 // 1 : Homothéties de rapport positif, 2: de rapport négatif 3 : mélange
   this.sup3 = 1 // Choix des valeurs
   this.sup4 = true // Affichage des figures facultatives dans l'énoncé (en projet)
-  // this.besoinFormulaireTexte = ['Nombres premiers utilisés ', 'Nombres séparés par des tirets\n1 : 2, 3 et 5\n2 : 2, 3 et 7\n3 : 2, 5 et 7\n4 : 3, 5 et 7\n5 : Mélange']
 
   this.besoinFormulaireTexte = [
     'Type de questions', [
@@ -69,23 +68,23 @@ export default function CalculsHomothetie () {
     this.listeCorrections = [] // Liste de questions corrigées
 
     const typeQuestionsDisponibles = ['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport', 'rapport2', 'encadrerk', 'encadrerk2']
-    let typesDeQuestionsDisponiblesNumbers = []
+    let typesDeQuestionsDisponibles = []
     if (!this.sup) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponiblesNumbers = [12]
+      typesDeQuestionsDisponibles = [12]
     } else {
       if (typeof (this.sup) === 'number') {
-        typesDeQuestionsDisponiblesNumbers[0] = typeQuestionsDisponibles[contraindreValeur(1, 10, this.sup, 10) - 1]
+        typesDeQuestionsDisponibles[0] = contraindreValeur(1, 12, this.sup, 12)
       } else {
-        typesDeQuestionsDisponiblesNumbers = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typesDeQuestionsDisponiblesNumbers.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          typesDeQuestionsDisponiblesNumbers[i] = typeQuestionsDisponibles[contraindreValeur(1, 12, typesDeQuestionsDisponiblesNumbers[i], 12) - 1]
+        typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 12, typesDeQuestionsDisponibles[i], 12)
         }
       }
     }
-    if (compteOccurences(typesDeQuestionsDisponiblesNumbers, 12) > 0) typesDeQuestionsDisponiblesNumbers = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
-    // typesDeQuestionsDisponibles = combinaisonListes(typesDeQuestionsDisponibles, 3)
-
-    const listeTypeQuestions = combinaisonListes(typesDeQuestionsDisponiblesNumbers, this.nbQuestions)
+    if (compteOccurences(typesDeQuestionsDisponibles, 12) > 0) typesDeQuestionsDisponibles = combinaisonListes(range(11), this.nbQuestions)
+    typesDeQuestionsDisponibles = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeQuestions = []
+    for (let ee = 0; ee < typesDeQuestionsDisponibles.length; ee++) { listeTypeQuestions.push(typeQuestionsDisponibles[typesDeQuestionsDisponibles[ee] - 1]) }
     const kEstEntier = this.sup3 > 1
     const valeursSimples = this.sup3 === 3
     for (let i = 0, approx, environ, melange, donnee1, donnee2, donnee3, donnees, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
@@ -571,6 +570,6 @@ De plus $${hA}${inNotin}[${O};${A})$ donc ${intervallek}.
       }
       cpt++
     }
-    // listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
+    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
 }
