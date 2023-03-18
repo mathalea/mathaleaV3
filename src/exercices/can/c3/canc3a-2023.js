@@ -365,6 +365,35 @@ export default function SujetCAN2023CM2 () {
           break
 
         case 11:
+          prenom1 = prenomF()
+          prenom2 = prenomM()
+          if (choice([true, false])) {
+            b = randint(3, 5)
+            reponse = randint(4, 9)
+            a = reponse + b
+            texte = `${prenom1} a $${a}$ billes. <br>
+            Elle en a $${b}$ de plus que ${prenom2}.${context.isHtml ? '' : '\\\\'} Combien de billes a ${prenom2} ? `
+            texteCorr = `Puisque ${prenom1} en  a $${b}$ de plus, sa sœur en a $${b}$ de moins, soit  : $${a} - ${b}=${miseEnEvidence(a - b)}$. `
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+            this.listeCanReponsesACompleter[10] = `${prenom2} a \\ldots{} billes.`
+          } else {
+            b = randint(6, 15)
+            a = randint(2, 5)
+            reponse = b - a
+            texte = `${prenom1} a $${b}$ ans. <br>
+            ${prenom2} a ${a} ans de moins que ${prenom1}. ${context.isHtml ? `${prenom2} a ` : ''}`
+            texteCorr = `Puisque ${prenom2} a ${a} ans de moins que ${prenom1}, son âge est  : $${b}-${a}=${miseEnEvidence(b - a)}$ ${texteEnCouleur('ans')}. `
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline', { texteApres: sp(5) + 'ans.' })
+            } else {
+              texte += context.isHtml ? '$\\ldots$ ans' : ''
+            }
+            this.listeCanReponsesACompleter[10] = `${prenom2} a \\ldots{} ans.`
+          }
+          this.listeCanEnonces[10] = texte
+          nbChamps = 1
           break
         case 12:
           break
