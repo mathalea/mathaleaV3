@@ -30,7 +30,7 @@ export default function CalculsHomothetie () {
   this.correctionDetaillee = true
   context.isHtml ? (this.spacing = 1.5) : (this.spacing = 0)
   context.isHtml ? (this.spacingCorr = 1.5) : (this.spacingCorr = 0)
-  this.sup = 12 // Type d'exercice
+  this.sup = 10 // Type d'exercice
   this.sup2 = 3 // 1 : Homothéties de rapport positif, 2: de rapport négatif 3 : mélange
   this.sup3 = 1 // Choix des valeurs
   this.sup4 = true // Affichage des figures facultatives dans l'énoncé (en projet)
@@ -64,7 +64,7 @@ export default function CalculsHomothetie () {
     '1 : k est décimal (0.1 < k < 4) \n2 : k est une fraction k = a/b avec (a,b) in [1;9]\n3 : k est une fraction et les mesures sont des entiers'
   ]
   this.besoinFormulaire4CaseACocher = ['Figure dans l`énoncé (1-6,9-11)', false]
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -74,7 +74,7 @@ export default function CalculsHomothetie () {
       typesDeQuestionsDisponiblesNumbers = [12]
     } else {
       if (typeof (this.sup) === 'number') {
-        typesDeQuestionsDisponiblesNumbers[0] = typeQuestionsDisponibles[contraindreValeur(1, 12, this.sup, 12) - 1]
+        typesDeQuestionsDisponiblesNumbers[0] = typeQuestionsDisponibles[contraindreValeur(1, 10, this.sup, 10) - 1]
       } else {
         typesDeQuestionsDisponiblesNumbers = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < typesDeQuestionsDisponiblesNumbers.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
@@ -571,6 +571,6 @@ De plus $${hA}${inNotin}[${O};${A})$ donc ${intervallek}.
       }
       cpt++
     }
-    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
+    // listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
 }
