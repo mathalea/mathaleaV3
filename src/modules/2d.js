@@ -10713,10 +10713,12 @@ function flecheH (D, A, texte, h = 1) {
  * @param {Point} A
  * @param {string} texte
  * @param {number} h
+ * @param {boolean} flip Pour pouvoir faire des flèches à gauche et pas à droite
  * @returns {array} (Polyline|Segment|TexteParPoint)[]
  * @author Rémi Angot
  */
-function flecheV (D, A, texte, h = 1) {
+function flecheV (D, A, texte, h = 1, flip = false) {
+  if (flip) h = -h
   const D1 = point(D.x + h, D.y)
   const A1 = point(A.x + h, A.y)
   const fleche = polyline(D, D1, A1)
@@ -10725,7 +10727,7 @@ function flecheV (D, A, texte, h = 1) {
   const M = milieu(D1, A1)
   const objets = [fleche, eFleche]
   if (texte) {
-    objets.push(texteParPoint(texte, point(M.x + h, M.y - 0.6), 'milieu', 'black', 'middle', true))
+    objets.push(texteParPoint(texte, point(M.x + h, M.y - 0.6), flip ? 'droite' : 'milieu', 'black', 1, 'middle', true))
   }
   return objets
 }
@@ -10757,7 +10759,9 @@ export function Tableau ({
   flecheHaut = [], // [[1, 2, '\\times 6,4', 3], [2, 3, '\\div 6']]
   flecheBas = [],
   flecheDroite = false, // à remplacer par un string
-  flecheDroiteSens = 'bas'
+  flecheDroiteSens = 'bas',
+  flecheGauche = false,
+  flecheGaucheSens = 'haut'
 } = {}) {
   ObjetMathalea2D.call(this, { })
   if (ligne1 && ligne2) {
@@ -10823,6 +10827,17 @@ export function Tableau ({
       objets.push(...flecheV(Depart, Arrivee, flecheDroite))
     } else {
       objets.push(...flecheV(Arrivee, Depart, flecheDroite))
+    }
+    const { xmin, ymin, xmax, ymax } = fixeBordures(objets)
+    this.bordures = [xmin, ymin, xmax, ymax]
+  }
+  if (flecheGauche) {
+    const Depart = point(A.x, A.y + 1.5 * hauteur)
+    const Arrivee = point(A.x, A.y + 0.5 * hauteur)
+    if (flecheGaucheSens === 'bas') {
+      objets.push(...flecheV(Depart, Arrivee, flecheGauche, 1, true))
+    } else {
+      objets.push(...flecheV(Arrivee, Depart, flecheGauche, 1, true))
     }
     const { xmin, ymin, xmax, ymax } = fixeBordures(objets)
     this.bordures = [xmin, ymin, xmax, ymax]
