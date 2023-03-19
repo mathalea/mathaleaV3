@@ -70,6 +70,8 @@ export default function SujetCAN2023CM2 () {
             texte += context.isHtml ? '$\\ldots$' : ''
           }
           nbChamps = 1
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
 
         case 2:
@@ -88,6 +90,8 @@ export default function SujetCAN2023CM2 () {
             texte += context.isHtml ? '$\\ldots$' : ''
           }
           nbChamps = 1
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
 
         case 3:
@@ -110,9 +114,8 @@ export default function SujetCAN2023CM2 () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
-          nbChamps = 1
-          this.listeCanEnonces[2] = texte
-          this.listeCanReponsesACompleter[2] = '\\dots{} boules'
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('\\dots{} boules')
           break
 
         case 4:
@@ -134,6 +137,8 @@ export default function SujetCAN2023CM2 () {
             texte += context.isHtml ? '$\\ldots$' : ''
           }
           nbChamps = 1
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
 
         case 5:
@@ -185,6 +190,8 @@ export default function SujetCAN2023CM2 () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
 
         case 6: {
@@ -197,7 +204,7 @@ export default function SujetCAN2023CM2 () {
           m = choice([1, 2, 3, 4])
           if (m === 1) {
             texte = texteQ6(18).texte
-            this.listeCanReponsesACompleter[5] = texteQ6(18).reponseACompleter
+            this.listeCanReponsesACompleter.push(texteQ6(18).reponseACompleter)
             reponse = ['3;6', '1;18', '2;9']
             texteCorr = `Trois réponses possibles (avec des entiers) : <br>
           $${miseEnEvidence(3)}\\times ${miseEnEvidence(6)}=18$<br>
@@ -206,7 +213,7 @@ export default function SujetCAN2023CM2 () {
           }
           if (m === 2) {
             texte = texteQ6(21).texte
-            this.listeCanReponsesACompleter[5] = texteQ6(21).reponseACompleter
+            this.listeCanReponsesACompleter.push(texteQ6(21).reponseACompleter)
             reponse = ['3;7', '1;21']
             texteCorr = `Deux réponses possibles (avec des entiers) : <br>
             $${miseEnEvidence(3)}\\times ${miseEnEvidence(7)}=21$<br>
@@ -214,7 +221,7 @@ export default function SujetCAN2023CM2 () {
           }
           if (m === 3) {
             texte = texteQ6(35).texte
-            this.listeCanReponsesACompleter[5] = texteQ6(35).reponseACompleter
+            this.listeCanReponsesACompleter.push(texteQ6(35).reponseACompleter)
             reponse = ['5;7', '1;35']
             texteCorr = `Deux réponses possibles (avec des entiers) : <br>
               $${miseEnEvidence(5)}\\times ${miseEnEvidence(7)}=35$<br>
@@ -222,7 +229,7 @@ export default function SujetCAN2023CM2 () {
           }
           if (m === 4) {
             texte = texteQ6(42).texte
-            this.listeCanReponsesACompleter[5] = texteQ6(42).reponseACompleter
+            this.listeCanReponsesACompleter.push(texteQ6(42).reponseACompleter)
             reponse = ['6;7', '1;42', '2;21', '3;14']
             texteCorr = `Quatre réponses possibles (avec des entiers) : <br>
                   $${miseEnEvidence(6)}\\times ${miseEnEvidence(7)}=42$<br>
@@ -236,7 +243,7 @@ export default function SujetCAN2023CM2 () {
             texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline')
           }
           nbChamps = 1
-          this.listeCanEnonces[5] = texte
+          this.listeCanEnonces.push(texte)
         }
           break
 
@@ -261,8 +268,8 @@ export default function SujetCAN2023CM2 () {
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline') }
           setReponse(this, index, new Hms({ hour: a + 1, minute: reponse }), { formatInteractif: 'hms' })
           nbChamps = 1
-          this.listeCanEnonces[6] = texte
-          this.listeCanReponsesACompleter[6] = '\\ldots{} h \\ldots{} min'
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('\\ldots{} h \\ldots{} min')
           break
 
         case 8:
@@ -295,8 +302,8 @@ export default function SujetCAN2023CM2 () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
-          this.listeCanEnonces[7] = texte
-          this.listeCanReponsesACompleter[7] = 'Je dois utiliser \\\\ \\ldots{} boites.'
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('Je dois utiliser \\\\ \\ldots{} boites.')
           break
 
         case 9:
@@ -319,8 +326,8 @@ export default function SujetCAN2023CM2 () {
           setReponse(this, index, new Grandeur(b, taille1[a][3]), { formatInteractif: 'unites' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 longueur') }
           nbChamps = 1
-          this.listeCanEnonces[8] = texte
-          this.listeCanReponsesACompleter[8] = `${propositions[0]} \\hfill ${propositions[1]} \\hfill ${propositions[2]} \\hfill ${propositions[3]}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push(`${propositions[0]} \\hfill ${propositions[1]} \\hfill ${propositions[2]} \\hfill ${propositions[3]}`)
           break
 
         case 10:
@@ -362,6 +369,8 @@ export default function SujetCAN2023CM2 () {
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
 
           nbChamps = 1
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
 
         case 11:
@@ -376,7 +385,7 @@ export default function SujetCAN2023CM2 () {
             texteCorr = `Puisque ${prenom1} en  a $${b}$ de plus, sa sœur en a $${b}$ de moins, soit  : $${a} - ${b}=${miseEnEvidence(a - b)}$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
-            this.listeCanReponsesACompleter[10] = `${prenom2} a \\ldots{} billes.`
+            this.listeCanReponsesACompleter.push(`${prenom2} a \\ldots{} billes.`)
           } else {
             b = randint(6, 15)
             a = randint(2, 5)
@@ -390,9 +399,9 @@ export default function SujetCAN2023CM2 () {
             } else {
               texte += context.isHtml ? '$\\ldots$ ans' : ''
             }
-            this.listeCanReponsesACompleter[10] = `${prenom2} a \\ldots{} ans.`
+            this.listeCanReponsesACompleter.push(`${prenom2} a \\ldots{} ans.`)
           }
-          this.listeCanEnonces[10] = texte
+          this.listeCanEnonces.push(texte)
           nbChamps = 1
           break
         case 12:
