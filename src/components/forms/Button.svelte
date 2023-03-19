@@ -1,7 +1,8 @@
 <script lang="ts">
-  export let title: string = "Valider"
-  export let isDisabled: boolean = false
-  export let classDeclaration: string = "p-2 rounded-xl"
+  export let title: string = "Valider";
+  export let isDisabled: boolean = false;
+  export let classDeclaration: string = "p-2 rounded-xl";
+  export let icon: string = ""
 </script>
 
 <!-- 
@@ -32,5 +33,8 @@
   disabled={isDisabled}
   on:click
 >
+  {#if icon !== ''}
+    <i class="bx {icon}" />
+  {/if}
   {title}
 </button>
