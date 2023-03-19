@@ -12,7 +12,7 @@ import {
   combinaisonListes,
   choice,
   contraindreValeur,
-  numAlpha
+  numAlpha, nombreDeChiffresDansLaPartieEntiere
 } from '../../modules/outils.js'
 import FractionX from '../../modules/FractionEtendue.js'
 export const titre = 'Calculer le coefficient de proportionnalité'
@@ -49,7 +49,7 @@ export default function CalculerCoeffPropo () {
     this.autoCorrection = []
     const typeDeCoefficient = ['Entier', 'Decimal', 'Fraction']
     let listeTypesDeCoefficient = []
-    const tableauxEntiers = [[2, 3, 4, 5, 6, 7, 8, 9], [10, 12, 15, 16], [20, 24, 25, 30, 35, 40], [50, 60, 70, 80, 90, 100]]
+    const tableauxEntiers = [[2, 3, 4, 5, 6, 7, 8, 9], [10, 12, 15, 16], [20, 24, 25, 30, 35, 40], [50, 60, 70, 80, 90]]
     const tableauxCoefficientsEntiers = [[2, 4, 6, 8, 10], [3, 5, 7, 9, 80, 90], [11, 5, 19, 15, 25, 50, 75], [12, 15, 20, 25, 30, 40]]
     const tableauxCoefficientsFractions = [[[2, 5], [3, 4], [2, 3], [2, 7]], [[3, 7], [4, 7], [4, 9], [5, 9]], [[7, 3], [8, 3], [3, 2], [7, 2]], [[9, 4], [7, 8], [8, 7], [9, 5]]]
     // @todo prévoir un tableau de choix des fractions plutôt que d'aléatoiriser leur construction
@@ -122,6 +122,7 @@ export default function CalculerCoeffPropo () {
           break
       }
       const coefficientRationnel = coefficient instanceof FractionX
+      const coefficientDecimal = coefficient instanceof Decimal
       const coefficientTex = coefficientRationnel ? coefficient.texFraction : texNombre(coefficient)
       // remplissage du tableau énoncé et correction.
       const ligne1 = ['\\text{Grandeur A}'].concat(premiereLigne.map(elt => elt.visible ? texNombre(elt.nombre) : '\\ldots'))
@@ -181,7 +182,7 @@ export default function CalculerCoeffPropo () {
       const reponsesAttendue = { reponse1: {}, reponse2: {} }
       for (let colonne = 1, rep = 1; colonne < 4; colonne++) {
         if (colonne !== colonneReference + 1) {
-          reponsesAttendue[`reponse${rep.toString()}`] = { lettre: premiereLigne[colonne - 1].visible ? 'B' : 'A', colonne, reponse: premiereLigne[colonne - 1].visible ? deuxiemeLigne[colonne - 1].nombre : premiereLigne[colonne - 1].nombre }
+          reponsesAttendue[`reponse${rep.toString()}`] = { lettre: premiereLigne[colonne - 1].visible ? 'B' : 'A', colonne, reponse: premiereLigne[colonne - 1].visible ? { valeur: deuxiemeLigne[colonne - 1].nombre, digits: 4 } : { valeur: premiereLigne[colonne - 1].nombre, digits: 2 } }
           rep++
         }
       }
@@ -192,10 +193,10 @@ export default function CalculerCoeffPropo () {
           setReponse(this, 3 * i, coefficient, { formatInteractif: coefficientRationnel ? 'fractionEgale' : 'calcul' })
           texte += `<br>Valeur de la grandeur ${reponsesAttendue.reponse1.lettre} pour la colonne ${reponsesAttendue.reponse1.colonne} :`
           texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur15 inline')
-          setReponse(this, 3 * i + 1, reponsesAttendue.reponse1.reponse, { formatInteractif: 'calcul' })
+          setReponse(this, 3 * i + 1, reponsesAttendue.reponse1.reponse.valeur, { formatInteractif: 'calcul' })
           texte += `<br>Valeur de la grandeur ${reponsesAttendue.reponse2.lettre} pour la colonne ${reponsesAttendue.reponse2.colonne} :`
           texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur15 inline')
-          setReponse(this, 3 * i + 2, reponsesAttendue.reponse2.reponse, { formatInteractif: 'calcul' })
+          setReponse(this, 3 * i + 2, reponsesAttendue.reponse2.reponse.valeur, { formatInteractif: 'calcul' })
         }
       } else { // pour LAtex, c'est profCollege dans le texte
         texte += '\\Propor[Math,\nStretch=2,\nlargeur=1.5]{'
@@ -214,15 +215,32 @@ export default function CalculerCoeffPropo () {
               {
                 type: 'AMCNum',
                 propositions: [{
-                  texte: texteCorr,
+                  texte: 'toto',
                   statut: '',
                   reponse: { // coefficient
                     texte: 'valeur du coefficient',
                     valeur: [coefficient],
-                    param: {
-                      signe: false,
-                      approx: 0
-                    }
+                    param: coefficientDecimal
+                      ? {
+                          digits: 3,
+                          decimal: 2,
+                          signe: false,
+                          approx: 0
+                        }
+                      : coefficientRationnel
+                        ? {
+                            digitsNum: nombreDeChiffresDansLaPartieEntiere(deuxiemeLigne[colonneReference].nombre),
+                            digitsDen: nombreDeChiffresDansLaPartieEntiere(premiereLigne[colonneReference].nombre),
+                            digits: nombreDeChiffresDansLaPartieEntiere(deuxiemeLigne[colonneReference].nombre) + nombreDeChiffresDansLaPartieEntiere(premiereLigne[colonneReference].nombre),
+                            approx: 0//,
+                            // aussiCorrect: new FractionX(deuxiemeLigne[colonneReference].nombre, premiereLigne[colonneReference].nombre)
+                          }
+                        : {
+                            digits: 2,
+                            decimals: 0,
+                            signe: false,
+                            approx: 0
+                          }
                   }
                 }]
               },
@@ -233,8 +251,10 @@ export default function CalculerCoeffPropo () {
                   statut: '',
                   reponse: {
                     texte: `Réponse de la ligne ${reponsesAttendue.reponse1.lettre} colonne ${reponsesAttendue.reponse1.colonne} :`,
-                    valeur: [reponsesAttendue.reponse1.reponse],
+                    valeur: [reponsesAttendue.reponse1.reponse.valeur],
                     param: {
+                      digits: reponsesAttendue.reponse1.reponse.digits,
+                      decimals: 0,
                       signe: false,
                       approx: 0
                     }
@@ -248,8 +268,10 @@ export default function CalculerCoeffPropo () {
                   statut: '',
                   reponse: {
                     texte: `Réponse de la ligne ${reponsesAttendue.reponse2.lettre} colonne ${reponsesAttendue.reponse2.colonne} :`,
-                    valeur: [reponsesAttendue.reponse2.reponse],
+                    valeur: [reponsesAttendue.reponse2.reponse.valeur],
                     param: {
+                      digits: reponsesAttendue.reponse2.reponse.digits,
+                      decimals: 0,
                       signe: false,
                       approx: 0
                     }
@@ -306,6 +328,9 @@ export default function CalculerCoeffPropo () {
           texteCorr += `\\FlechesPG{2}{1}{$\\times ${coefficient.inverse().texFraction}$}\n`
         }
         texteCorr += `\\FlechesPD{1}{2}{$\\times ${coefficientTex}$}`
+        if (context.isAmc) {
+          this.autoCorrection[i].propositions[0].propositions[0].texte = texteCorr
+        }
       }
       if (this.questionJamaisPosee(i, ...premiereLigne.map(elt => elt.nombre), ...deuxiemeLigne.map(elt => elt.nombre))) {
         this.listeQuestions.push(texte)
