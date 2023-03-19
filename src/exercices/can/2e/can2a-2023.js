@@ -750,9 +750,9 @@ export default function SujetCAN2023Seconde () {
           b = new Decimal(a).div(10)
           reponse = new Decimal(b).mul(60)
 
-          texte = `$${texNombre(b, 1)}$ h
+          texte = `$${texNombre(b, 1)}\\text{ h}$
           `
-          texteCorr = ` $${texNombre(b)}$ h $=${texNombre(b)} \\times 60$ min $=${miseEnEvidence(texNombre(reponse, 0))}$ min. `
+          texteCorr = ` $${texNombre(b)}\\text{ h }=${texNombre(b)} \\times 60 \\text{ min } =${miseEnEvidence(texNombre(reponse, 0))}\\text{ min}$. `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += '$=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'min' } else { texte += '$=\\ldots$ min' }
@@ -764,7 +764,7 @@ export default function SujetCAN2023Seconde () {
           break
         case 24:
           choix = choice(['a', 'b', 'd', 'e'])//
-          texte = 'Quelle est la longueur de la ligne brisée en unité de longueur (u.l) ? <br>'
+          texte = 'Quelle est la longueur de la ligne brisée en unité de longueur (u.l.) ? <br>'
           if (choix === 'a') {
             a = grille(-2, -2, 7, 4, 'gray', 1, 1)
             b = choice([3, 4, 5, 6])
@@ -794,11 +794,11 @@ export default function SujetCAN2023Seconde () {
             ymax = 5
             objets = []
             objets.push(
-              texteParPosition('1 u.l', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, s3, s4, s5, s6)
             reponse = new FractionX(7, b)
             texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
-            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $7$ carreaux, soit $\\dfrac{7}{${b}}=\\dfrac{${miseEnEvidence(7)}}{${miseEnEvidence(b)}}$ unité. `
+            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $7$ carreaux, soit $\\dfrac{${miseEnEvidence(7)}}{${miseEnEvidence(b)}}$ u.l. `
           }
           if (choix === 'b') {
             a = grille(-2, -1, 7, 4, 'gray', 1, 1)
@@ -827,11 +827,11 @@ export default function SujetCAN2023Seconde () {
             ymax = 5
             objets = []
             objets.push(
-              texteParPosition('1 u.l', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, s3, s4, s5)
             reponse = new FractionX(7, b)
             texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
-            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $7$ carreaux, soit $\\dfrac{7}{${b}}=\\dfrac{${miseEnEvidence(7)}}{${miseEnEvidence(b)}}$ unité. `
+            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $7$ carreaux, soit $\\dfrac{${miseEnEvidence(7)}}{${miseEnEvidence(b)}}$ u.l. `
           }
           if (choix === 'c') {
             a = grille(-2, -1, 7, 4, 'gray', 1, 1)
@@ -860,7 +860,7 @@ export default function SujetCAN2023Seconde () {
             ymax = 5
             objets = []
             objets.push(
-              texteParPosition('1 u.l', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, s3, s4, s5)
             reponse = new FractionX(7, b)
             texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
@@ -893,7 +893,7 @@ export default function SujetCAN2023Seconde () {
             ymax = 5
             objets = []
             objets.push(
-              texteParPosition('1 u.l', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, s3, s4, s5)
             reponse = new FractionX(5, b)
             texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
@@ -926,17 +926,17 @@ export default function SujetCAN2023Seconde () {
             ymax = 5
             objets = []
             objets.push(
-              texteParPosition('1 u.l', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               a, s1, s2, s3, s4, s5)
             reponse = new FractionX(5, b)
             texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
             texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $5$ carreaux, soit $\\dfrac{${miseEnEvidence(5)}}{${miseEnEvidence(b)}}$ u.l. `
           }
           this.canEnonce = texte
-          this.canReponseACompleter = '$\\ldots$ u.l'
+          this.canReponseACompleter = '$\\ldots$ u.l.'
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'u.l'
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'u.l.'
           }
 
           this.listeCanEnonces.push(this.canEnonce)
@@ -1003,7 +1003,7 @@ export default function SujetCAN2023Seconde () {
 
           objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r, o, ld, lA, traceA, s26, s26B)
 
-          texte = 'Donner le coefficient directeur $m$ de la droite .<br>'
+          texte = 'Donner le coefficient directeur $m$ de la droite.<br>'
           texte += `${objet}<br>`
           texteCorr = `En partant de l'ordonnée à l'origine de la droite pour aller jusqu'au point $A$, on se décale de $${xA26}$ unités vers la droite et on monte de $${yA26 - yB26}$ unités vers le haut. <br>
             Ainsi, le coefficient directeur de la droite est $\\dfrac{${yA26 - yB26}}{${xA26}}${m.texSimplificationAvecEtapes()}$.`
