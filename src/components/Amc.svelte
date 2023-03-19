@@ -1,5 +1,6 @@
 <script lang="ts">
-  import Mathalea from '../lib/Mathalea.js'
+  import { creerDocumentAmc } from '../modules/creerDocumentAmc.js'
+  import Mathalea from '../lib/Mathalea'
   import Footer from './Footer.svelte'
   import { exercicesParams } from './store'
   import type TypeExercice from './utils/typeExercice'
@@ -8,14 +9,10 @@
   let content = ''
 
   async function initExercices() {
-    Mathalea.loadExercicesFromUrl()
+    Mathalea.updateExercicesParamsFromUrl()
     exercices = await Mathalea.getExercicesFromParams($exercicesParams)
 
-    for (const exercice of exercices) {
-        exercice.nouvelleVersion()
-        console.log(exercice)
-        content += exercice.listeQuestions[0]
-    }
+    content += creerDocumentAmc({questions: exercices})
   }
 
   initExercices()
@@ -24,9 +21,14 @@
 </script>
 
 <section>
-  {content}
+  <pre>
+    {content}
+  </pre>
 </section>
 <Footer />
 
 <style>
+  pre {
+    width: 600px;
+  }
 </style>
