@@ -7021,6 +7021,18 @@
           "amc": true,
           "amcType": "AMCHybride"
         }
+      },
+      "6P15": {
+        "id": "6P15",
+        "uuid": "2d5eb",
+        "url": "6e/6P15.js",
+        "titre": "Calculer le coefficient de proportionnalité",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amc": true,
+          "amcType": "AMCNum"
+        }
       }
     },
     "6S1": {
