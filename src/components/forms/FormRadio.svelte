@@ -2,14 +2,13 @@
   import { createEventDispatcher } from "svelte"
   type FlexOrientation = "col" | "row"
 
-  export let title: string = "Titre"
-  export let valueSelected
-  export let labelsValues = []
+  export let title: string
+  export let valueSelected: string
+  export let labelsValues:{label: string, value: string, isDisabled?: boolean}[] = []
   export let isDisabled: boolean = false
   export let orientation: FlexOrientation = "col"
 
-  let name = title !== undefined ? title.replaceAll(" ", "") : ""
-
+  let name = title !== undefined ? title.replaceAll(" ", "") : Math.round(Math.random() * 1000).toString()
   const dispatch = createEventDispatcher()
   function valueHasChanged() {
     dispatch("newvalue")
