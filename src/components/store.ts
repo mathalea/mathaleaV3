@@ -116,6 +116,10 @@ export function updateGlobalOptionsInURL (url: URL) {
     url.searchParams.delete('title')
     url.searchParams.delete('es')
   }
+  const currentUrl = new URL(window.location.href)
+  if (currentUrl.searchParams.has('triche')) {
+    url.searchParams.append('triche', '1')
+  }
   urlToWrite = url
   // On ne met à jour l'url qu'une fois toutes les 0,5 s
   // pour éviter l'erreur Attempt to use history.pushState() more than 100 times per 30 seconds
