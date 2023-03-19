@@ -52,11 +52,11 @@
   }
 </script>
 
-<input type="checkbox" id="my-modal" class="modal-toggle" />
+<input type="checkbox" id="modal-settings-eleve" class="modal-toggle" />
 <div class="modal" id="reglages-vue-eleve">
   <div class="modal-box relative bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <label
-      for="my-modal"
+      for="modal-settings-eleve"
       class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest cursor-pointer absolute right-6 top-6"
     >
       <i class="bx bx-sm bx-x" />

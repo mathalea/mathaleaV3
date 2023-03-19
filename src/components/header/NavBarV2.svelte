@@ -102,15 +102,9 @@
 
 <nav class="p-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas z-50">
   <!-- container -->
-  <div class="flex flex-wrap w-full mx-auto lg:space-x-6 lg:items-center">
+  <div class="flex flex-row justify-between w-full mx-auto lg:space-x-6 lg:items-center">
     <!-- bouton menu -->
     <div class="flex flex-row justify-start space-x-2">
-      <button
-        class=" lg:hidden inline-flex ml-auto items-center justify-center text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest font-bold text-xl"
-        on:click={() => (isNavBarVisible = !isNavBarVisible)}
-      >
-        <i class="bx bx-menu" />
-      </button>
       <!-- logo -->
       <div class="relative">
         <div
@@ -134,45 +128,17 @@
           <div class="px-4 font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"><i class="bx bx-export bx-rotate-90" /></div>
           <div class=" font-black text-coopmaths-struct dark:text-coopmathsdark-struct">{subtitle}</div>
         </div>
-        <!-- {:else}
-        <div class="absolute bottom-0 right-0 font-logo13Condensed text-xs text-coopmaths-struct dark:text-coopmathsdark-struct">
-          par <a href="https://coopmaths.fr" target="_blank" rel="noreferrer" class=" text-coopmaths-action dark:text-coopmathsdark-action">CoopMaths</a>
-        </div> -->
       {/if}
     </div>
-    <!-- menu -->
-    <div class="flex flex-col mt-2 lg:inline-flex lg:grow lg:flex-row lg:mt-0 {isNavBarVisible ? 'flex' : 'hidden'}">
-      <!-- <ul class="flex flex-col space-y-2 lg:flex-row lg:space-y-0">
-        <li>
-          <NavBarMenuV2 {...menus.referentiels} bind:isNavBarVisible />
-        </li>
-        <li>
-          <a
-            href={"https://coopmaths.fr/calculmental/"}
-            class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest text-xl font-extrabold relative block py-6 px-2 lg:p-6 items-center"
-            >Calcul mental</a
-          >
-        </li>
-        <li>
-          <NavBarMenuV2 {...menus.professeurs} bind:isNavBarVisible />
-        </li>
-        <li>
-          <NavBarMenuV2 {...menus.aPropos} bind:isNavBarVisible />
-        </li>
-      </ul> -->
-      <div class="flex flex-1 pt-6 lg:pt-0 items-center justify-start lg:justify-end">
-        <NavBarMenuV2 {...menus.export} bind:isNavBarVisible />
-      </div>
-      <div class="flex px-4">
-        <label class="swap swap-rotate text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
-          <!-- this hidden checkbox controls the state -->
-          <input type="checkbox" class="invisible" bind:checked={$darkMode.isActive} />
-          <!-- sun icon -->
-          <div class="swap-on"><i class="bx bx-sm bx-sun" /></div>
-          <!-- moon icon -->
-          <div class="swap-off"><i class="bx bx-sm bx-moon" /></div>
-        </label>
-      </div>
+    <div class="flex px-4">
+      <label class="swap swap-rotate text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
+        <!-- this hidden checkbox controls the state -->
+        <input type="checkbox" class="invisible" bind:checked={$darkMode.isActive} />
+        <!-- sun icon -->
+        <div class="swap-on"><i class="bx bx-sm bx-sun" /></div>
+        <!-- moon icon -->
+        <div class="swap-off"><i class="bx bx-sm bx-moon" /></div>
+      </label>
     </div>
   </div>
 </nav>
