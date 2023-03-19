@@ -299,7 +299,7 @@ export class Mathalea {
     exercice.listeCorrections = []
     exercice.listeCanEnonces = []
     exercice.listeCanReponsesACompleter = []
-    for (let i = 0, cptSecours = 0; i < exercice.nbQuestions && cptSecours < 50;) {
+    for (let i = 0, cptSecours = 0; i < exercice.nbQuestions && cptSecours < 200;) {
       seedrandom(exercice.seed + i, { global: true })
       exercice.nouvelleVersion()
       if (exercice.questionJamaisPosee(i, exercice.question)) {
