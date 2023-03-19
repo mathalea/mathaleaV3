@@ -2,9 +2,10 @@
   import Chips from "./Chips.svelte"
   import { exercicesParams } from "../store"
   import refToUuid from "../../json/refToUuid.json"
+    import type { InterfaceReferentiel } from "src/lib/types";
 
   let input: HTMLInputElement
-  let listeIdPourLesChips = []
+  let listeIdPourLesChips: string[] = []
 
   const idExercicesDisponibles = Object.keys(refToUuid)
 
@@ -17,11 +18,11 @@
     listeIdPourLesChips = listeIdPourLesChips
   }
 
-  let filteredExercices = []
+  let filteredExercices: string[] = []
 
   const filterEx = () => {
     //construit la liste des codes d'exercices à proposer dans l'input de saisie.
-    let storageArr = []
+    let storageArr: string[] = []
     if (inputValue) {
       idExercicesDisponibles.forEach((ex) => {
         if (cleanInput(inputValue).every((element) => ex && ex.toLowerCase().includes(element))) {
@@ -36,7 +37,7 @@
     // }
   }
 
-  let searchInput
+  let searchInput: HTMLInputElement
   let inputValue = ""
 
   $: if (!inputValue) {
@@ -44,8 +45,8 @@
     hiLiteIndex = null
   }
 
-  const cleanInput = (str) => {
-    return str.toLowerCase().split(" ").filter(Boolean)
+  const cleanInput = (text: string) => {
+    return text.toLowerCase().split(" ").filter(Boolean)
   }
 
   const clearInput = () => {
@@ -53,7 +54,7 @@
     searchInput.focus()
   }
 
-  const setInputVal = (ex) => {
+  const setInputVal = (ex: string) => {
     inputValue = ex
     hiLiteIndex = null
     addExercice(ex)
@@ -70,10 +71,10 @@
     }
   }
 
-  let hiLiteIndex = null
+  let hiLiteIndex: number = null
   $: filteredExercices[hiLiteIndex]
 
-  const navigateList = (e) => {
+  const navigateList = (e: KeyboardEvent) => {
     // Pour naviguer dans la liste proposée avec les flèches.
     if (e.key === "ArrowDown" && hiLiteIndex <= filteredExercices.length - 1) {
       hiLiteIndex === null ? (hiLiteIndex = 0) : (hiLiteIndex += 1)
@@ -92,11 +93,11 @@
     }
   }
 
-  function addExercice(id) {
-    if (!refToUuid[id]) return
+  function addExercice(id: string) {
+    if (!refToUuid[id as keyof typeof refToUuid]) return
     const newExercise = {
       id,
-      uuid: refToUuid[id],
+      uuid: refToUuid[id as keyof typeof refToUuid],
     }
     exercicesParams.update((list) => [...list, newExercise])
   }

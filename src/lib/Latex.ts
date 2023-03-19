@@ -20,6 +20,7 @@ class Latex {
     let content = ''
     let contentCorr = ''
     for (const exercice of this.exercices) {
+      if (exercice.typeExercice === 'statique') continue
       if (exercice.typeExercice === 'simple') Mathalea.handleExerciceSimple(exercice, false)
       const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
       seedrandom(seed, { global: true })
@@ -27,13 +28,13 @@ class Latex {
     }
     if (style === 'Can') {
       content += '\\begin{TableauCan}\n'
-      contentCorr += '\n\\begin{Correction}\n\\begin{enumerate}'
+      contentCorr += '\n\\begin{enumerate}'
       for (const exercice of this.exercices) {
         for (let i = 0; i < exercice.listeQuestions.length; i++) {
           if (exercice.listeCanEnonces[i] !== undefined && exercice.listeCanReponsesACompleter[i] !== undefined) {
             content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeCanEnonces[i])} &  ${format(
               exercice.listeCanReponsesACompleter[i]
-            )} &\\tabularnewline \\hline\n`
+              )} &\\tabularnewline \\hline\n`
           } else {
             content += `\\thenbEx  \\addtocounter{nbEx}{1}& ${format(exercice.listeQuestions[i])} &&\\tabularnewline \\hline\n`
           }
@@ -42,22 +43,40 @@ class Latex {
           contentCorr += `\n\\item ${format(correction)}`
         }
       }
+      contentCorr += '\n\\end{enumerate}\n'
       content += '\\end{TableauCan}\n\\addtocounter{nbEx}{-1}'
       /** On supprime les lignes vides car elles posent problème dans l'environnement TableauCan */
       content = content.replace(/\n\s*\n/gm, '')
-      contentCorr += '\n\\end{enumerate}\n\\end{Correction}'
     } else {
       for (const exercice of this.exercices) {
-        content += `\n\\begin{EXO}{${exercice.consigne}}{${exercice.id.replace('.js', '')}}\n`
-        content += writeIntroduction(exercice.introduction)
-        content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
-        content += '\n\\end{EXO}\n'
-      }
-      for (const exercice of this.exercices) {
-        contentCorr += '\n\\begin{EXO}{}{}\n'
-        contentCorr += writeIntroduction(exercice.consigneCorrection)
-        contentCorr += writeInCols(writeQuestions(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
-        contentCorr += '\n\\end{EXO}\n'
+        if (exercice.typeExercice === 'statique') {
+          if (exercice.content === '') {
+            content += '% Cet exercice n\'est pas disponible au format LaTeX'
+          } else {
+            if (style === 'Coopmaths') {
+              content += `\n\\begin{EXO}{${exercice.examen || ''} ${exercice.mois || ''} ${exercice.annee || ''} ${exercice.lieu || ''}}{}\n`
+            } else if (style === 'Classique') {
+              content += '\n\\begin{EXO}{}{}\n'
+            }
+            content += exercice.content
+            content += '\n\\end{EXO}\n'
+            contentCorr += '\n\\begin{EXO}{}{}\n'
+            contentCorr += exercice.contentCorr
+            contentCorr += '\n\\end{EXO}\n'
+          }
+        } else {
+          contentCorr += '\n\\begin{EXO}{}{}\n'
+          contentCorr += '\n\\begin{enumerate}'
+          for (const correction of exercice.listeCorrections) {
+            contentCorr += `\n\\item ${format(correction)}`
+          }
+          contentCorr += '\n\\end{enumerate}\n'
+          contentCorr += '\n\\end{EXO}\n'
+          content += `\n\\begin{EXO}{${exercice.consigne}}{${exercice.id.replace('.js', '')}}\n`
+          content += writeIntroduction(exercice.introduction)
+          content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing), exercice.nbCols)
+          content += '\n\\end{EXO}\n'
+        }
       }
     }
     return { content, contentCorr }
@@ -131,7 +150,7 @@ function writeIntroduction (introduction = ''): string {
 
 function writeQuestions (questions: string[], spacing = 1): string {
   let content = ''
-  if (questions.length > 1) {
+  if (questions !== undefined && questions.length > 1) {
     content += '\n\\begin{enumerate}'
     if (spacing !== 1) {
       content += `[itemsep=${spacing}em]`
@@ -146,7 +165,7 @@ function writeQuestions (questions: string[], spacing = 1): string {
   return content
 }
 
-function writeInCols (text, nb: number): string {
+function writeInCols (text: string, nb: number): string {
   if (nb < 2) return text
   return `\\begin{multicols}{${nb}}${text}\n\\end{multicols}`
 }

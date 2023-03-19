@@ -167,7 +167,7 @@
     if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, isInteractif)
     exercice.interactif = isInteractif
     $exercicesParams[indiceExercice].alea = exercice.seed
-    $exercicesParams[indiceExercice].i = isInteractif
+    $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
     $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
     exercice.numeroExercice = indiceExercice
     exercice.nouvelleVersion(indiceExercice)
@@ -239,7 +239,10 @@
     on:clickInteractif={(event) => {
       isInteractif = event.detail.isInteractif
       exercice.interactif = isInteractif
-      $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
+      exercicesParams.update( params => {
+        params[indiceExercice].interactif = isInteractif ? '1' : '0'
+        return params
+      })
       updateDisplay()
     }}
     on:clickNewData={newData}

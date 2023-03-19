@@ -18,11 +18,18 @@
   let dialogLua: HTMLDialogElement
   let exercices: TypeExercice[]
   let contents = { content: "", contentCorr: "" }
+  let isExerciceStaticInTheList = false
 
   const latex = new Latex()
   async function initExercices() {
-    Mathalea.loadExercicesFromUrl()
+    Mathalea.updateExercicesParamsFromUrl()
     exercices = await Mathalea.getExercicesFromParams($exercicesParams)
+    for (const exercice of exercices) {
+      if (exercice.typeExercice === 'statique') {
+        isExerciceStaticInTheList = true
+        break
+      }
+    }
     latex.addExercices(exercices)
     contents = latex.getContents(style, nbVersions)
   }
@@ -95,7 +102,7 @@
           labelsValues={[
             { label: "Coopmaths", value: "Coopmaths" },
             { label: "Classique", value: "Classique" },
-            { label: "Course aux nombres", value: "Can" },
+            { label: "Course aux nombres", value: "Can", isDisabled: isExerciceStaticInTheList },
           ]}
         />
       </div>

@@ -10,7 +10,8 @@
 
   context.versionMathalea = 3
   // ToFix fonction à lier avec bugsnag
-  window.notify = (arg) => console.log(arg)
+  // @ts-ignore
+  window.notify = (arg: string) => console.log(arg)
 
   if (customElements.get('alea-instrumenpoche') === undefined) {
     customElements.define('alea-instrumenpoche', ElementInstrumenpoche)

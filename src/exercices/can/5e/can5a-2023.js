@@ -12,7 +12,7 @@ import { setReponse } from '../../../modules/gestionInteractif.js'
 import Hms from '../../../modules/Hms.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
-export const titre = 'CAN 5ième sujet 2023'
+export const titre = 'CAN 5e sujet 2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
