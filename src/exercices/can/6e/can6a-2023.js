@@ -264,9 +264,9 @@ export default function SujetCAN2023Sixieme () {
             b = choice([35, 40, 45, 50, 55])
             c = choice([30, 35, 40, 45])
             if (!this.interactif) {
-              texte = `$${b} \\text{ min } + ${c} \\text{ min }=$ ${context.isHtml ? '..... h ..... min' : ''}`
+              texte = `$${b}\\text{ min}+ ${c}\\text{ min}=$ ${context.isHtml ? '..... h ..... min' : ''}`
             } else {
-              texte = `$${b} \\text{ min } +  ${c} \\text{ min }=$`
+              texte = `$${b} \\text{ min}+${c} \\text{ min}=$`
             }
             reponse = b + c - 60
           } else {
@@ -274,18 +274,18 @@ export default function SujetCAN2023Sixieme () {
             b = choice([20, 25, 30, 35])
             c = choice([45, 50, 55])
             if (!this.interactif) {
-              texte = `$${b} \\text{ min } + ${c} \\text{ min }=$ ${context.isHtml ? '..... h ..... min' : ''}`
+              texte = `$${b}\\text{ min}+${c}\\text{ min}=$ ${context.isHtml ? '..... h ..... min' : ''}`
             } else {
-              texte = `$${b} \\text{ min } +  ${c} \\text{ min }=$`
+              texte = `$${b}\\text{ min}+${c}\\text{ min}=$`
             }
             reponse = b + c - 60
           }
           if (b > c) {
-            texteCorr = `De $${b} \\text{ min }$ pour aller à $1$ h, il faut $${60 - b}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne 
-          $${miseEnEvidence(1)}$ h et $${miseEnEvidence(reponse)}$ min.`
+            texteCorr = `De $${b} \\text{ min }$ pour aller à $1$ h, il faut $${60 - b}$ min, et il reste $${b - 60 + c}$ min à ajouter.<br>
+            On obtient  $${miseEnEvidence(1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           } else {
-            texteCorr = `De $${c} \\text{ min }$ pour aller à $1$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne 
-          $${miseEnEvidence(1)}$ h et $${miseEnEvidence(reponse)}$ min.`
+            texteCorr = `De $${c} \\text{ min }$ pour aller à $1$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter.<br>
+            On obtient  $${miseEnEvidence(1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           }
 
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline') }
@@ -303,25 +303,25 @@ export default function SujetCAN2023Sixieme () {
             a = randint(9, 15) * 3
 
             reponse = Math.round(a / 3)
-            texte = `Pour partager $${a}$ oeufs, combien de boites de  $3$ oeufs dois-je utiliser ? `
+            texte = `Pour partager $${a}$ œufs, combien de boites de  $3$ œufs dois-je utiliser ? `
             texteCorr = `Le nombre de boites est donné par $${a}\\div 3=${miseEnEvidence(a / 3)}$.`
           }
           if (choix === 'b') {
             reponse = randint(8, 12)
             a = reponse * 4
-            texte = `Pour partager $${a}$ oeufs, combien de boites de  $4$ oeufs dois-je utiliser ? `
+            texte = `Pour partager $${a}$ œufs, combien de boites de  $4$ œufs dois-je utiliser ? `
             texteCorr = `Le nombre de boites est donné par $${a}\\div 4=${miseEnEvidence(a / 4)}$.`
           }
           if (choix === 'c') {
             reponse = randint(6, 10)
             a = reponse * 5
-            texte = `Pour partager $${a}$ oeufs, combien de boites de  $5$ oeufs dois-je utiliser ? `
+            texte = `Pour partager $${a}$ œufs, combien de boites de  $5$ œufs dois-je utiliser ? `
             texteCorr = `Le nombre de boites est donné par $${a}\\div 5=${miseEnEvidence(reponse)}$.`
           }
           if (choix === 'd') {
             reponse = randint(4, 8)
             a = reponse * 6
-            texte = `Pour partager $${a}$ oeufs, combien de boites de  $6$ oeufs dois-je utiliser ? `
+            texte = `Pour partager $${a}$ œufs, combien de boites de  $6$ œufs dois-je utiliser ? `
             texteCorr = `Le nombre de boites est donné par $${a}\\div 6=${miseEnEvidence(reponse)}$.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -444,14 +444,14 @@ export default function SujetCAN2023Sixieme () {
             c = new Decimal('0.1')
             reponse = new Decimal(a).mul(b).mul(c)
             texte = `Donne l'écriture décimale de  $${a}\\times ${b}$ dixièmes.`
-            texteCorr = `$1$ dixième $=0,1$, d'où $${a}\\times ${b}$ dixièmes $=${a}\\times ${b}\\times 0,1=${miseEnEvidence(texNombre(reponse, 1))}$.`
+            texteCorr = ` $${a}\\times ${b}$ dixièmes $=${a * b}$ dixièmes $=${miseEnEvidence(texNombre(reponse, 1))}$`
           } else {
             a = randint(2, 5)
             b = randint(6, 9)
             c = new Decimal('0.01')
             reponse = new Decimal(a).mul(b).mul(c)
             texte = `Donne l'écriture décimale de  $${a}\\times ${b}$ centièmes.`
-            texteCorr = `$1$ centième $=0,01$, d'où $${a}\\times ${b}$ centièmes $=${a}\\times ${b}\\times 0,01=${miseEnEvidence(texNombre(reponse, 2))}$.`
+            texteCorr = ` $${a}\\times ${b}$ centièmes $=${a * b}$ centièmes $=${miseEnEvidence(texNombre(reponse, 2))}$`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -538,7 +538,7 @@ export default function SujetCAN2023Sixieme () {
 
           reponse = new Decimal(a).div(2)
           texte = `La moitié de  $${texNombre(a, 2)}$`
-          texteCorr = `La moitié de $${texNombre(a, 2)}$ est $ ${texNombre(a, 2)}\\div 2=${texNombre(reponse, 2)}$.`
+          texteCorr = `La moitié de $${texNombre(a, 2)}$ est $ ${texNombre(a, 2)}\\div 2=${miseEnEvidence(texNombre(reponse, 2))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
 
@@ -585,7 +585,7 @@ export default function SujetCAN2023Sixieme () {
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $=\\ldots$' }
 
           this.listeCanEnonces.push('Complète.')
-          this.listeCanReponsesACompleter.push(`$${c}\\div ${a} =\\lots$`)
+          this.listeCanReponsesACompleter.push(`$${c}\\div ${a} =\\ldots$`)
           nbChamps = 1
           break
         case 18:
@@ -810,7 +810,7 @@ export default function SujetCAN2023Sixieme () {
 
           reponse = b
           texte = `Dans $${c}$ combien de fois $${a}$ ?`
-          texteCorr = `Dans $${c}$, il y a $${miseEnEvidence(b)}$ fois $${a}$ car $${a}\\times ${b}=${c}$.`
+          texteCorr = `Dans $${c}$, il y a $${miseEnEvidence(b)}$ fois $${a}$ car $${b}\\times ${a}=${c}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -891,7 +891,7 @@ export default function SujetCAN2023Sixieme () {
             A = polygone([point(1, 5), point(3, 5), point(3, 3), point(1, 3)], 'black')
             A.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
             B = texteParPosition('1 uA', 2, 5.4, 'milieu', 'black', 1, 'middle', false)
-            C = grille(0, 0, 12, 5, 'black', 2, 2, false)
+            C = grille(0, 0, 12, 5, 'black', 1, 1, false)
 
             texte = `${prenom1} veut construire une figure d'aire $\\dfrac{${f[a][0]}}{${f[a][1]}}$ ${f[a][0] / f[a][1] > 2 ? 'unités' : 'unité'} d'aire (uA).<br>
           
@@ -901,12 +901,12 @@ export default function SujetCAN2023Sixieme () {
             texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 6, scale: 1, style: 'margin: auto' }, A, C, B)
             if (f[a][1] === 4) {
               texteCorr = '$1$ uA est représentée par  $4$ petits carreaux. <br>'
-              texteCorr += `$\\dfrac{1}{${f[a][1]}}$ d'unité d'aire est donc rerésentée par un petit carreau. <br>
+              texteCorr += `$\\dfrac{1}{${f[a][1]}}$ d'unité d'aire est donc rerésenté par un petit carreau. <br>
           Ainsi, une figure de $\\dfrac{${f[a][0]}}{${f[a][1]}}$ d'unité d'aire se représente par une figure de $${miseEnEvidence(f[a][0])}$ petits carreaux.`
               reponse = f[a][0]
             } else {
               texteCorr = '$1$ uA est représentée par $4$ petits carreaux. <br>'
-              texteCorr += `$\\dfrac{1}{${f[a][1]}}$ d'unité d'aire est donc rerésentée par deux petits carreaux. <br>
+              texteCorr += `$\\dfrac{1}{${f[a][1]}}$ d'unité d'aire est donc rerésenté par deux petits carreaux. <br>
           Ainsi, une figure de $\\dfrac{${f[a][0]}}{${f[a][1]}}$ d'unité d'aire se représente par une figure de $${miseEnEvidence(2 * f[a][0])}$ petits carreaux.`
               reponse = 2 * f[a][0]
             }
@@ -1105,10 +1105,10 @@ export default function SujetCAN2023Sixieme () {
           texteCorr = `$${texNombre(a, 2)}+ ${texNombre(b, 1)}=${miseEnEvidence(texNombre(reponse))}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ' $ =$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) { texte += ' $ =$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
 
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
 
