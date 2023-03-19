@@ -10789,18 +10789,10 @@ export function Tableau ({
   }
   // Ecrit les titres
   if (ligne1[0]) {
-    if (context.isHtml) {
-      objets.push(latexParCoordonnees(ligne1[0], A.x + largeurTitre / 4, A.y + 1.4 * hauteur))
-    } else {
-      objets.push(latexParCoordonnees(ligne1[0], A.x + largeurTitre / 2, A.y + 1.4 * hauteur))// sortie LaTeX
-    };
+    objets.push(latexParCoordonnees(ligne1[0], A.x + largeurTitre / 2, A.y + 1.4 * hauteur, 'black', largeurTitre * 10))
   }
   if (ligne2[0]) {
-    if (context.isHtml) {
-      objets.push(latexParCoordonnees(ligne2[0], A.x + largeurTitre / 4, A.y + 0.4 * hauteur))
-    } else {
-      objets.push(latexParCoordonnees(ligne2[0], A.x + largeurTitre / 2, A.y + 0.4 * hauteur))// sortie LaTeX
-    };
+    objets.push(latexParCoordonnees(ligne2[0], A.x + largeurTitre / 2, A.y + 0.4 * hauteur, 'black', largeurTitre * 10))
   }
   for (const fleche of flecheHaut) {
     const Depart = point(A.x + largeurTitre + fleche[0] * largeur - 0.4 * largeur, A.y + 2.1 * hauteur)
