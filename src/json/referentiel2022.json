@@ -42,7 +42,7 @@
           "id": "canc3C04",
           "uuid": "4ba86",
           "url": "can/c3/canc3C04.js",
-          "titre": "Calculer le double ou moitié",
+          "titre": "Calculer le double ou la moitié",
           "datePublication": "16/11/2021",
           "tags": {
             "interactif": true,
@@ -7031,7 +7031,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amc": true,
-          "amcType": "AMCNum"
+          "amcType": "AMCHybride"
         }
       }
     },
