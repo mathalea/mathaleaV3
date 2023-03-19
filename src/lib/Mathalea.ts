@@ -88,11 +88,11 @@ export class Mathalea {
         if (param.nbQuestions) exercice.nbQuestions = param.nbQuestions
         exercice.duration = param.duration ?? 10
         if (param.id) exercice.id = param.id
-        if (param.sup) exercice.sup = param.sup
-        if (param.sup2) exercice.sup2 = param.sup2
-        if (param.sup3) exercice.sup3 = param.sup3
-        if (param.sup4) exercice.sup4 = param.sup4
-        if (param.interactif) exercice.interactif = param.interactif
+        if (param.sup) exercice.sup = handleStringFromUrl(param.sup)
+        if (param.sup2) exercice.sup2 = handleStringFromUrl(param.sup2)
+        if (param.sup3) exercice.sup3 = handleStringFromUrl(param.sup3)
+        if (param.sup4) exercice.sup4 = handleStringFromUrl(param.sup4)
+        if (param.interactif) exercice.interactif = param.interactif === '1'
         if (param.alea) exercice.seed = param.alea
         if (param.cd !== undefined) exercice.correctionDetaillee = param.cd === '1'
         if (exercice.seed === undefined) {
@@ -384,6 +384,18 @@ function getExerciceStaticByUuid (uuid: string) {
         }
       }
     }
+  }
+}
+
+function handleStringFromUrl (text: string): boolean|number|string {
+  if (text === 'true' || text === 'false') {
+    // "true"=>true
+    return text === 'true'
+  } else if (!isNaN(parseInt(text))) {
+    // "17"=>17
+    return parseInt(text)
+  } else {
+    return text
   }
 }
 
