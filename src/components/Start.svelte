@@ -13,6 +13,7 @@
   import { flip } from "svelte/animate"
   import { onMount } from "svelte"
   import { toMap } from "./utils/toMap"
+  import { deviceType } from "./utils/measures"
 
   import SearchExercice from "./sidebar/SearchExercice.svelte"
 
@@ -20,6 +21,7 @@
   import type { InterfaceReferentiel } from "src/lib/types";
 
   let isNavBarVisible = true
+  let isExercisesListVisible = true
   let filtre = "all"
   let divExercices: HTMLDivElement
   let zoom = 1
@@ -282,130 +284,219 @@
       return params
     })
   }
+
+  function toggleSideMenu() {
+    isSideMenuVisible = !isSideMenuVisible
+  }
+
+  function toggleExercisesList() {
+    isExercisesListVisible = !isExercisesListVisible
+  }
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
-<div class="h-screen  scrollbar-hide {$darkMode.isActive ? 'dark' : ''}">
+<div class="min-h-screen  scrollbar-hide {$darkMode.isActive ? 'dark' : ''}">
   <!-- <Header /> -->
   {#if isNavBarVisible}
-    <NavBar />
-    <Header2 sideMenuVisible={isSideMenuVisible} on:sideMenuChange={handleSideMenu} />
+    <div class="mb-6">
+      <NavBar />
+    </div>
+    <!-- <Header2 sideMenuVisible={isSideMenuVisible} on:sideMenuChange={handleSideMenu} /> -->
   {/if}
   <!-- Gestion du mode sombre -->
-  <main class="flex h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus" on:mousemove={resizing}>
+  <main class="flex flex-col md:flex-row h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus" on:mousemove={resizing}>
     <!-- side menu -->
-    {#if isSideMenuVisible || nbExercisesInList === 0}
-      <aside style="width:{sidebarWidth}px" class="flex flex-col bg-coopmaths-canvas-dark  dark:bg-coopmathsdark-canvas-dark p-4 overflow-hidden h-full">
-        <div class="flex flex-col overflow-y-scroll overscroll-auto">
-          <h2 class="inline-flex items-center font-bold text-xl mb-6 text-coopmaths-struct dark:text-coopmathsdark-struct">
-            <span>Choix des exercices</span>
-          </h2>
-          <div class="flex flex-auto mb-2">
-            <select
-              class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm border-1  focus:border-1 border-coopmaths-action focus:border-coopmaths-action-lightest dark:border-coopmathsdark-action dark:focus:border-coopmaths-action-lightest focus:outline-0 focus:ring-0 w-full"
-              bind:value={filtre}
-              on:change={updateReferentiel}
-            >
-              <option value="all" class=" hover:bg-coopmaths-canvas-darkest">Tous les exercices</option>
-              <option value="college" class=" hover:bg-coopmaths-canvas-darkest">Collège</option>
-              <option value="lycee" class=" hover:bg-coopmaths-canvas-darkest">Lycée</option>
-              <option value="crpe" class=" hover:bg-coopmaths-canvas-darkest">CRPE</option>
-            </select>
+    <!-- {#if isSideMenuVisible || nbExercisesInList === 0} -->
+    <!--  -->
+    {#if deviceType() === "mobile"}
+      {#if isSideMenuVisible || nbExercisesInList === 0}
+        <div class="w-full flex flex-col bg-coopmaths-canvas-dark  dark:bg-coopmathsdark-canvas-dark p-4  md:h-full">
+          <div class="flex flex-col">
+            <div class="flex flex-row justify justify-between items-center {isExercisesListVisible ? 'mb-6' : 'mb-0'} text-coopmaths-struct dark:text-coopmathsdark-struct">
+              <div class="font-bold text-xl ">Choix des exercices</div>
+              <button
+                type="button"
+                class="md:hidden text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                on:click={toggleExercisesList}
+              >
+                <i class="bx bxs-up-arrow {isExercisesListVisible ? 'rotate-0' : 'rotate-180'} transition-all ease-in-out duration-500" />
+              </button>
+            </div>
+            <div class="{isExercisesListVisible ? '' : 'hidden'} h-full">
+              <div class="flex flex-auto mb-2">
+                <select
+                  class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm border-1  focus:border-1 border-coopmaths-action focus:border-coopmaths-action-lightest dark:border-coopmathsdark-action dark:focus:border-coopmaths-action-lightest focus:outline-0 focus:ring-0 w-full"
+                  bind:value={filtre}
+                  on:change={updateReferentiel}
+                >
+                  <option value="all" class=" hover:bg-coopmaths-canvas-darkest">Tous les exercices</option>
+                  <option value="college" class=" hover:bg-coopmaths-canvas-darkest">Collège</option>
+                  <option value="lycee" class=" hover:bg-coopmaths-canvas-darkest">Lycée</option>
+                  <option value="crpe" class=" hover:bg-coopmaths-canvas-darkest">CRPE</option>
+                </select>
+              </div>
+              <SearchExercice referentiel={filteredReferentiel} />
+              <ul>
+                {#each arrayReferentielFiltre as item}
+                  <li>
+                    <NiveauListeExos nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
+                  </li>
+                {/each}
+              </ul>
+            </div>
           </div>
-          <SearchExercice referentiel={filteredReferentiel} />
-          <ul>
-            {#each arrayReferentielFiltre as item}
-              <li>
-                <NiveauListeExos nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
-              </li>
-            {/each}
-          </ul>
         </div>
-      </aside>
+        <!-- drag bar -->
+        <div
+          id="dragbar"
+          class="hidden md:flex w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark  hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize"
+          on:mousedown={startResizing.bind(this, "moving")}
+        />
+      {/if}
+    {:else}
+      <div class="transition-transform duration-300 {isSideMenuVisible || nbExercisesInList === 0 ? 'translate-x-0 ' : '-translate-x-full'}">
+        <div
+          style="{isSideMenuVisible || nbExercisesInList === 0
+            ? `width:${sidebarWidth}px;`
+            : 'width: 0px;'} transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 600ms;"
+          class="flex flex-col bg-coopmaths-canvas-dark  dark:bg-coopmathsdark-canvas-dark overflow-hidden md:h-full {isSideMenuVisible || nbExercisesInList === 0 ? 'p-4' : 'p-0'}"
+        >
+          <div class="flex flex-col overflow-y-scroll overscroll-auto">
+            <div class="flex flex-row justify justify-between items-center mb-6 text-coopmaths-struct dark:text-coopmathsdark-struct">
+              <div class="font-bold text-xl ">Choix des exercices</div>
+              <button
+                type="button"
+                class="md:hidden text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                on:click={toggleExercisesList}
+              >
+                <i class="bx bxs-up-arrow {isExercisesListVisible ? 'rotate-0' : 'rotate-180'} transition-all ease-in-out duration-500" />
+              </button>
+            </div>
+            <div class={isExercisesListVisible ? "" : "hidden"}>
+              <div class="flex flex-auto mb-2">
+                <select
+                  class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm border-1  focus:border-1 border-coopmaths-action focus:border-coopmaths-action-lightest dark:border-coopmathsdark-action dark:focus:border-coopmaths-action-lightest focus:outline-0 focus:ring-0 w-full"
+                  bind:value={filtre}
+                  on:change={updateReferentiel}
+                >
+                  <option value="all" class=" hover:bg-coopmaths-canvas-darkest">Tous les exercices</option>
+                  <option value="college" class=" hover:bg-coopmaths-canvas-darkest">Collège</option>
+                  <option value="lycee" class=" hover:bg-coopmaths-canvas-darkest">Lycée</option>
+                  <option value="crpe" class=" hover:bg-coopmaths-canvas-darkest">CRPE</option>
+                </select>
+              </div>
+              <SearchExercice referentiel={filteredReferentiel} />
+              <ul>
+                {#each arrayReferentielFiltre as item}
+                  <li>
+                    <NiveauListeExos nestedLevelCount={1} pathToThisNode={[item.key]} levelTitle={codeToLevelTitle(item.key)} items={item.obj} />
+                  </li>
+                {/each}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- drag bar -->
       <div
         id="dragbar"
-        class="flex w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark  hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize"
+        class="hidden {isSideMenuVisible || nbExercisesInList === 0
+          ? 'md:flex'
+          : 'md:hidden'} w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark  hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize"
         on:mousedown={startResizing.bind(this, "moving")}
       />
     {/if}
     <!-- content -->
     {#if $exercicesParams.length !== 0}
-      <div class="flex-1 flex flex-col px-6 overflow-hidden h-full" bind:this={divExercices}>
-        <!-- barre des boutons de réglages pour tous les exercices de la page -->
-        <div class="flex flex-row justify-center items-center p-2">
-          <button type="button" on:click={zoomMinus} class="tooltip tooltip-left tooltip-neutral" data-tip="Réduire la taille du texte"
-            ><i class="bx bx-md px-2 bx-zoom-out hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" /></button
-          >
-          <button type="button" on:click={zoomPlus} class="tooltip tooltip-left tooltip-neutral" data-tip="Augmenter la taille du texte"
-            ><i class="bx bx-md px-2 bx-zoom-in hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" /></button
-          >
+      <div class="relative flex flex-col px-6 {deviceType() === 'mobile' ? '' : 'overflow-hidden'} w-full h-full" bind:this={divExercices}>
+        <div class="hidden md:block absolute top-0 left-0">
           <button
             type="button"
-            on:click={setAllInteractifClicked ? removeAllInteractif : setAllInteractif}
-            class="tooltip tooltip-left tooltip-neutral"
-            data-tip={setAllInteractifClicked ? "Supprimer l'interactivité" : "Tous les exercices en interactif"}
-            ><i
-              class="bx bx-md px-2 tooltip-left tooltip-neutral  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest {setAllInteractifClicked
-                ? 'bxs-edit'
-                : 'bx-edit'}"
-            /></button
+            class="rounded-r-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest p-2"
+            on:click={toggleSideMenu}
           >
-          <button type="button" on:click={newDataForAll} class="tooltip tooltip-left tooltip-neutral" data-tip="Nouveaux énoncés">
-            <i class="bx bx-md px-2 bx-refresh  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+            <i class="bx bx-md {isSideMenuVisible ? 'bx-caret-left' : 'bx-sidebar'} translate-y-1" />
           </button>
-          <button
-            type="button"
-            on:click={() => {
-              $exercicesParams.length = 0
-            }}
-            class="tooltip tooltip-left tooltip-neutral"
-            data-tip="Supprimer tous les exercices"
-          >
-            <i class="bx text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx-md px-2 bx-trash" />
-          </button>
-
-          {#if $globalOptions.v === "l"}
-            <div class="flex flex-row justify-end items-center">
-              <button type="button" on:click={quitFullScreen} class="tooltip tooltip-left tooltip-neutral" data-tip="Quitter le plein écran">
-                <i
-                  class="bx ml-2 bx-md px-2 bx-exit-fullscreen  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                />
-              </button>
-            </div>
-          {/if}
-          {#if $globalOptions.v !== "l"}
+        </div>
+        <!-- barre des boutons -->
+        <div class="w-full flex flex-col lg:flex-row lg:justify-between pt-3 pb-2 pr-10 pl-10 md:pl-16">
+          <!-- réglages pour tous les exercices de la page -->
+          <div class="grid grid-flow-col gap-2 place-content-center place-items-start">
+            <button type="button" on:click={zoomMinus} class="tooltip tooltip-left tooltip-neutral" data-tip="Réduire la taille du texte">
+              <i class="bx bx-md px-2 bx-zoom-out hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+            </button>
+            <button type="button" on:click={zoomPlus} class="tooltip tooltip-left tooltip-neutral" data-tip="Augmenter la taille du texte">
+              <i class="bx bx-md px-2 bx-zoom-in hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+            </button>
             <button
               type="button"
+              on:click={setAllInteractifClicked ? removeAllInteractif : setAllInteractif}
               class="tooltip tooltip-left tooltip-neutral"
-              data-tip="Plein écran"
+              data-tip={setAllInteractifClicked ? "Supprimer l'interactivité" : "Tous les exercices en interactif"}
+            >
+              <i
+                class="bx bx-md px-2 tooltip-left tooltip-neutral  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest {setAllInteractifClicked
+                  ? 'bxs-edit'
+                  : 'bx-edit'}"
+              />
+            </button>
+            <button type="button" on:click={newDataForAll} class="tooltip tooltip-left tooltip-neutral" data-tip="Nouveaux énoncés">
+              <i class="bx bx-md px-2 bx-refresh  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+            </button>
+            <button
+              type="button"
+              on:click={() => {
+                $exercicesParams.length = 0
+              }}
+              class="tooltip tooltip-left tooltip-neutral"
+              data-tip="Supprimer tous les exercices"
+            >
+              <i class="bx text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx-md px-2 bx-trash" />
+            </button>
+            {#if $globalOptions.v === "l"}
+              <div class="flex flex-row justify-end items-center">
+                <button type="button" on:click={quitFullScreen} class="tooltip tooltip-left tooltip-neutral" data-tip="Quitter le plein écran">
+                  <i
+                    class="bx ml-2 bx-md px-2 bx-exit-fullscreen  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                  />
+                </button>
+              </div>
+            {/if}
+            {#if $globalOptions.v !== "l"}
+              <button
+                type="button"
+                class="tooltip tooltip-left tooltip-neutral"
+                data-tip="Plein écran"
+                on:click={() =>
+                  globalOptions.update((params) => {
+                    params.v = "l"
+                    return params
+                  })}
+                ><i class="bx bx-md px-2 bx-fullscreen  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+              </button>
+            {/if}
+          </div>
+          <!-- boutons d'exports -->
+          <div class="grid grid-cols-2 gap-2 place-content-center lg:place-content-end place-items-center lg:place-items-end">
+            <button
+              type="button"
+              class="tooltip tooltip-left tooltip-neutral "
+              data-tip="Diaporama"
               on:click={() =>
                 globalOptions.update((params) => {
-                  params.v = "l"
+                  params.v = "diaporama"
                   return params
                 })}
-              ><i class="bx bx-md px-2 bx-fullscreen  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+            >
+              <i class="bx bx-md px-2 bx-slideshow  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
             </button>
-          {/if}
-
-          <button
-            type="button"
-            class="tooltip tooltip-left tooltip-neutral ml-24 "
-            data-tip="Diaporama"
-            on:click={() =>
-              globalOptions.update((params) => {
-                params.v = "diaporama"
-                return params
-              })}
-          >
-            <i class="bx bx-md px-2 bx-slideshow  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
-          </button>
-          <label for="my-modal" class="tooltip tooltip-left tooltip-neutral" data-tip="Lien pour les élèves">
-            <i
-              class="bx bx-md px-2 bxs-graduation cursor-pointer hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-            />
-          </label>
-          <ModalSettingsVueEleve />
+            <label for="my-modal" class="tooltip tooltip-left tooltip-neutral" data-tip="Lien pour les élèves">
+              <i
+                class="bx bx-md px-2 bxs-graduation cursor-pointer hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+              />
+            </label>
+            <ModalSettingsVueEleve />
+          </div>
         </div>
         <div class="flex-1 overflow-y-scroll overscroll-auto">
           {#each $exercicesParams as paramsExercice, i (paramsExercice)}
