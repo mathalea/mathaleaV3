@@ -582,7 +582,7 @@ export default function SujetCAN2023Sixieme () {
           texteCorr = `$${c}\\div ${a}=${miseEnEvidence(reponse)}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $=\\ldots$' }
+          if (this.interactif) { texte += '$=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
 
           this.listeCanEnonces.push('Complète.')
           this.listeCanReponsesACompleter.push(`$${c}\\div ${a} =\\ldots$`)
@@ -748,11 +748,11 @@ export default function SujetCAN2023Sixieme () {
           b = randint(2, 7) * 100
 
           reponse = a * b
-          texte = ` $${a}\\times ${b}=$`
+          texte = ` $${a}\\times ${b}$`
           texteCorr = `$${a}\\times ${b}=${a}\\times ${texNombre(b / 100)}\\times 100=${miseEnEvidence(texNombre(reponse))}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) { texte += '$=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
 
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
@@ -768,7 +768,7 @@ export default function SujetCAN2023Sixieme () {
           reponse = arrondi(c / a, 0)
           texte = `Une voiture roule à $${c}$ km/h. <br>Combien de kilomètres 
         parcourt-elle en $${b}$ min à cette vitesse ?`
-          texteCorr = `La voiture parcourt $${texNombre(c / a, 0)}$ km.<br>
+          texteCorr = `En $1$ h la voiture parcourt $${c}$ km.<br>
        En $${b}$ minutes, elle parcourt $${a}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
         ${miseEnEvidence(texNombre(c / a, 0))}$ km.`
 
