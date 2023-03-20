@@ -404,43 +404,157 @@ export default function SujetCAN2023CM2 () {
           this.listeCanEnonces.push(texte)
           nbChamps = 1
           break
+
         case 12:
+          a = randint(2, 5)
+          b = randint(6, 9)
+          c = new Decimal('0.1')
+          if (choice([true, false])) {
+            a = randint(2, 5)
+            b = randint(6, 9)
+            c = new Decimal('0.1')
+            reponse = new Decimal(a).mul(b).mul(c)
+            texte = `Donne l'écriture décimale de  $${a}\\times ${b}$ dixièmes.`
+            texteCorr = `$1$ dixième $=0,1$, d'où $${a}\\times ${b}$ dixièmes $=${a}\\times ${b}\\times 0,1=${miseEnEvidence(texNombre(reponse, 1))}$.`
+          } else {
+            a = randint(2, 5)
+            b = randint(6, 9)
+            c = new Decimal('0.01')
+            reponse = new Decimal(a).mul(b).mul(c)
+            texte = `Donne l'écriture décimale de  $${a}\\times ${b}$ centièmes.`
+            texteCorr = `$1$ centième $=0,01$, d'où $${a}\\times ${b}$ centièmes $=${a}\\times ${b}\\times 0,01=${miseEnEvidence(texNombre(reponse, 2))}$.`
+          }
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
+
         case 13:
+          texte = `rrr, i : ${i} , index : ${index}`
+          texteCorr = `rrr, i : ${i} , index : ${index}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
+
         case 14:
+          texte = `rrr, i : ${i} , index : ${index}`
+          texteCorr = `rrr, i : ${i} , index : ${index}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
+
         case 15:
+          texte = `rrr, i : ${i} , index : ${index}`
+          texteCorr = `rrr, i : ${i} , index : ${index}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
+
         case 16:
+          texte = `rrr, i : ${i} , index : ${index}`
+          texteCorr = `rrr, i : ${i} , index : ${index}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
+
         case 17:
+          texte = `rrr, i : ${i} , index : ${index}`
+          texteCorr = `rrr, i : ${i} , index : ${index}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
+
         case 18:
+          texte = `rrr, i : ${i} , index : ${index}`
+          texteCorr = `rrr, i : ${i} , index : ${index}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
+
         case 19:
+          texte = `rrr, i : ${i} , index : ${index}`
+          texteCorr = `rrr, i : ${i} , index : ${index}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
+
         case 20:
+          texte = `rrr, i : ${i} , index : ${index}`
+          texteCorr = `rrr, i : ${i} , index : ${index}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
+
         case 21:
+          texte = `rrr, i : ${i} , index : ${index}`
+          texteCorr = `rrr, i : ${i} , index : ${index}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
+
         case 22:
+          texte = `rrr, i : ${i} , index : ${index}`
+          texteCorr = `rrr, i : ${i} , index : ${index}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
+
         case 23:
+          texte = `rrr, i : ${i} , index : ${index}`
+          texteCorr = `rrr, i : ${i} , index : ${index}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
+
         case 24:
+          texte = `rrr, i : ${i} , index : ${index}`
+          texteCorr = `rrr, i : ${i} , index : ${index}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
+
         case 25:
+          texte = `rrr, i : ${i} , index : ${index}`
+          texteCorr = `rrr, i : ${i} , index : ${index}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
+
         case 26:
+          texte = `rrr, i : ${i} , index : ${index}`
+          texteCorr = `rrr, i : ${i} , index : ${index}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
+
         case 27:
+          texte = `rrr, i : ${i} , index : ${index}`
+          texteCorr = `rrr, i : ${i} , index : ${index}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
+
         case 28:
+          texte = `rrr, i : ${i} , index : ${index}`
+          texteCorr = `rrr, i : ${i} , index : ${index}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
+
         case 29:
+          texte = `rrr, i : ${i} , index : ${index}`
+          texteCorr = `rrr, i : ${i} , index : ${index}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
+
         case 30:
+          texte = `rrr, i : ${i} , index : ${index}`
+          texteCorr = `rrr, i : ${i} , index : ${index}`
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
       }
 
