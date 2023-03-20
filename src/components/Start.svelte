@@ -294,7 +294,7 @@
   {/if}
   <!-- Gestion du mode sombre -->
   <div class="flex flex-col justify-between min-h-full">
-    <main class="mb-auto flex flex-col md:flex-row h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus" on:mousemove={resizing}>
+    <main class="mb-auto ml-0 md:ml-4 flex flex-col md:flex-row h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus" on:mousemove={resizing}>
       {#if deviceType() === "mobile"}
         {#if isSideMenuVisible || nbExercisesInList === 0}
           <div class="w-full flex flex-col bg-coopmaths-canvas-dark  dark:bg-coopmathsdark-canvas-dark p-4  md:h-full">
@@ -399,7 +399,9 @@
           <div class="hidden md:block absolute top-0 left-0">
             <button
               type="button"
-              class="rounded-r-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest p-2"
+              class="{isSideMenuVisible
+                ? 'rounded-r-lg'
+                : 'rounded-lg'} bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest p-2"
               on:click={toggleSideMenu}
             >
               <i class="bx bx-md {isSideMenuVisible ? 'bx-caret-left bx-fade-left-hover' : 'bx-sidebar  translate-y-1'}" />

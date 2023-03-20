@@ -3,7 +3,7 @@
   import { Mathalea } from "../lib/Mathalea.js"
   import type TypeExercice from "./utils/typeExercice"
   import Footer from "./Footer.svelte"
-  import NavBar from "./header/NavBar.svelte"
+  import NavBarV2 from "./header/NavBarV2.svelte"
   import Latex from "../lib/Latex"
   import Button from "./forms/Button.svelte"
   import FormRadio from "./forms/FormRadio.svelte"
@@ -66,7 +66,7 @@
 </script>
 
 <main class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
-  <NavBar subtitle="LaTeX" />
+  <NavBarV2 subtitle="LaTeX" />
 
   <section class="px-10 py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <form class="my-5 flex-auto w-full" method="POST" action="https://www.overleaf.com/docs" target="_blank">

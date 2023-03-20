@@ -108,11 +108,11 @@
         <div
           on:click={() => goToMathalea($globalOptions.v)}
           on:keydown={() => goToMathalea($globalOptions.v)}
-          class="inline-flex cursor-pointer text-6xl font-logo13Condensed font-black text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+          class="inline-flex cursor-pointer text-6xl font-logo13 font-black text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
         >
           {title}
         </div>
-        <div class="absolute -bottom-4 left-1 font-logo13Condensed font-normal text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+        <div class="absolute -bottom-4 left-1 font-logo13 font-normal text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
           par <a
             href="https://coopmaths.fr"
             target="_blank"
@@ -122,7 +122,7 @@
         </div>
       </div>
       {#if subtitle}
-        <div class="flex flex-row items-center space-x-4 pt-6 lg:pt-0 md:inline-flex text-3xl md:text-6xl font-logo13Condensed">
+        <div class="flex flex-row items-center space-x-4 pt-6 lg:pt-0 md:inline-flex text-6xl md:text-6xl font-logo13">
           <div class="px-0 md:px-4 font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"><i class="bx bx-export rotate-90 translate-y-1" /></div>
           <div class=" font-black text-coopmaths-struct dark:text-coopmathsdark-struct">{subtitle}</div>
         </div>
