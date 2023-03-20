@@ -136,6 +136,7 @@ export const clavierCollege = {
     ang: { mode: 'math', value: '\\widehat{#0}' },
     rac: { mode: 'math', value: '\\sqrt{#0}' },
     frac: { mode: 'math', value: '\\frac{#0}{#1}' },
+    '/': { mode: 'math', value: '\\frac{#0}{#1}' },
     '<': '<',
     '>': '>',
     '>=': '\\geq',
