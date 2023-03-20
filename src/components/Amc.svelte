@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { creerDocumentAmc } from "../modules/creerDocumentAmc.js";
+  import { creerDocumentAmc, exportQcmAmc } from "../modules/creerDocumentAmc.js";
   import Mathalea from "../lib/Mathalea";
   import Footer from "./Footer.svelte";
   import { exercicesParams } from "./store";
@@ -20,13 +20,17 @@
   async function initExercices() {
     Mathalea.updateExercicesParamsFromUrl();
     exercices = await Mathalea.getExercicesFromParams($exercicesParams);
+    for (const exercice of exercices){
+      exercice.nouvelleVersion()
+      nbQuestions.push(exercice.nbQuestions)
+    }
   }
-  
+
   initExercices();
-  
+
   $: {
-    // ToDo vérifier la saisie utilisateur 
-    nbQuestions = nbQuestionsString.split(',').map(e => parseInt(e))
+    // ToDo vérifier la saisie utilisateur
+    // nbQuestions = nbQuestionsString.split(',').map(e => parseInt(e))
     content = creerDocumentAmc({ questions: exercices, typeEntete: entete, format, matiere, titre, nbQuestions })
   }
 </script>
