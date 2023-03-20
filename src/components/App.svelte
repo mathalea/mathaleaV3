@@ -3,36 +3,41 @@
   import Diaporama from "./Diaporama.svelte"
   import Can from "./Can.svelte"
   import Eleve from "./Eleve.svelte"
-  import { globalOptions } from "./store"
-  import { context } from '../modules/context'
-  import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from "../modules/ElementInstrumenpoche"
+  import ConfigEleve from "./ConfigEleve.svelte"
   import Latex from "./Latex.svelte"
+  import { globalOptions } from "./store"
+  import { context } from "../modules/context"
+  import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from "../modules/ElementInstrumenpoche"
 
   context.versionMathalea = 3
   // ToFix fonction à lier avec bugsnag
   window.notify = (arg) => console.log(arg)
 
-  if (customElements.get('alea-instrumenpoche') === undefined) {
-    customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
-    customElements.define('alea-buttoninstrumenpoche', ElementButtonInstrumenpoche)
+  if (customElements.get("alea-instrumenpoche") === undefined) {
+    customElements.define("alea-instrumenpoche", ElementInstrumenpoche)
+    customElements.define("alea-buttoninstrumenpoche", ElementButtonInstrumenpoche)
   }
 
   $: {
-    if ($globalOptions.v === 'diaporama') {
+    if ($globalOptions.v === "diaporama") {
       context.isDiaporama = true
     } else {
       context.isDiaporama = false
     }
-    if ($globalOptions.v === 'latex') {
+    if ($globalOptions.v === "latex") {
+      context.isHtml = false
+    } else {
+      context.isHtml = true
+    }
+    if ($globalOptions.v === "confeleve") {
       context.isHtml = false
     } else {
       context.isHtml = true
     }
   }
-
 </script>
 
-<div class="subpixel-antialiased">
+<div class="subpixel-antialiased ">
   {#if $globalOptions.v === "diaporama"}
     <Diaporama />
   {:else if $globalOptions.v === "can"}
@@ -41,6 +46,8 @@
     <Eleve />
   {:else if $globalOptions.v === "latex"}
     <Latex />
+  {:else if $globalOptions.v === "confeleve"}
+    <ConfigEleve />
   {:else}
     <Start />
   {/if}

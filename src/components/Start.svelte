@@ -413,7 +413,7 @@
                 <i class="bx bx-slider {deviceType() === 'mobile' ? 'bx-sm' : 'bx-md'}" />
               </button>
               <div class="absolute inset-0 w-full group-hover:flex flex-row p-4 justify-center space-x-4 items-center hidden z-10 md:translate-x-20">
-                <div class="grid grid-flow-col gap-2 place-content-center place-items-start bg-coopmaths-canvas-dark dark:bg-coopmaths-canvas-dark rounded-md  p-4">
+                <div class="grid grid-flow-col gap-2 place-content-center place-items-start bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark rounded-md  p-4">
                   <button type="button" on:click={zoomMinus} class="tooltip tooltip-top tooltip-neutral" data-tip="Réduire la taille du texte">
                     <i
                       class="bx {deviceType() === 'mobile'
@@ -497,7 +497,7 @@
               </button>
               <div class="w-full absolute inset-0 group-hover:flex flex-row p-4 justify-center space-x-4 items-center hidden z-10 -translate-x-20">
                 <!-- boutons d'exports -->
-                <div class="grid grid-flow-col gap-4 place-content-center place-items-start bg-coopmaths-canvas-dark dark:bg-coopmaths-canvas-dark rounded-md  p-4">
+                <div class="grid grid-flow-col gap-4 place-content-center place-items-start bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark rounded-md  p-4">
                   <button
                     type="button"
                     class="tooltip tooltip-top tooltip-neutral "
@@ -513,13 +513,28 @@
                       {deviceType() === 'mobile' ? 'bx-sm' : 'bx-md'} "
                     />
                   </button>
-                  <label for="modal-settings-eleve" class="tooltip tooltip-top tooltip-neutral" data-tip="Lien pour les élèves">
+                  <!-- <label for="modal-settings-eleve" class="tooltip tooltip-top tooltip-neutral" data-tip="Config pour élèves">
                     <i
                       class="bx bxs-graduation  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest
                       {deviceType() === 'mobile' ? 'bx-sm' : 'bx-md'}"
                     />
                   </label>
-                  <ModalSettingsVueEleve />
+                  <ModalSettingsVueEleve /> -->
+                  <button
+                    type="button"
+                    class="tooltip tooltip-top tooltip-neutral "
+                    data-tip="Config Vue Élève"
+                    on:click={() =>
+                      globalOptions.update((params) => {
+                        params.v = "confeleve"
+                        return params
+                      })}
+                  >
+                    <i
+                      class="bx bxs-graduation  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest
+                      {deviceType() === 'mobile' ? 'bx-sm' : 'bx-md'} "
+                    />
+                  </button>
                   <button
                     type="button"
                     class="tooltip tooltip-top tooltip-neutral"

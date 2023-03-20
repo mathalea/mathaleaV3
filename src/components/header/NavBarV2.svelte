@@ -1,8 +1,6 @@
 <script>
   import { globalOptions, darkMode } from "../store"
   import { handleComponentChange } from "../utils/navigation"
-
-  import NavBarMenuV2 from "./NavBarMenuV2.svelte"
   let isNavBarVisible = false
   export let title = "MathALÉA"
   export let subtitle = ""
@@ -95,26 +93,26 @@
     return ("https://coopmaths.fr/mathalea.html?" + params.toString()).replaceAll("id=", "ex=").replaceAll("&s", ",s").replaceAll("&n", ",n")
   }
 
-  function goToMathalea() {
-    handleComponentChange("latex", "")
+  function goToMathalea(paramV) {
+    handleComponentChange(paramV, "")
   }
 </script>
 
 <nav class="p-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas z-50">
   <!-- container -->
-  <div class="flex flex-row justify-between w-full mx-auto lg:space-x-6 lg:items-center">
+  <div class="flex flex-col md:flex-row justify-start md:justify-between w-full mx-auto lg:space-x-6 lg:items-center">
     <!-- bouton menu -->
-    <div class="flex flex-row justify-start space-x-2">
+    <div class="flex flex-col lg:flex-row justify-start space-x-2">
       <!-- logo -->
       <div class="relative">
         <div
-          on:click={goToMathalea}
-          on:keydown={goToMathalea}
+          on:click={() => goToMathalea($globalOptions.v)}
+          on:keydown={() => goToMathalea($globalOptions.v)}
           class="inline-flex cursor-pointer text-6xl font-logo13Condensed font-black text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
         >
           {title}
         </div>
-        <div class="absolute -bottom-4 right-0 font-logo13Condensed font-normal text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+        <div class="absolute -bottom-4 left-1 font-logo13Condensed font-normal text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
           par <a
             href="https://coopmaths.fr"
             target="_blank"
@@ -124,13 +122,13 @@
         </div>
       </div>
       {#if subtitle}
-        <div class="inline-flex text-6xl font-logo13Condensed">
-          <div class="px-4 font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"><i class="bx bx-export bx-rotate-90" /></div>
+        <div class="flex flex-row items-center space-x-4 pt-6 lg:pt-0 md:inline-flex text-3xl md:text-6xl font-logo13Condensed">
+          <div class="px-0 md:px-4 font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"><i class="bx bx-export rotate-90 translate-y-1" /></div>
           <div class=" font-black text-coopmaths-struct dark:text-coopmathsdark-struct">{subtitle}</div>
         </div>
       {/if}
     </div>
-    <div class="flex px-4">
+    <div class="flex px-0 pt-4 md:pt-0 md:px-4">
       <label class="swap swap-rotate text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
         <!-- this hidden checkbox controls the state -->
         <input type="checkbox" class="invisible" bind:checked={$darkMode.isActive} />
