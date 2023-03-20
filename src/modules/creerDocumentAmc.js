@@ -10,7 +10,7 @@ import {
 
 /**
  *
- * @param {array} thisAmc tableau this.amc d'un exercice : [référence de l'exercice,this.autoCorrection de l'exercice,titre de l'exercice, type de question AMC,{options ?}]
+ * @param {array} exercice TypeExercice
  * @param {number} idExo c'est un numéro unique pour gérer les noms des éléments d'un groupe de question, il est incrémenté par creerDocumentAmc()
  */
 
@@ -803,16 +803,7 @@ export function exportQcmAmc (exercice, idExo) {
  * @author Jean-Claude Lhote
  * Fonction qui crée un document pour AMC (pour le compiler, le package automultiplechoice.sty doit être présent)
  *
- *  questions est un tableau d'éléments de type Exercice.QCM
- * Exercice.QCM est un tableau produit par l'exercice
- * QCM[0] est la référence du groupe de question, c'est la référence de l'exercice dont il est issu
- * QCM[1] est un tableau d'éléments de type ['question posée',tableau des réponses,tableau des booléens bon ou mauvais]
- * QCM[2] est le titre donné sur la copie pour le groupe de question (pour ne pas mettre la référence)
- * QCM[3] est le type de question :
- * 1=question à choix multiple avec 1 bonne réponse
- * 2=questionmult à choix multiple avec plusieurs bonnes réponses
- * 3=AMCOpen question ouverte sans bonne ni mauvaise réponse 3 cases à cocher par l'enseignant
- * 4=questionmultx avec AMCnumeriqueChoices question ouverte à réponse numérique codée
+ *  questions est un tableau d'exercies TypeExercice[]
  *
  * nbQuestions est un tableau pour préciser le nombre de questions à prendre dans chaque groupe pour constituer une copie
  * s'il est indéfini, toutes les questions du groupe seront posées.
@@ -828,7 +819,7 @@ export function creerDocumentAmc ({
   typeEntete = 'AMCcodeGrid',
   format = 'A4'
 }) {
-  // Attention questions est maintenant un tableau de tous les this.amc des exos
+  // Attention questions est maintenant un tableau de tous les exercices.
   // Dans cette partie, la fonction récupère toutes les questions et les trie pour les rassembler par groupe
   // Toutes les questions d'un même exercice seront regroupées ce qui permet éventuellement de les récupérer dans des fichiers individuels pour se constituer une base
   let idExo = 0
