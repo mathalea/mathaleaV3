@@ -13,6 +13,7 @@ import { setReponse } from '../../../modules/gestionInteractif.js'
 import Grandeur from '../../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
+import ClasseCan2023 from './_canc3a.js'
 export const titre = 'CAN CM2 sujet 2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -56,22 +57,22 @@ export default function SujetCAN2023CM2 () {
     const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
 
     for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, prenom1, prenom2, m, prix, pol, pol2, L, l, l2, E, F, G, H, maListe, taille1, res, chiffre, chiffre2, propositions, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const myCan = new ClasseCan2023()
       switch (typeQuestionsDisponibles[i]) {
-        case 1:
-          a = randint(4, 9)
-          b = randint(4, 9)
-          texte = `$${a} \\times ${b}${context.isHtml ? '=' : ''}$`
-          texteCorr = `$${a} \\times ${b}=${miseEnEvidence(a * b)}$`
-          reponse = a * b
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+        case 1:{
+          const produit = myCan.produitDeDeuxFacteurs(4, 9, 4, 9)
+          texte = produit.texte
+          texteCorr = produit.texteCorr
+          setReponse(this, index, produit.reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
             texte += context.isHtml ? '$\\ldots$' : ''
           }
           nbChamps = 1
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+          this.listeCanEnonces.push(produit.canEnonce)
+          this.listeCanReponsesACompleter.push(produit.canReponseACompleter)
+        }
           break
 
         case 2:
@@ -143,7 +144,7 @@ export default function SujetCAN2023CM2 () {
 
         case 5:
           if (choice([true, false])) {
-            a = randint(42, 52, [40, 45, 50]) * 2 // choix de la table = écart entre deux graduations
+            a = randint(42, 52, [40, 45, 50]) * 2 // choix de la produit = écart entre deux graduations
 
             d = droiteGraduee({
               Unite: 0.5,
@@ -163,7 +164,7 @@ export default function SujetCAN2023CM2 () {
               labelsPrincipaux: true
             })
           } else {
-            a = choice([75, 85, 95, 105, 115])// choix de la table = écart entre deux graduations
+            a = choice([75, 85, 95, 105, 115])// choix de la produit = écart entre deux graduations
 
             d = droiteGraduee({
               Unite: 0.25,
@@ -184,14 +185,14 @@ export default function SujetCAN2023CM2 () {
             })
           }
           reponse = a
-          texte = 'Quel est le nombre écrit sous le point d\'interrogation ?<br>\n' + mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, d) + '\n'
-          texte += context.isHtml ? '' : '\\\\\\smallskip'
+          texte = context.isHtml ? 'Quel est le nombre écrit sous le point d\'interrogation ?<br>\n' + mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, d) + '\n' : 'Complète'
+          // texte += context.isHtml ? '' : '\\\\\\smallskip'
           texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(a)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+          this.listeCanReponsesACompleter.push(`\\Reperage[DemiDroite,Unitex=\\mpdim{\\Largeurcp}/(1cm*2),Pasx=3,AffichageNom,AffichageGrad]{${d.Min}/,${a}/3*A,${d.Max}/C}\\`)
           break
 
         case 6: {
@@ -438,11 +439,16 @@ export default function SujetCAN2023CM2 () {
           this.listeCanReponsesACompleter.push('')
           break
 
-        case 14:
-          texte = `rrr, i : ${i} , index : ${index}`
-          texteCorr = `rrr, i : ${i} , index : ${index}`
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+        case 14: {
+          const ecritureDecimaleProduitEntierParDixiemesOuCentiemes = myCan.ecritureDecimaleProduitEntierParDixiemesOuCentiemes()
+          texte = ecritureDecimaleProduitEntierParDixiemesOuCentiemes.texte
+          texteCorr = ecritureDecimaleProduitEntierParDixiemesOuCentiemes.texte
+          setReponse(this, index, ecritureDecimaleProduitEntierParDixiemesOuCentiemes.reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+          this.listeCanEnonces.push(ecritureDecimaleProduitEntierParDixiemesOuCentiemes.canEnonce)
+          this.listeCanReponsesACompleter.push(ecritureDecimaleProduitEntierParDixiemesOuCentiemes.canReponseACompleter)
+        }
           break
 
         case 15:
