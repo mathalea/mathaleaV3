@@ -20,6 +20,7 @@
   let titre = ""
   let nbQuestions: number[] = []
   let nbQuestionsString = ""
+  let textForOverleaf: HTMLInputElement
 
   async function initExercices() {
     Mathalea.updateExercicesParamsFromUrl()
@@ -38,6 +39,7 @@
     // ToDo vérifier la saisie utilisateur
     nbQuestions = nbQuestionsString.split(",").map((e) => parseInt(e))
     content = creerDocumentAmc({ questions: exercices, typeEntete: entete, format, matiere, titre, nbQuestions })
+
   }
 
   /**
@@ -57,9 +59,9 @@
     )
   }
 
-  function exportToOverLeaf() {
-    // à faire !
-    return null
+  function exportToOverLeaf(): void {
+    // à faire !   const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
+    textForOverleaf.value = encodeURIComponent(content)
   }
 </script>
 
@@ -118,18 +120,30 @@
         />
       </div>
     </div>
-    <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10 mt-8">
-      <ModalActionWithDialog
-        dialogId="latexCopy"
-        title="Copier le code LaTeX"
-        message="Le code LaTeX a été copier dans le presse papier"
-        messageError="Impossible de copier le code dans le presse-papier !"
-        on:display={() => {
+
+      <form class="my-5 flex-auto w-full" method="POST" action="https://www.overleaf.com/docs" target="_blank">
+        <input type="hidden" name="encoded_snip" value="" bind:this={textForOverleaf} autocomplete="off" />
+        <input type="hidden" name="snip_name" value="CoopMaths" autocomplete="off" />
+        <input type="hidden" name="engine" value="lualatex" autocomplete="off" />
+        <button
+                id="btn_overleaf"
+                type="submit"
+                on:click={exportToOverLeaf}
+                class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
+        >
+          Compiler en PDF sur Overleaf.com
+        </button>
+        <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10 mt-8">
+          <ModalActionWithDialog
+                  dialogId="latexCopy"
+                  title="Copier le code LaTeX"
+                  message="Le code LaTeX a été copier dans le presse papier"
+                  messageError="Impossible de copier le code dans le presse-papier !"
+                  on:display={() => {
           copyLaTeXCodeToClipBoard("latexCopy")
         }}
-      />
-      <Button title="Compiler sur OverLeaf" on:click={exportToOverLeaf} />
-    </div>
+          />
+      </form>
     <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">
       {content}
     </pre>
