@@ -8,6 +8,7 @@
   export let buttonIcon: string = "bx-link"
   export let buttonSecondIcon: string = ""
   export let classForButton: string = ""
+  export let title: string = ""
 
   const dispatch = createEventDispatcher()
 
@@ -35,6 +36,7 @@
     * `buttonIcon` : icone utilisée pour le bouton
     * `buttonSecondIcon` : icone à ajouter
     * `classForButton` : pour ajouter des éléments de positionnement du bouton
+    * `title` : titre pour un bouton (remplace l'icone)
 
     __Exemple__ :
 
@@ -49,6 +51,7 @@
         buttonIcon="bx-link"
         buttonSecondIcon=""
         classForButton = "mr-4 my-2"
+        title = ""
     />
     ```
  -->
@@ -56,12 +59,18 @@
 <div class="tooltip tooltip-bottom tooltip-neutral" data-tip={tooltipMessage}>
   <button
     type="button"
-    class="{classForButton} text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+    class="{classForButton} {title.length === 0
+      ? 'text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest'
+      : 'text-coopmaths-canvas  dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest p-2 rounded-xl'}"
     on:click={fireMessage}
   >
-    <i class="relative bx {buttonIcon} {buttonSize}" />
-    {#if buttonSecondIcon.length !== 0}
-      <i class="absolute -bottom-1 bx {buttonSecondIcon} text-sm -translate-x-3 text-coopmaths-warn dark:text-coopmathsdark-warn" />
+    {#if title.length === 0}
+      <i class="relative bx {buttonIcon} {buttonSize}" />
+      {#if buttonSecondIcon.length !== 0}
+        <i class="absolute -bottom-1 bx {buttonSecondIcon} text-sm -translate-x-3 text-coopmaths-warn dark:text-coopmathsdark-warn" />
+      {/if}
+    {:else}
+      {title}
     {/if}
   </button>
   <dialog class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg" id={dialogId + "-1"}>

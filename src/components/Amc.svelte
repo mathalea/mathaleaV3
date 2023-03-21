@@ -7,7 +7,10 @@
   import type TypeExercice from "./utils/typeExercice"
   import FormRadio from "./forms/FormRadio.svelte"
   import { darkMode } from "./store"
-  import NavBarV2 from "./header/NavBarV2.svelte"
+  import NavBar from "./header/NavBar.svelte"
+  import Button from "./forms/Button.svelte"
+  import ModalActionWithDialog from "./modal/ModalActionWithDialog.svelte"
+  import { showDialogForLimitedTime } from "./utils/dialogs.js"
 
   let exercices: TypeExercice[] = []
   let content = ""
@@ -36,15 +39,37 @@
     nbQuestions = nbQuestionsString.split(",").map((e) => parseInt(e))
     content = creerDocumentAmc({ questions: exercices, typeEntete: entete, format, matiere, titre, nbQuestions })
   }
+
+  /**
+   * Copier le code LaTeX dans le presse-papier
+   * @param {string} dialogId id attaché au composant
+   * @author sylvain
+   */
+  async function copyLaTeXCodeToClipBoard(dialogId) {
+    navigator.clipboard.writeText(content).then(
+      () => {
+        showDialogForLimitedTime(dialogId + "-1", 1000)
+      },
+      (err) => {
+        console.error("Async: Could not copy text: ", err)
+        showDialogForLimitedTime(dialogId + "-2", 1000)
+      }
+    )
+  }
+
+  function exportToOverLeaf() {
+    // à faire !
+    return null
+  }
 </script>
 
 <main class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
   <NavBarV2 subtitle="AMC" />
 
   <section class="px-10 py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-    <div class="flex my-4 space-x-5">
+    <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10">
       <div>
-        <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Type d'entête</div>
+        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Type d'entête</div>
         <FormRadio
           title="entete"
           bind:valueSelected={entete}
@@ -56,7 +81,7 @@
         />
       </div>
       <div>
-        <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Format</div>
+        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Format</div>
         <FormRadio
           title="format"
           bind:valueSelected={format}
@@ -67,35 +92,47 @@
         />
       </div>
     </div>
-    <div class="flex space-x-5">
+    <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10">
       <div>
-        <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Matière</div>
+        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Matière</div>
         <input
           type="text"
-          class="border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+          class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
           bind:value={matiere}
         />
       </div>
       <div>
-        <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Titre</div>
+        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Titre</div>
         <input
           type="text"
-          class="border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+          class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
           bind:value={titre}
         />
       </div>
       <div>
-        <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre de questions</div>
+        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre de questions</div>
         <input
           type="text"
-          class="border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+          class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
           bind:value={nbQuestionsString}
         />
       </div>
     </div>
+    <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10 mt-8">
+      <ModalActionWithDialog
+        dialogId="latexCopy"
+        title="Copier le code LaTeX"
+        message="Le code LaTeX a été copier dans le presse papier"
+        messageError="Impossible de copier le code dans le presse-papier !"
+        on:display={() => {
+          copyLaTeXCodeToClipBoard("latexCopy")
+        }}
+      />
+      <Button title="Compiler sur OverLeaf" on:click={exportToOverLeaf} />
+    </div>
     <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">
-    {content}
-  </pre>
+      {content}
+    </pre>
   </section>
   <Footer />
 </main>
