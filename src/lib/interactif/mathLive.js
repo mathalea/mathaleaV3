@@ -158,7 +158,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             if (parseInt(saisie) === reponse.n) resultat = 'OK'
           } else {
             saisieParsee = engine.parse(saisie.replace('frac', 'dfrac').replace('ddfrac', 'dfrac'))
-            fReponse = engine.parse(reponse.texFSD)
+            fReponse = engine.parse(reponse.texFSD.replaceAll('\\,', ''))
             if (saisieParsee.isEqual(fReponse)) resultat = 'OK'
           }
           break
