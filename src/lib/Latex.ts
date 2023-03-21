@@ -175,7 +175,7 @@ function writeInCols (text: string, nb: number): string {
  * * `<br>` est remplacé par un saut de paragraphe
  * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
  */
-function format (text: string) {
+export function format (text: string): string {
   if (text === undefined) return ''
   return text
     .replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/gim, '\n\n\\medskip\n')

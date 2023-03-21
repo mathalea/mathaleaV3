@@ -125,7 +125,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             if (parseInt(saisie) === reponse.n) resultat = 'OK'
           } else {
             saisieParsee = engine.parse(saisie, { canonical: false })
-            fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac'), { canonical: false })
+            fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', ''), { canonical: false })
             if (saisieParsee.isEqual(fReponse) && saisieParsee.json[1] && saisieParsee.json[1] < fReponse.json[1] && Number.isInteger(saisieParsee.json[1])) resultat = 'OK'
           }
           break
@@ -138,7 +138,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           } else {
             saisieParsee = engine.parse(saisie).canonical
           }
-          fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac')).canonical
+          fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', '')).canonical
           if (saisieParsee) {
             if (saisieParsee.isEqual(fReponse)) resultat = 'OK'
           }
@@ -158,7 +158,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             if (parseInt(saisie) === reponse.n) resultat = 'OK'
           } else {
             saisieParsee = engine.parse(saisie.replace('frac', 'dfrac').replace('ddfrac', 'dfrac'))
-            fReponse = engine.parse(reponse.texFSD)
+            fReponse = engine.parse(reponse.texFSD.replaceAll('\\,', ''))
             if (saisieParsee.isEqual(fReponse)) resultat = 'OK'
           }
           break
