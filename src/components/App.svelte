@@ -8,7 +8,6 @@
   import { globalOptions } from "./store"
   import { context } from "../modules/context"
   import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from "../modules/ElementInstrumenpoche"
-  import Latex from "./Latex.svelte"
   import Amc from "./Amc.svelte"
 
   context.versionMathalea = 3
@@ -37,7 +36,7 @@
     } else {
       context.isHtml = true
     }
-    if ($globalOptions.v === 'amc') {
+    if ($globalOptions.v === "amc") {
       context.isAmc = true
       context.isHtml = false
     }
@@ -56,7 +55,7 @@
   {:else if $globalOptions.v === "confeleve"}
     <ConfigEleve />
   {:else if $globalOptions.v === "amc"}
-   <Amc />
+    <Amc />
   {:else}
     <Start />
   {/if}

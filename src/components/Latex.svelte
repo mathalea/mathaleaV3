@@ -8,7 +8,7 @@
   import Button from "./forms/Button.svelte"
   import FormRadio from "./forms/FormRadio.svelte"
   import { onMount } from "svelte"
-    import { handleComponentChange } from "./utils/navigation";
+  import { handleComponentChange } from "./utils/navigation"
 
   let nbVersions = 1
   let title = ""
@@ -26,7 +26,7 @@
     Mathalea.updateExercicesParamsFromUrl()
     exercices = await Mathalea.getExercicesFromParams($exercicesParams)
     for (const exercice of exercices) {
-      if (exercice.typeExercice === 'statique') {
+      if (exercice.typeExercice === "statique") {
         isExerciceStaticInTheList = true
         break
       }
@@ -77,7 +77,7 @@
   <NavBarV2 subtitle="LaTeX" />
 
   <section class="px-10 py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-    <Button title="Retour" icon='bx-chevron-left' on:click={() => handleComponentChange("latex", "")} />
+    <Button title="Retour" icon="bx-x" classDeclaration="text-3xl" on:click={() => handleComponentChange("latex", "")} />
     <form class="my-5 flex-auto w-full" method="POST" action="https://www.overleaf.com/docs" target="_blank">
       <input type="hidden" name="encoded_snip" value="" bind:this={textForOverleaf} autocomplete="off" />
       <input type="hidden" name="snip_name" value="CoopMaths" autocomplete="off" />
