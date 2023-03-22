@@ -11,6 +11,7 @@
 ::-webkit-scrollbar {
   display:none;
 }
+:root{ scrollbar-width: none }
 /*
  .d8888b.                                                               
 d88P  Y88b                                                              
@@ -694,6 +695,45 @@ src: local(''),
        url('fonts/Barlow-ThinItalic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
+/* Orbiton black */
+@font-face {
+  font-family: 'Orbiton';
+  font-style: normal;
+  font-weight: 900;
+  src: local(''),
+       url('/fonts/orbitron_black-webfont.woff') format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+       url('/fonts/orbitron_black-webfont.woff2') format('woff2'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* Orbiton bold */
+@font-face {
+  font-family: 'Orbiton';
+  font-style: normal;
+  font-weight: 800;
+  src: local(''),
+       url('/fonts/orbitron_bold-webfont.woff') format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+       url('/fonts/orbitron_bold-webfont.woff2') format('woff2'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* Orbiton medium */
+@font-face {
+  font-family: 'Orbiton';
+  font-style: normal;
+  font-weight: 500;
+  src: local(''),
+       url('/fonts/orbitron_medium-webfont.woff') format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+       url('/fonts/orbitron_medium-webfont.woff2') format('woff2'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* Orbiton light */
+@font-face {
+  font-family: 'Orbiton';
+  font-style: normal;
+  font-weight: 300;
+  src: local(''),
+       url('/fonts/orbitron_light-webfont.woff') format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+       url('/fonts/orbitron_light-webfont.woff2') format('woff2'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
 /* 
 888b     d888                                                                
 8888b   d8888                                                                

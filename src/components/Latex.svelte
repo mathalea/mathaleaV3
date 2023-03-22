@@ -3,12 +3,13 @@
   import { Mathalea } from "../lib/Mathalea.js"
   import type TypeExercice from "./utils/typeExercice"
   import Footer from "./Footer.svelte"
-  import NavBar from "./header/NavBar.svelte"
+  import NavBarV2 from "./header/NavBarV2.svelte"
   import Latex from "../lib/Latex"
   import Button from "./forms/Button.svelte"
   import FormRadio from "./forms/FormRadio.svelte"
   import { onMount } from "svelte"
-    import { handleComponentChange } from "./utils/navigation";
+  import { handleComponentChange } from "./utils/navigation"
+  import { deviceType } from "./utils/measures"
 
   let nbVersions = 1
   let title = ""
@@ -26,7 +27,7 @@
     Mathalea.updateExercicesParamsFromUrl()
     exercices = await Mathalea.getExercicesFromParams($exercicesParams)
     for (const exercice of exercices) {
-      if (exercice.typeExercice === 'statique') {
+      if (exercice.typeExercice === "statique") {
         isExerciceStaticInTheList = true
         break
       }
@@ -74,11 +75,64 @@
 </script>
 
 <main class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
-  <NavBar subtitle="LaTeX" />
+  <NavBarV2 subtitle="LaTeX" />
 
-  <section class="px-10 py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-    <Button title="Retour" icon='bx-chevron-left' on:click={() => handleComponentChange("latex", "")} />
-    <form class="my-5 flex-auto w-full" method="POST" action="https://www.overleaf.com/docs" target="_blank">
+  <section class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+    <h1 class="mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Paramétrage</h1>
+    <div class="w-full flex flex-col space-x-5">
+      <div class="flex flex-col mb-2 md:mb-8  md:flex-row justify-start items-start">
+        <h2 class="text-xl ml-4 md:text-2xl font-bold md:mr-10 mb-2 md:mb-0 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Mise en page</h2>
+        <div class="pb-4 md:pb-0 md:pt-1">
+          <FormRadio
+            title="Style"
+            orientation={deviceType() === "mobile" ? "col" : "row"}
+            bind:valueSelected={style}
+            labelsValues={[
+              { label: "Coopmaths", value: "Coopmaths" },
+              { label: "Classique", value: "Classique" },
+              { label: "Course aux nombres", value: "Can", isDisabled: isExerciceStaticInTheList },
+            ]}
+          />
+        </div>
+      </div>
+
+      <div class="flex flex-col lg:flex-row space-x-0 lg:space-x-4 space-y-3 lg:space-y-0 ">
+        <h2 class="ml-0 text-xl md:text-2xl font-bold md:mr-10 mb-2 lg:mb-0 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Éléments de titres</h2>
+        <input
+          type="text"
+          class="border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+          placeholder="Titre"
+          bind:value={title}
+        />
+        <input
+          type="text"
+          class="border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+          placeholder={style === "Coopmaths" ? "Référence" : "Haut de page gauche"}
+          bind:value={reference}
+        />
+        <input
+          type="text"
+          class="border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+          placeholder={style === "Coopmaths" ? "Sous-titre / Chapitre" : "Pied de page droit"}
+          bind:value={subtitle}
+        />
+      </div>
+      <div class="flex flex-col md:flex-row mt-6">
+        <h2 class="text-xl md:text-2xl font-bold md:mr-10 mb-2 md:mb-0 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre de versions des exercices</h2>
+        <input
+          type="number"
+          class="border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+          name="numberOfVersions"
+          maxlength="2"
+          min="1"
+          max="20"
+          bind:value={nbVersions}
+        />
+      </div>
+    </div>
+
+    <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Exportation</h1>
+    <form class="flex flex-col md:flex-row mx-4 pb-4 md:pb-8 md:space-x-4 space-y-3" method="POST" action="https://www.overleaf.com/docs" target="_blank">
       <input type="hidden" name="encoded_snip" value="" bind:this={textForOverleaf} autocomplete="off" />
       <input type="hidden" name="snip_name" value="CoopMaths" autocomplete="off" />
       <input type="hidden" name="engine" value="lualatex" autocomplete="off" />
@@ -90,59 +144,18 @@
       >
         Compiler en PDF sur Overleaf.com
       </button>
-      <div class="inline-flex justify-start-items-center ml-20 space-x-5">
-        <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} />
-        <Button title="Copier le code LaTeX complet (avec préambule)" on:click={copyDocument} />
-      </div>
+      <div class="hidden md:block w-10" />
+      <div class="block md:hidden h-6" />
+      <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} />
+      <Button title="Copier le code LaTeX complet (avec préambule)" on:click={copyDocument} />
     </form>
-
-    <div class="my-5 flex-auto w-full space-x-5">
-      <div class="inline-flex align-top">
-        <FormRadio
-          title="Style"
-          bind:valueSelected={style}
-          labelsValues={[
-            { label: "Coopmaths", value: "Coopmaths" },
-            { label: "Classique", value: "Classique" },
-            { label: "Course aux nombres", value: "Can", isDisabled: isExerciceStaticInTheList },
-          ]}
-        />
-      </div>
-      <input
-        type="text"
-        class="border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-        placeholder="Titre"
-        bind:value={title}
-      />
-      <input
-        type="text"
-        class="border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-        placeholder={style === "Coopmaths" ? "Référence" : "Haut de page gauche"}
-        bind:value={reference}
-      />
-      <input
-        type="text"
-        class="border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-        placeholder={style === "Coopmaths" ? "Sous-titre / Chapitre" : "Pied de page droit"}
-        bind:value={subtitle}
-      />
-      <label for="numberOfVersions" class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">Nombre de versions des exercices</label>
-      <input
-        type="number"
-        class="ml-2 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-        name="numberOfVersions"
-        maxlength="2"
-        min="1"
-        max="20"
-        bind:value={nbVersions}
-      />
-    </div>
 
     <dialog bind:this={dialogLua} class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg">
       <p>Le contenu a été copié dans le presse-papier.</p>
       <p>Il faudra utiliser <em class="text-coopmaths font-bold">LuaLaTeX</em> pour compiler le document</p>
     </dialog>
 
+    <h1 class="mt-12 md:mt-8 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Code</h1>
     <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">
       {contents.content}
 

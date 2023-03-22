@@ -42,6 +42,8 @@ export const resultsByExercice = writable([])
 // vue Élève : détecter la nécessité d'un menu
 export const isMenuNeededForExercises = writable<boolean>(false)
 export const isMenuNeededForQuestions = writable<boolean>(false)
+export const isSettingsMenuVisible = writable<boolean>(false)
+export const isExportMenuVisible = writable<boolean>(false)
 
 /**
  * Déplace un exercice dans exercicesParams

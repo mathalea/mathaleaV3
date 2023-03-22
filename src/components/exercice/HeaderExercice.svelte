@@ -62,14 +62,14 @@
     class="border-b border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-struct dark:text-coopmathsdark-struct pl-0 md:pl-4 mt-4 pb-2 flex flex-col lg:flex-row lg:justify-between lg:items-center"
   >
     <div class="flex flex-col lg:flex-row lg:justify-start lg:items-center" id="exercice{indiceExercice}">
-      <div class="flex font-bold text-3xl md:text-lg">
+      <div class="flex font-bold text-xl md:text-lg">
         Exercice&#8239;{indiceExercice + 1}
       </div>
       <div class="flex font-normal text-lg lg:text-normal">
         <span class="invisible lg:visible mx-1 font-bold">&middot;</span>{title}
       </div>
     </div>
-    <div class="flex flex-col md:flex-row justify-start space-x-2 md:space-x-10 text-normal mt-1 text-3xl lg:justify-end lg:text-xl mr-1">
+    <div class="flex flex-col md:flex-row justify-start space-x-2 md:space-x-10 text-normal mt-1 text-xl lg:justify-end mr-1">
       <div class="flex flex-row justify-start items-center">
         <!-- <button
           class="mx-2 tooltip tooltip-left"

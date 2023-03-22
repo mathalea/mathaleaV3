@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { globalOptions, resultsByExercice } from '../store'
-  import { afterUpdate, onMount, tick } from 'svelte'
-  import seedrandom from 'seedrandom'
-  import { prepareExerciceCliqueFigure } from '../../lib/interactif/interactif'
-  import { loadMathLive } from '../../modules/loaders'
-  import { Mathalea } from '../../lib/Mathalea'
-  import { exerciceInteractif } from '../../lib/interactif/interactif'
-  import { exercicesParams } from '../store'
-  import HeaderExercice from './HeaderExercice.svelte'
-  import Settings from './Settings.svelte'
+  import { globalOptions, resultsByExercice } from "../store"
+  import { afterUpdate, onMount, tick } from "svelte"
+  import seedrandom from "seedrandom"
+  import { prepareExerciceCliqueFigure } from "../../lib/interactif/interactif"
+  import { loadMathLive } from "../../modules/loaders"
+  import { Mathalea } from "../../lib/Mathalea"
+  import { exerciceInteractif } from "../../lib/interactif/interactif"
+  import { exercicesParams } from "../store"
+  import HeaderExercice from "./HeaderExercice.svelte"
+  import Settings from "./Settings.svelte"
   export let exercice
   export let indiceExercice
   export let indiceLastExercice
@@ -267,7 +267,7 @@
 
   {#if isVisible}
     <div class="flex flex-col-reverse lg:flex-row">
-      <div class="flex flex-col relative {isSettingsVisible ? 'w-full lg:w-3/4' : 'w-full'} duration-500" id="exercice{indiceExercice}">
+      <div class="flex flex-col justify-start items-start relative {isSettingsVisible ? 'w-full lg:w-3/4' : 'w-full'} duration-500" id="exercice{indiceExercice}">
         <div class="text-right text-coopmaths-struct dark:text-coopmathsdark-struct text-xs mt-2">
           {#if columnsCount > 1}
             <button
