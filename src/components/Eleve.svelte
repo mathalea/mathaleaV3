@@ -124,7 +124,7 @@
       if (paramsExercice.sup2) exercice.sup2 = paramsExercice.sup2
       if (paramsExercice.sup3) exercice.sup3 = paramsExercice.sup3
       if (paramsExercice.sup4) exercice.sup4 = paramsExercice.sup4
-      if (paramsExercice.interactif) exercice.interactif = (paramsExercice.interactif === '1')
+      if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif === "1"
       if (paramsExercice.alea) exercice.seed = paramsExercice.alea
       if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === "1"
       if (exercice.seed === undefined)
@@ -352,16 +352,18 @@
               </div>
               {#if isCorrectionVisible[k]}
                 <div
-                  class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest my-2 py-2 pl-6"
+                  class="relative border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark border-l-8 text-coopmaths-corpus dark:text-coopmathsdark-corpus my-2 py-2 pl-6"
                   style="break-inside:avoid"
                   bind:this={divsCorrection[k]}
                 >
                   {@html Mathalea.formatExercice(corrections[k])}
+                  <div class="absolute border-coopmaths-warn-dark top-0 left-0 border-b-4 w-10" />
                   <div
-                    class="absolute flex flex-row justify-center items-center -left-4 top-0 rounded-full bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-canvas dark:text-coopmathsdark-canvas h-6 w-6"
+                    class="absolute h-6 w-6 flex flex-row justify-center items-center -left-3 -top-2 rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas"
                   >
-                    <i class="bx bx-sm bx-check" />
+                    <i class="bx bx-check font-bold" />
                   </div>
+                  <div class="absolute border-coopmaths-warn-dark bottom-0 left-0 border-b-4 w-4" />
                 </div>
               {/if}
             </div>
@@ -401,16 +403,18 @@
                   </div>
                   {#if isCorrectionVisible[k]}
                     <div
-                      class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest my-2 py-2 pl-6"
+                      class="relative border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark border-l-4 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest my-2 py-2 pl-4 lg:pl-6"
                       style="break-inside:avoid"
                       bind:this={divsCorrection[k]}
                     >
                       {@html Mathalea.formatExercice(corrections[k])}
+                      <div class="absolute border-coopmaths-warn-dark top-0 left-0 border-b-4 w-10" />
                       <div
-                        class="absolute flex flex-row justify-center items-center -left-4 top-0 rounded-full bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-canvas dark:text-coopmathsdark-canvas h-6 w-6"
+                        class="absolute h-6 w-6 flex flex-row justify-center items-center -left-3 -top-2 rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas"
                       >
-                        <i class="bx bx-sm bx-check" />
+                        <i class="bx bx-check font-bold" />
                       </div>
+                      <div class="absolute border-coopmaths-warn-dark bottom-0 left-0 border-b-4 w-4" />
                     </div>
                   {/if}
                 </div>

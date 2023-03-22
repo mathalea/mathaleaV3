@@ -258,16 +258,18 @@
                 </li>
                 {#if isCorrectionVisible}
                   <div
-                    class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest mb-2 lg:mb-0 ml-4 lg:ml-0 py-2 pl-6"
+                    class="relative border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark border-l-4 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest mb-2 lg:mb-0 ml-0 lg:ml-0 py-2 pl-4 lg:pl-6"
                     style="margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: {exercice.spacingCorr || 1}; break-inside:avoid"
                     id="correction${indiceExercice}Q${i}"
                   >
                     {@html Mathalea.formatExercice(exercice.listeCorrections[i])}
+                    <div class="absolute border-coopmaths-warn-dark top-0 left-0 border-b-4 w-10" />
                     <div
-                      class="absolute flex flex-row justify-center items-center -left-4 top-0 rounded-full bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-canvas dark:text-coopmathsdark-canvas h-6 w-6"
+                      class="absolute h-6 w-6 flex flex-row justify-center items-center -left-3 -top-2 rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas"
                     >
-                      <i class="bx bx-sm bx-check" />
+                      <i class="bx bx-check font-bold" />
                     </div>
+                    <div class="absolute border-coopmaths-warn-dark bottom-0 left-0 border-b-4 w-4" />
                   </div>
                 {/if}
               </div>
