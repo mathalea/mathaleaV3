@@ -1,6 +1,5 @@
 import 'boxicons/css/boxicons.min.css'
 import './app.css'
-import { get } from 'svelte/store'
 import App from './components/App.svelte'
 import { exercicesParams, globalOptions } from './components/store'
 import type { InterfaceLoaderParams } from './lib/types'
@@ -12,7 +11,6 @@ export default function mathaleaLoader (loaderParams: InterfaceLoaderParams) {
   if (loaderParams.exercicesParams !== undefined) {
     exercicesParams.set(loaderParams.exercicesParams)
   }
-  console.log(loaderParams.exercicesParams, get(exercicesParams))
   // eslint-disable-next-line no-unused-vars
   const app = new App({
     target: loaderParams.container
