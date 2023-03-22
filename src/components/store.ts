@@ -3,8 +3,10 @@ import type { InterfaceGlobalOptions, InterfaceParams } from '../lib/types'
 
 /**
  * Pour bloquer la mise à jour de l'url
+ * à true par défaut pour les imports par des sites externes
+ * c'est remis à true dans start.ts
  */
-export const freezeUrl = writable<Boolean>(false)
+export const freezeUrl = writable<Boolean>(true)
 
 /**
  * exercicesParams est un tableau d'objets décrivant les exercices

@@ -1,28 +1,21 @@
 import 'boxicons/css/boxicons.min.css'
 import './app.css'
+import { get } from 'svelte/store'
 import App from './components/App.svelte'
 import { exercicesParams, globalOptions } from './components/store'
-import type { InterfaceGlobalOptions, InterfaceParams } from './lib/types'
+import type { InterfaceLoaderParams } from './lib/types'
 
-type ScoreCallback = () => { score: number, contenu: object }
-
-interface LoaderParams {
-  container: HTMLElement,
-  scoreCallback?: ScoreCallback
-  exerciceParams?: InterfaceParams[]
-  globalOptions?: InterfaceGlobalOptions
-}
-
-export default function mathaleaLoader (loaderParam: LoaderParams) {
-  if (loaderParam.globalOptions !== undefined) {
-    globalOptions.set(loaderParam.globalOptions)
+export default function mathaleaLoader (loaderParams: InterfaceLoaderParams) {
+  if (loaderParams.globalOptions !== undefined) {
+    globalOptions.set(loaderParams.globalOptions)
   }
-  if (loaderParam.exerciceParams !== undefined) {
-    exercicesParams.set(loaderParam.exerciceParams)
+  if (loaderParams.exercicesParams !== undefined) {
+    exercicesParams.set(loaderParams.exercicesParams)
   }
+  console.log(loaderParams.exercicesParams, get(exercicesParams))
   // eslint-disable-next-line no-unused-vars
   const app = new App({
-    target: loaderParam.container
+    target: loaderParams.container
   })
 
   // scoreCallback ():  // score est un number entre 0 et 1
