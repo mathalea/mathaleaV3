@@ -1,18 +1,11 @@
 import Exercice from '../../Exercice.js'
-import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
-import FractionX from '../../../modules/FractionEtendue.js'
-import { fraction } from '../../../modules/fractions.js'
-import {
-  point, grille, droiteGraduee, plot, segment, milieu, labelPoint, texteParPosition, polygoneAvecNom, polygone
-} from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
 import Hms from '../../../modules/Hms.js'
-import { listeQuestionsToContenu, miseEnEvidence, stringNombre, randint, texNombre, prenomF, prenomM, texPrix, shuffle, choice, sp, arrondi, texteEnCouleur } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, shuffle, choice } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import Grandeur from '../../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import Decimal from 'decimal.js'
 import ClasseCan2023 from './_canc3a.js'
 export const titre = 'CAN CM2 sujet 2023'
 export const interactifReady = true
@@ -56,7 +49,7 @@ export default function SujetCAN2023CM2 () {
     const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)//
     const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
 
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, prenom1, prenom2, m, prix, pol, pol2, L, l, l2, E, F, G, H, maListe, taille1, res, chiffre, chiffre2, propositions, choix, a, b, c, d, e, f, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, texte, texteCorr, a, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const myCan = new ClasseCan2023()
       switch (typeQuestionsDisponibles[i]) {
         case 1:{
@@ -75,78 +68,54 @@ export default function SujetCAN2023CM2 () {
         }
           break
 
-        case 2:
-          a = randint(23, 38, [20, 30, 31, 29])
-          b = choice([19, 29, 39])
-
-          texte = `$${a}+${b}${context.isHtml ? '=' : ''}$`
-          reponse = a + b
-          if (b === 19) { texteCorr = `$${a}+${b}=${a}+20-1=${a + 20}-1=${miseEnEvidence(reponse)}$` }
-          if (b === 29) { texteCorr = `$${a}+${b}=${a}+30-1=${a + 30}-1=${miseEnEvidence(reponse)}$` }
-          if (b === 39) { texteCorr = `$${a}+${b}=${a}+40-1=${a + 40}-1=${miseEnEvidence(reponse)}$` }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+        case 2: {
+          const somme = myCan.ajouterDizaineMoinsUn()
+          texte = somme.texte
+          texteCorr = somme.texteCorr
+          setReponse(this, index, somme.reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
             texte += context.isHtml ? '$\\ldots$' : ''
           }
           nbChamps = 1
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+          this.listeCanEnonces.push(somme.canEnonce)
+          this.listeCanReponsesACompleter.push(somme.canReponseACompleter)
+        }
           break
 
-        case 3:
-          k = randint(5, 8)
-          b = randint(2, 5) * k
-          c = []
-          for (let n = 0; n < b; n++) {
-            c.push(true)
-          }
-          c = shuffle(c)
-          d = []
-          for (let n = 0; n < b; n++) {
-            d.push(plot(n % k, -Math.floor(n / k), { rayon: 0.2, couleur: 'black', couleurDeRemplissage: 'black' }))
-          }
-          texte = 'Combien y a-t-il de boules noires ? <br> \n'
-
-          texte += `${mathalea2d(Object.assign({ scale: 0.3 }, fixeBordures(d)), d)}`
-          reponse = b
-          texteCorr = `Le nombre de boules noires est donné par : $${k}\\times ${texNombre(b / k, 0)}=${miseEnEvidence(b)}$.`
-
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('\\dots{} boules')
+        case 3:{
+          const figureProduit = myCan.denombrementProduit()
+          texte = figureProduit.texte
+          texteCorr = figureProduit.texteCorr
+          setReponse(this, index, figureProduit.reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { figureProduit.texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.listeCanEnonces.push(figureProduit.canEnonce)
+          this.listeCanReponsesACompleter.push(figureProduit.canReponseACompleter)
+        }
           break
 
-        case 4:
-          if (choice([true, false])) {
-            a = randint(11, 25, 20) * 2
-            reponse = a / 2
-            texte = `La moitié de $${a}$${context.isHtml ? ' est : ' : ''}`
-            texteCorr = `La moitié de $${a}$ est $${a}\\div 2=${miseEnEvidence(a / 2)}$.`
-          } else {
-            a = randint(16, 45, [20, 30, 40])
-            reponse = 2 * a
-            texte = `Le double de $${a}$${context.isHtml ? ' est : ' : ''}`
-            texteCorr = `Le double  de $${a}$ est $${a}\\times 2=${miseEnEvidence(a * 2)}$.`
-          }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+        case 4:{
+          const moitieDouble = myCan.moitieDouble()
+          texte = moitieDouble.texte
+          texteCorr = moitieDouble.texteCorr
+          setReponse(this, index, moitieDouble.reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            moitieDouble.texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += context.isHtml ? '$\\ldots$' : ''
+            moitieDouble.texte += context.isHtml ? '$\\ldots$' : ''
           }
           nbChamps = 1
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+          this.listeCanEnonces.push(moitieDouble.canEnonce)
+          this.listeCanReponsesACompleter.push(moitieDouble.canReponseACompleter)
+        }
           break
 
         case 5:{
           const axe = myCan.lectureAbscisseEntiere()
           texte = axe.texte
           texteCorr = axe.texteCorr
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          setReponse(this, index, axe.reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           this.listeCanEnonces.push(axe.canEnonce)
@@ -155,250 +124,90 @@ export default function SujetCAN2023CM2 () {
           break
 
         case 6: {
-          function texteQ6 (valeurCible) {
-            const sortie = { texte: '', reponseACompleter: ''}
-            sortie.texte = context.isHtml ? `Complète : ${sp(3)} $\\ldots \\times \\ldots =${valeurCible}$` : 'Complète'
-            sortie.reponseACompleter = `$\\ldots \\times \\ldots =${valeurCible}$`
-            return sortie
-          }
-          m = choice([1, 2, 3, 4])
-          if (m === 1) {
-            texte = texteQ6(18).texte
-            this.listeCanReponsesACompleter.push(texteQ6(18).reponseACompleter)
-            reponse = ['3;6', '1;18', '2;9']
-            texteCorr = `Trois réponses possibles (avec des entiers) : <br>
-          $${miseEnEvidence(3)}\\times ${miseEnEvidence(6)}=18$<br>
-          $${miseEnEvidence(2)}\\times ${miseEnEvidence(9)}=18$<br>
-          $${miseEnEvidence(1)}\\times ${miseEnEvidence(18)}=18$ `
-          }
-          if (m === 2) {
-            texte = texteQ6(21).texte
-            this.listeCanReponsesACompleter.push(texteQ6(21).reponseACompleter)
-            reponse = ['3;7', '1;21']
-            texteCorr = `Deux réponses possibles (avec des entiers) : <br>
-            $${miseEnEvidence(3)}\\times ${miseEnEvidence(7)}=21$<br>
-            $${miseEnEvidence(1)}\\times ${miseEnEvidence(21)}=21$ `
-          }
-          if (m === 3) {
-            texte = texteQ6(35).texte
-            this.listeCanReponsesACompleter.push(texteQ6(35).reponseACompleter)
-            reponse = ['5;7', '1;35']
-            texteCorr = `Deux réponses possibles (avec des entiers) : <br>
-              $${miseEnEvidence(5)}\\times ${miseEnEvidence(7)}=35$<br>
-              $${miseEnEvidence(1)}\\times ${miseEnEvidence(35)}=35$ `
-          }
-          if (m === 4) {
-            texte = texteQ6(42).texte
-            this.listeCanReponsesACompleter.push(texteQ6(42).reponseACompleter)
-            reponse = ['6;7', '1;42', '2;21', '3;14']
-            texteCorr = `Quatre réponses possibles (avec des entiers) : <br>
-                  $${miseEnEvidence(6)}\\times ${miseEnEvidence(7)}=42$<br>
-                  $${miseEnEvidence(2)}\\times ${miseEnEvidence(21)}=42$ <br>
-                  $${miseEnEvidence(3)}\\times ${miseEnEvidence(14)}=42$<br>
-                  $${miseEnEvidence(1)}\\times ${miseEnEvidence(42)}=42$`
-          }
-          setReponse(this, index, reponse, { formatInteractif: 'texte' })
+          const facteursDUnProduit = myCan.trouverLesFacteursDUnProduit()
+          texte = facteursDUnProduit.texte
+          texteCorr = facteursDUnProduit.texteCorr
+          setReponse(this, index, facteursDUnProduit.reponse, { formatInteractif: 'texte' })
           if (this.interactif) {
             texte += '<br>Écrire le deux nombres dans l\'ordre croissant séparés par un point virgule.'
             texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline')
           }
           nbChamps = 1
-          this.listeCanEnonces.push(texte)
+          this.listeCanEnonces.push(facteursDUnProduit.canEnonce)
+          this.listeCanReponsesACompleter.push(facteursDUnProduit.canReponseACompleter)
         }
           break
 
-        case 7:
-          if (choice([true, false])) {
-            a = randint(6, 10)
-            b = choice([35, 40, 45, 50, 55])
-            c = choice([30, 35, 40, 45])
-            texte = context.isHtml ? `$${b}\\text{ min }+${a} \\text{ h }${c} \\text{ min }=$` : `\\Temps{;;;;${b};}+ \\Temps{;;;${a};${c};}`
-            reponse = b + c - 60
-            texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne 
-                $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
-          } else {
-            a = randint(6, 10)
-            b = choice([20, 25, 30, 35])
-            c = choice([45, 50, 55])
-            texte = context.isHtml ? `$${b}\\text{ min }+${a} \\text{ h }${c} \\text{ min }=$` : `\\Temps{;;;;${b};}+ \\Temps{;;;${a};${c};}`
-            reponse = b + c - 60
-            texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne 
-    $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
-          }
+        case 7:{
+          const sommeDeDurees = myCan.sommeDeDurees()
+          texte = sommeDeDurees.texte
+          texteCorr = sommeDeDurees.texteCorr
+          setReponse(this, index, new Hms({ hour: a + 1, minute: sommeDeDurees.reponse }), { formatInteractif: 'hms' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline') }
-          setReponse(this, index, new Hms({ hour: a + 1, minute: reponse }), { formatInteractif: 'hms' })
           nbChamps = 1
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('\\ldots{} h \\ldots{} min')
+          this.listeCanEnonces.push(sommeDeDurees.canEnonce)
+          this.listeCanReponsesACompleter.push(sommeDeDurees.canReponseACompleter)
+        }
           break
 
-        case 8:
-          choix = choice(['a', 'b', 'c', 'd'])
-          if (choix === 'a') {
-            a = randint(9, 15) * 3
-
-            reponse = Math.round(a / 3)
-            texte = `Pour partager $${a}$ oeufs, combien de boites de  $3$ oeufs dois-je utiliser ? `
-            texteCorr = `Le nombre de boites est donné par $${a}\\div 3=${miseEnEvidence(a / 3)}$.`
-          }
-          if (choix === 'b') {
-            reponse = randint(8, 12)
-            a = reponse * 4
-            texte = `Pour partager $${a}$ oeufs, combien de boites de  $4$ oeufs dois-je utiliser ? `
-            texteCorr = `Le nombre de boites est donné par $${a}\\div 4=${miseEnEvidence(a / 4)}$.`
-          }
-          if (choix === 'c') {
-            reponse = randint(6, 10)
-            a = reponse * 5
-            texte = `Pour partager $${a}$ oeufs, combien de boites de  $5$ oeufs dois-je utiliser ? `
-            texteCorr = `Le nombre de boites est donné par $${a}\\div 5=${miseEnEvidence(reponse)}$.`
-          }
-          if (choix === 'd') {
-            reponse = randint(4, 8)
-            a = reponse * 6
-            texte = `Pour partager $${a}$ oeufs, combien de boites de  $6$ oeufs dois-je utiliser ? `
-            texteCorr = `Le nombre de boites est donné par $${a}\\div 6=${miseEnEvidence(reponse)}$.`
-          }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+        case 8:{
+          const partages = myCan.partages()
+          texte = partages.texte
+          texteCorr = partages.texteCorr
+          setReponse(this, index, partages.reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('Je dois utiliser \\\\ \\ldots{} boites.')
+          this.listeCanEnonces.push(partages.canEnonce)
+          this.listeCanReponsesACompleter.push(partages.canReponseACompleter)
+        }
           break
 
-        case 9:
-
-          taille1 = [['falaise', 15, 25, 'm'], ['girafe', 40, 50, 'dm'], ['échelle', 200, 300, 'cm'], ['bouteille', 28, 35, 'cm'], ['télévision', 50, 60, 'cm']]
-
-          a = randint(0, 4)
-          b = randint(taille1[a][1], taille1[a][2])
-          propositions = shuffle([
-            context.isHtml ? `$${b}$ m` : `\\Lg[m]{${b}}`,
-            context.isHtml ? `$${b}$ dm` : `\\Lg[dm]{${b}}`,
-            context.isHtml ? `$${b}$ cm` : `\\Lg[cm]{${b}}`,
-            context.isHtml ? `$${b}$ mm` : `\\Lg[mm]{${b}}`
-          ])
-
-          texte = `${context.isHtml ? 'Choisis' : 'Entoure'} parmi les propositions suivantes la hauteur d'une ${taille1[a][0]}<br>
-          `
-          texte += context.isHtml ? `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}${sp(4)} ${propositions[3]}` : ''
-          texteCorr = `La taille d'une ${taille1[a][0]} est $${miseEnEvidence(b)}$ ${taille1[a][3]}.`
-          setReponse(this, index, new Grandeur(b, taille1[a][3]), { formatInteractif: 'unites' })
+        case 9:{
+          const ordreDeGrandeur = myCan.ordreDeGrandeur()
+          texte = ordreDeGrandeur.texte
+          texteCorr = ordreDeGrandeur.texteCorr
+          setReponse(this, index, new Grandeur(ordreDeGrandeur.reponse, ordreDeGrandeur.reponseUnite), { formatInteractif: 'unites' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 longueur') }
           nbChamps = 1
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push(`${propositions[0]} \\hfill ${propositions[1]} \\hfill ${propositions[2]} \\hfill ${propositions[3]}`)
+          this.listeCanEnonces.push(ordreDeGrandeur.canEnonce)
+          this.listeCanReponsesACompleter.push(ordreDeGrandeur.canReponseACompleter)
+        }
           break
 
-        case 10:
-          chiffre = [['un', 1], ['deux', 2], ['trois', 3], ['cinq', 5], ['quatre', 4], ['six', 6], ['sept', 7], ['huit', 8], ['neuf', 9]]
-          chiffre2 = [['vingt', 20], ['trente', 30], ['quarante', 40], ['cinquante', 50], ['soixante', 60]]
-          a = randint(0, 8)
-          b = randint(0, 4)
-          c = randint(0, 8)
-          d = randint(0, 4)
-          if (choice([true, false])) {
-            chiffre = [['un', 1], ['deux', 2], ['trois', 3], ['cinq', 5], ['quatre', 4], ['six', 6], ['sept', 7], ['huit', 8], ['neuf', 9]]
-            chiffre2 = [['vingt', 20], ['trente', 30], ['quarante', 40], ['cinquante', 50], ['soixante', 60]]
-            a = randint(0, 8)
-            b = randint(0, 4)
-            c = randint(0, 8)
-            d = randint(0, 4)
-            if (a === 0) {
-              texte = `Écris en chiffres le nombre : <br> ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre[c][0]} `
-              reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]
-              texteCorr = `$\\text{${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre[c][0]}}= ${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000)} + ${chiffre[c][1]} =${miseEnEvidence(texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]))}$ `
-            } else {
-              texte = `Écris en chiffres le nombre : <br> ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre[c][0]} `
-              reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]
-              texteCorr = `$\\text{${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre[c][0]}}= ${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000)} + ${chiffre[c][1]} =${miseEnEvidence(texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]))}$ `
-            }
-          } else {
-            if (a === 0) {
-              texte = `Écris en chiffres le nombre : <br> ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre2[d][0]} `
-              reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]
-              texteCorr = `$\\text{${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre2[d][0]}} = ${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000)} + ${chiffre2[d][1]} =${miseEnEvidence(texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]))}$ `
-            } else {
-              texte = `Écris en chiffres le nombre : <br> ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre2[d][0]} `
-              reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]
-              texteCorr = `$\\text{${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre2[d][0]}} = ${texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000)} + ${chiffre2[d][1]} =${miseEnEvidence(texNombre((chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]))}$ `
-            }
-          }
-
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
-
-          nbChamps = 1
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
-          break
-
-        case 11:
-          prenom1 = prenomF()
-          prenom2 = prenomM()
-          if (choice([true, false])) {
-            b = randint(3, 5)
-            reponse = randint(4, 9)
-            a = reponse + b
-            texte = `${prenom1} a $${a}$ billes. <br>
-            Elle en a $${b}$ de plus que ${prenom2}.${context.isHtml ? '' : '\\\\'} Combien de billes a ${prenom2} ? `
-            texteCorr = `Puisque ${prenom1} en  a $${b}$ de plus, sa sœur en a $${b}$ de moins, soit  : $${a} - ${b}=${miseEnEvidence(a - b)}$. `
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
-            this.listeCanReponsesACompleter.push(`${prenom2} a \\ldots{} billes.`)
-          } else {
-            b = randint(6, 15)
-            a = randint(2, 5)
-            reponse = b - a
-            texte = `${prenom1} a $${b}$ ans. <br>
-            ${prenom2} a ${a} ans de moins que ${prenom1}. ${context.isHtml ? `${prenom2} a ` : ''}`
-            texteCorr = `Puisque ${prenom2} a ${a} ans de moins que ${prenom1}, son âge est  : $${b}-${a}=${miseEnEvidence(b - a)}$ ${texteEnCouleur('ans')}. `
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline', { texteApres: sp(5) + 'ans.' })
-            } else {
-              texte += context.isHtml ? '$\\ldots$ ans' : ''
-            }
-            this.listeCanReponsesACompleter.push(`${prenom2} a \\ldots{} ans.`)
-          }
-          this.listeCanEnonces.push(texte)
-          nbChamps = 1
-          break
-
-        case 12:
-          a = randint(2, 5)
-          b = randint(6, 9)
-          c = new Decimal('0.1')
-          if (choice([true, false])) {
-            a = randint(2, 5)
-            b = randint(6, 9)
-            c = new Decimal('0.1')
-            reponse = new Decimal(a).mul(b).mul(c)
-            texte = `Donne l'écriture décimale de  $${a}\\times ${b}$ dixièmes.`
-            texteCorr = `$1$ dixième $=0,1$, d'où $${a}\\times ${b}$ dixièmes $=${a}\\times ${b}\\times 0,1=${miseEnEvidence(texNombre(reponse, 1))}$.`
-          } else {
-            a = randint(2, 5)
-            b = randint(6, 9)
-            c = new Decimal('0.01')
-            reponse = new Decimal(a).mul(b).mul(c)
-            texte = `Donne l'écriture décimale de  $${a}\\times ${b}$ centièmes.`
-            texteCorr = `$1$ centième $=0,01$, d'où $${a}\\times ${b}$ centièmes $=${a}\\times ${b}\\times 0,01=${miseEnEvidence(texNombre(reponse, 2))}$.`
-          }
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+        case 10:{
+          const ecrireUnNombreEnChiffre = myCan.ecrireUnNombreEnChiffres()
+          texte = ecrireUnNombreEnChiffre.texte
+          texteCorr = ecrireUnNombreEnChiffre.texteCorr
+          setReponse(this, index, ecrireUnNombreEnChiffre.reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+          this.listeCanEnonces.push(ecrireUnNombreEnChiffre.canEnonce)
+          this.listeCanReponsesACompleter.push(ecrireUnNombreEnChiffre.canReponseACompleter)
+        }
           break
 
-        case 13:
-          texte = `rrr, i : ${i} , index : ${index}`
-          texteCorr = `rrr, i : ${i} , index : ${index}`
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+        case 11:{
+          let dePlusDeMoins
+          if (choice([true, false])) {
+            dePlusDeMoins = myCan.dePlusDeMoins('billes')
+          } else {
+            dePlusDeMoins = myCan.dePlusDeMoins('ages')
+          }
+          texte = dePlusDeMoins.texte
+          texteCorr = dePlusDeMoins.texteCorr
+          setReponse(this, index, dePlusDeMoins.reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline', dePlusDeMoins.champTexteApres)
+          } else {
+            texte += dePlusDeMoins.texteApres
+          }
+          nbChamps = 1
+          this.listeCanEnonces.push(dePlusDeMoins.canEnonce)
+          this.listeCanReponsesACompleter.push(dePlusDeMoins.canReponseACompleter)
+        }
           break
 
-        case 14: {
+        case 12:{
           const ecritureDecimaleProduitEntierParDixiemesOuCentiemes = myCan.ecritureDecimaleProduitEntierParDixiemesOuCentiemes()
           texte = ecritureDecimaleProduitEntierParDixiemesOuCentiemes.texte
           texteCorr = ecritureDecimaleProduitEntierParDixiemesOuCentiemes.texte
@@ -407,6 +216,29 @@ export default function SujetCAN2023CM2 () {
           nbChamps = 1
           this.listeCanEnonces.push(ecritureDecimaleProduitEntierParDixiemesOuCentiemes.canEnonce)
           this.listeCanReponsesACompleter.push(ecritureDecimaleProduitEntierParDixiemesOuCentiemes.canReponseACompleter)
+        }
+          break
+
+        case 13:{
+          const lectureAbscisseEntiereOrigineZero = myCan.lectureAbscisseEntiereOrigineZero()
+          texte = lectureAbscisseEntiereOrigineZero.texte
+          texteCorr = lectureAbscisseEntiereOrigineZero.texteCorr
+          setReponse(this, index, lectureAbscisseEntiereOrigineZero.reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+          this.listeCanEnonces.push(lectureAbscisseEntiereOrigineZero.canEnonce)
+          this.listeCanReponsesACompleter.push(lectureAbscisseEntiereOrigineZero.canReponseACompleter)
+        }
+          break
+
+        case 14:{
+          const trouverUnTermeDecimalInconnu = myCan.trouverUnTermeDecimalInconnu()
+          texte = trouverUnTermeDecimalInconnu.texte
+          texteCorr = trouverUnTermeDecimalInconnu.texteCorr
+          setReponse(this, index, trouverUnTermeDecimalInconnu.reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          this.listeCanEnonces.push(trouverUnTermeDecimalInconnu.canEnonce)
+          this.listeCanReponsesACompleter.push(trouverUnTermeDecimalInconnu.canReponseACompleter)
         }
           break
 
