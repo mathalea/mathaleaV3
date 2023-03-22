@@ -748,7 +748,7 @@ src: local(''),
                                                    "Y88P"                     */
 /*warnMessage*/
 div[id^="warnMessage"]{
-  @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 my-2 border-l-4 border-l-coopmaths-warn dark:border-l-coopmathsdark-warn  font-light relative w-2/3
+  @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 my-2 border-l-4 border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark  font-light relative w-2/3
 }
 div[id^="warnMessage"]:before{
     content: "🌬";
