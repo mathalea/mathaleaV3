@@ -175,7 +175,7 @@
     if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, isInteractif)
     exercice.interactif = isInteractif
     $exercicesParams[indiceExercice].alea = exercice.seed
-    $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
+    $exercicesParams[indiceExercice].interactif = isInteractif ? "1" : "0"
     $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
     exercice.numeroExercice = indiceExercice
     exercice.nouvelleVersion(indiceExercice)
@@ -248,8 +248,8 @@
     on:clickInteractif={(event) => {
       isInteractif = event.detail.isInteractif
       exercice.interactif = isInteractif
-      exercicesParams.update( params => {
-        params[indiceExercice].interactif = isInteractif ? '1' : '0'
+      exercicesParams.update((params) => {
+        params[indiceExercice].interactif = isInteractif ? "1" : "0"
         return params
       })
       updateDisplay()
@@ -324,11 +324,18 @@
                   </li>
                   {#if isCorrectionVisible}
                     <div
-                      class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest my-2 py-2 pl-6"
+                      class="relative border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark border-l-4 text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-2 mb-6 py-2 pl-4"
                       style="margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: {exercice.spacingCorr || 1}; break-inside:avoid"
                       id="correction${indiceExercice}Q${i}"
                     >
                       {@html Mathalea.formatExercice(exercice.listeCorrections[i])}
+                      <div class="absolute border-coopmaths-warn-dark top-0 left-0 border-b-4 w-10" />
+                      <div
+                        class="absolute h-6 w-6 flex flex-row justify-center items-center -left-3 -top-2 rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+                      >
+                        <i class="bx bx-check font-bold" />
+                      </div>
+                      <div class="absolute border-coopmaths-warn-dark bottom-0 left-0 border-b-4 w-4" />
                     </div>
                   {/if}
                 </div>
