@@ -4,10 +4,10 @@
   export let exercice
   let nbQuestions: number
   let duration: number
-  let sup: string | boolean
-  let sup2: string | boolean
-  let sup3: string | boolean
-  let sup4: string | boolean
+  let sup: boolean
+  let sup2: boolean
+  let sup3: boolean
+  let sup4: boolean
   let alea: string
   let correctionDetaillee: boolean
   let premierUpdate: boolean = true
@@ -126,55 +126,7 @@
     })
     return { titre, consigne, champsDecortiques }
   }
-  // // fabrication des objets correspondant aux paramètres texte.
-  // if (exercice.besoinFormulaireTexte) {
-  //   formText1 = parseFormTexte(exercice.besoinFormulaireTexte)
-  // }
-  // if (exercice.besoinFormulaire2Texte) {
-  //   formText2 = parseFormTexte(exercice.besoinFormulaire2Texte)
-  // }
-  // if (exercice.besoinFormulaire3Texte) {
-  //   formText3 = parseFormTexte(exercice.besoinFormulaire3Texte)
-  // }
-  // if (exercice.besoinFormulaire4Texte) {
-  //   formText4 = parseFormTexte(exercice.besoinFormulaire4Texte)
-  // }
-
-  /**
-   *
-   * @param {string} formId id du formulaire
-   * @author sylvain chambon
-   */
-  function submitOnSliderChange(formId: string) {
-    const e = document.getElementById(formId as string) as HTMLFormElement
-    const formData = new FormData(e as HTMLFormElement)
-    const data: string[] = []
-    for (let field of formData) {
-      const [key, value] = field
-      // chaque curseur est nommé 'paramTextX-idNumY'
-      // où 'X' est le numéro du besoinFormulaireTextX
-      // et 'Y' l'indice correspondant au paramètre
-      for (let i = 0; i < parseInt(value); i++) {
-        data.push(key.charAt(key.length - 1))
-      }
-    }
-    // chaque formulaire est nommé 'formTextX' où X est l'indice du sup
-    switch (formId.charAt(formId.length - 1)) {
-      case "1":
-        sup = data.join("-")
-        break
-      case "2":
-        sup2 = data.join("-")
-        break
-      case "3":
-        sup3 = data.join("-")
-        break
-      case "4":
-        sup4 = data.join("-")
-        break
-    }
-    newSettings()
-  }
+  
 </script>
 
 <div class="text-xl lg:text-base ml-2 lg:ml-4 space-y-4 p-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">

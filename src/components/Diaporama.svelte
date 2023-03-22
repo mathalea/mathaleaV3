@@ -91,13 +91,12 @@
       exercice.uuid = paramsExercice.uuid
       if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
       exercice.duration = paramsExercice.duration ?? 10
-      if (paramsExercice.titre) exercice.titre = paramsExercice.titre
       if (paramsExercice.id) exercice.id = paramsExercice.id
-      if (paramsExercice.sup) exercice.sup = paramsExercice.sup
-      if (paramsExercice.sup2) exercice.sup2 = paramsExercice.sup2
-      if (paramsExercice.sup3) exercice.sup3 = paramsExercice.sup3
-      if (paramsExercice.sup4) exercice.sup4 = paramsExercice.sup4
-      if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif
+      if (paramsExercice.sup) exercice.sup = handleStringFromUrl(paramsExercice.sup)
+      if (paramsExercice.sup2) exercice.sup2 = handleStringFromUrl(paramsExercice.sup2)
+      if (paramsExercice.sup3) exercice.sup3 = handleStringFromUrl(paramsExercice.sup3)
+      if (paramsExercice.sup4) exercice.sup4 = handleStringFromUrl(paramsExercice.sup4)
+      if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif === "1"
       if (paramsExercice.alea) exercice.seed = paramsExercice.alea
       if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === "1"
       if (exercice.seed === undefined)
@@ -119,6 +118,18 @@
     await tick()
     if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
   })
+
+  function handleStringFromUrl (text: string): boolean|number|string {
+  if (text === 'true' || text === 'false') {
+    // "true"=>true
+    return text === 'true'
+  } else if (/^\d+$/.test(text)) {
+    // "17"=>17
+    return parseInt(text)
+  } else {
+    return text
+  }
+}
 
   async function updateExercices() {
     Mathalea.updateUrl($exercicesParams)

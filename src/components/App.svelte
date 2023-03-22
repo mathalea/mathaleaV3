@@ -8,10 +8,13 @@
   import { globalOptions } from "./store"
   import { context } from "../modules/context"
   import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from "../modules/ElementInstrumenpoche"
+  import Latex from "./Latex.svelte"
+  import Amc from "./Amc.svelte"
 
   context.versionMathalea = 3
   // ToFix fonction à lier avec bugsnag
-  window.notify = (arg) => console.log(arg)
+  // @ts-ignore
+  window.notify = (arg: string) => console.log(arg)
 
   if (customElements.get("alea-instrumenpoche") === undefined) {
     customElements.define("alea-instrumenpoche", ElementInstrumenpoche)
@@ -34,6 +37,10 @@
     } else {
       context.isHtml = true
     }
+    if ($globalOptions.v === 'amc') {
+      context.isAmc = true
+      context.isHtml = false
+    }
   }
 </script>
 
@@ -48,6 +55,8 @@
     <Latex />
   {:else if $globalOptions.v === "confeleve"}
     <ConfigEleve />
+  {:else if $globalOptions.v === "amc"}
+   <Amc />
   {:else}
     <Start />
   {/if}

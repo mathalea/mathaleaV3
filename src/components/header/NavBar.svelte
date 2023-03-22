@@ -81,7 +81,10 @@
           document.location.href = urlV2("moodle")
         },
         () => {
-          document.location.href = urlV2("amc")
+          globalOptions.update((params) => {
+            params.v = "amc"
+            return params
+          })
         },
       ],
       isMenuOpen: false,

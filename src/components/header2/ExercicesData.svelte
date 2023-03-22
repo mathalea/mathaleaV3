@@ -36,4 +36,4 @@
   }
   </style>
   
-  <li class="autocomplete-items" class:autocomplete-active={highlighted} on:click>{@html itemLabel}</li>
+  <li class="autocomplete-items" class:autocomplete-active={highlighted} on:click on:keydown>{@html itemLabel}</li>

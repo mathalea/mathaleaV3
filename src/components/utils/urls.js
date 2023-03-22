@@ -70,7 +70,7 @@ export function encrypt (url) {
 
 /**
  * Décrypte _si besoin_ une URL sur la base du cryptage précédent
- * @param {string} url URL à décrypter
+ * @param {URL} url URL à décrypter
  * @returns {URL} URL décryptée
  * @author sylvain
  */

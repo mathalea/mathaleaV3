@@ -24,6 +24,7 @@
   let isInteractif = exercice.interactif
   let isMessagesVisible = true
   let interactifReady = exercice.interactifReady
+  let isExerciceChecked = false
 
   const title = exercice.id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}` : exercice.titre
 
@@ -152,7 +153,14 @@
       exercice.correctionDetaillee = event.detail.correctionDetaillee
       $exercicesParams[indiceExercice].cd = exercice.correctionDetaillee ? "1" : "0"
     }
-    updateDisplay()
+    if (isExerciceChecked) {
+      // Si on change des réglages alors qu'on a déjà une note à l'exercice
+      // alors on part sur de nouvelles données ainsi on efface le score et les réponses proposées
+      isExerciceChecked = false
+      newData()
+    } else {
+      updateDisplay()
+    }
   }
 
   async function updateDisplay() {
@@ -167,7 +175,7 @@
     if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, isInteractif)
     exercice.interactif = isInteractif
     $exercicesParams[indiceExercice].alea = exercice.seed
-    $exercicesParams[indiceExercice].i = isInteractif
+    $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
     $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
     exercice.numeroExercice = indiceExercice
     exercice.nouvelleVersion(indiceExercice)
@@ -176,6 +184,7 @@
 
   function verifExercice() {
     isCorrectionVisible = true
+    isExerciceChecked = true
     resultsByExercice.update((l) => {
       l[exercice.numeroExercice] = exerciceInteractif(exercice, divScore, buttonScore)
       return l
@@ -239,7 +248,10 @@
     on:clickInteractif={(event) => {
       isInteractif = event.detail.isInteractif
       exercice.interactif = isInteractif
-      $exercicesParams[indiceExercice].interactif = isInteractif ? "1" : "0"
+      exercicesParams.update( params => {
+        params[indiceExercice].interactif = isInteractif ? '1' : '0'
+        return params
+      })
       updateDisplay()
     }}
     on:clickNewData={newData}
