@@ -33,9 +33,7 @@
     }
     if ($globalOptions.v === "confeleve") {
       context.isHtml = false
-    } else {
-      context.isHtml = true
-    }
+    } 
     if ($globalOptions.v === "amc") {
       context.isAmc = true
       context.isHtml = false
