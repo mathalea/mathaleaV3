@@ -18,7 +18,7 @@
   import SearchExercice from "./sidebar/SearchExercice.svelte"
 
   import { isRecent } from "./utils/handleDate"
-  import type { InterfaceReferentiel } from "src/lib/types";
+  import type { InterfaceReferentiel } from "src/lib/types"
 
   let isNavBarVisible: boolean = true
   let isExercisesListVisible: boolean = true
@@ -163,7 +163,7 @@
               // <-- on arrête la récursivité lorsqu'on tombe sur les données de l'exo
               if (isRecent(value.datePublication) || isRecent(value.dateModification)) {
                 // @ts-ignore
-                recentExercises.push({ [key]: value})
+                recentExercises.push({ [key]: value })
               }
               return null
             } else {
@@ -666,7 +666,17 @@
                   </svg></i
                 >
               </button>
-              <button type="button" class="tooltip tooltip-bottom tooltip-neutral " data-tip="AMC">
+              <button
+                type="button"
+                class="tooltip tooltip-bottom tooltip-neutral "
+                data-tip="AMC"
+                on:click={() => {
+                  globalOptions.update((params) => {
+                    params.v = "amc"
+                    return params
+                  })
+                }}
+              >
                 <i>
                   <svg
                     viewBox="0 0 8.4759316 8.4576318"
