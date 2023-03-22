@@ -142,57 +142,16 @@ export default function SujetCAN2023CM2 () {
           this.listeCanReponsesACompleter.push('')
           break
 
-        case 5:
-          if (choice([true, false])) {
-            a = randint(42, 52, [40, 45, 50]) * 2 // choix de la produit = écart entre deux graduations
-
-            d = droiteGraduee({
-              Unite: 0.5,
-              Min: 81,
-              Max: 106,
-              x: 0,
-              y: 0,
-              thickDistance: 10,
-              thickSec: true,
-              thickSecDist: 2,
-              thickOffset: 0,
-              axeStyle: '->',
-              pointListe: [[a, '?']],
-              labelListe: maListe,
-              pointCouleur: 'blue',
-              pointStyle: 'x',
-              labelsPrincipaux: true
-            })
-          } else {
-            a = choice([75, 85, 95, 105, 115])// choix de la produit = écart entre deux graduations
-
-            d = droiteGraduee({
-              Unite: 0.25,
-              Min: 71,
-              Max: 116,
-              x: 0,
-              y: 0,
-              thickDistance: 10,
-              thickSec: true,
-              thickSecDist: 5,
-              thickOffset: 0,
-              axeStyle: '->',
-              pointListe: [[a, '?']],
-              labelListe: maListe,
-              pointCouleur: 'blue',
-              pointStyle: 'x',
-              labelsPrincipaux: true
-            })
-          }
-          reponse = a
-          texte = context.isHtml ? 'Quel est le nombre écrit sous le point d\'interrogation ?<br>\n' + mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, d) + '\n' : 'Complète'
-          // texte += context.isHtml ? '' : '\\\\\\smallskip'
-          texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(a)}$.`
+        case 5:{
+          const axe = myCan.lectureAbscisseEntiere()
+          texte = axe.texte
+          texteCorr = axe.texteCorr
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push(`\\Reperage[DemiDroite,Unitex=\\mpdim{\\Largeurcp}/(1cm*2),Pasx=3,AffichageNom,AffichageGrad]{${d.Min}/,${a}/3*A,${d.Max}/C}\\`)
+          this.listeCanEnonces.push(axe.canEnonce)
+          this.listeCanReponsesACompleter.push(axe.canReponseACompleter)
+        }
           break
 
         case 6: {
