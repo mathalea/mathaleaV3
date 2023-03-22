@@ -102,7 +102,7 @@
 
 <nav class="p-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas z-50">
   <!-- container -->
-  <div class="flex flex-col md:flex-row justify-start md:justify-between w-full mx-auto lg:space-x-6 lg:items-center">
+  <div class="flex flex-col md:flex-row justify-start md:justify-between items-start lg:items-center w-full mx-auto lg:space-x-6">
     <!-- bouton menu -->
     <div class="flex flex-col lg:flex-row justify-start space-x-2">
       <!-- logo -->
@@ -124,7 +124,7 @@
         </div>
       </div>
       {#if subtitle}
-        <div class="flex flex-row items-center space-x-4 pt-6 lg:pt-0 md:inline-flex text-3xl md:text-6xl font-logo13Condensed">
+        <div class="flex flex-row items-center space-x-4 pt-6 lg:pt-0 md:inline-flex text-4xl lg:text-6xl font-logo13Condensed">
           <div class="px-0 md:px-4 font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"><i class="bx bx-export rotate-90 translate-y-1" /></div>
           <div class=" font-black text-coopmaths-struct dark:text-coopmathsdark-struct">{subtitle}</div>
         </div>
