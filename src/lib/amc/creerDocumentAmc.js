@@ -1,4 +1,4 @@
-import { elimineDoublons } from './interactif/questionQcm'
+import { elimineDoublons } from '../../modules/interactif/questionQcm'
 import {
   arrondi,
   decimalToScientifique,
@@ -6,8 +6,8 @@ import {
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDe,
   randint
-} from './outils'
-import { format as formatLatex } from '../lib/Latex.ts'
+} from '../../modules/outils'
+import { format as formatLatex } from '../Latex.ts'
 
 /**
  *
