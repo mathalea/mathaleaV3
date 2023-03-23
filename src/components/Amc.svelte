@@ -7,7 +7,7 @@
   import type TypeExercice from "./utils/typeExercice"
   import FormRadio from "./forms/FormRadio.svelte"
   import { darkMode } from "./store"
-  import NavBar from "./header/NavBar.svelte"
+  import NavBarV2 from "./header/NavBarV2.svelte"
   import Button from "./forms/Button.svelte"
   import ModalActionWithDialog from "./modal/ModalActionWithDialog.svelte"
   import { showDialogForLimitedTime } from "./utils/dialogs.js"

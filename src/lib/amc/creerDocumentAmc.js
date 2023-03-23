@@ -1,4 +1,4 @@
-import { elimineDoublons } from './interactif/questionQcm'
+import { elimineDoublons } from '../../modules/interactif/questionQcm.js'
 import {
   arrondi,
   decimalToScientifique,
@@ -6,8 +6,9 @@ import {
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDe,
   randint
-} from './outils'
-import { format as formatLatex } from '../lib/Latex.ts'
+} from '../../modules/outils.js'
+import { format as formatLatex } from '../Latex.ts'
+import preambuleCP from '../latex/preambule.tex?raw'
 
 /**
  *
@@ -895,13 +896,13 @@ export function creerDocumentAmc ({
    \\usepackage{lmodern}\t        \t% Choix de la fonte (Latin Modern de D. Knuth)
    \\usepackage{fp}
    \\usepackage{ProfCollege}
-  
+
   %%%%%%%%%%%%%%%%%%%%% SPÉCIFICITÉS A.M.C. %%%%%%%%%%%%%%%%%%%%%%
   %\\usepackage[francais,bloc,completemulti]{automultiplechoice}
   %   remarque : avec completmulti => "aucune réponse ne convient" en +
    \\usepackage[francais,bloc,insidebox,nowatermark]{automultiplechoice} %//,insidebox
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  
+
   %%%%% PACKAGES MISE EN PAGE %%%%%
    \\usepackage{multicol}
    \\usepackage{wrapfig}
@@ -924,7 +925,7 @@ export function creerDocumentAmc ({
     shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
   \\usepackage{tkz-tab,tkz-fct,tkz-euclide}\t% Géométrie euclidienne avec TikZ
   %\\usetkzobj{all} %problème de compilation
-  
+
   %%%%% PACKAGES MATHS %%%%%
    \\usepackage{ucs}
    \\usepackage{bm}
@@ -946,7 +947,6 @@ export function creerDocumentAmc ({
    \\usepackage{bbding}\t% Pour les symboles
    \\usepackage[misc]{ifsym}\t% Pour les symboles
    \\usepackage{cancel}\t% Pour pouvoir barrer les nombres
-
 
   %%%%% AUTRES %%%%%
    \\usepackage{ifthen}
@@ -971,7 +971,7 @@ export function creerDocumentAmc ({
    \\usepackage{scratch3}
   %\\usepackage{tasks}\t% Pour les listes horizontales
 \\usepackage{csvsimple}
-  
+
   %%%%% Librairies utilisées par Mathgraphe32 %%%%
   \\usepackage{fix-cm}
   \\usepackage{textcomp}
