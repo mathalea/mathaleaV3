@@ -20,6 +20,7 @@
   let titre = ""
   let nbQuestions: number[] = []
   let nbQuestionsString = ""
+  let nbExemplaires = 1
   let textForOverleaf: HTMLInputElement
 
   async function initExercices() {
@@ -38,7 +39,8 @@
   $: {
     // ToDo vérifier la saisie utilisateur
     nbQuestions = nbQuestionsString.split(",").map((e) => parseInt(e))
-    content = creerDocumentAmc({ questions: exercices, typeEntete: entete, format, matiere, titre, nbQuestions })
+    if (entete === 'AMCassociation') nbExemplaires = 1
+    content = creerDocumentAmc({ questions: exercices, typeEntete: entete, format, matiere, titre, nbQuestions, nbExemplaires })
   }
 
   /**
@@ -118,6 +120,15 @@
           bind:value={nbQuestionsString}
         />
       </div>
+    </div>
+    <div>
+      <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre d'exemplaires distincts</div>
+      <input
+              type="number"
+              min="1"
+              class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+              bind:value={nbExemplaires}
+      />
     </div>
 
     <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10 mt-8">
