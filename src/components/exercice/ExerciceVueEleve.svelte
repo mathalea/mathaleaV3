@@ -162,12 +162,25 @@
     if (divScore) divScore.innerHTML = ""
   }
 
-  async function adjustMathalea2dFiguresWidth() {
+  /**
+   * Recherche toutes les figures ayant la classe `mathalea2d` et réduit leur largeur à 95% de la valeur
+   * maximale du div reperé par l'ID `consigne<X>` où `X` est l'indice de l'exercice
+   * @param {boolean} initialDimensionsAreNeeded si `true`, les valeurs initiales sont rechargées ()`false` par défaut)
+   * @author sylvain
+   */
+  async function adjustMathalea2dFiguresWidth(initialDimensionsAreNeeded: boolean = false) {
     const mathalea2dFigures = document.getElementsByClassName("mathalea2d") as HTMLCollectionOf<SVGElement>
     if (mathalea2dFigures.length !== 0) {
       await tick()
       const consigne_div = document.getElementById("consigne" + indiceExercice)
       for (let k = 0; k < mathalea2dFigures.length; k++) {
+        if (initialDimensionsAreNeeded) {
+          // réinitialisation
+          const initialWidth = mathalea2dFigures[k].getAttribute("data-width-initiale")
+          const initialHeight = mathalea2dFigures[k].getAttribute("data-height-initiale")
+          mathalea2dFigures[k].setAttribute("width", initialWidth)
+          mathalea2dFigures[k].setAttribute("height", initialHeight)
+        }
         // console.log("got figures !!! --> DIV " + consigne_div.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
         if (mathalea2dFigures[k].clientWidth > consigne_div.clientWidth) {
           const coef = (consigne_div.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
@@ -183,7 +196,7 @@
 
   // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
   window.onresize = (event) => {
-    adjustMathalea2dFiguresWidth()
+    adjustMathalea2dFiguresWidth(true)
   }
 </script>
 
