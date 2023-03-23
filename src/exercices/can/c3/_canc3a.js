@@ -2,7 +2,7 @@ import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../../modules/2
 import FractionX from '../../../modules/FractionEtendue.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  point, grille, droiteGraduee, plot, segment, milieu, labelPoint, texteParPosition, polygoneAvecNom, polygone
+  point, grille, droiteGraduee, plot, segment, milieu, segmentAvecExtremites, labelPoint, texteParPosition, polygoneAvecNom, polygone
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
@@ -735,6 +735,127 @@ export default class ClasseCan2023 {
         sortie.uniteInteractif = '€'
         break
     }
+    return sortie
+  }
+
+  /**
+   * Méthode pour déterminer une longueur en unité de longueur donnée
+   * @returns {object}
+   * @author Sébastien LOZANO
+   */
+  determinerUnNombreDUnitesDeLongueur () {
+    const sortie = {
+      texte: '',
+      texteCorr: '',
+      reponse: 0,
+      canEnonce: '',
+      canReponseACompleter: '',
+      uniteInteractif: ''
+    }
+    let a, b, A, B, C, D, E, G, H, s1, s2, s3, s4, s5, xmin, ymin, xmax, ymax, objets
+    const choix = choice(['a', 'b', 'c'])//, 'b', 'd', 'e'
+    sortie.texte = 'Quelle est la longueur de la ligne en pointillé ? <br>'
+    if (choix === 'a') {
+      a = grille(-2, 0, 7, 4, 'gray', 1, 1)
+      b = choice([3, 4, 5, 6])
+      A = point(0, 2, 'A', 'below')
+      B = point(1, 2, 'B', 'below')
+      C = point(1, 1, 'C', 'above')
+      G = point(0, 4, 'C', 'above')
+      H = point(b, 4, 'D', 'above')
+      s1 = segmentAvecExtremites(G, H)
+      s1.epaisseur = 2
+      s2 = segment(A, B)
+      s2.pointilles = 2
+      s2.epaisseur = 2
+
+      s3 = segment(B, C)
+      s3.pointilles = 2
+      s3.epaisseur = 2
+      xmin = -1
+      ymin = -0.2
+      xmax = 7
+      ymax = 5
+      objets = []
+      objets.push(
+        texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+        a, s1, s2, s3)
+      sortie.reponse = new FractionX(2, b)
+      sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+      sortie.texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $2$ carreaux, soit $\\dfrac{${miseEnEvidence(2)}}{${miseEnEvidence(b)}}$ u.l. `
+    }
+    if (choix === 'b') {
+      a = grille(-2, 0, 7, 4, 'gray', 1, 1)
+      b = choice([2, 4, 5, 6])
+      A = point(0, 2, 'A', 'below')
+      B = point(1, 2, 'B', 'below')
+      C = point(1, 1, 'C', 'above')
+      D = point(2, 1, 'C', 'above')
+      G = point(0, 4, 'C', 'above')
+      H = point(b, 4, 'D', 'above')
+      s1 = segmentAvecExtremites(G, H)
+      s1.epaisseur = 2
+      s2 = segment(A, B)
+      s2.pointilles = 2
+      s2.epaisseur = 2
+
+      s3 = segment(B, C)
+      s3.pointilles = 2
+      s3.epaisseur = 2
+      s4 = segment(D, C)
+      s4.pointilles = 2
+      s4.epaisseur = 2
+      xmin = -1
+      ymin = -0.2
+      xmax = 7
+      ymax = 5
+      objets = []
+      objets.push(
+        texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+        a, s1, s2, s3, s4)
+      sortie.reponse = new FractionX(3, b)
+      sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+      sortie.texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $3$ carreaux, soit $\\dfrac{${miseEnEvidence(3)}}{${miseEnEvidence(b)}}$ u.l. `
+    }
+    if (choix === 'c') {
+      a = grille(-2, 0, 7, 4, 'gray', 1, 1)
+      b = choice([3, 5, 6])
+      A = point(0, 2, 'A', 'below')
+      B = point(1, 2, 'B', 'below')
+      C = point(1, 1, 'C', 'above')
+      D = point(2, 1, 'C', 'above')
+      E = point(2, 2, 'C', 'above')
+      G = point(0, 4, 'C', 'above')
+      H = point(b, 4, 'D', 'above')
+      s1 = segmentAvecExtremites(G, H)
+      s1.epaisseur = 2
+      s2 = segment(A, B)
+      s2.pointilles = 2
+      s2.epaisseur = 2
+
+      s3 = segment(B, C)
+      s3.pointilles = 2
+      s3.epaisseur = 2
+      s4 = segment(D, C)
+      s4.pointilles = 2
+      s4.epaisseur = 2
+      s5 = segment(D, E)
+      s5.pointilles = 2
+      s5.epaisseur = 2
+      xmin = -1
+      ymin = -0.2
+      xmax = 7
+      ymax = 5
+      objets = []
+      objets.push(
+        texteParPosition('1 u.l.', milieu(G, H).x, milieu(G, H).y + 0.7, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+        a, s1, s2, s3, s4, s5)
+      sortie.reponse = new FractionX(4, b)
+      sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets) + '<br>'
+      sortie.texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne en pointillé mesure $4$ carreaux, soit $\\dfrac{${miseEnEvidence(4)}}{${miseEnEvidence(b)}}$ u.l. `
+    }
+    sortie.canEnonce = sortie.texte
+    sortie.canReponseACompleter = '$\\ldots$ u.l.'
     return sortie
   }
 }

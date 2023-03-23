@@ -307,11 +307,18 @@ export default function SujetCAN2023CM2 () {
         }
           break
 
-        case 19:
-          texte = `rrr, i : ${i} , index : ${index}`
-          texteCorr = `rrr, i : ${i} , index : ${index}`
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+        case 19:{
+          const determinerUnNombreDUnitesDeLongueur = myCan.determinerUnNombreDUnitesDeLongueur()
+          texte = determinerUnNombreDUnitesDeLongueur.texte
+          texteCorr = determinerUnNombreDUnitesDeLongueur.texteCorr
+          setReponse(this, index, determinerUnNombreDUnitesDeLongueur.reponse, { formatInteractif: 'fractionEgale' })
+          if (this.interactif && !context.isAmc) {
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'u.l.'
+          }
+          nbChamps = 1
+          this.listeCanEnonces.push(determinerUnNombreDUnitesDeLongueur.canEnonce)
+          this.listeCanReponsesACompleter.push(determinerUnNombreDUnitesDeLongueur.canReponseACompleter)
+        }
           break
 
         case 20:
