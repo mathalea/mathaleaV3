@@ -698,7 +698,7 @@
                   </svg>
                 </i>
               </button>
-              <button type="button" class="tooltip tooltip-bottom tooltip-neutral " data-tip="Moodle">
+              <!-- <button type="button" class="tooltip tooltip-bottom tooltip-neutral " data-tip="Moodle">
                 <i>
                   <svg
                     viewBox="0 0 8.4666661 8.4666661"
@@ -717,7 +717,7 @@
                     </g>
                   </svg>
                 </i>
-              </button>
+              </button> -->
             </div>
           </div>
 
@@ -962,7 +962,7 @@
                 </svg>
               </i>
             </button>
-            <button type="button" class="tooltip tooltip-top tooltip-neutral " data-tip="Moodle">
+            <!-- <button type="button" class="tooltip tooltip-top tooltip-neutral " data-tip="Moodle">
               <i>
                 <svg
                   viewBox="0 0 8.4666661 8.4666661"
@@ -981,7 +981,7 @@
                   </g>
                 </svg>
               </i>
-            </button>
+            </button> -->
           </div>
           <div class="flex-1 overflow-y-scroll overscroll-auto">
             {#each $exercicesParams as paramsExercice, i (paramsExercice)}
