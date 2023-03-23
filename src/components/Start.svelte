@@ -575,7 +575,7 @@
               <button
                 type="button"
                 class="tooltip tooltip-bottom tooltip-neutral "
-                data-tip="Config Vue Élève"
+                data-tip="Lien pour les élèves"
                 on:click={() =>
                   globalOptions.update((params) => {
                     params.v = "confeleve"
@@ -911,7 +911,7 @@
             <button
               type="button"
               class="tooltip tooltip-top tooltip-neutral "
-              data-tip="Config Vue Élève"
+              data-tip="Lien pour les élèves"
               on:click={() => {
                 handleMenuVisibility("export")
                 globalOptions.update((params) => {
