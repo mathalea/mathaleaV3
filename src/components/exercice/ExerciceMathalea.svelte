@@ -292,8 +292,7 @@
   {#if isVisible}
     <div class="flex flex-col-reverse lg:flex-row">
       <div class="flex flex-col justify-start items-start relative {isSettingsVisible ? 'w-full lg:w-3/4' : 'w-full'} duration-500" id="exercice{indiceExercice}">
-        <div class="text-right text-coopmaths-struct dark:text-coopmathsdark-struct text-xs mt-2 pl-0 md:pl-2">
-          <!-- {#if columnsCount > 1} -->
+        <div class="hidden md:flex flex-row justify-start text-coopmaths-struct dark:text-coopmathsdark-struct text-xs mt-2 pl-0 md:pl-2">
           <button
             class={columnsCount > 1 ? "visible" : "invisible"}
             type="button"
@@ -304,7 +303,6 @@
           >
             <i class=" text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 bx-xs bx-minus" />
           </button>
-          <!-- {/if} -->
           <i class="bx ml-1 bx-xs bx-columns" />
           <button
             type="button"
