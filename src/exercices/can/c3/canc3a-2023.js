@@ -321,11 +321,18 @@ export default function SujetCAN2023CM2 () {
         }
           break
 
-        case 20:
-          texte = `rrr, i : ${i} , index : ${index}`
-          texteCorr = `rrr, i : ${i} , index : ${index}`
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+        case 20:{
+          const multiplierParCinq = myCan.multiplierParCinq()
+          texte = multiplierParCinq.texte
+          texteCorr = multiplierParCinq.texteCorr
+          setReponse(this, index, multiplierParCinq.reponse, { formatInteractif: 'calcul' })
+          if (this.interactif && !context.isAmc) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
+          nbChamps = 1
+          this.listeCanEnonces.push(multiplierParCinq.canEnonce)
+          this.listeCanReponsesACompleter.push(multiplierParCinq.canReponseACompleter)
+        }
           break
 
         case 21:

@@ -698,6 +698,7 @@ export default class ClasseCan2023 {
 
   /**
    * Méthode pour un calcul de proportionnalité par addition
+   * @param {string} type type d'énoncé
    * @returns {object}
    * @author Sébastien LOZANO
    */
@@ -749,8 +750,7 @@ export default class ClasseCan2023 {
       texteCorr: '',
       reponse: 0,
       canEnonce: '',
-      canReponseACompleter: '',
-      uniteInteractif: ''
+      canReponseACompleter: ''
     }
     let a, b, A, B, C, D, E, G, H, s1, s2, s3, s4, s5, xmin, ymin, xmax, ymax, objets
     const choix = choice(['a', 'b', 'c'])//, 'b', 'd', 'e'
@@ -856,6 +856,30 @@ export default class ClasseCan2023 {
     }
     sortie.canEnonce = sortie.texte
     sortie.canReponseACompleter = '$\\ldots$ u.l.'
+    return sortie
+  }
+
+  /**
+   * Méthode pour multiplier par 5
+   * @returns {object}
+   * @author Sébastien LOZANO
+   */
+  multiplierParCinq () {
+    const sortie = {
+      texte: '',
+      texteCorr: '',
+      reponse: 0,
+      canEnonce: '',
+      canReponseACompleter: ''
+    }
+    const a = randint(11, 99, [20, 30, 40, 50, 60, 70, 80, 90])
+    const b = 5 // randint(2, 7) * 100
+
+    sortie.reponse = a * b
+    sortie.texte = ` $${a}\\times ${b}=$`
+    sortie.texteCorr = `$${a}\\times ${b}=${a}\\times 10 \\div 2=${a * 10}\\div 2=${miseEnEvidence(texNombre(sortie.reponse))}$`
+    sortie.canEnonce = 'Complète.'
+    sortie.canReponseACompleter = `$${a}\\times ${b} =\\ldots$`
     return sortie
   }
 }
