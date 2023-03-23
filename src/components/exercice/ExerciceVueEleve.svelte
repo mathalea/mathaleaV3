@@ -71,6 +71,7 @@
         }
       }
       Mathalea.renderDiv(divExercice)
+      adjustMathalea2dFiguresWidth()
     }
   })
 
@@ -160,6 +161,25 @@
     )
     if (divScore) divScore.innerHTML = ""
   }
+
+  async function adjustMathalea2dFiguresWidth() {
+    const mathalea2dFigures = document.getElementsByClassName("mathalea2d") as HTMLCollectionOf<SVGElement>
+    if (mathalea2dFigures.length !== 0) {
+      await tick()
+      const consigne_div = document.getElementById("consigne" + indiceExercice)
+      for (let k = 0; k < mathalea2dFigures.length; k++) {
+        console.log("got figures !!! --> DIV " + consigne_div.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
+        if (mathalea2dFigures[k].clientWidth > consigne_div.clientWidth) {
+          const coef = (consigne_div.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
+          const newFigWidth = consigne_div.clientWidth * 0.95
+          const newFigHeight = mathalea2dFigures[k].clientHeight * coef
+          mathalea2dFigures[k].setAttribute("width", newFigWidth.toString())
+          mathalea2dFigures[k].setAttribute("height", newFigHeight.toString())
+          console.log("fig" + k + " new dimensions : " + newFigWidth + " x " + newFigHeight)
+        }
+      }
+    }
+  }
 </script>
 
 <div class="z-0 flex-1 overflow-hidden" bind:this={divExercice}>
@@ -196,7 +216,7 @@
       <div class="flex flex-row {$globalOptions.isSolutionAccessible && !isInteractif ? 'justify-between' : 'justify-end'} items-center">
         {#if $globalOptions.isSolutionAccessible && !isInteractif}
           <div class="ml-2 lg:mx-5">
-            <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} bind:value={isCorrectionVisible} />
+            <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} bind:value={isCorrectionVisible} on:click={adjustMathalea2dFiguresWidth()} />
           </div>
         {/if}
         <div class="hidden md:flex flex-row justify-end items-center text-coopmaths-struct dark:text-coopmathsdark-struct text-xs mt-2">
@@ -252,13 +272,13 @@
               : 'list-none'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
           >
             {#each exercice.listeQuestions as item, i (i)}
-              <div style="break-inside:avoid" class="container grid grid-cols-1 lg:grid-cols-2 auto-cols-min gap-4 lg:gap-10 mb-2 lg:mb-4">
+              <div style="break-inside:avoid" id="consigne{indiceExercice}" class="container grid grid-cols-1 lg:grid-cols-2 auto-cols-min gap-4  lg:gap-10 mb-2 lg:mb-4">
                 <li style={i < exercice.listeQuestions.length ? `margin-bottom: ${exercice.spacing}em; line-height: 1` : ""} id="exercice{indiceExercice}Q{i}">
                   {@html Mathalea.formatExercice(item)}
                 </li>
                 {#if isCorrectionVisible}
                   <div
-                    class="relative border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark border-l-4 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest mb-2 lg:mb-0 ml-0 lg:ml-0 py-2 pl-4 lg:pl-6"
+                    class="relative self-start border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark border-l-4 text-coopmaths-corpus dark:text-coopmathsdark-corpus mb-2 lg:mb-0 ml-0 lg:ml-0 py-2 pl-4 lg:pl-6"
                     style="margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: {exercice.spacingCorr || 1}; break-inside:avoid"
                     id="correction${indiceExercice}Q${i}"
                   >
