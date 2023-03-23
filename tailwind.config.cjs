@@ -57,7 +57,7 @@ const config = {
           canvas: {
             DEFAULT: '#ffffff', // Anciennement '#EDEDF0'
             dark: '#f6f6f6',
-            darkest: '#f0f0f0'
+            darkest: '#e9e9e9'
           },
           corpus: {
             DEFAULT: '#1F2429',

@@ -180,6 +180,7 @@
     exercice.numeroExercice = indiceExercice
     exercice.nouvelleVersion(indiceExercice)
     Mathalea.updateUrl($exercicesParams)
+    adjustMathalea2dFiguresWidth()
   }
 
   function verifExercice() {
@@ -225,6 +226,28 @@
     )
     if (divScore) divScore.innerHTML = ""
   }
+  async function adjustMathalea2dFiguresWidth() {
+    const mathalea2dFigures = document.getElementsByClassName("mathalea2d") as HTMLCollectionOf<SVGElement>
+    if (mathalea2dFigures.length !== 0) {
+      await tick()
+      const consigneDiv = document.getElementById("consigne" + indiceExercice)
+      for (let k = 0; k < mathalea2dFigures.length; k++) {
+        // console.log("got figures !!! --> DIV " + consigneDiv.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
+        if (mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth) {
+          const coef = (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
+          const newFigWidth = consigneDiv.clientWidth * 0.95
+          const newFigHeight = mathalea2dFigures[k].clientHeight * coef
+          mathalea2dFigures[k].setAttribute("width", newFigWidth.toString())
+          mathalea2dFigures[k].setAttribute("height", newFigHeight.toString())
+          // console.log("fig" + k + " new dimensions : " + newFigWidth + " x " + newFigHeight)
+        }
+      }
+    }
+  }
+  // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
+  window.onresize = (event) => {
+    adjustMathalea2dFiguresWidth()
+  }
 </script>
 
 <div class="z-0 flex-1 overflow-hidden" bind:this={divExercice}>
@@ -244,6 +267,7 @@
         exercice.interactif = isInteractif
         updateDisplay()
       }
+      adjustMathalea2dFiguresWidth()
     }}
     on:clickInteractif={(event) => {
       isInteractif = event.detail.isInteractif
@@ -268,18 +292,17 @@
   {#if isVisible}
     <div class="flex flex-col-reverse lg:flex-row">
       <div class="flex flex-col justify-start items-start relative {isSettingsVisible ? 'w-full lg:w-3/4' : 'w-full'} duration-500" id="exercice{indiceExercice}">
-        <div class="text-right text-coopmaths-struct dark:text-coopmathsdark-struct text-xs mt-2">
-          {#if columnsCount > 1}
-            <button
-              type="button"
-              on:click={() => {
-                columnsCount--
-                updateDisplay()
-              }}
-            >
-              <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 bx-xs bx-minus" />
-            </button>
-          {/if}
+        <div class="hidden md:flex flex-row justify-start text-coopmaths-struct dark:text-coopmathsdark-struct text-xs mt-2 pl-0 md:pl-2">
+          <button
+            class={columnsCount > 1 ? "visible" : "invisible"}
+            type="button"
+            on:click={() => {
+              columnsCount--
+              updateDisplay()
+            }}
+          >
+            <i class=" text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 bx-xs bx-minus" />
+          </button>
           <i class="bx ml-1 bx-xs bx-columns" />
           <button
             type="button"
@@ -318,7 +341,11 @@
                 : 'list-none'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
               {#each exercice.listeQuestions as item, i (i)}
-                <div style="break-inside:avoid">
+                <div
+                  style="break-inside:avoid"
+                  id="consigne{indiceExercice}"
+                  class="container grid grid-cols-1 lg:{columnsCount > 1 ? 'grid-cols-1' : 'grid-cols-2'} auto-cols-min gap-4  lg:gap-10 mb-2 lg:mb-4"
+                >
                   <li style={i < exercice.listeQuestions.length ? `margin-bottom: ${exercice.spacing}em; line-height: 1` : ""} id="exercice{indiceExercice}Q{i}">
                     {@html Mathalea.formatExercice(item)}
                   </li>
