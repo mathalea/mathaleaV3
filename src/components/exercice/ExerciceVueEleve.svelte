@@ -168,17 +168,22 @@
       await tick()
       const consigne_div = document.getElementById("consigne" + indiceExercice)
       for (let k = 0; k < mathalea2dFigures.length; k++) {
-        console.log("got figures !!! --> DIV " + consigne_div.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
+        // console.log("got figures !!! --> DIV " + consigne_div.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
         if (mathalea2dFigures[k].clientWidth > consigne_div.clientWidth) {
           const coef = (consigne_div.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
           const newFigWidth = consigne_div.clientWidth * 0.95
           const newFigHeight = mathalea2dFigures[k].clientHeight * coef
           mathalea2dFigures[k].setAttribute("width", newFigWidth.toString())
           mathalea2dFigures[k].setAttribute("height", newFigHeight.toString())
-          console.log("fig" + k + " new dimensions : " + newFigWidth + " x " + newFigHeight)
+          // console.log("fig" + k + " new dimensions : " + newFigWidth + " x " + newFigHeight)
         }
       }
     }
+  }
+
+  // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
+  window.onresize = (event) => {
+    adjustMathalea2dFiguresWidth()
   }
 </script>
 

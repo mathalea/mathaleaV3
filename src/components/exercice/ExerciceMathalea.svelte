@@ -232,14 +232,14 @@
       await tick()
       const consigneDiv = document.getElementById("consigne" + indiceExercice)
       for (let k = 0; k < mathalea2dFigures.length; k++) {
-        console.log("got figures !!! --> DIV " + consigneDiv.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
+        // console.log("got figures !!! --> DIV " + consigneDiv.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
         if (mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth) {
           const coef = (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
           const newFigWidth = consigneDiv.clientWidth * 0.95
           const newFigHeight = mathalea2dFigures[k].clientHeight * coef
           mathalea2dFigures[k].setAttribute("width", newFigWidth.toString())
           mathalea2dFigures[k].setAttribute("height", newFigHeight.toString())
-          console.log("fig" + k + " new dimensions : " + newFigWidth + " x " + newFigHeight)
+          // console.log("fig" + k + " new dimensions : " + newFigWidth + " x " + newFigHeight)
         }
       }
     }
