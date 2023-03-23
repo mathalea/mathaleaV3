@@ -7,8 +7,9 @@ import {
   nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDe,
   randint
 } from '../../modules/outils.js'
-import { format as formatLatex } from '../Latex.ts'
+import { format as formatLatex } from '../Latex'
 import preambuleCP from '../latex/preambule.tex?raw'
+
 
 /**
  *
