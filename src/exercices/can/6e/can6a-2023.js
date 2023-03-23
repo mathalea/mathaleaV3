@@ -142,7 +142,7 @@ export default function SujetCAN2023Sixieme () {
         case 5:
           if (choice([true, false])) {
             a = randint(42, 52, [40, 45, 50]) * 2 // choix de la table = écart entre deux graduations
-
+            b = texteParPosition('?', 0.5 * a - 81 * 0.5, 0.9, 'milieu', 'blue', context.isHtml ? 2 : 1.5)
             d = droiteGraduee({
               Unite: 0.5,
               Min: 81,
@@ -154,7 +154,7 @@ export default function SujetCAN2023Sixieme () {
               thickSecDist: 2,
               thickOffset: 0,
               axeStyle: '->',
-              pointListe: [[a, '?']],
+              pointListe: [[a, '']],
               labelListe: maListe,
               pointCouleur: 'blue',
               pointStyle: 'x',
@@ -162,7 +162,7 @@ export default function SujetCAN2023Sixieme () {
             })
           } else {
             a = choice([75, 85, 95, 105, 115])// choix de la table = écart entre deux graduations
-
+            b = texteParPosition('?', 0.25 * a - 71 * 0.25, 0.9, 'milieu', 'blue', context.isHtml ? 2 : 1.5)
             d = droiteGraduee({
               Unite: 0.25,
               Min: 71,
@@ -174,7 +174,7 @@ export default function SujetCAN2023Sixieme () {
               thickSecDist: 5,
               thickOffset: 0,
               axeStyle: '->',
-              pointListe: [[a, '?']],
+              pointListe: [[a, '']],
               labelListe: maListe,
               pointCouleur: 'blue',
               pointStyle: 'x',
@@ -182,7 +182,7 @@ export default function SujetCAN2023Sixieme () {
             })
           }
           reponse = a
-          texte = 'Quel est le nombre écrit sous le point d\'interrogation ?<br>' + mathalea2d({ xmin: -1, ymin: -1.4, xmax: 15, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, d)
+          texte = 'Quel est le nombre écrit sous le point d\'interrogation ?<br>' + mathalea2d({ xmin: -1, ymin: -1.4, xmax: 15, ymax: 1.8, scale: 0.5, style: 'margin: auto' }, d, b)
           texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(a)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -465,6 +465,7 @@ export default function SujetCAN2023Sixieme () {
           if (choice([true, false])) {
             a = choice([new Decimal('1.5'), new Decimal('2'), new Decimal('2.5'), new Decimal('3'), new Decimal('4'), new Decimal('4.5')])
             b = texteParPosition(`${stringNombre(0.5, 2)}`, 1, -0.5, 'milieu', 'black', context.isHtml ? 1 : 0.7)
+            c = texteParPosition('?', 2 * a, 0.9, 'milieu', 'blue', context.isHtml ? 2 : 1.5)
             d = droiteGraduee({
               Unite: 2,
               Min: 0,
@@ -476,7 +477,7 @@ export default function SujetCAN2023Sixieme () {
               thickSecDist: 0.5,
               thickOffset: 0,
               axeStyle: '->',
-              pointListe: [[a, '?']],
+              pointListe: [[a, '']],
               labelListe: [[0, `${stringNombre(0)}`]],
               pointCouleur: 'blue',
               pointStyle: 'x',
@@ -487,6 +488,7 @@ export default function SujetCAN2023Sixieme () {
               new Decimal('2'), new Decimal('2.25'), new Decimal('2.5'), new Decimal('2.75'), new Decimal('0.75'), new Decimal('1'),
               new Decimal('1.25'), new Decimal('1.5'), new Decimal('1.75')])
             b = texteParPosition(`${stringNombre(0.25, 2)}`, 1, -0.5, 'milieu', 'black', context.isHtml ? 1 : 0.7)
+            c = texteParPosition('?', 4 * a, 0.9, 'milieu', 'blue', context.isHtml ? 2 : 1.5)
             d = droiteGraduee({
               Unite: 4,
               Min: 0,
@@ -498,7 +500,7 @@ export default function SujetCAN2023Sixieme () {
               thickSecDist: 0.25,
               thickOffset: 0,
               axeStyle: '->',
-              pointListe: [[a, '?']],
+              pointListe: [[a, '']],
               labelListe: [[0, `${stringNombre(0)}`]],
               pointCouleur: 'blue',
               pointStyle: 'x',
@@ -506,7 +508,7 @@ export default function SujetCAN2023Sixieme () {
             })
           }
           reponse = a
-          texte = 'Quel est le nombre sous le point d\'interrogation ?<br>' + mathalea2d({ xmin: -1, ymin: -1.5, xmax: 15, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, d, b)
+          texte = 'Quel est le nombre sous le point d\'interrogation ?<br>' + mathalea2d({ xmin: -1, ymin: -1.5, xmax: 15, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, d, b, c)
           texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(texNombre(a, 2))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -925,7 +927,7 @@ export default function SujetCAN2023Sixieme () {
             reponse = a / 5
             texte = 'Quel est le nombre écrit sous le point d\'interrogation ?<br>'
 
-            texte += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 14, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, texteParPosition('?', 3 * a / 5, 0.9, 'milieu', 'blue', context.isHtml ? 1 : 0.7), droiteGraduee({
+            texte += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 14, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, texteParPosition('?', 3 * a / 5, 0.9, 'milieu', 'blue', context.isHtml ? 2 : 1.5), droiteGraduee({
               Unite: 3,
               Min: 0,
               Max: 3.2,
@@ -949,7 +951,7 @@ export default function SujetCAN2023Sixieme () {
             texte = 'Quel est le nombre écrit sous le point d\'interrogation ?<br>'
 
             texte += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 14, ymax: 1.5, scale: 0.5, style: 'margin: auto' },
-              texteParPosition('?', 50 * a, 0.9, 'milieu', 'blue', context.isHtml ? 1 : 0.7),
+              texteParPosition('?', 50 * a - 1.2 * 50, 0.9, 'milieu', 'blue', context.isHtml ? 2 : 1.5),
               droiteGraduee({
                 Unite: 50,
                 Min: 1.2,
@@ -961,7 +963,7 @@ export default function SujetCAN2023Sixieme () {
                 thickSec: true,
                 thickoffset: 0,
                 axeStyle: '|->',
-                pointListe: [[a, '?']],
+                pointListe: [[a, '']],
                 pointCouleur: 'blue',
                 pointStyle: 'x',
                 labelsPrincipaux: true,
