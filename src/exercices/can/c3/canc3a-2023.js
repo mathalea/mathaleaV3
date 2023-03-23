@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
 import Hms from '../../../modules/Hms.js'
-import { listeQuestionsToContenu, shuffle, choice } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, shuffle, choice, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import Grandeur from '../../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -57,7 +57,7 @@ export default function SujetCAN2023CM2 () {
           texte = produit.texte
           texteCorr = produit.texteCorr
           setReponse(this, index, produit.reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) {
+          if (this.interactif && !context.isAmc) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
             texte += context.isHtml ? '$\\ldots$' : ''
@@ -73,7 +73,7 @@ export default function SujetCAN2023CM2 () {
           texte = somme.texte
           texteCorr = somme.texteCorr
           setReponse(this, index, somme.reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) {
+          if (this.interactif && !context.isAmc) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
             texte += context.isHtml ? '$\\ldots$' : ''
@@ -89,7 +89,7 @@ export default function SujetCAN2023CM2 () {
           texte = figureProduit.texte
           texteCorr = figureProduit.texteCorr
           setReponse(this, index, figureProduit.reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { figureProduit.texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif && !context.isAmc) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           this.listeCanEnonces.push(figureProduit.canEnonce)
           this.listeCanReponsesACompleter.push(figureProduit.canReponseACompleter)
         }
@@ -100,10 +100,10 @@ export default function SujetCAN2023CM2 () {
           texte = moitieDouble.texte
           texteCorr = moitieDouble.texteCorr
           setReponse(this, index, moitieDouble.reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) {
-            moitieDouble.texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          if (this.interactif && !context.isAmc) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            moitieDouble.texte += context.isHtml ? '$\\ldots$' : ''
+            texte += context.isHtml ? '$\\ldots$' : ''
           }
           nbChamps = 1
           this.listeCanEnonces.push(moitieDouble.canEnonce)
@@ -116,7 +116,7 @@ export default function SujetCAN2023CM2 () {
           texte = axe.texte
           texteCorr = axe.texteCorr
           setReponse(this, index, axe.reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif && !context.isAmc) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           this.listeCanEnonces.push(axe.canEnonce)
           this.listeCanReponsesACompleter.push(axe.canReponseACompleter)
@@ -128,7 +128,7 @@ export default function SujetCAN2023CM2 () {
           texte = facteursDUnProduit.texte
           texteCorr = facteursDUnProduit.texteCorr
           setReponse(this, index, facteursDUnProduit.reponse, { formatInteractif: 'texte' })
-          if (this.interactif) {
+          if (this.interactif && !context.isAmc) {
             texte += '<br>Écrire le deux nombres dans l\'ordre croissant séparés par un point virgule.'
             texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline')
           }
@@ -143,7 +143,7 @@ export default function SujetCAN2023CM2 () {
           texte = sommeDeDurees.texte
           texteCorr = sommeDeDurees.texteCorr
           setReponse(this, index, new Hms({ hour: a + 1, minute: sommeDeDurees.reponse }), { formatInteractif: 'hms' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline') }
+          if (this.interactif && !context.isAmc) { texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline') }
           nbChamps = 1
           this.listeCanEnonces.push(sommeDeDurees.canEnonce)
           this.listeCanReponsesACompleter.push(sommeDeDurees.canReponseACompleter)
@@ -155,7 +155,7 @@ export default function SujetCAN2023CM2 () {
           texte = partages.texte
           texteCorr = partages.texteCorr
           setReponse(this, index, partages.reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif && !context.isAmc) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           this.listeCanEnonces.push(partages.canEnonce)
           this.listeCanReponsesACompleter.push(partages.canReponseACompleter)
@@ -167,7 +167,7 @@ export default function SujetCAN2023CM2 () {
           texte = ordreDeGrandeur.texte
           texteCorr = ordreDeGrandeur.texteCorr
           setReponse(this, index, new Grandeur(ordreDeGrandeur.reponse, ordreDeGrandeur.reponseUnite), { formatInteractif: 'unites' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 longueur') }
+          if (this.interactif && !context.isAmc) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 longueur') }
           nbChamps = 1
           this.listeCanEnonces.push(ordreDeGrandeur.canEnonce)
           this.listeCanReponsesACompleter.push(ordreDeGrandeur.canReponseACompleter)
@@ -179,7 +179,7 @@ export default function SujetCAN2023CM2 () {
           texte = ecrireUnNombreEnChiffre.texte
           texteCorr = ecrireUnNombreEnChiffre.texteCorr
           setReponse(this, index, ecrireUnNombreEnChiffre.reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif && !context.isAmc) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           this.listeCanEnonces.push(ecrireUnNombreEnChiffre.canEnonce)
           this.listeCanReponsesACompleter.push(ecrireUnNombreEnChiffre.canReponseACompleter)
@@ -196,7 +196,7 @@ export default function SujetCAN2023CM2 () {
           texte = dePlusDeMoins.texte
           texteCorr = dePlusDeMoins.texteCorr
           setReponse(this, index, dePlusDeMoins.reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) {
+          if (this.interactif && !context.isAmc) {
             texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline', dePlusDeMoins.champTexteApres)
           } else {
             texte += dePlusDeMoins.texteApres
@@ -212,7 +212,7 @@ export default function SujetCAN2023CM2 () {
           texte = ecritureDecimaleProduitEntierParDixiemesOuCentiemes.texte
           texteCorr = ecritureDecimaleProduitEntierParDixiemesOuCentiemes.texte
           setReponse(this, index, ecritureDecimaleProduitEntierParDixiemesOuCentiemes.reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif && !context.isAmc) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           this.listeCanEnonces.push(ecritureDecimaleProduitEntierParDixiemesOuCentiemes.canEnonce)
           this.listeCanReponsesACompleter.push(ecritureDecimaleProduitEntierParDixiemesOuCentiemes.canReponseACompleter)
@@ -224,7 +224,7 @@ export default function SujetCAN2023CM2 () {
           texte = lectureAbscisseEntiereOrigineZero.texte
           texteCorr = lectureAbscisseEntiereOrigineZero.texteCorr
           setReponse(this, index, lectureAbscisseEntiereOrigineZero.reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif && !context.isAmc) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           this.listeCanEnonces.push(lectureAbscisseEntiereOrigineZero.canEnonce)
           this.listeCanReponsesACompleter.push(lectureAbscisseEntiereOrigineZero.canReponseACompleter)
@@ -236,38 +236,75 @@ export default function SujetCAN2023CM2 () {
           texte = trouverUnTermeDecimalInconnu.texte
           texteCorr = trouverUnTermeDecimalInconnu.texteCorr
           setReponse(this, index, trouverUnTermeDecimalInconnu.reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif && !context.isAmc) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           this.listeCanEnonces.push(trouverUnTermeDecimalInconnu.canEnonce)
           this.listeCanReponsesACompleter.push(trouverUnTermeDecimalInconnu.canReponseACompleter)
         }
           break
 
-        case 15:
-          texte = `rrr, i : ${i} , index : ${index}`
-          texteCorr = `rrr, i : ${i} , index : ${index}`
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+        case 15:{
+          const decomposerUnNombreATroisChiffresEnDizainesUnites = myCan.decomposerUnNombreATroisChiffresEnDizainesUnites()
+          texte = decomposerUnNombreATroisChiffresEnDizainesUnites.texte
+          texteCorr = decomposerUnNombreATroisChiffresEnDizainesUnites.texteCorr
+          setReponse(this, index, decomposerUnNombreATroisChiffresEnDizainesUnites.reponse, { formatInteractif: 'texte' })
+          if (this.interactif && !context.isAmc) {
+            texte += '<br>Écrire le nombre de dizaines puis d\'unités dans cet ordre séparés par un point virgule.<br>'
+            texte += ajouteChampTexteMathLive(this, index, 'largeur6 inline')
+            // texte += ajouteChampTexteMathLive(this, index, 'largeur6 inline', { texteApres: sp(5) + 'unites.' })
+          }
+          nbChamps = 1
+          this.listeCanEnonces.push(decomposerUnNombreATroisChiffresEnDizainesUnites.canEnonce)
+          this.listeCanReponsesACompleter.push(decomposerUnNombreATroisChiffresEnDizainesUnites.canReponseACompleter)
+        }
           break
 
-        case 16:
-          texte = `rrr, i : ${i} , index : ${index}`
-          texteCorr = `rrr, i : ${i} , index : ${index}`
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+        case 16:{
+          const determinerUneFractionAPartirDUneFigure = myCan.determinerUneFractionAPartirDUneFigure()
+          texte = determinerUneFractionAPartirDUneFigure.texte
+          texteCorr = determinerUneFractionAPartirDUneFigure.texteCorr
+          setReponse(this, index, determinerUneFractionAPartirDUneFigure.reponse, { formatInteractif: 'fractionEgale' })
+          if (this.interactif && !context.isAmc) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
+          nbChamps = 1
+          this.listeCanEnonces.push(determinerUneFractionAPartirDUneFigure.canEnonce)
+          this.listeCanReponsesACompleter.push(determinerUneFractionAPartirDUneFigure.canReponseACompleter)
+        }
           break
 
-        case 17:
-          texte = `rrr, i : ${i} , index : ${index}`
-          texteCorr = `rrr, i : ${i} , index : ${index}`
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+        case 17:{
+          const determinerUnQuotient = myCan.determinerUnQuotient()
+          texte = determinerUnQuotient.texte
+          texteCorr = determinerUnQuotient.texteCorr
+          setReponse(this, index, determinerUnQuotient.reponse, { formatInteractif: 'calcul' })
+          if (this.interactif && !context.isAmc) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
+          nbChamps = 1
+          this.listeCanEnonces.push(determinerUnQuotient.canEnonce)
+          this.listeCanReponsesACompleter.push(determinerUnQuotient.canReponseACompleter)
+        }
           break
 
-        case 18:
-          texte = `rrr, i : ${i} , index : ${index}`
-          texteCorr = `rrr, i : ${i} , index : ${index}`
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+        case 18:{
+          let proportionnaliteParAddition
+          if (choice([true, false])) {
+            proportionnaliteParAddition = myCan.proportionnaliteParAddition('pieces')
+          } else {
+            proportionnaliteParAddition = myCan.proportionnaliteParAddition('cahiers')
+          }
+          texte = proportionnaliteParAddition.texte
+          texteCorr = proportionnaliteParAddition.texteCorr
+          setReponse(this, index, proportionnaliteParAddition.reponse, { formatInteractif: 'calcul' })
+          if (this.interactif && !context.isAmc) {
+            texte += `${ajouteChampTexteMathLive(this, index, 'inline largeur15')} ${proportionnaliteParAddition.uniteInteractif} .`
+          } else {
+            texte += ` $\\ldots$ ${proportionnaliteParAddition.uniteInteractif}.`
+          }
+          nbChamps = 1
+          this.listeCanEnonces.push(proportionnaliteParAddition.canEnonce)
+          this.listeCanReponsesACompleter.push(proportionnaliteParAddition.canReponseACompleter)
+        }
           break
 
         case 19:

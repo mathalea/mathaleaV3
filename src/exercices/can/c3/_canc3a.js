@@ -9,6 +9,7 @@ import { context } from '../../../modules/context.js'
 import Hms from '../../../modules/Hms.js'
 import { listeQuestionsToContenu, miseEnEvidence, stringNombre, randint, texNombre, prenomF, prenomM, texPrix, shuffle, choice, sp, arrondi, texteEnCouleur } from '../../../modules/outils.js'
 import Grandeur from '../../../modules/Grandeur.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 
 import Decimal from 'decimal.js'
 export const titre = 'Classe CAN C3'
@@ -610,6 +611,130 @@ export default class ClasseCan2023 {
     // sortie.reponse = a
     sortie.canEnonce = 'Complète'
     sortie.canReponseACompleter = `$${texNombre(b, 1)}+\\ldots =${res}$`
+    return sortie
+  }
+
+  /**
+   * Méthode pour décomposer un nombre à 3 chiffres en ... dizaines et ... unités
+   * @returns {object}
+   * @author Sébastien LOZANO
+   */
+  decomposerUnNombreATroisChiffresEnDizainesUnites () {
+    const sortie = {
+      texte: '',
+      texteCorr: '',
+      reponse: 0,
+      canEnonce: '',
+      canReponseACompleter: ''
+    }
+    const nombreDeDizaines = randint(10, 99)
+    const nombreDUnites = randint(2, 9)
+    const nombre = 10 * nombreDeDizaines + nombreDUnites
+    sortie.reponse = [`${nombreDeDizaines};${nombreDUnites}`]
+    sortie.texte = `Complète : ${sp(3)}
+    $${texNombre(nombre, 0)}= \\ldots \\text{ dizaines } \\ldots \\text{ unités }$ `
+    sortie.texteCorr = `$${texNombre(nombre, 0)} = ${miseEnEvidence(texNombre(nombreDeDizaines, 0))} \\text{ dizaines } ${miseEnEvidence(texNombre(nombreDUnites, 0))} \\text{ unités }$`
+    sortie.canEnonce = 'Complète'
+    sortie.canReponseACompleter = `$${texNombre(nombre, 0)}= \\ldots \\text{ dizaines } \\ldots \\text{ unités }$ `
+    return sortie
+  }
+
+  /**
+   * Méthode pour déterminer une fraction à partir d'une figure
+   * @returns {object}
+   * @author Sébastien LOZANO
+   */
+  determinerUneFractionAPartirDUneFigure () {
+    const sortie = {
+      texte: '',
+      texteCorr: '',
+      reponse: 0,
+      canEnonce: '',
+      canReponseACompleter: ''
+    }
+    const b = randint(2, 4)
+    const a = randint(b + 1, 6)
+    const c = randint(1, a - 1)
+    const d = randint(1, b)
+    const e = randint(0, c - 1)
+    const f = randint(d, b)
+    const A = polygone([point(0, 0), point(c, 0), point(c, d), point(e, d), point(e, f), point(0, f)], 'black')
+    A.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
+    const C = grille(0, 0, a, b, 'black', 1, 1, false)
+    const D = point(1 + a, 4 - b)
+    sortie.texte = `Quelle fraction de la surface totale représente la surface grisée ?
+    <br>`
+    sortie.texte += mathalea2d({ xmin: -0.5, ymin: -0.1, xmax: 6.1, ymax: b + 0.5, scale: 0.7, style: 'margin: auto' }, A, C)
+    sortie.texteCorr = `Il y a $${c * d + e * f - e * d}$ ${c * d + e * f - e * d > 1 ? 'carrés' : 'carré'} gris sur un total de $${a * b}$ carrés, la surface grisée représente donc $\\dfrac{${miseEnEvidence(c * d + e * f - e * d)}}{${miseEnEvidence(a * b)}}$ de la surface totale.`
+    sortie.reponse = new FractionX(c * d + e * f - e * d, a * b)
+    sortie.canEnonce = sortie.texte
+    sortie.canReponseACompleter = ''
+    return sortie
+  }
+
+  /**
+   * Méthode pour déterminer un quotient
+   * @returns {object}
+   * @author Sébastien LOZANO
+   */
+  determinerUnQuotient () {
+    const sortie = {
+      texte: '',
+      texteCorr: '',
+      reponse: 0,
+      canEnonce: '',
+      canReponseACompleter: ''
+    }
+    const a = randint(5, 9)
+    const b = randint(4, 9)
+    const c = a * b
+    sortie.reponse = b
+    sortie.texte = `$${c}\\div ${a}=$`
+    sortie.texteCorr = `$${c}\\div ${a}=${miseEnEvidence(sortie.reponse)}$`
+    sortie.canEnonce = 'Complète.'
+    sortie.canReponseACompleter = `$${c}\\div ${a} =\\ldots$`
+    return sortie
+  }
+
+  /**
+   * Méthode pour un calcul de proportionnalité par addition
+   * @returns {object}
+   * @author Sébastien LOZANO
+   */
+  proportionnaliteParAddition (type) {
+    const sortie = {
+      texte: '',
+      texteCorr: '',
+      reponse: 0,
+      canEnonce: '',
+      canReponseACompleter: '',
+      uniteInteractif: ''
+    }
+    let a, b, k
+    switch (type) {
+      case 'pieces':
+        a = choice([4, 6, 8, 10, 12, 14])
+        b = a + a / 2
+        sortie.reponse = arrondi(2 * b, 0)
+        sortie.texte = `Si une pile de $${a}$ pièces de monnaie a une hauteur de $${2 * a}$ mm, alors une pile de $${texNombre(b, 0)}$ pièces a une hauteur de `
+        sortie.texteCorr = `Une pile de $${a}$ pièces de monnaie a une hauteur de $2\\times ${a}=${2 * a}$ mm.<br>
+        Donc une pile de  $${texNombre(b, 0)}$ pièces aura une hauteur de $2\\times ${b}=${miseEnEvidence(2 * b)}$ mm.`
+        sortie.canEnonce = `Si une pile de $${a}$ pièces de monnaie a une hauteur de $\\Lg[mm]{${2 * a}}$, `
+        sortie.canReponseACompleter = `alors une pile de $${texNombre(b, 0)}$ pièces a une hauteur de $\\ldots$ \\Lg[mm]{}.`
+        sortie.uniteInteractif = 'mm'
+        break
+      case 'cahiers':
+        a = randint(2, 6)
+        k = randint(2, 4)
+        b = k * a
+        sortie.reponse = k * b
+        sortie.texte = `Si $${a}$ cahiers coûtent $${b}$ €, alors $${b}$ cahiers coûtent `
+        sortie.texteCorr = `$${a}$ cahiers coûtent $${b}$ €.<br> $${k}\\times${a}=${k * a}$ cahiers coûtent $${k}\\times${b}=${miseEnEvidence(k * b)}$ €.`  
+        sortie.canEnonce = `Si $${a}$ cahiers coûtent $\\Prix[0]{${b}}$,`
+        sortie.canReponseACompleter = `alors $${b}$ cahiers coûtent $\\ldots$ \\Prix[0]{}.`
+        sortie.uniteInteractif = '€'
+        break
+    }
     return sortie
   }
 }
