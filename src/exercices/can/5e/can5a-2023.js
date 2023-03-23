@@ -16,7 +16,7 @@ export const titre = 'CAN 5e sujet 2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '09/03/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '22/03/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '312eb'
 
@@ -161,7 +161,7 @@ export default function SujetCAN2023Cinquieme () {
           break
 
         case 5:
-          if (choice([true, false])) {
+          if (choice([false, false])) {
             ang1 = choice([20, 30, 40, 60, 70, 80, 100, 110, 120, 130, 140, 150, 160])
             A = point(0, 0, 'A', 'below')
             B = point(6, 0, 'B', 'below')
@@ -178,7 +178,7 @@ export default function SujetCAN2023Cinquieme () {
             traceorigine = tracePoint(origine)
             traceorigine.taille = context.isHtml ? 2 : 1.5
             xmin = -1
-            ymin = -1
+            ymin = -1.3
             xmax = 6.5
             ymax = 2.5
             objets = []
@@ -195,9 +195,9 @@ export default function SujetCAN2023Cinquieme () {
             reponse = 180 - ang1
             texte = '$A$, $O$ et $B$ sont alignés.<br>'
             texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
-            texte += context.isHtml ? '? $=$' : ''
+            texte += context.isHtml ? '<br>? $=$' : ''
             texteCorr = `Un angle plat a une mesure de  $180°$.<br>
-             Ainsi, ? $=180-${ang1}=${miseEnEvidence(180 - ang1)}°$.`
+                 Ainsi, ? $=180-${ang1}=${miseEnEvidence(180 - ang1)}°$.`
           } else {
             ang1 = choice([30, 40, 60, 70, 110, 120, 130, 140, 150, 160])
             A = point(0, 0, 'A', 'below')
@@ -224,9 +224,9 @@ export default function SujetCAN2023Cinquieme () {
             objets = []
             reponse = 180 - ang1
             objets.push(
-              traceD, traceB, texteParPosition('$D$', 0.2, 1.8, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              texteParPosition('$B$', 2, context.isHtml ? -0.7 : -0.4, 'milieu', 'black', context.isHtml ? 1 : 0.7),
-              texteParPosition('$O$', 0, context.isHtml ? -0.7 : -0.4, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              traceD, traceB, texteParPosition('$D$', 0.3, 2, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition('$B$', 2, context.isHtml ? -0.6 : -0.4, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+              texteParPosition('$O$', 0, context.isHtml ? -0.6 : -0.4, 'milieu', 'black', context.isHtml ? 1 : 0.7),
               s1, s2, s3, traceorigine, codageAngleDroit(B, origine, D, 'black', 0.3), codageAngle(B, origine, C, 0.8),
               codageAngle(D, origine, C, 0.4))
 
@@ -238,9 +238,9 @@ export default function SujetCAN2023Cinquieme () {
               reponse = 90 - ang1
               texte = 'L\'angle $\\widehat{BOD}$ est un angle droit.<br>'
               texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
-              texte += context.isHtml ? '? $=$' : ''
+              texte += context.isHtml ? '<br>? $=$' : ''
               texteCorr = `
-               ?$=90-${ang1}=${miseEnEvidence(90 - ang1)}°$.`
+                   ?$=90-${ang1}=${miseEnEvidence(90 - ang1)}°$.`
             } else {
               objets.push(texteParPosition('?', -0.15, 0.6, 'milieu', 'black', context.isHtml ? 1 : 0.7),
                 texteParPosition(`${stringNombre(ang1)}°`, 1, 0.8, 'milieu', 'black', context.isHtml ? 1 : 0.7))
@@ -248,7 +248,7 @@ export default function SujetCAN2023Cinquieme () {
               reponse = ang1 - 90
               texte = 'L\'angle $\\widehat{BOD}$ est un angle droit.<br>'
               texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
-              texte += context.isHtml ? '? $=$' : ''
+              texte += context.isHtml ? '<br>? $=$' : ''
               texteCorr = `? $=${ang1}-90=${miseEnEvidence(ang1 - 90)}°$.  `
             }
           }
@@ -453,18 +453,20 @@ export default function SujetCAN2023Cinquieme () {
           break
 
         case 13:
-          if (choice([true, false])) {
+          if (choice([true, true])) {
             a = new Decimal(randint(101, 199)).div(100)
 
             reponse = a.mul(-1)
             texte = `L'opposé de $${texNombre(a, 2)}$ est :`
-            texteCorr = `L'opposé de $${texNombre(a, 2)}$ est : $${miseEnEvidence(texNombre(reponse, 2))}$.`
+            texteCorr = `Deux nombres sont opposés lorsque leur somme est nulle. <br>
+            Ainsi, l'opposé de $${texNombre(a, 2)}$ est : $${miseEnEvidence(texNombre(reponse, 2))}$ car $${texNombre(a, 2)}+(${texNombre(reponse, 2)})=0$.`
           } else {
             a = new Decimal(randint(-199, -101)).div(100)
 
             reponse = a.mul(-1)
             texte = `L'opposé de  $${texNombre(a, 2)}$ est :`
-            texteCorr = `L'opposé de $${texNombre(a, 2)}$ est : $-(${texNombre(a, 2)})=${miseEnEvidence(texNombre(reponse, 2))}$.`
+            texteCorr = `Deux nombres sont opposés lorsque leur somme est nulle. <br>
+            Ainsi, l'opposé de $${texNombre(a, 2)}$ est : $${miseEnEvidence(texNombre(reponse, 2))}$ car $${texNombre(a, 2)}+${texNombre(reponse, 2)}=0$.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
@@ -547,8 +549,15 @@ export default function SujetCAN2023Cinquieme () {
           reponse = new Decimal(a).mul(b).add(c)
           texte = `J'achète $${a}$ croissants à $${texPrix(b)}$ € l'unité et un pain à $${texPrix(c)}$ €. <br>
           Combien cela me coûte-t-il ?`
-          texteCorr = `$${a}$ croissants à $${texPrix(b)}$ € l'unité coûtent $${a}\\times ${texPrix(b)}$ € $=${texPrix(new Decimal(a).mul(b))}$ €.<br>
-          En ajoutant le prix du pain, on obtient : $${texPrix(new Decimal(a).mul(b))}$ € $ + ${texPrix(c)}$ € $= ${miseEnEvidence(texPrix(reponse))}$ €.`
+          texteCorr = `$${a}$ croissants à $${texPrix(b)}$ € l'unité coûtent $${a}\\times ${texPrix(b)}\\text{ € }=${texPrix(new Decimal(a).mul(b))}\\text{ € }$.<br>
+          En ajoutant le prix du pain, on obtient : 
+          ${context.isHtml
+? `$${texPrix(new Decimal(a).mul(b))}\\text{ €}+ ${texPrix(c)}\\text{ € }= ${texPrix(reponse)}\\text{ € }$.`
+          : `$\\Prix{${new Decimal(a).mul(b)}}+ \\Prix{${c}}= \\Prix{${reponse}}$.<br>`}`
+
+          texteCorr += `L'ensemble coûte donc $${miseEnEvidence(texPrix(reponse))}\\text{ € }$.
+          
+          `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('  $\\ldots$ €')
@@ -707,7 +716,7 @@ export default function SujetCAN2023Cinquieme () {
             thickSec: false,
             axeStyle: '->',
             pointListe: [[b, 'B'], [a, 'A']],
-            labelListe: [[a, `${stringNombre(a, 1)}`], [b, `${stringNombre(b, 1)}`], [0, `${stringNombre(0)}`]],
+            labelListe: [[a, `$${stringNombre(a, 1)}$`], [b, `$${stringNombre(b, 1)}$`], [0, `$${stringNombre(0)}$`]],
             pointCouleur: 'blue',
             pointStyle: 'x',
             thickEpaisseur: 1,
@@ -913,7 +922,7 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
             b = randint(10, 22) * 100
 
             texte = `Un avion parcourt $${texNombre(b)}$ km en $3$ h. <br>
-            Quelle durée met-il pour parcourir $${texNombre(1.5 * b, 0)}$ km ? `
+            Quelle durée met-il pour parcourir ${context.isHtml ? `$${texNombre(1.5 * b, 0)}$ km` : `\\Lg[km]{${texNombre(1.5 * b, 0)}}`} ?`
             texteCorr = `En 1h 30 min, l'avion parcourt $${texNombre(0.5 * b, 0)}$ km.<br>
             Comme il met $3$ h pour parcourir $${texNombre(b)}$ km,  il mettra $${miseEnEvidence(4)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(1.5 * b, 0)}$ km. `
             setReponse(this, index, [new Hms({ hour: 4, minute: 30 }), new Hms({ minute: 270 })], { formatInteractif: 'hms' })
@@ -924,7 +933,7 @@ mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitud
             b = choice([900, 1200, 1500, 1800, 2100, 2400])
 
             texte = `Un avion parcourt $${texNombre(b)}$ km en $3$ h. <br>
-            Quelle durée met-il pour parcourir $${texNombre(b + b / 6, 0)}$ km ? `
+            Quelle durée met-il pour parcourir ${context.isHtml ? `$${texNombre(b + b / 6, 0)}$ km` : `\\Lg[km]{${texNombre(b + b / 6, 0)}}`} ? `
             texteCorr = `En $1$ h , l'avion parcourt $${texNombre(b / 3, 0)}$ km, donc en $30$ min, il parcourt  $${texNombre(b / 6, 0)}$ km. <br>
             Ainsi, il met $${miseEnEvidence(3)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(b + b / 6, 0)}$ km`
             setReponse(this, index, [new Hms({ hour: 3, minute: 30 }), new Hms({ minute: 210 })], { formatInteractif: 'hms' })

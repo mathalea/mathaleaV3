@@ -1,4 +1,4 @@
-import { elimineDoublons } from './interactif/questionQcm'
+import { elimineDoublons } from '../../modules/interactif/questionQcm.js'
 import {
   arrondi,
   decimalToScientifique,
@@ -6,7 +6,9 @@ import {
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDe,
   randint
-} from './outils'
+} from '../../modules/outils.js'
+import { format as formatLatex } from '../Latex'
+import preambuleCP from '../latex/preambule.tex?raw'
 
 /**
  *
@@ -839,7 +841,7 @@ export function creerDocumentAmc ({
     if (indexOfCode === -1) { // si le groupe n'existe pas
       groupeDeQuestions.push(code[1])
       indexOfCode = groupeDeQuestions.indexOf(code[1])
-      texQuestions[indexOfCode] = code[0]
+      texQuestions[indexOfCode] = formatLatex(code[0])
 
       // Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
       if (typeof nbQuestions[indexOfCode] === 'undefined') {
@@ -894,13 +896,13 @@ export function creerDocumentAmc ({
    \\usepackage{lmodern}\t        \t% Choix de la fonte (Latin Modern de D. Knuth)
    \\usepackage{fp}
    \\usepackage{ProfCollege}
-  
+
   %%%%%%%%%%%%%%%%%%%%% SPÉCIFICITÉS A.M.C. %%%%%%%%%%%%%%%%%%%%%%
   %\\usepackage[francais,bloc,completemulti]{automultiplechoice}
   %   remarque : avec completmulti => "aucune réponse ne convient" en +
    \\usepackage[francais,bloc,insidebox,nowatermark]{automultiplechoice} %//,insidebox
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  
+
   %%%%% PACKAGES MISE EN PAGE %%%%%
    \\usepackage{multicol}
    \\usepackage{wrapfig}
@@ -923,7 +925,7 @@ export function creerDocumentAmc ({
     shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
   \\usepackage{tkz-tab,tkz-fct,tkz-euclide}\t% Géométrie euclidienne avec TikZ
   %\\usetkzobj{all} %problème de compilation
-  
+
   %%%%% PACKAGES MATHS %%%%%
    \\usepackage{ucs}
    \\usepackage{bm}
@@ -935,7 +937,8 @@ export function creerDocumentAmc ({
    \\usepackage{frcursive}
    \\newcommand{\\Vcurs}{\\begin{cursive}V\\end{cursive}}
    \\usepackage[normalem]{ulem}
-   \\usepackage{sistyle} \\SIdecimalsign{,} %% => \\num{...} \\num*{...}
+   % plus utilisé avec ProfCollege
+   % \\usepackage{sistyle} \\SIdecimalsign{,} %% => \\num{...} \\num*{...}
    % cf. http://fr.wikibooks.org/wiki/LaTeX/%C3%89crire_de_la_physique
    %  sous Ubuntu, paquet texlive-science à installer
    %\\usepackage[autolanguage,np]{numprint} % déjà appelé par défaut dans introLatex
@@ -945,7 +948,6 @@ export function creerDocumentAmc ({
    \\usepackage{bbding}\t% Pour les symboles
    \\usepackage[misc]{ifsym}\t% Pour les symboles
    \\usepackage{cancel}\t% Pour pouvoir barrer les nombres
-
 
   %%%%% AUTRES %%%%%
    \\usepackage{ifthen}
@@ -970,7 +972,7 @@ export function creerDocumentAmc ({
    \\usepackage{scratch3}
   %\\usepackage{tasks}\t% Pour les listes horizontales
 \\usepackage{csvsimple}
-  
+
   %%%%% Librairies utilisées par Mathgraphe32 %%%%
   \\usepackage{fix-cm}
   \\usepackage{textcomp}
