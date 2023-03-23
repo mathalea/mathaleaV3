@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { creerDocumentAmc, exportQcmAmc } from "../modules/creerDocumentAmc.js"
+  import { creerDocumentAmc } from "../lib/amc/creerDocumentAmc.js"
   import { context } from "../modules/context.js"
   import Mathalea from "../lib/Mathalea"
   import Footer from "./Footer.svelte"

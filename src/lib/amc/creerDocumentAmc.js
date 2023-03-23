@@ -7,6 +7,7 @@ import {
   nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDe,
   randint
 } from './outils'
+import { format as formatLatex } from '../lib/Latex.ts'
 
 /**
  *
@@ -839,7 +840,7 @@ export function creerDocumentAmc ({
     if (indexOfCode === -1) { // si le groupe n'existe pas
       groupeDeQuestions.push(code[1])
       indexOfCode = groupeDeQuestions.indexOf(code[1])
-      texQuestions[indexOfCode] = code[0]
+      texQuestions[indexOfCode] = formatLatex(code[0])
 
       // Si le nombre de questions du groupe n'est pas défini, alors on met toutes les questions sinon on laisse le nombre choisi par l'utilisateur
       if (typeof nbQuestions[indexOfCode] === 'undefined') {
