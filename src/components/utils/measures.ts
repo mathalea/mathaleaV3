@@ -1,4 +1,4 @@
-export function remToPixels (rem) {
+export function remToPixels (rem: number) {
   return rem * parseFloat(getComputedStyle(document.documentElement).fontSize)
 }
 
@@ -10,16 +10,20 @@ export function remToPixels (rem) {
    *
    * @see https://stackoverflow.com/questions/118241/calculate-text-width-with-javascript/21015393#21015393
    */
-export function getTextWidth (text, font, factor = 1) {
+export function getTextWidth (text: string, font: string, factor: number = 1): number {
   // re-use canvas object for better performance
-  const canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'))
-  const context = canvas.getContext('2d')
+  // @ts-ignore
+  const canvas: HTMLCanvasElement = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'))
+  const context: CanvasRenderingContext2D | null = canvas.getContext('2d')
+  if (!context) {
+    throw new Error('Canvas context is null')
+  }
   context.font = font
-  const metrics = context.measureText(text)
+  const metrics: TextMetrics = context.measureText(text)
   return metrics.width * factor
 }
 
-export function getCssStyle (element, prop) {
+export function getCssStyle (element: HTMLElement, prop: string) {
   return window.getComputedStyle(element, null).getPropertyValue(prop)
 }
 
