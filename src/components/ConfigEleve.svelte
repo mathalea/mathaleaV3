@@ -63,11 +63,11 @@
 </script>
 
 <main class="mb-auto flex flex-col justify-between h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
-  <NavBarV2 subtitle="Configuration Vue Élève" />
+  <NavBarV2 subtitle="La page Élève" />
   <div class="h-full w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <div class="h-full w-full md:w-2/3 lg:w-3/5 flex flex-col p-4 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas mx-auto">
       <div class="flex flex-col md:flex-row justify-start px-4 py-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-        <h3 class="font-bold text-2xl text-coopmaths-struct dark:text-coopmathsdark-struct">Réglages de la feuille Élève</h3>
+        <h3 class="font-bold text-2xl text-coopmaths-struct dark:text-coopmathsdark-struct">Réglages</h3>
       </div>
       <div class="pt-2 pl-2 grid grid-flow-row md:grid-cols-2 gap-4">
         <div class="pb-2">
