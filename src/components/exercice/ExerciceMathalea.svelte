@@ -226,12 +226,26 @@
     )
     if (divScore) divScore.innerHTML = ""
   }
-  async function adjustMathalea2dFiguresWidth() {
+
+  /**
+   * Recherche toutes les figures ayant la classe `mathalea2d` et réduit leur largeur à 95% de la valeur
+   * maximale du div reperé par l'ID `consigne<X>-0` où `X` est l'indice de l'exercice
+   * @param {boolean} initialDimensionsAreNeeded si `true`, les valeurs initiales sont rechargées ()`false` par défaut)
+   * @author sylvain
+   */
+  async function adjustMathalea2dFiguresWidth(initialDimensionsAreNeeded: boolean = false) {
     const mathalea2dFigures = document.getElementsByClassName("mathalea2d") as HTMLCollectionOf<SVGElement>
     if (mathalea2dFigures.length !== 0) {
       await tick()
-      const consigneDiv = document.getElementById("consigne" + indiceExercice)
+      const consigneDiv = document.getElementById("consigne" + indiceExercice + "-0")
       for (let k = 0; k < mathalea2dFigures.length; k++) {
+        if (initialDimensionsAreNeeded) {
+          // réinitialisation
+          const initialWidth = mathalea2dFigures[k].getAttribute("data-width-initiale")
+          const initialHeight = mathalea2dFigures[k].getAttribute("data-height-initiale")
+          mathalea2dFigures[k].setAttribute("width", initialWidth)
+          mathalea2dFigures[k].setAttribute("height", initialHeight)
+        }
         // console.log("got figures !!! --> DIV " + consigneDiv.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
         if (mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth) {
           const coef = (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
@@ -246,7 +260,7 @@
   }
   // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
   window.onresize = (event) => {
-    adjustMathalea2dFiguresWidth()
+    adjustMathalea2dFiguresWidth(true)
   }
 </script>
 
@@ -330,7 +344,10 @@
             </div>
           {/if}
           {#if isCorrectionVisible}
-            <div class="bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus leading-relaxed mt-2  ml-2 lg:mx-5">
+            <div
+              class="{exercice.consigneCorrection.length !== 0 ? '' : 'hidden'}
+                bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus leading-relaxed mt-2  ml-2 lg:mx-5"
+            >
               {@html exercice.consigneCorrection}
             </div>
           {/if}
@@ -341,11 +358,7 @@
                 : 'list-none'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
               {#each exercice.listeQuestions as item, i (i)}
-                <div
-                  style="break-inside:avoid"
-                  id="consigne{indiceExercice}"
-                  class="container grid grid-cols-1 lg:{columnsCount > 1 ? 'grid-cols-1' : 'grid-cols-2'} auto-cols-min gap-4  lg:gap-10 mb-2 lg:mb-4"
-                >
+                <div style="break-inside:avoid" id="consigne{indiceExercice}-{i}" class="container grid grid-cols-1 auto-cols-min gap-1 lg:gap-4 mb-2 lg:mb-4">
                   <li style={i < exercice.listeQuestions.length ? `margin-bottom: ${exercice.spacing}em; line-height: 1` : ""} id="exercice{indiceExercice}Q{i}">
                     {@html Mathalea.formatExercice(item)}
                   </li>

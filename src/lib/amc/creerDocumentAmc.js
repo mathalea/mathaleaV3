@@ -8,7 +8,6 @@ import {
   randint
 } from '../../modules/outils.js'
 import { format as formatLatex } from '../Latex'
-import preambuleCP from '../latex/preambule.tex?raw'
 
 /**
  *
@@ -805,7 +804,7 @@ export function exportQcmAmc (exercice, idExo) {
  * @author Jean-Claude Lhote
  * Fonction qui crée un document pour AMC (pour le compiler, le package automultiplechoice.sty doit être présent)
  *
- *  questions est un tableau d'exercies TypeExercice[]
+ *  exercices est un tableau d'exercies TypeExercice[]
  *
  * nbQuestions est un tableau pour préciser le nombre de questions à prendre dans chaque groupe pour constituer une copie
  * s'il est indéfini, toutes les questions du groupe seront posées.
@@ -813,7 +812,7 @@ export function exportQcmAmc (exercice, idExo) {
  * matiere et titre se passent de commentaires : ils renseignent l'entête du sujet.
  */
 export function creerDocumentAmc ({
-  questions,
+  exercices,
   nbQuestions = [],
   nbExemplaires = 1,
   matiere = 'Mathématiques',
@@ -821,8 +820,8 @@ export function creerDocumentAmc ({
   typeEntete = 'AMCcodeGrid',
   format = 'A4'
 }) {
-  // Attention questions est maintenant un tableau de tous les exercices.
-  // Dans cette partie, la fonction récupère toutes les questions et les trie pour les rassembler par groupe
+  // Attention exercices est maintenant un tableau de tous les exercices.
+  // Dans cette partie, la fonction récupère toutes les exercices et les trie pour les rassembler par groupe
   // Toutes les questions d'un même exercice seront regroupées ce qui permet éventuellement de les récupérer dans des fichiers individuels pour se constituer une base
   let idExo = 0
   let code
@@ -834,7 +833,7 @@ export function creerDocumentAmc ({
   const titreQuestion = []
   const melangeQuestion = []
 
-  for (const exercice of questions) {
+  for (const exercice of exercices) {
     code = exportQcmAmc(exercice, idExo)
     idExo++
     indexOfCode = groupeDeQuestions.indexOf(code[1])
