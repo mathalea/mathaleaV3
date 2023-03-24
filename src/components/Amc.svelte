@@ -8,7 +8,6 @@
   import FormRadio from "./forms/FormRadio.svelte"
   import { darkMode } from "./store"
   import NavBarV2 from "./header/NavBarV2.svelte"
-  import Button from "./forms/Button.svelte"
   import ModalActionWithDialog from "./modal/ModalActionWithDialog.svelte"
   import { showDialogForLimitedTime } from "./utils/dialogs.js"
 
@@ -18,18 +17,18 @@
   let format = "A4"
   let matiere = ""
   let titre = ""
-  let nbQuestions: number[] = []
-  let nbQuestionsString = ""
+  let nbQuestionsModif: number[]
+  let nbQuestionsString = "1"
+  let nbExemplaires = 1
   let textForOverleaf: HTMLInputElement
 
   async function initExercices() {
-    Mathalea.updateExercicesParamsFromUrl()
-    exercices = await Mathalea.getExercicesFromParams($exercicesParams)
+    await Mathalea.updateExercicesParamsFromUrl()
+    exercices = await Mathalea.getExercicesFromParams($exercicesParams);
     for (const exercice of exercices) {
       context.isHtml = false
       context.isAmc = true
       exercice.nouvelleVersion()
-      nbQuestions.push(exercice.nbQuestions)
     }
   }
 
@@ -37,8 +36,22 @@
 
   $: {
     // ToDo vérifier la saisie utilisateur
-    nbQuestions = nbQuestionsString.split(",").map((e) => parseInt(e))
-    content = creerDocumentAmc({ questions: exercices, typeEntete: entete, format, matiere, titre, nbQuestions })
+    nbQuestionsModif = nbQuestionsString === '' ? [] : nbQuestionsString.split(",").map((e) => parseInt(e))
+    if (nbQuestionsModif.length === 0) nbQuestionsModif[0] = 1
+    if (entete === 'AMCassociation') nbExemplaires = 1
+    if (exercices.length > 0){
+      if (nbExemplaires == null) nbExemplaires = 1
+      for (let i = 0; i < Math.min(nbQuestionsModif.length, exercices.length) ; i++){
+        if (nbQuestionsModif[i]<1) nbQuestionsModif[i] = 1
+        if (exercices[i].nbQuestions < nbQuestionsModif[i]) {
+          exercices[i].nbQuestions = nbQuestionsModif[i] * nbExemplaires
+          context.isHtml = false
+          context.isAmc = true
+          exercices[i].nouvelleVersion()
+        }
+      }
+    }
+    content = creerDocumentAmc({ exercices, typeEntete: entete, format, matiere, titre, nbQuestions: nbQuestionsModif, nbExemplaires })
   }
 
   /**
@@ -111,13 +124,22 @@
         />
       </div>
       <div>
-        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre de questions</div>
+        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre de questions par groupe (séparés par des virgules)</div>
         <input
           type="text"
           class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
           bind:value={nbQuestionsString}
         />
       </div>
+    </div>
+    <div>
+      <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre d'exemplaires distincts</div>
+      <input
+              type="number"
+              min="1"
+              class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+              bind:value={nbExemplaires}
+      />
     </div>
 
     <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10 mt-8">
