@@ -782,6 +782,25 @@ div[id^="lampeMessage"]:before{
 div[id^="title-lampeMessage"]{
   @apply font-bold pb-2 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark
 }
+/* aides */
+div[id^="aide-"] {
+  @apply relative inline-block
+}
+div[id^="aide-trigger-"]{
+  @apply h-4 w-4 ml-1 inline-flex justify-center items-center rounded-full font-bold text-coopmaths-canvas bg-coopmaths-warn-dark
+}
+
+div[id^="aide-content-"]{
+  @apply absolute w-[400px] hidden group-hover:flex flex-col items-start justify-start z-10 bottom-3 left-auto right-auto bg-coopmaths-canvas-dark p-2 rounded-xl shadow-lg
+}
+
+.aide-header {
+  @apply text-coopmaths-struct font-semibold text-sm
+}
+
+.aide-content{
+  @apply text-coopmaths-corpus font-light pt-2
+}
 
 
 .katex {
