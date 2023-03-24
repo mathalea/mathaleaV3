@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
 import Hms from '../../../modules/Hms.js'
-import { listeQuestionsToContenu, shuffle, choice, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, shuffle, choice, sp, texNombre } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import Grandeur from '../../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -47,8 +47,8 @@ export default function SujetCAN2023CM2 () {
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)//
     const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)//
-    // const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
-    const typeQuestionsDisponibles = [25, 26] // Pour n'avoir que la question en cours de dev
+    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
+    // const typeQuestionsDisponibles = [30] // Pour n'avoir que la question en cours de dev
     // On crée un objet avec lesméthodes can2023
     const myCan = new ClasseCan2023()
     // On crée un objet necessaire à liaison des deux questions sur la vitesse
@@ -409,39 +409,74 @@ export default function SujetCAN2023CM2 () {
         }
           break
 
-        case 26:
-          texte = `rrr, i : ${i} , index : ${index}`
-          texteCorr = `rrr, i : ${i} , index : ${index}`
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+        case 26:{
+          const nombreDeDixiemesDansUnDecimal = myCan.nombreDeDixiemesDansUnDecimal()
+          texte = nombreDeDixiemesDansUnDecimal.texte
+          texteCorr = nombreDeDixiemesDansUnDecimal.texteCorr
+          setReponse(this, index, nombreDeDixiemesDansUnDecimal.reponse, { formatInteractif: 'calcul' })
+          if (this.interactif && !context.isAmc) {
+            texte += `${ajouteChampTexteMathLive(this, index, 'inline largeur15', { texte: `<br>Dans $${texNombre(nombreDeDixiemesDansUnDecimal.nombre, 2)}$ il y a`, texteApres: sp(5) + 'dixièmes en tout.' })}`
+          }
+          nbChamps = 1
+          this.listeCanEnonces.push(nombreDeDixiemesDansUnDecimal.canEnonce)
+          this.listeCanReponsesACompleter.push(nombreDeDixiemesDansUnDecimal.canReponseACompleter)
+        }
           break
 
-        case 27:
-          texte = `rrr, i : ${i} , index : ${index}`
-          texteCorr = `rrr, i : ${i} , index : ${index}`
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+        case 27:{
+          const proportionnaliteEtDiviseur = choice([true, false]) === true ? myCan.proportionnaliteEtDiviseur('stylos') : myCan.proportionnaliteEtDiviseur('cahiers')
+          texte = proportionnaliteEtDiviseur.texte
+          texteCorr = proportionnaliteEtDiviseur.texteCorr
+          setReponse(this, index, proportionnaliteEtDiviseur.reponse, { formatInteractif: 'calcul' })
+          if (this.interactif && !context.isAmc) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15', { texteApres: ' centimes' })
+          }
+          nbChamps = 1
+          this.listeCanEnonces.push(proportionnaliteEtDiviseur.canEnonce)
+          this.listeCanReponsesACompleter.push(proportionnaliteEtDiviseur.canReponseACompleter)
+        }
           break
 
-        case 28:
-          texte = `rrr, i : ${i} , index : ${index}`
-          texteCorr = `rrr, i : ${i} , index : ${index}`
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+        case 28:{
+          const trouverUneDimensionAgrandieOuReduite = choice([true, false]) === true ? myCan.trouverUneDimensionAgrandieOuReduite('agrandissement') : myCan.trouverUneDimensionAgrandieOuReduite('reduction')
+          texte = trouverUneDimensionAgrandieOuReduite.texte
+          texteCorr = trouverUneDimensionAgrandieOuReduite.texteCorr
+          setReponse(this, index, trouverUneDimensionAgrandieOuReduite.reponse, { formatInteractif: 'calcul' })
+          if (this.interactif && !context.isAmc) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15', { texteApres: ' cm' })
+          }
+          nbChamps = 1
+          this.listeCanEnonces.push(trouverUneDimensionAgrandieOuReduite.canEnonce)
+          this.listeCanReponsesACompleter.push(trouverUneDimensionAgrandieOuReduite.canReponseACompleter)
+        }
           break
 
-        case 29:
-          texte = `rrr, i : ${i} , index : ${index}`
-          texteCorr = `rrr, i : ${i} , index : ${index}`
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+        case 29:{
+          const ajouterDeuxDecimaux = myCan.ajouterDeuxDecimaux()
+          texte = ajouterDeuxDecimaux.texte
+          texteCorr = ajouterDeuxDecimaux.texteCorr
+          setReponse(this, index, ajouterDeuxDecimaux.reponse, { formatInteractif: 'calcul' })
+          if (this.interactif && !context.isAmc) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15', { texte: '$=$' })
+          }
+          nbChamps = 1
+          this.listeCanEnonces.push(ajouterDeuxDecimaux.canEnonce)
+          this.listeCanReponsesACompleter.push(ajouterDeuxDecimaux.canReponseACompleter)
+        }
           break
 
-        case 30:
-          texte = `rrr, i : ${i} , index : ${index}`
-          texteCorr = `rrr, i : ${i} , index : ${index}`
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+        case 30:{
+          const nombreDeCombinaisons = choice([true, false]) === true ? myCan.nombreDeCombinaisons('entreePlatDessert') : myCan.nombreDeCombinaisons('platDessert')
+          texte = nombreDeCombinaisons.texte
+          texteCorr = nombreDeCombinaisons.texteCorr
+          setReponse(this, index, nombreDeCombinaisons.reponse, { formatInteractif: 'calcul' })
+          if (this.interactif && !context.isAmc) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15', { texteApres: `${sp(2)} repas` })
+          }
+          nbChamps = 1
+          this.listeCanEnonces.push(nombreDeCombinaisons.canEnonce)
+          this.listeCanReponsesACompleter.push(nombreDeCombinaisons.canReponseACompleter)
+        }
           break
       }
 

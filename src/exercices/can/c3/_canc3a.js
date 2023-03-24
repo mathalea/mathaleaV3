@@ -1,15 +1,10 @@
 import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import FractionX from '../../../modules/FractionEtendue.js'
-import { fraction } from '../../../modules/fractions.js'
 import {
-  point, grille, droiteGraduee, plot, segment, milieu, segmentAvecExtremites, labelPoint, texteParPosition, polygoneAvecNom, polygone
+  point, grille, droiteGraduee, plot, segment, milieu, segmentAvecExtremites, texteParPosition, polygoneAvecNom, polygone
 } from '../../../modules/2d.js'
-import { round, min } from 'mathjs'
 import { context } from '../../../modules/context.js'
-import Hms from '../../../modules/Hms.js'
-import { listeQuestionsToContenu, miseEnEvidence, stringNombre, randint, texNombre, prenomF, prenomM, texPrix, shuffle, choice, sp, arrondi, texteEnCouleur } from '../../../modules/outils.js'
-import Grandeur from '../../../modules/Grandeur.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { miseEnEvidence, stringNombre, randint, texNombre, prenomF, prenomM, texPrix, shuffle, choice, sp, arrondi, texteEnCouleur } from '../../../modules/outils.js'
 
 import Decimal from 'decimal.js'
 export const titre = 'Classe CAN C3'
@@ -661,7 +656,7 @@ export default class ClasseCan2023 {
     const A = polygone([point(0, 0), point(c, 0), point(c, d), point(e, d), point(e, f), point(0, f)], 'black')
     A.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
     const C = grille(0, 0, a, b, 'black', 1, 1, false)
-    const D = point(1 + a, 4 - b)
+    // const D = point(1 + a, 4 - b)
     sortie.texte = `Quelle fraction de la surface totale représente la surface grisée ?
     <br>`
     sortie.texte += mathalea2d({ xmin: -0.5, ymin: -0.1, xmax: 6.1, ymax: b + 0.5, scale: 0.7, style: 'margin: auto' }, A, C)
@@ -730,7 +725,7 @@ export default class ClasseCan2023 {
         b = k * a
         sortie.reponse = k * b
         sortie.texte = `Si $${a}$ cahiers coûtent $${b}$ €, alors $${b}$ cahiers coûtent `
-        sortie.texteCorr = `$${a}$ cahiers coûtent $${b}$ €.<br> $${k}\\times${a}=${k * a}$ cahiers coûtent $${k}\\times${b}=${miseEnEvidence(k * b)}$ €.`  
+        sortie.texteCorr = `$${a}$ cahiers coûtent $${b}$ €.<br> $${k}\\times${a}=${k * a}$ cahiers coûtent $${k}\\times${b}=${miseEnEvidence(k * b)}$ €.`
         sortie.canEnonce = `Si $${a}$ cahiers coûtent $\\Prix[0]{${b}}$,`
         sortie.canReponseACompleter = `alors $${b}$ cahiers coûtent $\\ldots$ \\Prix[0]{}.`
         sortie.uniteInteractif = '€'
@@ -1008,25 +1003,25 @@ export default class ClasseCan2023 {
       canEnonce: '',
       canReponseACompleter: ''
     }
-    let f, prenom1, a, b, A, B, C, D
+    let f, prenom1, a, A, B, C
     let nombreDUnitesDAire
-    const choix = choice([true, false]) 
+    const choix = choice([true, false])
     switch (niveau) {
       case 'cm2':
         f = [[1, 1], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1], [7, 1], [8, 1]]
         a = randint(0, 7)
-        b = randint(2, 4)
+        // b = randint(2, 4)
         nombreDUnitesDAire = f[a][0]
         break
       case '6e':
         if (choix) {
           f = [[3, 5], [6, 5], [7, 5], [8, 5], [3, 2], [5, 2], [9, 5], [7, 2]]
           a = randint(0, 7)
-          b = randint(2, 4)
+          // b = randint(2, 4)
         } else {
           f = [[5, 4], [7, 4], [3, 2], [5, 2], [7, 2], [3, 4], [9, 4]]
           a = randint(0, 6)
-          b = randint(2, 4)
+          // b = randint(2, 4)
         }
         nombreDUnitesDAire = `$\\dfrac{${f[a][0]}}{${f[a][1]}}$`
         break
@@ -1037,7 +1032,7 @@ export default class ClasseCan2023 {
       A.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
       B = texteParPosition('1 uA', 6, 4.5, 'milieu', 'black', 1, 'middle', false)
       C = grille(0, 0, 12, 5, 'black', 1, 1, false)
-      D = point(1 + a, 4 - b)
+      // D = point(1 + a, 4 - b)
 
       sortie.texte = `${prenom1} veut construire une figure d'aire ${nombreDUnitesDAire} ${f[a][0] / f[a][1] >= 2 ? 'unités' : 'unité'} d'aire (uA).<br>  
       Combien de petits carreaux doit-elle contenir ?<br>`
@@ -1078,6 +1073,232 @@ export default class ClasseCan2023 {
     }
     sortie.canEnonce = `${prenom1} veut construire une figure d'aire \\\\ ${nombreDUnitesDAire} ${f[a][0] / f[a][1] > 2 ? 'unités' : 'unité'} d'aire (uA).<br>` + mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 6, scale: 0.3 }, A, C, B)
     sortie.canReponseACompleter = 'La figure doit contenir $\\ldots$ petits carreaux.'
+    return sortie
+  }
+
+  /**
+   * Méthode pour déterminer le nombre de dixièmes dans un décimal
+   * @returns {object}
+   * @author Sébastien LOZANO
+   */
+  nombreDeDixiemesDansUnDecimal () {
+    const sortie = {
+      texte: '',
+      texteCorr: '',
+      reponse: 0,
+      canEnonce: '',
+      canReponseACompleter: '',
+      nombre: ''
+    }
+    const unites = new Decimal(randint(1, 9))
+    const dixiemes = new Decimal(randint(1, 9)).div(10)
+    const centiemes = new Decimal(randint(1, 9)).div(100)
+    sortie.nombre = new Decimal(unites.add(dixiemes).add(centiemes))
+    sortie.reponse = new Decimal(unites.mul(10).add(dixiemes.mul(10)))
+    sortie.texte = `Combien de dixièmes y a-t-il en tout dans $${texNombre(sortie.nombre, 2)}$ ?`
+    sortie.texteCorr = `$${texNombre(sortie.nombre, 2)} = ${texNombre(unites, 0)} \\text{ ${unites.toNumber() === 1 ? 'unité' : 'unités'} } ${texNombre(dixiemes.mul(10), 0)} \\text{ ${dixiemes.mul(10).toNumber() === 1 ? 'dixième' : 'dixièmes'} } ${texNombre(centiemes.mul(100), 0)} \\text{ ${centiemes.mul(100).toNumber() === 1 ? 'centième' : 'centièmes'} }$.<br>`
+    sortie.texteCorr += `Or $1$ unité = $10$ dixièmes donc $${texNombre(unites, 0)} \\text{ ${unites.toNumber() === 1 ? 'unité' : 'unités'}} = ${texNombre(unites.mul(10), 0)} \\text{ dixèmes }$.<br>`
+    sortie.texteCorr += `Finalement $${texNombre(sortie.nombre, 2)} = ${texNombre(unites.mul(10).add(dixiemes.mul(10)), 0)} \\text{ dixièmes } ${texNombre(centiemes.mul(100), 0)} \\text{ ${centiemes.mul(100).toNumber() === 1 ? 'centième' : 'centièmes'} }$.<br>`
+    sortie.texteCorr += `Il y a donc $${miseEnEvidence(texNombre(sortie.reponse))} \\text{ dixièmes }$ en tout dans $${texNombre(sortie.nombre, 2)}$.`
+    sortie.canEnonce = `Combien de dixièmes y a-t-il en tout \\\\ dans $${texNombre(sortie.nombre, 2)}$ ?`
+    sortie.canReponseACompleter = '\\dots{} dixièmes'
+    return sortie
+  }
+
+  /**
+   * Méthode pour déterminer le prix d'un diviseur d'une quantité donnée
+   * @param {string} type pour le type d'énoncé
+   * @returns {object}
+   * @author Sébastien LOZANO
+   */
+  proportionnaliteEtDiviseur (type) {
+    const sortie = {
+      texte: '',
+      texteCorr: '',
+      reponse: 0,
+      canEnonce: '',
+      canReponseACompleter: ''
+    }
+    let a, prix, k
+    switch (type) {
+      case 'stylos':
+        a = randint(2, 6)
+        prix = new Decimal(2 + randint(1, 3) / 10).add(0.05)
+        k = randint(2, 4)
+        sortie.reponse = new Decimal(prix).mul(100 * k)
+        sortie.texte = `$${a}$ stylos identiques coûtent  $${texPrix(prix)}$ €. <br>
+Combien coûtent $${k * a}$ de ces mêmes stylos ?`
+        sortie.texteCorr = `$${a}$ stylos identiques coûtent  $${texPrix(prix)}$ €, donc $${k * a}$ de ces mêmes stylos coûtent  $${k}$ fois plus, soit $${k}\\times ${texPrix(prix)}=${texNombre(k * prix)}$ € $=${miseEnEvidence(texNombre(k * prix * 100))}$ centimes.`
+        break
+      case 'cahiers':
+        prix = choice([new Decimal('1.20'), new Decimal('1.80'), new Decimal('2.40')])
+        k = randint(3, 4)
+        sortie.reponse = new Decimal(prix).div(k).mul(100)
+        sortie.texte = `$${k * 2}$ cahiers coûtent  $${texPrix(prix)}$ €. <br>
+Combien coûtent $2$ cahiers ?`
+        sortie.texteCorr = `$${k * 2}$ cahiers coûtent  $${texPrix(prix)}$ €, donc $2$ de ces mêmes cahiers coûtent  $${k}$ fois moins, soit $ ${texPrix(prix)}\\div${k}=${texPrix(prix / k)}$ € $=${miseEnEvidence(texNombre(100 * prix / k, 0))}$ centimes.`
+        break
+    }
+    sortie.canEnonce = sortie.texte
+    sortie.canReponseACompleter = '$\\ldots$ centimes'
+    return sortie
+  }
+
+  /**
+   * Méthode pour trouver une dimension agrandie ou réduite
+   * @param {string} type pour le type d'énoncé
+   * @returns {object}
+   * @author Sébastien LOZANO
+   */
+  trouverUneDimensionAgrandieOuReduite (type) {
+    const sortie = {
+      texte: '',
+      texteCorr: '',
+      reponse: 0,
+      canEnonce: '',
+      canReponseACompleter: ''
+    }
+    let l, k, L, l2, A, B, C, D, E, F, G, H, xmin, ymin, xmax, ymax, pol, pol2, objets
+    switch (type) {
+      case 'agrandissement':
+        l = randint(2, 8)
+        k = randint(2, 4)
+        L = k * l
+        l2 = l + randint(1, 3)
+        A = point(0, 0)
+        B = point(4, 0)
+        C = point(4, 1.5)
+        D = point(0, 1.5)
+        E = point(5, 0)
+        F = point(7.5, 0)
+        G = point(7.5, 1)
+        H = point(5, 1)
+        xmin = -1.5
+        ymin = -0.5
+        xmax = 9.2
+        ymax = 2
+        pol = polygoneAvecNom(A, B, C, D)
+        pol2 = polygoneAvecNom(E, F, G, H)
+
+        // segment((i + 1) * 2, -0.1, (i + 1) * 2, 0.1)
+
+        objets = []
+        objets.push(pol[0]) //, pol[1]
+        objets.push(pol2[0])
+        objets.push(texteParPosition(`${stringNombre(l)} cm`, milieu(F, G).x + 0.7, milieu(F, G).y, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+          texteParPosition(`${stringNombre(L)} cm`, milieu(E, F).x, milieu(E, F).y - 0.3, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+          texteParPosition(`${stringNombre(l2)} cm`, milieu(A, D).x - 0.6, milieu(A, D).y, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+          texteParPosition('A ', milieu(F, G).x - 1.2, milieu(F, G).y),
+          texteParPosition('B ', milieu(B, C).x - 2, milieu(B, C).y)
+        )
+        sortie.reponse = l2 * k
+        sortie.texte = `Le rectangle B est un agrandissement du rectangle A.${context.isHtml ? '' : '\\\\'} Quelle est la longueur du rectangle B ?<br>`
+        sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
+        sortie.texteCorr = `La longueur du rectangle A est $${k}$ fois plus grande que sa largeur. On en déduit que la longueur du rectangle B est aussi $${k}$ fois plus grande que sa largeur.<br>
+Elle est donc égale à $${l2}\\times ${k}=${miseEnEvidence(sortie.reponse)}$ cm.`
+        break
+      case 'reduction':
+        L = randint(3, 5) * 2 // Longueur grand rectngle
+        l = randint(2, 5) // Largeur grand rectngle
+        k = L - randint(1, 2)
+        // L = k * l
+        l2 = L / 2// long petit
+        A = point(0, 0)
+        B = point(2.5, 0)
+        C = point(2.5, 1)
+        D = point(0, 1)
+        E = point(3, 0)
+        F = point(7, 0)
+        G = point(7, 2)
+        H = point(3, 2)
+        xmin = -1
+        ymin = -0.5
+        xmax = 8.5
+        ymax = 2.5
+        pol = polygoneAvecNom(A, B, C, D)
+        pol2 = polygoneAvecNom(E, F, G, H)
+        objets = []
+        objets.push(pol[0]) //, pol[1]
+        objets.push(pol2[0])
+        objets.push(texteParPosition(`${stringNombre(l)} cm`, milieu(F, G).x + 0.7, milieu(F, G).y, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+          texteParPosition(`${stringNombre(L)} cm`, milieu(E, F).x, milieu(E, F).y - 0.3, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+          texteParPosition(`${stringNombre(l2)} cm`, milieu(A, B).x, milieu(A, B).y - 0.3, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+          texteParPosition('A ', milieu(E, F).x, milieu(F, G).y, 'milieu', 'black', context.isHtml ? 1 : 0.7),
+          texteParPosition('B ', milieu(A, B).x, milieu(B, C).y, 'milieu', 'black', context.isHtml ? 1 : 0.7)
+        )
+        sortie.reponse = new Decimal(l).div(2)
+        sortie.texte = `Le rectangle B est une réduction du rectangle A.${context.isHtml ? '' : '\\\\'} Quelle est la largeur du rectangle B ?<br>`
+        sortie.texte += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
+        sortie.texteCorr = `La longueur du rectangle A est $2$ fois plus grande que la longeur du rectangle B. On en déduit que la largeur  du rectangle B est aussi $2$ fois plus petite que la largeur du rectangle A.<br>
+Elle est donc égale à $${l}\\div 2=${miseEnEvidence(texNombre(sortie.reponse, 1))}$ cm.
+                        `
+        break
+    }
+    sortie.canEnonce = sortie.texte
+    sortie.canReponseACompleter = '$\\ldots$ \\Lg[cm]{}'
+    return sortie
+  }
+
+  /**
+   * Méthode pour ajouter deux décimaux
+   * @returns {object}
+   * @author Sébastien LOZANO
+   */
+  ajouterDeuxDecimaux () {
+    const sortie = {
+      texte: '',
+      texteCorr: '',
+      reponse: 0,
+      canEnonce: '',
+      canReponseACompleter: ''
+    }
+    const a = new Decimal(randint(101, 199)).div(100)
+    const b = new Decimal(randint(4, 9)).div(10)
+
+    sortie.reponse = new Decimal(a).add(b)
+    sortie.texte = `$${texNombre(a, 2)}+ ${texNombre(b, 1)}$`
+    sortie.texteCorr = `$${texNombre(a, 2)}+ ${texNombre(b, 1)}=${miseEnEvidence(texNombre(sortie.reponse))}$`
+    sortie.canEnonce = sortie.texte
+    sortie.canReponseACompleter = ''
+    return sortie
+  }
+
+  /**
+   * Méthode pour déterminer un nombre de combinaisons différentes
+   * @param {string} type type entrée/plat, entrée/plat/dessert
+   * @returns {object}
+   * @author Sébastien LOZANO
+   */
+  nombreDeCombinaisons (type) {
+    const sortie = {
+      texte: '',
+      texteCorr: '',
+      reponse: 0,
+      canEnonce: '',
+      canReponseACompleter: ''
+    }
+    let a, b, c
+    switch (type) {
+      case 'entreePlatDessert':
+        a = randint(2, 3)
+        b = randint(2, 3)
+        c = randint(2, 3)
+        sortie.texte = `À la cantine, il y a toujours $${a}$ entrées différentes, $${b}$ plats différents et $${c}$ desserts différents.<br>
+Combien de menus (composés d'une entrée, d'un plat et d'un dessert) différents peut-on avoir dans cette cantine ?`
+        sortie.texteCorr = `On peut avoir : $${a}\\times ${b}\\times ${c} =${miseEnEvidence(a * b * c)}$ menus différents.`
+        sortie.reponse = a * b * c
+        break
+      case 'platDessert':
+        a = randint(2, 5)
+        b = randint(2, 5)
+        sortie.texte = `En prenant un plat au choix parmi $${a}$ plats et un dessert au choix parmi $${b}$ desserts.<br>
+Combien de repas différents peut-on réaliser ?  `
+        sortie.texteCorr = `On peut avoir : $${a}\\times ${b}=${miseEnEvidence(a * b)}$ repas différents.`
+        sortie.reponse = a * b
+        break
+    }
+    sortie.canEnonce = sortie.texte
+    sortie.canReponseACompleter = '$\\ldots$ repas'
     return sortie
   }
 }
