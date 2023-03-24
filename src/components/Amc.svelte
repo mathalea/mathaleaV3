@@ -153,7 +153,7 @@
             <div>
                 <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre de questions par groupe (séparés par des virgules)</div>
                 {#each exercices as exercice, i}
-                    <div>{exercice.id}{exercice.sup?`-S:${exercice.sup}` : ''}{exercice.sup2?`-S2:${exercice.sup2}`:''}{exercice.sup3?`-S3:${exercice.sup3}`:''}
+                    <div>{exercice.id}
                         <input
                                 type="text"
                                 class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
