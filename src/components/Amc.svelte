@@ -58,7 +58,6 @@
               exercices[i].nbQuestions = nbQ.nombre * nbExemplaires
               context.isHtml = false
               context.isAmc = true
-              seedrandom(exercices[i].seed, { global: true })
               exercices[i].nouvelleVersion()
             }
           }
@@ -142,10 +141,12 @@
                         <input
                                 type="text"
                                 class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-                                placeholder={exercices[i].nbQuestions.toString()}
+                                placeholder={exercice.nbQuestions.toString()}
                                 bind:value={nbQuestionsModif[i]}
                         />
-                      <button class="mx-2 tooltip tooltip-left" data-tip="Nouvel énoncé" type="button" on:click={newData}
+                      <button class="mx-2 tooltip tooltip-left" data-tip="Nouvel énoncé" type="button" on:click={()=>{
+                        exercice.seed = Mathalea.generateSeed({includeUpperCase: true,includeNumbers: true,length: 4,startsWithLowerCase: false})
+                      }}
                       ><i
                         class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh"
                       /></button
