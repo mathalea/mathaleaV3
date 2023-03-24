@@ -882,4 +882,202 @@ export default class ClasseCan2023 {
     sortie.canReponseACompleter = `$${a}\\times ${b} =\\ldots$`
     return sortie
   }
+
+  /**
+   * Méthode pour choisir une vitesse commune
+   * @returns {object}
+   * @author Sébastien LOZANO
+   */
+  vitesseCommune () {
+    const sortie = {
+      diviseurDeLHeure: 0,
+      vitesse: 0,
+      nombreDeMinutes: 0
+    }
+    sortie.diviseurDeLHeure = choice([2, 4]) // diviseur de l'heure
+    if (sortie.diviseurDeLHeure === 4) {
+      sortie.vitesse = choice([40, 80, 100])
+      sortie.nombreDeMinutes = choice([15, 45])
+    } else {
+      sortie.vitesse = choice([30, 60, 90, 120])
+      sortie.nombreDeMinutes = 30
+    }
+    return sortie
+  }
+
+  /**
+   * Méthode pour proportionnalité et vitesse
+   * @param {string} type premiere ou seconde question
+   * @param {object} vitesseCommune éléments communs à deux questions liées
+   * @returns {object}
+   * @author Sébastien LOZANO
+   */
+  proportionnaliteEtVitesse (type, vitesseCommune) {
+    const sortie = {
+      texte: '',
+      texteCorr: '',
+      reponse: 0,
+      canEnonce: '',
+      canReponseACompleter: ''
+    }
+    switch (type) {
+      case 'premiere':
+        sortie.reponse = vitesseCommune.vitesse / vitesseCommune.diviseurDeLHeure
+        sortie.texte = `Une voiture roule à $${vitesseCommune.vitesse}$ km/h. <br>Combien de kilomètres parcourt-elle en $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse ?`
+        sortie.texteCorr = `En $1$ h la voiture parcourt $${vitesseCommune.vitesse}$ km.<br>
+        En $${vitesseCommune.nombreDeMinutes}$ minutes, elle parcourt $${vitesseCommune.diviseurDeLHeure}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${vitesseCommune.vitesse}}{${vitesseCommune.diviseurDeLHeure}}=
+        ${miseEnEvidence(texNombre(vitesseCommune.vitesse / vitesseCommune.diviseurDeLHeure, 2))}$ km.`
+        sortie.canReponseACompleter = `Elle parcourt $\\ldots$ \\Lg[km]{} en $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse.`
+        break
+      case 'seconde':{
+        const d = randint(1, 3)
+        sortie.reponse = d * vitesseCommune.vitesse + (vitesseCommune.nombreDeMinutes / 60) * vitesseCommune.vitesse
+        sortie.texte = `Une voiture roule à  $${vitesseCommune.vitesse}$ km/h.<br> Combien de kilomètres parcourt-elle en $${d}$ h et $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse ?`
+        sortie.texteCorr = `En $${d}$ h, elle parcourt $${d * vitesseCommune.vitesse}$ km.<br>
+        En $${vitesseCommune.nombreDeMinutes}$ min, elle parcourt $${texNombre((vitesseCommune.nombreDeMinutes / 60) * vitesseCommune.vitesse, 2)}$ km.<br>
+        Ainsi, en en $${d}$ h et $${vitesseCommune.nombreDeMinutes}$ min, elle parcourt donc $${miseEnEvidence(texNombre(sortie.reponse, 0))}$ km.`
+        sortie.canReponseACompleter = `Elle parcourt $\\ldots$ \\Lg[km]{} en $${d}$ h et $${vitesseCommune.nombreDeMinutes}$ min à cette vitesse.`
+      }
+        break
+    }
+    sortie.canEnonce = `Une voiture roule à $${vitesseCommune.vitesse}$ \\Vitesse{}.`
+    return sortie
+  }
+
+  /**
+   * Méthode pour travailler la question clef de la division
+   * @returns {object}
+   * @author Sébastien LOZANO
+   */
+  dansNCombienDeFoisP () {
+    const sortie = {
+      texte: '',
+      texteCorr: '',
+      reponse: 0,
+      canEnonce: '',
+      canReponseACompleter: ''
+    }
+    const a = randint(3, 9)
+    const b = randint(3, 9)
+    const c = a * b
+
+    sortie.reponse = b
+    sortie.texte = `Dans $${c}$ combien de fois $${a}$ ?`
+    sortie.texteCorr = `Dans $${c}$, il y a $${miseEnEvidence(b)}$ fois $${a}$ car $${b}\\times ${a}=${c}$.`
+    sortie.canEnonce = sortie.texte
+    sortie.canReponseACompleter = ''
+    return sortie
+  }
+
+  /**
+   * Méthode pour décomposer un nombre à 3 chiffres en ... dizaines et ... unités
+   * @returns {object}
+   * @author Sébastien LOZANO
+   */
+  determinerUnNombreDeDizainesDansUnEntierATroisChiffres () {
+    const sortie = {
+      texte: '',
+      texteCorr: '',
+      reponse: 0,
+      canEnonce: '',
+      canReponseACompleter: ''
+    }
+    const nombreDeDizaines = randint(1, 9)
+    const nombreDeCentaines = randint(1, 9)
+    const nombre = 100 * nombreDeCentaines + 10 * nombreDeDizaines
+    sortie.reponse = nombreDeDizaines
+    sortie.texte = `Complète : ${sp(3)}
+    $${texNombre(nombreDeCentaines, 0)} \\text{ centaines et } \\ldots \\text{ dizaines font } ${nombre}$ `
+    sortie.texteCorr = `$${texNombre(nombre, 0)} = ${texNombre(nombreDeCentaines, 0)} \\text{ centaines et } ${miseEnEvidence(texNombre(nombreDeDizaines, 0))} \\text{ dizaines }$`
+    sortie.canEnonce = 'Complète'
+    sortie.canReponseACompleter = `$${texNombre(nombreDeCentaines, 0)}\\text{ centaines et} \\dots\\text{ dizaines}$\\\\ $\\text{font } ${nombre}$`
+    return sortie
+  }
+
+  /**
+   * Méthode pour tracer une figure d'aire donnée en fonction d'une unité d'aire
+   * @param {string} niveau Pour pouvoir être utilisé en 6e et en cm2
+   * @returns {object}
+   * @author Sébastien LOZANO
+   */
+  tracerUneFigureAireDonneeEnFonctionUniteAire (niveau) {
+    const sortie = {
+      texte: '',
+      texteCorr: '',
+      reponse: 0,
+      canEnonce: '',
+      canReponseACompleter: ''
+    }
+    let f, prenom1, a, b, A, B, C, D
+    let nombreDUnitesDAire
+    const choix = choice([true, false]) 
+    switch (niveau) {
+      case 'cm2':
+        f = [[1, 1], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1], [7, 1], [8, 1]]
+        a = randint(0, 7)
+        b = randint(2, 4)
+        nombreDUnitesDAire = f[a][0]
+        break
+      case '6e':
+        if (choix) {
+          f = [[3, 5], [6, 5], [7, 5], [8, 5], [3, 2], [5, 2], [9, 5], [7, 2]]
+          a = randint(0, 7)
+          b = randint(2, 4)
+        } else {
+          f = [[5, 4], [7, 4], [3, 2], [5, 2], [7, 2], [3, 4], [9, 4]]
+          a = randint(0, 6)
+          b = randint(2, 4)
+        }
+        nombreDUnitesDAire = `$\\dfrac{${f[a][0]}}{${f[a][1]}}$`
+        break
+    }
+    if (choix) {
+      prenom1 = prenomF()
+      A = polygone([point(1, 5), point(11, 5), point(11, 4), point(1, 4)], 'black')
+      A.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
+      B = texteParPosition('1 uA', 6, 4.5, 'milieu', 'black', 1, 'middle', false)
+      C = grille(0, 0, 12, 5, 'black', 1, 1, false)
+      D = point(1 + a, 4 - b)
+
+      sortie.texte = `${prenom1} veut construire une figure d'aire ${nombreDUnitesDAire} ${f[a][0] / f[a][1] >= 2 ? 'unités' : 'unité'} d'aire (uA).<br>  
+      Combien de petits carreaux doit-elle contenir ?<br>`
+
+      sortie.texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 5.5, scale: 1, style: 'margin: auto' }, C, A, B)
+      sortie.texteCorr = '$1$ uA est représentée par $10$ petits carreaux. <br>'
+      sortie.texteCorr += f[a][1] === 1 ? '' : `$\\dfrac{1}{${f[a][1]}}$ d'unité d'aire est donc rerésentée par $${texNombre(10 / f[a][1], 0)}$ petits carreaux. <br>`
+      sortie.texteCorr += `Ainsi, une figure de ${nombreDUnitesDAire} ${f[a][0] / f[a][1] >= 2 ? 'unités' : 'unité'} d'aire se représente par une figure de $${miseEnEvidence(texNombre(10 / f[a][1] * f[a][0], 0))}$ petits carreaux.`
+      sortie.reponse = 10 / f[a][1] * f[a][0]
+    } else {
+      prenom1 = prenomF()
+      A = polygone([point(1, 5), point(3, 5), point(3, 3), point(1, 3)], 'black')
+      A.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
+      B = texteParPosition('1 uA', 2, 5.4, 'milieu', 'black', 1, 'middle', false)
+      C = grille(0, 0, 12, 5, 'black', 1, 1, false)
+
+      sortie.texte = `${prenom1} veut construire une figure d'aire ${nombreDUnitesDAire} ${f[a][0] / f[a][1] >= 2 ? 'unités' : 'unité'} d'aire (uA).<br>
+    
+      Combien de petits carreaux doit-elle contenir ?<br>
+
+    `
+      sortie.texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 6, scale: 1, style: 'margin: auto' }, A, C, B)
+      if (f[a][1] === 4) {
+        sortie.texteCorr = '$1$ uA est représentée par  $4$ petits carreaux. <br>'
+        sortie.texteCorr += f[a][1] === 1 ? '' : `$\\dfrac{1}{${f[a][1]}}$ d'unité d'aire est donc rerésenté par un petit carreau.<br>`
+        sortie.texteCorr += `Ainsi, une figure de ${nombreDUnitesDAire} ${f[a][0] / f[a][1] >= 2 ? 'unités' : 'unité'} d'aire se représente par une figure de  `
+        sortie.texteCorr += f[a][1] === 1 ? `$${miseEnEvidence(4 * f[a][0])}$` : `$${miseEnEvidence(f[a][0])}$`
+        sortie.texteCorr += ' petits carreaux.'
+        sortie.reponse = f[a][1] === 1 ? 4 * f[a][0] : f[a][0]
+      } else {
+        sortie.texteCorr = '$1$ uA est représentée par $4$ petits carreaux. <br>'
+        sortie.texteCorr += f[a][1] === 1 ? '' : `$\\dfrac{1}{${f[a][1]}}$ d'unité d'aire est donc rerésenté par deux petits carreaux.<br>`
+        sortie.texteCorr += `Ainsi, une figure de ${nombreDUnitesDAire} ${f[a][0] / f[a][1] >= 2 ? 'unités' : 'unité'} d'aire se représente par une figure de `
+        sortie.texteCorr += f[a][1] === 1 ? `$${miseEnEvidence(4 * f[a][0])}$` : `$${miseEnEvidence(2 * f[a][0])}$`
+        sortie.texteCorr += ' petits carreaux.'
+        sortie.reponse = f[a][1] === 1 ? 4 * f[a][0] : 2 * f[a][0]
+      }
+    }
+    sortie.canEnonce = `${prenom1} veut construire une figure d'aire \\\\ ${nombreDUnitesDAire} ${f[a][0] / f[a][1] > 2 ? 'unités' : 'unité'} d'aire (uA).<br>` + mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 6, scale: 0.3 }, A, C, B)
+    sortie.canReponseACompleter = 'La figure doit contenir $\\ldots$ petits carreaux.'
+    return sortie
+  }
 }

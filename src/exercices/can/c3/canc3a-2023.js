@@ -47,10 +47,14 @@ export default function SujetCAN2023CM2 () {
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)//
     const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)//
-    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
+    // const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
+    const typeQuestionsDisponibles = [25, 26] // Pour n'avoir que la question en cours de dev
+    // On crée un objet avec lesméthodes can2023
+    const myCan = new ClasseCan2023()
+    // On crée un objet necessaire à liaison des deux questions sur la vitesse
+    const vitesseCommunePourQ21Q22 = myCan.vitesseCommune()
 
     for (let i = 0, index = 0, nbChamps, texte, texteCorr, a, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const myCan = new ClasseCan2023()
       switch (typeQuestionsDisponibles[i]) {
         case 1:{
           const produit = myCan.produitDeDeuxFacteurs(4, 9, 4, 9)
@@ -335,39 +339,74 @@ export default function SujetCAN2023CM2 () {
         }
           break
 
-        case 21:
-          texte = `rrr, i : ${i} , index : ${index}`
-          texteCorr = `rrr, i : ${i} , index : ${index}`
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+        case 21:{
+          const proportionnaliteEtVitesse = myCan.proportionnaliteEtVitesse('premiere', vitesseCommunePourQ21Q22)
+          texte = proportionnaliteEtVitesse.texte
+          texteCorr = proportionnaliteEtVitesse.texteCorr
+          setReponse(this, index, proportionnaliteEtVitesse.reponse, { formatInteractif: 'calcul' })
+          if (this.interactif && !context.isAmc) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'km'
+          }
+          nbChamps = 1
+          this.listeCanEnonces.push(proportionnaliteEtVitesse.canEnonce)
+          this.listeCanReponsesACompleter.push(proportionnaliteEtVitesse.canReponseACompleter)
+        }
           break
 
-        case 22:
-          texte = `rrr, i : ${i} , index : ${index}`
-          texteCorr = `rrr, i : ${i} , index : ${index}`
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+        case 22:{
+          const proportionnaliteEtVitesse = myCan.proportionnaliteEtVitesse('seconde', vitesseCommunePourQ21Q22)
+          texte = proportionnaliteEtVitesse.texte
+          texteCorr = proportionnaliteEtVitesse.texteCorr
+          setReponse(this, index, proportionnaliteEtVitesse.reponse, { formatInteractif: 'calcul' })
+          if (this.interactif && !context.isAmc) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'km'
+          }
+          nbChamps = 1
+          this.listeCanEnonces.push(proportionnaliteEtVitesse.canEnonce)
+          this.listeCanReponsesACompleter.push(proportionnaliteEtVitesse.canReponseACompleter)
+        }
           break
 
-        case 23:
-          texte = `rrr, i : ${i} , index : ${index}`
-          texteCorr = `rrr, i : ${i} , index : ${index}`
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+        case 23:{
+          const dansNCombienDeFoisP = myCan.dansNCombienDeFoisP()
+          texte = dansNCombienDeFoisP.texte
+          texteCorr = dansNCombienDeFoisP.texteCorr
+          setReponse(this, index, dansNCombienDeFoisP.reponse, { formatInteractif: 'calcul' })
+          if (this.interactif && !context.isAmc) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
+          nbChamps = 1
+          this.listeCanEnonces.push(dansNCombienDeFoisP.canEnonce)
+          this.listeCanReponsesACompleter.push(dansNCombienDeFoisP.canReponseACompleter)
+        }
           break
 
-        case 24:
-          texte = `rrr, i : ${i} , index : ${index}`
-          texteCorr = `rrr, i : ${i} , index : ${index}`
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+        case 24:{
+          const determinerUnNombreDeDizainesDansUnEntierATroisChiffres = myCan.determinerUnNombreDeDizainesDansUnEntierATroisChiffres()
+          texte = determinerUnNombreDeDizainesDansUnEntierATroisChiffres.texte
+          texteCorr = determinerUnNombreDeDizainesDansUnEntierATroisChiffres.texteCorr
+          setReponse(this, index, determinerUnNombreDeDizainesDansUnEntierATroisChiffres.reponse, { formatInteractif: 'calcul' })
+          if (this.interactif && !context.isAmc) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+          }
+          nbChamps = 1
+          this.listeCanEnonces.push(determinerUnNombreDeDizainesDansUnEntierATroisChiffres.canEnonce)
+          this.listeCanReponsesACompleter.push(determinerUnNombreDeDizainesDansUnEntierATroisChiffres.canReponseACompleter)
+        }
           break
 
-        case 25:
-          texte = `rrr, i : ${i} , index : ${index}`
-          texteCorr = `rrr, i : ${i} , index : ${index}`
-          this.listeCanEnonces.push(texte)
-          this.listeCanReponsesACompleter.push('')
+        case 25:{
+          const tracerUneFigureAireDonneeEnFonctionUniteAire = myCan.tracerUneFigureAireDonneeEnFonctionUniteAire('cm2')
+          texte = tracerUneFigureAireDonneeEnFonctionUniteAire.texte
+          texteCorr = tracerUneFigureAireDonneeEnFonctionUniteAire.texteCorr
+          setReponse(this, index, tracerUneFigureAireDonneeEnFonctionUniteAire.reponse, { formatInteractif: 'calcul' })
+          if (this.interactif && !context.isAmc) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15', { texteApres: sp(5) + 'petits carreaux.' })
+          }
+          nbChamps = 1
+          this.listeCanEnonces.push(tracerUneFigureAireDonneeEnFonctionUniteAire.canEnonce)
+          this.listeCanReponsesACompleter.push(tracerUneFigureAireDonneeEnFonctionUniteAire.canReponseACompleter)
+        }
           break
 
         case 26:
