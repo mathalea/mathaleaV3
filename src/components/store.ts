@@ -45,6 +45,9 @@ export const isMenuNeededForQuestions = writable<boolean>(false)
 export const isSettingsMenuVisible = writable<boolean>(false)
 export const isExportMenuVisible = writable<boolean>(false)
 
+// pour garder trace du statut d'ouverture du menu de choix
+export const isSideMenuVisible = writable<boolean>(true)
+
 /**
  * Déplace un exercice dans exercicesParams
  */
