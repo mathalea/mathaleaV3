@@ -42,6 +42,9 @@
     updateExercices()
   })
 
+  /**
+   * Met à jour le code des exercices pour autant de vue qu'il faut à l'aide des params trouvés dans exercices
+   */
   async function updateExercices() {
     questions = [[], [], [], []]
     corrections = [[], [], [], []]

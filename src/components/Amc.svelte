@@ -35,6 +35,7 @@
           nbQuestions.push({indexExercice: i, nombre: exercices[i].nbQuestions})
             context.isHtml = false
             context.isAmc = true
+            seedrandom(exercices[i].seed, { global: true })
             exercices[i].nouvelleVersion()
         }
     }
@@ -58,6 +59,7 @@
               exercices[i].nbQuestions = nbQ.nombre * nbExemplaires
               context.isHtml = false
               context.isAmc = true
+              seedrandom(exercices[i].seed, { global: true })
               exercices[i].nouvelleVersion()
             }
           }
@@ -146,6 +148,7 @@
                         />
                       <button class="mx-2 tooltip tooltip-left" data-tip="Nouvel énoncé" type="button" on:click={()=>{
                         exercice.seed = Mathalea.generateSeed({includeUpperCase: true,includeNumbers: true,length: 4,startsWithLowerCase: false})
+                      exercices[exercice]=exercice
                       }}
                       ><i
                         class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh"
