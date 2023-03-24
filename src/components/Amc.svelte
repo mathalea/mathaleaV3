@@ -130,70 +130,63 @@
             { label: "Format A4 portrait", value: "A4" },
             { label: "Format A3 paysage 2 colonnes", value: "A3" },
           ]}
-          title="format"
-        />
-      </div>
-    </div>
-    <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10"
-    >
-      <div>
-        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Matière</div>
-        <input
-          bind:value={matiere}
-          class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-          type="text"
-        />
-      </div>
-      <div>
-        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Titre</div>
-        <input
-          bind:value={titre}
-          class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-          type="text"
-        />
-      </div>
-      <div>
-        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre de questions
-          par groupe (séparés par des virgules)
+                />
+            </div>
         </div>
-        {#each exercices as exercice, i}
-          <div>{exercice.id}
-            <input
-              type="text"
-              class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-              placeholder={exercices[i].nbQuestions.toString()}
-              bind:value={nbQuestionsModif[i]}
-            />
-            <button class="mx-2 tooltip tooltip-left" data-tip="Nouvel énoncé" type="button" on:click={()=>{}}
-            ><i
-              class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh"
-            /></button
-            >
-          </div>
-        {/each}
-      </div>
-      <div>
-        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre
-          d'exemplaires distincts
+        <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10">
+            <div>
+                <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Matière</div>
+                <input
+                        type="text"
+                        class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+                        bind:value={matiere}
+                />
+            </div>
+            <div>
+                <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Titre</div>
+                <input
+                        type="text"
+                        class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+                        bind:value={titre}
+                />
+            </div>
+            <div>
+                <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre de questions par groupe (séparés par des virgules)</div>
+                {#each exercices as exercice, i}
+                    <div>{exercice.id}{exercice.sup?`-S:${exercice.sup}` : ''}{exercice.sup2?`-S2:${exercice.sup2}`:''}{exercice.sup3?`-S3:${exercice.sup3}`:''}
+                        <input
+                                type="text"
+                                class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+                                placeholder={exercices[i].nbQuestions.toString()}
+                                bind:value={nbQuestionsModif[i]}
+                        />
+                      <button class="mx-2 tooltip tooltip-left" data-tip="Nouvel énoncé" type="button" on:click={newData}
+                      ><i
+                        class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh"
+                      /></button
+                      >
+                    </div>
+                {/each}
+            </div>
+            <div>
+                <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre d'exemplaires distincts</div>
+                <input
+                        type="number"
+                        min="1"
+                        class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+                        bind:value={nbExemplaires}
+                />
+            </div>
         </div>
-        <input
-          bind:value={nbExemplaires}
-          class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-          min="1"
-          type="number"
-        />
-      </div>
-    </div>
-    
-    <div
-      class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10 mt-8"
-    >
-      <ModalActionWithDialog
-        dialogId="latexCopy"
-        message="Le code LaTeX a été copier dans le presse papier"
-        messageError="Impossible de copier le code dans le presse-papier !"
-        on:display={() => {
-          copyLaTeXCodeToClipBoard("latexCopy");
+
+            <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10 mt-8">
+                <ModalActionWithDialog
+                        dialogId="latexCopy"
+                        title="Copier le code LaTeX"
+                        message="Le code LaTeX a été copier dans le presse papier"
+                        messageError="Impossible de copier le code dans le presse-papier !"
+                        on:display={() => {
+          copyLaTeXCodeToClipBoard("latexCopy")
         }}
         title="Copier le code LaTeX"
       />
