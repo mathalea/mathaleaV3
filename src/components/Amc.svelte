@@ -14,17 +14,18 @@
   import ModalActionWithDialog from "./modal/ModalActionWithDialog.svelte";
   import { showDialogForLimitedTime } from "./utils/dialogs.js";
 
-  let exercices: TypeExercice[] = [];
-  let content = "";
-  let entete = "AMCcodeGrid";
-  let format = "A4";
-  let matiere = "";
-  let titre = "";
-  let nbQuestionsModif: number[];
-  let nbQuestionsString = "1";
-  let nbExemplaires = 1;
-  let textForOverleaf: HTMLInputElement;
-
+    let exercices: TypeExercice[] = [];
+    let content = "";
+    let entete = "AMCcodeGrid";
+    let format = "A4";
+    let matiere = "";
+    let titre = "";
+    let nbQuestionsModif: number[]=[];
+    let nbQuestions: Array<{ indexExercice: number, nombre: number }> = [];
+    let nbQuestionsString = "1"
+    let nbExemplaires = 1
+    let textForOverleaf: HTMLInputElement
+    
   async function initExercices() {
     await MathaleaUpdateExercicesParamsFromUrl();
     exercices = await MathaleaGetExercicesFromParams($exercicesParams);
@@ -39,60 +40,56 @@
 
   $: {
     // ToDo vérifier la saisie utilisateur
-    nbQuestionsModif =
-      nbQuestionsString === ""
-        ? []
-        : nbQuestionsString.split(",").map((e) => parseInt(e));
-    if (nbQuestionsModif.length === 0) nbQuestionsModif[0] = 1;
-    if (entete === "AMCassociation") nbExemplaires = 1;
-    if (exercices.length > 0) {
-      if (nbExemplaires == null) nbExemplaires = 1;
-      for (
-        let i = 0;
-        i < Math.min(nbQuestionsModif.length, exercices.length);
-        i++
-      ) {
-        if (nbQuestionsModif[i] < 1) nbQuestionsModif[i] = 1;
-        if (exercices[i].nbQuestions < nbQuestionsModif[i]) {
-          exercices[i].nbQuestions = nbQuestionsModif[i] * nbExemplaires;
-          context.isHtml = false;
-          context.isAmc = true;
-          exercices[i].nouvelleVersion();
+    // Si les copies sont préremplies, c'est un seul exemplaire pour ne pas avoir plusieurs sujets avec le même nom
+    if (entete === 'AMCassociation') nbExemplaires = 1
+    // On récupère les nombres de questions par groupe indexé sur l'index d'exercice dans exercices
+    nbQuestions = nbQuestionsModif.map((elt, i)=>{
+      if (elt !== null) return { indexExercice: i, nombre: elt }
+    })
+    // on blinde le nbExemplaires qui ne peut être 0 ou undefined
+    if (nbExemplaires == null) nbExemplaires = 1
+    for (let i = 0; i <exercices.length; i++) {
+      const nbQ = nbQuestions.find(elt => elt.indexExercice === i)
+      if (nbQ != null) {
+        if (exercices[i].nbQuestions < nbQ.nombre) {
+          exercices[i].nbQuestions = nbQ.nombre * nbExemplaires
+          context.isHtml = false
+          context.isAmc = true
+          seedrandom(exercices[i].seed, { global: true })
+          exercices[i].nouvelleVersion()
         }
       }
     }
     content = creerDocumentAmc({
       exercices,
       typeEntete: entete,
-      format,
-      matiere,
+      format, matiere,
       titre,
-      nbQuestions: nbQuestionsModif,
-      nbExemplaires,
-    });
+      nbQuestions,
+      nbExemplaires });
   }
 
-  /**
-   * Copier le code LaTeX dans le presse-papier
-   * @param {string} dialogId id attaché au composant
-   * @author sylvain
-   */
-  async function copyLaTeXCodeToClipBoard(dialogId: string) {
-    navigator.clipboard.writeText(content).then(
-      () => {
-        showDialogForLimitedTime(dialogId + "-1", 1000);
-      },
-      (err) => {
-        console.error("Async: Could not copy text: ", err);
-        showDialogForLimitedTime(dialogId + "-2", 1000);
-      }
-    );
-  }
+    /**
+     * Copier le code LaTeX dans le presse-papier
+     * @param {string} dialogId id attaché au composant
+     * @author sylvain
+     */
+    async function copyLaTeXCodeToClipBoard(dialogId: string) {
+        navigator.clipboard.writeText(content).then(
+            () => {
+                showDialogForLimitedTime(dialogId + "-1", 1000);
+            },
+            (err) => {
+                console.error("Async: Could not copy text: ", err);
+                showDialogForLimitedTime(dialogId + "-2", 1000);
+            }
+        );
+    }
 
-  function exportToOverLeaf(): void {
-    // à faire !   const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
-    textForOverleaf.value = encodeURIComponent(content);
-  }
+    function exportToOverLeaf(): void {
+        // à faire !   const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
+        textForOverleaf.value = encodeURIComponent(content);
+    }
 </script>
 
 <main
@@ -100,148 +97,123 @@
     ? 'dark'
     : ''}"
 >
-  <NavBarV2 subtitle="AMC" />
+    <NavBarV2 subtitle="AMC" />
 
-  <section class="px-10 py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-    <div
-      class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10"
-    >
-      <div>
-        <div
-          class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-        >
-          Type d'entête
-        </div>
-        <FormRadio
-          title="entete"
-          bind:valueSelected={entete}
-          labelsValues={[
+    <section class="px-10 py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+        <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10"
+          >  <div>
+                <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Type d'entête</div>
+                <FormRadio
+                        title="entete"
+                        bind:valueSelected={entete}
+                        labelsValues={[
             { label: "Grille de codage", value: "AMCcodeGrid" },
             { label: "Copies pré-remplies", value: "AMCassociation" },
             { label: "Noms et prénoms manuscrits", value: "manuscrits" },
           ]}
-        />
-      </div>
-      <div>
-        <div
+                />
+            </div>
+            <div>
+                <div
           class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
         >
           Format
         </div>
-        <FormRadio
-          title="format"
-          bind:valueSelected={format}
-          labelsValues={[
+                <FormRadio
+                        title="format"
+                        bind:valueSelected={format}
+                        labelsValues={[
             { label: "Format A4 portrait", value: "A4" },
             { label: "Format A3 paysage 2 colonnes", value: "A3" },
           ]}
-        />
-      </div>
-    </div>
-    <div
-      class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10"
-    >
-      <div>
-        <div
-          class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-        >
-          Matière
+                />
+            </div>
         </div>
-        <input
-          type="text"
-          class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-          bind:value={matiere}
-        />
-      </div>
-      <div>
-        <div
-          class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-        >
-          Titre
+        <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10"
+          >  <div>
+                <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Matière</div>
+                <input
+                        type="text"
+                        class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+                        bind:value={matiere}
+                />
+            </div>
+            <div>
+                <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Titre</div>
+                <input
+                        type="text"
+                        class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+                        bind:value={titre}
+                />
+            </div>
+            <div>
+                <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre de questions par groupe (séparés par des virgules)</div>
+                {#each exercices as exercice, i}
+                    <div>{exercice.id}
+                        <input
+                                type="text"
+                                class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+                                placeholder={exercices[i].nbQuestions.toString()}
+                                bind:value={nbQuestionsModif[i]}
+                        />
+                      <button class="mx-2 tooltip tooltip-left" data-tip="Nouvel énoncé" type="button" on:click={newData}
+                      ><i
+                        class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh"
+                      /></button
+                      >
+                    </div>
+                {/each}
+            </div>
+            <div>
+                <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre d'exemplaires distincts</div>
+                <input
+                        type="number"
+                        min="1"
+                        class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+                        bind:value={nbExemplaires}
+                />
+            </div>
         </div>
-        <input
-          type="text"
-          class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-          bind:value={titre}
-        />
-      </div>
-      <div>
-        <div
-          class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-        >
-          Nombre de questions par groupe (séparés par des virgules)
-        </div>
-        <input
-          type="text"
-          class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-          bind:value={nbQuestionsString}
-        />
-      </div>
-    </div>
-    <div>
-      <div
-        class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-      >
-        Nombre d'exemplaires distincts
-      </div>
-      <input
-        type="number"
-        min="1"
-        class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-        bind:value={nbExemplaires}
-      />
-    </div>
 
-    <div
+            <div
       class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10 mt-8"
     >
-      <ModalActionWithDialog
-        dialogId="latexCopy"
-        title="Copier le code LaTeX"
-        message="Le code LaTeX a été copier dans le presse papier"
-        messageError="Impossible de copier le code dans le presse-papier !"
-        on:display={() => {
+                <ModalActionWithDialog
+                        dialogId="latexCopy"
+                        title="Copier le code LaTeX"
+                        message="Le code LaTeX a été copier dans le presse papier"
+                        messageError="Impossible de copier le code dans le presse-papier !"
+                        on:display={() => {
           copyLaTeXCodeToClipBoard("latexCopy");
         }}
-      />
-      <form
-        method="POST"
-        action="https://www.overleaf.com/docs"
-        target="_blank"
-      >
-        <input
-          type="hidden"
-          name="encoded_snip"
-          value=""
-          bind:this={textForOverleaf}
-          autocomplete="off"
-        />
+                />
+                <form method="POST" action="https://www.overleaf.com/docs" target="_blank">
+                    <input type="hidden" name="encoded_snip" value="" bind:this={textForOverleaf} autocomplete="off"
+                    />
         <input
           type="hidden"
           name="snip_name"
           value="CoopMaths"
           autocomplete="off"
-        />
+                    />
         <input
           type="hidden"
           name="engine"
           value="lualatex"
           autocomplete="off"
-        />
-        <button
-          id="btn_overleaf"
-          type="submit"
-          on:click={exportToOverLeaf}
-          class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
-        >
-          Compiler en PDF sur Overleaf.com
-        </button>
-      </form>
-    </div>
-    <pre
-      class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">
+                    /><button
+                            id="btn_overleaf"
+                            type="submit"
+                            on:click={exportToOverLeaf}
+                            class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
+                    >
+                        Compiler en PDF sur Overleaf.com
+                    </button>
+                </form>
+            </div>
+            <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">
       {content}
     </pre>
-  </section>
-  <Footer />
+    </section>
+    <Footer />
 </main>
