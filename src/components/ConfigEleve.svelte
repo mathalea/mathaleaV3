@@ -1,10 +1,8 @@
 <script lang="ts">
   import { exercicesParams, darkMode, globalOptions } from "./store"
-  import { Mathalea } from "../lib/Mathalea.js"
-  import type TypeExercice from "./utils/typeExercice"
+  import { MathaleaUpdateUrlFromExercicesParams } from "../lib/Mathalea.js"
   import Footer from "./Footer.svelte"
   import NavBarV2 from "./header/NavBarV2.svelte"
-  import Latex from "../lib/Latex"
   import Button from "./forms/Button.svelte"
   import FormRadio from "./forms/FormRadio.svelte"
   import { onMount } from "svelte"
@@ -12,10 +10,10 @@
   import ModalActionWithDialog from "./modal/ModalActionWithDialog.svelte"
   import ModalForQRCode from "./modal/ModalForQRCode.svelte"
   import { copyLinkToClipboard, copyEmbeddedCodeToClipboard } from "./utils/clipboard"
-  import { buildUrlAddendumForEsParam, getShortenedCurrentUrl } from "./utils/urls"
+  import { buildUrlAddendumForEsParam } from "./utils/urls"
 
   onMount(() => {
-    Mathalea.updateUrl($exercicesParams)
+    MathaleaUpdateUrlFromExercicesParams($exercicesParams)
   })
 
   let formatQRCodeIndex: number = 0

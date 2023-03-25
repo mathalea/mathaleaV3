@@ -1,6 +1,6 @@
 <script lang="ts">
   import { exercicesParams, darkMode } from "./store"
-  import { Mathalea } from "../lib/Mathalea.js"
+  import { MathaleaGetExercicesFromParams, MathaleaUpdateExercicesParamsFromUrl, MathaleaUpdateUrlFromExercicesParams } from "../lib/Mathalea.js"
   import type TypeExercice from "./utils/typeExercice"
   import Footer from "./Footer.svelte"
   import NavBarV2 from "./header/NavBarV2.svelte"
@@ -8,7 +8,6 @@
   import Button from "./forms/Button.svelte"
   import FormRadio from "./forms/FormRadio.svelte"
   import { onMount } from "svelte"
-  import { handleComponentChange } from "./utils/navigation"
   import { deviceType } from "./utils/measures"
 
   let nbVersions = 1
@@ -24,8 +23,8 @@
 
   const latex = new Latex()
   async function initExercices() {
-    Mathalea.updateExercicesParamsFromUrl()
-    exercices = await Mathalea.getExercicesFromParams($exercicesParams)
+    MathaleaUpdateExercicesParamsFromUrl()
+    exercices = await MathaleaGetExercicesFromParams($exercicesParams)
     for (const exercice of exercices) {
       if (exercice.typeExercice === "statique") {
         isExerciceStaticInTheList = true
@@ -37,7 +36,7 @@
   }
 
   onMount(() => {
-    Mathalea.updateUrl($exercicesParams)
+    MathaleaUpdateUrlFromExercicesParams($exercicesParams)
   })
 
   initExercices()

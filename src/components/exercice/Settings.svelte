@@ -1,7 +1,8 @@
 <script lang="ts">
   import { afterUpdate, createEventDispatcher } from "svelte"
+  import type TypeExercice from "../utils/typeExercice"
 
-  export let exercice
+  export let exercice: TypeExercice
   let nbQuestions: number
   let duration: number
   let sup: boolean
