@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, shuffle, choice, sp, texNombre } from '../../.
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import Grandeur from '../../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import ClasseCan2023 from './_canc3a.js'
+import ClasseCan2023 from './_Canc3a.js'
 export const titre = 'CAN CM2 sujet 2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
