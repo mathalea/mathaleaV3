@@ -36,6 +36,7 @@
     for (const exercice of exercices) {
       context.isHtml = false;
       context.isAmc = true;
+      seedrandom(exercice.seed, {global: true})
       exercice.nouvelleVersion();
     }
   }
