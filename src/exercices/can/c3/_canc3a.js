@@ -10,7 +10,7 @@ import Decimal from 'decimal.js'
 export const titre = 'Classe CAN C3'
 
 /**
- * Essai de classe Can
+ * Essai de classe Can pour le sujet cm2 2023
  * @author Sébastien LOZANO
 */
 
