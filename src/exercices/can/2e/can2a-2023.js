@@ -121,12 +121,12 @@ export default function SujetCAN2023Seconde () {
           f = choice(['a', 'b', 'y', 'x'])
           reponse = [`${f}(${n}+${m}${f})`, `${f}(${m}${f}+${n})`]
           if (choice([true, false])) {
-            texte = ` Factoriser $${n}${f}${ecritureAlgebrique(m)}${f}^2$.`
+            texte = ` Factoriser $${n}${f}${ecritureAlgebrique(m)}${f}^2$`
             texteCorr = `$x$ est un facteur commun aux deux termes : $${n}${f}$ et $${abs(m)}${f}^2$.<br>
           En effet :<br>
           $${n}${f}${ecritureAlgebrique(m)}${f}^2=\\underbrace{${f}\\times ${n}}_{${n}${f}} ${m < 0 ? '-' : '+'}\\underbrace{${f}\\times ${m}${f}}_{${m}${f}^2}=${f}(${n}${ecritureAlgebrique(m)}${f})$`
           } else {
-            texte = ` Factoriser $${m}${f}^2+${n}${f}$.`
+            texte = ` Factoriser $${m}${f}^2+${n}${f}$`
             texteCorr = `$x$ est un facteur commun aux deux termes : $${n}${f}$ et $${abs(m)}${f}^2$.<br>
           En effet :<br>
           $${m}${f}^2+${n}${f}=\\underbrace{${f}\\times ${m}${f}}_{${m}${f}^2}+\\underbrace{${f}\\times ${n}}_{${n}${f}} =${f}(${m}${f}+${n})$`
