@@ -20,7 +20,7 @@
   let titre = "";
   let nbQuestionsModif: number[] = [];
   
-  interface NbQuestionsIndexees {
+  type NbQuestionsIndexees = {
     indexExercice: number,
     nombre: number
   }
