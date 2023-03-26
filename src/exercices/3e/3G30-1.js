@@ -506,7 +506,7 @@ export default function ExprimerCosSinTan () {
       }
 
       if (context.isAmc) {
-        this.autoCorrection[0] = {
+        this.autoCorrection[i] = {
           enonce: '',
           enonceAvant: false, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
           options: { multicols: true, barreseparation: true, multicolsAll: this.sup === 1 }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!

@@ -278,7 +278,7 @@ export default function CalculDAngle () {
       /*****************************************************/
       // Pour AMC
       if (context.isAmc) {
-        this.autoCorrection[0] = {
+        this.autoCorrection[i] = {
           enonce: texte,
           propositions: [{ texte: texteCorr, statut: 4, feedback: '' }],
           reponse: { valeur: angleABC.toString(), param: { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0 } }
