@@ -1,4 +1,4 @@
-type Exercice = {
+class Exercice {
   titre?: string
   id?: string
   uuid?: string
@@ -77,6 +77,7 @@ type Exercice = {
   lieu?: string // Pour les exercices statiques
   content?: string // Pour les exercices statiques
   contentCorr?: string // Pour les exercices statiques
+  applyNewSeed: () => void
 }
 
 export default Exercice

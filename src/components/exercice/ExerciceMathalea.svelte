@@ -1,17 +1,18 @@
 <script lang="ts">
   import { globalOptions, resultsByExercice } from "../store"
   import { afterUpdate, onMount, tick } from "svelte"
+  import type TypeExercice from '../utils/typeExercice'
   import seedrandom from "seedrandom"
   import { prepareExerciceCliqueFigure } from "../../lib/interactif/interactif"
   import { loadMathLive } from "../../modules/loaders"
-  import { Mathalea } from "../../lib/Mathalea"
+  import { MathaleaFormatExercice, MathaleaHandleExerciceSimple, MathaleaHandleStringFromUrl, MathaleaHandleSup, MathaleaRenderDiv, MathaleaUpdateUrlFromExercicesParams } from "../../lib/Mathalea"
   import { exerciceInteractif } from "../../lib/interactif/interactif"
   import { exercicesParams } from "../store"
   import HeaderExercice from "./HeaderExercice.svelte"
   import Settings from "./Settings.svelte"
-  export let exercice
-  export let indiceExercice
-  export let indiceLastExercice
+  export let exercice: TypeExercice
+  export let indiceExercice: number
+  export let indiceLastExercice: number 
   export let isCorrectionVisible = false
 
   let divExercice: HTMLDivElement
@@ -91,19 +92,13 @@
           newData()
         }
       }
-      Mathalea.renderDiv(divExercice)
+      MathaleaRenderDiv(divExercice)
     }
   })
 
   async function newData() {
     if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
-    const seed = Mathalea.generateSeed({
-      includeUpperCase: true,
-      includeNumbers: true,
-      length: 4,
-      startsWithLowerCase: false,
-    })
-    exercice.seed = seed
+    exercice.applyNewSeed()
     if (buttonScore) initButtonScore()
     if (isCorrectionVisible) {
       window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, "true")
@@ -131,19 +126,19 @@
     }
     if (event.detail.sup !== undefined) {
       exercice.sup = event.detail.sup
-      $exercicesParams[indiceExercice].sup = exercice.sup
+      $exercicesParams[indiceExercice].sup = MathaleaHandleSup(exercice.sup)
     }
     if (event.detail.sup2 !== undefined) {
       exercice.sup2 = event.detail.sup2
-      $exercicesParams[indiceExercice].sup2 = exercice.sup2
+      $exercicesParams[indiceExercice].sup2 = MathaleaHandleSup(exercice.sup2)
     }
     if (event.detail.sup3 !== undefined) {
       exercice.sup3 = event.detail.sup3
-      $exercicesParams[indiceExercice].sup3 = exercice.sup3
+      $exercicesParams[indiceExercice].sup3 = MathaleaHandleSup(exercice.sup3)
     }
     if (event.detail.sup4 !== undefined) {
       exercice.sup4 = event.detail.sup4
-      $exercicesParams[indiceExercice].sup4 = exercice.sup4
+      $exercicesParams[indiceExercice].sup4 = MathaleaHandleSup(exercice.sup4)
     }
     if (event.detail.alea !== undefined) {
       exercice.seed = event.detail.alea
@@ -164,22 +159,18 @@
   }
 
   async function updateDisplay() {
-    if (exercice.seed === undefined)
-      exercice.seed = Mathalea.generateSeed({
-        includeUpperCase: true,
-        includeNumbers: true,
-        length: 4,
-        startsWithLowerCase: false,
-      })
+    if (exercice.seed === undefined) {
+      exercice.applyNewSeed()
+    }
     seedrandom(exercice.seed, { global: true })
-    if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, isInteractif)
+    if (exercice.typeExercice === "simple") MathaleaHandleExerciceSimple(exercice, isInteractif)
     exercice.interactif = isInteractif
     $exercicesParams[indiceExercice].alea = exercice.seed
     $exercicesParams[indiceExercice].interactif = isInteractif ? "1" : "0"
     $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
     exercice.numeroExercice = indiceExercice
     exercice.nouvelleVersion(indiceExercice)
-    Mathalea.updateUrl($exercicesParams)
+    MathaleaUpdateUrlFromExercicesParams()
     adjustMathalea2dFiguresWidth()
   }
 
@@ -360,7 +351,7 @@
               {#each exercice.listeQuestions as item, i (i)}
                 <div style="break-inside:avoid" id="consigne{indiceExercice}-{i}" class="container grid grid-cols-1 auto-cols-min gap-1 lg:gap-4 mb-2 lg:mb-4">
                   <li style={i < exercice.listeQuestions.length ? `margin-bottom: ${exercice.spacing}em; line-height: 1` : ""} id="exercice{indiceExercice}Q{i}">
-                    {@html Mathalea.formatExercice(item)}
+                    {@html MathaleaFormatExercice(item)}
                   </li>
                   {#if isCorrectionVisible}
                     <div
@@ -368,7 +359,7 @@
                       style="margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: {exercice.spacingCorr || 1}; break-inside:avoid"
                       id="correction${indiceExercice}Q${i}"
                     >
-                      {@html Mathalea.formatExercice(exercice.listeCorrections[i])}
+                      {@html MathaleaFormatExercice(exercice.listeCorrections[i])}
                       <div class="absolute border-coopmaths-warn-dark top-0 left-0 border-b-4 w-10" />
                       <div
                         class="absolute h-6 w-6 flex flex-row justify-center items-center -left-3 -top-2 rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas"

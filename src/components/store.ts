@@ -31,7 +31,8 @@ export const globalOptions = writable<InterfaceGlobalOptions>({ v: '', z: '1', t
 // utilisé pour les aller-retours entre le composant Diaporam et le composant Can
 export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: [] })
 export const selectedExercises = writable({ isActive: false, indexes: [], count: 1 })
-export const transitionsBetweenQuestions = writable({ isActive: true, isNoisy: false, tune: 0 })
+interface InterfaceTransitionsBetweenQuestions {isActive: boolean, isNoisy: boolean, tune: '0'|'1'|'2'|'3' }
+export const transitionsBetweenQuestions = writable<InterfaceTransitionsBetweenQuestions>({ isActive: true, isNoisy: false, tune: '0' })
 
 // pour la gestion du mode sombre
 export const darkMode = writable({ isActive: false })
@@ -44,6 +45,9 @@ export const isMenuNeededForExercises = writable<boolean>(false)
 export const isMenuNeededForQuestions = writable<boolean>(false)
 export const isSettingsMenuVisible = writable<boolean>(false)
 export const isExportMenuVisible = writable<boolean>(false)
+
+// pour garder trace du statut d'ouverture du menu de choix
+export const isSideMenuVisible = writable<boolean>(true)
 
 /**
  * Déplace un exercice dans exercicesParams

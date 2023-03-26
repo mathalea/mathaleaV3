@@ -20,7 +20,8 @@ export const context = {
   zoom: 1,
   seedSpecial: false, // Change le numéro de série si une correction est cachée
   son: 0, // pour ajouter du son au changement de diapo dans le diaporama
-  versionMathalea: undefined
+  versionMathalea: undefined,
+  vue: '' // context.vue = 'diaporama' est utilisé pour modifier l'affichage d'un exercice en mode diaporama
 }
 
 export function setOutputHtml () {

@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import { Mathalea } from "../../lib/Mathalea"
+  import { MathaleaUpdateUrlFromExercicesParams } from "../../lib/Mathalea"
   import { exercicesParams, globalOptions } from "../store"
 
   export let size : 'xs' | 'sm' | 'md' | 'lg' = 'sm' 
@@ -21,7 +21,7 @@
       params.z = zoom.toString()
       return params
     })
-    Mathalea.updateUrl($exercicesParams)
+    MathaleaUpdateUrlFromExercicesParams($exercicesParams)
   }
 </script>
 

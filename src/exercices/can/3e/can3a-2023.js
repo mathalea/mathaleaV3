@@ -159,7 +159,7 @@ export default function SujetCAN2023troisieme () {
           break
 
         case 5:
-          if (choice([false, false])) {
+          if (choice([true, false])) {
             ang1 = choice([20, 30, 40, 60, 70, 80, 100, 110, 120, 130, 140, 150, 160])
             A = point(0, 0, 'A', 'below')
             B = point(6, 0, 'B', 'below')

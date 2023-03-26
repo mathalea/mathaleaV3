@@ -1,6 +1,6 @@
 <script>
+    import { MathaleaHandleComponentChange } from "src/lib/Mathalea";
   import { globalOptions, darkMode } from "../store"
-  import { handleComponentChange } from "../utils/navigation"
 
   import NavBarMenuV2 from "./NavBarMenuV2.svelte"
   let isNavBarVisible = false
@@ -99,7 +99,7 @@
   }
 
   function goToMathalea() {
-    handleComponentChange("latex", "")
+    MathaleaHandleComponentChange("latex", "")
   }
 </script>
 

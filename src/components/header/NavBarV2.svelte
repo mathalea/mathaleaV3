@@ -1,7 +1,7 @@
 <script>
   import { globalOptions, darkMode } from "../store"
-  import { handleComponentChange } from "../utils/navigation"
   import Button from "../forms/Button.svelte"
+  import { MathaleaHandleComponentChange } from "../../lib/Mathalea"
 
   let isNavBarVisible = false
   export let title = "MathALÉA"
@@ -96,7 +96,7 @@
   }
 
   function goToMathalea(paramV) {
-    handleComponentChange(paramV, "")
+    MathaleaHandleComponentChange(paramV, "")
   }
 </script>
 
@@ -145,7 +145,7 @@
         icon="bx-x"
         classDeclaration="text-3xl {subtitle.length === 0 ? 'hidden' : ''}"
         on:click={() => {
-          handleComponentChange($globalOptions.v, "")
+          MathaleaHandleComponentChange($globalOptions.v, "")
         }}
       />
     </div>

@@ -3,11 +3,11 @@
   import NavBarV2 from "./header/NavBarV2.svelte"
   import Footer from "./Footer.svelte"
   import NiveauListeExos from "./sidebar/NiveauListeExos.svelte"
-  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible } from "./store"
+  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible } from "./store"
   import codeList from "../json/codeToLevelList.json"
   import referentiel from "../json/referentiel2022.json"
   import referentielStatic from "../json/referentielStatic.json"
-  import { Mathalea } from "../lib/Mathalea"
+  import { MathaleaUpdateExercicesParamsFromUrl, MathaleaUpdateUrlFromExercicesParams } from "../lib/Mathalea"
   import { flip } from "svelte/animate"
   import { onMount } from "svelte"
   import { toMap } from "./utils/toMap"
@@ -53,7 +53,7 @@
   // Récupération des informations de l'URL
   let isInitialUrlHandled = false
   function urlToDisplay() {
-    const urlOptions = Mathalea.updateExercicesParamsFromUrl()
+    const urlOptions = MathaleaUpdateExercicesParamsFromUrl()
     globalOptions.update(() => {
       return urlOptions
     })
@@ -68,20 +68,20 @@
 
   // Mise à jour de l'URL dès que l'on change exercicesParams (sauf pour l'URL d'arrivée sur la page)
   $: {
-    if (isInitialUrlHandled) Mathalea.updateUrl($exercicesParams)
-    if ($globalOptions.v === "l") {
-      isSideMenuVisible = false
-      isNavBarVisible = false
-    } else if ($globalOptions.v === "l2") {
-      isSideMenuVisible = false
-      isNavBarVisible = true
-    } else if ($globalOptions.v === "eleve") {
-      isSideMenuVisible = false
-      isNavBarVisible = false
-    } else {
-      isSideMenuVisible = true
-      isNavBarVisible = true
-    }
+    if (isInitialUrlHandled) MathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    // if ($globalOptions.v === "l") {
+    //   $isSideMenuVisible = false
+    //   isNavBarVisible = false
+    // } else if ($globalOptions.v === "l2") {
+    //   $isSideMenuVisible = false
+    //   isNavBarVisible = true
+    // } else if ($globalOptions.v === "eleve") {
+    //   $isSideMenuVisible = false
+    //   isNavBarVisible = false
+    // } else {
+    //   $isSideMenuVisible = true
+    //   isNavBarVisible = true
+    // }
     // Evènement indispensable pour pointCliquable par exemple
     const exercicesAffiches = new window.Event("exercicesAffiches", {
       bubbles: true,
@@ -201,11 +201,11 @@
     Gestion du menu de recherche des exercices
   ---------------------------------------------------------------------*/
   let nbExercisesInList: number
-  let isSideMenuVisible: boolean = false
+  // let isSideMenuVisible: boolean = false
   $: {
     nbExercisesInList = $exercicesParams.length
     if (nbExercisesInList === 0) {
-      isSideMenuVisible = true
+      $isSideMenuVisible = true
       isNavBarVisible = true
     }
   }
@@ -221,8 +221,8 @@
   ]
   let searchOption = "list"
   function handleSideMenu(event: CustomEvent) {
-    isSideMenuVisible = event.detail.isListVisible
-    if (!isSideMenuVisible) {
+    $isSideMenuVisible = event.detail.isListVisible
+    if (!$isSideMenuVisible) {
       globalOptions.update((params) => {
         params.v = "l2"
         return params
@@ -309,7 +309,7 @@
   }
 
   function toggleSideMenu() {
-    isSideMenuVisible = !isSideMenuVisible
+    $isSideMenuVisible = !$isSideMenuVisible
   }
 
   function toggleExercisesList() {
@@ -330,7 +330,7 @@
   <div class="flex flex-col justify-between min-h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <main class="mb-auto ml-0 md:ml-4 flex flex-col md:flex-row h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus" on:mousemove={resizing}>
       {#if deviceType() === "mobile"}
-        {#if isSideMenuVisible || nbExercisesInList === 0}
+        {#if $isSideMenuVisible || nbExercisesInList === 0}
           <div class="w-full flex flex-col bg-coopmaths-canvas-dark  dark:bg-coopmathsdark-canvas-dark p-4  md:h-full">
             <div class="flex flex-col">
               <div class="flex flex-row justify justify-between items-center {isExercisesListVisible ? 'mb-6' : 'mb-0'} text-coopmaths-struct dark:text-coopmathsdark-struct">
@@ -375,12 +375,12 @@
           />
         {/if}
       {:else}
-        <div class="transition-transform duration-300 {isSideMenuVisible || nbExercisesInList === 0 ? 'translate-x-0 ' : '-translate-x-full'}">
+        <div class="transition-transform duration-300 {$isSideMenuVisible || nbExercisesInList === 0 ? 'translate-x-0 ' : '-translate-x-full'}">
           <div
-            style="{isSideMenuVisible || nbExercisesInList === 0
+            style="{$isSideMenuVisible || nbExercisesInList === 0
               ? `width:${sidebarWidth}px;`
               : 'width: 0px;'} transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 600ms;"
-            class="flex flex-col bg-coopmaths-canvas-dark  dark:bg-coopmathsdark-canvas-dark overflow-hidden md:h-full {isSideMenuVisible || nbExercisesInList === 0 ? 'p-4' : 'p-0'}"
+            class="flex flex-col bg-coopmaths-canvas-dark  dark:bg-coopmathsdark-canvas-dark overflow-hidden md:h-full {$isSideMenuVisible || nbExercisesInList === 0 ? 'p-4' : 'p-0'}"
           >
             <div class="flex flex-col overflow-y-scroll overscroll-auto">
               <div class="flex flex-row justify justify-between items-center mb-6 text-coopmaths-struct dark:text-coopmathsdark-struct">
@@ -421,7 +421,7 @@
         <!-- drag bar -->
         <div
           id="dragbar"
-          class="hidden {isSideMenuVisible || nbExercisesInList === 0
+          class="hidden {$isSideMenuVisible || nbExercisesInList === 0
             ? 'md:flex'
             : 'md:hidden'} w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark  hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize"
           on:mousedown={startResizing.bind(this, "moving")}
@@ -433,12 +433,12 @@
           <div class="hidden md:block absolute top-0 left-0">
             <button
               type="button"
-              class="{isSideMenuVisible
+              class="{$isSideMenuVisible
                 ? 'rounded-r-lg'
                 : 'rounded-lg'} bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest p-2"
               on:click={toggleSideMenu}
             >
-              <i class="bx bx-md {isSideMenuVisible ? 'bx-caret-left bx-fade-left-hover' : 'bx-sidebar  translate-y-1'}" />
+              <i class="bx bx-md {$isSideMenuVisible ? 'bx-caret-left bx-fade-left-hover' : 'bx-sidebar  translate-y-1'}" />
             </button>
           </div>
           <!-- barre des boutons commandes (résumé) -->
