@@ -13,6 +13,7 @@
   import NavBarV2 from "./header/NavBarV2.svelte";
   import ModalActionWithDialog from "./modal/ModalActionWithDialog.svelte";
   import { showDialogForLimitedTime } from "./utils/dialogs.js";
+  import seedrandom from "seedrandom";
 
     let exercices: TypeExercice[] = [];
     let content = "";
