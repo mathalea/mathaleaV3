@@ -1,7 +1,7 @@
 <script lang="ts">
   import { globalOptions, resultsByExercice } from "../store"
   import { afterUpdate, onMount, tick } from "svelte"
-  import type TypeExercice from '../utils/typeExercice'
+  import type TypeExercice from "../utils/typeExercice"
   import seedrandom from "seedrandom"
   import { prepareExerciceCliqueFigure } from "../../lib/interactif/interactif"
   import { loadMathLive } from "../../modules/loaders"
@@ -12,7 +12,7 @@
   import Settings from "./Settings.svelte"
   export let exercice: TypeExercice
   export let indiceExercice: number
-  export let indiceLastExercice: number 
+  export let indiceLastExercice: number
   export let isCorrectionVisible = false
 
   let divExercice: HTMLDivElement
@@ -319,7 +319,7 @@
             <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest  bx ml-1 bx-xs bx-plus" />
           </button>
         </div>
-        <article class="lg:text-base" style="font-size: {($globalOptions.z || 1).toString()}rem">
+        <article class="lg:text-base relative" style="font-size: {($globalOptions.z || 1).toString()}rem">
           {#if typeof exercice.consigne !== undefined && exercice.consigne.length !== 0}
             <div>
               <p class="leading-relaxed mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">

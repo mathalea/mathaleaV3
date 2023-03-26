@@ -2,7 +2,7 @@
   import ButtonToggle from "../forms/ButtonToggle.svelte"
   import { globalOptions, resultsByExercice } from "../store"
   import { afterUpdate, onMount, tick } from "svelte"
-  import type TypeExercice from '../utils/typeExercice'
+  import type TypeExercice from "../utils/typeExercice"
   import seedrandom from "seedrandom"
   import { prepareExerciceCliqueFigure, exerciceInteractif } from "../../lib/interactif/interactif"
   import { loadMathLive } from "../../modules/loaders"
@@ -97,13 +97,12 @@
   }
 
   async function updateDisplay() {
-    if (exercice.seed === undefined)
-      exercice.seed = MathaleaGenerateSeed()
+    if (exercice.seed === undefined) exercice.seed = MathaleaGenerateSeed()
     seedrandom(exercice.seed, { global: true })
     if (exercice.typeExercice === "simple") MathaleaHandleExerciceSimple(exercice, isInteractif)
     exercice.interactif = isInteractif
     $exercicesParams[indiceExercice].alea = exercice.seed
-    $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
+    $exercicesParams[indiceExercice].interactif = isInteractif ? "1" : "0"
     $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
     exercice.numeroExercice = indiceExercice
     exercice.nouvelleVersion(indiceExercice)
@@ -251,7 +250,7 @@
           </div>
         {/if}
       </div>
-      <article class=" {$isMenuNeededForExercises ? 'text-2xl' : 'text-base'}">
+      <article class=" {$isMenuNeededForExercises ? 'text-2xl' : 'text-base'} relative">
         <div class="flex flex-col">
           {#if typeof exercice.consigne !== undefined && exercice.consigne.length !== 0}
             <div>

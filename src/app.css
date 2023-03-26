@@ -784,22 +784,22 @@ div[id^="title-lampeMessage"]{
 }
 /* aides */
 div[id^="aide-"] {
-  @apply relative inline-block
+  @apply inline-block
 }
 div[id^="aide-trigger-"]{
   @apply h-4 w-4 ml-1 inline-flex justify-center items-center rounded-full font-bold text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-light
 }
 
 div[id^="aide-content-"]{
-  @apply absolute w-[400px] hidden group-hover:flex flex-col items-start justify-start z-10 bottom-3 left-auto right-auto bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-2 rounded-xl shadow-lg
+  @apply absolute w-3/4 hidden group-hover:flex flex-col items-start justify-start z-10 top-0 left-1/2 -translate-x-1/2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-2 rounded-xl shadow-lg
 }
 
 .aide-header {
-  @apply text-coopmaths-struct dark:text-coopmathsdark-struct font-semibold text-sm
+  @apply text-coopmaths-struct dark:text-coopmathsdark-struct font-semibold text-base md:text-lg
 }
 
 .aide-content{
-  @apply text-coopmaths-corpus dark:text-coopmathsdark-corpus font-light pt-2
+  @apply text-coopmaths-corpus dark:text-coopmathsdark-corpus font-light pt-2 pl-0 md:pl-2
 }
 
 

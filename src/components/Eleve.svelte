@@ -1,5 +1,14 @@
 <script lang="ts">
-  import { MathaleaFormatExercice, MathaleaGenerateSeed, MathaleaHandleExerciceSimple, MathaleaHandleParamOfOneExercice, MathaleaLoadExerciceFromUuid, MathaleaRenderDiv, MathaleaUpdateExercicesParamsFromUrl, MathaleaUpdateUrlFromExercicesParams } from "../lib/Mathalea"
+  import {
+    MathaleaFormatExercice,
+    MathaleaGenerateSeed,
+    MathaleaHandleExerciceSimple,
+    MathaleaHandleParamOfOneExercice,
+    MathaleaLoadExerciceFromUuid,
+    MathaleaRenderDiv,
+    MathaleaUpdateExercicesParamsFromUrl,
+    MathaleaUpdateUrlFromExercicesParams,
+  } from "../lib/Mathalea"
   import { exercicesParams, darkMode, globalOptions, resultsByExercice, isMenuNeededForExercises, isMenuNeededForQuestions } from "./store"
   import type TypeExercice from "./utils/typeExercice"
   import Exercice from "./exercice/Exercice.svelte"
@@ -314,7 +323,7 @@
         {/each}
       {:else if $globalOptions.presMode === "liste"}
         {#each questions as question, k (question)}
-          <div class="pb-4 flex flex-col items-start justify-start" id={`exercice${indiceExercice[k]}Q${k}`}>
+          <div class="pb-4 flex flex-col items-start justify-start relative" id={`exercice${indiceExercice[k]}Q${k}`}>
             <div class="flex flex-row justify-start items-center">
               <div class="text-coopmaths-struct font-bold text-md">Question {k + 1}</div>
               {#if exercices[indiceExercice[k]].interactif}
@@ -373,7 +382,7 @@
               </button>
             </div>
             <div class={currentIndex === k ? "" : "hidden"} id={`exercice${indiceExercice[k]}Q${k}`}>
-              <div class="pb-4 flex flex-col items-start justify-start">
+              <div class="pb-4 flex flex-col items-start justify-start relative">
                 <div class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10">
                   <div class="flex flex-col my-2 py-2">
                     <div class="text-coopmaths-corpus pl-2">
