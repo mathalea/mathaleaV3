@@ -69,19 +69,19 @@
   // Mise à jour de l'URL dès que l'on change exercicesParams (sauf pour l'URL d'arrivée sur la page)
   $: {
     if (isInitialUrlHandled) MathaleaUpdateUrlFromExercicesParams($exercicesParams)
-    // if ($globalOptions.v === "l") {
-    //   $isSideMenuVisible = false
-    //   isNavBarVisible = false
-    // } else if ($globalOptions.v === "l2") {
-    //   $isSideMenuVisible = false
-    //   isNavBarVisible = true
-    // } else if ($globalOptions.v === "eleve") {
-    //   $isSideMenuVisible = false
-    //   isNavBarVisible = false
-    // } else {
-    //   $isSideMenuVisible = true
-    //   isNavBarVisible = true
-    // }
+    if ($globalOptions.v === "l") {
+      // $isSideMenuVisible = false
+      isNavBarVisible = false
+    } else if ($globalOptions.v === "l2") {
+      // $isSideMenuVisible = false
+      isNavBarVisible = true
+    } else if ($globalOptions.v === "eleve") {
+      // $isSideMenuVisible = false
+      isNavBarVisible = false
+    } else {
+      // $isSideMenuVisible = true
+      isNavBarVisible = true
+    }
     // Evènement indispensable pour pointCliquable par exemple
     const exercicesAffiches = new window.Event("exercicesAffiches", {
       bubbles: true,
