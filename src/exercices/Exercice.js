@@ -125,4 +125,45 @@ export default function Exercice () {
       return true
     }
   }
+  this.applyNewSeed = function () {
+    const seed = generateSeed({
+      includeUpperCase: true,
+      includeNumbers: true,
+      length: 4,
+      startsWithLowerCase: false
+    })
+    this.seed = seed
+  }
+}
+
+/**
+ *
+ * @param {{ includeUpperCase: boolean, includeNumbers: boolean, length: number, startsWithLowerCase: boolean }} paramsSeed
+ * @returns string
+ */
+function generateSeed (paramsSeed) {
+  let a = 10
+  const b = 'abcdefghijklmnopqrstuvwxyz'
+  let c = ''
+  let d = 0
+  let e = '' + b
+  if (paramsSeed) {
+    if (paramsSeed.startsWithLowerCase) {
+      c = b[Math.floor(Math.random() * b.length)]
+      d = 1
+    }
+    if (paramsSeed.length) {
+      a = paramsSeed.length
+    }
+    if (paramsSeed.includeUpperCase) {
+      e += b.toUpperCase()
+    }
+    if (paramsSeed.includeNumbers) {
+      e += '1234567890'
+    }
+  }
+  for (; d < a; d++) {
+    c += e[Math.floor(Math.random() * e.length)]
+  }
+  return c
 }

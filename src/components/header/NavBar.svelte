@@ -1,6 +1,6 @@
 <script>
+    import { MathaleaHandleComponentChange } from "src/lib/Mathalea";
   import { globalOptions, darkMode } from "../store"
-  import { handleComponentChange } from "../utils/navigation"
 
   import NavBarMenuV2 from "./NavBarMenuV2.svelte"
   let isNavBarVisible = false
@@ -81,7 +81,10 @@
           document.location.href = urlV2("moodle")
         },
         () => {
-          document.location.href = urlV2("amc")
+          globalOptions.update((params) => {
+            params.v = "amc"
+            return params
+          })
         },
       ],
       isMenuOpen: false,
@@ -96,7 +99,7 @@
   }
 
   function goToMathalea() {
-    handleComponentChange("latex", "")
+    MathaleaHandleComponentChange("latex", "")
   }
 </script>
 

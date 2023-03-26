@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, tick } from "svelte"
-  import { Mathalea } from "../lib/Mathalea"
+  import { MathaleaFormatExercice, MathaleaGenerateSeed, MathaleaHandleComponentChange, MathaleaHandleExerciceSimple, MathaleaHandleParamOfOneExercice, MathaleaHandleSup, MathaleaLoadExerciceFromUuid, MathaleaRenderDiv, MathaleaUpdateUrlFromExercicesParams } from "../lib/Mathalea"
   import { exercicesParams, globalOptions, questionsOrder, selectedExercises, transitionsBetweenQuestions, darkMode } from "./store"
   import type Exercice from "./utils/typeExercice"
   import seedrandom from "seedrandom"
@@ -14,7 +14,7 @@
   import { formattedTimeStamp, setPhraseDuree } from "./utils/time"
   import ModalForQRCode from "./modal/ModalForQRCode.svelte"
   import FormRadio from "./forms/FormRadio.svelte"
-  import { handleComponentChange } from "./utils/navigation"
+  import type { InterfaceParams } from "src/lib/types";
 
   let divQuestion: HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
@@ -45,6 +45,7 @@
   let currentDuration: number
   let totalDuration: number = null
   let nbOfVues = $globalOptions.nbVues || 1
+  let stringNbOfVues = nbOfVues.toString()
   $questionsOrder.isQuestionsShuffled = $globalOptions.shuffle
   $selectedExercises.count = $globalOptions.choice
   if ($selectedExercises.count !== undefined) {
@@ -59,23 +60,23 @@
   let QRCodeWidth = 100
   let stringDureeTotale = "0"
   // variables pour les transitions entre questions
-  const transitionSounds = [
-    new Audio("assets/sounds/transition_sound_01.mp3"),
-    new Audio("assets/sounds/transition_sound_02.mp3"),
-    new Audio("assets/sounds/transition_sound_03.mp3"),
-    new Audio("assets/sounds/transition_sound_04.mp3"),
-  ]
+  const transitionSounds = {
+    '0': new Audio("assets/sounds/transition_sound_01.mp3"),
+    '1': new Audio("assets/sounds/transition_sound_02.mp3"),
+    '2': new Audio("assets/sounds/transition_sound_03.mp3"),
+    '3': new Audio("assets/sounds/transition_sound_04.mp3"),
+  }
   const labelsForSounds = [
-    { label: "Son 1", value: 0 },
-    { label: "Son 2", value: 1 },
-    { label: "Son 3", value: 2 },
-    { label: "Son 4", value: 3 },
+    { label: "Son 1", value: '0' },
+    { label: "Son 2", value: '1' },
+    { label: "Son 3", value: '2' },
+    { label: "Son 4", value: '3' },
   ]
   const labelsForMultivue = [
-    { label: "Pas de multivue", value: 1 },
-    { label: "Deux vues", value: 2 },
-    { label: "Trois vues", value: 3 },
-    { label: "Quatre vues", value: 4 },
+    { label: "Pas de multivue", value: '1' },
+    { label: "Deux vues", value: '2' },
+    { label: "Trois vues", value: '3' },
+    { label: "Quatre vues", value: '4' },
   ]
 
   if ($globalOptions && $globalOptions.durationGlobal) {
@@ -84,29 +85,12 @@
 
   onMount(async () => {
     context.vue = "diap"
-    Mathalea.updateUrl($exercicesParams)
+    MathaleaUpdateUrlFromExercicesParams($exercicesParams)
     for (const paramsExercice of $exercicesParams) {
-      const exercice: Exercice = await Mathalea.load(paramsExercice.uuid)
+      const exercice: Exercice = await MathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (exercice === undefined) return
-      exercice.uuid = paramsExercice.uuid
-      if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
+      MathaleaHandleParamOfOneExercice(exercice, paramsExercice)
       exercice.duration = paramsExercice.duration ?? 10
-      if (paramsExercice.titre) exercice.titre = paramsExercice.titre
-      if (paramsExercice.id) exercice.id = paramsExercice.id
-      if (paramsExercice.sup) exercice.sup = paramsExercice.sup
-      if (paramsExercice.sup2) exercice.sup2 = paramsExercice.sup2
-      if (paramsExercice.sup3) exercice.sup3 = paramsExercice.sup3
-      if (paramsExercice.sup4) exercice.sup4 = paramsExercice.sup4
-      if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif
-      if (paramsExercice.alea) exercice.seed = paramsExercice.alea
-      if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === "1"
-      if (exercice.seed === undefined)
-        exercice.seed = Mathalea.generateSeed({
-          includeUpperCase: true,
-          includeNumbers: true,
-          length: 4,
-          startsWithLowerCase: false,
-        })
       exercices.push(exercice)
     }
     exercices = exercices
@@ -117,11 +101,23 @@
     }
     updateExercices()
     await tick()
-    if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
+    if (divTableDurationsQuestions) MathaleaRenderDiv(divTableDurationsQuestions)
   })
 
+  function handleStringFromUrl (text: string): boolean|number|string {
+  if (text === 'true' || text === 'false') {
+    // "true"=>true
+    return text === 'true'
+  } else if (/^\d+$/.test(text)) {
+    // "17"=>17
+    return parseInt(text)
+  } else {
+    return text
+  }
+}
+
   async function updateExercices() {
-    Mathalea.updateUrl($exercicesParams)
+    MathaleaUpdateUrlFromExercicesParams($exercicesParams)
     questions = [[], [], [], []]
     corrections = [[], [], [], []]
     consignes = [[], [], [], []]
@@ -137,7 +133,7 @@
         } else {
           exercice.seed = exercice.seed.substring(0, 4)
         }
-        if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, false)
+        if (exercice.typeExercice === "simple") MathaleaHandleExerciceSimple(exercice, false)
         seedrandom(exercice.seed, { global: true })
         exercice.nouvelleVersion()
         let consigne: string = ""
@@ -152,13 +148,13 @@
           }
           questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
           corrections[idVue] = [...corrections[idVue], ...exercice.listeCorrections]
-          consignes[idVue] = consignes[idVue].map(Mathalea.formatExercice)
-          questions[idVue] = questions[idVue].map(Mathalea.formatExercice)
-          corrections[idVue] = corrections[idVue].map(Mathalea.formatExercice)
+          consignes[idVue] = consignes[idVue].map(MathaleaFormatExercice)
+          questions[idVue] = questions[idVue].map(MathaleaFormatExercice)
+          corrections[idVue] = corrections[idVue].map(MathaleaFormatExercice)
         }
       }
     }
-    let newParams = []
+    let newParams: InterfaceParams[] = []
     for (const [k, exercice] of exercices.entries()) {
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
         sizes.push(exercice.tailleDiaporama)
@@ -170,10 +166,10 @@
         alea: exercice.seed.substring(0, 4),
         nbQuestions: exercice.nbQuestions,
         duration: exercice.duration,
-        sup: exercice.sup,
-        sup2: exercice.sup2,
-        sup3: exercice.sup3,
-        sup4: exercice.sup4,
+        sup: MathaleaHandleSup(exercice.sup),
+        sup2: MathaleaHandleSup(exercice.sup2),
+        sup3: MathaleaHandleSup(exercice.sup3),
+        sup4: MathaleaHandleSup(exercice.sup4),
       })
     }
     globalOptions.update((l) => {
@@ -181,10 +177,10 @@
       return l
     })
     exercicesParams.update((l) => newParams)
-    Mathalea.updateUrl(newParams)
+    MathaleaUpdateUrlFromExercicesParams(newParams)
     totalDuration = getTotalDuration()
     stringDureeTotale = formattedTimeStamp(getTotalDuration())
-    if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
+    if (divTableDurationsQuestions) MathaleaRenderDiv(divTableDurationsQuestions)
     // préparation des indexes si l'ordre aléatoire est demandé
     if ($questionsOrder.isQuestionsShuffled) {
       $questionsOrder.indexes = shuffle([...Array(questions[0].length).keys()])
@@ -263,7 +259,7 @@
    * Gestion du clic sur l'étape dans la progression
    * @param {number} index index de l'étape
    */
-  function clickOnStep(index) {
+  function clickOnStep(index: number) {
     goToQuestion(index)
   }
 
@@ -309,7 +305,7 @@
   /**
    * Gère la récupération de la valeur du curseur de temps
    */
-  function handleTimerChange(event) {
+  function handleTimerChange() {
     durationGlobal = 0
     pause()
     if (cursorTimeValue === 0) {
@@ -386,7 +382,8 @@
   }
 
   $: {
-    if (divTableDurationsQuestions) Mathalea.renderDiv(divTableDurationsQuestions)
+    nbOfVues = parseInt(stringNbOfVues)
+    if (divTableDurationsQuestions) MathaleaRenderDiv(divTableDurationsQuestions)
     if (durationGlobal) previousDurationGlobal = durationGlobal
     if (isSameDurationForAll && previousDurationGlobal) durationGlobal = previousDurationGlobal
 
@@ -427,7 +424,7 @@
     // let startSize = 0
     for (let i = 0; i < nbOfVues; i++) {
       if (typeof divQuestion[i] !== "undefined") {
-        Mathalea.renderDiv(divQuestion[i], -1)
+        MathaleaRenderDiv(divQuestion[i], -1)
         const textcell_div = document.getElementById("textcell" + i) as HTMLDivElement
         const consigne_div = document.getElementById("consigne" + i) as HTMLDivElement
         const question_div = document.getElementById("question" + i) as HTMLDivElement
@@ -439,7 +436,7 @@
         // Donner la bonne taille aux figures
         if (svg_divs.length !== 0 && question_div !== null) {
           const nbOfSVG = svg_divs.length
-          const optimalSVGWidth = textcell_width * 0.8
+          const optimalSVGWidth = textcell_width * 0.9
           const coefHeight = isCorrectionVisible ? 0.33 : 0.66
           const optimalSVGHeigth = textcell_height * coefHeight
           // console.log("optimal SVG width : " + optimalSVGWidth + "/ optimal heigth : " + optimalSVGHeigth)
@@ -472,10 +469,17 @@
         // let nbOfCharactersInTextDiv = textcell_div.innerText.length
         // on retire les balises KaTeX (car trop bavardes) pour le décompte des caractères
         const clone = textcell_div.cloneNode(true)
+        //@ts-ignore
         const elementsKaTeX = clone.getElementsByClassName("katex")
         while (elementsKaTeX.length > 0) {
           elementsKaTeX[0].parentNode.removeChild(elementsKaTeX[0])
         }
+        //@ts-ignore
+        const elementsSVG = clone.getElementsByClassName("mathalea2d")
+        while (elementsSVG.length > 0) {
+          elementsSVG[0].parentNode.removeChild(elementsSVG[0])
+        }
+        //@ts-ignore
         let nbOfCharactersInTextDiv = clone.innerText.length
         // console.log("nb caractères : " + nbOfCharactersInTextDiv)
         if (finalSVGHeight !== 0) {
@@ -669,7 +673,7 @@
     $transitionsBetweenQuestions.isNoisy = !$transitionsBetweenQuestions.isNoisy
     if ($transitionsBetweenQuestions.isNoisy) {
       if (typeof $transitionsBetweenQuestions.tune === "undefined") {
-        $transitionsBetweenQuestions.tune = 0
+        $transitionsBetweenQuestions.tune = '0'
       }
       globalOptions.update((l) => {
         l.sound = $transitionsBetweenQuestions.tune
@@ -708,7 +712,7 @@
   }
 
   function handleQuit() {
-    handleComponentChange("diaporama", "")
+    MathaleaHandleComponentChange("diaporama", "")
     // $selectedExercises.isActive = false
     updateExercices()
   }
@@ -729,8 +733,8 @@
         <button type="button">
           <i
             class="relative bx ml-2 bx-lg bx-x text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest cursor-pointer"
-            on:click={() => handleComponentChange("diaporama", "")}
-            on:keydown={() => handleComponentChange("diaporama", "")}
+            on:click={() => MathaleaHandleComponentChange("diaporama", "")}
+            on:keydown={() => MathaleaHandleComponentChange("diaporama", "")}
           />
         </button>
       </div>
@@ -745,7 +749,7 @@
                   <button
                     type="button"
                     class="mr-4 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                    on:click={() => handleComponentChange("diaporama", "can")}
+                    on:click={() => MathaleaHandleComponentChange("diaporama", "can")}
                   >
                     <i class="bx text-2xl bx-detail" />
                   </button>
@@ -767,7 +771,7 @@
           </div>
           <div class="flex text-lg font-bold mb-2 text-coopmaths-struct  dark:text-coopmathsdark-struct">Multivue</div>
           <div class="flex px-4 pb-8">
-            <FormRadio bind:valueSelected={nbOfVues} on:newvalue={updateExercices} title="multivue" labelsValues={labelsForMultivue} />
+            <FormRadio bind:valueSelected={stringNbOfVues} on:newvalue={updateExercices} title="multivue" labelsValues={labelsForMultivue} />
           </div>
 
           <div class="pb-8">
@@ -1054,38 +1058,40 @@
           <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
             <button type="button" on:click={switchFullScreen}>
               <i
-                class=" text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg {isFullScreen
+                class=" text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg {isFullScreen
                   ? 'bx-exit-fullscreen'
                   : 'bx-fullscreen'}"
               />
             </button>
             <button type="button" on:click={zoomPlus}>
-              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-plus" />
+              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-plus" />
             </button>
             <button type="button" on:click={zoomMoins}>
-              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-minus" />
+              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-minus" />
             </button>
           </div>
           <!-- boutons contrôle défilement -->
           <div class="flex flex-row justify-center w-[33%] items-center">
             <button type="button" on:click={prevQuestion}>
-              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-skip-previous" />
+              <i
+                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-skip-previous"
+              />
             </button>
             <button type="button" on:click={switchPause} class:invisible={isManualModeActive}>
               <i
-                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg 
+                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg 
                 {isPause ? 'bx-play' : 'bx-pause'}"
               />
             </button>
             <button type="button" on:click={nextQuestion}>
-              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-skip-next" />
+              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-skip-next" />
             </button>
           </div>
           <!-- boutons timers correction quitter -->
           <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
             <label for="timerSettings" class="modal-button">
               <i
-                class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-stopwatch"
+                class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-stopwatch"
                 on:click={pause}
                 on:keydown={pause}
               >
@@ -1120,12 +1126,14 @@
               </div>
             </div>
             <button type="button" on:click={switchCorrectionMode}>
-              <i class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-show">
+              <i
+                class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-show"
+              >
                 <div class="absolute -bottom-[8px] left-1/2 -translate-x-1/2 text-sm font-extrabold font-sans">{displayCurrentCorrectionMode()}</div>
               </i>
             </button>
             <button type="button" on:click={handleQuit} on:keydown={handleQuit}>
-              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-lg bx-power-off" />
+              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-power-off" />
             </button>
           </div>
         </div>
@@ -1155,7 +1163,7 @@
           <button
             type="button"
             class="mx-12 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-            on:click={() => handleComponentChange("diaporama", "can")}
+            on:click={() => MathaleaHandleComponentChange("diaporama", "can")}
           >
             <i class="bx text-[100px] bx-detail" />
           </button>
@@ -1180,7 +1188,7 @@
           <button
             type="button"
             class="mx-12 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-            on:click={() => handleComponentChange("diaporama", "")}
+            on:click={() => MathaleaHandleComponentChange("diaporama", "")}
           >
             <i class="bx text-[100px] bx-home-alt-2" />
           </button>

@@ -1,4 +1,4 @@
-type Exercice = {
+class Exercice {
   titre?: string
   id?: string
   uuid?: string
@@ -8,6 +8,7 @@ type Exercice = {
   sup4?: boolean | string | number
   nouvelleVersion?: (numeroExercice?: number) => void
   correctionInteractive?: (i?: number) => string
+  questionJamaisPosee?: (i: number, question: string) => boolean
   seed?: string
   numeroExercice?: number
   typeExercice?: string
@@ -20,6 +21,14 @@ type Exercice = {
   listeCorrections?: string[]
   listeCanReponsesACompleter?: string[]
   listeCanEnonces?: string[]
+  question?: string // Seulement pour les exercices de type simple
+  reponse?: string // Seulement pour les exercices de type simple
+  correction?: string // Seulement pour les exercices de type simple
+  canEnonce?: string // Seulement pour les exercices de type simple
+  canReponseACompleter?: string // Seulement pour les exercices de type simple
+  formatChampTexte?: string // Seulement pour les exercices de type simple
+  optionsChampTexte?: object // Seulement pour les exercices de type simple
+  formatInteractif?: string
   contenu?: string
   contenuCorrection?: string
   autoCorrection?: object[]
@@ -30,7 +39,7 @@ type Exercice = {
   listePackages?: string[]
   consigneModifiable?: boolean
   nbQuestionsModifiable?: boolean
-  nbCols?: number
+  nbCols?: number // Nombre de colonnes pour la sortie LaTeX
   nbColsCorr?: number
   nbColsModifiable?: boolean
   nbColsCorrModifiable?: boolean
@@ -62,6 +71,13 @@ type Exercice = {
   besoinFormulaire4CaseACocher?: boolean | any[]
   mg32Editable?: boolean
   listeArguments?: string[] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
+  examen?: string // Pour les exercices statiques
+  mois?: string // Pour les exercices statiques
+  annee?: string // Pour les exercices statiques
+  lieu?: string // Pour les exercices statiques
+  content?: string // Pour les exercices statiques
+  contentCorr?: string // Pour les exercices statiques
+  applyNewSeed: () => void
 }
 
 export default Exercice

@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, texteSurSegment, texteSurArc, rotation, homothetie } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, texNum, combinaisonListes, contraindreValeur, compteOccurences } from '../../modules/outils.js'
+import { range, choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, texNum, combinaisonListes, contraindreValeur, compteOccurences } from '../../modules/outils.js'
 import { fraction, abs, multiply, evaluate, divide, isInteger, pow, round, subtract, max } from 'mathjs'
 export const titre = 'Homothétie (calculs)'
 // eslint-disable-next-line no-debugger
@@ -34,7 +34,6 @@ export default function CalculsHomothetie () {
   this.sup2 = 3 // 1 : Homothéties de rapport positif, 2: de rapport négatif 3 : mélange
   this.sup3 = 1 // Choix des valeurs
   this.sup4 = true // Affichage des figures facultatives dans l'énoncé (en projet)
-  // this.besoinFormulaireTexte = ['Nombres premiers utilisés ', 'Nombres séparés par des tirets\n1 : 2, 3 et 5\n2 : 2, 3 et 7\n3 : 2, 5 et 7\n4 : 3, 5 et 7\n5 : Mélange']
 
   this.besoinFormulaireTexte = [
     'Type de questions', [
@@ -63,29 +62,29 @@ export default function CalculsHomothetie () {
     3,
     '1 : k est décimal (0.1 < k < 4) \n2 : k est une fraction k = a/b avec (a,b) in [1;9]\n3 : k est une fraction et les mesures sont des entiers'
   ]
-  this.besoinFormulaire4CaseACocher = ['Figure dans l`énoncé (1-6,9-11)', false]
-  this.nouvelleVersion = function (numeroExercice) {
+  this.besoinFormulaire4CaseACocher = ['Figure dans l`énoncé (1-5,9-11)', false]
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
     const typeQuestionsDisponibles = ['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport', 'rapport2', 'encadrerk', 'encadrerk2']
-    let typesDeQuestionsDisponiblesNumbers = []
+    let typesDeQuestionsDisponibles = []
     if (!this.sup) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponiblesNumbers = [12]
+      typesDeQuestionsDisponibles = [12]
     } else {
       if (typeof (this.sup) === 'number') {
-        typesDeQuestionsDisponiblesNumbers[0] = typeQuestionsDisponibles[contraindreValeur(1, 12, this.sup, 12) - 1]
+        typesDeQuestionsDisponibles[0] = contraindreValeur(1, 12, this.sup, 12)
       } else {
-        typesDeQuestionsDisponiblesNumbers = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typesDeQuestionsDisponiblesNumbers.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          typesDeQuestionsDisponiblesNumbers[i] = typeQuestionsDisponibles[contraindreValeur(1, 12, typesDeQuestionsDisponiblesNumbers[i], 12) - 1]
+        typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 12, typesDeQuestionsDisponibles[i], 12)
         }
       }
     }
-    if (compteOccurences(typesDeQuestionsDisponiblesNumbers, 12) > 0) typesDeQuestionsDisponiblesNumbers = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
-    // typesDeQuestionsDisponibles = combinaisonListes(typesDeQuestionsDisponibles, 3)
-
-    const listeTypeQuestions = combinaisonListes(typesDeQuestionsDisponiblesNumbers, this.nbQuestions)
+    if (compteOccurences(typesDeQuestionsDisponibles, 12) > 0) typesDeQuestionsDisponibles = combinaisonListes(range(11), this.nbQuestions)
+    typesDeQuestionsDisponibles = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeQuestions = []
+    for (let ee = 0; ee < typesDeQuestionsDisponibles.length; ee++) { listeTypeQuestions.push(typeQuestionsDisponibles[typesDeQuestionsDisponibles[ee] - 1]) }
     const kEstEntier = this.sup3 > 1
     const valeursSimples = this.sup3 === 3
     for (let i = 0, approx, environ, melange, donnee1, donnee2, donnee3, donnees, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
@@ -137,8 +136,8 @@ export default function CalculsHomothetie () {
       } else {
         testFigureCorrigee = false
       }
-      const figurealechelle = !(testFigureCorrigee && this.sup4) || [4, 5, 6, 7, 8].includes(listeTypeQuestions[i]) ? '' : '(La figure n\'est pas à l\'échelle)'
-      const figurealechelle2 = !(this.sup4) ? '' : '(La figure n\'est pas à l\'échelle)'
+      const figurealechelle = !(testFigureCorrigee && this.sup4) || [4, 5, 6, 7, 8].includes(listeTypeQuestions[i]) ? '' : '(La figure n\'est pas à l\'échelle.)'
+      const figurealechelle2 = !(this.sup4) ? '' : '(La figure n\'est pas à l\'échelle.)'
       let figure = {
         O: point(0, 0, `${O}`),
         A: point(multiply(correctionOA, largeurFigure).valueOf(), 0, `${A}`, 'below'),
@@ -212,20 +211,25 @@ export default function CalculsHomothetie () {
       fImage = { enonce: (this.sup4 ? fImage : ''), solution: fImage }
 
       const flabelsAntecedent = labelPoint(figure.O, figure.A, figure.hA)
-      objetsEnonce = [figure.segmentOA, figure.segmentOhA, figure.legendeOA, figure.legendeOhA]
+      objetsEnonce = [figure.segmentOA, figure.segmentOhA, figure.legendeOhA]
       if (figure.A.typeObjet !== 'point') objetsEnonce.push(figure.A)
       if (figure.O.typeObjet !== 'point') objetsEnonce.push(figure.O)
       if (figure.hA.typeObjet !== 'point') objetsEnonce.push(figure.hA)
+      if (figure.arcOhA.typeObjet !== 'point') objetsEnonce.push(figure.arcOhA)
       let fAntecedent = mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { style: 'inline', scale: fscale }), objetsEnonce, flabelsAntecedent)
       fAntecedent = { enonce: (this.sup4 ? fAntecedent : ''), solution: fAntecedent }
 
       const flabelsImage2etapes = labelPoint(figure.O, figure.A, figure.hA, figure.B, figure.hB)
-      objetsEnonce = [figure.segmentOA, figure.segmentOhA, figure.segmentOB, figure.segmentOhB, figure.legendeOA, figure.legendeOhA, figure.legendeOB, figure.legendeOhB]
+      objetsEnonce = [figure.segmentOA, figure.segmentOhA, figure.segmentOB, figure.segmentOhB, figure.legendeOA, figure.legendeOhA, figure.legendeOB]
       if (figure.A.typeObjet !== 'point') objetsEnonce.push(figure.A)
       if (figure.O.typeObjet !== 'point') objetsEnonce.push(figure.O)
       if (figure.hA.typeObjet !== 'point') objetsEnonce.push(figure.hA)
       if (figure.B.typeObjet !== 'point') objetsEnonce.push(figure.B)
       if (figure.hB.typeObjet !== 'point') objetsEnonce.push(figure.hB)
+      if (figure.arcOA.typeObjet !== 'point') objetsEnonce.push(figure.arcOA)
+      if (figure.arcOB.typeObjet !== 'point') objetsEnonce.push(figure.arcOB)
+      if (figure.arcOhA.typeObjet !== 'point') objetsEnonce.push(figure.arcOhA)
+      if (figure.arcOhB.typeObjet !== 'point') objetsEnonce.push(figure.arcOhB)
       let fImage2etapes = mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { style: 'inline', scale: fscale }), objetsEnonce, flabelsImage2etapes)
       fImage2etapes = { enonce: (this.sup4 ? fImage2etapes : ''), solution: fImage2etapes }
 
@@ -241,10 +245,11 @@ export default function CalculsHomothetie () {
       objetsEnonce = [figure.segmentOA, figure.segmentOhA, figure.legendeOA, figure.legendeOhA, figure.legendeAhA]
       if (figure.arcOA.typeObjet !== 'point') objetsEnonce.push(figure.arcOA)
       if (figure.arcOhA.typeObjet !== 'point') objetsEnonce.push(figure.arcOhA)
+      if (figure.arcAhA.typeObjet !== 'point') objetsEnonce.push(figure.arcAhA)
       let frapport2 = mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { style: 'inline', scale: fscale }), objetsEnonce, flabelsRapport)
       frapport2 = { enonce: (this.sup4 ? '<br>' + frapport2 : ''), solution: frapport2 }
       switch (listeTypeQuestions[i]) {
-        case 'rapport':
+        case 'rapport': // cas 1
           donnees = [String.raw`${O}${hA}=${OhA}\text{ cm}`, String.raw`${O}${A}=${OA}\text{ cm}`]
           melange = combinaisonListes([0, 1])
           donnee1 = donnees[melange[0]]
@@ -275,7 +280,7 @@ Soit $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}
 `
           }
           break
-        case 'image':
+        case 'image': // cas 2
           texte = String.raw`$${hA}$ est l'image de $${A}$ par une homothétie
 de centre $${O}$ et de rapport $k=${k}$
 tel que $ {${O}${A}=${OA}\text{ cm}}$.
@@ -303,7 +308,7 @@ Donc $${O}${hA}= ${absk} \times ${OA} =  ${OhA}~\text{cm}$.
 `
           }
           break
-        case 'antécédent':
+        case 'antécédent': // cas 3
           texte = String.raw`$${hA}$ est l'image de $${A}$ par une
 homothétie de centre $${O}$ et de rapport
 $k=${k}$ tel que $ {${O}${hA}=${OhA}\text{ cm}}$.
@@ -329,7 +334,7 @@ Donc $${O}${A}=\dfrac{${O}${hA}}{${signek}k}=\dfrac{${OhA}}{${absk}} ${OhAtimesk
 `
           }
           break
-        case 'image2etapes':
+        case 'image2etapes': // cas 4
           donnees = [String.raw`${O}${B}=${OB}\text{ cm}`, String.raw`${O}${hA}=${OhA}\text{ cm}`, String.raw`${O}${A}=${OA}\text{ cm}`]
           melange = combinaisonListes([0, 1, 2])
           donnee1 = donnees[melange[0]]
@@ -372,7 +377,7 @@ Donc $${O}${hB}= ${absk} \times ${OB} = ${OhB}~\text{cm}$.
 `
           }
           break
-        case 'antecendent2etapes':
+        case 'antecendent2etapes': // cas 5
           donnees = [String.raw`${O}${hB}=${OhB}\text{ cm}`, String.raw`${O}${hA}=${OhA}\text{ cm}`, String.raw`${O}${A}=${OA}\text{ cm}`]
           melange = combinaisonListes([0, 1, 2])
           donnee1 = donnees[melange[0]]
@@ -413,7 +418,7 @@ Donc $${O}${B}=\dfrac{${O}${hB}}{${signek}k}=\dfrac{${OhB}}{${absk}} ${OhBtimesk
 `
           }
           break
-        case 'aireImage':
+        case 'aireImage': // cas 6
           environ = (hAire === hAireArrondie) ? '' : 'environ'
           approx = (environ === 'environ') ? '\\approx' : '='
           texte = String.raw`Une figure a pour aire $ {${Aire}\text{ cm}^2}$.
@@ -432,7 +437,7 @@ Donc l'aire de l'image de cette figure est ${environ} $ {${hAireArrondie}~\text{
 `
           }
           break
-        case 'aireAntécédent':
+        case 'aireAntécédent': // cas 7
           texte = String.raw`L'image d'une figure par une homothétie de rapport $${signek}${kAire}$ a pour aire $ {${hAire}\text{ cm}^2}$.
 <br>
 Calculer l'aire de la figure de départ.
@@ -452,7 +457,7 @@ Donc l'aire de la figure de départ est $ {${Aire}~\text{cm}^2}$.
 `
           }
           break
-        case 'aireRapport':
+        case 'aireRapport': // cas 8
           texte = String.raw`Une figure et son image par une homothétie de rapport ${positif} ont respectivement pour aires $ {${Aire}\text{ cm}^2}$ et $ {${hAire}\text{ cm}^2}$.
 <br>
 Calculer le rapport de l'homothétie.
@@ -470,7 +475,7 @@ D'où $ {k=${signek}\sqrt{\dfrac{${hAire}}{${Aire}}} = ${signek}${kAire}}$.
 `
           }
           break
-        case 'rapport2':
+        case 'rapport2': // cas 9
           donnees = [String.raw`${A}${hA}=${AhA}\text{ cm}`, String.raw`${O}${A}=${OA}\text{ cm}`]
           melange = combinaisonListes([0, 1])
           donnee1 = donnees[melange[0]]
@@ -503,7 +508,7 @@ Soit $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}
 `
           }
           break
-        case 'encadrerk':
+        case 'encadrerk': // cas 10
           donnees = [String.raw`${O}${hA}=${OhA}\text{ cm}`, String.raw`${O}${A}=${OA}\text{ cm}`]
           melange = combinaisonListes([0, 1])
           donnee1 = donnees[melange[0]]
@@ -518,7 +523,7 @@ Sans effectuer de calculs, que peut-on dire du rapport $k$ de cette homothétie 
 <br>
 $\square\hphantom{a} k<-1 \hspace{1cm} \square\hphantom{a} -1 < k < 0 \hspace{1cm} \square\hphantom{a} 0 < k < 1 \hspace{1cm} \square\hphantom{a} k > 1$.
 <br>
-${figurealechelle}.
+${figurealechelle}
 ${frapport.enonce}
 `
           texteCorr = String.raw`
@@ -534,7 +539,7 @@ De plus $${hA}${inNotin}[${O};${A})$ donc ${intervallek}.
 `
           }
           break
-        case 'encadrerk2':
+        case 'encadrerk2': // cas 11
           donnees = [String.raw`${A}${hA}=${AhA}\text{ cm}`, String.raw`${O}${A}=${OA}\text{ cm}`]
           melange = combinaisonListes([0, 1])
           donnee1 = donnees[melange[0]]
@@ -549,7 +554,7 @@ Sans effectuer de calculs, que peut-on dire du rapport $k$ de cette homothétie 
 <br>
 $\square\hphantom{a} k<-1 \hspace{1cm} \square\hphantom{a} -1 < k < 0 \hspace{1cm} \square\hphantom{a} 0 < k < 1 \hspace{1cm} \square\hphantom{a} k > 1$.
 <br>
-${figurealechelle}.
+${figurealechelle}
 ${frapport2.enonce}`
           texteCorr = String.raw`$${intervallek}$.`
           if (this.correctionDetaillee) {

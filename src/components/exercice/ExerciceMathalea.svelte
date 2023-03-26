@@ -1,17 +1,18 @@
 <script lang="ts">
-  import { globalOptions, resultsByExercice } from '../store'
-  import { afterUpdate, onMount, tick } from 'svelte'
-  import seedrandom from 'seedrandom'
-  import { prepareExerciceCliqueFigure } from '../../lib/interactif/interactif'
-  import { loadMathLive } from '../../modules/loaders'
-  import { Mathalea } from '../../lib/Mathalea'
-  import { exerciceInteractif } from '../../lib/interactif/interactif'
-  import { exercicesParams } from '../store'
-  import HeaderExercice from './HeaderExercice.svelte'
-  import Settings from './Settings.svelte'
-  export let exercice
-  export let indiceExercice
-  export let indiceLastExercice
+  import { globalOptions, resultsByExercice } from "../store"
+  import { afterUpdate, onMount, tick } from "svelte"
+  import type TypeExercice from '../utils/typeExercice'
+  import seedrandom from "seedrandom"
+  import { prepareExerciceCliqueFigure } from "../../lib/interactif/interactif"
+  import { loadMathLive } from "../../modules/loaders"
+  import { MathaleaFormatExercice, MathaleaHandleExerciceSimple, MathaleaHandleStringFromUrl, MathaleaHandleSup, MathaleaRenderDiv, MathaleaUpdateUrlFromExercicesParams } from "../../lib/Mathalea"
+  import { exerciceInteractif } from "../../lib/interactif/interactif"
+  import { exercicesParams } from "../store"
+  import HeaderExercice from "./HeaderExercice.svelte"
+  import Settings from "./Settings.svelte"
+  export let exercice: TypeExercice
+  export let indiceExercice: number
+  export let indiceLastExercice: number 
   export let isCorrectionVisible = false
 
   let divExercice: HTMLDivElement
@@ -24,6 +25,7 @@
   let isInteractif = exercice.interactif
   let isMessagesVisible = true
   let interactifReady = exercice.interactifReady
+  let isExerciceChecked = false
 
   const title = exercice.id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}` : exercice.titre
 
@@ -90,19 +92,13 @@
           newData()
         }
       }
-      Mathalea.renderDiv(divExercice)
+      MathaleaRenderDiv(divExercice)
     }
   })
 
   async function newData() {
     if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
-    const seed = Mathalea.generateSeed({
-      includeUpperCase: true,
-      includeNumbers: true,
-      length: 4,
-      startsWithLowerCase: false,
-    })
-    exercice.seed = seed
+    exercice.applyNewSeed()
     if (buttonScore) initButtonScore()
     if (isCorrectionVisible) {
       window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, "true")
@@ -130,19 +126,19 @@
     }
     if (event.detail.sup !== undefined) {
       exercice.sup = event.detail.sup
-      $exercicesParams[indiceExercice].sup = exercice.sup
+      $exercicesParams[indiceExercice].sup = MathaleaHandleSup(exercice.sup)
     }
     if (event.detail.sup2 !== undefined) {
       exercice.sup2 = event.detail.sup2
-      $exercicesParams[indiceExercice].sup2 = exercice.sup2
+      $exercicesParams[indiceExercice].sup2 = MathaleaHandleSup(exercice.sup2)
     }
     if (event.detail.sup3 !== undefined) {
       exercice.sup3 = event.detail.sup3
-      $exercicesParams[indiceExercice].sup3 = exercice.sup3
+      $exercicesParams[indiceExercice].sup3 = MathaleaHandleSup(exercice.sup3)
     }
     if (event.detail.sup4 !== undefined) {
       exercice.sup4 = event.detail.sup4
-      $exercicesParams[indiceExercice].sup4 = exercice.sup4
+      $exercicesParams[indiceExercice].sup4 = MathaleaHandleSup(exercice.sup4)
     }
     if (event.detail.alea !== undefined) {
       exercice.seed = event.detail.alea
@@ -152,30 +148,35 @@
       exercice.correctionDetaillee = event.detail.correctionDetaillee
       $exercicesParams[indiceExercice].cd = exercice.correctionDetaillee ? "1" : "0"
     }
-    updateDisplay()
+    if (isExerciceChecked) {
+      // Si on change des réglages alors qu'on a déjà une note à l'exercice
+      // alors on part sur de nouvelles données ainsi on efface le score et les réponses proposées
+      isExerciceChecked = false
+      newData()
+    } else {
+      updateDisplay()
+    }
   }
 
   async function updateDisplay() {
-    if (exercice.seed === undefined)
-      exercice.seed = Mathalea.generateSeed({
-        includeUpperCase: true,
-        includeNumbers: true,
-        length: 4,
-        startsWithLowerCase: false,
-      })
+    if (exercice.seed === undefined) {
+      exercice.applyNewSeed()
+    }
     seedrandom(exercice.seed, { global: true })
-    if (exercice.typeExercice === "simple") Mathalea.handleExerciceSimple(exercice, isInteractif)
+    if (exercice.typeExercice === "simple") MathaleaHandleExerciceSimple(exercice, isInteractif)
     exercice.interactif = isInteractif
     $exercicesParams[indiceExercice].alea = exercice.seed
-    $exercicesParams[indiceExercice].i = isInteractif
+    $exercicesParams[indiceExercice].interactif = isInteractif ? "1" : "0"
     $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
     exercice.numeroExercice = indiceExercice
     exercice.nouvelleVersion(indiceExercice)
-    Mathalea.updateUrl($exercicesParams)
+    MathaleaUpdateUrlFromExercicesParams()
+    adjustMathalea2dFiguresWidth()
   }
 
   function verifExercice() {
     isCorrectionVisible = true
+    isExerciceChecked = true
     resultsByExercice.update((l) => {
       l[exercice.numeroExercice] = exerciceInteractif(exercice, divScore, buttonScore)
       return l
@@ -216,6 +217,42 @@
     )
     if (divScore) divScore.innerHTML = ""
   }
+
+  /**
+   * Recherche toutes les figures ayant la classe `mathalea2d` et réduit leur largeur à 95% de la valeur
+   * maximale du div reperé par l'ID `consigne<X>-0` où `X` est l'indice de l'exercice
+   * @param {boolean} initialDimensionsAreNeeded si `true`, les valeurs initiales sont rechargées ()`false` par défaut)
+   * @author sylvain
+   */
+  async function adjustMathalea2dFiguresWidth(initialDimensionsAreNeeded: boolean = false) {
+    const mathalea2dFigures = document.getElementsByClassName("mathalea2d") as HTMLCollectionOf<SVGElement>
+    if (mathalea2dFigures.length !== 0) {
+      await tick()
+      const consigneDiv = document.getElementById("consigne" + indiceExercice + "-0")
+      for (let k = 0; k < mathalea2dFigures.length; k++) {
+        if (initialDimensionsAreNeeded) {
+          // réinitialisation
+          const initialWidth = mathalea2dFigures[k].getAttribute("data-width-initiale")
+          const initialHeight = mathalea2dFigures[k].getAttribute("data-height-initiale")
+          mathalea2dFigures[k].setAttribute("width", initialWidth)
+          mathalea2dFigures[k].setAttribute("height", initialHeight)
+        }
+        // console.log("got figures !!! --> DIV " + consigneDiv.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
+        if (mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth) {
+          const coef = (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
+          const newFigWidth = consigneDiv.clientWidth * 0.95
+          const newFigHeight = mathalea2dFigures[k].clientHeight * coef
+          mathalea2dFigures[k].setAttribute("width", newFigWidth.toString())
+          mathalea2dFigures[k].setAttribute("height", newFigHeight.toString())
+          // console.log("fig" + k + " new dimensions : " + newFigWidth + " x " + newFigHeight)
+        }
+      }
+    }
+  }
+  // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
+  window.onresize = (event) => {
+    adjustMathalea2dFiguresWidth(true)
+  }
 </script>
 
 <div class="z-0 flex-1 overflow-hidden" bind:this={divExercice}>
@@ -235,11 +272,15 @@
         exercice.interactif = isInteractif
         updateDisplay()
       }
+      adjustMathalea2dFiguresWidth()
     }}
     on:clickInteractif={(event) => {
       isInteractif = event.detail.isInteractif
       exercice.interactif = isInteractif
-      $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
+      exercicesParams.update((params) => {
+        params[indiceExercice].interactif = isInteractif ? "1" : "0"
+        return params
+      })
       updateDisplay()
     }}
     on:clickNewData={newData}
@@ -255,19 +296,18 @@
 
   {#if isVisible}
     <div class="flex flex-col-reverse lg:flex-row">
-      <div class="flex flex-col relative {isSettingsVisible ? 'w-full lg:w-3/4' : 'w-full'} duration-500" id="exercice{indiceExercice}">
-        <div class="text-right text-coopmaths-struct dark:text-coopmathsdark-struct text-xs mt-2">
-          {#if columnsCount > 1}
-            <button
-              type="button"
-              on:click={() => {
-                columnsCount--
-                updateDisplay()
-              }}
-            >
-              <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 bx-xs bx-minus" />
-            </button>
-          {/if}
+      <div class="flex flex-col justify-start items-start relative {isSettingsVisible ? 'w-full lg:w-3/4' : 'w-full'} duration-500" id="exercice{indiceExercice}">
+        <div class="hidden md:flex flex-row justify-start text-coopmaths-struct dark:text-coopmathsdark-struct text-xs mt-2 pl-0 md:pl-2">
+          <button
+            class={columnsCount > 1 ? "visible" : "invisible"}
+            type="button"
+            on:click={() => {
+              columnsCount--
+              updateDisplay()
+            }}
+          >
+            <i class=" text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 bx-xs bx-minus" />
+          </button>
           <i class="bx ml-1 bx-xs bx-columns" />
           <button
             type="button"
@@ -295,7 +335,10 @@
             </div>
           {/if}
           {#if isCorrectionVisible}
-            <div class="bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus leading-relaxed mt-2  ml-2 lg:mx-5">
+            <div
+              class="{exercice.consigneCorrection.length !== 0 ? '' : 'hidden'}
+                bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus leading-relaxed mt-2  ml-2 lg:mx-5"
+            >
               {@html exercice.consigneCorrection}
             </div>
           {/if}
@@ -306,17 +349,24 @@
                 : 'list-none'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
               {#each exercice.listeQuestions as item, i (i)}
-                <div style="break-inside:avoid">
+                <div style="break-inside:avoid" id="consigne{indiceExercice}-{i}" class="container grid grid-cols-1 auto-cols-min gap-1 lg:gap-4 mb-2 lg:mb-4">
                   <li style={i < exercice.listeQuestions.length ? `margin-bottom: ${exercice.spacing}em; line-height: 1` : ""} id="exercice{indiceExercice}Q{i}">
-                    {@html Mathalea.formatExercice(item)}
+                    {@html MathaleaFormatExercice(item)}
                   </li>
                   {#if isCorrectionVisible}
                     <div
-                      class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest my-2 py-2 pl-6"
+                      class="relative border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark border-l-4 text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-2 mb-6 py-2 pl-4"
                       style="margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: {exercice.spacingCorr || 1}; break-inside:avoid"
                       id="correction${indiceExercice}Q${i}"
                     >
-                      {@html Mathalea.formatExercice(exercice.listeCorrections[i])}
+                      {@html MathaleaFormatExercice(exercice.listeCorrections[i])}
+                      <div class="absolute border-coopmaths-warn-dark top-0 left-0 border-b-4 w-10" />
+                      <div
+                        class="absolute h-6 w-6 flex flex-row justify-center items-center -left-3 -top-2 rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+                      >
+                        <i class="bx bx-check font-bold" />
+                      </div>
+                      <div class="absolute border-coopmaths-warn-dark bottom-0 left-0 border-b-4 w-4" />
                     </div>
                   {/if}
                 </div>

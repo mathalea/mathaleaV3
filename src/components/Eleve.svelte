@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Mathalea } from "../lib/Mathalea"
-  import { exercicesParams, darkMode, globalOptions, resultsByExercice } from "./store"
+  import { MathaleaFormatExercice, MathaleaGenerateSeed, MathaleaHandleExerciceSimple, MathaleaHandleParamOfOneExercice, MathaleaLoadExerciceFromUuid, MathaleaRenderDiv, MathaleaUpdateExercicesParamsFromUrl, MathaleaUpdateUrlFromExercicesParams } from "../lib/Mathalea"
+  import { exercicesParams, darkMode, globalOptions, resultsByExercice, isMenuNeededForExercises, isMenuNeededForQuestions } from "./store"
   import type TypeExercice from "./utils/typeExercice"
   import Exercice from "./exercice/Exercice.svelte"
   import { onMount, tick } from "svelte"
@@ -29,10 +29,9 @@
   let isCorrectionVisible: boolean[] = []
   let divsCorrection: HTMLDivElement[] = []
   let currentWindowWidth: number = document.body.clientWidth
-  let menuNeeded: boolean = false
 
   function urlToDisplay() {
-    let urlOptions = Mathalea.loadExercicesFromUrl()
+    let urlOptions = MathaleaUpdateExercicesParamsFromUrl()
     globalOptions.update(() => {
       urlOptions.v = "eleve"
       return urlOptions
@@ -54,16 +53,16 @@
     const roomForQuestionsTitles = navigationHeaderElt ? navigationHeaderElt.offsetWidth : ((dim - 2 * remToPixels(1)) * 11) / 12
     const roomForOne = roomForQuestionsTitles / nbOfExercises - 2 * remToPixels(1.5)
     if (roomForOne >= getTextWidth("Exercice 10", getCanvasFont(exerciseTitleElt ?? document.body))) {
-      menuNeeded = false
+      $isMenuNeededForExercises = false
       return "Exercice"
     } else if (roomForOne >= getTextWidth("Ex 10", getCanvasFont(exerciseTitleElt ?? document.body)) + 20) {
-      menuNeeded = false
+      $isMenuNeededForExercises = false
       return "Ex"
     } else if (roomForOne >= getTextWidth("10", getCanvasFont(exerciseTitleElt ?? document.body)) + 20) {
-      menuNeeded = false
+      $isMenuNeededForExercises = false
       return ""
     } else {
-      menuNeeded = true
+      $isMenuNeededForExercises = true
       return ""
     }
   }
@@ -85,16 +84,16 @@
     const roomForQuestionsTitles = navigationHeaderElt ? navigationHeaderElt.offsetWidth : ((dim - 2 * remToPixels(1)) * 11) / 12
     const roomForOne = roomForQuestionsTitles / nbOfQuestions - 2 * remToPixels(0.5)
     if (roomForOne >= getTextWidth("Question 10", getCanvasFont(questionTitleElt ?? document.body))) {
-      menuNeeded = false
+      $isMenuNeededForQuestions = false
       return "Question"
     } else if (roomForOne >= getTextWidth("Q 10", getCanvasFont(questionTitleElt ?? document.body)) + 20) {
-      menuNeeded = false
+      $isMenuNeededForQuestions = false
       return "Q"
-    } else if (roomForOne >= getTextWidth("10", getCanvasFont(questionTitleElt ?? document.body))) {
-      menuNeeded = false
+    } else if (roomForOne >= getTextWidth("10", getCanvasFont(questionTitleElt ?? document.body)) + 20) {
+      $isMenuNeededForQuestions = false
       return ""
     } else {
-      menuNeeded = true
+      $isMenuNeededForQuestions = true
       return ""
     }
   }
@@ -104,7 +103,7 @@
     // Si presMode est undefined cela signifie que l'on charge cet url
     // sinon en venant du modal il existerait
     if ($globalOptions.presMode === undefined) {
-      let urlOptions = Mathalea.loadExercicesFromUrl()
+      let urlOptions = MathaleaUpdateExercicesParamsFromUrl()
       urlOptions.v = "eleve"
       globalOptions.update(() => {
         return urlOptions
@@ -115,27 +114,9 @@
       resultsByExercice.update(() => [])
     }
     for (const paramsExercice of $exercicesParams) {
-      const exercice: TypeExercice = await Mathalea.load(paramsExercice.uuid)
+      const exercice: TypeExercice = await MathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (typeof exercice === "undefined") return
-      exercice.uuid = paramsExercice.uuid
-      if (paramsExercice.nbQuestions) exercice.nbQuestions = paramsExercice.nbQuestions
-      exercice.duration = paramsExercice.duration ?? 10
-      if (paramsExercice.titre) exercice.titre = paramsExercice.titre
-      if (paramsExercice.id) exercice.id = paramsExercice.id
-      if (paramsExercice.sup) exercice.sup = paramsExercice.sup
-      if (paramsExercice.sup2) exercice.sup2 = paramsExercice.sup2
-      if (paramsExercice.sup3) exercice.sup3 = paramsExercice.sup3
-      if (paramsExercice.sup4) exercice.sup4 = paramsExercice.sup4
-      if (paramsExercice.interactif) exercice.interactif = paramsExercice.interactif
-      if (paramsExercice.alea) exercice.seed = paramsExercice.alea
-      if (paramsExercice.cd !== undefined) exercice.correctionDetaillee = paramsExercice.cd === "1"
-      if (exercice.seed === undefined)
-        exercice.seed = Mathalea.generateSeed({
-          includeUpperCase: true,
-          includeNumbers: true,
-          length: 4,
-          startsWithLowerCase: false,
-        })
+      MathaleaHandleParamOfOneExercice(exercice, paramsExercice)
       exercices.push(exercice)
     }
     exercices = exercices
@@ -149,7 +130,7 @@
         exercice.interactif = true
       }
       if (exercice.typeExercice === "simple") {
-        Mathalea.handleExerciceSimple(exercice, exercice.interactif, k)
+        MathaleaHandleExerciceSimple(exercice, exercice.interactif, k)
       }
       seedrandom(exercice.seed, { global: true })
       exercice.numeroExercice = k
@@ -162,19 +143,20 @@
       }
       questions = [...questions, ...exercice.listeQuestions]
       corrections = [...corrections, ...exercice.listeCorrections]
-      questions = questions.map(Mathalea.formatExercice)
-      corrections = corrections.map(Mathalea.formatExercice)
-      consignes = consignes.map(Mathalea.formatExercice)
+      questions = questions.map(MathaleaFormatExercice)
+      corrections = corrections.map(MathaleaFormatExercice)
+      consignes = consignes.map(MathaleaFormatExercice)
     }
-    if ($globalOptions.presMode === "liste" || $globalOptions.presMode === "question") {
+    if ($globalOptions.presMode === "liste" || $globalOptions.presMode === "questions") {
       // Pour les autres mode de présentation, cela est géré par ExerciceMathalea
-      Mathalea.updateUrl($exercicesParams)
+      MathaleaUpdateUrlFromExercicesParams($exercicesParams)
       await tick()
-      Mathalea.renderDiv(document.querySelector("section"))
+      MathaleaRenderDiv(document.querySelector<HTMLElement>("section"))
       loadMathLive()
     }
   }
-  async function checkQuestion(i) {
+
+  async function checkQuestion(i: number) {
     // ToFix exercices custom avec pointsCliquable
     const type = exercices[indiceExercice[i]].interactifType
     if (type === "mathLive") {
@@ -191,14 +173,14 @@
     isDisabledButton[i] = true
     isCorrectionVisible[i] = true
     await tick()
-    Mathalea.renderDiv(divsCorrection[i])
+    MathaleaRenderDiv(divsCorrection[i])
   }
 
   async function switchCorrectionVisible(i: number) {
     isCorrectionVisible[i] = !isCorrectionVisible[i]
     if (isCorrectionVisible[i]) {
       await tick()
-      Mathalea.renderDiv(divsCorrection[i])
+      MathaleaRenderDiv(divsCorrection[i])
     }
   }
 
@@ -221,11 +203,13 @@
       <!-- barre de navigation -->
       <div
         id="navigationHeaderID"
-        class="hidden md:grid justify-items-center w-full mt-4 mb-8  grid-cols-{$globalOptions.presMode === 'exos' ? exercices.length : questions.length}
-            {$globalOptions.presMode === 'exos' || $globalOptions.presMode === 'question' ? 'border-b-2 border-coopmaths-struct' : 'border-b-0'}
-            bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct"
+        class="grid justify-items-center w-full mt-4 mb-8  grid-cols-{$globalOptions.presMode === 'exos' ? exercices.length : questions.length}
+          {($globalOptions.presMode === 'exos' && !$isMenuNeededForExercises) || ($globalOptions.presMode === 'questions' && !$isMenuNeededForQuestions)
+          ? 'border-b-2 border-coopmaths-struct'
+          : 'border-b-0'}
+              bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct"
       >
-        {#if $globalOptions.presMode === "exos"}
+        {#if $globalOptions.presMode === "exos" && !$isMenuNeededForExercises}
           {#each $exercicesParams as paramsExercice, i (paramsExercice)}
             <div class="">
               <button
@@ -239,7 +223,11 @@
                   {exerciseTitle}
                   {i + 1}
                   {#if $resultsByExercice[i] !== undefined}
-                    <div class="absolute bottom-1 left-0 right-0 mx-auto text-xs text-coopmaths-warn dark:text-coopmathsdark-warn">
+                    <div
+                      class="absolute bottom-0 left-0 right-0 mx-auto text-xs font-bold {$resultsByExercice[i].numberOfPoints < $resultsByExercice[i].numberOfQuestions
+                        ? 'bg-red-500'
+                        : 'bg-coopmaths-warn'} dark:bg-coopmathsdark-warn text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+                    >
                       {$resultsByExercice[i].numberOfPoints + "/" + $resultsByExercice[i].numberOfQuestions}
                     </div>
                   {/if}
@@ -252,7 +240,7 @@
             </div>
           {/each}
         {/if}
-        {#if $globalOptions.presMode === "question"}
+        {#if $globalOptions.presMode === "questions" && !$isMenuNeededForQuestions}
           {#each questions as question, i (question)}
             <div class="">
               <button
@@ -267,11 +255,11 @@
                   {i + 1}
                   <div
                     class="absolute left-0 right-0 mx-auto bottom-1 h-2 w-2 rounded-full bg-coopmaths-warn
-                    {resultsByQuestion[i] === true ? '' : 'invisible'}"
+                      {resultsByQuestion[i] === true ? '' : 'invisible'}"
                   />
                   <div
                     class="absolute left-0 right-0 mx-auto bottom-1 h-2 w-2 rounded-full bg-red-600
-                    {resultsByQuestion[i] === false ? '' : 'invisible'}"
+                      {resultsByQuestion[i] === false ? '' : 'invisible'}"
                   />
                 </div>
                 <span class="absolute -bottom-1 left-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300" />
@@ -292,7 +280,7 @@
         </div>
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <div class="flex flex-col">
-            <div class="md:hidden">
+            <div class={$isMenuNeededForExercises ? "" : "hidden"}>
               <button
                 class="w-full {currentIndex === i
                   ? 'bg-coopmaths-canvas-darkest'
@@ -303,20 +291,17 @@
                 <div id="exerciseTitleID2{i}" class="flex flex-row items-center justify-center py-3 px-2 text-2xl font-bold">
                   Exercice {i + 1}
                   {#if $resultsByExercice[i] !== undefined}
-                    <div class="ml-4 text-sm text-coopmaths-warn dark:text-coopmathsdark-warn">
+                    <div class="ml-4 text-sm font-bold text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark">
                       {$resultsByExercice[i].numberOfPoints + "/" + $resultsByExercice[i].numberOfQuestions}
                     </div>
                   {:else}
-                    <div class="ml-4 text-sm invisible">8/8</div>
+                    <div class="ml-4 text-sm font-bold invisible">8/8</div>
                   {/if}
                 </div>
               </button>
             </div>
             <div class={currentIndex === i ? "" : "hidden"}>
               <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={isCorrectionVisible[i]} />
-              {#if exercices[i] && $globalOptions.isSolutionAccessible && !exercices[i].interactif}
-                <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} bind:value={isCorrectionVisible[i]} />
-              {/if}
             </div>
           </div>
         {/each}
@@ -326,11 +311,6 @@
         </div>
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={isCorrectionVisible[i]} />
-          {#if exercices[i] && $globalOptions.isSolutionAccessible && !exercices[i].interactif}
-            <div class="ml-2 lg:mx-5">
-              <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} bind:value={isCorrectionVisible[i]} />
-            </div>
-          {/if}
         {/each}
       {:else if $globalOptions.presMode === "liste"}
         {#each questions as question, k (question)}
@@ -355,25 +335,27 @@
               </div>
               {#if isCorrectionVisible[k]}
                 <div
-                  class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest my-2 py-2 pl-6"
+                  class="relative border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark border-l-8 text-coopmaths-corpus dark:text-coopmathsdark-corpus my-2 py-2 pl-6"
                   style="break-inside:avoid"
                   bind:this={divsCorrection[k]}
                 >
-                  {@html Mathalea.formatExercice(corrections[k])}
+                  {@html MathaleaFormatExercice(corrections[k])}
+                  <div class="absolute border-coopmaths-warn-dark top-0 left-0 border-b-4 w-10" />
                   <div
-                    class="absolute flex flex-row justify-center items-center -left-4 top-0 rounded-full bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-canvas dark:text-coopmathsdark-canvas h-6 w-6"
+                    class="absolute h-6 w-6 flex flex-row justify-center items-center -left-3 -top-2 rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas"
                   >
-                    <i class="bx bx-sm bx-check" />
+                    <i class="bx bx-check font-bold" />
                   </div>
+                  <div class="absolute border-coopmaths-warn-dark bottom-0 left-0 border-b-4 w-4" />
                 </div>
               {/if}
             </div>
           </div>
         {/each}
-      {:else if $globalOptions.presMode === "question"}
+      {:else if $globalOptions.presMode === "questions"}
         {#each questions as question, k (question)}
           <div class="flex flex-col">
-            <div class="md:hidden">
+            <div class={$isMenuNeededForQuestions ? "" : "hidden"}>
               <button
                 class="w-full {currentIndex === k
                   ? 'bg-coopmaths-canvas-darkest'
@@ -392,7 +374,6 @@
             </div>
             <div class={currentIndex === k ? "" : "hidden"} id={`exercice${indiceExercice[k]}Q${k}`}>
               <div class="pb-4 flex flex-col items-start justify-start">
-                <!-- <div class="text-coopmaths-struct font-bold text-md">Question {k + 1}</div> -->
                 <div class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10">
                   <div class="flex flex-col my-2 py-2">
                     <div class="text-coopmaths-corpus pl-2">
@@ -405,16 +386,18 @@
                   </div>
                   {#if isCorrectionVisible[k]}
                     <div
-                      class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest my-2 py-2 pl-6"
+                      class="relative border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark border-l-4 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest my-2 py-2 pl-4 lg:pl-6"
                       style="break-inside:avoid"
                       bind:this={divsCorrection[k]}
                     >
-                      {@html Mathalea.formatExercice(corrections[k])}
+                      {@html MathaleaFormatExercice(corrections[k])}
+                      <div class="absolute border-coopmaths-warn-dark top-0 left-0 border-b-4 w-10" />
                       <div
-                        class="absolute flex flex-row justify-center items-center -left-4 top-0 rounded-full bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-canvas dark:text-coopmathsdark-canvas h-6 w-6"
+                        class="absolute h-6 w-6 flex flex-row justify-center items-center -left-3 -top-2 rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas"
                       >
-                        <i class="bx bx-sm bx-check" />
+                        <i class="bx bx-check font-bold" />
                       </div>
+                      <div class="absolute border-coopmaths-warn-dark bottom-0 left-0 border-b-4 w-4" />
                     </div>
                   {/if}
                 </div>
@@ -423,7 +406,9 @@
                     <Button title="Vérifier" on:click={() => checkQuestion(k)} isDisabled={isDisabledButton[k]} />
                   </div>
                 {:else if $globalOptions.isSolutionAccessible}
-                  <ButtonToggle titles={["Voir la correction", "Masquer la correction"]} on:click={() => switchCorrectionVisible(k)} />
+                  <div class={$isMenuNeededForExercises ? "ml-4" : ""}>
+                    <ButtonToggle titles={["Voir la correction", "Masquer la correction"]} on:click={() => switchCorrectionVisible(k)} />
+                  </div>
                 {/if}
               </div>
             </div>
