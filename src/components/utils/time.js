@@ -31,3 +31,19 @@ export function setPhraseDuree (duree) {
   else if (duree === 0) return 'Défilement manuel'
   else return duree + ' seconde'
 }
+
+/**
+ * Fabriquer une chaîne de caractères unique basée sur un time stamp.
+ * @param {string} prefix Préfixe à ajouter devant la chaîne de caractères unique (vide par défaut)
+ * @returns {string} La chaîne de caractère unique
+ * @author sylvain
+ */
+export function getUniqueStringBasedOnTimeStamp (prefix = '') {
+  const timeStamp = String(new Date().getTime())
+  let unique = ''
+
+  for (let i = 0; i < timeStamp.length; i += 2) {
+    unique += Number(timeStamp.substring(i, 2)).toString(36)
+  }
+  return `${prefix}${unique}`
+}

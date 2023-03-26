@@ -78,7 +78,19 @@ const config = {
             light: '#99e150',
             lightest: '#b3e97c',
             dark: '#66ae1e',
-            darkest: '#4d8216'
+            darkest: '#4d8216',
+            50: '#f3fced',
+            100: '#e6f9db',
+            200: '#daf5c9',
+            300: '#cdf2b7',
+            400: '#c1eea4',
+            500: '#b4ea90',
+            600: '#a8e67c',
+            700: '#9be265',
+            800: '#8edd4b',
+            900: '#6ebc1f',
+            1000: '#5da119',
+            1100: '#4d8613'
           },
           struct: {
             DEFAULT: '#216D9A',
