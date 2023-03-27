@@ -405,12 +405,11 @@ export default function CalculDeLongueur () {
             },
             {
               type: 'AMCNum',
-              enonce: `${nomLongueur} arrondie au dixième :\\\\\n`,
               propositions: [
                 {
                   reponse: {
-                    texte: 'résultat',
-                    valeur: [ab.toDP(1)],
+                    texte: `${nomLongueur} arrondie au dixième :\\\\\n`,
+                    valeur: [reponse],
                     param: {
                       digits: 3,
                       decimals: 1,
@@ -421,6 +420,35 @@ export default function CalculDeLongueur () {
                     }
                   }
                 }]
+            },
+            {
+              type: 'qcmMono',
+              enonce: 'Unité de la réponse :\\\\\n',
+              options: {
+                ordered: true
+              },
+              propositions: [
+                {
+                  texte: 'm',
+                  statut: unite === 'm',
+                  feedback: ''
+                },
+                {
+                  texte: 'cm',
+                  statut: unite === 'cm',
+                  feedback: ''
+                },
+                {
+                  texte: 'dm',
+                  statut: unite === 'dm',
+                  feedback: ''
+                },
+                {
+                  texte: 'mm',
+                  statut: unite === 'mm',
+                  feedback: ''
+                }
+              ]
             }
           ]
         }
