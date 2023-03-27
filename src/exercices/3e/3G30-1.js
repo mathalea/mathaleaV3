@@ -67,7 +67,7 @@ export default function ExprimerCosSinTan () {
       const objetsEnonce = []
       const objetsCorrection = []
       let choixRapportTrigo
-      let propositionsAMC = []
+      const propositionsAMC = []
       let texteInit
       const a = point(0, 0)
       const b = point(randint(3, 7), 0)
@@ -145,11 +145,11 @@ export default function ExprimerCosSinTan () {
         pixelsParCm: 20,
         mainlevee: false
       })
-      if (!context.isHtml & !context.isAmc) {
+      if (!context.isHtml && !context.isAmc) {
         texte += '\\begin{minipage}{.4\\linewidth}\n'
       }
       texte += mathalea2d(paramsEnonce, objetsEnonce) + '<br>'
-      if (!context.isHtml & !context.isAmc) {
+      if (!context.isHtml && !context.isAmc) {
         texte += '\n\\end{minipage}\n'
         texte += '\\begin{minipage}{.6\\linewidth}\n'
       }
@@ -158,7 +158,7 @@ export default function ExprimerCosSinTan () {
         texteInit += `Dans le triangle $${A.nom + B.nom + C.nom}$ et à l'aide des longueurs $${A.nom + B.nom}$, $${A.nom + C.nom}$, $${B.nom + C.nom}$ :`
         texte += `Compléter à l'aide des longueurs $${A.nom + B.nom}$, $${A.nom + C.nom}$, $${B.nom + C.nom}$ : `
         texte += `<br>$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-        if (this.interactif) {
+        if (this.interactif && !context.isAmc) {
           texte += ajouteChampTexteMathLive(this, 3 * i, 'inline nospacebefore', { tailleExtensible: true })
           setReponse(this, 3 * i, [
               `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
@@ -169,21 +169,44 @@ export default function ExprimerCosSinTan () {
         } else if (context.isAmc) {
           propositionsAMC[0] =
             {
-              type: 'AMCOpen',
+              type: 'qcmMono',
+              enonce: `${numAlpha(0)} Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
               propositions: [
                 {
-                  texte: '',
-                  statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                  feedback: '',
-                  sanslignes: true,
-                  enonce: texteInit + `<br>${numAlpha(0)} Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                  sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                  texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                  statut: true,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                  statut: false,
+                  feedback: ''
                 }
               ]
             }
         }
         texte += `<br>$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-        if (this.interactif) {
+        if (this.interactif && !context.isAmc) {
           texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline nospacebefore', { tailleExtensible: true })
           setReponse(this, 3 * i + 1, [
               `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
@@ -194,21 +217,44 @@ export default function ExprimerCosSinTan () {
         } else if (context.isAmc) {
           propositionsAMC[1] =
             {
-              type: 'AMCOpen',
+              type: 'qcmMono',
+              enonce: `<br>${numAlpha(1)} Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
               propositions: [
                 {
-                  texte: '',
-                  statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                  feedback: '',
-                  sanslignes: true,
-                  enonce: `${numAlpha(1)} Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                  sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                  texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                  statut: true,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                  statut: false,
+                  feedback: ''
                 }
               ]
             }
         }
         texte += `<br>$\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-        if (this.interactif) {
+        if (this.interactif && !context.isAmc) {
           texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'inline nospacebefore', { tailleExtensible: true })
           setReponse(this, 3 * i + 2, [
               `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
@@ -219,15 +265,38 @@ export default function ExprimerCosSinTan () {
         } else if (context.isAmc) {
           propositionsAMC[2] =
             {
-              type: 'AMCOpen',
+              type: 'qcmMono',
+              enonce: `<br>${numAlpha(2)} Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
               propositions: [
                 {
-                  texte: '',
-                  statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                  feedback: '',
-                  sanslignes: true,
-                  enonce: `${numAlpha(2)} Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                  sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                  texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  statut: true,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                  statut: false,
+                  feedback: ''
                 }
               ]
             }
@@ -235,7 +304,7 @@ export default function ExprimerCosSinTan () {
       } else if (this.sup === 2) {
         texte += 'Exprimer les 6 rapports trigonométriques pour ce triangle, en fonction des longueurs respectives de ses côtés.'
         texteInit = texte
-        if (this.interactif) {
+        if (this.interactif && !context.isAmc) {
           texte += `<br>$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
           texte += ajouteChampTexteMathLive(this, 6 * i, 'inline nospacebefore', { tailleExtensible: true })
           setReponse(this, 6 * i, [
@@ -285,86 +354,234 @@ export default function ExprimerCosSinTan () {
               `\\frac{${B.nom + A.nom}}{${C.nom + A.nom}}`],
           { formatInteractif: 'texte' })
         } else if (context.isAmc) {
-          propositionsAMC = [
+          propositionsAMC[0] =
             {
-              type: 'AMCOpen',
+              type: 'qcmMono',
+              enonce: `${numAlpha(0)} Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
               propositions: [
                 {
-                  texte: '',
-                  statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                  feedback: '',
-                  sanslignes: true,
-                  enonce: texteInit + `<br>${numAlpha(0)} Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                  sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                }
-              ]
-            }, {
-              type: 'AMCOpen',
-              propositions: [
+                  texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                  statut: true,
+                  feedback: ''
+                },
                 {
-                  texte: '',
-                  statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                  feedback: '',
-                  sanslignes: true,
-                  enonce: `${numAlpha(1)} Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                  sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                }
-              ]
-            }, {
-              type: 'AMCOpen',
-              propositions: [
+                  texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
                 {
-                  texte: '',
-                  statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                  feedback: '',
-                  sanslignes: true,
-                  enonce: `${numAlpha(2)} Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                  sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                }
-              ]
-            }, {
-              type: 'AMCOpen',
-              propositions: [
+                  texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
                 {
-                  texte: '',
-                  statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                  feedback: '',
-                  sanslignes: true,
-                  enonce: `${numAlpha(3)} Exprimer $\\cos\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                  sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                }
-              ]
-            }, {
-              type: 'AMCOpen',
-              propositions: [
+                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
                 {
-                  texte: '',
-                  statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                  feedback: '',
-                  sanslignes: true,
-                  enonce: `${numAlpha(4)} Exprimer $\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                  sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-                }
-              ]
-            }, {
-              type: 'AMCOpen',
-              propositions: [
+                  texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
                 {
-                  texte: '',
-                  statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                  feedback: '',
-                  sanslignes: true,
-                  enonce: `${numAlpha(5)} Exprimer $\\tan\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                  sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                  statut: false,
+                  feedback: ''
                 }
               ]
             }
-          ]
+          propositionsAMC[1] =
+            {
+              type: 'qcmMono',
+              enonce: `<br>${numAlpha(1)} Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+              propositions: [
+                {
+                  texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                  statut: true,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                  statut: false,
+                  feedback: ''
+                }
+              ]
+            }
+          propositionsAMC[2] =
+            {
+              type: 'qcmMono',
+              enonce: `<br>${numAlpha(2)} Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+              propositions: [
+                {
+                  texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  statut: true,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                  statut: false,
+                  feedback: ''
+                }
+              ]
+            }
+          propositionsAMC[3] =
+            {
+              type: 'qcmMono',
+              enonce: `${numAlpha(3)} Exprimer $\\cos\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`,
+              propositions: [
+                {
+                  texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                  statut: true,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                  statut: false,
+                  feedback: ''
+                }
+              ]
+            }
+          propositionsAMC[4] =
+            {
+              type: 'qcmMono',
+              enonce: `<br>${numAlpha(4)} Exprimer $\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`,
+              propositions: [
+                {
+                  texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                  statut: true,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                  statut: false,
+                  feedback: ''
+                }
+              ]
+            }
+          propositionsAMC[5] =
+            {
+              type: 'qcmMono',
+              enonce: `<br>${numAlpha(5)} Exprimer $\\tan\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`,
+              propositions: [
+                {
+                  texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                  statut: true,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  statut: false,
+                  feedback: ''
+                },
+                {
+                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                  statut: false,
+                  feedback: ''
+                }
+              ]
+            }
         }
       } else {
+        texteInit = texte
         choixRapportTrigo = choice(['le cosinus', 'le sinus', 'la tangente'])
         texte += `Exprimer ${choixRapportTrigo} de $\\widehat{${A.nom + B.nom + C.nom}}$ de deux manières différentes.`
-        if (this.interactif) {
+        if (this.interactif && !context.isAmc) {
           switch (choixRapportTrigo) {
             case 'le cosinus':
               texte += `<br>Parmi deux triangles, dans le triangle le plus grand, $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
@@ -422,37 +639,240 @@ export default function ExprimerCosSinTan () {
               break
           }
         } else if (context.isAmc) {
-          propositionsAMC = [
-            {
-              type: 'AMCOpen',
-              propositions: [
+          switch (choixRapportTrigo) {
+            case 'le cosinus':
+              propositionsAMC[0] =
                 {
-                  texte: '',
-                  statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                  feedback: '',
-                  sanslignes: true,
-                  enonce: texte + `<br><br>${numAlpha(0)} Première manière<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                  sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                  type: 'qcmMono',
+                  enonce: `Exprimer dans le triangle $${A.nom + B.nom + C.nom}$\\\\\n${numAlpha(0)}$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+                  propositions: [
+                    {
+                      texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                      statut: true,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    }
+                  ]
                 }
-              ]
-            }, {
-              type: 'AMCOpen',
-              propositions: [
+              propositionsAMC[1] =
                 {
-                  texte: '',
-                  statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                  feedback: '',
-                  sanslignes: true,
-                  enonce: `${numAlpha(1)} Seconde manière<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
-                  sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                  type: 'qcmMono',
+                  enonce: `Exprimer dans le triangle $${A.nom + H.nom + B.nom}$\\\\\n${numAlpha(1)}$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+                  propositions: [
+                    {
+                      texte: `\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}`,
+                      statut: true,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${A.nom + B.nom}}{${A.nom + H.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${B.nom + H.nom}}{${A.nom + H.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${A.nom + B.nom}}{${B.nom + H.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    }
+                  ]
                 }
-              ]
-            }
-          ]
+              break
+            case 'le sinus' :
+              propositionsAMC[0] =
+                {
+                  type: 'qcmMono',
+                  enonce: `Exprimer dans le triangle $${A.nom + B.nom + C.nom}$\\\\\n${numAlpha(0)}$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+                  propositions: [
+                    {
+                      texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                      statut: true,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    }
+                  ]
+                }
+              propositionsAMC[1] =
+                {
+                  type: 'qcmMono',
+                  enonce: `Exprimer dans le triangle $${A.nom + H.nom + B.nom}$\\\\\n${numAlpha(1)}$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+                  propositions: [
+                    {
+                      texte: `\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}`,
+                      statut: true,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${A.nom + B.nom}}{${A.nom + H.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${B.nom + H.nom}}{${A.nom + H.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${A.nom + B.nom}}{${B.nom + H.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    }
+                  ]
+                }
+              break
+            case 'la tangente' :
+              propositionsAMC[0] =
+                {
+                  type: 'qcmMono',
+                  enonce: `Exprimer dans le triangle $${A.nom + B.nom + C.nom}$\\\\\n${numAlpha(0)}$\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+                  propositions: [
+                    {
+                      texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                      statut: true,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    }
+                  ]
+                }
+              propositionsAMC[1] =
+                {
+                  type: 'qcmMono',
+                  enonce: `Exprimer dans le triangle $${A.nom + H.nom + B.nom}$\\\\\n${numAlpha(1)}$\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+                  propositions: [
+                    {
+                      texte: `\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${A.nom + B.nom}}{${A.nom + H.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${B.nom + H.nom}}{${A.nom + H.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${A.nom + B.nom}}{${B.nom + H.nom}}`,
+                      statut: false,
+                      feedback: ''
+                    },
+                    {
+                      texte: `\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}`,
+                      statut: true,
+                      feedback: ''
+                    }
+                  ]
+                }
+              break
+          }
         }
       }
 
-      if (!context.isHtml & !context.isAmc) {
+      if (!context.isHtml && !context.isAmc) {
         texte += '\n\\end{minipage}\n'
       }
       if (this.sup === 1 || this.sup === 2 || this.sup === 3) {
@@ -480,7 +900,7 @@ export default function ExprimerCosSinTan () {
       } else if (this.sup === 3) {
         if (choixRapportTrigo === 'le cosinus') {
           texteCorr += `<br>$${A.nom + B.nom + C.nom}$ est rectangle en $${A.nom}$ donc `
-          if (!context.isHtml & !context.isAmc) {
+          if (!context.isHtml && !context.isAmc) {
             texteCorr += '<br>'
           }
           texteCorr += `$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=\\dfrac{${A.nom + B.nom}}{${B.nom + C.nom}}$ ;`
@@ -507,14 +927,13 @@ export default function ExprimerCosSinTan () {
 
       if (context.isAmc) {
         this.autoCorrection[i] = {
-          enonce: '',
-          enonceAvant: false, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
-          options: { multicols: true, barreseparation: true, multicolsAll: this.sup === 1 }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
-          // barreseparation (par défaut à false) permet de mettre une barre de séparation entre les deux colonnes.
+          enonce: texteInit + '\\\\\n',
+          enonceAvant: true,
+          options: { multicols: false, barreseparation: true, multicolsAll: false },
           propositions: propositionsAMC
         }
       }
-      if (this.questionJamaisPosee(i), nom) {
+      if (this.questionJamaisPosee(i, nom)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
       }
