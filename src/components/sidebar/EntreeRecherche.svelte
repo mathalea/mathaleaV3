@@ -3,15 +3,14 @@
   import { isRecent } from "../utils/handleDate"
 
   export let exercice
-  export let nestedLevelCount: number
 
   /*--------------------------------------------------------------
     Gestions des exercices via la liste
    ---------------------------------------------------------------*/
   const isPresent = (code) => {
-    return code === exercice.get("uuid")
+    return code === exercice.uuid
   }
-  const tags = exercice.get("tags")
+  const tags = exercice.tags
   let selectedCount = 0
   let listeCodes = []
   // on compte réactivement le nombre d'occurences
@@ -23,15 +22,16 @@
     }
     listeCodes = listeCodes
     selectedCount = listeCodes.filter(isPresent).length
+    selectedCount = selectedCount
   }
   /**
    * Ajouter l'exercice courant à la liste
    */
-  function addToList() {
+  function addToList(exercice: InterfaceReferentiel) {
     const newExercise = {
-      url: exercice.get("url"),
-      id: exercice.get("id"),
-      uuid: exercice.get("uuid"),
+      url: exercice.url,
+      id: exercice.id,
+      uuid: exercice.uuid,
     }
     exercicesParams.update((list) => [...list, newExercise])
   }
@@ -43,7 +43,6 @@
     let matchingIndex = listeCodes.findIndex(isPresent)
     exercicesParams.update((list) => [...list.slice(0, matchingIndex), ...list.slice(matchingIndex + 1)])
   }
-
   /*--------------------------------------------------------------
     Gestions des icônes en début de ligne
    ---------------------------------------------------------------*/
@@ -62,48 +61,26 @@
   }
 </script>
 
-<!-- 
-  @component
-  Écrit le nom d'un exercice sur le format : code + titre
-
-  Par exemple : *5A12-1 - Primalité ou pas*
-
-  Ajoute un tag en tête de ligne si le fichier est présent
-  dans la liste des exercices sélectionnés
-
-  __Paramètres__ :
-  
-  - **exercice** : objet de type *Exo* (`{"id": UUID de l'exo, "code": nom de l'exo (par exemple "6N12-3")}`)
-  - **nestedLevelCount** : compteur pour connaître le nombre d'imbrication (utilisé pour l'indentation de la ligne)
-  
- -->
-<div class="relative flex flex-row items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas ml-{nestedLevelCount * 2}">
+<!-- <div>{Object.keys(exercice)} : {exercice.dateDeModifImportante}</div> -->
+<div class="relative flex flex-row items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas ml-4">
   <div
     class="flex-1 hover:bg-coopmaths-action-light dark:hover:bg-coopmathsdark-action-light dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest cursor-pointer"
-    on:click={addToList}
-    on:keydown={addToList}
+    on:click={() => {
+      addToList(exercice)
+    }}
+    on:keydown={() => {
+      addToList(exercice)
+    }}
   >
     <div class="ml-[3px] pl-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1">
-      {#if exercice.has("lieu")}
-        <span class="font-bold">{exercice.get("typeExercice").toUpperCase()} {exercice.get("mois") || ""} {exercice.get("annee")} - {exercice.get("lieu")} - {exercice.get("numeroInitial")}</span>
-        <div>
-          {#each tags as tag}
-            <span
-              class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-action-light dark:bg-coopmathsdark-action-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-xs px-1 py-[1px] shadow-sm mr-1"
-              >{tag}</span
-            >
-          {/each}
-        </div>
-      {:else}
-        <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-          <span class="font-bold">{exercice.get("id")} - </span>{exercice.get("titre")}
-        </div>
-        {#if isRecent(exercice.get("datePublication"))}
-          <span class="badge badge-secondary dark:badge-info badge-xs text-[8px] font-bold ">NEW</span>
-        {/if}
-        {#if isRecent(exercice.get("dateModification"))}
-          <span class="badge badge-secondary dark:badge-info badge-xs text-[8px] font-bold">MAJ</span>
-        {/if}
+      <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+        <span class="font-bold">{exercice.id} - </span>{exercice.titre}
+      </div>
+      {#if isRecent(exercice.dateDePublication)}
+        <span class="badge badge-secondary dark:badge-info badge-xs text-[8px] font-bold ">NEW</span>
+      {/if}
+      {#if isRecent(exercice.dateDeModifImportante)}
+        <span class="badge badge-secondary dark:badge-info badge-xs text-[8px] font-bold">MAJ</span>
       {/if}
     </div>
   </div>

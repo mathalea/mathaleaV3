@@ -1,6 +1,7 @@
-<script lang='ts'>
-  import { exercicesParams } from '../store'
-  import type { InterfaceReferentiel } from '../../lib/types'
+<script lang="ts">
+  import { exercicesParams } from "../store"
+  import type { InterfaceReferentiel } from "../../lib/types"
+  import EntreeRecherche from "./EntreeRecherche.svelte"
   export let referentiel: object
 
   /**
@@ -11,7 +12,7 @@
     function recursiveSearch(object: object) {
       Object.keys(object).forEach((key) => {
         // Les exercces "nouveaux" apparaissent en doublon dans le référentiel
-        if (key === 'Nouveautés') return
+        if (key === "Nouveautés") return
         //@ts-ignore
         const value = object[key]
         if (key === "uuid" && typeof value !== "object") {
@@ -36,15 +37,13 @@
   }
   let inputSearch = ""
 
-  function handlePressEnter (e: KeyboardEvent) {
-    if (e.key === "Enter") {
-      if (filteredList.length === 1) {
-        addToList(filteredList[0])
-      }
-    }
-  }
-
-
+  // function handlePressEnter(e: KeyboardEvent) {
+  //   if (e.key === "Enter") {
+  //     if (filteredList.length === 1) {
+  //       addToList(filteredList[0])
+  //     }
+  //   }
+  // }
 
   /**
    * Détermine si un exercice est dans les résultats de la recherche ou pas
@@ -54,7 +53,7 @@
     if (!inputSearch || exercice.annee) return false
     // Cela permet de trouver les problèmes de construction du dictionnaire
     if (!exercice.id) console.log("Manque id", exercice)
-    if (inputSearch.includes('can')) {
+    if (inputSearch.includes("can")) {
       isCanInclusDansResultats = true
     }
     const inputs = inputSearch.split(" ")
@@ -64,7 +63,7 @@
       try {
         results.push(exercice.titre && (exercice.titre.toLowerCase().includes(input.toLowerCase()) || exercice.id.toLowerCase().includes(input.toLowerCase())))
       } catch (error) {
-        console.log(error)        
+        console.log(error)
       }
     }
     if (!isCanPossible) {
@@ -74,20 +73,20 @@
     return results.every((value) => value === true)
   }
 
-  /**
-   * Ajouter l'exercice courant à la liste
-   */
-  function addToList(exercice: InterfaceReferentiel) {
-    const newExercise = {
-      url: exercice.url,
-      id: exercice.id,
-      uuid: exercice.uuid,
-    }
-    exercicesParams.update((list) => [...list, newExercise])
-  }
+  // /**
+  //  * Ajouter l'exercice courant à la liste
+  //  */
+  // function addToList(exercice: InterfaceReferentiel) {
+  //   const newExercise = {
+  //     url: exercice.url,
+  //     id: exercice.id,
+  //     uuid: exercice.uuid,
+  //   }
+  //   exercicesParams.update((list) => [...list, newExercise])
+  // }
 </script>
 
-<svelte:window on:keydown={handlePressEnter} />
+<!-- <svelte:window on:keydown={handlePressEnter} /> -->
 <div class="mb-2 items-center font-bold text-large text-coopmaths-struct dark:text-coopmathsdark-struct">Recherche</div>
 <div class="mb-4 w-full">
   <!-- <span class="block"> -->
@@ -111,11 +110,12 @@
 {/if}
 
 {#each filteredList as exercice}
-  <div class="relative flex flex-row items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas ml-1">
+  <!-- <div class="relative flex flex-row items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas ml-1">
     <div class="flex-1 hover:bg-coopmaths-light dark:hover:bg-coopmathsdark-light cursor-pointer" on:click={() => addToList(exercice)} on:keydown={() => addToList(exercice)}>
       <div class="ml-[3px] pl-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas  hover:bg-coopmaths-canvas-dark dark:hover:bg-coopmathsdark-canvas-dark flex-1">
         <span class="font-bold">{exercice.id} - </span>{exercice.titre}
       </div>
     </div>
-  </div>
+  </div> -->
+  <EntreeRecherche {exercice} />
 {/each}
