@@ -97,12 +97,16 @@
     )
   }
 
-  /*
+  /* =======================================================
+   *
    * Mécanismes de gestion du modal d'infos sur OverLeaf
+   *
    */
   let modal: HTMLElement
+  let overleafForm: HTMLFormElement
   onMount(async () => {
-    modal = document.getElementById("my-modal")
+    modal = document.getElementById("overleaf-modal")
+    overleafForm = document.getElementById("overleaf-form")
   })
   // click en dehors du modal le fait disparaître
   window.onclick = function (event) {
@@ -110,20 +114,15 @@
       modal.style.display = "none"
     }
   }
-
+  /**
+   * Gérer le POST pour Overleaf
+   */
   function handleOverLeaf() {
+    textForOverleaf.value = encodeURIComponent(content)
+    overleafForm.submit()
     modal.style.display = "none"
   }
-  // const openBtn = document.getElementById("open-btn")
-  // const okBtn = document.getElementById("ok-btn")
-  // okBtn.onclick = function () {
-  //   modal.style.display = "none"
-  // }
-
-  function exportToOverLeaf(): void {
-    // à faire !   const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
-    textForOverleaf.value = encodeURIComponent(content)
-  }
+  // =======================================================
 </script>
 
 <main class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
@@ -219,21 +218,8 @@
         }}
         title="Copier le code LaTeX"
       />
-      <form action="https://www.overleaf.com/docs" method="POST" target="_blank">
-        <input autocomplete="off" bind:this={textForOverleaf} name="encoded_snip" type="hidden" value="" />
-        <input autocomplete="off" name="snip_name" type="hidden" value="CoopMaths" />
-        <input autocomplete="off" name="engine" type="hidden" value="lualatex" />
-        <button
-          class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
-          id="btn_overleaf"
-          on:click={exportToOverLeaf}
-          type="submit"
-        >
-          Compiler en PDF sur Overleaf.com
-        </button>
-      </form>
       <Button
-        title="OverLeaf"
+        title="Compiler sur OverLeaf"
         idLabel="open-btn"
         on:click={() => {
           modal.style.display = "block"
@@ -244,7 +230,8 @@
       {content}
     </pre>
   </section>
-  <ModalMessageBeforeAction buttonTitle="Continuer" on:action={handleOverLeaf} icon="bxs-error">
+  <!-- Message avant envoi sur Overleaf -->
+  <ModalMessageBeforeAction buttonTitle="Continuer" on:action={handleOverLeaf} icon="bxs-error" modalId="overleaf-modal">
     <span slot="header">Attention !</span>
     <ul slot="content" class="list-inside list-disc text-left text-base">
       <li>Il faudra uploader sur Overleaf le package <span class="font-mono bg-coopmaths-warn-100">automultiplechoice.sty</span> pour compiler.</li>
@@ -252,5 +239,11 @@
       <li>Le fichier doit être compilé sous AMC impérativement pour que le fichier soit fonctionnel.</li>
     </ul>
   </ModalMessageBeforeAction>
+  <!-- Formulaire pour Overleaf -->
+  <form action="https://www.overleaf.com/docs" method="POST" target="_blank" id="overleaf-form">
+    <input autocomplete="off" bind:this={textForOverleaf} name="encoded_snip" type="hidden" value="" />
+    <input autocomplete="off" name="snip_name" type="hidden" value="CoopMaths" />
+    <input autocomplete="off" name="engine" type="hidden" value="lualatex" />
+  </form>
   <Footer />
 </main>
