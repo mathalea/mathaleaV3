@@ -1,6 +1,8 @@
 import ExercicePerimetresEtAires from './_Exercice_perimetres_et_aires.js'
-export const titre = 'Calculer des périmètres et des aires de figures usuelles'
+export const titre = 'Calculer le périmètre et l\'aire de polygones usuels'
 export { interactifReady, interactifType, amcReady, amcType } from './_Exercice_perimetres_et_aires.js'
+
+export const dateDeModificationImportante = '28/03/2023'
 
 /**
  * @author Rémi Angot
@@ -12,4 +14,9 @@ export default function Reglages6M10 () {
   ExercicePerimetresEtAires.call(this)
   this.sup = '1-2-3'
   this.titre = titre
+  this.besoinFormulaire4CaseACocher = false
+  this.besoinFormulaireTexte = [
+    'Types de figures (nombres séparés par des tirets)',
+    '1 : Carré\n2 : Rectangle\n3 : Triangle rectangle'
+  ]
 }
