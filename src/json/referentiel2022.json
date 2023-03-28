@@ -6029,7 +6029,7 @@
         "id": "6M10",
         "uuid": "83be1",
         "url": "6e/6M10.js",
-        "titre": "Calculer des périmètres et des aires de figures usuelles",
+        "titre": "Calculer le périmètre et l'aire de polygones usuels",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6145,7 +6145,7 @@
         "id": "6M22",
         "uuid": "ac571",
         "url": "6e/6M22.js",
-        "titre": "Calculer périmètre et aire de disques (à partir d'un texte)",
+        "titre": "Calculer le périmètre et l'aire de disques ou demi-disques",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -8999,7 +8999,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amc": true,
-          "amcType": "AMCOpenNum"
+          "amcType": "AMCHybride"
         }
       },
       "4G41": {
@@ -9832,7 +9832,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amc": true,
-          "amcType": "AMCOpenNum"
+          "amcType": "AMCHybride"
         }
       },
       "3G31-1": {
