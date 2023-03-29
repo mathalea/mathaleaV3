@@ -293,7 +293,7 @@
                     style="margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: {exercice.spacingCorr || 1}; break-inside:avoid"
                     id="correction${indiceExercice}Q${i}"
                   >
-                    {@html MathaleaFormatExercice(exercice.listeCorrections[i])}
+                    <div class="container">{@html MathaleaFormatExercice(exercice.listeCorrections[i])}</div>
                     <div class="absolute border-coopmaths-warn-dark top-0 left-0 border-b-4 w-10" />
                     <div
                       class="absolute h-6 w-6 flex flex-row justify-center items-center -left-3 -top-2 rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas"
