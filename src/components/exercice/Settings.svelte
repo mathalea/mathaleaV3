@@ -127,7 +127,6 @@
     })
     return { titre, consigne, champsDecortiques }
   }
-  
 </script>
 
 <div class="text-xl lg:text-base ml-2 lg:ml-4 space-y-4 p-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
@@ -158,14 +157,14 @@
     />
   </div>
   {#if exercice.besoinFormulaireCaseACocher}
-    <div class="form-check">
-      <label class="form-check-label text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="check1">
+    <div class="container">
+      <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="check1">
         {exercice.besoinFormulaireCaseACocher[0]} :
       </label>
       <input
         name="check1"
         type="checkbox"
-        class="form-check-input text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1"
+        class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
         bind:checked={sup}
         on:change={newSettings}
       />
@@ -240,12 +239,12 @@
 
   <!-- sup2 -->
   {#if exercice.besoinFormulaire2CaseACocher}
-    <div class="form-check">
-      <label class="form-check-label text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="check2">{exercice.besoinFormulaire2CaseACocher[0]} : </label>
+    <div class="container">
+      <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="check2">{exercice.besoinFormulaire2CaseACocher[0]} : </label>
       <input
         name="check2"
         type="checkbox"
-        class="form-check-input text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 checkbox-primary"
+        class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
         bind:checked={sup2}
         on:change={newSettings}
       />
@@ -320,12 +319,12 @@
 
   <!-- sup3 -->
   {#if exercice.besoinFormulaire3CaseACocher}
-    <div class="form-check">
-      <label class="form-check-label text-coopmaths-struct dark:text-coopmathsdark-struct opacity-35" for="check3">{exercice.besoinFormulaire3CaseACocher[0]} : </label>
+    <div class="container">
+      <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="check3">{exercice.besoinFormulaire3CaseACocher[0]} : </label>
       <input
         name="check3"
         type="checkbox"
-        class="form-check-input text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 checkbox-primary"
+        class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
         bind:checked={sup3}
         on:change={newSettings}
       />
@@ -402,12 +401,12 @@
 
   <!-- sup4 -->
   {#if exercice.besoinFormulaire4CaseACocher}
-    <div class="form-check">
-      <label class="form-check-label text-coopmaths-struct dark:text-coopmathsdark-struct opacity-35" for="check4">{exercice.besoinFormulaire4CaseACocher[0]} : </label>
+    <div class="container">
+      <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="check4">{exercice.besoinFormulaire4CaseACocher[0]} : </label>
       <input
         name="check4"
         type="checkbox"
-        class="form-check-input text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 checkbox-primary"
+        class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
         bind:checked={sup4}
         on:change={newSettings}
       />
@@ -485,11 +484,11 @@
   {/if}
 
   {#if exercice.correctionDetailleeDisponible}
-    <div>
-      <span class="text-coopmaths-struct dark:text-coopmathsdark-struct opacity-35">Correction détaillée :</span>
+    <div class="container">
+      <span class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light">Correction détaillée :</span>
       <input
         type="checkbox"
-        class="form-check-input text-coopmaths-struct dark:text-coopmathsdark-struct focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1"
+        class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
         bind:checked={correctionDetaillee}
         on:change={newSettings}
       />
