@@ -343,7 +343,7 @@ export default function CalculDeLongueur () {
           texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle(`\\tan\\left(${angleABC}\\degree\\right)`, ac, '\\color{red}{1}')}$`
           texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
           reponse = ab.toDP(1)
-          nomLongueur = `$${nom[1] + nom[2]}$`
+          nomLongueur = `$${nom[0] + nom[1]}$`
           calcul0 = `$${nom[0] + nom[2]}\\times\\cos\\left(${angleABC}\\degree\\right)$`
           calcul1 = `$${nom[0] + nom[2]}\\times\\sin\\left(${angleABC}\\degree\\right)$`
           calcul2 = `$${nom[0] + nom[2]}\\times\\tan\\left(${angleABC}\\degree\\right)$`
