@@ -4,7 +4,8 @@ import {
   decimalToScientifique,
   lettreDepuisChiffre,
   nombreDeChiffresDansLaPartieDecimale,
-  nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDe,
+  nombreDeChiffresDansLaPartieEntiere,
+  nombreDeChiffresDe,
   randint
 } from '../../modules/outils.js'
 import { format as formatLatex } from '../Latex'
@@ -16,7 +17,8 @@ import { format as formatLatex } from '../Latex'
  */
 
 export function exportQcmAmc (exercice, idExo) {
-  const ref = `${exercice.id}/${exercice.sup ? 'S:' + exercice.sup : ''}${exercice.sup2 ? 'S2:' + exercice.sup2 : ''}${exercice.sup3 ? 'S3:' + exercice.sup3 : ''}${exercice.sup4 ? 'S4:' + exercice.sup4 : ''}`
+  let ref = `${exercice.id}/${exercice.sup ? 'S:' + exercice.sup : ''}${exercice.sup2 ? 'S2:' + exercice.sup2 : ''}${exercice.sup3 ? 'S3:' + exercice.sup3 : ''}${exercice.sup4 ? 'S4:' + exercice.sup4 : ''}`
+  if (ref[ref.length - 1] === '/') ref = ref.slice(0, -1)
   const autoCorrection = exercice.autoCorrection
   const titre = exercice.titre
   const type = exercice.amcType

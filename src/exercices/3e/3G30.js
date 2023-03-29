@@ -92,7 +92,7 @@ export default function CalculDeLongueur () {
       const angleABC = randint(35, 55)
       const angleABCr = Decimal.acos(-1).div(180).mul(angleABC)
       if (!context.isHtml && this.sup) {
-        texte += '\\begin{minipage}{.7\\linewidth}\n'
+        // texte += '\\begin{minipage}{.7\\linewidth}\n'
       }
       switch (listeTypeQuestions[i]) {
         case 'cosinus': // AB=BCxcos(B)
@@ -140,7 +140,7 @@ export default function CalculDeLongueur () {
       }
 
       if (!context.isHtml && this.sup) {
-        texte += '\n\\end{minipage}\n'
+        // texte += '\n\\end{minipage}\n'
       }
       const a = point(0, 0)
       const b = point(ab, 0)
@@ -232,7 +232,7 @@ export default function CalculDeLongueur () {
         mainlevee: false
       }
       if (!context.isHtml && this.sup) {
-        texte += '\\begin{minipage}{.3\\linewidth}\n'
+        texte += '\\\\' // \\begin{minipage}{.3\\linewidth}\n'
       }
       if (this.sup) {
         texte += mathalea2d(paramsEnonce, objetsEnonce) + '<br>'
@@ -241,7 +241,7 @@ export default function CalculDeLongueur () {
         texteCorr += '\\begin{minipage}{.4\\linewidth}\n' + mathalea2d(paramsCorrection, objetsCorrection) + '\n\\end{minipage}\n' + '\\begin{minipage}{.7\\linewidth}\n'
       }
       if (!context.isHtml && this.sup) {
-        texte += '\n\\end{minipage}\n'
+        // texte += '\n\\end{minipage}\n'
       }
       switch (listeTypeQuestions[i]) {
         case 'cosinus': // AB=BCxcos(B)
@@ -361,8 +361,13 @@ export default function CalculDeLongueur () {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte + '\\\\\n',
-          enonceAvant: true,
-          options: { multicols: false, barreseparation: true, multicolsAll: false },
+          enonceAvantUneFois: true,
+          options: {
+            multicols: false,
+            barreseparation: true,
+            multicolsAll: true,
+            numerotationEnonce: false
+          },
           propositions: [
             {
               type: 'qcmMono',
@@ -408,7 +413,7 @@ export default function CalculDeLongueur () {
               propositions: [
                 {
                   reponse: {
-                    texte: `${nomLongueur} arrondie au dixième :\\\\\n`,
+                    texte: `${nomLongueur} arrondie au dixième de ${unite}:\\\\\n`,
                     valeur: [reponse],
                     param: {
                       digits: 3,
@@ -420,35 +425,6 @@ export default function CalculDeLongueur () {
                     }
                   }
                 }]
-            },
-            {
-              type: 'qcmMono',
-              enonce: 'Unité de la réponse :\\\\\n',
-              options: {
-                ordered: true
-              },
-              propositions: [
-                {
-                  texte: 'm',
-                  statut: unite === 'm',
-                  feedback: ''
-                },
-                {
-                  texte: 'cm',
-                  statut: unite === 'cm',
-                  feedback: ''
-                },
-                {
-                  texte: 'dm',
-                  statut: unite === 'dm',
-                  feedback: ''
-                },
-                {
-                  texte: 'mm',
-                  statut: unite === 'mm',
-                  feedback: ''
-                }
-              ]
             }
           ]
         }

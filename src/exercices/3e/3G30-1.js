@@ -173,32 +173,32 @@ export default function ExprimerCosSinTan () {
               enonce: `${numAlpha(0)} Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
               propositions: [
                 {
-                  texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
                   statut: true,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
                   statut: false,
                   feedback: ''
                 }
@@ -218,35 +218,35 @@ export default function ExprimerCosSinTan () {
           propositionsAMC[1] =
             {
               type: 'qcmMono',
-              enonce: `<br>${numAlpha(1)} Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+              enonce: `${numAlpha(1)} Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
               propositions: [
                 {
-                  texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
                   statut: true,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
                   statut: false,
                   feedback: ''
                 }
@@ -266,35 +266,35 @@ export default function ExprimerCosSinTan () {
           propositionsAMC[2] =
             {
               type: 'qcmMono',
-              enonce: `<br>${numAlpha(2)} Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+              enonce: `${numAlpha(2)} Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
               propositions: [
                 {
-                  texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
                   statut: true,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
                   statut: false,
                   feedback: ''
                 }
@@ -360,32 +360,32 @@ export default function ExprimerCosSinTan () {
               enonce: `${numAlpha(0)} Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
               propositions: [
                 {
-                  texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
                   statut: true,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
                   statut: false,
                   feedback: ''
                 }
@@ -394,35 +394,35 @@ export default function ExprimerCosSinTan () {
           propositionsAMC[1] =
             {
               type: 'qcmMono',
-              enonce: `<br>${numAlpha(1)} Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+              enonce: `${numAlpha(1)} Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
               propositions: [
                 {
-                  texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
                   statut: true,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
                   statut: false,
                   feedback: ''
                 }
@@ -431,35 +431,35 @@ export default function ExprimerCosSinTan () {
           propositionsAMC[2] =
             {
               type: 'qcmMono',
-              enonce: `<br>${numAlpha(2)} Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+              enonce: `${numAlpha(2)} Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
               propositions: [
                 {
-                  texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
                   statut: true,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
                   statut: false,
                   feedback: ''
                 }
@@ -471,32 +471,32 @@ export default function ExprimerCosSinTan () {
               enonce: `${numAlpha(3)} Exprimer $\\cos\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`,
               propositions: [
                 {
-                  texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
                   statut: true,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
                   statut: false,
                   feedback: ''
                 }
@@ -505,35 +505,35 @@ export default function ExprimerCosSinTan () {
           propositionsAMC[4] =
             {
               type: 'qcmMono',
-              enonce: `<br>${numAlpha(4)} Exprimer $\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`,
+              enonce: `${numAlpha(4)} Exprimer $\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`,
               propositions: [
                 {
-                  texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
                   statut: true,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
                   statut: false,
                   feedback: ''
                 }
@@ -542,35 +542,35 @@ export default function ExprimerCosSinTan () {
           propositionsAMC[5] =
             {
               type: 'qcmMono',
-              enonce: `<br>${numAlpha(5)} Exprimer $\\tan\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`,
+              enonce: `${numAlpha(5)} Exprimer $\\tan\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`,
               propositions: [
                 {
-                  texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                  texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
                   statut: true,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
                   statut: false,
                   feedback: ''
                 },
                 {
-                  texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                  texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
                   statut: false,
                   feedback: ''
                 }
@@ -647,32 +647,32 @@ export default function ExprimerCosSinTan () {
                   enonce: `Exprimer dans le triangle $${A.nom + B.nom + C.nom}$\\\\\n${numAlpha(0)}$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
                   propositions: [
                     {
-                      texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                      texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
                       statut: true,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                      texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                      texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                      texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                      texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                      texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
                       statut: false,
                       feedback: ''
                     }
@@ -684,32 +684,32 @@ export default function ExprimerCosSinTan () {
                   enonce: `Exprimer dans le triangle $${A.nom + H.nom + B.nom}$\\\\\n${numAlpha(1)}$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
                   propositions: [
                     {
-                      texte: `\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}`,
+                      texte: `$\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}$`,
                       statut: true,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}`,
+                      texte: `$\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${A.nom + B.nom}}{${A.nom + H.nom}}`,
+                      texte: `$\\frac{${A.nom + B.nom}}{${A.nom + H.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${B.nom + H.nom}}{${A.nom + H.nom}}`,
+                      texte: `$\\frac{${B.nom + H.nom}}{${A.nom + H.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${A.nom + B.nom}}{${B.nom + H.nom}}`,
+                      texte: `$\\frac{${A.nom + B.nom}}{${B.nom + H.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}`,
+                      texte: `$\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}$`,
                       statut: false,
                       feedback: ''
                     }
@@ -723,32 +723,32 @@ export default function ExprimerCosSinTan () {
                   enonce: `Exprimer dans le triangle $${A.nom + B.nom + C.nom}$\\\\\n${numAlpha(0)}$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
                   propositions: [
                     {
-                      texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                      texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                      texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
                       statut: true,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                      texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                      texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                      texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                      texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
                       statut: false,
                       feedback: ''
                     }
@@ -760,32 +760,32 @@ export default function ExprimerCosSinTan () {
                   enonce: `Exprimer dans le triangle $${A.nom + H.nom + B.nom}$\\\\\n${numAlpha(1)}$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
                   propositions: [
                     {
-                      texte: `\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}`,
+                      texte: `$\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}`,
+                      texte: `$\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}$`,
                       statut: true,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${A.nom + B.nom}}{${A.nom + H.nom}}`,
+                      texte: `$\\frac{${A.nom + B.nom}}{${A.nom + H.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${B.nom + H.nom}}{${A.nom + H.nom}}`,
+                      texte: `$\\frac{${B.nom + H.nom}}{${A.nom + H.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${A.nom + B.nom}}{${B.nom + H.nom}}`,
+                      texte: `$\\frac{${A.nom + B.nom}}{${B.nom + H.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}`,
+                      texte: `$\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}$`,
                       statut: false,
                       feedback: ''
                     }
@@ -799,32 +799,32 @@ export default function ExprimerCosSinTan () {
                   enonce: `Exprimer dans le triangle $${A.nom + B.nom + C.nom}$\\\\\n${numAlpha(0)}$\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
                   propositions: [
                     {
-                      texte: `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+                      texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                      texte: `$\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+                      texte: `$\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}`,
+                      texte: `$\\frac{${B.nom + C.nom}}{${A.nom + C.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                      texte: `$\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}$`,
                       statut: true,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}`,
+                      texte: `$\\frac{${B.nom + C.nom}}{${A.nom + B.nom}}$`,
                       statut: false,
                       feedback: ''
                     }
@@ -836,32 +836,32 @@ export default function ExprimerCosSinTan () {
                   enonce: `Exprimer dans le triangle $${A.nom + H.nom + B.nom}$\\\\\n${numAlpha(1)}$\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
                   propositions: [
                     {
-                      texte: `\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}`,
+                      texte: `$\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}`,
+                      texte: `$\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${A.nom + B.nom}}{${A.nom + H.nom}}`,
+                      texte: `$\\frac{${A.nom + B.nom}}{${A.nom + H.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${B.nom + H.nom}}{${A.nom + H.nom}}`,
+                      texte: `$\\frac{${B.nom + H.nom}}{${A.nom + H.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${A.nom + B.nom}}{${B.nom + H.nom}}`,
+                      texte: `$\\frac{${A.nom + B.nom}}{${B.nom + H.nom}}$`,
                       statut: false,
                       feedback: ''
                     },
                     {
-                      texte: `\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}`,
+                      texte: `$\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}$`,
                       statut: true,
                       feedback: ''
                     }
@@ -929,7 +929,7 @@ export default function ExprimerCosSinTan () {
         this.autoCorrection[i] = {
           enonce: texteInit + '\\\\\n',
           enonceAvant: true,
-          options: { multicols: false, barreseparation: true, multicolsAll: false },
+          options: { multicols: false, barreseparation: true, multicolsAll: true },
           propositions: propositionsAMC
         }
       }
