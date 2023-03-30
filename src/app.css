@@ -786,12 +786,13 @@ div[id^="title-lampeMessage"]{
 div[id^="aide-"] {
   @apply inline-block
 }
+
 div[id^="aide-trigger-"]{
   @apply h-4 w-4 ml-1 inline-flex justify-center items-center rounded-full font-bold text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-light
 }
 
 div[id^="aide-content-"]{
-  @apply absolute w-3/4 hidden group-hover:flex flex-col items-start justify-start z-10 top-0 left-1/2 -translate-x-1/2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-2 rounded-xl shadow-lg
+  @apply fixed w-5/6 md:w-2/3 lg:w-1/3 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden group-hover:flex flex-col items-start justify-start z-10 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-2 md:p-4 rounded-xl shadow-lg
 }
 
 .aide-header {
