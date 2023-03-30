@@ -429,7 +429,7 @@ export default function SujetCAN2023Sixieme () {
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline', { texteApres: sp(5) + 'ans.' }) } else { texte += '$\\ldots$ ans' }
             this.listeCanEnonces.push(`${prenom1} a $${b}$ ans. <br>
               ${prenom2} est deux fois plus âgé que ${prenom1}.`)
-            this.listeCanReponsesACompleter.push(`${prenom1} a $\\ldots$ ans.`)
+            this.listeCanReponsesACompleter.push(`${prenom2} a $\\ldots$ ans.`)
           }
 
           nbChamps = 1
