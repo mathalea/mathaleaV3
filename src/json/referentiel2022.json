@@ -1818,7 +1818,8 @@
           "id": "can5C17",
           "uuid": "b1881",
           "url": "can/5e/can5C17.js",
-          "titre": "Convertir une fraction ou une somme vers un décimal",
+          "titre": "Écrire la valeur décimale d'une somme de fractions",
+          "dateModification": "31/03/2023",
           "tags": {
             "interactif": true,
             "interactifType": "mathLive",
@@ -1895,6 +1896,19 @@
           "url": "can/5e/can5C23.js",
           "titre": "Multiplier par 1,5 ou 2,5 ou ...",
           "datePublication": "08/12/2022",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathLive",
+            "amc": true,
+            "amcType": "AMCNum"
+          }
+        },
+        "can5C24": {
+          "id": "can5C24",
+          "uuid": "4d164",
+          "url": "can/5e/can5C24.js",
+          "titre": "Écrire la valeur décimale d'une fraction",
+          "datePublication": "30/03/2023",
           "tags": {
             "interactif": true,
             "interactifType": "mathLive",
@@ -2309,7 +2323,7 @@
           "id": "can4C13",
           "uuid": "7a0b1",
           "url": "can/4e/can4C13.js",
-          "titre": "Passer d'une fraction à un décimal",
+          "titre": "Calculer une fraction de dénomiteur un décimal",
           "datePublication": "10/01/2023",
           "tags": {
             "interactif": true,
@@ -2324,6 +2338,19 @@
           "url": "can/4e/can4C14.js",
           "titre": "Augmenter un nombre d'une fraction",
           "datePublication": "12/01/2023",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathLive",
+            "amc": true,
+            "amcType": "AMCNum"
+          }
+        },
+        "can4C15": {
+          "id": "can4C15",
+          "uuid": "adbf6",
+          "url": "can/4e/can4C15.js",
+          "titre": "Calculer une fraction de dénominateur $0,25$ ou $0,1$ ...",
+          "datePublication": "30/03/2023",
           "tags": {
             "interactif": true,
             "interactifType": "mathLive",
@@ -3742,6 +3769,7 @@
           "uuid": "dfe60",
           "url": "can/2e/can2L02.js",
           "titre": "Calculer les coordonnées d’un point sur une droite",
+          "datePublication": "04/11/2022",
           "tags": {
             "interactif": true,
             "interactifType": "mathLive"
@@ -3761,7 +3789,7 @@
           "id": "can2L04",
           "uuid": "898a7",
           "url": "can/2e/can2L04.js",
-          "titre": "Calculer les coordonnées du point d’intersection entre l’axe des ordonnées/droite",
+          "titre": "Calculer les coordonnées du point d’intersection entre l’axe des ordonnées et une droite",
           "tags": {
             "interactif": true,
             "interactifType": "mathLive"
@@ -4669,7 +4697,8 @@
         "id": "c3C10-2",
         "uuid": "40ae0",
         "url": "c3/c3C10-2.js",
-        "titre": "Labyrinthe de multiples",
+        "titre": "Parcourir un labyrinthe de multiples",
+        "dateDeModifImportante": "30/03/2023",
         "tags": {}
       },
       "c3C10-3": {
@@ -9619,6 +9648,7 @@
         "uuid": "e5ddd",
         "url": "3e/3F21-1.js",
         "titre": "Déterminer une fonction affine",
+        "dateDeModifImportante": "31/03/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
