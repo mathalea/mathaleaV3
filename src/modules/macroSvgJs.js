@@ -103,6 +103,7 @@ export function svgEngrenages () {
     }
   }
   if (context.isHtml) {
+    // Si le customElement n'existe pas dans le registre, on le crée
     if (customElements.get('svg-engrenage') === undefined) {
       customElements.define('svg-engrenage', SvgEngrenage)
     }

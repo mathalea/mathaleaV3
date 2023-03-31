@@ -49,10 +49,9 @@ export default function PpcmEngrenages () {
     if (context.isHtml) {
       const idUnique = `${numEx}_${Date.now()}`
       const idDivIntro = `divIntro${idUnique}`
+      // On ajoute un customElement au registre via la fonction svgEngrenages()
       svgEngrenages()
       txtIntro += warnMessage(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé ! <br> <svg-engrenage id="${idDivIntro}"></svg-engrenage>`, 'nombres', 'Coup de pouce')
-      // txtIntro += `<div id="${idDivIntro}" style="width: ${pourcentage}; height: 50px; display : table "></div>`
-      // txtIntro += `<svg-engrenage id="${idDivIntro}" width="300" height="300"></svg-engrenage>`
     };
 
     this.introduction = lampeMessage({
