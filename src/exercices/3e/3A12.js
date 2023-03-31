@@ -29,11 +29,6 @@ export default function PpcmEngrenages () {
 
   const numEx = '3A12' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
-  if (context.isHtml) {
-    // eslint-disable-next-line no-var
-    var pourcentage = '100%' // pour l'affichage des svg. On a besoin d'une variable globale
-  } else { // sortie LaTeX
-  };
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
     if (context.isHtml) { // les boutons d'aide uniquement pour la version html
@@ -54,9 +49,10 @@ export default function PpcmEngrenages () {
     if (context.isHtml) {
       const idUnique = `${numEx}_${Date.now()}`
       const idDivIntro = `divIntro${idUnique}`
-      txtIntro += warnMessage('Attention, les roues ci-dessous ne comportent pas le nombre de dents de l\'énoncé !', 'nombres', 'Coup de pouce')
-      txtIntro += `<div id="${idDivIntro}" style="width: ${pourcentage}; height: 50px; display : table "></div>`
-      svgEngrenages(idDivIntro, 200, 200)
+      svgEngrenages()
+      txtIntro += warnMessage(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé ! <br> <svg-engrenage id="${idDivIntro}"></svg-engrenage>`, 'nombres', 'Coup de pouce')
+      // txtIntro += `<div id="${idDivIntro}" style="width: ${pourcentage}; height: 50px; display : table "></div>`
+      // txtIntro += `<svg-engrenage id="${idDivIntro}" width="300" height="300"></svg-engrenage>`
     };
 
     this.introduction = lampeMessage({
