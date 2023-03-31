@@ -1,7 +1,7 @@
 import { fraction } from '../../../modules/fractions.js'
 import { calcul, choice, randint, texNombre, texNombrec } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
-export const titre = 'Convertir une fraction ou une somme vers un décimal'
+export const titre = 'Écrire la valeur décimale d\'une somme de fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
