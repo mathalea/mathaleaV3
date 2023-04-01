@@ -43,7 +43,7 @@ export default function PpcmEngrenages () {
     this.contenuCorrection = '' // Liste de questions corrigées
 
     const typesDeQuestionsDisponibles = [1, 2, 3]
-    // let typesDeQuestionsDisponibles = [1];
+    // const typesDeQuestionsDisponibles = [2]
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
     let txtIntro = 'Boîte de vitesse, transmission de vélo, de moto, perceuse électrique, tout cela fonctionne avec des engrenages ! Mais au fait, comment ça fonctionne, les engrenages ?'
     if (context.isHtml) {
@@ -65,21 +65,21 @@ export default function PpcmEngrenages () {
 
       let nbDentsr1
       let nbDentsr2
-      let txtPopup = '- Définition 1 : Étant donnés deux nombres entiers a et b, lorsque le plus petit multiple commun à $a$ et $b$ vaut $a \\times b$ ( $ppcm(a,b)=a\\times b$ ), on dit que '
+      let txtPopup = 'Soient deux nombres entiers a et b, lorsque le plus petit multiple commun à $a$ et $b$ vaut $a \\times b$ ( $ppcm(a,b)=a\\times b$ ), on dit que '
       if (context.isHtml) {
-        txtPopup += 'les nombres a et b sont premiers entre eux.'
+        txtPopup += '<b>les nombres a et b sont premiers entre eux.</b>'
       } else {
         txtPopup += '$\\textbf{les nombres a et b sont premiers entre eux}$.'
       };
-      let txtPopupBis = '- Définition 2 : Étant donnés deux nombres entiers a et b, lorsque le plus grang diviseur commun à $a$ et $b$ vaut $1$ ( $pgcd(a,b)=1$ ), on dit que '
+      let txtPopupBis = 'Soient deux nombres entiers a et b, lorsque le plus grang diviseur commun à $a$ et $b$ vaut $1$ ( $pgcd(a,b)=1$ ), on dit que '
       if (context.isHtml) {
-        txtPopupBis += 'les nombres a et b sont premiers entre eux.'
+        txtPopupBis += '<b>les nombres a et b sont premiers entre eux.</b>'
       } else {
         txtPopupBis += '$\\textbf{les nombres a et b sont premiers entre eux}$.'
       };
-      let txtPopupTer = '- Définition 3 : Étant donnés deux nombres entiers a et b, lorsque $a$ et $b$ n\'ont pas d\'autre diviseur commun que $1$, on dit que '
+      let txtPopupTer = 'Soient deux nombres entiers a et b, lorsque $a$ et $b$ n\'ont pas d\'autre diviseur commun que $1$, on dit que '
       if (context.isHtml) {
-        txtPopupTer += 'les nombres a et b sont premiers entre eux.'
+        txtPopupTer += '<b>les nombres a et b sont premiers entre eux.</b>'
       } else {
         txtPopupTer += '$\\textbf{les nombres a et b sont premiers entre eux}$.'
       };
@@ -97,8 +97,8 @@ export default function PpcmEngrenages () {
                 numeroExercice + 1,
                 1,
                 'nombres premiers entre eux ?',
-                'Définition : Nombres premiers entre eux',
-                txtPopup
+                'Définition à partir du plus petit multiple commun',
+                `${context.isHtml ? '<br>' : '\\\\'} ${txtPopup}`
               )
             };
             texte += '<br>' + numAlpha(1) + ' En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.'
@@ -144,8 +144,8 @@ export default function PpcmEngrenages () {
                 numeroExercice + 2,
                 1,
                 'nombres premiers entre eux.',
-                'Définition : Nombres premiers entre eux',
-                txtPopup
+                'Définition à partir du plus petit multiple commun',
+                `${context.isHtml ? '<br>' : '\\\\'} ${txtPopup}`
               )
             };
             texteCorr += '<br>'
@@ -192,8 +192,8 @@ export default function PpcmEngrenages () {
               numeroExercice + 3,
               1,
               'nombres premiers entre eux ?',
-              'Définition : Nombres premiers entre eux',
-              txtPopup + '<br>' + txtPopupBis + '<br>' + txtPopupTer
+              'Trois définitions équivalentes au choix',
+              `<br>- ${txtPopup} ${context.isHtml ? '<br>- ' : '\\\\- '} ${txtPopupBis} ${context.isHtml ? '<br>- ' : '\\\\- '} ${txtPopupTer}`
             )
           };
           texte += '<br>' + numAlpha(1) + ' En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.'
@@ -212,8 +212,8 @@ export default function PpcmEngrenages () {
               numeroExercice + 4,
               1,
               'nombres premiers entre eux.',
-              'Définition : Nombres premiers entre eux',
-              txtPopup
+              'Définition à partir du plus petit multiple commun',
+              `${context.isHtml ? '<br>' : '\\\\'} ${txtPopup}`
             )
           };
           if (pgcd(nbDentsr1, nbDentsr2) === 1) {
@@ -225,8 +225,8 @@ export default function PpcmEngrenages () {
               numeroExercice + 5,
               1,
               'nombres premiers entre eux.',
-              'Définition : Nombres premiers entre eux',
-              txtPopupBis
+              'Définition à partir du plus grand diviseur commun',
+              `${context.isHtml ? '<br>' : '\\\\'} ${txtPopupBis}`
             )
           };
           if (pgcd(nbDentsr1, nbDentsr2) === 1) {
@@ -238,8 +238,8 @@ export default function PpcmEngrenages () {
               numeroExercice + 6,
               1,
               'nombres premiers entre eux.',
-              'Définition : Nombres premiers entre eux',
-              txtPopupTer
+              'Définition à partir de l\'intersection des diviseurs communs',
+              `${context.isHtml ? '<br>' : '\\\\'} ${txtPopupTer}`
             )
           };
           texteCorr += '<br>'
