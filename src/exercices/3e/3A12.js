@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, decompositionFacteursPremiers, modalPdf, katexPopup2, numAlpha, warnMessage, lampeMessage, ppcm, pgcd, choice } from '../../modules/outils.js'
 import { svgEngrenages } from '../../modules/macroSvgJs.js'
 export const titre = 'Résoudre un exercice d\'engrenages'
-
+export const dateDeModifImportante = '01/04/2023'
 /**
  * ppcmEngrenages
  * les deux on besoin de la def partielle serie : stlX
@@ -52,7 +52,9 @@ export default function PpcmEngrenages () {
       // On ajoute un customElement au registre via la fonction svgEngrenages()
       svgEngrenages()
       txtIntro += warnMessage(`Attention, les roues ci-dessous ne comportent pas le nombre de dents de l'énoncé ! <br> <svg-engrenage id="${idDivIntro}"></svg-engrenage>`, 'nombres', 'Coup de pouce')
-    };
+    } else {
+      txtIntro += '\\\\ \\textit{Attention, les roues ci-dessous ne comportent pas le nombre de dents de l\'énoncé !} \\\\ \\Engrenages[Couleur=white,Unite=1mm]{1/24,1/9}'
+    }
 
     this.introduction = lampeMessage({
       titre: 'Arithmétique des engrenages',
