@@ -1,3 +1,11 @@
+import Decimal from 'decimal.js'
+import earcut from 'earcut'
+import {abs, ceil, floor, Fraction, fraction, isNumeric, max, random, round} from 'mathjs'
+import {apparitionAnimee, translationAnimee} from './2dAnimation.js'
+import {colorToLatexOrHTML, fixeBordures, mathalea2d, ObjetMathalea2D, vide2d} from './2dGeneralites.js'
+import {context} from './context.js'
+import {degCos, degSin, radians} from './fonctionsMaths.js'
+import FractionX from './FractionEtendue.js'
 import {
   arrondi,
   calcul,
@@ -18,14 +26,6 @@ import {
   texNombre,
   unSiPositifMoinsUnSinon
 } from './outils.js'
-import {degCos, degSin, radians} from './fonctionsMaths.js'
-import {context} from './context.js'
-import {abs, ceil, floor, Fraction, fraction, isNumeric, max, random, round} from 'mathjs'
-import earcut from 'earcut'
-import FractionX from './FractionEtendue.js'
-import Decimal from 'decimal.js'
-import {colorToLatexOrHTML, mathalea2d, ObjetMathalea2D, vide2d, fixeBordures} from './2dGeneralites.js'
-import {apparitionAnimee, translationAnimee} from './2dAnimation.js'
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -49,12 +49,17 @@ export function Point(arg1, arg2, arg3, positionLabel = 'above') {
     this.nom = arg1
   } else if (arguments.length === 2) {
     if (isNaN(arg1) || isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', {arg1, arg2})
-    this.x = arrondi(arg1)
-    this.y = arrondi(arg2)
+    else {
+      this.x = arrondi(arg1)
+      this.y = arrondi(arg2)
+    }
+    
   } else {
     if (isNaN(arg1) || isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', {arg1, arg2})
-    this.x = arrondi(arg1)
-    this.y = arrondi(arg2)
+    else {
+      this.x = arrondi(arg1)
+      this.y = arrondi(arg2)
+    }
     this.nom = arg3
   }
   this.positionLabel = positionLabel
@@ -2335,10 +2340,10 @@ export function Segment(arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     this.color = colorToLatexOrHTML(color)
     this.styleExtremites = styleExtremites
   }
-  this.x1 = arrondi(this.x1)
-  this.x2 = arrondi(this.x2)
-  this.y1 = arrondi(this.y1)
-  this.y2 = arrondi(this.y2)
+  this.x1 = this.x1
+  this.x2 = this.x2
+  this.y1 = this.y1
+  this.y2 = this.y2
   
   this.bordures = [Math.min(this.x1, this.x2) - 0.2, Math.min(this.y1, this.y2) - 0.2, Math.max(this.x1, this.x2) + 0.2, Math.max(this.y1, this.y2) + 0.2]
   this.extremite1 = point(this.x1, this.y1)
@@ -9433,11 +9438,11 @@ export function Courbe(f, {
   if (isNaN(xunite)) {
     xunite = xUnite
   }
-  ;
+  
   if (isNaN(yunite)) {
     yunite = yUnite
   }
-  ;
+  
   const objets = []
   let points = []
   let pas
@@ -9726,11 +9731,11 @@ export function CourbeSpline(f, {
   if (isNaN(xunite)) {
     xunite = xUnite
   }
-  ;
+  
   if (isNaN(yunite)) {
     yunite = yUnite
   }
-  ;
+  
   const objets = []
   if (traceNoeuds) {
     for (let i = 0; i < f.x.length; i++) {
@@ -10527,7 +10532,7 @@ export function LatexParCoordonnees(texte, x, y, color, largeur, hauteur, colorB
     } else {
       code = `\\draw (${x},${y}) node[anchor = center] {${taille} \\color${this.color[1]}{$${texte}$}};`
     }
-    ;
+    
     return code
   }
 }
@@ -10625,7 +10630,7 @@ export function LatexParCoordonneesBox(texte, x, y, color, largeur, hauteur, col
     } else {
       code = `\\draw (${x},${y}) node[anchor = center] {${taille} \\color${this.color[1]}{$${texte}$}};`
     }
-    ;
+    
     return code
   }
 }
