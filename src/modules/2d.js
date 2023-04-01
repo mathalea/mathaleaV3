@@ -48,14 +48,14 @@ export function Point(arg1, arg2, arg3, positionLabel = 'above') {
   if (arguments.length === 1) {
     this.nom = arg1
   } else if (arguments.length === 2) {
-    if (isNaN(arg1) || isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', {arg1, arg2})
+    if (isNaN(arg1) || isNaN(arg2)) throw Error(`Point : les coordonnées ne sont pas valides ${arg1} ${arg2}`)
     else {
       this.x = arrondi(arg1)
       this.y = arrondi(arg2)
     }
     
   } else {
-    if (isNaN(arg1) || isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', {arg1, arg2})
+    if (isNaN(arg1) || isNaN(arg2)) throw Error(`Point : les coordonnées ne sont pas valides ${arg1} ${arg2}`)
     else {
       this.x = arrondi(arg1)
       this.y = arrondi(arg2)
