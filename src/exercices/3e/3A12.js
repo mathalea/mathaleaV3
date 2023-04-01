@@ -102,7 +102,7 @@ export default function PpcmEngrenages () {
                 'Définition à partir du plus petit multiple commun',
                 `${context.isHtml ? '<br>' : '\\\\'} ${txtPopup}`
               )
-            };
+            }
             texte += '<br>' + numAlpha(1) + ' En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.'
             texteCorr = numAlpha(0) + ` Liste des premiers multiples de $${nbDentsr1}$ : <br>`
             // on va faire en sorte de toujours avoir un nombre de multiples multiple de 5
