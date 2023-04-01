@@ -239,7 +239,7 @@ export default function ReperageSurLaSphere () {
     if (context.isAmc) this.autoCorrection[0].enonce = mathalea2d(paramsEnonce, objetsEnonce) + '<br>'
 
     texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
-    // texteCorrection += '<br>' + mathalea2d(paramsEnonce, objetsCorrection)
+    texteCorrection += '<br>' + mathalea2d(paramsEnonce, objetsCorrection)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorrection)
     listeQuestionsToContenuSansNumero(this)
