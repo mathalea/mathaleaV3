@@ -124,6 +124,7 @@ export function MathaleaHandleParamOfOneExercice (exercice: TypeExercice, param:
   if (param.sup4) exercice.sup4 = MathaleaHandleStringFromUrl(param.sup4)
   if (param.interactif) exercice.interactif = param.interactif === '1'
   if (param.alea) exercice.seed = param.alea
+  if (param.cols > 1) exercice.nbCols = param.cols
   if (param.cd !== undefined) exercice.correctionDetaillee = param.cd === '1'
   if (exercice.seed === undefined) {
     exercice.seed = MathaleaGenerateSeed()
@@ -298,6 +299,8 @@ export function MathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
       newListeExercice[indiceExercice].sup4 = entry[1]
     } else if (entry[0] === 'alea') {
       newListeExercice[indiceExercice].alea = entry[1]
+    } else if (entry[0] === 'cols') {
+      newListeExercice[indiceExercice].cols = parseInt(entry[1])
     } else if (entry[0] === 'i' && entry[1] === '1') {
       newListeExercice[indiceExercice].interactif = '1'
     } else if (entry[0] === 'cd' && (entry[1] === '0' || entry[1] === '1')) {

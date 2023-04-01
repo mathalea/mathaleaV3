@@ -58,9 +58,18 @@ class Latex {
             } else if (style === 'Classique') {
               content += '\n\\begin{EXO}{}{}\n'
             }
+            if (exercice.nbCols > 1) {
+              content += `\\begin{multicols}{${exercice.nbCols}}\n`
+            }
             content += exercice.content
+            if (exercice.nbCols > 1) {
+              content += '\n\\end{multicols}\n'
+            }
             content += '\n\\end{EXO}\n'
             contentCorr += '\n\\begin{EXO}{}{}\n'
+            if (exercice.nbColsCorr > 1) {
+              contentCorr += `\\begin{multicols}{${exercice.nbColsCorr}}\n`
+            }
             contentCorr += exercice.contentCorr
             contentCorr += '\n\\end{EXO}\n'
           }
