@@ -80,7 +80,7 @@
         >
           <li>
             <div
-              class="block text-xl xl:text-2xl font-semibold bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+              class="block text-xl xl:text-2xl font-semibold bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest cursor-pointer"
               on:click={goToMathalea}
               on:keydown={goToMathalea}
             >
