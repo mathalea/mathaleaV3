@@ -436,8 +436,9 @@ export function MathaleaFormatExercice (texte = '') {
    * @param {string} newComponent composant à afficher
    */
 export function MathaleaHandleComponentChange (oldComponent: string, newComponent: string) {
-  const oldPart = '&v=' + oldComponent
+  const oldPart = oldComponent === 'home' ? '?v=' + oldComponent : '&v=' + oldComponent
   const newPart = newComponent === '' ? '' : '&v=' + newComponent
+  console.log('old : ' + oldPart + ' / new : ' + newPart + ' URL : ' + window.location.href)
   const urlString = window.location.href.replace(oldPart, newPart)
   window.history.pushState(null, '', urlString)
   globalOptions.update((l) => {
