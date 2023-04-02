@@ -1,4 +1,4 @@
-import {labelLatexPoint, labelPoint, latexParPoint, tracePoint} from '../../modules/2d.js'
+import {labelLatexPoint, labelPoint, texteParPoint, tracePoint} from '../../modules/2d.js'
 import {colorToLatexOrHTML, fixeBordures, mathalea2d} from '../../modules/2dGeneralites.js'
 import {
   arete3d,
@@ -56,7 +56,7 @@ export default function ReperageSurLaSphere() {
     let texte = ''
     let texteCorrection = ''
     const O = point3d(0, 0, 0, false, 'O')
-    const inclinaison = 10
+    const inclinaison = 5
     const normalRot = vecteur3d(0, 1, 0)
     const droiteRot = droite3d(point3d(0, 0, 0), normalRot)
     let M = rotation3d(point3d(10, 0, 0, true, 'M'), droiteRot, inclinaison)
@@ -66,8 +66,8 @@ export default function ReperageSurLaSphere() {
     const PoleSud = rotation3d(point3d(0, 0, -11.5), droiteRot, inclinaison)
     PoleSud.c2d.visible = false
     PoleSud.c2d.nom = 'Sud'
-    const Pn = labelPoint(PoleNord.c2d, 'brown')
-    const Ps = labelPoint(PoleSud.c2d, 'brown')
+    const Pn = texteParPoint('Nord', PoleNord.c2d, 'milieu', 'brown')
+    const Ps = texteParPoint('Sud', PoleSud.c2d, 'milieu', 'brown')
     Pn.taille = 15
     Pn.positionLabel = 'above'
     Ps.taille = 15
@@ -120,11 +120,11 @@ export default function ReperageSurLaSphere() {
     const EstouOuest = [];
     const NordouSud = [];
     let nom = []
-    const E = latexParPoint('Est', rotation3d(point3d(13.2, 0, 0, true, 'Est'), droiteRot, inclinaison).c2d, 'brown', 20, 12, '', 9)
+    const E = texteParPoint('Est', rotation3d(point3d(13.2, 0, 0, true, 'Est'), droiteRot, inclinaison).c2d, 'milieu', 'brown')
     E.taille = 15
     E.color = colorToLatexOrHTML('brown')
     E.positionLabel = 'above'
-    const W = latexParPoint('Ouest', rotation3d(point3d(-12, 0, 0, true, 'Ouest'), droiteRot, inclinaison).c2d, 'brown', 20, 12, '', 9)
+    const W = texteParPoint('Ouest', rotation3d(point3d(-12, 0, 0, true, 'Ouest'), droiteRot, inclinaison).c2d, 'milieu', 'brown')
     W.taille = 15
     W.color = colorToLatexOrHTML('brown')
     W.positionLabel = 'below left'
