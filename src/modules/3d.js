@@ -452,6 +452,7 @@ export function sphere3d (centre, rayon, nbParalleles, nbMeridiens, color = 'bla
  * @param {string} [colorMeridiens = 'gray'] Couleur des méridiens de la sphère : du type 'blue' ou du type '#f15929'
  * @param {boolean} [affichageAxe = false] Permet (ou pas) l'affichage de l'axe de la sphère.
  * @param {string} [colorAxe = 'black'] Couleur de l'axe de la sphère : du type 'blue' ou du type '#f15929'
+ * @param {number} inclinaison angle d'inclinaison de l'axe N-S
  * @property {Point3d} centre Centre de la sphère
  * @property {Vecteur3d} rayon Rayon de la sphère
  * @property {string} colorEquateur Couleur de l'équateur : du type 'blue' ou du type '#f15929'
@@ -466,7 +467,7 @@ export function sphere3d (centre, rayon, nbParalleles, nbMeridiens, color = 'bla
  * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
  * @class
  */
-function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'gray', affichageAxe = false, colorAxe = 'black') {
+function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'gray', affichageAxe = false, colorAxe = 'black', inclinaison = 0) {
   ObjetMathalea2D.call(this, {})
   this.centre = centre
   this.rayon = rayon
@@ -478,8 +479,30 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
   this.colorMeridiens = colorMeridiens
   this.affichageAxe = affichageAxe
   this.colorAxe = colorAxe
-  const poleNord = point3d(this.centre.x, this.centre.y, this.centre.z + this.rayon, true, choisitLettresDifferentes(1, 'OQWX' + this.centre.label), 'left')
-  const poleSud = point3d(this.centre.x, this.centre.y, this.centre.z - this.rayon, true, choisitLettresDifferentes(1, 'OQWX' + this.centre.label + poleNord.label), 'left')
+  this.inclinaison = inclinaison
+  const droiteRot = droite3d(point3d(this.centre.x, this.centre.y, this.centre.z), vecteur3d(0, 1, 0))
+  const poleNord = rotation3d(
+    point3d(
+      this.centre.x,
+      this.centre.y,
+      this.centre.z + this.rayon,
+      true,
+      choisitLettresDifferentes(1, 'OQWX' + this.centre.label),
+      'left'
+    ),
+    droiteRot,
+    inclinaison)
+  const poleSud = rotation3d(
+    point3d(
+      this.centre.x,
+      this.centre.y,
+      this.centre.z - this.rayon,
+      true,
+      choisitLettresDifferentes(1, 'OQWX' + this.centre.label + poleNord.label),
+      'left'
+    ),
+    droiteRot,
+    inclinaison)
   
   const nbParallelesDeConstruction = 36 // Ce nb de paralleles permet de construire l'enveloppe de la sphère (le "cercle" apparent de la sphère)
   let unDesParalleles
@@ -503,9 +526,23 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
   // Construction de tous les paralleles
   
   // Construction du parallèle le plus proche du pôle nord
-  centreParallele = point3d(this.centre.x, this.centre.y, this.centre.z + this.rayon * Math.sin((nbParallelesDeConstruction - 1) / nbParallelesDeConstruction * Math.PI / 2))
-  rayonDuParallele = vecteur3d(this.rayon * Math.cos((nbParallelesDeConstruction - 1) / nbParallelesDeConstruction * Math.PI / 2), 0, 0)
-  normal = vecteur3d(0, 0, 1)
+  centreParallele = rotation3d(
+    point3d(
+      this.centre.x,
+      this.centre.y,
+      this.centre.z + this.rayon * Math.sin((nbParallelesDeConstruction - 1) / nbParallelesDeConstruction * Math.PI / 2)
+    ),
+    droiteRot,
+    inclinaison
+  )
+  rayonDuParallele = rotation3d(
+    vecteur3d(this.rayon * Math.cos((nbParallelesDeConstruction - 1) / nbParallelesDeConstruction * Math.PI / 2), 0, 0),
+    droiteRot,
+    inclinaison)
+  normal = rotation3d(
+    vecteur3d(0, 0, 1),
+    droiteRot,
+    inclinaison)
   unDesParalleles = cercle3d(centreParallele, normal, rayonDuParallele)
   paralleles.listePoints3d.push(unDesParalleles[1])
   paralleles.ptCachePremier.push('')
@@ -515,9 +552,20 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
   
   // Construction de tous les autres parallèles jusqu'au plus proche du pôle sud
   for (let k = nbParallelesDeConstruction - 2, poly, j = 1; k > -nbParallelesDeConstruction; k -= 1) {
-    centreParallele = point3d(this.centre.x, this.centre.y, this.centre.z + this.rayon * Math.sin(k / nbParallelesDeConstruction * Math.PI / 2))
-    rayonDuParallele = vecteur3d(this.rayon * Math.cos(k / nbParallelesDeConstruction * Math.PI / 2), 0, 0)
-    normal = vecteur3d(0, 0, 1)
+    centreParallele = rotation3d(
+      point3d(
+        this.centre.x,
+        this.centre.y,
+        this.centre.z + this.rayon * Math.sin(k / nbParallelesDeConstruction * Math.PI / 2)
+      ),
+      droiteRot,
+      inclinaison)
+    rayonDuParallele = rotation3d(
+      vecteur3d(this.rayon * Math.cos(k / nbParallelesDeConstruction * Math.PI / 2), 0, 0),
+      droiteRot,
+      inclinaison)
+    
+    normal = rotation3d(vecteur3d(0, 0, 1), droiteRot, inclinaison)
     poly = polygone(unDesParalleles[2])
     poly.isVisible = false
     unDesParalleles = cercle3d(centreParallele, normal, rayonDuParallele, false)
@@ -626,18 +674,18 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
           }
         }
       }
-      if (k < 25 && k > -30) { // uniquement à bonne distance des pôles pour éviter les points trop proches
+      if (k < 36 && k > -30) { // uniquement à bonne distance des pôles pour éviter les points trop proches
         let securite = 0
         if (polyLineCachee.length > 4) { // une précaution au cas où la liste de points est courte ça pourrait boucler à l'infini
           
-          while (securite < 10 && longueur(polyLineCachee[polyLineCachee.length - 1], polyLineCachee[0]) < 0.6) {
+          while (securite < 10 && longueur(polyLineCachee[polyLineCachee.length - 1], polyLineCachee[0]) < 1) {
             const dernierPoint = polyLineCachee.pop()
             polyLineCachee = [point(dernierPoint.x, dernierPoint.y), ...polyLineCachee]
             securite++
           }
         }
         if (polyLineVisible.length > 4) {
-          while (securite < 20 && longueur(polyLineVisible[polyLineVisible.length - 1], polyLineVisible[0]) < 0.5) {
+          while (securite < 20 && longueur(polyLineVisible[polyLineVisible.length - 1], polyLineVisible[0]) < 1) {
             const premierPoint = polyLineVisible.shift()
             polyLineVisible.push(point(premierPoint.x, premierPoint.y))
             securite++
@@ -794,6 +842,7 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
  * @param {string} [colorMeridiens = 'gray'] Couleur des méridiens de la sphère : du type 'blue' ou du type '#f15929'
  * @param {boolean} [affichageAxe = false] Permet (ou pas) l'affichage de l'axe de la sphère.
  * @param {string} [colorAxe = 'black'] Couleur de l'axe de la sphère : du type 'blue' ou du type '#f15929'
+ * @param {number} inclinaison Angle d'inclinaison de l'axe N-S
  * @example sphere3d(A,v) // Crée une sphère de centre A et dont le rayon correspond au vecteur v, l'équateur rouge et l'enveloppe bleue
  * @example sphere3d(A,v,'green','pink') // Crée une sphère de centre A et dont le rayon correspond au vecteur v, l'équateur vert et l'enveloppe rose
  * @example sphere3d(A,v,'green','pink',18,'red') // Crée une sphère de centre A et dont le rayon correspond au vecteur v, l'équateur vert, l'enveloppe rose, avec 18 parallèles rouges
@@ -802,8 +851,8 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
  * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
  * @return {Sphere3d}
  */
-export function sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'black', affichageAxe = false, colorAxe = 'black') {
-  return new Sphere3d(centre, rayon, colorEquateur, colorEnveloppe, nbParalleles, colorParalleles, nbMeridiens, colorMeridiens, affichageAxe, colorAxe)
+export function sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue', nbParalleles = 0, colorParalleles = 'gray', nbMeridiens = 0, colorMeridiens = 'black', affichageAxe = false, colorAxe = 'black', inclinaison = 0) {
+  return new Sphere3d(centre, rayon, colorEquateur, colorEnveloppe, nbParalleles, colorParalleles, nbMeridiens, colorMeridiens, affichageAxe, colorAxe, inclinaison)
 }
 
 /**

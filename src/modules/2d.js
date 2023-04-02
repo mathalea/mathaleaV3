@@ -1963,7 +1963,7 @@ export function Polyline(...points) {
     }
     let binomeXY = ''
     for (const point of this.listePoints) {
-      binomeXY += `${point.x * coeff},${-point.y * coeff} `
+      binomeXY += `${point.xSVG(coeff)},${point.ySVG(coeff)} `
     }
     return `<polyline points="${binomeXY}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
   }

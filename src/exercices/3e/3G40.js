@@ -1,4 +1,4 @@
-import {labelLatexPoint, labelPoint, tracePoint} from '../../modules/2d.js'
+import {labelLatexPoint, labelPoint, latexParPoint, tracePoint} from '../../modules/2d.js'
 import {colorToLatexOrHTML, fixeBordures, mathalea2d} from '../../modules/2dGeneralites.js'
 import {
   arete3d,
@@ -56,17 +56,24 @@ export default function ReperageSurLaSphere() {
     let texte = ''
     let texteCorrection = ''
     const O = point3d(0, 0, 0, false, 'O')
-    let M = point3d(10, 0, 0, true, 'M')
-    const PoleNord = point3d(0, 0, 11, false, 'Nord')
-    const PoleSud = point3d(0, 0, -11.5, false, 'Sud')
-    const Pn = labelPoint(PoleNord, 'brown')
-    const Ps = labelPoint(PoleSud, 'brown')
+    const inclinaison = 10
+    const normalRot = vecteur3d(0, 1, 0)
+    const droiteRot = droite3d(point3d(0, 0, 0), normalRot)
+    let M = rotation3d(point3d(10, 0, 0, true, 'M'), droiteRot, inclinaison)
+    const PoleNord = rotation3d(point3d(0, 0, 11), droiteRot, inclinaison)
+    PoleNord.c2d.visible = false
+    PoleNord.c2d.nom = 'Nord'
+    const PoleSud = rotation3d(point3d(0, 0, -11.5), droiteRot, inclinaison)
+    PoleSud.c2d.visible = false
+    PoleSud.c2d.nom = 'Sud'
+    const Pn = labelPoint(PoleNord.c2d, 'brown')
+    const Ps = labelPoint(PoleSud.c2d, 'brown')
     Pn.taille = 15
     Pn.positionLabel = 'above'
     Ps.taille = 15
     Ps.positionLabel = 'below'
     
-    const normalV = vecteur3d(0, 0, 1)
+    const normalV = rotation3d(vecteur3d(0, 0, 1), droiteRot, inclinaison)
     M = rotationV3d(M, normalV, context.anglePerspective)
     const R = vecteur3d(O, M)
     let origine = rotation3d(point3d(0, -10, 0), droite3d(O, normalV), context.anglePerspective)
@@ -100,8 +107,8 @@ export default function ReperageSurLaSphere() {
     
     if (context.isAmc) origine = rotation3d(origine, droite3d(O, normalH), 2) // Parce qu'il existe un décalage en Latex
     
-    const Sph = sphere3d(O, 10, (context.isAmc ? 'darkgray' : 'red'), 'black', 18, 'black', 36, 'black')
-    const greenwich = demicercle3d(O, normalH, vecteur3d(0, 0, -10), 'indirect', false, context.isAmc ? 'darkgray' : 'green', 0)
+    const Sph = sphere3d(O, 10, (context.isAmc ? 'darkgray' : 'red'), 'black', 18, 'black', 36, 'black', false, 'black', inclinaison)
+    const greenwich = demicercle3d(O, normalH, rotation3d(vecteur3d(0, 0, -10), droiteRot, inclinaison), 'indirect', false, context.isAmc ? 'darkgray' : 'green', 0)
     greenwich.epaisseur = context.isAmc ? 1.5 : 3
     
     greenwich.opacite = 1
@@ -113,11 +120,11 @@ export default function ReperageSurLaSphere() {
     const EstouOuest = [];
     const NordouSud = [];
     let nom = []
-    const E = labelPoint(point3d(13.2, 0, 0, true, 'Est'))
+    const E = latexParPoint('Est', rotation3d(point3d(13.2, 0, 0, true, 'Est'), droiteRot, inclinaison).c2d, 'brown', 20, 12, '', 9)
     E.taille = 15
     E.color = colorToLatexOrHTML('brown')
     E.positionLabel = 'above'
-    const W = labelPoint(point3d(-12, 0, 0, true, 'Ouest'))
+    const W = latexParPoint('Ouest', rotation3d(point3d(-12, 0, 0, true, 'Ouest'), droiteRot, inclinaison).c2d, 'brown', 20, 12, '', 9)
     W.taille = 15
     W.color = colorToLatexOrHTML('brown')
     W.positionLabel = 'below left'
@@ -136,7 +143,7 @@ export default function ReperageSurLaSphere() {
     }
     
     if (this.sup2) {
-      const rotationTerre = sensDeRotation3d(droite3d(O, normalV), vecteur3d(8, -8, 0), 60, 3, 'purple')
+      const rotationTerre = sensDeRotation3d(droite3d(O, normalV), rotation3d(vecteur3d(8, -8, 0), droiteRot, inclinaison), 60, 3, 'purple')
       objetsEnonce.push(...rotationTerre.c2d)
       objetsCorrection.push(...rotationTerre.c2d)
     }
