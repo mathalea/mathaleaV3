@@ -50,25 +50,25 @@ export function Point(arg1, arg2, arg3, positionLabel = 'above') {
   } else if (arguments.length === 2) {
     if (isNaN(arg1) || isNaN(arg2)) throw Error(`Point : les coordonnées ne sont pas valides ${arg1} ${arg2}`)
     else {
-      this.x = arrondi(arg1)
-      this.y = arrondi(arg2)
+      this.x = arg1
+      this.y = arg2
     }
     
   } else {
     if (isNaN(arg1) || isNaN(arg2)) throw Error(`Point : les coordonnées ne sont pas valides ${arg1} ${arg2}`)
     else {
-      this.x = arrondi(arg1)
-      this.y = arrondi(arg2)
+      this.x = arg1
+      this.y = arg2
     }
     this.nom = arg3
   }
   this.positionLabel = positionLabel
   this.bordures = [this.x, this.y, this.x, this.y]
   this.xSVG = function (coeff) {
-    return this.x * coeff
+    return arrondi(this.x * coeff)
   }
   this.ySVG = function (coeff) {
-    return -this.y * coeff
+    return arrondi(-this.y * coeff)
   }
   
   /**
@@ -157,7 +157,7 @@ export function Point(arg1, arg2, arg3, positionLabel = 'above') {
    */
   // JSDOC Validee par EE Aout 2022
   this.estSur = function (objet) {
-    if (objet instanceof Droite) return (egal(objet.a * this.x + objet.b * this.y + objet.c, 0, 0.000001))
+    if (objet instanceof Droite) return (egal(objet.a * this.x + objet.b * this.y + objet.c, 0, 0.00001))
     if (objet instanceof Segment) {
       const prodvect = (objet.extremite2.x - objet.extremite1.x) * (this.y - objet.extremite1.y) - (this.x - objet.extremite1.x) * (objet.extremite2.y - objet.extremite1.y)
       const prodscal = (this.x - objet.extremite1.x) * (objet.extremite2.x - objet.extremite1.x) + (this.y - objet.extremite1.y) * (objet.extremite2.y - objet.extremite1.y)
@@ -169,9 +169,9 @@ export function Point(arg1, arg2, arg3, positionLabel = 'above') {
       const vd = vecteur(objet.extremite1, objet.extremite2)
       const prodscal = OM.x * vd.x + OM.y * vd.y
       const prodvect = OM.x * vd.y - OM.y * vd.x
-      return (egal(prodvect, 0, 0.000001) && superieurouegal(prodscal, 0, 0.000001))
+      return (egal(prodvect, 0, 0.00001) && superieurouegal(prodscal, 0, 0.00001))
     }
-    if (objet instanceof Cercle) return egal(longueur(this, objet.centre), objet.rayon, 0.000001)
+    if (objet instanceof Cercle) return egal(longueur(this, objet.centre), objet.rayon, 0.00001)
   }
 }
 
@@ -249,7 +249,7 @@ export function plot(x, y, {
   opacite = 1,
   opaciteDeRemplissage = 1
 } = {}) {
-  return new Plot(x, y, {rayon, couleur, couleurDeRemplissage, opacite, opaciteDeRemplissage})
+  return new Plot(arrondi(x), arrondi(y), {rayon, couleur, couleurDeRemplissage, opacite, opaciteDeRemplissage})
 }
 
 /**
@@ -735,7 +735,7 @@ export function LabelPoint(...points) {
       // console.log(A.nom, A.positionLabel)
       // if (this.positionLabel) A.positionLabel = this.positionLabel
       // console.log(A.nom, A.positionLabel)
-      code += `\t\\draw (${A.x},${A.y}) node[${A.positionLabel}${style}] {$${A.nom}$};\n`
+      code += `\t\\draw (${arrondi(A.x)},${arrondi(A.y)}) node[${A.positionLabel}${style}] {$${A.nom}$};\n`
     }
     return code
   }
@@ -809,8 +809,8 @@ export function LabelLatexPoint({
     } else {
       A = unPoint
     }
-    x = A.x
-    y = A.y
+    x = arrondi(A.x)
+    y = arrondi(A.y)
     switch (A.positionLabel) {
       case 'left':
         objets.push(latexParCoordonnees(A.nom, x - offset, y, this.color, this.largeur, this.hauteur, this.couleurDeRemplissage, this.taille))
@@ -2003,7 +2003,7 @@ export function Polyline(...points) {
     }
     let binomeXY = ''
     for (const point of this.listePoints) {
-      binomeXY += `(${point.x},${point.y})--`
+      binomeXY += `(${arrondi(point.x)},${arrondi(point.y)})--`
     }
     binomeXY = binomeXY.substr(0, binomeXY.length - 2)
     return `\\draw${optionsDraw} ${binomeXY};`
@@ -2038,7 +2038,7 @@ export function Polyline(...points) {
     }
     let binomeXY = ''
     for (const point of this.listePoints) {
-      binomeXY += `(${point.x},${point.y})--`
+      binomeXY += `(${arrondi(point.x)},${arrondi(point.y)})--`
     }
     binomeXY = binomeXY.substr(0, binomeXY.length - 2)
     return `\\draw${optionsDraw} ${binomeXY};`
@@ -2340,11 +2340,6 @@ export function Segment(arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     this.color = colorToLatexOrHTML(color)
     this.styleExtremites = styleExtremites
   }
-  this.x1 = this.x1
-  this.x2 = this.x2
-  this.y1 = this.y1
-  this.y2 = this.y2
-  
   this.bordures = [Math.min(this.x1, this.x2) - 0.2, Math.min(this.y1, this.y2) - 0.2, Math.max(this.x1, this.x2) + 0.2, Math.max(this.y1, this.y2) + 0.2]
   this.extremite1 = point(this.x1, this.y1)
   this.extremite2 = point(this.x2, this.y2)
@@ -2523,7 +2518,7 @@ export function Segment(arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
     }
-    return `\\draw${optionsDraw} (${this.x1},${this.y1})--(${this.x2},${this.y2});`
+    return `\\draw${optionsDraw} (${arrondi(this.x1)},${arrondi(this.y1)})--(${arrondi(this.x2)},${arrondi(this.y2)});`
   }
   this.svgml = function (coeff, amp) {
     this.style = 'fill="none"'
@@ -2571,7 +2566,7 @@ export function Segment(arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
     optionsDraw = '[' + tableauOptions.join(',') + ']'
     
-    const code = `\\draw${optionsDraw} (${A.x},${A.y})--(${B.x},${B.y});`
+    const code = `\\draw${optionsDraw} (${arrondi(A.x)},${arrondi(A.y)})--(${arrondi(B.x)},${arrondi(B.y)});`
     return code
   }
 }
@@ -2820,7 +2815,7 @@ export function Polygone(...points) {
     
     let binomeXY = ''
     for (const point of this.listePoints) {
-      binomeXY += `(${point.x},${point.y})--`
+      binomeXY += `(${arrondi(point.x)},${arrondi(point.y)})--`
     }
     // if (this.couleurDeRemplissage === '') {
     return `\\draw${optionsDraw} ${binomeXY}cycle;`
@@ -10190,7 +10185,7 @@ export function TexteParPoint(texte, A, orientation = 'milieu', color = 'black',
         if (ancrageDeRotation === 'droite') {
           anchor = 'east'
         }
-        code = `\\draw [color=${this.color[1]}] (${A.x},${A.y
+        code = `\\draw [color=${this.color[1]}] (${arrondi(A.x)},${arrondi(A.y)
         }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
@@ -10255,7 +10250,7 @@ export function TexteParPoint(texte, A, orientation = 'milieu', color = 'black',
         if (ancrageDeRotation === 'droite') {
           anchor = 'east'
         }
-        code = `\\draw [color=${this.color[1]}] (${A.x},${A.y
+        code = `\\draw [color=${this.color[1]}] (${arrondi(A.x)},${arrondi(A.y)
         }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
@@ -10269,9 +10264,9 @@ export function TexteParPoint(texte, A, orientation = 'milieu', color = 'black',
           anchor = `node[anchor = center,scale=${scale}]`
         }
         if (mathOn) {
-          code = `\\draw [color=${this.color[1]},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {$${texte}$};`
+          code = `\\draw [color=${this.color[1]},fill opacity = ${this.opacite}] (${arrondi(A.x)},${arrondi(A.y)}) ${anchor} {$${texte}$};`
         } else {
-          code = `\\draw [color=${this.color[1]},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {${texte}};`
+          code = `\\draw [color=${this.color[1]},fill opacity = ${this.opacite}] (${arrondi(A.x)},${arrondi(A.y)}) ${anchor} {${texte}};`
         }
       }
       return code
@@ -10306,7 +10301,7 @@ export function TexteParPointEchelle(texte, A, orientation = 'milieu', color = '
         if (ancrageDeRotation === 'droite') {
           anchor = 'east'
         }
-        code = `\\draw [color=${this.color[1]}] (${A.x},${A.y
+        code = `\\draw [color=${this.color[1]}] (${arrondi(A.x)},${arrondi(A.y)
         }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
@@ -10319,7 +10314,7 @@ export function TexteParPointEchelle(texte, A, orientation = 'milieu', color = '
         if (orientation === 'milieu') {
           anchor = `node[anchor = center,scale=${scale * scaleFigure * 1.25}]`
         }
-        code = `\\draw [color=${this.color[1]}] (${A.x},${A.y}) ${anchor} {${texte}};`
+        code = `\\draw [color=${this.color[1]}] (${arrondi(A.x)},${arondi(A.y)}) ${anchor} {${texte}};`
       }
       return code
     }
@@ -10373,7 +10368,7 @@ export function TexteParPointEchelle(texte, A, orientation = 'milieu', color = '
         if (ancrageDeRotation === 'droite') {
           anchor = 'east'
         }
-        code = `\\draw [color=${this.color[1]},fill opacity = ${this.opacite}] (${A.x},${A.y
+        code = `\\draw [color=${this.color[1]},fill opacity = ${this.opacite}] (${arrondi(A.x)},${arrondi(A.y)
         }) node[anchor = ${anchor},scale=${scale * scaleFigure * 1.25}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
@@ -10398,7 +10393,7 @@ export function texteParPointEchelle(texte, A, orientation = 'milieu', color = '
 }
 
 export function texteParPositionEchelle(texte, x, y, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, scaleFigure = 1) {
-  return texteParPointEchelle(texte, point(x, y, '', 'center'), orientation, color, scale, ancrageDeRotation, mathOn, scaleFigure)
+  return texteParPointEchelle(texte, point(arrondi(x), arrondi(y), '', 'center'), orientation, color, scale, ancrageDeRotation, mathOn, scaleFigure)
 }
 
 /**
@@ -10422,7 +10417,7 @@ export function texteParPositionEchelle(texte, x, y, orientation = 'milieu', col
  * @author Rémi Angot
  */
 export function texteParPosition(texte, x, y, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, opacite) {
-  return new TexteParPoint(texte, point(x, y), orientation, color, scale, ancrageDeRotation, mathOn, opacite)
+  return new TexteParPoint(texte, point(arrondi(x), arrondi(y)), orientation, color, scale, ancrageDeRotation, mathOn, opacite)
 }
 
 /**
@@ -10479,7 +10474,7 @@ export function latexParPoint(texte, A, color = 'black', largeur = 20, hauteur =
       y = A.y
       break
   }
-  return latexParCoordonnees(texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres)
+  return latexParCoordonnees(texte, arrondi(x), arrondi(y), color, largeur, hauteur, colorBackground, tailleCaracteres)
 }
 
 /**
