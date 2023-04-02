@@ -14,7 +14,9 @@
   import Button from "./forms/Button.svelte"
   import ModalMessageBeforeAction from "./modal/ModalMessageBeforeAction.svelte"
   import {onMount} from "svelte"
+  import SettingsAmc from "./exercice/SettingsAmc.svelte";
   
+  let isSettingsVisible: boolean[] = []
   let exercices: TypeExercice[] = []
   let content = ""
   let entete = "AMCcodeGrid"
@@ -37,6 +39,7 @@
     await MathaleaUpdateExercicesParamsFromUrl()
     exercices = await MathaleaGetExercicesFromParams($exercicesParams)
     for (const exercice of exercices) {
+      isSettingsVisible.push(false)
       context.isHtml = false
       context.isAmc = true
       seedrandom(exercice.seed, {global: true})
@@ -52,13 +55,13 @@
     if (entete === "AMCassociation") nbExemplaires = 1
     // On récupère les nombres de questions par groupe indexé sur l'index d'exercice dans exercices
     nbQuestions = nbQuestionsModif.map((elt, i) => {
-      if (elt !== null) return Number(elt)
+      if (elt !== null) return {indexExercice: i, nombre: elt}
     })
     // on blinde le nbExemplaires qui ne peut être 0 ou undefined
     if (nbExemplaires == null) nbExemplaires = 1
     for (let i = 0; i < exercices.length; i++) {
       const exo = exercices[i]
-      const nbQ = nbQuestions.find((elt) => elt.indexExercice === i)
+      const nbQ = nbQuestions.find((elt, i) => elt.indexExercice === i)
       if (nbQ != null) {
         if (exo.nbQuestions < nbQ.nombre) {
           exo.nbQuestions = nbQ.nombre * nbExemplaires
@@ -76,7 +79,7 @@
       format,
       matiere,
       titre,
-      nbQuestions,
+      nbQuestions: nbQuestions.map(elt => elt.nombre),
       nbExemplaires,
     })
   }
@@ -107,7 +110,7 @@
   let overleafForm: HTMLFormElement
   onMount(async () => {
     modal = document.getElementById("overleaf-modal")
-    overleafForm = document.getElementById("overleaf-form")
+    overleafForm = document.getElementById("overleaf-form") as HTMLFormElement
   })
   // click en dehors du modal le fait disparaître
   window.onclick = function (event) {
@@ -201,6 +204,23 @@
               class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh"/>
             </button
             >
+            <button
+              class="tooltip tooltip-left tooltip-neutral"
+              data-tip="Changer les paramètres de l'exercice"
+              type="button"
+              on:click={() => {
+   isSettingsVisible[i] = !isSettingsVisible[i]
+ }}
+            >
+              <i
+                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {isSettingsVisible
+       ? 'bxs-cog'
+       : 'bx-cog'}"
+              />
+            </button>
+            <div class="{isSettingsVisible[i] ? 'flex': 'hidden'} flex-col ...">
+              <SettingsAmc {exercice}/>
+            </div>
           </div>
         {/each}
       </div>
@@ -215,6 +235,7 @@
           type="number"
         />
       </div>
+    
     </div>
     
     <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10 mt-8">
