@@ -1,9 +1,25 @@
+import {labelLatexPoint, labelPoint, tracePoint} from '../../modules/2d.js'
+import {colorToLatexOrHTML, fixeBordures, mathalea2d} from '../../modules/2dGeneralites.js'
+import {
+  arete3d,
+  demicercle3d,
+  droite3d,
+  point3d,
+  rotation3d,
+  rotationV3d,
+  sensDeRotation3d,
+  sphere3d,
+  vecteur3d
+} from '../../modules/3d.js'
+import {context} from '../../modules/context.js'
+import {
+  choisitLettresDifferentes,
+  combinaisonListes,
+  listeQuestionsToContenuSansNumero,
+  numAlpha,
+  randint
+} from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
-import { numAlpha, combinaisonListes, randint, choisitLettresDifferentes, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { tracePoint, labelPoint, labelLatexPoint } from '../../modules/2d.js'
-import { point3d, droite3d, vecteur3d, arete3d, rotation3d, rotationV3d, sensDeRotation3d, demicercle3d, sphere3d } from '../../modules/3d.js'
 
 export const dateDeModifImportante = '02/11/2022' // EE : Mise en place de this.sup2, des unités et du grossissement des points
 export const titre = 'Repérage sur la sphère'
@@ -12,7 +28,7 @@ export const amcType = 'AMCHybride'
 
 export const uuid = '75ea2'
 export const ref = '3G40'
-export default function ReperageSurLaSphere () {
+export default function ReperageSurLaSphere() {
   'use strict'
   Exercice.call(this)
   this.titre = titre
@@ -27,7 +43,7 @@ export default function ReperageSurLaSphere () {
   this.sup2 = false
   this.sup3 = false
   this.sup4 = false
-
+  
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // tableau contenant la liste des questions
@@ -49,7 +65,7 @@ export default function ReperageSurLaSphere () {
     Pn.positionLabel = 'above'
     Ps.taille = 15
     Ps.positionLabel = 'below'
-
+    
     const normalV = vecteur3d(0, 0, 1)
     M = rotationV3d(M, normalV, context.anglePerspective)
     const R = vecteur3d(O, M)
@@ -76,17 +92,27 @@ export default function ReperageSurLaSphere () {
     uniteLattitudeNegative.visible = true
     uniteLattitudeNegative.c2d.nom = (this.sup2 ? '-' : '') + '10 \\degree'
     uniteLattitudeNegative.c2d.positionLabel = 'above left'
-    const labelUnites = labelLatexPoint({ points: [origine, uniteLattitudePositive, uniteLattitudeNegative, uniteLongitudePositive, uniteLongitudeNegative], color: 'black', taille: 10 })
-
+    const labelUnites = labelLatexPoint({
+      points: [origine, uniteLattitudePositive, uniteLattitudeNegative, uniteLongitudePositive, uniteLongitudeNegative],
+      color: 'black',
+      taille: 10
+    })
+    
     if (context.isAmc) origine = rotation3d(origine, droite3d(O, normalH), 2) // Parce qu'il existe un décalage en Latex
-
+    
     const Sph = sphere3d(O, 10, (context.isAmc ? 'darkgray' : 'red'), 'black', 18, 'black', 36, 'black')
     const greenwich = demicercle3d(O, normalH, vecteur3d(0, 0, -10), 'indirect', false, context.isAmc ? 'darkgray' : 'green', 0)
     greenwich.epaisseur = context.isAmc ? 1.5 : 3
-
+    
     greenwich.opacite = 1
-    const objetsEnonce = []; const objetsCorrection = []// on initialise les tableaux des objets Mathalea2d
-    const latitudes = []; const longitudes = []; const P = []; const EstouOuest = []; const NordouSud = []; let nom = []
+    const objetsEnonce = [];
+    const objetsCorrection = []// on initialise les tableaux des objets Mathalea2d
+    const latitudes = [];
+    const longitudes = [];
+    const P = [];
+    const EstouOuest = [];
+    const NordouSud = [];
+    let nom = []
     const E = labelPoint(point3d(13.2, 0, 0, true, 'Est'))
     E.taille = 15
     E.color = colorToLatexOrHTML('brown')
@@ -108,7 +134,7 @@ export default function ReperageSurLaSphere () {
       objetsEnonce.push(Axe.c2d)
       objetsCorrection.push(Axe.c2d)
     }
-
+    
     if (this.sup2) {
       const rotationTerre = sensDeRotation3d(droite3d(O, normalV), vecteur3d(8, -8, 0), 60, 3, 'purple')
       objetsEnonce.push(...rotationTerre.c2d)
@@ -125,14 +151,14 @@ export default function ReperageSurLaSphere () {
     }
     nom = choisitLettresDifferentes(this.nbQuestions, 'QX')
     texte = ''
-
+    
     if (context.isAmc) {
       this.autoCorrection[0] =
-    {
-      enonceAvant: false,
-      enonceAvantUneFois: true,
-      propositions: []
-    }
+        {
+          enonceAvant: false,
+          enonceAvantUneFois: true,
+          propositions: []
+        }
     }
     let iAMC = 0
     for (let i = 0, latitude, longitude, M, lab, croix, texteAMC; i < this.nbQuestions;) {
@@ -161,7 +187,7 @@ export default function ReperageSurLaSphere () {
       croix.epaisseur = 2
       croix.color = colorToLatexOrHTML('blue')
       croix.style = 'x'
-
+      
       switch (listeTypeDeQuestions[i]) {
         case 1:
           texte += `${numAlpha(i)} Donner les coordonnées GPS du point $${nom[i]}$.<br>`
@@ -203,7 +229,7 @@ export default function ReperageSurLaSphere () {
           iAMC++
           break
         case 2:
-
+          
           texteAMC = `Placer le point $${nom[i]}$ de  coordonnées GPS `
           texteAMC += this.sup2 ? `$(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$.<br>` : `$(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}).<br>`
           texte += `${numAlpha(i)} ` + texteAMC
@@ -234,17 +260,17 @@ export default function ReperageSurLaSphere () {
     // paramètres pour la perspective
     context.anglePerspective = 30
     context.coeffPerspective = 0.5
-
-    const paramsEnonce = Object.assign({}, fixeBordures(objetsEnonce), { pixelsParCm: 20, scale: 0.3, mainlevee: false })
+    
+    const paramsEnonce = Object.assign({}, fixeBordures(objetsEnonce), {pixelsParCm: 20, scale: 0.3, mainlevee: false})
     if (context.isAmc) this.autoCorrection[0].enonce = mathalea2d(paramsEnonce, objetsEnonce) + '<br>'
-
+    
     texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
-    // texteCorrection += '<br>' + mathalea2d(paramsEnonce, objetsCorrection)
+    texteCorrection += '<br>' + mathalea2d(paramsEnonce, objetsCorrection)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorrection)
     listeQuestionsToContenuSansNumero(this)
   }
-
+  
   this.besoinFormulaireNumerique = ['Type de questions', 3, ' 1 : Lire des coordonnées\n 2 : Placer des points\n 3 : Mélange']
   this.besoinFormulaire2CaseACocher = ['Coordonnées relatives']
   this.besoinFormulaire3CaseACocher = ['Axe Ouest-Est']

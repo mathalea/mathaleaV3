@@ -627,8 +627,9 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
         }
       }
       if (k < 25 && k > -30) { // uniquement à bonne distance des pôles pour éviter les points trop proches
+        let securite = 0
         if (polyLineCachee.length > 4) { // une précaution au cas où la liste de points est courte ça pourrait boucler à l'infini
-          let securite = 0
+          
           while (securite < 10 && longueur(polyLineCachee[polyLineCachee.length - 1], polyLineCachee[0]) < 0.6) {
             const dernierPoint = polyLineCachee.pop()
             polyLineCachee = [point(dernierPoint.x, dernierPoint.y), ...polyLineCachee]
