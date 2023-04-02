@@ -4,6 +4,7 @@
   import NavBarMenuV2 from "./NavBarMenuV2.svelte"
 
   let isNavMenuVisible: boolean = false
+  let y: number
   const menus = {
     statiques: {
       titre: "Statiques",
@@ -48,10 +49,17 @@
   }
 </script>
 
-<header class="fixed w-full flex items-center px-4 md:px-12 h-32 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+<svelte:window bind:scrollY={y} />
+<header class="fixed w-full flex items-center px-4 md:px-12 {y < 370 ? 'h-32' : 'h-24'} transition-all duration-300 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
   <div class="flex w-full flex-row justify-between items-center md:flex-col md:justify-start md:items-start xl:flex-row xl:justify-between">
     <!-- logo -->
-    <div class="block p-2 text-5xl md:text-6xl xl:text-7xl font-logo13Condensed font-black text-coopmaths-struct dark:text-coopmathsdark-struct">Coopmaths</div>
+    <div
+      class="block p-2 text-5xl md:text-6xl xl:text-7xl font-logo13Condensed font-black text-coopmaths-struct dark:text-coopmathsdark-struct {y > 370 || isNavMenuVisible
+        ? 'opacity-100'
+        : 'opacity-0'} transition-all duration-300"
+    >
+      Coopmaths
+    </div>
     <!-- navbar -->
     <nav>
       <div class="flex flex-row md:flex-row-reverse justify-end md:items-center xl:mt-8 space-x-2">
@@ -67,7 +75,7 @@
           class="
         fixed left-0 right-0 min-h-screen p-6  space-y-4
         bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-coopmaths-struct dark:border-coopmathsdark-struct
-        transform translate-x-{isNavMenuVisible ? '0' : 'full'} translate-y-24
+        transform {isNavMenuVisible ? 'translate-x-0' : 'translate-x-full'} translate-y-16 transition duration-300
         md:relative md:flex md:min-h-0 md:space-y-0 md:space-x-8 md:p-0 md:translate-x-0 md:pr-8 md:pt-4 xl:pt-0 xl:border-r-[1px] xl:border-coopmaths-struct md:translate-y-0"
         >
           <li>
