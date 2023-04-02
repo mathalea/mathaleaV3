@@ -1,3 +1,4 @@
+import Decimal from "decimal.js";
 import {context} from '../../modules/context.js'
 import FractionX from '../../modules/FractionEtendue.js'
 
@@ -114,36 +115,46 @@ export default function EqResolvantesThales() {
       // Au min 10, au max 100
       const exposantDeDeux = randint(1, 2)
       const exposantDeCinq = randint(1, 2)
-      const cTempCase3 = 2 ** exposantDeDeux * 5 ** exposantDeCinq
-      
+      const cTempCase3 = new Decimal(2 ** exposantDeDeux * 5 ** exposantDeCinq)
+      const dixieme = new Decimal(1).div(10)
+      const one = new Decimal(1)
+      const moinsUn = one.mul(-1)
       this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
       switch (this.sup) {
         case 1: // entiers
-          coeff = [1, 1, 1]
-          nbAlea[0] = randint(2, 9)
-          nbAlea[1] = randint(2, 9, nbAlea[0])
-          nbAlea[2] = choice([2, 4, 5, 8], [nbAlea[0], nbAlea[1]])
+          coeff = [one, one, one]
+          nbAlea[0] = new Decimal(randint(2, 9))
+          nbAlea[1] = new Decimal(randint(2, 9, nbAlea[0].toNumber()))
+          nbAlea[2] = new Decimal(choice([2, 4, 5, 8], [nbAlea[0].toNumber(), nbAlea[1].toNumber()]))
           break
         case 2: // relatifs
-          coeff = [choice([1, -1]), choice([1, -1]), choice([1, -1])]
-          nbAlea[0] = randint(2, 9)
-          nbAlea[1] = randint(2, 9, nbAlea[0])
-          nbAlea[2] = choice([2, 4, 5, 8], [nbAlea[0], nbAlea[1]])
+          coeff = [choice([one, moinsUn]), choice([one, moinsUn]), choice([one, moinsUn])]
+          nbAlea[0] = new Decimal(randint(2, 9))
+          nbAlea[1] = new Decimal(randint(2, 9, nbAlea[0].toNumber()))
+          nbAlea[2] = new Decimal(choice([2, 4, 5, 8], [nbAlea[0].toNumber(), nbAlea[1].toNumber()]))
           break
         case 3: // décimaux
-          coeff = [0.1, 0.1, 0.1]
-          nbAlea[0] = randint(2, 9)
-          nbAlea[1] = randint(2, 9, nbAlea[0])
+          
+          coeff = [dixieme, dixieme, dixieme]
+          nbAlea[0] = new Decimal(randint(2, 9))
+          nbAlea[1] = new Decimal(randint(2, 9, nbAlea[0].toNumber()))
           nbAlea[2] = cTempCase3
           break
         case 4: // mélange
-          nbAlea[0] = randint(2, 9)
-          nbAlea[1] = randint(2, 9, nbAlea[0])
-          nbAlea[2] = choice([2, 4, 5, 8], [nbAlea[0], nbAlea[1]])
+          nbAlea[0] = new Decimal(randint(2, 9))
+          nbAlea[1] = new Decimal(randint(2, 9, nbAlea[0].toNumber()))
+          nbAlea[2] = new Decimal(choice([2, 4, 5, 8], [nbAlea[0].toNumber(), nbAlea[1].toNumber()]))
+          
           masterChoix = choice([
-            {c: [1, 1, 1], na: [nbAlea[0], nbAlea[1], nbAlea[2]]},
-            {c: [choice([1, -1]), choice([1, -1]), choice([1, -1])], na: [nbAlea[0], nbAlea[1], nbAlea[2]]},
-            {c: [0.1, 0.1, 0.1], na: [randint(11, 99), randint(11, 99), cTempCase3]}
+            {c: [one, one, one], na: [nbAlea[0], nbAlea[1], nbAlea[2]]},
+            {
+              c: [choice([one, moinsUn]), choice([one, moinsUn]), choice([one, moinsUn])],
+              na: [nbAlea[0], nbAlea[1], nbAlea[2]]
+            },
+            {
+              c: [dixieme, dixieme, dixieme],
+              na: [new Decimal(randint(11, 99)), new Decimal(randint(11, 99)), cTempCase3]
+            }
           ])
           coeff = masterChoix.c
           nbAlea = masterChoix.na
@@ -161,11 +172,11 @@ export default function EqResolvantesThales() {
       
       
       const params = {
-        a: nbAlea[0] * coeff[0],
-        b: nbAlea[1] * coeff[1],
-        c: nbAlea[2] * coeff[2],
+        a: nbAlea[0].mul(coeff[0]),
+        b: nbAlea[1].mul(coeff[1]),
+        c: nbAlea[2].mul(coeff[2]),
         inc,
-        fraction: new FractionX(nbAlea[1] * nbAlea[0], nbAlea[2] / coeff[0] / coeff[1])
+        fraction: new FractionX(nbAlea[1].mul(nbAlea[0]), nbAlea[2].div(coeff[0]).div(coeff[1]))
       }
       
       // pour les situations, autant de situations que de cas dans le switch !
@@ -178,7 +189,7 @@ export default function EqResolvantesThales() {
           c: params.c,
           inc: params.inc,
           fraction: params.fraction,
-          trivial: (params.b === params.c) || (params.c === params.a)
+          trivial: params.b.equals(params.c) || params.c.equals(params.a)
         },
         { // a/c = x/b
           eq: `\\dfrac{${texNombre(params.a, 4)}}{${texNombre(params.c, 4)}}=\\dfrac{${params.inc}}{${texNombre(params.b, 4)}}`,
@@ -208,7 +219,7 @@ export default function EqResolvantesThales() {
           c: params.c,
           inc: params.inc,
           fraction: params.fraction,
-          trivial: (params.b === params.c) || (params.c === params.a)
+          trivial: params.b.equals(params.c) || params.c.equals(params.a)
         }
       ]
       
@@ -237,9 +248,9 @@ $${texNombre(situations[k].c, 4)}\\times ${situations[k].inc} = ${texNombre(situ
 ${texteEnCouleurEtGras(`On divise les deux membres par ${texNombre(situations[k].c, 2)}`)}.<br>
 $\\dfrac{${texNombre(situations[k].c, 4)}\\times ${situations[k].inc}}{${texNombre(situations[k].c, 4)}}= \\dfrac{${texNombre(situations[k].a, 4)}\\times ${ecritureParentheseSiNegatif(situations[k].b)}}{${texNombre(situations[k].c, 4)}}$<br>
 ${texteEnCouleurEtGras('On simplifie et on calcule.')}<br>
-$${situations[k].inc}=${texNombre(situations[k].b * situations[k].a / situations[k].c, 4)}$
+$${situations[k].inc}=${texNombre(situations[k].b.mul(situations[k].a).div(situations[k].c), 4)}$
 ${trivial(situations[k].trivial, texNombre(situations[k].a, 4), texNombre(situations[k].b, 4), texNombre(situations[k].c, 4), situations[k].inc)}`,
-          correctionInteractif: [(situations[k].b * situations[k].a / situations[k].c).toFixed(4)]
+          correctionInteractif: [situations[k].b.mul(situations[k].a).div(situations[k].c).toFixed(4)]
         })
       }
       
@@ -298,7 +309,7 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a, 4), texNombre(situat
       }
       texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', {texte: `<br> ${inc} = `})
       reponse = new FractionX(correctionInteractif)
-      if (context.isAmc) setReponse(this, i, reponse.valeurDecimale)
+      if (context.isAmc) setReponse(this, i, reponse)
       else setReponse(this, i, reponse, {formatInteractif: 'fractionEgale'})
       
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
