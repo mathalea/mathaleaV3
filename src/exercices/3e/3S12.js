@@ -7,6 +7,8 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 export const titre = 'Calculer des effectifs et des fréquences'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDePublication = '07/02/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '02/04/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
 * Calculer des effectifs et des fréquences.
@@ -45,7 +47,7 @@ export default function CalculEffectifFrequence () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     // let listeTypeDeQuestions_disponibles= [];
-    const lstQuadri = ['Girafes', 'Zèbres', 'Gnous', 'Buffles', 'Gazelles', 'Crocodiles', 'Rhinocéros', 'Léopards', 'Guépards', 'Hyènes', 'Lycaons', 'Servals', 'Phacochères']
+    const lstQuadri = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']
     const lstOiseaux = ['hérons', 'marabouts', 'flamants roses', 'cigognes', 'grues', 'vautours']
     const nbAnimaux = 4 + parseInt(this.sup) // nombre d'animaux différents dans l'énoncé (entre 5 et 7)
     const nbQuadri = 3
@@ -84,14 +86,14 @@ export default function CalculEffectifFrequence () {
     texte += 'Voici un diagramme en barres qui donne le nombre d\'individus pour chaque espèce.<br>'
     texte += numAlpha(0) + ' Quel est l\'effectif des ' + lstAnimauxExo[0] + ' ?<br>'
     texte += ajouteChampTexteMathLive(this, 1)
-    texte += numAlpha(1) + ' Calculer la fréquence des ' + lstAnimauxExo[1] + ' ? Donner le résultat sous la forme d\'un pourcentage.<br>'
+    texte += numAlpha(1) + ' Calculer la fréquence des ' + lstAnimauxExo[1] + '. Donner le résultat sous la forme d\'un pourcentage.<br>'
     texte += ajouteChampTexteMathLive(this, 2)
-    texte += numAlpha(2) + ' Calculer l\'effectif des quadrupèdes ? <br>'
+    texte += numAlpha(2) + ' Calculer l\'effectif des quadrupèdes. <br>'
     texte += ajouteChampTexteMathLive(this, 3)
-    texte += numAlpha(3) + ' Calculer la fréquence des oiseaux ? Donner le résultat sous la forme d\'un pourcentage.<br>'
+    texte += numAlpha(3) + ' Calculer la fréquence des oiseaux. Donner le résultat sous la forme d\'un pourcentage.<br>'
     texte += ajouteChampTexteMathLive(this, 4)
 
-    texte += 'Les pourcentages seront éventuellement arrondis à 0,1% près. <br>'
+    texte += 'Les pourcentages seront arrondis, si besoin, à 0,1% près. <br>'
 
     const coef = 1
 
