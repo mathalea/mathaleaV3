@@ -48,7 +48,7 @@
   }
 </script>
 
-<header class="fixed w-full flex px-4 md:px-12 h-20">
+<header class="fixed w-full flex items-center px-4 md:px-12 h-32 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
   <div class="flex w-full flex-row justify-between items-center md:flex-col md:justify-start md:items-start xl:flex-row xl:justify-between">
     <!-- logo -->
     <div class="block p-2 text-5xl md:text-6xl xl:text-7xl font-logo13Condensed font-black text-coopmaths-struct dark:text-coopmathsdark-struct">Coopmaths</div>
