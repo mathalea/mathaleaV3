@@ -157,21 +157,21 @@ export function Point(arg1, arg2, arg3, positionLabel = 'above') {
    */
   // JSDOC Validee par EE Aout 2022
   this.estSur = function (objet) {
-    if (objet instanceof Droite) return (egal(objet.a * this.x + objet.b * this.y + objet.c, 0, 0.00001))
+    if (objet instanceof Droite) return (egal(objet.a * this.x + objet.b * this.y + objet.c, 0, 0.000001))
     if (objet instanceof Segment) {
       const prodvect = (objet.extremite2.x - objet.extremite1.x) * (this.y - objet.extremite1.y) - (this.x - objet.extremite1.x) * (objet.extremite2.y - objet.extremite1.y)
       const prodscal = (this.x - objet.extremite1.x) * (objet.extremite2.x - objet.extremite1.x) + (this.y - objet.extremite1.y) * (objet.extremite2.y - objet.extremite1.y)
       const prodscalABAB = (objet.extremite2.x - objet.extremite1.x) ** 2 + (objet.extremite2.y - objet.extremite1.y) ** 2
-      return (egal(prodvect, 0, 0.00001) && superieurouegal(prodscal, 0) && inferieurouegal(prodscal, prodscalABAB))
+      return (egal(prodvect, 0, 0.000001) && superieurouegal(prodscal, 0) && inferieurouegal(prodscal, prodscalABAB))
     }
     if (objet instanceof DemiDroite) {
       const OM = vecteur(objet.extremite1, this)
       const vd = vecteur(objet.extremite1, objet.extremite2)
       const prodscal = OM.x * vd.x + OM.y * vd.y
       const prodvect = OM.x * vd.y - OM.y * vd.x
-      return (egal(prodvect, 0, 0.00001) && superieurouegal(prodscal, 0, 0.00001))
+      return (egal(prodvect, 0, 0.000001) && superieurouegal(prodscal, 0, 0.000001))
     }
-    if (objet instanceof Cercle) return egal(longueur(this, objet.centre), objet.rayon, 0.00001)
+    if (objet instanceof Cercle) return egal(longueur(this, objet.centre), objet.rayon, 0.000001)
   }
 }
 

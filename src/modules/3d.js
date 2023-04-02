@@ -15,7 +15,7 @@ import {
   segment,
   tracePoint,
   translation,
-  vecteur
+  vecteur,
 } from './2d.js'
 import {assombrirOuEclaircir, colorToLatexOrHTML, vide2d} from './2dGeneralites.js'
 import {context} from './context.js'
@@ -487,7 +487,7 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
   let rayonDuParallele
   let normal
   const paralleles = {
-    listepts2d: [],
+    listePoints3d: [],
     ptCachePremier: [],
     indicePtCachePremier: [],
     ptCacheDernier: [],
@@ -507,7 +507,7 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
   rayonDuParallele = vecteur3d(this.rayon * Math.cos((nbParallelesDeConstruction - 1) / nbParallelesDeConstruction * Math.PI / 2), 0, 0)
   normal = vecteur3d(0, 0, 1)
   unDesParalleles = cercle3d(centreParallele, normal, rayonDuParallele)
-  paralleles.listepts2d.push(unDesParalleles[1])
+  paralleles.listePoints3d.push(unDesParalleles[1])
   paralleles.ptCachePremier.push('')
   paralleles.indicePtCachePremier.push('')
   paralleles.ptCacheDernier.push('')
@@ -521,34 +521,34 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
     poly = polygone(unDesParalleles[2])
     poly.isVisible = false
     unDesParalleles = cercle3d(centreParallele, normal, rayonDuParallele, false)
-    paralleles.listepts2d.push(unDesParalleles[1])
-    for (let ee = 0; ee < paralleles.listepts2d[0].length; ee++) {
-      paralleles.listepts2d[j][ee].isVisible = !(paralleles.listepts2d[j][ee].c2d.estDansPolygone(poly))
+    paralleles.listePoints3d.push(unDesParalleles[1])
+    for (let ee = 0; ee < paralleles.listePoints3d[0].length; ee++) {
+      paralleles.listePoints3d[j][ee].isVisible = !(paralleles.listePoints3d[j][ee].c2d.estDansPolygone(poly))
     }
     paralleles.ptCachePremier.push('')
     paralleles.indicePtCachePremier.push('')
     paralleles.ptCacheDernier.push('')
     paralleles.indicePtCacheDernier.push('')
     
-    for (let ee = 0, s, s1, d1, d2, jj, pt; ee < paralleles.listepts2d[0].length; ee++) {
-      s = segment(paralleles.listepts2d[j][ee].c2d, paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d)
+    for (let ee = 0, s, s1, d1, d2, jj, pt; ee < paralleles.listePoints3d[0].length; ee++) {
+      s = segment(paralleles.listePoints3d[j][ee].c2d, paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
       s.isVisible = false
       // Recherche du point d'intersection entre le parallèle actuel et le précédent.
-      if ((!paralleles.listepts2d[j][ee].isVisible) && (paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].isVisible)) {
+      if ((!paralleles.listePoints3d[j][ee].isVisible) && (paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].isVisible)) {
         jj = ee - 3
-        s1 = segment(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d)
+        s1 = segment(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
         s1.isVisible = false
         // Le point d'intersection avec ce segment précis du parallèle actuel est avec l'un des 7 (nombre totalement empirique) segments les plus proches du parallèle précédent.
         while (!s.estSecant(s1)) {
           jj++
-          s1 = segment(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d)
+          s1 = segment(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
           s1.isVisible = false
         }
         
         // s étant secant avec s1, on mène plusieurs actions :
-        d1 = droite(paralleles.listepts2d[j][ee].c2d, paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d)
+        d1 = droite(paralleles.listePoints3d[j][ee].c2d, paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
         d1.isVisible = false
-        d2 = droite(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d)
+        d2 = droite(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
         d2.isVisible = false
         pt = pointIntersectionDD(d1, d2) // 1) Tout d'abord, ce point d'intersection est donc la frontière entre le visible et le caché et on l'enregistre comme élément de l'enveloppe de la sphère
         enveloppeSphere1.push(pt)
@@ -556,27 +556,27 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
         // Ces informmations serviront pour le tracé de l'enveloppe près du pôle Nord.
         if (premierParallele >= j) {
           premierParallele = j
-          indicePremier = jj % paralleles.listepts2d[0].length
+          indicePremier = jj % paralleles.listePoints3d[0].length
         }
         // 3) On note ce point pour le futur tracé du parallèle, si besoin
         paralleles.ptCachePremier[j] = pt
         paralleles.indicePtCachePremier[j] = ee
-      } else if ((paralleles.listepts2d[j][ee].isVisible) && (!paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].isVisible)) {
+      } else if ((paralleles.listePoints3d[j][ee].isVisible) && (!paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].isVisible)) {
         // Si le point précédent était l'entrée dans la partie cachée, alors celui-ci sera celui de l'entrée dans la partie visible (ou inversement)
         // car pour chaque parallèle intersecté avec le précédent, il y a "forcément" deux points sauf tangence mais ce n'est pas un pb.
         jj = ee - 3
-        s1 = segment(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d)
+        s1 = segment(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
         s1.isVisible = false
         // On recherche le point d'intersection
         while (!s.estSecant(s1)) {
           jj++
-          s1 = segment(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d)
+          s1 = segment(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
           s1.isVisible = false
         }
         // s étant secant avec s1, on mène plusieurs actions :
-        d1 = droite(paralleles.listepts2d[j][ee].c2d, paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d)
+        d1 = droite(paralleles.listePoints3d[j][ee].c2d, paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
         d1.isVisible = false
-        d2 = droite(paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj) % paralleles.listepts2d[0].length].c2d, paralleles.listepts2d[j - 1][(paralleles.listepts2d[0].length + jj - 1) % paralleles.listepts2d[0].length].c2d)
+        d2 = droite(paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj) % paralleles.listePoints3d[0].length].c2d, paralleles.listePoints3d[j - 1][(paralleles.listePoints3d[0].length + jj - 1) % paralleles.listePoints3d[0].length].c2d)
         d2.isVisible = false
         pt = pointIntersectionDD(d1, d2)
         // 1) Tout d'abord, ce point d'intersection est donc la frontière entre le visible et le caché et on l'enregistre comme élément de l'enveloppe de la sphère
@@ -609,68 +609,59 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
   const divisionParalleles = this.nbParalleles !== 0 ? Math.round(2 * nbParallelesDeConstruction / this.nbParalleles) : 1
   // Construction des parallèles demandés
   for (let k = nbParallelesDeConstruction, j = -1; k > -nbParallelesDeConstruction; k -= 1) {
-    const polyLineVisible = []
-    const polyLineCachee = []
+    const polyLineVisible = [] // Contient l'ensemble des points du parallèle contenus dans la partie visible
+    let polyLineCachee = [] // Idem pour la partie cachée.
     if ((this.nbParalleles !== 0 || k === 0) && (k !== nbParallelesDeConstruction) && (k % divisionParalleles === 0)) { // k=0 : C'est l'équateur
-      for (let ee = 0, s; ee < paralleles.listepts2d[0].length; ee++) {
+      for (let ee = 0, s; ee < paralleles.listePoints3d[0].length; ee++) {
         if (paralleles.indicePtCachePremier[j] === ee) {
           polyLineCachee.push(paralleles.ptCachePremier[j])
-          /* s = segment(paralleles.listepts2d[j][ee].c2d, paralleles.ptCachePremier[j], this.colorParalleles)
-           s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient pas dans les petits cercles
-           s.opacite = 0.5
-           if (k === 0) {
-             s.color = colorToLatexOrHTML(this.colorEquateur)
-             s.epaisseur = 1.5
-           }
-           this.c2d.push(s)
-           s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient pas dans les petits cercles
-           s.opacite = 0.5
-           s = segment(paralleles.ptCachePremier[j], paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d, this.colorParalleles)
-        */
         } else if (paralleles.indicePtCacheDernier[j] === ee) {
           polyLineCachee.push(paralleles.ptCacheDernier[j])
-          /*  s = segment(paralleles.listepts2d[j][ee].c2d, paralleles.ptCacheDernier[j], this.colorParalleles)
-            if (k === 0) {
-              s.color = colorToLatexOrHTML(this.colorEquateur)
-              s.epaisseur = 1.5
-            }
-            this.c2d.push(s)
-            s = segment(paralleles.ptCacheDernier[j], paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d)
-            s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient pas dans les petits cercles
-            s.opacite = 0.5
-         */
         } else {
           // Tracé des pointilles ou pas des parallèles
-          /*   s = segment(paralleles.listepts2d[j][ee].c2d, paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d, this.colorParalleles)
-           */
-          if ((!paralleles.listepts2d[j][ee].isVisible) && (!paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].isVisible)) {
-            polyLineCachee.push(paralleles.listepts2d[j][ee].c2d)
-            /*    s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient pas dans les petits cercles
-                s.opacite = 0.5
-             */
+          if ((!paralleles.listePoints3d[j][ee].isVisible) && (!paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].isVisible)) {
+            polyLineCachee.push(paralleles.listePoints3d[j][ee].c2d)
           } else {
-            polyLineVisible.push(paralleles.listepts2d[j][(ee + 1) % paralleles.listepts2d[0].length].c2d)
+            polyLineVisible.push(paralleles.listePoints3d[j][(ee + 1) % paralleles.listePoints3d[0].length].c2d)
           }
         }
-        /*   if (k === 0) {
-             s.color = colorToLatexOrHTML(this.colorEquateur)
-             s.epaisseur = 1.5
-           }
-        */
       }
-      polyLineVisible.pop()
-      polyLineCachee.pop()
-      const ligneCachee = polyline(...polyLineCachee)
-      const ligneVisible = polyline(...polyLineVisible)
-      if (k === 0) {
+      if (k < 25 && k > -30) { // uniquement à bonne distance des pôles pour éviter les points trop proches
+        if (polyLineCachee.length > 4) { // une précaution au cas où la liste de points est courte ça pourrait boucler à l'infini
+          let securite = 0
+          while (securite < 10 && longueur(polyLineCachee[polyLineCachee.length - 1], polyLineCachee[0]) < 0.6) {
+            const dernierPoint = polyLineCachee.pop()
+            polyLineCachee = [point(dernierPoint.x, dernierPoint.y), ...polyLineCachee]
+            securite++
+          }
+        }
+        if (polyLineVisible.length > 4) {
+          while (securite < 20 && longueur(polyLineVisible[polyLineVisible.length - 1], polyLineVisible[0]) < 0.5) {
+            const premierPoint = polyLineVisible.shift()
+            polyLineVisible.push(point(premierPoint.x, premierPoint.y))
+            securite++
+          }
+        }
+      }
+      const ligneCachee = polyLineCachee.length > 0 ? polyline(...polyLineCachee) : null // parfois, il n'y a rien à cacher près du pôle nord
+      const ligneVisible = polyLineVisible.length > 0 ? polyline(...polyLineVisible) : null // et rien non plus à montrer près du pôle sud.
+      if (k === 0) { // là on est certain qu'il y a du monde à cacher et à montrer
         ligneCachee.color = colorToLatexOrHTML(this.colorEquateur)
         ligneCachee.epaisseur = 1.5
         ligneVisible.color = colorToLatexOrHTML(this.colorEquateur)
         ligneVisible.epaisseur = 1.5
+      } else {
+        if (ligneVisible) ligneVisible.color = colorToLatexOrHTML(this.colorParalleles)
+        if (ligneCachee) ligneCachee.color = colorToLatexOrHTML(this.colorParalleles)
       }
-      ligneCachee.pointilles = 4
-      ligneCachee.opacite = 0.5
-      this.c2d.push(ligneVisible, ligneCachee)
+      if (ligneCachee) {
+        ligneCachee.pointilles = 4
+        ligneCachee.opacite = 0.5
+        this.c2d.push(ligneCachee)
+      }
+      if (ligneVisible) {
+        this.c2d.push(ligneVisible)
+      }
     }
     j++
   }
@@ -684,40 +675,40 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
       const polyLineCachee2 = []
       const polyLineVisible2 = []
       
-      for (let ee = 1; ee < paralleles.listepts2d.length - 1; ee++) {
+      for (let ee = 1; ee < paralleles.listePoints3d.length - 1; ee++) {
         // Affichage des méridiens sans le dernier segment relié aux pôles
-        // s = segment(paralleles.listepts2d[ee][k].c2d, paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k].c2d, this.colorMeridiens)
-        if ((!paralleles.listepts2d[ee][k].isVisible) && (!paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k].isVisible)) {
+        // s = segment(paralleles.listePoints3d[ee][k].c2d, paralleles.listePoints3d[(ee + 1) % paralleles.listePoints3d.length][k].c2d, this.colorMeridiens)
+        if ((!paralleles.listePoints3d[ee][k].isVisible) && (!paralleles.listePoints3d[(ee + 1) % paralleles.listePoints3d.length][k].isVisible)) {
           //  s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
           //  s.opacite = 0.5
-          polyLineCachee1.push(paralleles.listepts2d[ee][k].c2d)
+          polyLineCachee1.push(paralleles.listePoints3d[ee][k].c2d)
         } else {
-          polyLineVisible1.push(paralleles.listepts2d[ee][k].c2d)
+          polyLineVisible1.push(paralleles.listePoints3d[ee][k].c2d)
         }
         // this.c2d.push(s)
-        // s = segment(paralleles.listepts2d[ee][k + 18].c2d, paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k + 18].c2d, this.colorMeridiens)
-        if ((!paralleles.listepts2d[ee][k + 18].isVisible) && (!paralleles.listepts2d[(ee + 1) % paralleles.listepts2d.length][k + 18].isVisible)) {
+        // s = segment(paralleles.listePoints3d[ee][k + 18].c2d, paralleles.listePoints3d[(ee + 1) % paralleles.listePoints3d.length][k + 18].c2d, this.colorMeridiens)
+        if ((!paralleles.listePoints3d[ee][k + 18].isVisible) && (!paralleles.listePoints3d[(ee + 1) % paralleles.listePoints3d.length][k + 18].isVisible)) {
           //   s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
           //   s.opacite = 0.5
-          polyLineCachee2.push(paralleles.listepts2d[ee][k + 18].c2d)
+          polyLineCachee2.push(paralleles.listePoints3d[ee][k + 18].c2d)
         } else {
-          polyLineVisible2.push(paralleles.listepts2d[ee][k + 18].c2d)
+          polyLineVisible2.push(paralleles.listePoints3d[ee][k + 18].c2d)
         }
       }
       // Affichage de la partie reliée au pôle Nord
-      s = segment(poleNord.c2d, paralleles.listepts2d[1][k].c2d, this.colorMeridiens)
+      s = segment(poleNord.c2d, paralleles.listePoints3d[1][k].c2d, this.colorMeridiens)
       this.c2d.push(s)
-      s = segment(paralleles.listepts2d[1][k + 18].c2d, poleNord.c2d, this.colorMeridiens)
+      s = segment(paralleles.listePoints3d[1][k + 18].c2d, poleNord.c2d, this.colorMeridiens)
       this.c2d.push(s)
       // Affichage de la partie reliée au pôle Sud
-      s = segment(poleSud.c2d, paralleles.listepts2d[paralleles.listepts2d.length - 1][k].c2d, this.colorMeridiens)
-      if (!paralleles.listepts2d[paralleles.listepts2d.length - 1][0].isVisible) {
+      s = segment(poleSud.c2d, paralleles.listePoints3d[paralleles.listePoints3d.length - 1][k].c2d, this.colorMeridiens)
+      if (!paralleles.listePoints3d[paralleles.listePoints3d.length - 1][0].isVisible) {
         s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
         s.opacite = 0.5
       }
       this.c2d.push(s)
-      s = segment(paralleles.listepts2d[paralleles.listepts2d.length - 1][k + 18].c2d, poleSud.c2d, this.colorMeridiens)
-      if (!paralleles.listepts2d[paralleles.listepts2d.length - 1][k].isVisible) {
+      s = segment(paralleles.listePoints3d[paralleles.listePoints3d.length - 1][k + 18].c2d, poleSud.c2d, this.colorMeridiens)
+      if (!paralleles.listePoints3d[paralleles.listePoints3d.length - 1][k].isVisible) {
         s.pointilles = 4 // Laisser 4 car sinon les pointilles ne se voient dans les petits cercles
         s.opacite = 0.5
       }
@@ -744,8 +735,8 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
   // Pour trouver les points du cercle apparent près du pôle sud
   // On va prendre les points du premier parallèle intersecté entre l'indice du premier point d'intersection et l'indice du dernier point d'intersection.
   let ii = 1
-  while ((indiceDernier + paralleles.listepts2d[0].length / 2 + ii) % paralleles.listepts2d[0].length < (indicePremier + paralleles.listepts2d[0].length / 2) % paralleles.listepts2d[0].length) {
-    enveloppeSphere.push(paralleles.listepts2d[2 * nbParallelesDeConstruction - 1 - premierParallele][(indiceDernier + paralleles.listepts2d[0].length / 2 + ii) % paralleles.listepts2d[0].length].c2d)
+  while ((indiceDernier + paralleles.listePoints3d[0].length / 2 + ii) % paralleles.listePoints3d[0].length < (indicePremier + paralleles.listePoints3d[0].length / 2) % paralleles.listePoints3d[0].length) {
+    enveloppeSphere.push(paralleles.listePoints3d[2 * nbParallelesDeConstruction - 1 - premierParallele][(indiceDernier + paralleles.listePoints3d[0].length / 2 + ii) % paralleles.listePoints3d[0].length].c2d)
     ii++
   }
   enveloppeSphere.push(...enveloppeSphere2)
@@ -755,14 +746,14 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
   
   if (indiceDernier > indicePremier) {
     ii = 1
-    while (indiceDernier + ii < indicePremier + paralleles.listepts2d[0].length) {
-      enveloppeSphere.push(paralleles.listepts2d[premierParallele][(indiceDernier + ii) % paralleles.listepts2d[0].length].c2d)
+    while (indiceDernier + ii < indicePremier + paralleles.listePoints3d[0].length) {
+      enveloppeSphere.push(paralleles.listePoints3d[premierParallele][(indiceDernier + ii) % paralleles.listePoints3d[0].length].c2d)
       ii++
     }
   } else {
     ii = 1
     while (indiceDernier + ii < indicePremier) {
-      enveloppeSphere.push(paralleles.listepts2d[premierParallele][indiceDernier + ii].c2d)
+      enveloppeSphere.push(paralleles.listePoints3d[premierParallele][indiceDernier + ii].c2d)
       ii++
     }
   }
