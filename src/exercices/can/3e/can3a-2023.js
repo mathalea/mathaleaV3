@@ -14,13 +14,14 @@ export const titre = 'CAN 3e sujet 2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '22/03/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '03/04/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '798ec'
+export const ref = 'can3a-2023'
 /**
  * Aléatoirisation du sujet 2023 de CAN 5e
  * Gilles Mora
- * Référence can5a-2023
+ * Référence can3a-2023
 */
 
 function compareNombres (a, b) {
