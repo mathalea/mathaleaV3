@@ -318,7 +318,7 @@
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
-<div class="h-screen  scrollbar-hide {$darkMode.isActive ? 'dark' : ''} bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+<div class="h-screen  scrollbar-hide {$darkMode.isActive ? 'dark' : ''} bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="startComponent">
   <!-- <Header /> -->
   {#if isNavBarVisible}
     <div class="pb-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
@@ -1127,3 +1127,12 @@
     <Footer />
   </div>
 </div>
+
+<style>
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  #startComponent {
+    scrollbar-width: none;
+  }
+</style>
