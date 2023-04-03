@@ -1127,3 +1127,12 @@
     <Footer />
   </div>
 </div>
+
+<style>
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  :root {
+    scrollbar-width: none;
+  }
+</style>
