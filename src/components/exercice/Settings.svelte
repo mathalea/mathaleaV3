@@ -503,4 +503,11 @@
       bind:value={alea}
     />
   </form>
+  {#if exercice.comment !== undefined}
+  <div class="container">
+    <div class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light tooltip tooltip-left w-full before:text-left" data-tip={exercice.comment.replaceAll('<br>', '\n\n')} ><i class='bx bx-info-circle'></i> En savoir plus...
+    </div>
+
+  </div>
+  {/if}
 </div>
