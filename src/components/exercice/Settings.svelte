@@ -12,6 +12,7 @@
   let alea: string
   let correctionDetaillee: boolean
   let premierUpdate: boolean = true
+  let isCommentDisplayed: boolean = false
 
   // pour récupérer les tooltips de l'exercice
   type FormNumerique = {
@@ -504,10 +505,24 @@
     />
   </form>
   {#if exercice.comment !== undefined}
-  <div class="container">
-    <span class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light tooltip tooltip-left before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left" data-tip={exercice.comment.replaceAll('<br>', '\n')} ><i class='bx bx-info-circle'></i>En savoir plus...
-    </span>
-  
-  </div>
+    <div class="flex flex-col justify-start items-start p-2">
+      <!-- <span class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light tooltip tooltip-left before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left" data-tip={exercice.comment.replaceAll('<br>', '\n')} >
+      <i class='bx bx-info-circle'></i>En savoir plus...
+    </span> -->
+      <div
+        class="flex items-center text-coopmaths-struct dark:text-coopmathsdark-struct cursor-pointer"
+        on:click={() => {
+          isCommentDisplayed = !isCommentDisplayed
+        }}
+        on:keydown={() => {
+          isCommentDisplayed = !isCommentDisplayed
+        }}
+      >
+        <i class="bx bx-info-circle mr-2" />En savoir plus...
+      </div>
+      <div class="{isCommentDisplayed ? 'block' : 'hidden'} pt-4 font-light text-justify text-coopmaths-corpus-light text-sm">
+        {@html exercice.comment}
+      </div>
+    </div>
   {/if}
 </div>
