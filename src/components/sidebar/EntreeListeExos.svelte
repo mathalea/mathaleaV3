@@ -99,7 +99,7 @@
           <span class="font-bold">{exercice.get("id")} - </span>{exercice.get("titre")}
           {#if isRecent(exercice.get("datePublication"))}
             <span
-              class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal "
+              class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal "
               >NEW</span
             >
           {/if}
