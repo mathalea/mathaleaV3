@@ -505,9 +505,9 @@
   </form>
   {#if exercice.comment !== undefined}
   <div class="container">
-    <div class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light tooltip tooltip-left w-full before:text-left" data-tip={exercice.comment.replaceAll('<br>', '\n\n')} ><i class='bx bx-info-circle'></i> En savoir plus...
-    </div>
-
+    <span class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light tooltip tooltip-left before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left" data-tip={exercice.comment.replaceAll('<br>', '\n')} ><i class='bx bx-info-circle'></i>En savoir plus...
+    </span>
+  
   </div>
   {/if}
 </div>
