@@ -506,11 +506,8 @@
   </form>
   {#if exercice.comment !== undefined}
     <div class="flex flex-col justify-start items-start p-2">
-      <!-- <span class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light tooltip tooltip-left before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left" data-tip={exercice.comment.replaceAll('<br>', '\n')} >
-      <i class='bx bx-info-circle'></i>En savoir plus...
-    </span> -->
       <div
-        class="flex items-center text-coopmaths-struct dark:text-coopmathsdark-struct cursor-pointer"
+        class="flex items-center text-coopmaths-action dark:text-coopmathsdark-action cursor-pointer"
         on:click={() => {
           isCommentDisplayed = !isCommentDisplayed
         }}
