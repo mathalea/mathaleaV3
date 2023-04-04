@@ -357,6 +357,17 @@
         }
       },
       "c3a": {
+        "canc3a-2023": {
+          "id": "canc3a-2023",
+          "uuid": "57239",
+          "url": "can/c3/canc3a-2023.js",
+          "titre": "CAN CM2 sujet 2023",
+          "datePublication": "03/04/2023",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathLive"
+          }
+        },
         "canc3a": {
           "id": "canc3a",
           "uuid": "32a0f",
@@ -401,6 +412,17 @@
           "url": "can/6e/can6a-2022.js",
           "titre": "CAN 6e sujet 2022",
           "datePublication": "13/04/2022",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathLive"
+          }
+        },
+        "can6a-2023": {
+          "id": "can6a-2023",
+          "uuid": "07680",
+          "url": "can/6e/can6a-2023.js",
+          "titre": "CAN 6e sujet 2023",
+          "datePublication": "03/04/2023",
           "tags": {
             "interactif": true,
             "interactifType": "mathLive"
@@ -1600,6 +1622,17 @@
             "interactifType": "mathLive"
           }
         },
+        "can5a-2023": {
+          "id": "can5a-2023",
+          "uuid": "312eb",
+          "url": "can/5e/can5a-2023.js",
+          "titre": "CAN 5e sujet 2023",
+          "datePublication": "03/04/2023",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathLive"
+          }
+        },
         "can5a-xxxx": {
           "id": "can5a-xxxx",
           "uuid": "9e40d",
@@ -2171,6 +2204,17 @@
             "interactif": true,
             "interactifType": "mathLive"
           }
+        },
+        "can4a-2023": {
+          "id": "can4a-2023",
+          "uuid": "cae4f",
+          "url": "can/4e/can4a-2023.js",
+          "titre": "CAN 4e sujet 2023",
+          "datePublication": "03/04/2023",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathLive"
+          }
         }
       },
       "can4C": {
@@ -2620,6 +2664,17 @@
           "url": "can/3e/can3a-2022.js",
           "titre": "CAN 3e sujet 2022",
           "datePublication": "19/04/2022",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathLive"
+          }
+        },
+        "can3a-2023": {
+          "id": "can3a-2023",
+          "uuid": "798ec",
+          "url": "can/3e/can3a-2023.js",
+          "titre": "CAN 3e sujet 2023",
+          "datePublication": "03/04/2023",
           "tags": {
             "interactif": true,
             "interactifType": "mathLive"
@@ -3175,6 +3230,17 @@
             "interactif": true,
             "interactifType": "mathLive"
           }
+        },
+        "can2a-2023": {
+          "id": "can2a-2023",
+          "uuid": "9bc44",
+          "url": "can/2e/can2a-2023.js",
+          "titre": "CAN Seconde sujet 2023",
+          "datePublication": "03/04/2023",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathLive"
+          }
         }
       },
       "can2C": {
@@ -3352,6 +3418,17 @@
           "url": "can/2e/can2C16.js",
           "titre": "Calculer avec un programme de calcul*",
           "datePublication": "16/11/2022",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathLive"
+          }
+        },
+        "can2C17": {
+          "id": "can2C17",
+          "uuid": "9883e",
+          "url": "can/2e/can2C17.js",
+          "titre": "Développer des égalités remarquables avec des racines carrées",
+          "datePublication": "30/03/2023",
           "tags": {
             "interactif": true,
             "interactifType": "mathLive"
@@ -5156,6 +5233,7 @@
         "uuid": "01873",
         "url": "6e/6C20.js",
         "titre": "Effectuer additions et soustractions de nombres décimaux",
+        "dateDeModifImportante": "01/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9462,6 +9540,7 @@
         "uuid": "ce352",
         "url": "3e/3A12.js",
         "titre": "Résoudre un exercice d'engrenages",
+        "dateDeModifImportante": "01/04/2023",
         "tags": {}
       },
       "3A13-1": {
@@ -9815,7 +9894,7 @@
         "uuid": "a0ad1",
         "url": "3e/3G22-1.js",
         "titre": "Agrandissement et réduction",
-        "dateDeModifImportante": "24/10/2021",
+        "dateDeModifImportante": "02/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -10428,6 +10507,7 @@
         "uuid": "f4b95",
         "url": "3e/3S12.js",
         "titre": "Calculer des effectifs et des fréquences",
+        "dateDeModifImportante": "02/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
