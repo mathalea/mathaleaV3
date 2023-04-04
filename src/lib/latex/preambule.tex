@@ -186,7 +186,7 @@
   \regtotcounter{nbEx}  
 
   % Une checkmark !
-  \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}  
+  \def\myCheckmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}  
   % Repiqué sans vergogne dans lemanuel TikZ pour l'impatient
   \def\arete{3}   \def\epaisseur{5}   \def\rayon{2}
 
@@ -222,16 +222,16 @@
     \textsc{Classe} : \makebox[.33\linewidth]{\dotfill} \hfill
     \MyBox{\Large\textsc{Score} : \makebox[.15\linewidth]{\dotfill} / \total{#1}}      
     \par\medskip \hrulefill \par
-    \checkmark \textit{\textbf{Durée :  \dureeCan}}
+    \myCheckmark \textit{\textbf{Durée :  \dureeCan}}
 
     \smallskip
-    \checkmark \textit{L'épreuve comporte \total{#1} questions.}
+    \myCheckmark \textit{L'épreuve comporte \total{#1} questions.}
 
     \smallskip  
-    \checkmark \textit{L'usage de la calculatrice et du brouillon sont interdits.}
+    \myCheckmark \textit{L'usage de la calculatrice et du brouillon sont interdits.}
 
     \smallskip
-    \checkmark \textit{Il n'est pas permis d'écrire des calculs intermédiaires.}
+    \myCheckmark \textit{Il n'est pas permis d'écrire des calculs intermédiaires.}
     \par \hrulefill \par\vspace{5mm}
     \begin{center}
       \textsc{\titreSujetCan}
