@@ -321,7 +321,7 @@
 <div class="h-screen  scrollbar-hide {$darkMode.isActive ? 'dark' : ''} bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="startComponent">
   <!-- <Header /> -->
   {#if isNavBarVisible}
-    <div class="pb-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+    <div class="pb-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
       <NavBarV2 />
     </div>
     <!-- <Header2 sideMenuVisible={isSideMenuVisible} on:sideMenuChange={handleSideMenu} /> -->
@@ -375,7 +375,7 @@
           />
         {/if}
       {:else}
-        <div class="transition-transform duration-300 {$isSideMenuVisible || nbExercisesInList === 0 ? 'translate-x-0 ' : '-translate-x-full'}">
+        <div class="print-hidden transition-transform duration-300 {$isSideMenuVisible || nbExercisesInList === 0 ? 'translate-x-0 ' : '-translate-x-full'}">
           <div
             style="{$isSideMenuVisible || nbExercisesInList === 0
               ? `width:${sidebarWidth}px;`
@@ -430,7 +430,7 @@
       <!-- content -->
       {#if $exercicesParams.length !== 0}
         <div class="relative flex flex-col px-6 {deviceType() === 'mobile' ? '' : 'overflow-hidden'} w-full h-full" bind:this={divExercices}>
-          <div class="hidden md:block absolute top-0 left-0">
+          <div class="print-hidden hidden md:block absolute top-0 left-0">
             <button
               type="button"
               class="{$isSideMenuVisible
@@ -438,7 +438,7 @@
                 : 'rounded-lg'} bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest p-2"
               on:click={toggleSideMenu}
             >
-              <i class="bx bx-md {$isSideMenuVisible ? 'bx-caret-left bx-fade-left-hover' : 'bx-sidebar  translate-y-1'}" />
+              <i class="print-hidden bx bx-md {$isSideMenuVisible ? 'bx-caret-left bx-fade-left-hover' : 'bx-sidebar  translate-y-1'}" />
             </button>
           </div>
           <!-- barre des boutons commandes (résumé) -->
@@ -470,7 +470,7 @@
           <!-- barre des boutons commandes (tous les boutons) ==> POUR LG ET + SEULEMENT -->
           <div class="w-full hidden lg:flex lg:flex-col xl:flex-row pl-4 pb-6 justify-between items-center">
             <!-- réglages pour tous les exercices de la page -->
-            <div class="flex flex-row justify-start items-center space-x-4 px-4 pt-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark lg:bg-coopmaths-canvas lg:dark:bg-coopmathsdark-canvas">
+            <div class="print-hidden flex flex-row justify-start items-center space-x-4 px-4 pt-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark lg:bg-coopmaths-canvas lg:dark:bg-coopmathsdark-canvas">
               <button type="button" on:click={zoomMinus} class="tooltip tooltip-bottom tooltip-neutral" data-tip="Réduire la taille du texte">
                 <i
                   class="bx {deviceType() === 'mobile'
@@ -548,7 +548,7 @@
             </div>
             <!-- boutons d'exports -->
             <div
-              class="flex flex-row justify-start items-center space-x-4 px-4 pt-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark  lg:bg-coopmaths-canvas lg:dark:bg-coopmathsdark-canvas"
+              class="print-hidden flex flex-row justify-start items-center space-x-4 px-4 pt-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark  lg:bg-coopmaths-canvas lg:dark:bg-coopmathsdark-canvas"
             >
               <button
                 type="button"

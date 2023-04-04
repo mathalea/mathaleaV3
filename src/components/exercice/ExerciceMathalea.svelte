@@ -297,7 +297,7 @@
   {#if isVisible}
     <div class="flex flex-col-reverse lg:flex-row">
       <div class="flex flex-col justify-start items-start relative {isSettingsVisible ? 'w-full lg:w-3/4' : 'w-full'} duration-500" id="exercice{indiceExercice}">
-        <div class="hidden md:flex flex-row justify-start text-coopmaths-struct dark:text-coopmathsdark-struct text-xs mt-2 pl-0 md:pl-2">
+        <div class="print-hidden hidden md:flex flex-row justify-start text-coopmaths-struct dark:text-coopmathsdark-struct text-xs mt-2 pl-0 md:pl-2">
           <button
             class={columnsCount > 1 ? "visible" : "invisible"}
             type="button"

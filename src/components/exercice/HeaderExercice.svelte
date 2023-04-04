@@ -69,7 +69,7 @@
         <span class="invisible lg:visible mx-1 font-bold">&middot;</span>{title}
       </div>
     </div>
-    <div class="flex flex-col md:flex-row justify-start space-x-2 md:space-x-10 text-normal mt-1 text-xl lg:justify-end mr-1">
+    <div class="print-hidden flex flex-col md:flex-row justify-start space-x-2 md:space-x-10 text-normal mt-1 text-xl lg:justify-end mr-1">
       <div class="flex flex-row justify-start items-center">
         <!-- <button
           class="mx-2 tooltip tooltip-left"
