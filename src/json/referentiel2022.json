@@ -8002,6 +8002,40 @@
           "interactif": true,
           "interactifType": "mathLive"
         }
+      },
+      "5P14-1": {
+        "id": "5P14-1",
+        "uuid": "542be",
+        "url": "5e/5P14-1.js",
+        "titre": "Appliquer un pourcentage",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amc": true,
+          "amcType": "AMCNum"
+        }
+      },
+      "5P14-2": {
+        "id": "5P14-2",
+        "uuid": "5199b",
+        "url": "5e/5P14-2.js",
+        "titre": "Appliquer un pourcentage (calculs simples)",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
+      },
+      "5P14": {
+        "id": "5P14",
+        "uuid": "4db23",
+        "url": "5e/5P14.js",
+        "titre": "Exprimer une proportion sous la forme d'un pourcentage",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amc": true,
+          "amcType": "AMCNum"
+        }
       }
     },
     "5R1": {
