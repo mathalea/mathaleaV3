@@ -89,7 +89,7 @@
         <div>
           {#each tags as tag}
             <span
-              class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-action-light dark:bg-coopmathsdark-action-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-xs px-1 py-[1px] shadow-sm mr-1"
+              class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 py-px leading-snug font-semibold mr-1"
               >{tag}</span
             >
           {/each}
@@ -97,13 +97,19 @@
       {:else}
         <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
           <span class="font-bold">{exercice.get("id")} - </span>{exercice.get("titre")}
+          {#if isRecent(exercice.get("datePublication"))}
+            <span
+              class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal "
+              >NEW</span
+            >
+          {/if}
+          {#if isRecent(exercice.get("dateModification"))}
+            <span
+              class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal "
+              >MAJ</span
+            >
+          {/if}
         </div>
-        {#if isRecent(exercice.get("datePublication"))}
-          <span class="badge badge-secondary dark:badge-info badge-xs text-[8px] font-bold ">NEW</span>
-        {/if}
-        {#if isRecent(exercice.get("dateModification"))}
-          <span class="badge badge-secondary dark:badge-info badge-xs text-[8px] font-bold">MAJ</span>
-        {/if}
       {/if}
     </div>
   </div>
