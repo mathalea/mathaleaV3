@@ -277,7 +277,6 @@ export default function ReperageSurLaSphere() {
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorrection)
     listeQuestionsToContenuSansNumero(this)
-    console.log(context.objets2D)
   }
   
   this.besoinFormulaireNumerique = ['Type de questions', 3, ' 1 : Lire des coordonnées\n 2 : Placer des points\n 3 : Mélange']
