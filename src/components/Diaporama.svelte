@@ -250,11 +250,33 @@
   }
 
   function prevQuestion() {
-    if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
+    if ($transitionsBetweenQuestions.isQuestThenSolModeActive) {
+      if (isQuestionVisible) {
+        if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
+      } else {
+        switchQuestionToCorrection()
+        switchPause()
+        goToQuestion(currentQuestion)
+      }
+    } else {
+      if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
+    }
   }
 
   function nextQuestion() {
-    if (currentQuestion < questions[0].length) goToQuestion(currentQuestion + 1)
+    if ($transitionsBetweenQuestions.isQuestThenSolModeActive) {
+      if (isQuestionVisible) {
+        switchPause()
+        switchQuestionToCorrection()
+        goToQuestion(currentQuestion)
+      } else {
+        switchQuestionToCorrection()
+        switchPause()
+        if (currentQuestion < questions[0].length) goToQuestion(currentQuestion + 1)
+      }
+    } else {
+      if (currentQuestion < questions[0].length) goToQuestion(currentQuestion + 1)
+    }
   }
 
   /**
@@ -595,6 +617,18 @@
           isCorrectionVisible = !isCorrectionVisible
         }
       }
+    }
+    await tick()
+    setSize()
+  }
+
+  async function switchQuestionToCorrection() {
+    if (isQuestionVisible) {
+      isCorrectionVisible = true
+      isQuestionVisible = false
+    } else {
+      isCorrectionVisible = false
+      isQuestionVisible = true
     }
     await tick()
     setSize()
