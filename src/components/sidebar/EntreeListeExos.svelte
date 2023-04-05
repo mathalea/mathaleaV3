@@ -71,9 +71,9 @@
   Ajoute un tag en tête de ligne si le fichier est présent
   dans la liste des exercices sélectionnés
 
-  Paramètres :
-  - **exo** : objet de type *Exo* (`{"id": UUID de l'exo, "code": nom de l'exo (par exemple "6N12-3")}`)
-  - **pathToThisNode** : chemin amenant à cet exercice (utlisé dans la recherche du titre)
+  __Paramètres__ :
+  
+  - **exercice** : objet de type *Exo* (`{"id": UUID de l'exo, "code": nom de l'exo (par exemple "6N12-3")}`)
   - **nestedLevelCount** : compteur pour connaître le nombre d'imbrication (utilisé pour l'indentation de la ligne)
   
  -->

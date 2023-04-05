@@ -66,6 +66,11 @@
   <i class=" text-xl bg-transparent bx {expanded ? 'bx-plus rotate-[225deg]' : 'bx-plus'} transition-transform duration-500 ease-in-out" />
 </div>
 {#if expanded}
+  {#if levelTitle === "Nouveautés" && Array.from(items, ([key, obj]) => ({ key, obj })).length === 0}
+    <div class="flex flex-row p-2 justify-start items-center">
+      <span class="font-light italic text-sm">Pas de publication ou de modification récente.</span>
+    </div>
+  {/if}
   <ul transition:slide={{ duration: 500 }} bind:this={listeExercices}>
     {#each Array.from(items, ([key, obj]) => ({ key, obj })) as item}
       <li>
