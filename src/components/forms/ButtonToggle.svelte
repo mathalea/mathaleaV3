@@ -34,8 +34,8 @@
   <button type="button" on:click={toggle} disabled={isDisabled}>
     <i
       class="translate-y-1 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm {value
-        ? 'bx-toggle-left'
-        : 'bx-toggle-right'}
+        ? 'bx-toggle-right'
+        : 'bx-toggle-left'}
         {isDisabled ? 'text-opacity-10' : ''}"
       on:click
       on:keydown
