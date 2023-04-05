@@ -34,14 +34,14 @@
   <button type="button" on:click={toggle} disabled={isDisabled}>
     <i
       class="translate-y-1 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm {value
-        ? 'bx-toggle-left'
-        : 'bx-toggle-right'}
+        ? 'bx-toggle-right'
+        : 'bx-toggle-left'}
         {isDisabled ? 'text-opacity-10' : ''}"
       on:click
       on:keydown
     />
   </button>
-  <div class="pl-1 inline-block text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {isDisabled ? 'text-opacity-10' : 'text-opacity-70'}">
-    {value ? titles[0] : titles[1]}
+  <div class="pl-2 inline-block text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {isDisabled ? 'text-opacity-10' : 'text-opacity-70'}">
+    {@html `${value ? titles[0] : titles[1]}`}
   </div>
 </div>
