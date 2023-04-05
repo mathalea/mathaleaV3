@@ -1104,7 +1104,17 @@
                 class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-skip-previous"
               />
             </button>
-            <button type="button" on:click={switchPause} class:invisible={isManualModeActive}>
+            <button
+              type="button"
+              on:click={() => {
+                if ($transitionsBetweenQuestions.isQuestThenSolModeActive) {
+                  nextQuestion()
+                } else {
+                  switchPause()
+                }
+              }}
+              class:invisible={isManualModeActive}
+            >
               <i
                 class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg
                 {isPause ? 'bx-play' : 'bx-pause'}"
