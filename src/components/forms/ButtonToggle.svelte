@@ -42,6 +42,6 @@
     />
   </button>
   <div class="pl-2 inline-block text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {isDisabled ? 'text-opacity-10' : 'text-opacity-70'}">
-    {value ? titles[0] : titles[1]}
+    {@html `${value ? titles[0] : titles[1]}`}
   </div>
 </div>

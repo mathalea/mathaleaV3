@@ -788,6 +788,9 @@
           <div class="pb-8">
             <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct">Transitions</div>
             <div class="flex flex-row justify-start items-center px-4">
+              <ButtonToggle bind:value={$transitionsBetweenQuestions.isQuestThenSolModeActive} titles={["Question <em>puis</em> correction", "Question / Question+Correction / Correction"]} />
+            </div>
+            <div class="flex flex-row justify-start items-center px-4">
               <ButtonToggle bind:value={$transitionsBetweenQuestions.isActive} titles={["Carton entre questions", "Pas de carton entre questions"]} on:click={handleTransitionsMode} />
             </div>
             <div class="flex flex-row justify-start items-center px-4">
@@ -1115,13 +1118,15 @@
                 </div>
               </div>
             </div>
-            <button type="button" on:click={switchCorrectionMode}>
-              <i
-                class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-show"
-              >
-                <div class="absolute -bottom-[8px] left-1/2 -translate-x-1/2 text-sm font-extrabold font-sans">{displayCurrentCorrectionMode()}</div>
-              </i>
-            </button>
+            <div class={$transitionsBetweenQuestions.isQuestThenSolModeActive ? "hidden" : "block"}>
+              <button type="button" on:click={switchCorrectionMode}>
+                <i
+                  class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-show"
+                >
+                  <div class="absolute -bottom-[8px] left-1/2 -translate-x-1/2 text-sm font-extrabold font-sans">{displayCurrentCorrectionMode()}</div>
+                </i>
+              </button>
+            </div>
             <button type="button" on:click={handleQuit} on:keydown={handleQuit}>
               <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-power-off" />
             </button>
