@@ -47,7 +47,7 @@ function ObjetMathalea2D() {
   this.pointilles = false
   this.id = numId
   numId++
-  context.objets2D.push(this)
+  if (context.isInEditor) context.objets2D.push(this)
 }
 
 /*
