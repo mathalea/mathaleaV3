@@ -479,7 +479,6 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
   this.colorMeridiens = colorMeridiens
   this.affichageAxe = affichageAxe
   this.colorAxe = colorAxe
-  this.inclinaison = inclinaison
   const droiteRot = droite3d(point3d(this.centre.x, this.centre.y, this.centre.z), vecteur3d(0, 1, 0))
   const poleNord = rotation3d(
     point3d(
