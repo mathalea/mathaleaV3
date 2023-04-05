@@ -287,7 +287,7 @@
         <!-- <div class="absolute top-2 right-2">
           <BtnZoom size="xs" />
         </div> -->
-        <div class="fixed z-20 bottom-2 lg:bottom-6 right-2 lg:right-6 bg-coopmaths-canvas rounded-b-full rounded-t-full bg-opacity-80">
+        <div class="fixed z-20 bottom-2 lg:bottom-6 right-2 lg:right-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas rounded-b-full rounded-t-full bg-opacity-80">
           <div class="flex flex-col space-y-2 scale-75 lg:scale-100">
             <BtnZoom size="md" />
           </div>
@@ -323,7 +323,7 @@
         <!-- <div class="absolute top-2 right-2">
           <BtnZoom size="xs" />
         </div> -->
-        <div class="fixed z-20 bottom-2 lg:bottom-6 right-2 lg:right-6 bg-coopmaths-canvas rounded-b-full rounded-t-full bg-opacity-80">
+        <div class="fixed z-20 bottom-2 lg:bottom-6 right-2 lg:right-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas rounded-b-full rounded-t-full bg-opacity-80">
           <div class="flex flex-col space-y-2 scale-75 lg:scale-100">
             <BtnZoom size="md" />
           </div>
