@@ -5,21 +5,21 @@
   import Eleve from "./Eleve.svelte"
   import ConfigEleve from "./ConfigEleve.svelte"
   import Latex from "./Latex.svelte"
-  import { globalOptions } from "./store"
-  import { context } from "../modules/context"
-  import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from "../modules/ElementInstrumenpoche"
+  import {globalOptions} from "./store"
+  import {context} from "../modules/context"
+  import {ElementButtonInstrumenpoche, ElementInstrumenpoche} from "../modules/ElementInstrumenpoche"
   import Amc from "./Amc.svelte"
-
+  
   context.versionMathalea = 3
   // ToFix fonction à lier avec bugsnag
   // @ts-ignore
   window.notify = (arg: string) => console.log(arg)
-
+  
   if (customElements.get("alea-instrumenpoche") === undefined) {
     customElements.define("alea-instrumenpoche", ElementInstrumenpoche)
     customElements.define("alea-buttoninstrumenpoche", ElementButtonInstrumenpoche)
   }
-
+  
   $: {
     if ($globalOptions.v === "diaporama") {
       context.isDiaporama = true
@@ -33,28 +33,30 @@
     }
     if ($globalOptions.v === "confeleve") {
       context.isHtml = false
-    } 
+    }
     if ($globalOptions.v === "amc") {
       context.isAmc = true
       context.isHtml = false
     }
+    // lorsque l'éditeur sera intégré à la v3, il faudra mettre à true cette propriété pour l'editeur
+    context.isInEditor = false
   }
 </script>
 
 <div class="subpixel-antialiased ">
   {#if $globalOptions.v === "diaporama"}
-    <Diaporama />
+    <Diaporama/>
   {:else if $globalOptions.v === "can"}
-    <Can />
+    <Can/>
   {:else if $globalOptions.v === "eleve"}
-    <Eleve />
+    <Eleve/>
   {:else if $globalOptions.v === "latex"}
-    <Latex />
+    <Latex/>
   {:else if $globalOptions.v === "confeleve"}
-    <ConfigEleve />
+    <ConfigEleve/>
   {:else if $globalOptions.v === "amc"}
-    <Amc />
+    <Amc/>
   {:else}
-    <Start />
+    <Start/>
   {/if}
 </div>

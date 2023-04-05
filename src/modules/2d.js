@@ -65,10 +65,10 @@ export function Point(arg1, arg2, arg3, positionLabel = 'above') {
   this.positionLabel = positionLabel
   this.bordures = [this.x, this.y, this.x, this.y]
   this.xSVG = function (coeff) {
-    return arrondi(this.x * coeff)
+    return arrondi(this.x * coeff, 1)
   }
   this.ySVG = function (coeff) {
-    return arrondi(-this.y * coeff)
+    return arrondi(-this.y * coeff, 1)
   }
   
   /**
@@ -2696,7 +2696,7 @@ export function Polygone(...points) {
   this.binomesXY = function (coeff) {
     let liste = ''
     for (const point of this.listePoints) {
-      liste += `${point.x * coeff},${-point.y * coeff} `
+      liste += `${point.xSVG(coeff)},${point.ySVG(coeff)} `
     }
     return liste
   }
