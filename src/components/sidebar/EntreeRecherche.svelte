@@ -16,13 +16,20 @@
   // on compte réactivement le nombre d'occurences
   // de l'exercice dans la liste des sélectionnés
   $: {
+    selectedCount = 0
     listeCodes = []
     for (const exo of $exercicesParams) {
       listeCodes.push(exo.uuid)
     }
     listeCodes = listeCodes
-    selectedCount = listeCodes.filter(isPresent).length
+    for (const e of listeCodes) {
+      if (exercice.uuid === e) {
+        selectedCount += 1
+      }
+    }
+    // selectedCount = listeCodes.filter(isPresent).length
     selectedCount = selectedCount
+    console.log("liste: " + listeCodes + " / selectedCount = " + selectedCount)
   }
   /**
    * Ajouter l'exercice courant à la liste
@@ -84,18 +91,18 @@
       {/if}
     </div>
   </div>
-  {#if selectedCount >= 1}
-    <button
-      type="button"
-      class="absolute -left-4"
-      on:mouseover={handleMouseOver}
-      on:focus={handleMouseOver}
-      on:mouseout={handleMouseOut}
-      on:blur={handleMouseOut}
-      on:click={removeFromList}
-      on:keydown={removeFromList}><i class="text-coopmaths-action-light dark:text-coopmathsdark-action-light text-base bx {icon} {rotation}" /></button
-    >
-  {/if}
+  <!-- {#if selectedCount >= 1} -->
+  <button
+    type="button"
+    class="absolute {selectedCount >= 1 ? 'block' : 'hidden'} -left-4"
+    on:mouseover={handleMouseOver}
+    on:focus={handleMouseOver}
+    on:mouseout={handleMouseOut}
+    on:blur={handleMouseOut}
+    on:click={removeFromList}
+    on:keydown={removeFromList}><i class="text-coopmaths-action-light dark:text-coopmathsdark-action-light text-base bx {icon} {rotation}" /></button
+  >
+  <!-- {/if} -->
   {#if selectedCount >= 2 && mouseIsOut}
     <div class="absolute -left-[12.5px] text-[0.6rem] font-bold text-coopmaths-canvas dark:text-coopmathsdark-canvas-dark">{selectedCount}</div>
   {/if}
