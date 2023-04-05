@@ -1,6 +1,16 @@
 <script lang="ts">
   import { onMount, tick } from "svelte"
-  import { MathaleaFormatExercice, MathaleaGenerateSeed, MathaleaHandleComponentChange, MathaleaHandleExerciceSimple, MathaleaHandleParamOfOneExercice, MathaleaHandleSup, MathaleaLoadExerciceFromUuid, MathaleaRenderDiv, MathaleaUpdateUrlFromExercicesParams } from "../lib/Mathalea"
+  import {
+    MathaleaFormatExercice,
+    MathaleaGenerateSeed,
+    MathaleaHandleComponentChange,
+    MathaleaHandleExerciceSimple,
+    MathaleaHandleParamOfOneExercice,
+    MathaleaHandleSup,
+    MathaleaLoadExerciceFromUuid,
+    MathaleaRenderDiv,
+    MathaleaUpdateUrlFromExercicesParams,
+  } from "../lib/Mathalea"
   import { exercicesParams, globalOptions, questionsOrder, selectedExercises, transitionsBetweenQuestions, darkMode } from "./store"
   import type Exercice from "./utils/typeExercice"
   import seedrandom from "seedrandom"
@@ -14,7 +24,8 @@
   import { formattedTimeStamp, setPhraseDuree } from "./utils/time"
   import ModalForQRCode from "./modal/ModalForQRCode.svelte"
   import FormRadio from "./forms/FormRadio.svelte"
-  import type { InterfaceParams } from "src/lib/types";
+  import ButtonToggle from "./forms/ButtonToggle.svelte"
+  import type { InterfaceParams } from "src/lib/types"
 
   let divQuestion: HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
@@ -61,22 +72,22 @@
   let stringDureeTotale = "0"
   // variables pour les transitions entre questions
   const transitionSounds = {
-    '0': new Audio("assets/sounds/transition_sound_01.mp3"),
-    '1': new Audio("assets/sounds/transition_sound_02.mp3"),
-    '2': new Audio("assets/sounds/transition_sound_03.mp3"),
-    '3': new Audio("assets/sounds/transition_sound_04.mp3"),
+    "0": new Audio("assets/sounds/transition_sound_01.mp3"),
+    "1": new Audio("assets/sounds/transition_sound_02.mp3"),
+    "2": new Audio("assets/sounds/transition_sound_03.mp3"),
+    "3": new Audio("assets/sounds/transition_sound_04.mp3"),
   }
   const labelsForSounds = [
-    { label: "Son 1", value: '0' },
-    { label: "Son 2", value: '1' },
-    { label: "Son 3", value: '2' },
-    { label: "Son 4", value: '3' },
+    { label: "Son 1", value: "0" },
+    { label: "Son 2", value: "1" },
+    { label: "Son 3", value: "2" },
+    { label: "Son 4", value: "3" },
   ]
   const labelsForMultivue = [
-    { label: "Pas de multivue", value: '1' },
-    { label: "Deux vues", value: '2' },
-    { label: "Trois vues", value: '3' },
-    { label: "Quatre vues", value: '4' },
+    { label: "Pas de multivue", value: "1" },
+    { label: "Deux vues", value: "2" },
+    { label: "Trois vues", value: "3" },
+    { label: "Quatre vues", value: "4" },
   ]
 
   if ($globalOptions && $globalOptions.durationGlobal) {
@@ -104,17 +115,17 @@
     if (divTableDurationsQuestions) MathaleaRenderDiv(divTableDurationsQuestions)
   })
 
-  function handleStringFromUrl (text: string): boolean|number|string {
-  if (text === 'true' || text === 'false') {
-    // "true"=>true
-    return text === 'true'
-  } else if (/^\d+$/.test(text)) {
-    // "17"=>17
-    return parseInt(text)
-  } else {
-    return text
+  function handleStringFromUrl(text: string): boolean | number | string {
+    if (text === "true" || text === "false") {
+      // "true"=>true
+      return text === "true"
+    } else if (/^\d+$/.test(text)) {
+      // "17"=>17
+      return parseInt(text)
+    } else {
+      return text
+    }
   }
-}
 
   async function updateExercices() {
     MathaleaUpdateUrlFromExercicesParams($exercicesParams)
@@ -644,7 +655,7 @@
    * Gestion du bouton demandant de changer l'ordre des questions
    */
   function handleRandomQuestionOrder() {
-    $questionsOrder.isQuestionsShuffled = !$questionsOrder.isQuestionsShuffled
+    // $questionsOrder.isQuestionsShuffled = !$questionsOrder.isQuestionsShuffled  <- inutile avec ButtonToggle
     globalOptions.update((l) => {
       l.shuffle = $questionsOrder.isQuestionsShuffled
       return l
@@ -657,7 +668,7 @@
    * @author sylvain
    */
   function handleTransitionsMode() {
-    $transitionsBetweenQuestions.isActive = !$transitionsBetweenQuestions.isActive
+    // $transitionsBetweenQuestions.isActive = !$transitionsBetweenQuestions.isActive  <- inutile avec ButtonToggle
     globalOptions.update((l) => {
       l.trans = $transitionsBetweenQuestions.isActive
       return l
@@ -670,10 +681,10 @@
    * @author sylvain
    */
   function handleTransitionSound() {
-    $transitionsBetweenQuestions.isNoisy = !$transitionsBetweenQuestions.isNoisy
+    // $transitionsBetweenQuestions.isNoisy = !$transitionsBetweenQuestions.isNoisy  <- inutile avec ButtonToggle
     if ($transitionsBetweenQuestions.isNoisy) {
       if (typeof $transitionsBetweenQuestions.tune === "undefined") {
-        $transitionsBetweenQuestions.tune = '0'
+        $transitionsBetweenQuestions.tune = "0"
       }
       globalOptions.update((l) => {
         l.sound = $transitionsBetweenQuestions.tune
@@ -727,7 +738,7 @@
 <!-- Page d'accueil du diapo -->
 <div id="diaporama" class={$darkMode.isActive ? "dark" : ""}>
   {#if currentQuestion === -1}
-    <div id="start" class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-corpus  dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus" data-theme="daisytheme">
+    <div id="start" class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus" data-theme="daisytheme">
       <div class="flex flex-row justify-between p-6">
         <div class="text-4xl text-coopmaths-struct font-bold">Réglages du Diaporama</div>
         <button type="button">
@@ -756,7 +767,7 @@
                 </div>
               </div>
             </div>
-            <div class="flex text-lg font-bold text-coopmaths-struct  dark:text-coopmathsdark-struct">
+            <div class="flex text-lg font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
               Plein écran
               <div class="flex flex-row px-4 justify-start">
                 <button
@@ -769,32 +780,18 @@
               </div>
             </div>
           </div>
-          <div class="flex text-lg font-bold mb-2 text-coopmaths-struct  dark:text-coopmathsdark-struct">Multivue</div>
+          <div class="flex text-lg font-bold mb-2 text-coopmaths-struct dark:text-coopmathsdark-struct">Multivue</div>
           <div class="flex px-4 pb-8">
             <FormRadio bind:valueSelected={stringNbOfVues} on:newvalue={updateExercices} title="multivue" labelsValues={labelsForMultivue} />
           </div>
 
           <div class="pb-8">
-            <div class="flex text-lg font-bold mb-1 text-coopmaths-struct  dark:text-coopmathsdark-struct">Transitions</div>
+            <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct">Transitions</div>
             <div class="flex flex-row justify-start items-center px-4">
-              <button type="button" on:click={handleTransitionsMode}>
-                <i
-                  class="mt-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm {$transitionsBetweenQuestions.isActive
-                    ? 'bx-toggle-right'
-                    : 'bx-toggle-left'}"
-                />
-              </button>
-              <div class="inline-flex pl-2">{$transitionsBetweenQuestions.isActive ? "Carton entre questions" : "Pas de carton entre questions"}</div>
+              <ButtonToggle bind:value={$transitionsBetweenQuestions.isActive} titles={["Carton entre questions", "Pas de carton entre questions"]} on:click={handleTransitionsMode} />
             </div>
-            <div class="flex flex-row justify-start items-center  px-4 -mt-2">
-              <button type="button" on:click={handleTransitionSound}>
-                <i
-                  class="mt-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm {$transitionsBetweenQuestions.isNoisy
-                    ? 'bx-toggle-right'
-                    : 'bx-toggle-left'}"
-                />
-              </button>
-              <div class="inline-flex pl-2">{$transitionsBetweenQuestions.isNoisy ? "Son entre questions" : "Pas de son entre questions"}</div>
+            <div class="flex flex-row justify-start items-center px-4">
+              <ButtonToggle bind:value={$transitionsBetweenQuestions.isNoisy} titles={["Son entre questions", "Pas de son entre questions"]} on:click={handleTransitionSound} />
             </div>
             <FormRadio
               title="son"
@@ -809,20 +806,13 @@
             />
           </div>
           <div class="pb-6">
-            <div class="flex text-lg font-bold mb-1 text-coopmaths-struct  dark:text-coopmathsdark-struct">Ordre</div>
+            <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct">Ordre</div>
             <div class="flex flex-row justify-start items-center px-4">
-              <button type="button" on:click={handleRandomQuestionOrder}>
-                <i
-                  class="mt-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm {$questionsOrder.isQuestionsShuffled
-                    ? 'bx-toggle-right'
-                    : 'bx-toggle-left'}"
-                />
-              </button>
-              <div class="inline-flex pl-2">{$questionsOrder.isQuestionsShuffled ? "Questions dans le désordre" : "Questions dans l'ordre"}</div>
+              <ButtonToggle bind:value={$questionsOrder.isQuestionsShuffled} titles={["Questions dans le désordre", "Questions dans l'ordre"]} on:click={handleRandomQuestionOrder} />
             </div>
           </div>
           <div class="pb-6">
-            <div class="flex text-lg font-bold mb-1 text-coopmaths-struct  dark:text-coopmathsdark-struct">Choix aléatoire</div>
+            <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct">Choix aléatoire</div>
             <div class="flex flex-row justify-start items-center px-4">
               <input
                 id="checkbox-choice"
@@ -857,7 +847,7 @@
               >
             </div>
           </div>
-          <div class="flex text-lg font-bold pb-2 text-coopmaths-struct  dark:text-coopmathsdark-struct">
+          <div class="flex text-lg font-bold pb-2 text-coopmaths-struct dark:text-coopmathsdark-struct">
             Liens
             <div class="flex flex-row px-4 -mt-2 justify-start">
               <ModalActionWithDialog
@@ -889,7 +879,7 @@
                 id="checkbox-1"
                 aria-describedby="checkbox-1"
                 type="checkbox"
-                class="bg-coopmaths-canvas border-coopmaths-action text-coopmaths-action dark:bg-coopmathsdark-canvas dark:border-coopmathsdark-action dark:text-coopmathsdark-action 
+                class="bg-coopmaths-canvas border-coopmaths-action text-coopmaths-action dark:bg-coopmathsdark-canvas dark:border-coopmathsdark-action dark:text-coopmathsdark-action
                 {exercices.length == 1 || isManualModeActive
                   ? 'border-opacity-30 dark:border-opacity-30'
                   : 'border-opacity-100 dark:border-opacity-100'} focus:ring-3 focus:ring-coopmaths-action h-4 w-4 rounded"
@@ -899,7 +889,7 @@
               />
               <label
                 for="checkbox-1"
-                class="ml-3 font-medium text-coopmaths-corpus dark:text-coopmathsdark-corpus 
+                class="ml-3 font-medium text-coopmaths-corpus dark:text-coopmathsdark-corpus
                 {exercices.length == 1 || isManualModeActive ? 'text-opacity-30 dark:text-opacity-30' : 'text-opacity-100 dark:text-opacity-100'} "
               >
                 Même durée pour toutes les questions
@@ -924,7 +914,7 @@
                   </th>
                   <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct">
                     <div>Durées par question (s)</div>
-                    <div class="text-coopmaths-struct-light  dark:text-coopmathsdark-struct-light font-light text-xs">
+                    <div class="text-coopmaths-struct-light dark:text-coopmathsdark-struct-light font-light text-xs">
                       Durée diapo :<span class="font-light ml-1">{stringDureeTotale}</span>
                     </div>
                   </th>
@@ -1007,7 +997,7 @@
         <div class="flex flex-row h-full mt-6 w-full justify-center">
           <ul class="steps w-11/12" bind:this={stepsUl}>
             {#each questions[0] as question, i}
-              <li class="step step-neutral dark:step-info  {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => clickOnStep(i)} on:keydown={() => clickOnStep(i)} />
+              <li class="step step-neutral dark:step-info {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => clickOnStep(i)} on:keydown={() => clickOnStep(i)} />
             {/each}
           </ul>
         </div>
@@ -1029,7 +1019,7 @@
                   {i + 1}
                 </div>
               {/if}
-              <div id="textcell{i}" bind:this={divQuestion[i]} class="flex flex-col justify-center px-4 w-full  min-h-[100%]  max-h-[100%]">
+              <div id="textcell{i}" bind:this={divQuestion[i]} class="flex flex-col justify-center px-4 w-full min-h-[100%] max-h-[100%]">
                 {#if isQuestionVisible}
                   <div class="font-light" id="consigne{i}">{@html consignes[i][$questionsOrder.indexes[currentQuestion]]}</div>
                   <div class="py-4" id="question{i}">
@@ -1079,7 +1069,7 @@
             </button>
             <button type="button" on:click={switchPause} class:invisible={isManualModeActive}>
               <i
-                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg 
+                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg
                 {isPause ? 'bx-play' : 'bx-pause'}"
               />
             </button>
