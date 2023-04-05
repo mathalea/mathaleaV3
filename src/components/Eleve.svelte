@@ -212,7 +212,7 @@
       <!-- barre de navigation -->
       <div
         id="navigationHeaderID"
-        class="grid justify-items-center w-full mt-4 mb-8  grid-cols-{$globalOptions.presMode === 'exos' ? exercices.length : questions.length}
+        class="grid justify-items-center w-full mt-4 mb-8 grid-cols-{$globalOptions.presMode === 'exos' ? exercices.length : questions.length}
           {($globalOptions.presMode === 'exos' && !$isMenuNeededForExercises) || ($globalOptions.presMode === 'questions' && !$isMenuNeededForQuestions)
           ? 'border-b-2 border-coopmaths-struct'
           : 'border-b-0'}
@@ -284,8 +284,13 @@
     <!-- Exercices -->
     <div class="px-8">
       {#if $globalOptions.presMode === "exos"}
-        <div class="absolute top-2 right-2">
+        <!-- <div class="absolute top-2 right-2">
           <BtnZoom size="xs" />
+        </div> -->
+        <div class="fixed z-20 bottom-2 lg:bottom-6 right-2 lg:right-6 bg-coopmaths-canvas rounded-b-full rounded-t-full bg-opacity-80">
+          <div class="flex flex-col space-y-2 scale-75 lg:scale-100">
+            <BtnZoom size="md" />
+          </div>
         </div>
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <div class="flex flex-col">
@@ -315,8 +320,13 @@
           </div>
         {/each}
       {:else if $globalOptions.presMode === "page"}
-        <div class="absolute top-2 right-2">
+        <!-- <div class="absolute top-2 right-2">
           <BtnZoom size="xs" />
+        </div> -->
+        <div class="fixed z-20 bottom-2 lg:bottom-6 right-2 lg:right-6 bg-coopmaths-canvas rounded-b-full rounded-t-full bg-opacity-80">
+          <div class="flex flex-col space-y-2 scale-75 lg:scale-100">
+            <BtnZoom size="md" />
+          </div>
         </div>
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={isCorrectionVisible[i]} />

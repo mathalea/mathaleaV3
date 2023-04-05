@@ -45,18 +45,22 @@
  -->
 
 <div class="z-0 flex-1 overflow-hidden">
-  <h1 class=" text-coopmaths-struct dark:text-coopmathsdark-struct  mt-8 pb-2 flex {$isMenuNeededForExercises ? 'flex-col items-center' : 'flex-row items-center'}">
+  <h1 class=" text-coopmaths-struct dark:text-coopmathsdark-struct mt-8 pb-2 flex {$isMenuNeededForExercises ? 'flex-col items-center' : 'flex-row items-center'}">
     <!-- titre -->
-    <div class="flex flex-row justify-start items-center" id="exerciceHeader{indiceExercice}">
-      <div class="{$isMenuNeededForExercises ? 'hidden' : 'inline-flex'} items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg lg:text-normal">
+    <div class="flex flex-row justify-start items-start lg:items-center" id="exerciceHeader{indiceExercice}">
+      <div
+        class="{$isMenuNeededForExercises
+          ? 'hidden'
+          : 'inline-flex translate-y-1 lg:translate-y-0'} items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg lg:text-base"
+      >
         {indiceExercice + 1}
       </div>
-      <div class="font-light {$isMenuNeededForExercises ? 'text-3xl' : 'text-2xl'} ml-2">
+      <div class="font-light {$isMenuNeededForExercises ? 'text-3xl' : 'text-lg lg:text-2xl'} ml-2">
         {title}
       </div>
     </div>
     <!-- boutons contrôle -->
-    <div class="flex justify-start items-center {$isMenuNeededForExercises ? 'text-3xl mt-4' : 'text-2xl ml-10 mt-2'}">
+    <div class="flex justify-start items-start lg:items-center {$isMenuNeededForExercises ? 'text-3xl mt-4' : 'text-2xl ml-10 mt-2'}">
       <button class="mx-2 tooltip tooltip-right" data-tip="Nouvel énoncé" type="button" on:click={newData}>
         <i
           class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh {randomReady ? '' : 'hidden'}"
