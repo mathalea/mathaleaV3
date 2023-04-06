@@ -81,9 +81,8 @@ export function Point(arg1, arg2, arg3, positionLabel = 'above') {
    */
   // JSDOC Validee par EE Aout 2022
   this.estDansPolygone = function (p) {
-    const listeTriangles = earcut(polygoneToFlatArray(p))
-    for (let i = 0; i < listeTriangles.length; i += 3) {
-      if (this.estDansTriangle(p.listePoints[listeTriangles[i]], p.listePoints[listeTriangles[i + 1]], p.listePoints[listeTriangles[i + 2]])) return true
+    for (const triangle of p.triangulation) {
+      if (this.estDansTriangle(...triangle)) return true
     }
     return false
   }
@@ -2700,23 +2699,42 @@ export function Polygone(...points) {
     }
     return liste
   }
-  this.triangulation = function () { // retourne une liste de triangles pavant le polygone
-    const flat = polygoneToFlatArray(this)
-    const trianglesIndices = earcut(flat)
-    const triangles = []
-    for (let i = 0; i < trianglesIndices.length; i += 3) {
-      triangles.push(polygone([point(flat[trianglesIndices[i] * 2], flat[trianglesIndices[i] * 2 + 1]), point(flat[trianglesIndices[i + 1] * 2], flat[trianglesIndices[i + 1] * 2 + 1]), point(flat[trianglesIndices[i + 2] * 2], flat[trianglesIndices[i + 2] * 2 + 1])]))
+  this._triangulation = null
+  this._flat = null
+  Object.defineProperty(this, 'flat', {
+    get: () => {
+      if (this._flat === null) this._flat = polygoneToFlatArray(this)
+      return this._flat
     }
-    return triangles
-  }
-  this.aire = function () {
-    const triangles = this.triangulation()
-    let aire = 0
-    for (let i = 0; i < triangles.length; i++) {
-      aire += aireTriangle(triangles[i])
+  })
+  Object.defineProperty(this, 'triangulation', {
+    get: () => {// retourne une liste de triangles pavant le polygone
+      if (this._triangulation === null) {
+        const trianglesIndices = earcut(this.flat)
+        this._triangulation = []
+        for (let i = 0; i < trianglesIndices.length; i += 3) {
+          this._triangulation.push([point(this.flat[trianglesIndices[i] * 2], this.flat[trianglesIndices[i] * 2 + 1]), point(this.flat[trianglesIndices[i + 1] * 2], this.flat[trianglesIndices[i + 1] * 2 + 1]), point(this.flat[trianglesIndices[i + 2] * 2], this.flat[trianglesIndices[i + 2] * 2 + 1])])
+        }
+      }
+      return this._triangulation
     }
-    return aire
-  }
+  })
+  
+  this._aire = null
+  
+  Object.defineProperty(this, 'aire', {
+    get: () => {
+      if (this._aire === null) {
+        const triangles = this.triangulation
+        this._aire = 0
+        for (let i = 0; i < triangles.length; i++) {
+          this._aire += aireTriangle(triangles[i])
+        }
+      }
+      return this._aire
+    }
+  })
+  
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
@@ -3182,16 +3200,24 @@ export function PolygoneATrous({
                                }) {
   ObjetMathalea2D.call(this, {})
   const triangles = earcut(data, holes) // on crée le pavage de triangles grâce à Mapbox/earcut
-  this.triangulation = function () { // retourne la liste de triangles 2d.
-    const triangles2d = []
-    for (let i = 0, triangle; i < triangles.length; i += 3) {
-      triangle = polygone([point(data[triangles[i] * 2], data[triangles[i] * 2 + 1]), point(data[triangles[i + 1] * 2], data[triangles[i + 1] * 2 + 1]), point(data[triangles[i + 2] * 2], data[triangles[i + 2] * 2 + 1])])
-      triangle.color = colorToLatexOrHTML(color)
-      triangle.couleurDeRemplissage = colorToLatexOrHTML('none')
-      triangles2d.push(triangle)
+  
+  this._triangulation = null
+  
+  Object.defineProperty(this, 'triangulation', {
+    get: () => {// retourne la liste de triangles 2d.
+      if (this._triangulation === null) {
+        this._triangulation = []
+        for (let i = 0, triangle; i < triangles.length; i += 3) {
+          triangle = polygone([point(data[triangles[i] * 2], data[triangles[i] * 2 + 1]), point(data[triangles[i + 1] * 2], data[triangles[i + 1] * 2 + 1]), point(data[triangles[i + 2] * 2], data[triangles[i + 2] * 2 + 1])])
+          triangle.color = colorToLatexOrHTML(color)
+          triangle.couleurDeRemplissage = colorToLatexOrHTML('none')
+          this._triangulation.push(triangle)
+        }
+      }
+      return this._triangulation
     }
-    return triangles2d
-  }
+  })
+  
   const sommetsContour = [] // on crée le polygone extérieur
   for (let i = 0; i < 2 * holes[0]; i += 2) {
     sommetsContour.push(point(data[i], data[i + 1]))
@@ -3230,13 +3256,19 @@ export function PolygoneATrous({
     trouPol.couleurDeRemplissage = colorToLatexOrHTML(this.couleurDeFond)
     this.trous.push(trouPol)
   }
-  this.aire = function () { // retourne l'aire du polygone à trou
-    let aire = this.contour.aire()
-    for (let i = 0; i < this.trous.length; i++) {
-      aire -= this.trous[i].aire()
+  this._aire = null
+  Object.defineProperty(this, 'aire', {
+    get: () => {
+      if (this._aire === null) {
+        this._aire = this.contour.aire
+        for (let i = 0; i < this.trous.length; i++) {
+          this._aire -= this.trous[i].aire
+        }
+      }
+      return this._aire
     }
-    return aire
-  }
+  })
+  
   this.svg = function (coeff) {
     let code = this.contour.svg(coeff)
     for (let i = 0; i < this.trous.length; i++) {
