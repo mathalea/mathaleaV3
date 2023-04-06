@@ -5,10 +5,15 @@
 
 @media print {
   body {
-    font-size: 10px!important;
+    font-size: 10pt!important;
   }
   nav, aside, footer, .print-hidden {
     display: none!important;
+  }
+
+  div {
+    margin-top: 0pt!important;
+    margin-bottom: 0pt!important;
   }
 }
 
