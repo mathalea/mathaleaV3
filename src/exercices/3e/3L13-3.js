@@ -11,13 +11,14 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '15/02/2022'
-export const dateDeModifImportante = '05/04/2023'
+export const dateDeModifImportante = '06/04/2023'
 /**
  * @author Jean-Claude Lhote
  * Différents problèmes à résoudre.
  * Mise en équation de degré 1 à une inconnue, résolution et vérification.
  * Réf : 3L13-3
- * Ajout du choix des types de problèmes par Guillaume Valmont le 05/04/2023
+ * Ajout du choix des types de problèmes par Guillaume Valmont le 06/04/2023
+ * Ajout d'un paramètre permettant d'avoir uniquement des nombres entiers dans l'énoncé par Guillaume-Valmont le 06/04/2023
  * Date de publication 15/02/2022
  */
 export const uuid = '22412'
