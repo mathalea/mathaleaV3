@@ -3205,19 +3205,16 @@ export function href (texte, lien) {
 * @author Rémi Angot
 */
 export function texPrix (nb) {
-  // Remplace le . par la ,
   if (nb instanceof Decimal) {
     if (nb.isInteger()) return texNombre(nb, 0)
     else return texNombre(nb, 2, true)
   }
   const nombre = Number(nb)
-  let result
   if (nombre.toString() === nombre.toFixed(0)) {
-    result = nombre
+    return texNombre(nb, 0)
   } else {
-    result = nombre.toFixed(2).toString().replace('.', '{,}') // Ne gère pas l'espace des milliers
+    return texNombre(nb, 2)
   }
-  return result
 }
 
 /**
