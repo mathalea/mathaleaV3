@@ -29,6 +29,8 @@ export default class ProblemesEnEquation extends Exercice {
     this.nbQuestions = 2
     this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : basket\n2 : basket2\n3 : achats\n4 : polygone\n5 : programmes\n6 : programmes2\n7 : tarifs\n8 : spectacle\n9 : isocele\n10 : Thales\n11 : Thales2\n12 : Mélange']
     this.sup = '12'
+    this.besoinFormulaire2CaseACocher = ['Uniquement des nombres entiers']
+    this.sup2 = false
   }
 
   figureThales (a, b, c, OC) {
@@ -143,8 +145,8 @@ export default class ProblemesEnEquation extends Exercice {
         case 3: // achats
           variables = aleaVariables(
             {
-              a: 'randomInt(2,5)+randomInt(0,4)/5',
-              x: 'randomInt(2,5)+randomInt(0,1)/2',
+              a: `randomInt(2,5)${this.sup2 ? '' : '+randomInt(0,4)/5'}`,
+              x: `randomInt(2,5)${this.sup2 ? '' : '+randomInt(0,1)/2'}`,
               b: 'a*x',
               test: 'b<100 and b>5 and b%10!=0'
             }
@@ -166,8 +168,8 @@ export default class ProblemesEnEquation extends Exercice {
         case 4: // polygone
           variables = aleaVariables(
             {
-              x: 'randomInt(2,4)+randomInt(0,45)/5',
-              a: 'randomInt(2,5)+randomInt(0,45)/5',
+              x: `randomInt(2,4)${this.sup2 ? '' : '+randomInt(0,45)/5'}`,
+              a: `randomInt(2,5)${this.sup2 ? '' : '+randomInt(0,45)/5'}`,
               b: 'randomInt(2,5)',
               d: 'b*x+a'
             }
@@ -237,9 +239,9 @@ export default class ProblemesEnEquation extends Exercice {
           variables = aleaVariables(
             {
               a: 'randomInt(0,2)',
-              b: 'randomInt(50,80)/10',
+              b: this.sup2 ? 'randomInt(5,8)' : 'randomInt(50,80)/10',
               c: 'randomInt(4,10)*5',
-              d: 'b-randomInt(2,6)*0.5',
+              d: `b-${this.sup2 ? 'randomInt(1,3)' : 'randomInt(2,6)*0.5'}`,
               test: 'c/(b-d)<30 and c/(b-d)>10 and (c*2)%((b-d)*2)==0'
             }
             , { valueOf: true })
@@ -272,8 +274,8 @@ export default class ProblemesEnEquation extends Exercice {
           variables = aleaVariables(
             {
               a: 'randomInt(200,300)*10',
-              b: 'randomInt(100,200)/10',
-              c: 'randomInt(50,150)/10',
+              b: this.sup2 ? 'randomInt(10,20)' : 'randomInt(100,200)/10',
+              c: this.sup2 ? 'randomInt(5,15)' : 'randomInt(50,150)/10',
               x: 'randomInt(1000,a-500)',
               d: 'b*x+(a-x)*c',
               test: 'b>c'
