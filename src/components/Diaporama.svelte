@@ -454,7 +454,7 @@
    * @author sylvain
    */
   async function setSize() {
-    // let startSize = 0
+    let startSize = 0
     for (let i = 0; i < nbOfVues; i++) {
       if (typeof divQuestion[i] !== "undefined") {
         MathaleaRenderDiv(divQuestion[i], -1)
@@ -504,8 +504,17 @@
         const clone = textcell_div.cloneNode(true)
         //@ts-ignore
         const elementsKaTeX = clone.getElementsByClassName("katex")
+        let nbOfCharInKaTeX = 0
         while (elementsKaTeX.length > 0) {
+          const katexHtmlElement = elementsKaTeX[0].getElementsByClassName("katex-html")
+          let kw = 0
+          for (let k = 0; k < katexHtmlElement.length; k++) {
+            nbOfCharInKaTeX += katexHtmlElement[k].innerText.length
+            kw += katexHtmlElement[k].clientWidth
+          }
+          console.log("new katex width : " + kw)
           elementsKaTeX[0].parentNode.removeChild(elementsKaTeX[0])
+          console.log("char in katex : " + nbOfCharInKaTeX)
         }
         //@ts-ignore
         const elementsSVG = clone.getElementsByClassName("mathalea2d")
@@ -513,7 +522,7 @@
           elementsSVG[0].parentNode.removeChild(elementsSVG[0])
         }
         //@ts-ignore
-        let nbOfCharactersInTextDiv = clone.innerText.length
+        let nbOfCharactersInTextDiv = clone.innerText.length + nbOfCharInKaTeX
         // console.log("nb caractères : " + nbOfCharactersInTextDiv)
         if (finalSVGHeight !== 0) {
           nbOfCharactersInTextDiv -= 100
@@ -527,33 +536,40 @@
             size = size / 3
           }
         }
-        // startSize = size
-        let consigne_height, correction_height, question_height: number
+        startSize = size
+        let consigne_height, correction_height, question_height, question_width, consigne_width, correction_width: number
         do {
           size = size - 2
           if (question_div !== null) {
             question_div.style.fontSize = size + "px"
             question_height = question_div.clientHeight
+            question_width = question_div.clientWidth
           } else {
             question_height = 0
+            question_width = 0
           }
           if (consigne_div !== null) {
             consigne_div.style.fontSize = size + "px"
             consigne_height = consigne_div.clientHeight
+            consigne_width = consigne_div.clientWidth
           } else {
             consigne_height = 0
+            consigne_width = 0
           }
           if (correction_div !== null) {
             correction_div.style.fontSize = size + "px"
             correction_height = correction_div.clientHeight
+            correction_width = correction_div.clientWidth
           } else {
             correction_height = 0
+            correction_width = 0
           }
-          // console.log("question w=" + question_width + "/h=" + question_height)
-          // console.log("consigne w=" + consigne_width + "/h=" + consigne_height)
-          // console.log("correction w=" + correction_width + "/h=" + correction_height)
+          console.log("cell w=" + textcell_width + "/h=" + textcell_height)
+          console.log("question w=" + question_width + "/h=" + question_height)
+          console.log("consigne w=" + consigne_width + "/h=" + consigne_height)
+          console.log("correction w=" + correction_width + "/h=" + correction_height)
           //  question_width > textcell_width || consigne_width > textcell_width || correction_width > textcell_width ||
-        } while (question_height + consigne_height + correction_height > textcell_height)
+        } while (question_width > textcell_width || consigne_width > textcell_width || correction_width > textcell_width || question_height + consigne_height + correction_height > textcell_height)
         if (question_div !== null) {
           question_div.style.fontSize = currentZoom * size + "px"
         }
@@ -563,7 +579,7 @@
         if (correction_div !== null) {
           correction_div.style.fontSize = currentZoom * size + "px"
         }
-        // console.log("nb de caractères : " + nbOfCharactersInTextDiv + " / font-size départ : " + startSize + "font-size calculée : " + size + " / ratio : " + (1 - finalSVGHeight / textcell_height))
+        console.log("nb de caractères : " + nbOfCharactersInTextDiv + " / font-size départ : " + startSize + " / font-size calculée : " + size + " / ratio : " + (1 - finalSVGHeight / textcell_height))
       }
     }
   }
