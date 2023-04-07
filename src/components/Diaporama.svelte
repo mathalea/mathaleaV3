@@ -564,10 +564,10 @@
             correction_height = 0
             correction_width = 0
           }
-          console.log("cell w=" + textcell_width + "/h=" + textcell_height)
-          console.log("question w=" + question_width + "/h=" + question_height)
-          console.log("consigne w=" + consigne_width + "/h=" + consigne_height)
-          console.log("correction w=" + correction_width + "/h=" + correction_height)
+          // console.log("cell w=" + textcell_width + "/h=" + textcell_height)
+          // console.log("question w=" + question_width + "/h=" + question_height)
+          // console.log("consigne w=" + consigne_width + "/h=" + consigne_height)
+          // console.log("correction w=" + correction_width + "/h=" + correction_height)
           //  question_width > textcell_width || consigne_width > textcell_width || correction_width > textcell_width ||
         } while (question_width > textcell_width || consigne_width > textcell_width || correction_width > textcell_width || question_height + consigne_height + correction_height > textcell_height)
         if (question_div !== null) {
@@ -839,6 +839,24 @@
             <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct">Transitions</div>
             <div class="flex flex-row justify-start items-center px-4">
               <ButtonToggle bind:value={$transitionsBetweenQuestions.isQuestThenSolModeActive} titles={["Question <em>puis</em> correction", "Question / Question+Correction / Correction"]} />
+            </div>
+            <div class="flex flex-row justify-start items-center px-4">
+              <input
+                id="checkbox-choice"
+                aria-describedby="checkbox-choice"
+                type="checkbox"
+                class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
+                bind:checked={$transitionsBetweenQuestions.questThenQuestAndSolDisplay}
+                disabled={!$transitionsBetweenQuestions.isQuestThenSolModeActive}
+              />
+              <label
+                for="checkbox-choice"
+                class="ml-3 font-medium text-coopmaths-corpus dark:text-coopmathsdark-corpus {!$transitionsBetweenQuestions.isQuestThenSolModeActive
+                  ? 'text-opacity-30 dark:text-opacity-30'
+                  : 'text-opacity-100 dark:text-opacity-100'}"
+              >
+                Afficher la question avec la correction
+              </label>
             </div>
             <div class="flex flex-row justify-start items-center px-4">
               <ButtonToggle bind:value={$transitionsBetweenQuestions.isActive} titles={["Carton entre questions", "Pas de carton entre questions"]} on:click={handleTransitionsMode} />
