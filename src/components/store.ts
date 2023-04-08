@@ -85,6 +85,11 @@ export function updateGlobalOptionsInURL (url: URL) {
   } else {
     url.searchParams.delete('dGlobal')
   }
+  if (options.recorder) {
+    url.searchParams.append('recorder', options.recorder)
+  } else {
+    url.searchParams.delete('recorder')
+  }
   if (options.choice) {
     url.searchParams.append('choice', options.choice.toString())
   } else {

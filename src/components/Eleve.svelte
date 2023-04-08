@@ -1,7 +1,6 @@
 <script lang="ts">
   import {
     MathaleaFormatExercice,
-    MathaleaGenerateSeed,
     MathaleaHandleExerciceSimple,
     MathaleaHandleParamOfOneExercice,
     MathaleaLoadExerciceFromUuid,
@@ -206,9 +205,11 @@
   <div class="mb-auto">
     <div class="h-[10%] w-full flex flex-col justify-center items-center">
       <!-- titre de la feuille -->
-      <div class="w-full p-8 text-center text-4xl font-light bg-coopmaths-struct dark:bg-coopmathsdark-struct text-coopmaths-canvas dark:text-coopmathsdark-canvas">
+      {#if $globalOptions.title.length > 0}
+      <div class="w-full p-8 text-center text-4xl font-light {$globalOptions.recorder === 'capytale' ? 'bg-black' : 'bg-coopmaths-struct'} dark:bg-coopmathsdark-struct text-coopmaths-canvas dark:text-coopmathsdark-canvas">
         {$globalOptions.title}
       </div>
+      {/if}
       <!-- barre de navigation -->
       <div
         id="navigationHeaderID"

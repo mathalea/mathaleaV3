@@ -27,9 +27,7 @@
         selectedCount += 1
       }
     }
-    // selectedCount = listeCodes.filter(isPresent).length
     selectedCount = selectedCount
-    console.log("liste: " + listeCodes + " / selectedCount = " + selectedCount)
   }
   /**
    * Ajouter l'exercice courant à la liste
