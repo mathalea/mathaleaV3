@@ -770,7 +770,10 @@ export default function SujetCAN2023Sixieme () {
 
           reponse = a * b
           texte = ` $${a}\\times ${b}$`
-          texteCorr = `$${a}\\times ${b}=${a}\\times ${texNombre(b / 100)}\\times 100=${miseEnEvidence(texNombre(reponse))}$`
+          texteCorr = `$\\begin{aligned}
+          ${a}\\times ${b}&=${a}\\times ${texNombre(b / 100)}\\times 100\\\\
+          &=${miseEnEvidence(texNombre(reponse))}
+                         \\end{aligned}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += '$=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
