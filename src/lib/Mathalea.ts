@@ -259,6 +259,7 @@ export function MathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
   let trans = false
   let title = 'Exercices'
   let recorder: 'capytale'|'moodle'|'labomep'|'anki'
+  let done
   let choice, sound, es
   let presMode: 'page'|'exos'|'liste'|'questions' = 'page'
   let setInteractive = '2'
@@ -312,6 +313,8 @@ export function MathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
       if (entry[1] === 'capytale' || entry[1] === 'moodle' || entry[1] === 'labomep' || entry[1] === 'anki') {
         recorder = entry[1]
       }
+    } else if (entry[0] === 'done' && entry[1] === '1') {
+      done = '1'
     } else if (entry[0] === 'z') {
       z = entry[1]
     } else if (entry[0] === 'dGlobal') {
@@ -362,7 +365,8 @@ export function MathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
     setInteractive,
     isSolutionAccessible,
     isInteractiveFree,
-    recorder
+    recorder,
+    done
   }
 }
 

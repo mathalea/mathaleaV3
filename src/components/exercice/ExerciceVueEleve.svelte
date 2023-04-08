@@ -9,6 +9,7 @@
   import { MathaleaFormatExercice, MathaleaGenerateSeed, MathaleaHandleExerciceSimple, MathaleaRenderDiv, MathaleaUpdateUrlFromExercicesParams } from "../../lib/Mathalea"
   import { exercicesParams, isMenuNeededForExercises } from "../store"
   import HeaderExerciceVueEleve from "./HeaderExerciceVueEleve.svelte"
+  import type { MathfieldElement } from "mathlive"
   export let exercice: TypeExercice
   export let indiceExercice: number
   export let isCorrectionVisible = false
@@ -56,6 +57,23 @@
     document.addEventListener("setAllInteractif", setAllInteractif)
     document.addEventListener("removeAllInteractif", removeAllInteractif)
     updateDisplay()
+    setTimeout(()=>{
+      if ($globalOptions.done === '1') {
+        const fields = document.querySelectorAll('math-field')
+        fields.forEach(field=> {
+          field.setAttribute('disabled', 'true')
+        })
+        // for (let i = 0; i < fields.length; i++) {
+        //   if ($globalOptions.answers[i] !== undefined) {
+        //     const field = document.querySelector(`#champTexteEx${indiceExercice}Q${i}`) as MathfieldElement
+        //     if (field !== null && $globalOptions.answers[i]) {
+        //       field.setValue($globalOptions.answers[i])
+        //     }
+        //   }
+        // }
+        buttonScore.click()
+      }
+    }, 1000)
   })
 
   afterUpdate(async () => {
@@ -109,12 +127,19 @@
     MathaleaUpdateUrlFromExercicesParams($exercicesParams)
   }
 
-  function verifExercice() {
+  function verifExerciceVueEleve() {
     isCorrectionVisible = true
     resultsByExercice.update((l) => {
-      l[exercice.numeroExercice] = exerciceInteractif(exercice, divScore, buttonScore)
+      l[exercice.numeroExercice] = {
+        uuid : exercice.uuid,
+        title: exercice.titre,
+        alea: exercice.seed,
+        answers: exercice.answers,
+        ...exerciceInteractif(exercice, divScore, buttonScore)
+      }
       return l
     })
+    console.log($resultsByExercice)
   }
 
   function initButtonScore() {
@@ -309,7 +334,7 @@
         </div>
       </article>
       {#if isInteractif && !isCorrectionVisible}
-        <button type="submit" on:click={verifExercice} bind:this={buttonScore}>Vérifier les réponses</button>
+        <button type="submit" on:click={verifExerciceVueEleve} bind:this={buttonScore}>Vérifier les réponses</button>
       {/if}
       <div bind:this={divScore} />
     </div>

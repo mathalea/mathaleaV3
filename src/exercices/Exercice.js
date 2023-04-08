@@ -106,6 +106,8 @@ export default function Exercice () {
 
   this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
 
+  this.answers = [] // Stockage des réponses des élèves pour les envoyer à un serveur qui les enregistrera (Moodle, Capytale, LaboMep...)
+
   /**
      * Compare chaque nouvelle version d'un exercice aux précédentes pour s'assurer de ne pas avoir deux exercices identiques
      * @param {int} i indice de la question
