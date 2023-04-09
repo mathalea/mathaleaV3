@@ -190,6 +190,7 @@
               placeholder={exercice.nbQuestions.toString()}
               bind:value={nbQuestionsModif[i]}
             />
+            <span>{exercice.amcReady ? exercice.amcType : 'not amcReady'}</span>
             <button
               class="mx-2 tooltip tooltip-left"
               data-tip="Nouvel énoncé"
@@ -202,22 +203,22 @@
                 MathaleaUpdateUrlFromExercicesParams()
               }}><i
               class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh"/>
-            </button
-            >
-            <button
-              class="tooltip tooltip-left tooltip-neutral"
-              data-tip="Changer les paramètres de l'exercice"
-              type="button"
-              on:click={() => {
-   isSettingsVisible[i] = !isSettingsVisible[i]
- }}
-            >
-              <i
-                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {isSettingsVisible
-       ? 'bxs-cog'
-       : 'bx-cog'}"
-              />
             </button>
+            <!-- <button
+               class="tooltip tooltip-left tooltip-neutral"
+               data-tip="Changer les paramètres de l'exercice"
+               type="button"
+               on:click={() => {
+    isSettingsVisible[i] = !isSettingsVisible[i]
+  }}
+             >
+               <i
+                 class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {isSettingsVisible
+        ? 'bxs-cog'
+        : 'bx-cog'}"
+               />
+             </button>
+             -->
             <div class="{isSettingsVisible[i] ? 'flex': 'hidden'} flex-col ...">
               <SettingsAmc {exercice}/>
             </div>
@@ -241,7 +242,7 @@
     <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10 mt-8">
       <ModalActionWithDialog
         dialogId="latexCopy"
-        message="Le code LaTeX a été copier dans le presse papier"
+        message="Le code LaTeX a été copié dans le presse-papier"
         messageError="Impossible de copier le code dans le presse-papier !"
         on:display={() => {
           copyLaTeXCodeToClipBoard("latexCopy")
