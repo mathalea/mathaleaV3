@@ -33,20 +33,14 @@ export default function CalculEffectifFrequence () {
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.video = 'https://youtu.be/GWDDay-mdVA' // Id YouTube ou url
   this.correctionDetailleeDisponible = false
-  // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
 
   this.sup = 1 // A décommenter : valeur par défaut d'un premier paramètre
-  //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
-  //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
-
-  // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
   this.nouvelleVersion = function () {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
 
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
-    // let listeTypeDeQuestions_disponibles= [];
     const lstQuadri = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']
     const lstOiseaux = ['hérons', 'marabouts', 'flamants roses', 'cigognes', 'grues', 'vautours']
     const nbAnimaux = 4 + parseInt(this.sup) // nombre d'animaux différents dans l'énoncé (entre 5 et 7)
@@ -84,16 +78,6 @@ export default function CalculEffectifFrequence () {
     texte += '). '
 
     texte += 'Voici un diagramme en barres qui donne le nombre d\'individus pour chaque espèce.<br>'
-    texte += numAlpha(0) + ' Quel est l\'effectif des ' + lstAnimauxExo[0] + ' ?<br>'
-    texte += ajouteChampTexteMathLive(this, 1)
-    texte += numAlpha(1) + ' Calculer la fréquence des ' + lstAnimauxExo[1] + '. Donner le résultat sous la forme d\'un pourcentage.<br>'
-    texte += ajouteChampTexteMathLive(this, 2)
-    texte += numAlpha(2) + ' Calculer l\'effectif des quadrupèdes. <br>'
-    texte += ajouteChampTexteMathLive(this, 3)
-    texte += numAlpha(3) + ' Calculer la fréquence des oiseaux. Donner le résultat sous la forme d\'un pourcentage.<br>'
-    texte += ajouteChampTexteMathLive(this, 4)
-
-    texte += 'Les pourcentages seront arrondis, si besoin, à 0,1% près. <br>'
 
     const coef = 1
 
@@ -117,6 +101,15 @@ export default function CalculEffectifFrequence () {
       lstElementGraph.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: 1 / coef }))
     }
     texte += '<br>' + mathalea2d({ xmin: -5, xmax: 11, ymin: -4, ymax: 12, pixelsParCm: 30, scale: 1 }, r, lstElementGraph)
+
+    texte += numAlpha(0) + ' Quel est l\'effectif des ' + lstAnimauxExo[0] + ' ?'
+    texte += ajouteChampTexteMathLive(this, 1, 'largeur25 inline') + '<br>'
+    texte += numAlpha(1) + ' Calculer la fréquence des ' + lstAnimauxExo[1] + '. Donner le résultat sous la forme d\'un pourcentage arrondi, si besoin, à 0,1% près.'
+    texte += ajouteChampTexteMathLive(this, 2, 'largeur25 inline') + '<br>'
+    texte += numAlpha(2) + ' Calculer l\'effectif des quadrupèdes.'
+    texte += ajouteChampTexteMathLive(this, 3, 'largeur25 inline') + '<br>'
+    texte += numAlpha(3) + ' Calculer la fréquence des oiseaux. Donner le résultat sous la forme d\'un pourcentage arrondis, si besoin, à 0,1% près.'
+    texte += ajouteChampTexteMathLive(this, 4, 'largeur25 inline') + '<br>'
 
     // début de la correction
     // question 1
@@ -142,6 +135,7 @@ export default function CalculEffectifFrequence () {
     texteCorr += stringNombre(lstNombresAnimaux[1] / Ntotal, 3) + '. <br>'
     texteCorr += texteGras('La fréquence des ' + lstAnimauxExo[1] + ' est donc : ' + stringNombre(100 * lstNombresAnimaux[1] / Ntotal, 1) + '%. <br>')
     setReponse(this, 2, [calcul(100 * lstNombresAnimaux[1] / Ntotal, 1), `${calcul(100 * lstNombresAnimaux[1] / Ntotal, 1)}\\%`])
+    texte += calcul(100 * lstNombresAnimaux[1] / Ntotal, 1)
     // question 3
     texteCorr += numAlpha(2) + ' On fait la somme des effectifs de chaque espèce de quadrupèdes : '
     let NTotalQuadri = lstNombresAnimaux[0]
