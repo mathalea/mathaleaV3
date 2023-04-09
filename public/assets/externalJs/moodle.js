@@ -37,6 +37,13 @@ if (typeof window.iMathAlea === 'undefined') {
 
     // Appelé lorsque l'élément est inséré dans le DOM
     connectedCallback() {
+      let VERSION
+      if (this.getAttribute('url')) {
+        VERSION = 3
+      } else {
+        VERSION = 2
+      }
+
       // Si l'attribut serveur est défini, on l'utilise (url non vérifiée / sécurisée)
       // Sinon on utilise l'url du script actuel récupérée soit via
       // document.currentScript si le fichier n'est pas appelé en mode module
@@ -90,7 +97,13 @@ if (typeof window.iMathAlea === 'undefined') {
       const addIframe = () => {
         iframe.setAttribute('width', '100%')
         iframe.setAttribute('height', '400')
-        iframe.setAttribute('src', SERVEUR_URL + '/mathalea.html?ex=' + this.getAttribute('ex') + ',i=1&v=' + (this.getAttribute('correction') === null ? 'exMoodle' : 'correctionMoodle') + '&z=1&iMoodle=' + iMoodle + '&serie=' + questionSeed + (typeof answer !== 'undefined' ? '&moodleJson=' + answer : ''))
+        if (VERSION === 3) {
+          // todo : gérer la graine
+          // todo : masquage de l'énoncé en cas de correction
+          iframe.setAttribute('src', SERVEUR_URL + '/?' + this.getAttribute('url') + '&v=' + (this.getAttribute('correction') === null ? 'plugin' : 'pluginCorrection') + '&recorder=moodle&iframe=' + iMoodle + (typeof answer !== 'undefined' ? '&reponses=' + answer : ''))
+        } else {
+          iframe.setAttribute('src', SERVEUR_URL + '/mathalea.html?ex=' + this.getAttribute('ex') + ',i=1&v=' + (this.getAttribute('correction') === null ? 'exMoodle' : 'correctionMoodle') + '&z=1&iMoodle=' + iMoodle + '&serie=' + questionSeed + (typeof answer !== 'undefined' ? '&moodleJson=' + answer : ''))
+        }
         iframe.setAttribute('frameBorder', '0')
         iframe.setAttribute('allow', 'fullscreen')
         shadow.appendChild(iframe)
