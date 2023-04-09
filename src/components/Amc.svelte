@@ -179,7 +179,7 @@
       </div>
       <div>
         <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre de questions
-          par groupe (séparés par des virgules)
+          par groupe
         </div>
         {#each exercices as exercice, i}
           <div>
