@@ -119,6 +119,11 @@ if (typeof window.iMathAlea === 'undefined') {
       } else {
         // L'élève a répondu, on attend que la page charge pour récupérer ses réponses
         document.addEventListener('DOMContentLoaded', () => { // facultatif si le fichier est importé en mode module car l'exécution du script est deferred
+          if (VERSION === 3) {
+            // En v3 la correction est mélangée à l'énoncé. On masque la question (qui contient l'énoncé)
+            // pour ne garder que la réponse (qui contient l'énoncé et la correction).
+            questionDiv.querySelector('.formulation ').style.display = 'none'
+          }
           answer = questionDiv.querySelector('[name$="_answer"]').value
           answer = answer.substring(answer.indexOf('|') + 1)
           answer = encodeURIComponent(answer)
