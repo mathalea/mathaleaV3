@@ -100,7 +100,7 @@ if (typeof window.iMathAlea === 'undefined') {
         if (VERSION === 3) {
           // todo : gérer la graine
           // todo : masquage de l'énoncé en cas de correction
-          iframe.setAttribute('src', SERVEUR_URL + '/?' + this.getAttribute('url') + '&v=' + (this.getAttribute('correction') === null ? 'plugin' : 'pluginCorrection') + '&recorder=moodle&iframe=' + iMoodle + (typeof answer !== 'undefined' ? '&reponses=' + answer : ''))
+          iframe.setAttribute('src', SERVEUR_URL + '/?' + this.getAttribute('url') + '&v=eleve&recorder=moodle&titre=&iframe=' + iMoodle + (this.getAttribute('correction') === null ? '&done=1' : '') + (typeof answer !== 'undefined' ? '&reponses=' + answer : ''))
         } else {
           iframe.setAttribute('src', SERVEUR_URL + '/mathalea.html?ex=' + this.getAttribute('ex') + ',i=1&v=' + (this.getAttribute('correction') === null ? 'exMoodle' : 'correctionMoodle') + '&z=1&iMoodle=' + iMoodle + '&serie=' + questionSeed + (typeof answer !== 'undefined' ? '&moodleJson=' + answer : ''))
         }
