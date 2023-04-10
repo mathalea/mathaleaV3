@@ -30,7 +30,7 @@ import Exercice from '../Exercice.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCOpenNum'
+export const amcType = 'AMCHybride'
 export const titre = 'Calculer un angle dans un triangle rectangle en utilisant la trigonométrie'
 
 /**
@@ -94,24 +94,21 @@ export default function CalculDAngle () {
           ab = arrondi(randint(40, (bc - 2) * 10) / 10, 1)
           angleABC = Math.round(Math.acos(ab / bc) * 180 / Math.PI)
           ac = bc * Math.sin(Math.acos(ab / bc))
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,${mEp} $${nom[1] + nom[2]}=${texNombre2(bc)}$ cm et $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm.<br>`
-          texte += `Calculer $\\widehat{${nom}}$ à $1 \\degree$ près.`
+          texte += `Le triangle $${nom}$ rectangle en $${nom[0]}$ est tel que ${mEp} $${nom[1] + nom[2]}=${texNombre2(bc)}$ cm et $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm.<br>`
           break
         case 'Asin':
           bc = randint(100, 150) / 10
           ac = randint(40, (bc - 2) * 10) / 10
           angleABC = Math.round(Math.asin(ac / bc) * 180 / Math.PI)
           ab = bc * Math.cos(Math.asin(ac / bc))
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,${mEp} $${nom[1] + nom[2]}=${texNombre2(bc)}$ cm et $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
-          texte += `Calculer $\\widehat{${nom}}$ à $1 \\degree$ près.`
+          texte += `Le triangle $${nom}$ rectangle en $${nom[0]}$ est tel que ${mEp} $${nom[1] + nom[2]}=${texNombre2(bc)}$ cm et $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
           break
         case 'Atan':
           ab = randint(40, 100) / 10
           ac = randint(40, 100) / 10
           angleABC = Math.round(Math.atan(ac / ab) * 180 / Math.PI)
           bc = ab / Math.cos(Math.atan(ac / ab))
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,${mEp} $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm et  $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
-          texte += `Calculer $\\widehat{${nom}}$ à $1 \\degree$ près.`
+          texte += `Le triangle $${nom}$ rectangle en $${nom[0]}$ est tel que ${mEp} $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm et  $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
           break
       }
 
@@ -234,18 +231,19 @@ export default function CalculDAngle () {
         scale: 0.5,
         mainlevee: false
       }
-      if (!context.isHtml && this.sup) {
+
+      if (!context.isHtml && this.sup && !context.isAmc) {
         texte += '\\begin{minipage}{.4\\linewidth}\n'
       }
       if (this.sup) {
         texte += mathalea2d(paramsEnonce, objetsEnonce) + '<br>'
       }
       if (this.correctionDetaillee) {
-        if (!context.isHtml) texteCorr += '\\begin{minipage}{.5\\linewidth}\n'
+        if (!context.isHtml && !context.isAmc) texteCorr += '\\begin{minipage}{.5\\linewidth}\n'
         texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + '<br>'
-        if (!context.isHtml) texteCorr += '\n\\end{minipage}\n'
+        if (!context.isHtml && !context.isAmc) texteCorr += '\n\\end{minipage}\n'
       }
-      if (!context.isHtml && this.sup) {
+      if (!context.isHtml && this.sup && !context.isAmc) {
         texte += '\n\\end{minipage}\n'
       }
       if (this.correctionDetaillee && !context.isHtml) texteCorr += '\\begin{minipage}{.5\\linewidth}\n'
@@ -275,17 +273,48 @@ export default function CalculDAngle () {
       }
       if (this.correctionDetaillee && !context.isHtml) texteCorr += '\n\\end{minipage}\n'
 
-      /*****************************************************/
+      texte += `Calculer $\\widehat{${nom}}$`
+
       // Pour AMC
       if (context.isAmc) {
         this.autoCorrection[i] = {
-          enonce: texte,
-          propositions: [{ texte: texteCorr, statut: 4, feedback: '' }],
-          reponse: { valeur: angleABC.toString(), param: { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0 } }
+          enonce: '',
+          enonceAvant: false,
+          propositions: [
+            {
+              type: 'AMCOpen',
+              propositions: [{
+                enonce: texte + '.',
+                texte: texteCorr,
+                statut: 4,
+                pointilles: true
+              }]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: `Valeur de l'angle $\\widehat{${nom}}$, arrondie à 1$\\degree$ près : `,
+                  valeur: [angleABC],
+                  alignement: 'center',
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            }
+          ]
         }
       } else if (this.interactif && context.isHtml) {
         setReponse(this, i, angleABC)
       }
+      texte += ' à $1 \\degree$ près.'
+
       texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' °' })
       /****************************************************/
       if (this.questionJamaisPosee(i, nom, choixRapportTrigo)) {
