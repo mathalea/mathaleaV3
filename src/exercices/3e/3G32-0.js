@@ -1174,7 +1174,7 @@ export default function ProblemesTrigoLongueur () {
           break
       }
       if (context.isAmc) {
-        enonceAMC = this.nbQuestions > 1 ? '\\begin{Large}\\textbf{Problème n° ' + (i + 1) + '}\\end{Large}' : 'Peu importe'
+        // enonceAMC = this.nbQuestions > 1 ? '\\begin{Large}\\textbf{Problème n° ' + (i + 1) + '}\\end{Large}' : 'Peu importe'
         this.autoCorrection[i] = {
           enonce: enonceAMC,
           enonceCentre: true,
