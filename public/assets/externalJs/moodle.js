@@ -6,6 +6,17 @@ if (typeof window.iMathAlea === 'undefined') {
   window.iMathAlea = []
 
   window.addEventListener('message', (event) => {
+    if (event.data.action !== 'undefined' && event.data.action === 'mathalea:init') {
+      if (typeof event.data.iframe !== 'undefined' && typeof window.iMathAlea[event.data.iframe] !== 'undefined') {
+        const iframe = window.iMathAlea[event.data.iMoodle].iframe
+        const question = window.iMathAlea[event.data.iMoodle].question
+        let hauteur = event.data.hauteurExercice
+        if (typeof hauteur !== 'undefined') {
+          hauteur += 50
+          iframe.setAttribute('height', hauteur.toString())
+        }
+      }
+    }
     if (typeof event.data.iMoodle === 'number' && typeof window.iMathAlea[event.data.iMoodle] !== 'undefined') {
       const iframe = window.iMathAlea[event.data.iMoodle].iframe
       const question = window.iMathAlea[event.data.iMoodle].question
