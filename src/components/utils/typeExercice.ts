@@ -79,6 +79,7 @@ class Exercice {
   content?: string // Pour les exercices statiques
   contentCorr?: string // Pour les exercices statiques
   comment?: string // Commentaire facultatif de l'auteur de l'exercice
+  answers?: string[]
   applyNewSeed: () => void
 }
 
