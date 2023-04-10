@@ -78,7 +78,7 @@ export default function CalculDAngleFigureComplexe () {
       const BAC = Math.round(angle(B, A, C))
       let AC = BA / Math.cos(radians(BAC))
       let ACD = Math.round(degres(Math.atan(AD / AC)))
-      let a1 = afficheMesureAngle(B, A, C, 'black', 1, BAC + '\\degree')
+      let a1 = afficheMesureAngle(B, A, C, 'black', 1, BAC + '°')
       const a2 = afficheLongueurSegment(A, B)
       const a3 = afficheLongueurSegment(D, A)
       const a4 = afficheLongueurSegment(A, C)
@@ -121,8 +121,8 @@ export default function CalculDAngleFigureComplexe () {
             }, t1, t2c, c1, c2, a3, a4, a5, labels, texte3, texte4)
           }
           texteCorr += `<br>$${C.nom + A.nom + D.nom}$ est rectangle en $${A.nom}$ donc $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)=\\dfrac{${A.nom + D.nom}}{${A.nom + C.nom}}\\quad$ `
-          texteCorr += `soit $\\quad\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\quad$ et $\\quad\\widehat{${A.nom + C.nom + D.nom}}\\approx\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${ACD}$\\degree.`
-          texteCorr += `<br>La somme des angles d'un triangle est égale à 180\\degree donc $\\widehat{${B.nom + C.nom + A.nom}}=180\\degree-90\\degree-${BAC}\\degree=${90 - BAC}\\degree$.`
+          texteCorr += `soit $\\quad\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\quad$ et $\\quad\\widehat{${A.nom + C.nom + D.nom}}\\approx\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${ACD}\\degree$.`
+          texteCorr += `<br>La somme des angles d'un triangle est égale à $180\\degree$ donc $\\widehat{${B.nom + C.nom + A.nom}}=180\\degree-90\\degree-${BAC}\\degree=${90 - BAC}\\degree$.`
           texteCorr += `<br>De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180\\degree-90\\degree-${ACD}\\degree$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${90 - ACD}\\degree$.`
           texte += this.interactif ? '<br><br>Les valeurs d\'angle seront arrondis au degré près.' : ''
           if (this.interactif) {
