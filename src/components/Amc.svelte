@@ -1,7 +1,11 @@
 <script lang="ts">
   import {creerDocumentAmc} from "../lib/amc/creerDocumentAmc.js"
   import {context} from "../modules/context.js"
-  import {MathaleaGetExercicesFromParams, MathaleaUpdateExercicesParamsFromUrl} from "../lib/Mathalea"
+  import {
+    MathaleaGetExercicesFromParams,
+    MathaleaHandleExerciceSimple,
+    MathaleaUpdateExercicesParamsFromUrl
+  } from "../lib/Mathalea"
   import Footer from "./Footer.svelte"
   import {darkMode, exercicesParams} from "./store"
   import type TypeExercice from "./utils/typeExercice"
@@ -43,6 +47,7 @@
       context.isHtml = false
       context.isAmc = true
       seedrandom(exercice.seed, {global: true})
+      if (exercice.typeExercice === "simple") MathaleaHandleExerciceSimple(exercice, false)
       exercice.nouvelleVersion()
     }
   }
@@ -68,6 +73,7 @@
           context.isHtml = false
           context.isAmc = true
           seedrandom(exo.seed, {global: true})
+          if (exo.typeExercice === "simple") MathaleaHandleExerciceSimple(exo, false)
           exo.nouvelleVersion()
         }
       }
