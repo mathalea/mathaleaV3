@@ -162,6 +162,13 @@
       MathaleaRenderDiv(document.querySelector<HTMLElement>("section"))
       loadMathLive()
     }
+    let hauteurExercice = window.document.querySelector('section').scrollHeight
+        window.parent.postMessage({ hauteurExercice, exercicesParams: $exercicesParams }, '*')
+        // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
+        setTimeout(() => {
+          hauteurExercice = window.document.querySelector('section').scrollHeight
+          window.parent.postMessage({ hauteurExercice, exercicesParams: $exercicesParams }, '*')
+        }, 1000)
   }
 
   async function checkQuestion(i: number) {
