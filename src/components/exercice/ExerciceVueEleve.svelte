@@ -139,11 +139,7 @@
       }
       return l
     })
-    if ($globalOptions.recorder === 'moodle') {
-      window.parent.postMessage({ resultsByExercice: $resultsByExercice[0] }, '*')
-    } else {
-      window.parent.postMessage({ resultsByExercice: $resultsByExercice }, '*')
-    }
+      window.parent.postMessage({ resultsByExercice: $resultsByExercice, action: 'mathalea:score' }, '*')
   }
 
   function initButtonScore() {

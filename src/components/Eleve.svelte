@@ -163,11 +163,11 @@
       loadMathLive()
     }
     let hauteurExercice = window.document.querySelector('section').scrollHeight
-        window.parent.postMessage({ hauteurExercice, exercicesParams: $exercicesParams }, '*')
+        window.parent.postMessage({ hauteurExercice, exercicesParams: $exercicesParams, action: 'mathalea:init' }, '*')
         // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
         setTimeout(() => {
           hauteurExercice = window.document.querySelector('section').scrollHeight
-          window.parent.postMessage({ hauteurExercice, exercicesParams: $exercicesParams }, '*')
+          window.parent.postMessage({ hauteurExercice, action: 'mathalea:resize' }, '*')
         }, 1000)
   }
 
