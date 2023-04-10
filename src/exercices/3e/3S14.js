@@ -1,5 +1,5 @@
-import {setReponse} from "../../modules/gestionInteractif.js";
-import {ajouteChampTexteMathLive} from "../../modules/interactif/questionMathLive.js";
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import {
   arrondi,
   choice,
@@ -13,12 +13,13 @@ import {
   tirerLesDes,
   unMoisDeTemperature
 } from '../../modules/outils.js'
-import {OutilsStats} from '../../modules/outilsStat.js'
+import { OutilsStats } from '../../modules/outilsStat.js'
 import Exercice from '../Exercice.js'
 
 export const titre = 'Calculer des caractéristiques d\'une série'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDeModifImportante = '10/04/2023'
 
 /**
  * Calculer des caractéristiques d'une série (moyenne, médiane ou étendue)
@@ -28,7 +29,7 @@ export const interactifType = 'mathLive'
 export const uuid = 'b8afd'
 export const ref = '3S14'
 
-export default function CalculerCaracteristiques() {
+export default function CalculerCaracteristiques () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady
@@ -39,14 +40,14 @@ export default function CalculerCaracteristiques() {
   this.spacingCorr = 1
   this.nbColsCorr = 1
   this.nbCols = 1
-  this.sup = '4'
-  this.sup2 = '4'
+  this.sup = 7
+  this.sup2 = 4
   this.listePackages = 'bclogo'
-  
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    
+
     let questionsDisponibles = []
     if (!this.sup) { // Si aucune liste n'est saisie
       questionsDisponibles = rangeMinMax(1, 5)
@@ -72,7 +73,7 @@ export default function CalculerCaracteristiques() {
         questionsDisponibles = combinaisonListesSansChangerOrdre(questionsDisponibles, this.nbQuestions)
       }
     }
-    
+
     let typeQuestions = []
     if (!this.sup2) { // Si aucune liste n'est saisie
       typeQuestions = rangeMinMax(1, 3)
@@ -96,7 +97,7 @@ export default function CalculerCaracteristiques() {
       }
     }
     const listePairOuImpair = combinaisonListes(['pair', 'impair'], this.nbQuestions)
-    
+
     for (let i = 0, cpt = 0, texte, texteCorr; i < this.nbQuestions && cpt < 50; cpt++) {
       const nbReponse = typeQuestions.length
       texte = ''
@@ -112,7 +113,9 @@ export default function CalculerCaracteristiques() {
             } else {
               return accumulator
             }
-          }, 0) % 2 === 1 ? 1 : 2
+          }, 0) % 2 === 1
+            ? 1
+            : 2
           // const nombreDes = randint(1, 2)
           const nombreFaces = choice([4, 6, 8, 10])
           let nombreTirages
@@ -130,7 +133,7 @@ export default function CalculerCaracteristiques() {
               texte += '<br>' + numAlpha(questind) + 'Calculer la moyenne des lancers arrondie au dixième.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline')
               const [, somme] = OutilsStats.computeMoyenneTirages2D(tirages)
               repMoyenne = arrondi(somme / nombreTirages, 1)
-              setReponse(this, i * nbReponse + questind, repMoyenne, {formatInteractif: 'calcul'})
+              setReponse(this, i * nbReponse + questind, repMoyenne, { formatInteractif: 'calcul' })
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(tirages, somme, nombreTirages, 'lancers')
             } else if (typeQuestions[k] === 2) {
               // médiane
@@ -138,14 +141,14 @@ export default function CalculerCaracteristiques() {
               const [scoresMedians, medianeCorr] = OutilsStats.computeMedianeTirages2D(nombreTirages, tirages)
               if (scoresMedians.length === 1) {
                 repMediane = medianeCorr
-                setReponse(this, i * nbReponse + questind, repMediane, {formatInteractif: 'calcul'})
+                setReponse(this, i * nbReponse + questind, repMediane, { formatInteractif: 'calcul' })
               } else {
                 if (scoresMedians[0] === scoresMedians[1]) {
                   repMediane = scoresMedians[0]
-                  setReponse(this, i * nbReponse + questind, repMediane, {formatInteractif: 'calcul'})
+                  setReponse(this, i * nbReponse + questind, repMediane, { formatInteractif: 'calcul' })
                 } else {
                   repMediane = [...scoresMedians]
-                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1] - 0.00000001], {formatInteractif: 'intervalle'})
+                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1] - 0.00000001], { formatInteractif: 'intervalle' })
                 }
               }
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeTirages2D(nombreTirages, medianeCorr, scoresMedians, tirages)
@@ -154,7 +157,7 @@ export default function CalculerCaracteristiques() {
               texte += '<br>' + numAlpha(questind) + 'Calculer l\'étendue des lancers.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline')
               const [min, max] = [tirages[0][0], tirages[tirages.length - 1][0]]
               repEtendue = max - min
-              setReponse(this, i * nbReponse + questind, repEtendue, {formatInteractif: 'calcul'})
+              setReponse(this, i * nbReponse + questind, repEtendue, { formatInteractif: 'calcul' })
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'lancer')
             }
           }
@@ -177,7 +180,7 @@ export default function CalculerCaracteristiques() {
               texte += '<br>' + numAlpha(questind) + 'Calculer la moyenne de ces notes arrondie au dixième.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline')
               const [, somme] = OutilsStats.computeMoyenne(notes)
               repMoyenne = arrondi(somme / nombreNotes, 1)
-              setReponse(this, i * nbReponse + questind, repMoyenne, {formatInteractif: 'calcul'})
+              setReponse(this, i * nbReponse + questind, repMoyenne, { formatInteractif: 'calcul' })
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(notes, somme, nombreNotes)
             } else if (typeQuestions[k] === 2) {
               // médiane
@@ -185,14 +188,14 @@ export default function CalculerCaracteristiques() {
               const [mediane, medianeCorr] = OutilsStats.computeMediane(notes)
               if (!Array.isArray(mediane)) {
                 repMediane = mediane
-                setReponse(this, i * nbReponse + questind, repMediane, {formatInteractif: 'calcul'})
+                setReponse(this, i * nbReponse + questind, repMediane, { formatInteractif: 'calcul' })
               } else {
                 if (mediane[0] === mediane[1]) {
                   repMediane = mediane[0]
-                  setReponse(this, i * nbReponse + questind, repMediane, {formatInteractif: 'calcul'})
+                  setReponse(this, i * nbReponse + questind, repMediane, { formatInteractif: 'calcul' })
                 } else {
                   repMediane = [...mediane]
-                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1] - 0.00000001], {formatInteractif: 'intervalle'})
+                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1] - 0.00000001], { formatInteractif: 'intervalle' })
                 }
               }
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeNotes(notes, medianeCorr, mediane)
@@ -201,7 +204,7 @@ export default function CalculerCaracteristiques() {
               texte += '<br>' + numAlpha(questind) + 'Calculer l\'étendue de ces notes.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline')
               const [min, max] = OutilsStats.computeEtendue(notes)
               repEtendue = max - min
-              setReponse(this, i * nbReponse + questind, repEtendue, {formatInteractif: 'calcul'})
+              setReponse(this, i * nbReponse + questind, repEtendue, { formatInteractif: 'calcul' })
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max)
             }
           }
@@ -232,7 +235,7 @@ export default function CalculerCaracteristiques() {
               texte += '<br>' + numAlpha(questind) + 'Calculer la moyenne des températures arrondie au dixième.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline')
               const [, somme] = OutilsStats.computeMoyenne(temperatures)
               repMoyenne = arrondi(somme / temperatures.length, 1)
-              setReponse(this, i * nbReponse + questind, repMoyenne, {formatInteractif: 'calcul'})
+              setReponse(this, i * nbReponse + questind, repMoyenne, { formatInteractif: 'calcul' })
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(temperatures, somme, temperatures.length, 'températures')
             } else if (typeQuestions[k] === 2) {
               // médiane
@@ -240,14 +243,14 @@ export default function CalculerCaracteristiques() {
               const [mediane, medianeCorr] = OutilsStats.computeMediane(temperatures)
               if (!Array.isArray(mediane)) {
                 repMediane = mediane
-                setReponse(this, i * nbReponse + questind, repMediane, {formatInteractif: 'calcul'})
+                setReponse(this, i * nbReponse + questind, repMediane, { formatInteractif: 'calcul' })
               } else {
                 if (mediane[0] === mediane[1]) {
                   repMediane = mediane[0]
-                  setReponse(this, i * nbReponse + questind, repMediane, {formatInteractif: 'calcul'})
+                  setReponse(this, i * nbReponse + questind, repMediane, { formatInteractif: 'calcul' })
                 } else {
                   repMediane = [...mediane]
-                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1] - 0.00000001], {formatInteractif: 'intervalle'})
+                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1] - 0.00000001], { formatInteractif: 'intervalle' })
                 }
               }
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeTemperatures(temperatures, medianeCorr, mediane)
@@ -256,7 +259,7 @@ export default function CalculerCaracteristiques() {
               texte += '<br>' + numAlpha(questind) + 'Calculer l\'étendue des températures.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline')
               const [min, max] = OutilsStats.computeEtendue(temperatures)
               repEtendue = max - min
-              setReponse(this, i * nbReponse + questind, repEtendue, {formatInteractif: 'calcul'})
+              setReponse(this, i * nbReponse + questind, repEtendue, { formatInteractif: 'calcul' })
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'température')
             }
           }
@@ -264,11 +267,32 @@ export default function CalculerCaracteristiques() {
         }
         case 4 : {
           // les salaires
-          const salaires = [
+          /* let salaires = [
             [1250 + randint(2, 8) * 10, randint(30, 50)], // 'Ouvrier'
             [1450 + randint(2, 8) * 10, randint(21, 29)], // 'Ouvrier qualifié'
             [1700 + randint(2, 8) * 10, randint(15, 20)], // 'Cadre'
             [3500 + randint(2, 8) * 10, randint(5, 10)], // 'Cadre supérieur'
+            [8000 + randint(2, 8) * 100, 1]] // 'Dirigeant' */
+          const total = randint(80, 99)
+          let effectifHasard = []
+          switch (randint(1, 3)) {
+            case 1 :
+              effectifHasard = [arrondi(total / 2, 0) + randint(2, 5), arrondi(total / 5, 0) + randint(2, 5), arrondi(total / 6, 0) - randint(2, 5)]
+              break
+            case 2 :
+              effectifHasard = [arrondi(total / 3, 0) + randint(2, 5), arrondi(total / 4, 0) + randint(2, 5), arrondi(total / 6, 0) - randint(2, 5)]
+              break
+            case 3 :
+              effectifHasard = [arrondi(total / 4, 0), arrondi(total / 5, 0), arrondi(total / 5, 0) - randint(2, 5)]
+              break
+          }
+          effectifHasard = [arrondi(total / 4, 0), arrondi(total / 5, 0), arrondi(total / 5, 0) - randint(2, 5)]
+
+          const salaires = [
+            [1250 + randint(2, 8) * 10, effectifHasard[0]], // 'Ouvrier'
+            [1450 + randint(2, 8) * 10, effectifHasard[1]], // 'Ouvrier qualifié'
+            [1700 + randint(2, 8) * 10, effectifHasard[2]], // 'Cadre'
+            [3500 + randint(2, 8) * 10, total - 1 - effectifHasard[0] - effectifHasard[1] - effectifHasard[2]], // 'Cadre supérieur'
             [8000 + randint(2, 8) * 100, 1]] // 'Dirigeant'
           const effectifTotal = salaires.reduce((accumulator, currentValue, currentIndex) => {
             return accumulator + currentValue[1]
@@ -287,7 +311,7 @@ export default function CalculerCaracteristiques() {
               texte += '<br>' + numAlpha(questind) + 'Calculer le salaire moyen arrondi au dixième.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline')
               const [, somme, effectif] = OutilsStats.computeMoyenneTirages2D(salaires)
               repMoyenne = arrondi(somme / effectif, 1)
-              setReponse(this, i * nbReponse + questind, repMoyenne, {formatInteractif: 'calcul'})
+              setReponse(this, i * nbReponse + questind, repMoyenne, { formatInteractif: 'calcul' })
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(salaires, somme, effectif, 'salaires')
             } else if (typeQuestions[k] === 2) {
               // médiane
@@ -296,14 +320,14 @@ export default function CalculerCaracteristiques() {
               const [scoresMedians, medianeCorr] = OutilsStats.computeMedianeTirages2D(effectif, salaires)
               if (scoresMedians.length === 1) {
                 repMediane = medianeCorr
-                setReponse(this, i * nbReponse + questind, repMediane, {formatInteractif: 'calcul'})
+                setReponse(this, i * nbReponse + questind, repMediane, { formatInteractif: 'calcul' })
               } else {
                 if (scoresMedians[0] === scoresMedians[1]) {
                   repMediane = scoresMedians[0]
-                  setReponse(this, i * nbReponse + questind, repMediane, {formatInteractif: 'calcul'})
+                  setReponse(this, i * nbReponse + questind, repMediane, { formatInteractif: 'calcul' })
                 } else {
                   repMediane = [...scoresMedians]
-                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1] - 0.00000001], {formatInteractif: 'intervalle'})
+                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1] - 0.00000001], { formatInteractif: 'intervalle' })
                 }
               }
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeTirages2DSalaires(effectif, medianeCorr, scoresMedians, salaires, ['\\hspace{0.3cm}Ouvrier\\hspace{0.3cm}', 'Ouvrier qualifié', '\\hspace{0.5cm}Cadre\\hspace{0.5cm}', 'Cadre supérieur', 'Dirigeant'])
@@ -312,7 +336,7 @@ export default function CalculerCaracteristiques() {
               texte += '<br>' + numAlpha(questind) + 'Calculer l\'étendue des salaires.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline')
               const [min, max] = [salaires[0][0], salaires[salaires.length - 1][0]]
               repEtendue = max - min
-              setReponse(this, i * nbReponse + questind, repEtendue, {formatInteractif: 'calcul'})
+              setReponse(this, i * nbReponse + questind, repEtendue, { formatInteractif: 'calcul' })
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'salaire')
             }
           }
@@ -343,7 +367,7 @@ export default function CalculerCaracteristiques() {
               texte += '<br>' + numAlpha(questind) + 'Calculer la moyenne de ces pointures arrondie au dixième.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline')
               const [, somme, effectif] = OutilsStats.computeMoyenneTirages2D(pointures)
               repMoyenne = arrondi(somme / effectif, 1)
-              setReponse(this, i * nbReponse + questind, repMoyenne, {formatInteractif: 'calcul'})
+              setReponse(this, i * nbReponse + questind, repMoyenne, { formatInteractif: 'calcul' })
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(pointures, somme, effectif, 'pointures')
             } else if (typeQuestions[k] === 2) {
               // médiane
@@ -352,14 +376,14 @@ export default function CalculerCaracteristiques() {
               const [scoresMedians, medianeCorr] = OutilsStats.computeMedianeTirages2D(effectif, pointures)
               if (scoresMedians.length === 1) {
                 repMediane = medianeCorr
-                setReponse(this, i * nbReponse + questind, repMediane, {formatInteractif: 'calcul'})
+                setReponse(this, i * nbReponse + questind, repMediane, { formatInteractif: 'calcul' })
               } else {
                 if (scoresMedians[0] === scoresMedians[1]) {
                   repMediane = scoresMedians[0]
-                  setReponse(this, i * nbReponse + questind, repMediane, {formatInteractif: 'calcul'})
+                  setReponse(this, i * nbReponse + questind, repMediane, { formatInteractif: 'calcul' })
                 } else {
                   repMediane = [...scoresMedians]
-                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1] - 0.00000001], {formatInteractif: 'intervalle'})
+                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1] - 0.00000001], { formatInteractif: 'intervalle' })
                 }
               }
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeTirages2DSalaires(effectif, medianeCorr, scoresMedians, pointures, [], 'pointure')
@@ -368,7 +392,7 @@ export default function CalculerCaracteristiques() {
               texte += '<br>' + numAlpha(questind) + 'Calculer l\'étendue de ces pointures.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline')
               const [min, max] = [pointures[0][0], pointures[pointures.length - 1][0]]
               repEtendue = max - min
-              setReponse(this, i * nbReponse + questind, repEtendue, {formatInteractif: 'calcul'})
+              setReponse(this, i * nbReponse + questind, repEtendue, { formatInteractif: 'calcul' })
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'pointure')
             }
           }
@@ -399,7 +423,7 @@ export default function CalculerCaracteristiques() {
               texte += '<br>' + numAlpha(questind) + 'Calculer la moyenne de ces notes arrondie au dixième.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline')
               const [, somme, effectif] = OutilsStats.computeMoyenneTirages2D(notes)
               repMoyenne = arrondi(somme / effectif, 1)
-              setReponse(this, i * nbReponse + questind, repMoyenne, {formatInteractif: 'calcul'})
+              setReponse(this, i * nbReponse + questind, repMoyenne, { formatInteractif: 'calcul' })
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(notes, somme, effectif, 'notes')
             } else if (typeQuestions[k] === 2) {
               // médiane
@@ -408,14 +432,14 @@ export default function CalculerCaracteristiques() {
               const [scoresMedians, medianeCorr] = OutilsStats.computeMedianeTirages2D(effectif, notes)
               if (scoresMedians.length === 1) {
                 repMediane = medianeCorr
-                setReponse(this, i * nbReponse + questind, repMediane, {formatInteractif: 'calcul'})
+                setReponse(this, i * nbReponse + questind, repMediane, { formatInteractif: 'calcul' })
               } else {
                 if (scoresMedians[0] === scoresMedians[1]) {
                   repMediane = scoresMedians[0]
-                  setReponse(this, i * nbReponse + questind, repMediane, {formatInteractif: 'calcul'})
+                  setReponse(this, i * nbReponse + questind, repMediane, { formatInteractif: 'calcul' })
                 } else {
                   repMediane = [...scoresMedians]
-                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1] - 0.00000001], {formatInteractif: 'intervalle'})
+                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1] - 0.00000001], { formatInteractif: 'intervalle' })
                 }
               }
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeTirages2DSalaires(effectif, medianeCorr, scoresMedians, notes, [], 'note')
@@ -424,7 +448,7 @@ export default function CalculerCaracteristiques() {
               texte += '<br>' + numAlpha(questind) + 'Calculer l\'étendue de ces notes.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline')
               const [min, max] = [notes[0][0], notes[notes.length - 1][0]]
               repEtendue = max - min
-              setReponse(this, i * nbReponse + questind, repEtendue, {formatInteractif: 'calcul'})
+              setReponse(this, i * nbReponse + questind, repEtendue, { formatInteractif: 'calcul' })
               texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'note')
             }
           }
@@ -442,8 +466,8 @@ export default function CalculerCaracteristiques() {
   }
   this.besoinFormulaireTexte = [
     'Type de séries',
-    'Nombres séparés par des tirets\n1 : Lancers de dés.\n2 : Notes.\n3 : Températures.\n4 : Salaires.\n5 : Pointures.\n6 : Notes avec coefficients.\n7 Mélange']
+    'Nombres séparés par des tirets\n1 : Lancers de dés\n2 : Notes\n3 : Températures\n4 : Salaires\n5 : Pointures\n6 : Notes avec coefficients\n7 : Mélange']
   this.besoinFormulaire2Texte = [
     'Choix des questions',
-    'Nombres séparés par des tirets\n1 : Moyenne.\n2 : Médiane.\n3 : Etendue\n4 : Toutes.']
+    'Nombres séparés par des tirets\n1 : Moyenne\n2 : Médiane\n3 : Étendue\n4 : Toutes']
 }
