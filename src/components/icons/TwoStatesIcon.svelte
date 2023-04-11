@@ -5,16 +5,24 @@
 
 <!-- 
   @component
-  
+  Icône avec deux états
+
+   __Paramètres__ :
+
+  * `isOnStateActive` : booléen pour basculer entre les deux icônes
+  * `size`: nombre pour régler la taille de l'icône (`5` par défault)
   
   __Utilisation__ :
 
   ```tsx
-  
+  <InteractivityIcon isOnStateActive={<monBoolean>}>
+    <i slot="icon_to_switch_on" class="bx bxs-phone" />
+    <i slot="icon_to_switch_off" class="bx bxs-phone-off" />
+  </InteractivityIcon>
   ```
  -->
 <div class={isOnStateActive ? "hidden" : "block"}>
-  <slot name="svg_icon_to_switch_on">
+  <slot name="icon_to_switch_on">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8.467 8.467" class="w-{size} h-{size} fill-coopmaths-action stroke-coopmaths-action">
       <defs>
         <marker id="a" markerHeight="2" markerWidth="2" orient="auto-start-reverse" preserveAspectRatio="xMidYMid" refX="0" refY="0" style="overflow:visible" viewBox="0 0 5.324 6.155">
@@ -48,7 +56,7 @@
   </slot>
 </div>
 <div class=" {isOnStateActive ? 'block' : 'hidden'}">
-  <slot name="svg_icon_to_switch_off">
+  <slot name="icon_to_switch_off">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8.467 8.467" class=" w-{size} h-{size} fill-coopmaths-action stroke-coopmaths-action">
       <defs>
         <marker id="a" markerHeight="2" markerWidth="2" orient="auto-start-reverse" preserveAspectRatio="xMidYMid" refX="0" refY="0" style="overflow:visible" viewBox="0 0 5.324 6.155">
