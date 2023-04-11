@@ -96,11 +96,11 @@ export default function ProblemesDePlusEtDeMoins () {
           } else {
             texte += 'Combien d\'argent en euros possèdent,  en tout, les deux filles ?<br>'
           }
-          texteCorr = `D'après l'énoncé, ${prenom2} a $${texPrix(r)}$ €<br>${prenom2}  a $${texPrix(e)}$ €.`
+          texteCorr = `D'après l'énoncé, ${prenom2} a $${texPrix(r)}$ €.<br>${prenom2}  a $${texPrix(e)}$ €`
           texteCorr += texteEnCouleurEtGras(' de plus ')
           texteCorr += `que ${prenom1} signifie que ${prenom1} a $${texPrix(e)}$ € `
           texteCorr += texteEnCouleurEtGras(' de moins ')
-          texteCorr += `que ${prenom2}. <br>${prenom1} a donc : $${texPrix(r)}$ € - $${texPrix(e)}$ € = $${texPrix(m)}$ €`
+          texteCorr += `que ${prenom2}. <br>${prenom1} a donc : $${texPrix(r)}$ € - $${texPrix(e)}$ € = $${texPrix(m)}$ €.`
           texteCorr += `<br>$${texPrix(r)}$ € + $${texPrix(m)}$ € = $${texPrix(somme)}$ € `
           texteCorr += texteEnCouleur(`<br>Les deux filles possèdent,  en tout, $${miseEnEvidence(texPrix(somme))}$ €.`)
 
@@ -117,11 +117,11 @@ export default function ProblemesDePlusEtDeMoins () {
           } else {
             texte += 'Combien d\'argent en euros possèdent,  en tout, les deux filles ?<br>'
           }
-          texteCorr = `D'après l'énoncé, ${prenom2} a $${texPrix(r)}$ €<br>${prenom2}  a $${texPrix(e)}$ €.`
+          texteCorr = `D'après l'énoncé, ${prenom2} a $${texPrix(r)}$ €.<br>${prenom2}  a $${texPrix(e)}$ €`
           texteCorr += texteEnCouleurEtGras(' de moins ')
           texteCorr += `que ${prenom1} signifie que ${prenom1} a $${texPrix(e)}$ € `
           texteCorr += texteEnCouleurEtGras(' de plus ')
-          texteCorr += `que ${prenom2}. <br>${prenom1} a donc : $${texPrix(r)}$ € + $${texPrix(e)}$ € = $${texPrix(m)}$ €`
+          texteCorr += `que ${prenom2}. <br>${prenom1} a donc : $${texPrix(r)}$ € + $${texPrix(e)}$ € = $${texPrix(m)}$ €.`
           texteCorr += `<br>$${texPrix(r)}$ € + $${texPrix(m)}$ € = $${texPrix(somme)}$ € `
           texteCorr += texteEnCouleur(`<br>Les deux filles possèdent,  en tout, $${miseEnEvidence(texPrix(somme))}$ €.`)
 
