@@ -9,6 +9,7 @@
   import { context } from "../modules/context"
   import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from "../modules/ElementInstrumenpoche"
   import Amc from "./Amc.svelte"
+  import Moodle from "./Moodle.svelte"
 
   context.versionMathalea = 3
   // ToFix fonction à lier avec bugsnag
@@ -54,6 +55,8 @@
     <ConfigEleve />
   {:else if $globalOptions.v === "amc"}
     <Amc />
+  {:else if $globalOptions.v === "moodle"}
+    <Moodle />
   {:else}
     <Start />
   {/if}
