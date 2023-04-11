@@ -47,8 +47,8 @@
       content += '####<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n'
       content += `<mathalea-moodle url\\="${paramUrl}" correction />\n`
       content += '}\n\n'
+      i++  
     }
-    i++  
   }
 
   initExercices()
