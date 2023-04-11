@@ -121,6 +121,9 @@ export function updateGlobalOptionsInURL (url: URL) {
     } else {
       url.searchParams.delete('title')
     }
+    if (options.iframe !== undefined) {
+      url.searchParams.append('iframe', options.iframe)
+    }
     if (typeof options !== 'undefined') {
       let es = presModeId.indexOf(options.presMode).toString()
       es += options.setInteractive

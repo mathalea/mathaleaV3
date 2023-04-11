@@ -163,7 +163,9 @@
       loadMathLive()
     }
     let hauteurExercice = window.document.querySelector("section").scrollHeight
-    window.parent.postMessage({ hauteurExercice, exercicesParams: $exercicesParams, action: "mathalea:init" }, "*")
+    const url = new URL(window.location.href)
+    const iframe = url.searchParams.get("iframe")
+    window.parent.postMessage({ hauteurExercice, exercicesParams: $exercicesParams, action: "mathalea:init", iframe }, "*")
     // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
     setTimeout(() => {
       hauteurExercice = window.document.querySelector("section").scrollHeight
