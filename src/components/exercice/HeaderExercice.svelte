@@ -4,6 +4,7 @@
   import BoutonDescendre from "./BoutonDescendre.svelte"
   import { globalOptions } from "../store"
   import { exercicesParams } from "../store"
+  import InteractivityIcon from "../icons/InteractivityIcon.svelte"
   export let title: string
   export let randomReady = true
   export let settingsReady = true
@@ -106,9 +107,7 @@
           type="button"
           on:click={switchInteractif}
         >
-          <i
-            class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {isInteractif ? 'bxs-edit' : 'bx-edit'}"
-          />
+          <InteractivityIcon {isInteractif} />
         </button>
         <button class="mx-2 tooltip tooltip-left" data-tip="Nouvel énoncé" type="button" on:click={newData}
           ><i
