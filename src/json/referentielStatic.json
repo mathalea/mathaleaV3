@@ -3294,7 +3294,7 @@
           "Puissances",
           "Arithmétique",
           "Calcul littéral",
-          "Equations",
+          "Équations",
           "Probabilités"
         ]
       },
@@ -4808,7 +4808,7 @@
           "Puissances",
           "Arithmétique",
           "Calcul littéral",
-          "Equations",
+          "Équations",
           "Probabilités"
         ]
       },
@@ -6189,7 +6189,7 @@
         ]
       }
     },
-    "Equations": {
+    "Équations": {
       "dnb_2022_09_metropole_1": {
         "uuid": "dnb_2022_09_metropole_1",
         "annee": "2022",
@@ -6206,7 +6206,7 @@
           "Puissances",
           "Arithmétique",
           "Calcul littéral",
-          "Equations",
+          "Équations",
           "Probabilités"
         ]
       },
@@ -6223,7 +6223,7 @@
         "urlcor": "static/dnb/2022/tex/dnb_2022_09_metropole_2_cor.tex",
         "tags": [
           "Fonctions",
-          "Equations",
+          "Équations",
           "Lecture graphique"
         ]
       },
@@ -6241,7 +6241,7 @@
         "tags": [
           "Fonctions",
           "Programme de calculs",
-          "Equations",
+          "Équations",
           "Lecture graphique"
         ]
       }
@@ -9074,7 +9074,7 @@
         "urlcor": "static/dnb/2022/tex/dnb_2022_09_metropole_2_cor.tex",
         "tags": [
           "Fonctions",
-          "Equations",
+          "Équations",
           "Lecture graphique"
         ]
       },
@@ -9092,7 +9092,7 @@
         "tags": [
           "Fonctions",
           "Programme de calculs",
-          "Equations",
+          "Équations",
           "Lecture graphique"
         ]
       }
@@ -11428,7 +11428,7 @@
         "urlcor": "static/dnb/2022/tex/dnb_2022_09_metropole_2_cor.tex",
         "tags": [
           "Fonctions",
-          "Equations",
+          "Équations",
           "Lecture graphique"
         ]
       },
@@ -11446,7 +11446,7 @@
         "tags": [
           "Fonctions",
           "Programme de calculs",
-          "Equations",
+          "Équations",
           "Lecture graphique"
         ]
       }
@@ -14703,7 +14703,7 @@
           "Puissances",
           "Arithmétique",
           "Calcul littéral",
-          "Equations",
+          "Équations",
           "Probabilités"
         ]
       },
@@ -15444,7 +15444,7 @@
         "tags": [
           "Fonctions",
           "Programme de calculs",
-          "Equations",
+          "Équations",
           "Lecture graphique"
         ]
       }
@@ -17230,7 +17230,7 @@
           "Puissances",
           "Arithmétique",
           "Calcul littéral",
-          "Equations",
+          "Équations",
           "Probabilités"
         ]
       }
@@ -19618,7 +19618,7 @@
           "Puissances",
           "Arithmétique",
           "Calcul littéral",
-          "Equations",
+          "Équations",
           "Probabilités"
         ]
       }
@@ -37617,7 +37617,7 @@
           "Puissances",
           "Arithmétique",
           "Calcul littéral",
-          "Equations",
+          "Équations",
           "Probabilités"
         ]
       },
@@ -37634,7 +37634,7 @@
         "urlcor": "static/dnb/2022/tex/dnb_2022_09_metropole_2_cor.tex",
         "tags": [
           "Fonctions",
-          "Equations",
+          "Équations",
           "Lecture graphique"
         ]
       },
@@ -37757,7 +37757,7 @@
         "tags": [
           "Fonctions",
           "Programme de calculs",
-          "Equations",
+          "Équations",
           "Lecture graphique"
         ]
       },
@@ -37878,7 +37878,7 @@
         "tags": [
           "Exponentielle",
           "Convexité",
-          "Equations différentielles"
+          "Équations différentielles"
         ]
       },
       "bac_2021_06_asie_4": {
@@ -38020,7 +38020,7 @@
         ]
       }
     },
-    "Equations différentielles": {
+    "Équations différentielles": {
       "bac_2021_01_sujet0_5": {
         "uuid": "bac_2021_01_sujet0_5",
         "annee": "2021",
@@ -38033,7 +38033,7 @@
         "url": "static/bac/2021/tex/bac_2021_01_sujet0_5.tex",
         "urlcor": "static/bac/2021/tex/bac_2021_01_sujet0_5_cor.tex",
         "tags": [
-          "Equations différentielles",
+          "Équations différentielles",
           "Exponentielle",
           "Suites"
         ]
@@ -38052,7 +38052,7 @@
         "tags": [
           "Exponentielle",
           "Convexité",
-          "Equations différentielles"
+          "Équations différentielles"
         ]
       },
       "bac_2021_06_asie_5": {
@@ -38068,7 +38068,7 @@
         "urlcor": "static/bac/2021/tex/bac_2021_06_asie_5_cor.tex",
         "tags": [
           "Exponentielle",
-          "Equations différentielles"
+          "Équations différentielles"
         ]
       },
       "bac_2021_06_asie_9": {
@@ -38084,7 +38084,7 @@
         "urlcor": "static/bac/2021/tex/bac_2021_06_asie_9_cor.tex",
         "tags": [
           "Suites",
-          "Equations différentielles"
+          "Équations différentielles"
         ]
       },
       "bac_2021_06_etrangers_10": {
@@ -38100,7 +38100,7 @@
         "urlcor": "static/bac/2021/tex/bac_2021_06_etrangers_10_cor.tex",
         "tags": [
           "Exponentielle",
-          "Equations différentielles"
+          "Équations différentielles"
         ]
       },
       "bac_2021_06_etrangers_5": {
@@ -38116,7 +38116,7 @@
         "urlcor": "static/bac/2021/tex/bac_2021_06_etrangers_5_cor.tex",
         "tags": [
           "Exponentielle",
-          "Equations différentielles"
+          "Équations différentielles"
         ]
       },
       "bac_2021_06_metropole_5": {
@@ -38131,7 +38131,7 @@
         "url": "static/bac/2021/tex/bac_2021_06_metropole_5.tex",
         "urlcor": "static/bac/2021/tex/bac_2021_06_metropole_5_cor.tex",
         "tags": [
-          "Equations différentielles",
+          "Équations différentielles",
           "Exponentielle"
         ]
       }
@@ -38367,7 +38367,7 @@
         "url": "static/bac/2021/tex/bac_2021_01_sujet0_5.tex",
         "urlcor": "static/bac/2021/tex/bac_2021_01_sujet0_5_cor.tex",
         "tags": [
-          "Equations différentielles",
+          "Équations différentielles",
           "Exponentielle",
           "Suites"
         ]
@@ -38433,7 +38433,7 @@
         "tags": [
           "Exponentielle",
           "Convexité",
-          "Equations différentielles"
+          "Équations différentielles"
         ]
       },
       "bac_2021_06_asie_5": {
@@ -38449,7 +38449,7 @@
         "urlcor": "static/bac/2021/tex/bac_2021_06_asie_5_cor.tex",
         "tags": [
           "Exponentielle",
-          "Equations différentielles"
+          "Équations différentielles"
         ]
       },
       "bac_2021_06_asie_6": {
@@ -38500,7 +38500,7 @@
         "urlcor": "static/bac/2021/tex/bac_2021_06_etrangers_10_cor.tex",
         "tags": [
           "Exponentielle",
-          "Equations différentielles"
+          "Équations différentielles"
         ]
       },
       "bac_2021_06_etrangers_5": {
@@ -38516,7 +38516,7 @@
         "urlcor": "static/bac/2021/tex/bac_2021_06_etrangers_5_cor.tex",
         "tags": [
           "Exponentielle",
-          "Equations différentielles"
+          "Équations différentielles"
         ]
       },
       "bac_2021_06_etrangers_7": {
@@ -38581,7 +38581,7 @@
         "url": "static/bac/2021/tex/bac_2021_06_metropole_5.tex",
         "urlcor": "static/bac/2021/tex/bac_2021_06_metropole_5_cor.tex",
         "tags": [
-          "Equations différentielles",
+          "Équations différentielles",
           "Exponentielle"
         ]
       },
@@ -39532,7 +39532,7 @@
         "url": "static/bac/2021/tex/bac_2021_01_sujet0_5.tex",
         "urlcor": "static/bac/2021/tex/bac_2021_01_sujet0_5_cor.tex",
         "tags": [
-          "Equations différentielles",
+          "Équations différentielles",
           "Exponentielle",
           "Suites"
         ]
@@ -39646,7 +39646,7 @@
         "urlcor": "static/bac/2021/tex/bac_2021_06_asie_9_cor.tex",
         "tags": [
           "Suites",
-          "Equations différentielles"
+          "Équations différentielles"
         ]
       },
       "bac_2021_06_etrangers_3": {
@@ -40032,7 +40032,7 @@
         "url": "static/bac/2021/tex/bac_2021_01_sujet0_5.tex",
         "urlcor": "static/bac/2021/tex/bac_2021_01_sujet0_5_cor.tex",
         "tags": [
-          "Equations différentielles",
+          "Équations différentielles",
           "Exponentielle",
           "Suites"
         ]
@@ -40335,7 +40335,7 @@
         "tags": [
           "Exponentielle",
           "Convexité",
-          "Equations différentielles"
+          "Équations différentielles"
         ]
       },
       "bac_2021_06_polynesie_5": {
@@ -40449,7 +40449,7 @@
         "urlcor": "static/bac/2021/tex/bac_2021_06_asie_5_cor.tex",
         "tags": [
           "Exponentielle",
-          "Equations différentielles"
+          "Équations différentielles"
         ]
       },
       "bac_2021_06_asie_6": {
@@ -40515,7 +40515,7 @@
         "urlcor": "static/bac/2021/tex/bac_2021_06_asie_9_cor.tex",
         "tags": [
           "Suites",
-          "Equations différentielles"
+          "Équations différentielles"
         ]
       },
       "bac_2021_06_etrangers_1": {
@@ -40548,7 +40548,7 @@
         "urlcor": "static/bac/2021/tex/bac_2021_06_etrangers_10_cor.tex",
         "tags": [
           "Exponentielle",
-          "Equations différentielles"
+          "Équations différentielles"
         ]
       },
       "bac_2021_06_etrangers_2": {
@@ -40610,7 +40610,7 @@
         "urlcor": "static/bac/2021/tex/bac_2021_06_etrangers_5_cor.tex",
         "tags": [
           "Exponentielle",
-          "Equations différentielles"
+          "Équations différentielles"
         ]
       },
       "bac_2021_06_etrangers_6": {
@@ -40770,7 +40770,7 @@
         "url": "static/bac/2021/tex/bac_2021_06_metropole_5.tex",
         "urlcor": "static/bac/2021/tex/bac_2021_06_metropole_5_cor.tex",
         "tags": [
-          "Equations différentielles",
+          "Équations différentielles",
           "Exponentielle"
         ]
       },
