@@ -18,7 +18,7 @@ import {
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
-export const titre = 'Résoudre une equation résolvante pour le théorème de Thalès'
+export const titre = 'Résoudre une équation résolvante pour le théorème de Thalès'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
