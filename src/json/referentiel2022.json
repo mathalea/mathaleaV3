@@ -9152,7 +9152,7 @@
           "interactif": true,
           "interactifType": "mathLive",
           "amc": true,
-          "amcType": "AMCOpenNum"
+          "amcType": "AMCHybride"
         }
       }
     },
@@ -9293,6 +9293,7 @@
         "uuid": "5ca1e",
         "url": "4e/4L13-2.js",
         "titre": "Mettre un problème en équation et le résoudre",
+        "dateDeModifImportante": "05/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9351,7 +9352,7 @@
         "id": "4L20-0",
         "uuid": "515b0",
         "url": "4e/4L20-0.js",
-        "titre": "Résoudre une equation du premier degré à solutions entières",
+        "titre": "Résoudre une équation du premier degré à solutions entières",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9363,7 +9364,7 @@
         "id": "4L20",
         "uuid": "799c4",
         "url": "4e/4L20.js",
-        "titre": "Résoudre une equation du premier degré",
+        "titre": "Résoudre une équation du premier degré",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9983,18 +9984,24 @@
         "uuid": "35e0b",
         "url": "3e/3G31-1.js",
         "titre": "Calculer toutes les mesures d'angle d'une figure complexe",
-        "tags": {}
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amc": true,
+          "amcType": "AMCHybride"
+        }
       },
       "3G31": {
         "id": "3G31",
         "uuid": "0ac11",
         "url": "3e/3G31.js",
         "titre": "Calculer un angle dans un triangle rectangle en utilisant la trigonométrie",
+        "dateDeModifImportante": "11/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
           "amc": true,
-          "amcType": "AMCOpenNum"
+          "amcType": "AMCHybride"
         }
       },
       "3G32-0": {
@@ -10408,7 +10415,7 @@
         "id": "3L13-0",
         "uuid": "5a02b",
         "url": "3e/3L13-0.js",
-        "titre": "Résoudre une equation du premier degré à solutions entières",
+        "titre": "Résoudre une équation du premier degré à solutions entières",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10420,7 +10427,7 @@
         "id": "3L13-1",
         "uuid": "1802d",
         "url": "3e/3L13-1.js",
-        "titre": "Résoudre une equation du premier degré (utilisant la distributivité)",
+        "titre": "Résoudre une équation du premier degré (utilisant la distributivité)",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10431,7 +10438,7 @@
         "id": "3L13-2",
         "uuid": "6516e",
         "url": "3e/3L13-2.js",
-        "titre": "Résoudre une equation résolvante pour le théorème de Thalès",
+        "titre": "Résoudre une équation résolvante pour le théorème de Thalès",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10444,6 +10451,7 @@
         "uuid": "22412",
         "url": "3e/3L13-3.js",
         "titre": "Mettre en équation un problème et le résoudre",
+        "dateDeModifImportante": "06/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10462,7 +10470,7 @@
         "id": "3L13",
         "uuid": "f239f",
         "url": "3e/3L13.js",
-        "titre": "Résoudre une equation du premier degré",
+        "titre": "Résoudre une équation du premier degré",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -10509,7 +10517,7 @@
         "id": "3L15",
         "uuid": "231d2",
         "url": "3e/3L15.js",
-        "titre": "Résoudre une equation du second degré se ramenant au premier degré",
+        "titre": "Résoudre une équation du second degré se ramenant au premier degré",
         "tags": {}
       }
     },
@@ -10541,10 +10549,12 @@
         "uuid": "f4b95",
         "url": "3e/3S12.js",
         "titre": "Calculer des effectifs et des fréquences",
-        "dateDeModifImportante": "02/04/2023",
+        "dateDeModifImportante": "10/04/2023",
         "tags": {
           "interactif": true,
-          "interactifType": "mathLive"
+          "interactifType": "mathLive",
+          "amc": true,
+          "amcType": "AMCHybride"
         }
       },
       "3S14": {
@@ -10552,6 +10562,7 @@
         "uuid": "b8afd",
         "url": "3e/3S14.js",
         "titre": "Calculer des caractéristiques d'une série",
+        "dateDeModifImportante": "10/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive"
@@ -11526,7 +11537,7 @@
         "id": "2N51-3",
         "uuid": "7959f",
         "url": "2e/2N51-3.js",
-        "titre": "Equations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$",
+        "titre": "Résoudre une équation du type $\\dfrac{x}{a}=\\dfrac{b}{c}$",
         "tags": {}
       },
       "2N51-3v2": {
@@ -11760,7 +11771,7 @@
         "id": "1AN11",
         "uuid": "4c8c7",
         "url": "1e/1AN11.js",
-        "titre": "Equation de tangente",
+        "titre": "Déterminer une équation de tangente",
         "dateDeModifImportante": "24/10/2021",
         "tags": {}
       },
@@ -11901,7 +11912,7 @@
         "id": "1E15",
         "uuid": "fe4df",
         "url": "1e/1E15.js",
-        "titre": "Equation du second degré avec paramètre",
+        "titre": "Déterminer le nombre de solutions d'une équation du second degré avec paramètre",
         "tags": {}
       },
       "1E16": {
@@ -12137,7 +12148,7 @@
         "id": "ExC100",
         "uuid": "8e72e",
         "url": "Ex/ExC100.js",
-        "titre": "Equation du premier degré dans C",
+        "titre": "Résoudre une équation du premier degré dans C",
         "tags": {}
       },
       "ExC101": {
