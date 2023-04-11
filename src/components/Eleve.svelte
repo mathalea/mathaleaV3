@@ -162,13 +162,13 @@
       MathaleaRenderDiv(document.querySelector<HTMLElement>("section"))
       loadMathLive()
     }
-    let hauteurExercice = window.document.querySelector('section').scrollHeight
-        window.parent.postMessage({ hauteurExercice, exercicesParams: $exercicesParams, action: 'mathalea:init' }, '*')
-        // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
-        setTimeout(() => {
-          hauteurExercice = window.document.querySelector('section').scrollHeight
-          window.parent.postMessage({ hauteurExercice, action: 'mathalea:resize' }, '*')
-        }, 1000)
+    let hauteurExercice = window.document.querySelector("section").scrollHeight
+    window.parent.postMessage({ hauteurExercice, exercicesParams: $exercicesParams, action: "mathalea:init" }, "*")
+    // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
+    setTimeout(() => {
+      hauteurExercice = window.document.querySelector("section").scrollHeight
+      window.parent.postMessage({ hauteurExercice, action: "mathalea:resize" }, "*")
+    }, 1000)
   }
 
   async function checkQuestion(i: number) {
@@ -213,14 +213,18 @@
     <div class="h-[10%] w-full flex flex-col justify-center items-center">
       <!-- titre de la feuille -->
       {#if $globalOptions.title.length > 0}
-      <div class="w-full p-8 text-center text-4xl font-light {$globalOptions.recorder === 'capytale' ? 'bg-black' : 'bg-coopmaths-struct'} dark:bg-coopmathsdark-struct text-coopmaths-canvas dark:text-coopmathsdark-canvas">
-        {$globalOptions.title}
-      </div>
+        <div
+          class="w-full p-8 text-center text-4xl font-light {$globalOptions.recorder === 'capytale'
+            ? 'bg-black'
+            : 'bg-coopmaths-struct'} dark:bg-coopmathsdark-struct text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+        >
+          {$globalOptions.title}
+        </div>
       {/if}
       <!-- barre de navigation -->
       <div
         id="navigationHeaderID"
-        class="grid justify-items-center w-full mt-4 mb-8  grid-cols-{$globalOptions.presMode === 'exos' ? exercices.length : questions.length}
+        class="grid justify-items-center w-full mt-4 mb-8 grid-cols-{$globalOptions.presMode === 'exos' ? exercices.length : questions.length}
           {($globalOptions.presMode === 'exos' && !$isMenuNeededForExercises) || ($globalOptions.presMode === 'questions' && !$isMenuNeededForQuestions)
           ? 'border-b-2 border-coopmaths-struct'
           : 'border-b-0'}
@@ -352,18 +356,20 @@
               </div>
               {#if isCorrectionVisible[k]}
                 <div
-                  class="relative border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark border-l-8 text-coopmaths-corpus dark:text-coopmathsdark-corpus my-2 py-2 pl-6"
+                  class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-2 mb-6 py-2 pl-4"
                   style="break-inside:avoid"
                   bind:this={divsCorrection[k]}
                 >
-                  {@html MathaleaFormatExercice(corrections[k])}
-                  <div class="absolute border-coopmaths-warn-dark top-0 left-0 border-b-4 w-10" />
-                  <div
-                    class="absolute h-6 w-6 flex flex-row justify-center items-center -left-3 -top-2 rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas"
-                  >
-                    <i class="bx bx-check font-bold" />
+                  <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="break-inside:avoid">
+                    {@html MathaleaFormatExercice(corrections[k])}
                   </div>
-                  <div class="absolute border-coopmaths-warn-dark bottom-0 left-0 border-b-4 w-4" />
+                  <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
+                  <div
+                    class="absolute flex flex-row py-[0.08rem] px-3 rounded-t-md justify-center items-center -left-[0.2rem] -top-[16px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+                  >
+                    Correction
+                  </div>
+                  <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4" />
                 </div>
               {/if}
             </div>
@@ -374,7 +380,7 @@
           <div class="flex flex-col">
             <div class={$isMenuNeededForQuestions ? "" : "hidden"}>
               <button
-                class="w-full {currentIndex === k
+                class="group w-full {currentIndex === k
                   ? 'bg-coopmaths-canvas-darkest'
                   : 'bg-coopmaths-canvas-dark'} hover:bg-coopmaths-canvas-darkest text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
                 disabled={currentIndex === k}
@@ -382,7 +388,7 @@
               >
                 <div id="questionTitleID2{k}" class="flex flex-row items-center justify-center py-3 px-2 text-xl font-bold">
                   Question {k + 1}
-                  <div class="relative ml-2 h-2 w-2 rounded-full bg-coopmaths-canvas-dark">
+                  <div class="relative ml-2 h-2 w-2 rounded-full {currentIndex === k ? 'bg-coopmaths-canvas-darkest' : 'bg-coopmaths-canvas-dark'} group-hover:bg-coopmaths-canvas-darkest">
                     <div class="absolute h-2 w-2 rounded-full bg-coopmaths-warn {resultsByQuestion[k] === true ? '' : 'hidden'}" />
                     <div class="absolute h-2 w-2 rounded-full bg-red-600 {resultsByQuestion[k] === false ? '' : 'hidden'}" />
                   </div>
@@ -403,18 +409,22 @@
                   </div>
                   {#if isCorrectionVisible[k]}
                     <div
-                      class="relative border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark border-l-4 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest my-2 py-2 pl-4 lg:pl-6"
+                      class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-2 lg:{$isMenuNeededForQuestions
+                        ? 'mt-6'
+                        : 'mt-2'} mb-6 py-2 pl-4"
                       style="break-inside:avoid"
                       bind:this={divsCorrection[k]}
                     >
-                      {@html MathaleaFormatExercice(corrections[k])}
-                      <div class="absolute border-coopmaths-warn-dark top-0 left-0 border-b-4 w-10" />
-                      <div
-                        class="absolute h-6 w-6 flex flex-row justify-center items-center -left-3 -top-2 rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas"
-                      >
-                        <i class="bx bx-check font-bold" />
+                      <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="break-inside:avoid">
+                        {@html MathaleaFormatExercice(corrections[k])}
                       </div>
-                      <div class="absolute border-coopmaths-warn-dark bottom-0 left-0 border-b-4 w-4" />
+                      <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
+                      <div
+                        class="absolute flex flex-row py-[0.08rem] px-3 rounded-t-md justify-center items-center -left-[0.2rem] -top-[16px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+                      >
+                        Correction
+                      </div>
+                      <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4" />
                     </div>
                   {/if}
                 </div>
