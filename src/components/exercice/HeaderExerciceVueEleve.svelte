@@ -2,7 +2,7 @@
   import { createEventDispatcher } from "svelte"
   import BoutonMonter from "./BoutonMonter.svelte"
   import BoutonDescendre from "./BoutonDescendre.svelte"
-  import InteractivityIcon from "../icons/InteractivityIcon.svelte"
+  import InteractivityIcon from "../icons/TwoStatesIcon.svelte"
   import { globalOptions } from "../store"
   import { exercicesParams, isMenuNeededForExercises } from "../store"
   export let title: string
@@ -70,7 +70,7 @@
         on:click={switchInteractif}
       >
         <!-- <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {isInteractif ? 'bxs-edit' : 'bx-edit'}" /> -->
-        <InteractivityIcon {isInteractif} />
+        <InteractivityIcon isOnStateActive={isInteractif} />
       </button>
     </div>
   </h1>

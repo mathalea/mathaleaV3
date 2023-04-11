@@ -4,7 +4,7 @@
   import BoutonDescendre from "./BoutonDescendre.svelte"
   import { globalOptions } from "../store"
   import { exercicesParams } from "../store"
-  import InteractivityIcon from "../icons/InteractivityIcon.svelte"
+  import InteractivityIcon from "../icons/TwoStatesIcon.svelte"
   export let title: string
   export let randomReady = true
   export let settingsReady = true
@@ -107,7 +107,7 @@
           type="button"
           on:click={switchInteractif}
         >
-          <InteractivityIcon {isInteractif} />
+          <InteractivityIcon isOnStateActive={isInteractif} />
         </button>
         <button class="mx-2 tooltip tooltip-left" data-tip="Nouvel énoncé" type="button" on:click={newData}
           ><i

@@ -17,7 +17,7 @@
 
   import { isRecent } from "./utils/handleDate"
   import type { InterfaceReferentiel } from "src/lib/types"
-  import InteractivityIcon from "./icons/InteractivityIcon.svelte"
+  import InteractivityIcon from "./icons/TwoStatesIcon.svelte"
 
   let isNavBarVisible: boolean = true
   let isExercisesListVisible: boolean = true
@@ -501,7 +501,7 @@
                     ? 'bxs-edit'
                     : 'bx-edit'}"
                 /> -->
-                <InteractivityIcon isInteractif={setAllInteractifClicked} size={8} />
+                <InteractivityIcon isOnStateActive={setAllInteractifClicked} size={8} />
               </button>
               <button type="button" on:click={newDataForAll} class="tooltip tooltip-bottom tooltip-neutral" data-tip="Nouveaux énoncés">
                 <i
@@ -830,7 +830,7 @@
                   : 'bx-edit'}"
               /> -->
               <div class="px-2">
-                <InteractivityIcon isInteractif={setAllInteractifClicked} size={6} />
+                <InteractivityIcon isOnStateActive={setAllInteractifClicked} size={6} />
               </div>
             </button>
             <button
