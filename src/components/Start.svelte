@@ -17,6 +17,7 @@
 
   import { isRecent } from "./utils/handleDate"
   import type { InterfaceReferentiel } from "src/lib/types"
+  import InteractivityIcon from "./icons/TwoStatesIcon.svelte"
 
   let isNavBarVisible: boolean = true
   let isExercisesListVisible: boolean = true
@@ -318,7 +319,7 @@
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
-<div class="h-screen  scrollbar-hide {$darkMode.isActive ? 'dark' : ''} bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="startComponent">
+<div class="h-screen scrollbar-hide {$darkMode.isActive ? 'dark' : ''} bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="startComponent">
   <!-- <Header /> -->
   {#if isNavBarVisible}
     <div class="pb-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
@@ -331,10 +332,10 @@
     <main class="mb-auto ml-0 md:ml-4 flex flex-col md:flex-row h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus" on:mousemove={resizing}>
       {#if deviceType() === "mobile"}
         {#if $isSideMenuVisible || nbExercisesInList === 0}
-          <div class="w-full flex flex-col bg-coopmaths-canvas-dark  dark:bg-coopmathsdark-canvas-dark p-4  md:h-full">
+          <div class="w-full flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-4 md:h-full">
             <div class="flex flex-col">
               <div class="flex flex-row justify justify-between items-center {isExercisesListVisible ? 'mb-6' : 'mb-0'} text-coopmaths-struct dark:text-coopmathsdark-struct">
-                <div class="font-bold text-xl ">Choix des exercices</div>
+                <div class="font-bold text-xl">Choix des exercices</div>
                 <button
                   type="button"
                   class="md:hidden text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
@@ -346,7 +347,7 @@
               <div class="{isExercisesListVisible ? '' : 'hidden'} h-full">
                 <div class="flex flex-auto mb-2">
                   <select
-                    class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm border-1  focus:border-1 border-coopmaths-action focus:border-coopmaths-action-lightest dark:border-coopmathsdark-action dark:focus:border-coopmaths-action-lightest focus:outline-0 focus:ring-0 w-full"
+                    class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm border-1 focus:border-1 border-coopmaths-action focus:border-coopmaths-action-lightest dark:border-coopmathsdark-action dark:focus:border-coopmaths-action-lightest focus:outline-0 focus:ring-0 w-full"
                     bind:value={filtre}
                     on:change={updateReferentiel}
                   >
@@ -370,7 +371,7 @@
           <!-- drag bar -->
           <div
             id="dragbar"
-            class="hidden md:flex w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark  hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize"
+            class="hidden md:flex w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize"
             on:mousedown={startResizing.bind(this, "moving")}
           />
         {/if}
@@ -380,11 +381,11 @@
             style="{$isSideMenuVisible || nbExercisesInList === 0
               ? `width:${sidebarWidth}px;`
               : 'width: 0px;'} transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 600ms;"
-            class="flex flex-col bg-coopmaths-canvas-dark  dark:bg-coopmathsdark-canvas-dark overflow-hidden md:h-full {$isSideMenuVisible || nbExercisesInList === 0 ? 'p-4' : 'p-0'}"
+            class="flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark overflow-hidden md:h-full {$isSideMenuVisible || nbExercisesInList === 0 ? 'p-4' : 'p-0'}"
           >
             <div class="flex flex-col overflow-y-scroll overscroll-auto">
               <div class="flex flex-row justify justify-between items-center mb-6 text-coopmaths-struct dark:text-coopmathsdark-struct">
-                <div class="font-bold text-xl ">Choix des exercices</div>
+                <div class="font-bold text-xl">Choix des exercices</div>
                 <button
                   type="button"
                   class="md:hidden text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
@@ -396,7 +397,7 @@
               <div class={isExercisesListVisible ? "" : "hidden"}>
                 <div class="flex flex-auto mb-2">
                   <select
-                    class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm border-1  focus:border-1 border-coopmaths-action focus:border-coopmaths-action-lightest dark:border-coopmathsdark-action dark:focus:border-coopmaths-action-lightest focus:outline-0 focus:ring-0 w-full"
+                    class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm border-1 focus:border-1 border-coopmaths-action focus:border-coopmaths-action-lightest dark:border-coopmathsdark-action dark:focus:border-coopmaths-action-lightest focus:outline-0 focus:ring-0 w-full"
                     bind:value={filtre}
                     on:change={updateReferentiel}
                   >
@@ -423,7 +424,7 @@
           id="dragbar"
           class="hidden {$isSideMenuVisible || nbExercisesInList === 0
             ? 'md:flex'
-            : 'md:hidden'} w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark  hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize"
+            : 'md:hidden'} w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize"
           on:mousedown={startResizing.bind(this, "moving")}
         />
       {/if}
@@ -470,7 +471,9 @@
           <!-- barre des boutons commandes (tous les boutons) ==> POUR LG ET + SEULEMENT -->
           <div class="w-full hidden lg:flex lg:flex-col xl:flex-row pl-4 pb-6 justify-between items-center">
             <!-- réglages pour tous les exercices de la page -->
-            <div class="print-hidden flex flex-row justify-start items-center space-x-4 px-4 pt-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark lg:bg-coopmaths-canvas lg:dark:bg-coopmathsdark-canvas">
+            <div
+              class="print-hidden flex flex-row justify-start items-center space-x-4 px-4 pt-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark lg:bg-coopmaths-canvas lg:dark:bg-coopmathsdark-canvas"
+            >
               <button type="button" on:click={zoomMinus} class="tooltip tooltip-bottom tooltip-neutral" data-tip="Réduire la taille du texte">
                 <i
                   class="bx {deviceType() === 'mobile'
@@ -491,19 +494,20 @@
                 class="tooltip tooltip-bottom tooltip-neutral"
                 data-tip={setAllInteractifClicked ? "Supprimer l'interactivité" : "Tous les exercices en interactif"}
               >
-                <i
+                <!-- <i
                   class="bx {deviceType() === 'mobile'
                     ? 'bx-sm'
                     : 'bx-md'} px-2 tooltip-bottom tooltip-neutral  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest {setAllInteractifClicked
                     ? 'bxs-edit'
                     : 'bx-edit'}"
-                />
+                /> -->
+                <InteractivityIcon isOnStateActive={setAllInteractifClicked} size={8} />
               </button>
               <button type="button" on:click={newDataForAll} class="tooltip tooltip-bottom tooltip-neutral" data-tip="Nouveaux énoncés">
                 <i
                   class="bx {deviceType() === 'mobile'
                     ? 'bx-sm'
-                    : 'bx-md'} px-2 bx-refresh  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                    : 'bx-md'} px-2 bx-refresh hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
                 />
               </button>
               <button
@@ -523,7 +527,7 @@
                 <div class="flex flex-row justify-end items-center">
                   <button type="button" on:click={quitFullScreen} class="tooltip tooltip-bottom tooltip-neutral" data-tip="Quitter le plein écran">
                     <i
-                      class="bx ml-2 bx-md px-2 bx-exit-fullscreen  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                      class="bx ml-2 bx-md px-2 bx-exit-fullscreen hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
                     />
                   </button>
                 </div>
@@ -541,18 +545,18 @@
                   ><i
                     class="bx {deviceType() === 'mobile'
                       ? 'bx-sm'
-                      : 'bx-md'} px-2 bx-fullscreen  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                      : 'bx-md'} px-2 bx-fullscreen hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
                   />
                 </button>
               {/if}
             </div>
             <!-- boutons d'exports -->
             <div
-              class="print-hidden flex flex-row justify-start items-center space-x-4 px-4 pt-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark  lg:bg-coopmaths-canvas lg:dark:bg-coopmathsdark-canvas"
+              class="print-hidden flex flex-row justify-start items-center space-x-4 px-4 pt-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark lg:bg-coopmaths-canvas lg:dark:bg-coopmathsdark-canvas"
             >
               <button
                 type="button"
-                class="tooltip tooltip-bottom tooltip-neutral "
+                class="tooltip tooltip-bottom tooltip-neutral"
                 data-tip="Diaporama"
                 on:click={() =>
                   globalOptions.update((params) => {
@@ -561,7 +565,7 @@
                   })}
               >
                 <i
-                  class="bx bx-slideshow  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest
+                  class="bx bx-slideshow hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest
                       {deviceType() === 'mobile' ? 'bx-sm' : 'bx-md'} "
                 />
               </button>
@@ -574,7 +578,7 @@
                   <ModalSettingsVueEleve /> -->
               <button
                 type="button"
-                class="tooltip tooltip-bottom tooltip-neutral "
+                class="tooltip tooltip-bottom tooltip-neutral"
                 data-tip="Lien pour les élèves"
                 on:click={() =>
                   globalOptions.update((params) => {
@@ -583,7 +587,7 @@
                   })}
               >
                 <i
-                  class="bx bxs-graduation  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest
+                  class="bx bxs-graduation hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest
                       {deviceType() === 'mobile' ? 'bx-sm' : 'bx-md'} "
                 />
               </button>
@@ -728,7 +732,7 @@
               </button>
               <button
                 type="button"
-                class="tooltip tooltip-bottom tooltip-neutral "
+                class="tooltip tooltip-bottom tooltip-neutral"
                 data-tip="AMC"
                 on:click={() => {
                   globalOptions.update((params) => {
@@ -820,11 +824,14 @@
               class="tooltip tooltip-top tooltip-neutral"
               data-tip={setAllInteractifClicked ? "Supprimer l'interactivité" : "Tous les exercices en interactif"}
             >
-              <i
-                class="bx px-2 tooltip-top tooltip-neutral  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest {setAllInteractifClicked
+              <!-- <i
+                class="bx px-2 tooltip-top tooltip-neutral hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest {setAllInteractifClicked
                   ? 'bxs-edit'
                   : 'bx-edit'}"
-              />
+              /> -->
+              <div class="px-2">
+                <InteractivityIcon isOnStateActive={setAllInteractifClicked} size={6} />
+              </div>
             </button>
             <button
               type="button"
@@ -835,7 +842,7 @@
               class="tooltip tooltip-top tooltip-neutral"
               data-tip="Nouveaux énoncés"
             >
-              <i class="bx px-2 bx-refresh  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+              <i class="bx px-2 bx-refresh hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
             </button>
             <button
               type="button"
@@ -860,7 +867,7 @@
                   data-tip="Quitter le plein écran"
                 >
                   <i
-                    class="bx ml-2 bx-md px-2 bx-exit-fullscreen  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                    class="bx ml-2 bx-md px-2 bx-exit-fullscreen hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
                   />
                 </button>
               </div>
@@ -877,7 +884,7 @@
                     return params
                   })
                 }}
-                ><i class="bx px-2 bx-fullscreen  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+                ><i class="bx px-2 bx-fullscreen hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
               </button>
             {/if}
           </div>
@@ -885,11 +892,11 @@
           <div
             class="{$isExportMenuVisible
               ? 'flex lg:hidden'
-              : 'hidden'} rounded-lg text-3xl flex-row w-5/6 mx-auto justify-center items-center space-x-4 px-4 py-3 bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest  lg:bg-coopmaths-canvas lg:dark:bg-coopmathsdark-canvas"
+              : 'hidden'} rounded-lg text-3xl flex-row w-5/6 mx-auto justify-center items-center space-x-4 px-4 py-3 bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest lg:bg-coopmaths-canvas lg:dark:bg-coopmathsdark-canvas"
           >
             <button
               type="button"
-              class="tooltip tooltip-top tooltip-neutral "
+              class="tooltip tooltip-top tooltip-neutral"
               data-tip="Diaporama"
               on:click={() => {
                 handleMenuVisibility("export")
@@ -899,7 +906,7 @@
                 })
               }}
             >
-              <i class="bx bx-slideshow  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest " />
+              <i class="bx bx-slideshow hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
             </button>
             <!-- <label for="modal-settings-eleve" class="tooltip tooltip-top tooltip-neutral" data-tip="Config pour élèves">
                     <i
@@ -910,7 +917,7 @@
                   <ModalSettingsVueEleve /> -->
             <button
               type="button"
-              class="tooltip tooltip-top tooltip-neutral "
+              class="tooltip tooltip-top tooltip-neutral"
               data-tip="Lien pour les élèves"
               on:click={() => {
                 handleMenuVisibility("export")
@@ -920,7 +927,7 @@
                 })
               }}
             >
-              <i class="bx bxs-graduation  hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest " />
+              <i class="bx bxs-graduation hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
             </button>
             <button
               type="button"
@@ -1062,7 +1069,7 @@
                 </svg> -->
               </i>
             </button>
-            <button type="button" class="tooltip tooltip-top tooltip-neutral " data-tip="AMC">
+            <button type="button" class="tooltip tooltip-top tooltip-neutral" data-tip="AMC">
               <i>
                 <svg
                   viewBox="0 0 8.4759316 8.4576318"
@@ -1116,7 +1123,7 @@
           </div>
         </div>
       {:else}
-        <div class="flex flex-col justify-start text-coopmaths-corpus dark:text-coopmathsdark-corpus  md:px-10 py-6 md:py-40">
+        <div class="flex flex-col justify-start text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40">
           <div class="animate-pulse flex flex-col md:flex-row justify-start space-x-6 items-center">
             <div class="mt-[10px]"><i class="bx {deviceType() === 'mobile' ? 'bx-chevron-up' : 'bx-chevron-left'}  text-[50px]" /></div>
             <div class="font-extralight text-[50px]">Sélectionner les exercices</div>
