@@ -169,7 +169,7 @@
     // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
     setTimeout(() => {
       hauteurExercice = window.document.querySelector("section").scrollHeight
-      window.parent.postMessage({ hauteurExercice, action: "mathalea:resize" }, "*")
+      window.parent.postMessage({ hauteurExercice, action: "mathalea:resize", iframe }, "*")
     }, 1000)
   }
 
