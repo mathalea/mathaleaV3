@@ -116,7 +116,7 @@ export function updateGlobalOptionsInURL (url: URL) {
     url.searchParams.delete('sound')
   }
   if (options.v === 'eleve') {
-    if (typeof options.title !== 'undefined') {
+    if (options.title.length > 0) {
       url.searchParams.append('title', options.title)
     } else {
       url.searchParams.delete('title')

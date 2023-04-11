@@ -257,7 +257,7 @@ export function MathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
   let nbVues = 1
   let shuffle = false
   let trans = false
-  let title = 'Exercices'
+  let title = ''
   let recorder: 'capytale'|'moodle'|'labomep'|'anki'
   let done
   let choice, sound, es

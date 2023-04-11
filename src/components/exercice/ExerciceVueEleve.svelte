@@ -12,6 +12,7 @@
   import type { MathfieldElement } from "mathlive"
   export let exercice: TypeExercice
   export let indiceExercice: number
+  export let indiceLastExercice: number
   export let isCorrectionVisible = false
 
   let divExercice: HTMLDivElement
@@ -34,6 +35,11 @@
     title,
     isInteractif,
     interactifReady,
+  }
+
+  if ($globalOptions.recorder !== undefined) {
+    headerExerciceProps.randomReady = false
+    headerExerciceProps.interactifReady = false
   }
 
   $: {
@@ -71,9 +77,11 @@
         //     }
         //   }
         // }
-        buttonScore.click()
+        if (buttonScore) {
+          buttonScore.click()
+        }
       }
-    }, 1000)
+    }, 100)
   })
 
   afterUpdate(async () => {
@@ -242,33 +250,36 @@
       isMessagesVisible = event.detail.isMessagesVisible
       updateDisplay()
     }}
+    showNumber={indiceLastExercice > 1}
   />
 
   <div class="flex flex-col-reverse lg:flex-row">
     <div class="flex flex-col w-full" id="exercice{indiceExercice}">
       <div class="flex flex-row justify-start items-center mt-2">
-        <div class="hidden md:flex flex-row justify-start items-center text-coopmaths-struct dark:text-coopmathsdark-struct text-xs pl-0 md:pl-2">
-          <button
-            class={columnsCount > 1 ? "visible" : "invisible"}
-            type="button"
-            on:click={() => {
-              columnsCount--
-              updateDisplay()
-            }}
-          >
-            <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 bx-xs bx-minus" />
-          </button>
-          <i class="bx ml-1 bx-xs bx-columns" />
-          <button
-            type="button"
-            on:click={() => {
-              columnsCount++
-              updateDisplay()
-            }}
-          >
-            <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-1 bx-xs bx-plus" />
-          </button>
-        </div>
+        {#if $globalOptions.recorder === undefined}
+          <div class="hidden md:flex flex-row justify-start items-center text-coopmaths-struct dark:text-coopmathsdark-struct text-xs pl-0 md:pl-2">
+            <button
+              class={columnsCount > 1 ? "visible" : "invisible"}
+              type="button"
+              on:click={() => {
+                columnsCount--
+                updateDisplay()
+              }}
+            >
+              <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 bx-xs bx-minus" />
+            </button>
+            <i class="bx ml-1 bx-xs bx-columns" />
+            <button
+              type="button"
+              on:click={() => {
+                columnsCount++
+                updateDisplay()
+              }}
+            >
+              <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-1 bx-xs bx-plus" />
+            </button>
+          </div>
+        {/if}
         {#if $globalOptions.isSolutionAccessible && !isInteractif}
           <div class="ml-2 lg:mx-5">
             <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} bind:value={isCorrectionVisible} on:click={() => adjustMathalea2dFiguresWidth()} />

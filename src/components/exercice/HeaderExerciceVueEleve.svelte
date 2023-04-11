@@ -9,6 +9,7 @@
   export let indiceExercice: number
   export let isInteractif = false
   export let interactifReady: boolean
+  export let showNumber = true
   let isVisible = true
   let isSettingsVisible = false
   let isContentVisible = true
@@ -48,9 +49,11 @@
   <h1 class=" text-coopmaths-struct dark:text-coopmathsdark-struct  mt-8 pb-2 flex {$isMenuNeededForExercises ? 'flex-col items-center' : 'flex-row items-center'}">
     <!-- titre -->
     <div class="flex flex-row justify-start items-center" id="exerciceHeader{indiceExercice}">
+      {#if showNumber}
       <div class="{$isMenuNeededForExercises ? 'hidden' : 'inline-flex'} items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg lg:text-normal">
         {indiceExercice + 1}
       </div>
+      {/if}
       <div class="font-light {$isMenuNeededForExercises ? 'text-3xl' : 'text-2xl'} ml-2">
         {title}
       </div>
