@@ -980,12 +980,14 @@ export default class ClasseCan2023 {
     const nombreDeDizaines = randint(1, 9)
     const nombreDeCentaines = randint(1, 9)
     const nombre = 100 * nombreDeCentaines + 10 * nombreDeDizaines
+    const accordDizaine = nombreDeDizaines === 1 ? 'dizaine' : 'dizaines'
+    const accordCentaine = nombreDeCentaines === 1 ? 'centaine' : 'centaines'
     sortie.reponse = nombreDeDizaines
     sortie.texte = `Complète : ${sp(3)}
-    $${texNombre(nombreDeCentaines, 0)} \\text{ centaines et } \\ldots \\text{ dizaines font } ${nombre}$ `
+    $${texNombre(nombreDeCentaines, 0)} \\text{ ${accordCentaine} et } \\ldots \\text{ ${accordDizaine} font } ${nombre}$ `
     sortie.texteCorr = `$${texNombre(nombre, 0)} = ${texNombre(nombreDeCentaines, 0)} \\text{ centaines et } ${miseEnEvidence(texNombre(nombreDeDizaines, 0))} \\text{ dizaines }$`
     sortie.canEnonce = 'Complète'
-    sortie.canReponseACompleter = `$${texNombre(nombreDeCentaines, 0)}\\text{ centaines et} \\dots\\text{ dizaines}$\\\\ $\\text{font } ${nombre}$`
+    sortie.canReponseACompleter = `$${texNombre(nombreDeCentaines, 0)}\\text{ ${accordCentaine} et} \\dots\\text{ ${accordDizaine}}$\\\\ $\\text{font } ${nombre}$`
     return sortie
   }
 
