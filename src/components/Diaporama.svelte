@@ -265,7 +265,7 @@
 
   function nextQuestion() {
     if ($transitionsBetweenQuestions.isQuestThenSolModeActive) {
-      if (isQuestionVisible) {
+      if (isQuestionVisible && !isCorrectionVisible) {
         switchPause()
         switchQuestionToCorrection()
         goToQuestion(currentQuestion)
@@ -454,7 +454,7 @@
    * @author sylvain
    */
   async function setSize() {
-    // let startSize = 0
+    let startSize = 0
     for (let i = 0; i < nbOfVues; i++) {
       if (typeof divQuestion[i] !== "undefined") {
         MathaleaRenderDiv(divQuestion[i], -1)
@@ -504,8 +504,17 @@
         const clone = textcell_div.cloneNode(true)
         //@ts-ignore
         const elementsKaTeX = clone.getElementsByClassName("katex")
+        let nbOfCharInKaTeX = 0
         while (elementsKaTeX.length > 0) {
+          const katexHtmlElement = elementsKaTeX[0].getElementsByClassName("katex-html")
+          let kw = 0
+          for (let k = 0; k < katexHtmlElement.length; k++) {
+            nbOfCharInKaTeX += katexHtmlElement[k].innerText.length
+            kw += katexHtmlElement[k].clientWidth
+          }
+          console.log("new katex width : " + kw)
           elementsKaTeX[0].parentNode.removeChild(elementsKaTeX[0])
+          console.log("char in katex : " + nbOfCharInKaTeX)
         }
         //@ts-ignore
         const elementsSVG = clone.getElementsByClassName("mathalea2d")
@@ -513,7 +522,7 @@
           elementsSVG[0].parentNode.removeChild(elementsSVG[0])
         }
         //@ts-ignore
-        let nbOfCharactersInTextDiv = clone.innerText.length
+        let nbOfCharactersInTextDiv = clone.innerText.length + nbOfCharInKaTeX
         // console.log("nb caractères : " + nbOfCharactersInTextDiv)
         if (finalSVGHeight !== 0) {
           nbOfCharactersInTextDiv -= 100
@@ -527,33 +536,40 @@
             size = size / 3
           }
         }
-        // startSize = size
-        let consigne_height, correction_height, question_height: number
+        startSize = size
+        let consigne_height, correction_height, question_height, question_width, consigne_width, correction_width: number
         do {
           size = size - 2
           if (question_div !== null) {
             question_div.style.fontSize = size + "px"
             question_height = question_div.clientHeight
+            question_width = question_div.clientWidth
           } else {
             question_height = 0
+            question_width = 0
           }
           if (consigne_div !== null) {
             consigne_div.style.fontSize = size + "px"
             consigne_height = consigne_div.clientHeight
+            consigne_width = consigne_div.clientWidth
           } else {
             consigne_height = 0
+            consigne_width = 0
           }
           if (correction_div !== null) {
             correction_div.style.fontSize = size + "px"
             correction_height = correction_div.clientHeight
+            correction_width = correction_div.clientWidth
           } else {
             correction_height = 0
+            correction_width = 0
           }
+          // console.log("cell w=" + textcell_width + "/h=" + textcell_height)
           // console.log("question w=" + question_width + "/h=" + question_height)
           // console.log("consigne w=" + consigne_width + "/h=" + consigne_height)
           // console.log("correction w=" + correction_width + "/h=" + correction_height)
           //  question_width > textcell_width || consigne_width > textcell_width || correction_width > textcell_width ||
-        } while (question_height + consigne_height + correction_height > textcell_height)
+        } while (question_width > textcell_width || consigne_width > textcell_width || correction_width > textcell_width || question_height + consigne_height + correction_height > textcell_height)
         if (question_div !== null) {
           question_div.style.fontSize = currentZoom * size + "px"
         }
@@ -563,7 +579,7 @@
         if (correction_div !== null) {
           correction_div.style.fontSize = currentZoom * size + "px"
         }
-        // console.log("nb de caractères : " + nbOfCharactersInTextDiv + " / font-size départ : " + startSize + "font-size calculée : " + size + " / ratio : " + (1 - finalSVGHeight / textcell_height))
+        console.log("nb de caractères : " + nbOfCharactersInTextDiv + " / font-size départ : " + startSize + " / font-size calculée : " + size + " / ratio : " + (1 - finalSVGHeight / textcell_height))
       }
     }
   }
@@ -623,12 +639,12 @@
   }
 
   async function switchQuestionToCorrection() {
-    if (isQuestionVisible) {
-      isCorrectionVisible = true
-      isQuestionVisible = false
-    } else {
+    if (isCorrectionVisible) {
       isCorrectionVisible = false
       isQuestionVisible = true
+    } else {
+      isCorrectionVisible = true
+      isQuestionVisible = $transitionsBetweenQuestions.questThenQuestAndSolDisplay ? true : false
     }
     await tick()
     setSize()
@@ -824,6 +840,26 @@
             <div class="flex flex-row justify-start items-center px-4">
               <ButtonToggle bind:value={$transitionsBetweenQuestions.isQuestThenSolModeActive} titles={["Question <em>puis</em> correction", "Question / Question+Correction / Correction"]} />
             </div>
+            <div class="{$transitionsBetweenQuestions.isQuestThenSolModeActive ? 'flex' : 'hidden'} flex-row justify-start items-center pr-4 pl-6">
+              <input
+                id="checkbox-choice"
+                aria-describedby="checkbox-choice"
+                type="checkbox"
+                class="w-4 h-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {!$transitionsBetweenQuestions.isQuestThenSolModeActive
+                  ? 'border-opacity-10'
+                  : 'border-opacity-100'} border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
+                bind:checked={$transitionsBetweenQuestions.questThenQuestAndSolDisplay}
+                disabled={!$transitionsBetweenQuestions.isQuestThenSolModeActive}
+              />
+              <label
+                for="checkbox-choice"
+                class="ml-3 text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {!$transitionsBetweenQuestions.isQuestThenSolModeActive
+                  ? 'text-opacity-10 dark:text-opacity-10'
+                  : 'text-opacity-70 dark:text-opacity-70'}"
+              >
+                Afficher la question avec la correction
+              </label>
+            </div>
             <div class="flex flex-row justify-start items-center px-4">
               <ButtonToggle bind:value={$transitionsBetweenQuestions.isActive} titles={["Carton entre questions", "Pas de carton entre questions"]} on:click={handleTransitionsMode} />
             </div>
@@ -855,16 +891,18 @@
                 id="checkbox-choice"
                 aria-describedby="checkbox-choice"
                 type="checkbox"
-                class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
+                class="w-4 h-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {exercices.length == 1
+                  ? 'border-opacity-10'
+                  : 'border-opacity-100'} border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
                 checked={$selectedExercises.isActive}
                 on:change={handleSampleChecked}
                 disabled={exercices.length == 1}
               />
               <label
                 for="checkbox-choice"
-                class="ml-3 font-medium text-coopmaths-corpus dark:text-coopmathsdark-corpus {exercices.length == 1
-                  ? 'text-opacity-30 dark:text-opacity-30'
-                  : 'text-opacity-100 dark:text-opacity-100'}"
+                class="ml-3 text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {exercices.length == 1
+                  ? 'text-opacity-10 dark:text-opacity-10'
+                  : 'text-opacity-70 dark:text-opacity-70'}"
               >
                 Seulement certains exercices de la liste
               </label>

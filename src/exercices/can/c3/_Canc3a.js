@@ -207,7 +207,7 @@ export default class ClasseCan2023 {
     sortie.texte = context.isHtml ? 'Quel est le nombre écrit sous le point d\'interrogation ?<br>\n' + mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, d) + '\n' : `Complète \\\\ \\Reperage[ValeurOrigine=${valeurOrigine},ValeurUnitex=${valeurUnitex},Pasx=${pas},AffichageAbs=3,AffichageGrad]{${gradLaTeX}/A}`
     // texte += context.isHtml ? '' : '\\\\\\smallskip'
     sortie.texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(a)}$.`
-    sortie.canEnonce = 'Complète'
+    sortie.canEnonce = 'Complète.'
     sortie.canReponseACompleter = `\\Reperage[ValeurOrigine=${valeurOrigine},ValeurUnitex=${valeurUnitex},Pasx=${pas},AffichageAbs=3,AffichageGrad]{${gradLaTeX}/A}`
     return sortie
   }
@@ -268,7 +268,7 @@ export default class ClasseCan2023 {
             $${miseEnEvidence(3)}\\times ${miseEnEvidence(14)}=42$<br>
             $${miseEnEvidence(1)}\\times ${miseEnEvidence(42)}=42$`
     }
-    sortie.canEnonce = 'Complète'
+    sortie.canEnonce = 'Complète.'
     return sortie
   }
 
@@ -579,7 +579,7 @@ export default class ClasseCan2023 {
     sortie.texte = context.isHtml ? 'Quel est le nombre écrit sous le point d\'interrogation ?<br>\n' + mathalea2d({ xmin: -1, ymin: -1, xmax: d.Max, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, d) + '\n' : `Complète \\\\ ${sortie.canReponseACompleter}`
     // texte += context.isHtml ? '' : '\\\\\\smallskip'
     sortie.texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(a)}$.`
-    sortie.canEnonce = 'Complète'
+    sortie.canEnonce = 'Complète.'
     return sortie
   }
 
@@ -604,7 +604,7 @@ export default class ClasseCan2023 {
     $${texNombre(b, 1)}+\\ldots =${res}$ `
     sortie.texteCorr = `Le nombre cherché est donné par : $${res}-${texNombre(b, 1)}=${miseEnEvidence(texNombre(sortie.reponse, 2))}$.`
     // sortie.reponse = a
-    sortie.canEnonce = 'Complète'
+    sortie.canEnonce = 'Complète.'
     sortie.canReponseACompleter = `$${texNombre(b, 1)}+\\ldots =${res}$`
     return sortie
   }
@@ -629,7 +629,7 @@ export default class ClasseCan2023 {
     sortie.texte = `Complète : ${sp(3)}
     $${texNombre(nombre, 0)}= \\ldots \\text{ dizaines } \\ldots \\text{ unités }$ `
     sortie.texteCorr = `$${texNombre(nombre, 0)} = ${miseEnEvidence(texNombre(nombreDeDizaines, 0))} \\text{ dizaines } ${miseEnEvidence(texNombre(nombreDUnites, 0))} \\text{ unités }$`
-    sortie.canEnonce = 'Complète'
+    sortie.canEnonce = 'Complète.'
     sortie.canReponseACompleter = `$${texNombre(nombre, 0)}= \\ldots \\text{ dizaines } \\ldots \\text{ unités }$ `
     return sortie
   }
@@ -980,12 +980,14 @@ export default class ClasseCan2023 {
     const nombreDeDizaines = randint(1, 9)
     const nombreDeCentaines = randint(1, 9)
     const nombre = 100 * nombreDeCentaines + 10 * nombreDeDizaines
+    const accordDizaine = nombreDeDizaines === 1 ? 'dizaine' : 'dizaines'
+    const accordCentaine = nombreDeCentaines === 1 ? 'centaine' : 'centaines'
     sortie.reponse = nombreDeDizaines
     sortie.texte = `Complète : ${sp(3)}
-    $${texNombre(nombreDeCentaines, 0)} \\text{ centaines et } \\ldots \\text{ dizaines font } ${nombre}$ `
+    $${texNombre(nombreDeCentaines, 0)} \\text{ ${accordCentaine} et } \\ldots \\text{ ${accordDizaine} font } ${nombre}$ `
     sortie.texteCorr = `$${texNombre(nombre, 0)} = ${texNombre(nombreDeCentaines, 0)} \\text{ centaines et } ${miseEnEvidence(texNombre(nombreDeDizaines, 0))} \\text{ dizaines }$`
-    sortie.canEnonce = 'Complète'
-    sortie.canReponseACompleter = `$${texNombre(nombreDeCentaines, 0)}\\text{ centaines et} \\dots\\text{ dizaines}$\\\\ $\\text{font } ${nombre}$`
+    sortie.canEnonce = 'Complète.'
+    sortie.canReponseACompleter = `$${texNombre(nombreDeCentaines, 0)}\\text{ ${accordCentaine} et} \\dots\\text{ ${accordDizaine}}$\\\\ $\\text{font } ${nombre}$`
     return sortie
   }
 

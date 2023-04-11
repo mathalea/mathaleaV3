@@ -31,8 +31,8 @@ export const globalOptions = writable<InterfaceGlobalOptions>({ v: '', z: '1', t
 // utilisé pour les aller-retours entre le composant Diaporam et le composant Can
 export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: [] })
 export const selectedExercises = writable({ isActive: false, indexes: [], count: 1 })
-interface InterfaceTransitionsBetweenQuestions {isActive: boolean, isNoisy: boolean, isQuestThenSolModeActive: boolean, tune: '0'|'1'|'2'|'3' }
-export const transitionsBetweenQuestions = writable<InterfaceTransitionsBetweenQuestions>({ isActive: true, isNoisy: false, isQuestThenSolModeActive: false, tune: '0' })
+interface InterfaceTransitionsBetweenQuestions {isActive: boolean, isNoisy: boolean, isQuestThenSolModeActive: boolean, questThenQuestAndSolDisplay: boolean, tune: '0'|'1'|'2'|'3' }
+export const transitionsBetweenQuestions = writable<InterfaceTransitionsBetweenQuestions>({ isActive: true, isNoisy: false, isQuestThenSolModeActive: false, questThenQuestAndSolDisplay: false, tune: '0' })
 
 // pour la gestion du mode sombre
 export const darkMode = writable({ isActive: false })
@@ -116,10 +116,13 @@ export function updateGlobalOptionsInURL (url: URL) {
     url.searchParams.delete('sound')
   }
   if (options.v === 'eleve') {
-    if (typeof options.title !== 'undefined') {
+    if (options.title.length > 0) {
       url.searchParams.append('title', options.title)
     } else {
       url.searchParams.delete('title')
+    }
+    if (options.iframe !== undefined) {
+      url.searchParams.append('iframe', options.iframe)
     }
     if (typeof options !== 'undefined') {
       let es = presModeId.indexOf(options.presMode).toString()
