@@ -492,7 +492,7 @@ export function exportQcmAmc (exercice, idExo) {
         }
         if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.numerotationEnonce) {
-            texQr += '\\end{question}'
+            texQr += '\\end{question}\n'
           }
         }
 
