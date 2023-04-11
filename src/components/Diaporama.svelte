@@ -265,7 +265,7 @@
 
   function nextQuestion() {
     if ($transitionsBetweenQuestions.isQuestThenSolModeActive) {
-      if (isQuestionVisible) {
+      if (isQuestionVisible && !isCorrectionVisible) {
         switchPause()
         switchQuestionToCorrection()
         goToQuestion(currentQuestion)
@@ -639,12 +639,12 @@
   }
 
   async function switchQuestionToCorrection() {
-    if (isQuestionVisible) {
-      isCorrectionVisible = true
-      isQuestionVisible = false
-    } else {
+    if (isCorrectionVisible) {
       isCorrectionVisible = false
       isQuestionVisible = true
+    } else {
+      isCorrectionVisible = true
+      isQuestionVisible = $transitionsBetweenQuestions.questThenQuestAndSolDisplay ? true : false
     }
     await tick()
     setSize()
@@ -840,20 +840,22 @@
             <div class="flex flex-row justify-start items-center px-4">
               <ButtonToggle bind:value={$transitionsBetweenQuestions.isQuestThenSolModeActive} titles={["Question <em>puis</em> correction", "Question / Question+Correction / Correction"]} />
             </div>
-            <div class="flex flex-row justify-start items-center px-4">
+            <div class="{$transitionsBetweenQuestions.isQuestThenSolModeActive ? 'flex' : 'hidden'} flex-row justify-start items-center pr-4 pl-6">
               <input
                 id="checkbox-choice"
                 aria-describedby="checkbox-choice"
                 type="checkbox"
-                class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
+                class="w-4 h-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {!$transitionsBetweenQuestions.isQuestThenSolModeActive
+                  ? 'border-opacity-10'
+                  : 'border-opacity-100'} border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
                 bind:checked={$transitionsBetweenQuestions.questThenQuestAndSolDisplay}
                 disabled={!$transitionsBetweenQuestions.isQuestThenSolModeActive}
               />
               <label
                 for="checkbox-choice"
-                class="ml-3 font-medium text-coopmaths-corpus dark:text-coopmathsdark-corpus {!$transitionsBetweenQuestions.isQuestThenSolModeActive
-                  ? 'text-opacity-30 dark:text-opacity-30'
-                  : 'text-opacity-100 dark:text-opacity-100'}"
+                class="ml-3 text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {!$transitionsBetweenQuestions.isQuestThenSolModeActive
+                  ? 'text-opacity-10 dark:text-opacity-10'
+                  : 'text-opacity-70 dark:text-opacity-70'}"
               >
                 Afficher la question avec la correction
               </label>
@@ -889,16 +891,18 @@
                 id="checkbox-choice"
                 aria-describedby="checkbox-choice"
                 type="checkbox"
-                class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
+                class="w-4 h-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {exercices.length == 1
+                  ? 'border-opacity-10'
+                  : 'border-opacity-100'} border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
                 checked={$selectedExercises.isActive}
                 on:change={handleSampleChecked}
                 disabled={exercices.length == 1}
               />
               <label
                 for="checkbox-choice"
-                class="ml-3 font-medium text-coopmaths-corpus dark:text-coopmathsdark-corpus {exercices.length == 1
-                  ? 'text-opacity-30 dark:text-opacity-30'
-                  : 'text-opacity-100 dark:text-opacity-100'}"
+                class="ml-3 text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {exercices.length == 1
+                  ? 'text-opacity-10 dark:text-opacity-10'
+                  : 'text-opacity-70 dark:text-opacity-70'}"
               >
                 Seulement certains exercices de la liste
               </label>
