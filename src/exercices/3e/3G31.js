@@ -32,6 +32,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const titre = 'Calculer un angle dans un triangle rectangle en utilisant la trigonométrie'
+export const dateDeModifImportante = '11/04/2023' // Modif consigne et passage à AMCHbride par EE.
 
 /**
  * @author Jean-Claude Lhote à partir de 3G30-1 de Rémi Angot
@@ -66,11 +67,10 @@ export default function CalculDAngle () {
     this.listeCorrections = []
     this.autoCorrection = []
     for (let i = 0; i < this.nbQuestions; i++) {
-      let mEp, mEp2
-      if (this.sup) mEp = '<br>'
-      else mEp = ''
-      if (this.correctionDetaillee) mEp2 = '<br>'
-      else mEp2 = ''
+      // let mEp = (this.sup && !context.isHtml) ? '<br>' : ''
+      const mEp = ''
+      // const mEp2 = (this.correctionDetaillee && !context.isHtml) ? '<br>' : ''
+      const mEp2 = ''
       const nom = creerNomDePolygone(3, 'QD')
       let texte = ''
       let texteCorr = ''
@@ -84,10 +84,11 @@ export default function CalculDAngle () {
         choixRapportTrigo = choice(['Acos', 'Asin', 'Atan'])
       }
       angleABC = randint(35, 55)
-
+      /*
       if (!context.isHtml && this.sup) {
-        texte += '\\begin{minipage}{.6\\linewidth}\n'
+           texte += '\\begin{minipage}{.6\\linewidth}\n'
       }
+      */
       switch (choixRapportTrigo) {
         case 'Acos': // AB=BCxcos(B)
           bc = arrondi(randint(100, 150) / 10, 1)
@@ -111,10 +112,11 @@ export default function CalculDAngle () {
           texte += `Le triangle $${nom}$ rectangle en $${nom[0]}$ est tel que ${mEp} $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm et  $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
           break
       }
-
+      /*
       if (!context.isHtml && this.sup) {
         texte += '\n\\end{minipage}\n'
       }
+      */
       const ratioerreur = randint(80, 120, 100) / 100
       const a = point(0, 0)
       const b = point(ab * ratioerreur, 0)
@@ -123,7 +125,6 @@ export default function CalculDAngle () {
       const cb = point(0, ac)
       const p1 = polygone(a, b, c)
       const p3 = polygone(a, bb, cb)
-      // p1.isVisible = false
       const alpha = randint(0, 360)
       const p2 = rotation(p1, a, alpha)
       const p4 = rotation(p3, a, alpha)
