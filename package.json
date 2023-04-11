@@ -27,7 +27,8 @@
     "Florence Tapiero",
     "Jean-Léon Henry",
     "Mathieu Degrange",
-    "Loïc Geeraerts"
+    "Loïc Geeraerts",
+    "Mickael Guironnet"
   ],
   "license": "AGPL-3.0",
   "bugs": {
@@ -61,7 +62,7 @@
     "lz-string": "^1.5.0",
     "mathjs": "^11.7.0",
     "mathlive": "^0.89.4",
-    "mathsteps": "github:mathalea/mathsteps",
+    "mathsteps": "github:mathalea/mathsteps#update-mathjs",
     "qrcode": "^1.5.1",
     "scratchblocks": "^3.6.1",
     "seedrandom": "^3.0.5",
@@ -101,7 +102,7 @@
   },
   "pnpm": {
     "overrides": {
-      "typed-function@<0.10.6": ">=0.10.6",
+      "typed-function@<0.10.6": ">=4.0.0",
       "moment@>=2.18.0 <2.29.4": ">=2.29.4",
       "svelte@<3.49.0": ">=3.49.0"
     }

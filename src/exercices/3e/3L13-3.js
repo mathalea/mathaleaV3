@@ -1,7 +1,7 @@
 import { codageSegments, homothetie, point, polygone, polygoneAvecNom, segment, texteParPosition } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { arrondi, choice, combinaisonListes, compteOccurences, contraindreValeur, ecritureAlgebrique, listeQuestionsToContenu, prenom, rangeMinMax, texNombre, texPrix } from '../../modules/outils.js'
+import { arrondi, choice, combinaisonListes, compteOccurences, contraindreValeur, ecritureAlgebrique, listeQuestionsToContenu, prenom, rangeMinMax, stringNombre, texNombre, texPrix } from '../../modules/outils.js'
 import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -28,7 +28,7 @@ export default class ProblemesEnEquation extends Exercice {
     super()
     this.titre = titre
     this.nbQuestions = 2
-    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : basket\n2 : basket2\n3 : achats\n4 : polygone\n5 : programmes\n6 : programmes2\n7 : tarifs\n8 : spectacle\n9 : isocele\n10 : Thales\n11 : Thales2\n12 : Mélange']
+    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : basket\n2 : basket2\n3 : achats\n4 : polygone\n5 : programmes\n6 : programmes2\n7 : tarifs\n8 : spectacle\n9 : isocèle\n10 : Thalès\n11 : Thalès2\n12 : Mélange']
     this.sup = '12'
     this.besoinFormulaire2CaseACocher = ['Uniquement des nombres entiers']
     this.sup2 = false
@@ -180,7 +180,7 @@ export default class ProblemesEnEquation extends Exercice {
           b = variables.b // nombre de côtés égaux du polygone
           d = variables.d // périmètre du polygone
           c = 0 // ne sert pas dans ce cas
-          equation = `${b}*x+${a}=${d}`
+          equation = `${b}*x+${a}=${stringNombre(d).replace(',', '.').replace(/\s+/g, '')}`
           resolution = resoudre(equation, { reduceSteps: true, substeps: false, comment: true })
           enonce = `Un ${polygones[b - 2]} possède un côté de longueur $${texNombre(a)}$ cm et tous ses autres côtés ont même longueur.<br>Son périmètre est $${texNombre(d)}$ cm.<br>`
           enonce += 'Quelle est la longueur des côtés de même longueur ?'
@@ -251,7 +251,7 @@ export default class ProblemesEnEquation extends Exercice {
           c = variables.c
           d = variables.d
           x = Math.ceil(c / (b - d))
-          equation = `x*${b}>=${c}+x*${d}`
+          equation = `x*${b}>=${c}+x*${stringNombre(d).replace(',', '.').replace(/\s+/g, '')}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
           enonce = `Le ${clubs[a]} d'un village propose deux tarifs à ses pratiquants.<br>`
           enonce += `Le tarif A propose de payer $${texPrix(b)}$ € à chaque séance.<br>`
@@ -287,7 +287,7 @@ export default class ProblemesEnEquation extends Exercice {
           c = variables.c
           d = variables.d
           x = variables.x
-          equation = `x*${b}+(${a}-x)*${c}=${d}`
+          equation = `x*${b}+(${a}-x)*${c}=${stringNombre(d).replace(',', '.').replace(/\s+/g, '')}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true })
           enonce = `Dans une salle de spectacle de $${texNombre(a)}$ places, le prix d'entrée pour un adulte est $${texPrix(b)}$ € et pour un enfant il est de $${texPrix(c)}$ €.<br>`
           enonce += `Le spectacle de ce soir s'est déroulé devant une salle pleine et la recette est de $${texPrix(d)}$ €.<br>`
