@@ -17,9 +17,13 @@ if (typeof window.iMathAlea === 'undefined') {
           iframe.setAttribute('height', hauteur.toString())
         }
         if (event.data.action === 'mathalea:score') {
-          // On calcule de score et s'assure qu'il soit un multiple de 10 afin d'être compatible avec moodle
-          const score = Math.round((event.data.resultsByExercice[0].numberOfPoints / event.data.resultsByExercice[0].numberOfQuestions) * 10) * 10
-          question.querySelector('[name$="_answer"]').value = score + '|' + JSON.stringify(event.data.resultsByExercice[0].answers)
+          const score = (event.data.resultsByExercice[0].numberOfPoints / event.data.resultsByExercice[0].numberOfQuestions) * 100
+          // On regarde le score le plus proche parmi les scores compatibles moodle
+          const compatibleScore = [100, 90, 80, 75, 66.666, 60, 50, 40, 33.333, 30, 25, 20, 16.666, 14.2857, 12.5, 11.111, 10, 5, 0]
+          compatibleScore.reduce((prev, curr) => {
+            return (Math.abs(curr - score) < Math.abs(prev - score) ? curr : prev)
+          })
+          question.querySelector('[name$="_answer"]').value = compatibleScore + '|' + JSON.stringify(event.data.resultsByExercice[0].answers)
           question.querySelector('[name$="_-submit"]')?.click()
         }
       }
