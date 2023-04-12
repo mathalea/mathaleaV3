@@ -27,7 +27,6 @@
         selectedCount += 1
       }
     }
-    // selectedCount = listeCodes.filter(isPresent).length
     selectedCount = selectedCount
   }
   /**

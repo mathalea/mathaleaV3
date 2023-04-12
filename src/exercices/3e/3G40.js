@@ -42,20 +42,23 @@ export default function ReperageSurLaSphere () {
   this.sup2 = false
   this.sup3 = false
   this.sup4 = false
+  const inclinaison = 5
+  const O = point3d(0, 0, 0, false, 'O')
+
+  const Sph = sphere3d(O, 10, (context.isAmc ? 'darkgray' : 'red'), 'black', 18, 'black', 36, 'black', false, 'black', inclinaison)
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     this.autoCorrection = []
-    let listeTypeDeQuestions = []
+    let listeTypeDeQuestions
     if (this.sup === 1) listeTypeDeQuestions = combinaisonListes([1], this.nbQuestions)
     else if (this.sup === 2) listeTypeDeQuestions = combinaisonListes([2], this.nbQuestions)
     else listeTypeDeQuestions = combinaisonListes([1, 2], this.nbQuestions)
-    let texte = ''
+    let texte
     let texteCorrection = ''
-    const O = point3d(0, 0, 0, false, 'O')
-    const inclinaison = 5
+
     const normalRot = vecteur3d(0, 1, 0)
     const droiteRot = droite3d(point3d(0, 0, 0), normalRot)
     let M = rotation3d(point3d(10, 0, 0, true, 'M'), droiteRot, inclinaison)
@@ -106,7 +109,6 @@ export default function ReperageSurLaSphere () {
 
     if (context.isAmc) origine = rotation3d(origine, droite3d(O, normalH), 2) // Parce qu'il existe un décalage en Latex
 
-    const Sph = sphere3d(O, 10, (context.isAmc ? 'darkgray' : 'red'), 'black', 18, 'black', 36, 'black', false, 'black', inclinaison)
     const greenwich = demicercle3d(O, normalH, rotation3d(vecteur3d(0, 0, -10), droiteRot, inclinaison), 'indirect', false, context.isAmc ? 'darkgray' : 'green', 0)
     greenwich.epaisseur = context.isAmc ? 1.5 : 3
 
@@ -118,7 +120,6 @@ export default function ReperageSurLaSphere () {
     const P = []
     const EstouOuest = []
     const NordouSud = []
-    let nom = []
     const E = texteParPoint('Est', rotation3d(point3d(13.2, 0, 0, true, 'Est'), droiteRot, inclinaison).c2d, 'milieu', 'brown')
     E.taille = 15
     E.color = colorToLatexOrHTML('brown')
@@ -155,7 +156,7 @@ export default function ReperageSurLaSphere () {
       EstouOuest.push('O')
       NordouSud.push('N')
     }
-    nom = choisitLettresDifferentes(this.nbQuestions, 'QX')
+    const nom = choisitLettresDifferentes(this.nbQuestions, 'QX')
     texte = ''
 
     if (context.isAmc) {

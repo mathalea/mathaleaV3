@@ -257,7 +257,10 @@ export function MathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
   let nbVues = 1
   let shuffle = false
   let trans = false
-  let title = 'Exercices'
+  let title = ''
+  let iframe = ''
+  let recorder: 'capytale'|'moodle'|'labomep'|'anki'
+  let done: '1'
   let choice, sound, es
   let presMode: 'page'|'exos'|'liste'|'questions' = 'page'
   let setInteractive = '2'
@@ -307,6 +310,12 @@ export function MathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
       newListeExercice[indiceExercice].cd = entry[1]
     } else if (entry[0] === 'v') {
       v = entry[1]
+    } else if (entry[0] === 'recorder') {
+      if (entry[1] === 'capytale' || entry[1] === 'moodle' || entry[1] === 'labomep' || entry[1] === 'anki') {
+        recorder = entry[1]
+      }
+    } else if (entry[0] === 'done' && entry[1] === '1') {
+      done = '1'
     } else if (entry[0] === 'z') {
       z = entry[1]
     } else if (entry[0] === 'dGlobal') {
@@ -325,6 +334,8 @@ export function MathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
       es = entry[1]
     } else if (entry[0] === 'title') {
       title = entry[1]
+    } else if (entry[0] === 'iframe') {
+      iframe = entry[1]
     }
     if (entry[0] === 'uuid') previousEntryWasUuid = true
     else previousEntryWasUuid = false
@@ -356,7 +367,10 @@ export function MathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
     presMode,
     setInteractive,
     isSolutionAccessible,
-    isInteractiveFree
+    isInteractiveFree,
+    recorder,
+    done,
+    iframe
   }
 }
 

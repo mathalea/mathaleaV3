@@ -492,7 +492,7 @@ export function exportQcmAmc (exercice, idExo) {
         }
         if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.numerotationEnonce) {
-            texQr += '\\end{question}'
+            texQr += '\\end{question}\n'
           }
         }
 
@@ -534,7 +534,9 @@ export function exportQcmAmc (exercice, idExo) {
                 }
               }
 
-              texQr += `${qr > 0 && (qrType === 'qcmMono' || (qrType === 'qcmMult' && !autoCorrection[j].options.avecSymboleMult)) ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{${qrType === 'qcmMono' ? 'question' : 'questionmult'}}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+              texQr += `${qr > 0 && (qrType === 'qcmMono' || (qrType === 'qcmMult' && !autoCorrection[j].options.avecSymboleMult)) ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}`
+              texQr += ((typeof autoCorrection[j].options !== 'undefined') && (autoCorrection[j].options.numerotationEnonce)) ? '\n \\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''
+              texQr += `\\begin{${qrType === 'qcmMono' ? 'question' : 'questionmult'}}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
               if (prop.enonce !== undefined) {
                 texQr += prop.enonce + '\n'
               }
@@ -721,7 +723,7 @@ export function exportQcmAmc (exercice, idExo) {
                 }
                 if (rep.param.approx !== undefined && rep.param.approx !== 0) {
                   texQr += `approx=${rep.param.approx},`
-                  texQr += `scoreapprox=${rep.param.scoreapprox || 0.667},`
+                  // texQr += `scoreapprox=${rep.param.scoreapprox || 0.667},`
                 }
                 if (rep.param.vertical !== undefined && rep.param.vertical) {
                   texQr += `vertical=${rep.param.vertical},`

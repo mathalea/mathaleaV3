@@ -59,7 +59,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_01_sujet0_5.tex',
     urlcor: '/bac/2021/tex/bac_2021_01_sujet0_5_cor.tex',
-    tags: ['Equations différentielles', 'Exponentielle', 'Suites']
+    tags: ['Équations différentielles', 'Exponentielle', 'Suites']
   },
   bac_2021_03_sujet1_1: {
     annee: '2021',
@@ -287,7 +287,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_polynesie_4.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_polynesie_4_cor.tex',
-    tags: ['Exponentielle', 'Convexité', 'Equations différentielles']
+    tags: ['Exponentielle', 'Convexité', 'Équations différentielles']
   },
   bac_2021_06_polynesie_5: {
     annee: '2021',
@@ -373,7 +373,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_asie_5.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_asie_5_cor.tex',
-    tags: ['Exponentielle', 'Equations différentielles']
+    tags: ['Exponentielle', 'Équations différentielles']
   },
   bac_2021_06_asie_6: {
     annee: '2021',
@@ -421,7 +421,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_asie_9.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_asie_9_cor.tex',
-    tags: ['Suites', 'Equations différentielles']
+    tags: ['Suites', 'Équations différentielles']
   },
   bac_2021_06_etrangers_1: {
     annee: '2021',
@@ -445,7 +445,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_etrangers_10.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_etrangers_10_cor.tex',
-    tags: ['Exponentielle', 'Equations différentielles']
+    tags: ['Exponentielle', 'Équations différentielles']
   },
   bac_2021_06_etrangers_2: {
     annee: '2021',
@@ -493,7 +493,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_etrangers_5.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_etrangers_5_cor.tex',
-    tags: ['Exponentielle', 'Equations différentielles']
+    tags: ['Exponentielle', 'Équations différentielles']
   },
   bac_2021_06_etrangers_6: {
     annee: '2021',
@@ -613,7 +613,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_metropole_5.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_metropole_5_cor.tex',
-    tags: ['Equations différentielles', 'Exponentielle']
+    tags: ['Équations différentielles', 'Exponentielle']
   },
   bac_2021_06_metropole_6: {
     annee: '2021',

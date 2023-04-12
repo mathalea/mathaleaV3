@@ -78,9 +78,27 @@ export default function SujetCAN2023Sixieme () {
 
           texte = `$${a}+${b}$`
           reponse = a + b
-          if (b === 19) { texteCorr = `$${a}+${b}=${a}+20-1=${a + 20}-1=${miseEnEvidence(reponse)}$` }
-          if (b === 29) { texteCorr = `$${a}+${b}=${a}+30-1=${a + 30}-1=${miseEnEvidence(reponse)}$` }
-          if (b === 39) { texteCorr = `$${a}+${b}=${a}+40-1=${a + 40}-1=${miseEnEvidence(reponse)}$` }
+          if (b === 19) {
+            texteCorr = `$\\begin{aligned}
+          ${a}+${b}&=${a}+20-1\\\\
+          &=${a + 20}-1\\\\
+         &=${miseEnEvidence(reponse)}
+                         \\end{aligned}$`
+          }
+          if (b === 29) {
+            texteCorr = `$\\begin{aligned}
+          ${a}+${b}&=${a}+30-1\\\\
+          &=${a + 30}-1\\\\
+         &=${miseEnEvidence(reponse)}
+                         \\end{aligned}$`
+          }
+          if (b === 39) {
+            texteCorr = `$\\begin{aligned}
+          ${a}+${b}&=${a}+40-1\\\\
+          &=${a + 40}-1\\\\
+         &=${miseEnEvidence(reponse)}
+                         \\end{aligned}$`
+          }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }
 
@@ -752,7 +770,10 @@ export default function SujetCAN2023Sixieme () {
 
           reponse = a * b
           texte = ` $${a}\\times ${b}$`
-          texteCorr = `$${a}\\times ${b}=${a}\\times ${texNombre(b / 100)}\\times 100=${miseEnEvidence(texNombre(reponse))}$`
+          texteCorr = `$\\begin{aligned}
+          ${a}\\times ${b}&=${a}\\times ${texNombre(b / 100)}\\times 100\\\\
+          &=${miseEnEvidence(texNombre(reponse))}
+                         \\end{aligned}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += '$=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15') }

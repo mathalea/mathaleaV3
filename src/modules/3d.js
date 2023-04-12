@@ -47,7 +47,7 @@ function ObjetMathalea2D() {
   this.pointilles = false
   this.id = numId
   numId++
-  context.objets2D.push(this)
+  if (context.isInEditor) context.objets2D.push(this)
 }
 
 /*
@@ -479,7 +479,6 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
   this.colorMeridiens = colorMeridiens
   this.affichageAxe = affichageAxe
   this.colorAxe = colorAxe
-  this.inclinaison = inclinaison
   const droiteRot = droite3d(point3d(this.centre.x, this.centre.y, this.centre.z), vecteur3d(0, 1, 0))
   const poleNord = rotation3d(
     point3d(
@@ -503,8 +502,8 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
     ),
     droiteRot,
     inclinaison)
-  
   const nbParallelesDeConstruction = 36 // Ce nb de paralleles permet de construire l'enveloppe de la sphère (le "cercle" apparent de la sphère)
+  const divisionParalleles = this.nbParalleles !== 0 ? Math.round(2 * nbParallelesDeConstruction / this.nbParalleles) : 1
   let unDesParalleles
   let centreParallele
   let rayonDuParallele
@@ -654,7 +653,7 @@ function Sphere3d(centre, rayon, colorEquateur = 'red', colorEnveloppe = 'blue',
     this.c2d.push(t)
   }
   
-  const divisionParalleles = this.nbParalleles !== 0 ? Math.round(2 * nbParallelesDeConstruction / this.nbParalleles) : 1
+  
   // Construction des parallèles demandés
   for (let k = nbParallelesDeConstruction, j = -1; k > -nbParallelesDeConstruction; k -= 1) {
     const polyLineVisible = [] // Contient l'ensemble des points du parallèle contenus dans la partie visible

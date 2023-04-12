@@ -67,19 +67,22 @@ class Latex {
             }
             content += '\n\\end{EXO}\n'
             contentCorr += '\n\\begin{EXO}{}{}\n'
-            if (exercice.nbColsCorr > 1) {
-              contentCorr += `\\begin{multicols}{${exercice.nbColsCorr}}\n`
-            }
             contentCorr += exercice.contentCorr
             contentCorr += '\n\\end{EXO}\n'
           }
         } else {
           contentCorr += '\n\\begin{EXO}{}{}\n'
+          if (exercice.nbColsCorr > 1) {
+            contentCorr += `\\begin{multicols}{${exercice.nbColsCorr}}\n`
+          }
           contentCorr += '\n\\begin{enumerate}'
           for (const correction of exercice.listeCorrections) {
             contentCorr += `\n\\item ${format(correction)}`
           }
           contentCorr += '\n\\end{enumerate}\n'
+          if (exercice.nbColsCorr > 1) {
+            contentCorr += '\\end{multicols}\n'
+          }
           contentCorr += '\n\\end{EXO}\n'
           content += `\n\\begin{EXO}{${exercice.consigne}}{${exercice.id.replace('.js', '')}}\n`
           content += writeIntroduction(exercice.introduction)

@@ -155,7 +155,7 @@ export default function ExprimerCosSinTan () {
       }
       if (this.sup === 1) {
         texteInit = texte
-        texteInit += `Dans le triangle $${A.nom + B.nom + C.nom}$ et à l'aide des longueurs $${A.nom + B.nom}$, $${A.nom + C.nom}$, $${B.nom + C.nom}$ :`
+        texteInit += `Dans le triangle rectangle $${A.nom + B.nom + C.nom}$ et à l'aide des longueurs $${A.nom + B.nom}$, $${A.nom + C.nom}$, $${B.nom + C.nom}$ :`
         texte += `Compléter à l'aide des longueurs $${A.nom + B.nom}$, $${A.nom + C.nom}$, $${B.nom + C.nom}$ : `
         texte += `<br>$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
         if (this.interactif && !context.isAmc) {
@@ -302,7 +302,7 @@ export default function ExprimerCosSinTan () {
             }
         }
       } else if (this.sup === 2) {
-        texte += 'Exprimer les 6 rapports trigonométriques pour ce triangle, en fonction des longueurs respectives de ses côtés.'
+        texte += 'Exprimer les 6 rapports trigonométriques pour ce triangle rectangle, en fonction des longueurs respectives de ses côtés.'
         texteInit = texte
         if (this.interactif && !context.isAmc) {
           texte += `<br>$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
@@ -584,7 +584,7 @@ export default function ExprimerCosSinTan () {
         if (this.interactif && !context.isAmc) {
           switch (choixRapportTrigo) {
             case 'le cosinus':
-              texte += `<br>Parmi deux triangles, dans le triangle le plus grand, $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
+              texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus grand, $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
               texte += ajouteChampTexteMathLive(this, 2 * i, 'inline nospacebefore', { tailleExtensible: true })
               setReponse(this, 2 * i, [
                   `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
@@ -592,7 +592,7 @@ export default function ExprimerCosSinTan () {
                   `\\frac{${A.nom + B.nom}}{${C.nom + B.nom}}`,
                   `\\frac{${B.nom + A.nom}}{${C.nom + B.nom}}`],
               { formatInteractif: 'texte' })
-              texte += `<br>Parmi deux triangles, dans le triangle le plus petit, $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
+              texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus petit, $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
               texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'inline nospacebefore', { tailleExtensible: true })
               setReponse(this, 2 * i + 1, [
                   `\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}`,
@@ -602,7 +602,7 @@ export default function ExprimerCosSinTan () {
               { formatInteractif: 'texte' })
               break
             case 'le sinus' :
-              texte += `<br>Parmi deux triangles, dans le triangle le plus grand, $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
+              texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus grand, $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
               texte += ajouteChampTexteMathLive(this, 2 * i, 'inline nospacebefore', { tailleExtensible: true })
               setReponse(this, 2 * i, [
                   `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
@@ -610,7 +610,7 @@ export default function ExprimerCosSinTan () {
                   `\\frac{${A.nom + C.nom}}{${C.nom + B.nom}}`,
                   `\\frac{${C.nom + A.nom}}{${C.nom + B.nom}}`],
               { formatInteractif: 'texte' })
-              texte += `<br>Parmi deux triangles, dans le triangle le plus petit, $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
+              texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus petit, $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
               texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'inline nospacebefore', { tailleExtensible: true })
               setReponse(this, 2 * i + 1, [
                   `\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}`,
@@ -620,7 +620,7 @@ export default function ExprimerCosSinTan () {
               { formatInteractif: 'texte' })
               break
             case 'la tangente' :
-              texte += `<br>Parmi deux triangles, dans le triangle le plus grand, $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
+              texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus grand, $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
               texte += ajouteChampTexteMathLive(this, 2 * i, 'inline nospacebefore', { tailleExtensible: true })
               setReponse(this, 2 * i, [
                   `\\frac{${A.nom + C.nom}}{${B.nom + A.nom}}`,
@@ -628,7 +628,7 @@ export default function ExprimerCosSinTan () {
                   `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
                   `\\frac{${C.nom + A.nom}}{${A.nom + B.nom}}`],
               { formatInteractif: 'texte' })
-              texte += `<br>Parmi deux triangles, dans le triangle le plus petit, $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
+              texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus petit, $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
               texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'inline nospacebefore', { tailleExtensible: true })
               setReponse(this, 2 * i + 1, [
                   `\\frac{${A.nom + H.nom}}{${H.nom + B.nom}}`,
@@ -644,7 +644,7 @@ export default function ExprimerCosSinTan () {
               propositionsAMC[0] =
                 {
                   type: 'qcmMono',
-                  enonce: `Exprimer dans le triangle $${A.nom + B.nom + C.nom}$\\\\\n${numAlpha(0)}$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+                  enonce: `${numAlpha(0)}Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)$ dans le triangle rectangle $${A.nom + B.nom + C.nom}$.<br>`,
                   propositions: [
                     {
                       texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
@@ -681,7 +681,7 @@ export default function ExprimerCosSinTan () {
               propositionsAMC[1] =
                 {
                   type: 'qcmMono',
-                  enonce: `Exprimer dans le triangle $${A.nom + H.nom + B.nom}$\\\\\n${numAlpha(1)}$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+                  enonce: `${numAlpha(1)}Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)$ dans le triangle rectangle $${A.nom + H.nom + B.nom}$.<br>`,
                   propositions: [
                     {
                       texte: `$\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}$`,
@@ -720,7 +720,7 @@ export default function ExprimerCosSinTan () {
               propositionsAMC[0] =
                 {
                   type: 'qcmMono',
-                  enonce: `Exprimer dans le triangle $${A.nom + B.nom + C.nom}$\\\\\n${numAlpha(0)}$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+                  enonce: `${numAlpha(0)}Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)$ dans le triangle rectangle $${A.nom + B.nom + C.nom}$.<br>`,
                   propositions: [
                     {
                       texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
@@ -757,7 +757,7 @@ export default function ExprimerCosSinTan () {
               propositionsAMC[1] =
                 {
                   type: 'qcmMono',
-                  enonce: `Exprimer dans le triangle $${A.nom + H.nom + B.nom}$\\\\\n${numAlpha(1)}$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+                  enonce: `${numAlpha(1)}Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)$ dans le triangle rectangle $${A.nom + H.nom + B.nom}$.<br>`,
                   propositions: [
                     {
                       texte: `$\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}$`,
@@ -796,7 +796,7 @@ export default function ExprimerCosSinTan () {
               propositionsAMC[0] =
                 {
                   type: 'qcmMono',
-                  enonce: `Exprimer dans le triangle $${A.nom + B.nom + C.nom}$\\\\\n${numAlpha(0)}$\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+                  enonce: `${numAlpha(0)}Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)$ dans le triangle rectangle $${A.nom + B.nom + C.nom}$.<br>`,
                   propositions: [
                     {
                       texte: `$\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}$`,
@@ -833,7 +833,7 @@ export default function ExprimerCosSinTan () {
               propositionsAMC[1] =
                 {
                   type: 'qcmMono',
-                  enonce: `Exprimer dans le triangle $${A.nom + H.nom + B.nom}$\\\\\n${numAlpha(1)}$\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`,
+                  enonce: `${numAlpha(1)}Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)$ dans le triangle rectangle $${A.nom + H.nom + B.nom}$.<br>`,
                   propositions: [
                     {
                       texte: `$\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}$`,
@@ -929,7 +929,7 @@ export default function ExprimerCosSinTan () {
         this.autoCorrection[i] = {
           enonce: texteInit + '\\\\\n',
           enonceAvant: true,
-          options: { multicols: false, barreseparation: true, multicolsAll: true },
+          options: { multicols: false, barreseparation: true, multicolsAll: true, numerotationEnonce: true },
           propositions: propositionsAMC
         }
       }

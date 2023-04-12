@@ -316,7 +316,7 @@
               updateDisplay()
             }}
           >
-            <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest  bx ml-1 bx-xs bx-plus" />
+            <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-1 bx-xs bx-plus" />
           </button>
         </div>
         <article class="lg:text-base relative" style="font-size: {($globalOptions.z || 1).toString()}rem">
@@ -337,7 +337,7 @@
           {#if isCorrectionVisible}
             <div
               class="{exercice.consigneCorrection.length !== 0 ? '' : 'hidden'}
-                bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus leading-relaxed mt-2  ml-2 lg:mx-5"
+                bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus leading-relaxed mt-2 ml-2 lg:mx-5"
             >
               {@html exercice.consigneCorrection}
             </div>
@@ -350,25 +350,26 @@
             >
               {#each exercice.listeQuestions as item, i (i)}
                 <div style="break-inside:avoid" id="consigne{indiceExercice}-{i}" class="container grid grid-cols-1 auto-cols-min gap-1 lg:gap-4 mb-2 lg:mb-4">
-                  <li style={i < exercice.listeQuestions.length ? `margin-bottom: ${exercice.spacing}em; line-height: 1` : ""} id="exercice{indiceExercice}Q{i}">
+                  <li id="exercice{indiceExercice}Q{i}">
                     {@html MathaleaFormatExercice(item)}
                   </li>
                   {#if isCorrectionVisible}
                     <div
-                      class="relative border-l-coopmaths-warn-dark dark:border-l-coopmathsdark-warn-dark border-l-4 text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-2 mb-6 py-2 pl-4"
-                      style="margin-top: ${exercice.spacing}em; margin-bottom: ${exercice.spacing}em; line-height: {exercice.spacingCorr || 1}; break-inside:avoid"
+                      class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 lg:mt-2 mb-6 py-2 pl-4"
                       id="correction${indiceExercice}Q${i}"
                     >
-                      <div class="container">{@html MathaleaFormatExercice(exercice.listeCorrections[i])}</div>
+                      <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="line-height: {exercice.spacingCorr || 1}; break-inside:avoid">
+                        {@html MathaleaFormatExercice(exercice.listeCorrections[i])}
+                      </div>
                       <!-- Avant le commit du 28/03/23, il y avait une mise en page plus complexe
                       et cela posait problème au changement des paramètres avec la correction visible -->
-                      <div class="absolute border-coopmaths-warn-dark top-0 left-0 border-b-4 w-10" />
+                      <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
                       <div
-                        class="absolute h-6 w-6 flex flex-row justify-center items-center -left-3 -top-2 rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+                        class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
                       >
-                        <i class="bx bx-check font-bold" />
+                        Correction
                       </div>
-                      <div class="absolute border-coopmaths-warn-dark bottom-0 left-0 border-b-4 w-4" />
+                      <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4" />
                     </div>
                   {/if}
                 </div>

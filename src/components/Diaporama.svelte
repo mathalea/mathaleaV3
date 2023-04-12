@@ -1,6 +1,16 @@
 <script lang="ts">
   import { onMount, tick } from "svelte"
-  import { MathaleaFormatExercice, MathaleaGenerateSeed, MathaleaHandleComponentChange, MathaleaHandleExerciceSimple, MathaleaHandleParamOfOneExercice, MathaleaHandleSup, MathaleaLoadExerciceFromUuid, MathaleaRenderDiv, MathaleaUpdateUrlFromExercicesParams } from "../lib/Mathalea"
+  import {
+    MathaleaFormatExercice,
+    MathaleaGenerateSeed,
+    MathaleaHandleComponentChange,
+    MathaleaHandleExerciceSimple,
+    MathaleaHandleParamOfOneExercice,
+    MathaleaHandleSup,
+    MathaleaLoadExerciceFromUuid,
+    MathaleaRenderDiv,
+    MathaleaUpdateUrlFromExercicesParams,
+  } from "../lib/Mathalea"
   import { exercicesParams, globalOptions, questionsOrder, selectedExercises, transitionsBetweenQuestions, darkMode } from "./store"
   import type Exercice from "./utils/typeExercice"
   import seedrandom from "seedrandom"
@@ -14,7 +24,8 @@
   import { formattedTimeStamp, setPhraseDuree } from "./utils/time"
   import ModalForQRCode from "./modal/ModalForQRCode.svelte"
   import FormRadio from "./forms/FormRadio.svelte"
-  import type { InterfaceParams } from "src/lib/types";
+  import ButtonToggle from "./forms/ButtonToggle.svelte"
+  import type { InterfaceParams } from "src/lib/types"
 
   let divQuestion: HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
@@ -61,22 +72,22 @@
   let stringDureeTotale = "0"
   // variables pour les transitions entre questions
   const transitionSounds = {
-    '0': new Audio("assets/sounds/transition_sound_01.mp3"),
-    '1': new Audio("assets/sounds/transition_sound_02.mp3"),
-    '2': new Audio("assets/sounds/transition_sound_03.mp3"),
-    '3': new Audio("assets/sounds/transition_sound_04.mp3"),
+    "0": new Audio("assets/sounds/transition_sound_01.mp3"),
+    "1": new Audio("assets/sounds/transition_sound_02.mp3"),
+    "2": new Audio("assets/sounds/transition_sound_03.mp3"),
+    "3": new Audio("assets/sounds/transition_sound_04.mp3"),
   }
   const labelsForSounds = [
-    { label: "Son 1", value: '0' },
-    { label: "Son 2", value: '1' },
-    { label: "Son 3", value: '2' },
-    { label: "Son 4", value: '3' },
+    { label: "Son 1", value: "0" },
+    { label: "Son 2", value: "1" },
+    { label: "Son 3", value: "2" },
+    { label: "Son 4", value: "3" },
   ]
   const labelsForMultivue = [
-    { label: "Pas de multivue", value: '1' },
-    { label: "Deux vues", value: '2' },
-    { label: "Trois vues", value: '3' },
-    { label: "Quatre vues", value: '4' },
+    { label: "Pas de multivue", value: "1" },
+    { label: "Deux vues", value: "2" },
+    { label: "Trois vues", value: "3" },
+    { label: "Quatre vues", value: "4" },
   ]
 
   if ($globalOptions && $globalOptions.durationGlobal) {
@@ -104,17 +115,17 @@
     if (divTableDurationsQuestions) MathaleaRenderDiv(divTableDurationsQuestions)
   })
 
-  function handleStringFromUrl (text: string): boolean|number|string {
-  if (text === 'true' || text === 'false') {
-    // "true"=>true
-    return text === 'true'
-  } else if (/^\d+$/.test(text)) {
-    // "17"=>17
-    return parseInt(text)
-  } else {
-    return text
+  function handleStringFromUrl(text: string): boolean | number | string {
+    if (text === "true" || text === "false") {
+      // "true"=>true
+      return text === "true"
+    } else if (/^\d+$/.test(text)) {
+      // "17"=>17
+      return parseInt(text)
+    } else {
+      return text
+    }
   }
-}
 
   async function updateExercices() {
     MathaleaUpdateUrlFromExercicesParams($exercicesParams)
@@ -239,11 +250,33 @@
   }
 
   function prevQuestion() {
-    if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
+    if ($transitionsBetweenQuestions.isQuestThenSolModeActive) {
+      if (isQuestionVisible) {
+        if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
+      } else {
+        switchQuestionToCorrection()
+        switchPause()
+        goToQuestion(currentQuestion)
+      }
+    } else {
+      if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
+    }
   }
 
   function nextQuestion() {
-    if (currentQuestion < questions[0].length) goToQuestion(currentQuestion + 1)
+    if ($transitionsBetweenQuestions.isQuestThenSolModeActive) {
+      if (isQuestionVisible && !isCorrectionVisible) {
+        switchPause()
+        switchQuestionToCorrection()
+        goToQuestion(currentQuestion)
+      } else {
+        switchQuestionToCorrection()
+        switchPause()
+        if (currentQuestion < questions[0].length) goToQuestion(currentQuestion + 1)
+      }
+    } else {
+      if (currentQuestion < questions[0].length) goToQuestion(currentQuestion + 1)
+    }
   }
 
   /**
@@ -421,7 +454,7 @@
    * @author sylvain
    */
   async function setSize() {
-    // let startSize = 0
+    let startSize = 0
     for (let i = 0; i < nbOfVues; i++) {
       if (typeof divQuestion[i] !== "undefined") {
         MathaleaRenderDiv(divQuestion[i], -1)
@@ -471,8 +504,17 @@
         const clone = textcell_div.cloneNode(true)
         //@ts-ignore
         const elementsKaTeX = clone.getElementsByClassName("katex")
+        let nbOfCharInKaTeX = 0
         while (elementsKaTeX.length > 0) {
+          const katexHtmlElement = elementsKaTeX[0].getElementsByClassName("katex-html")
+          let kw = 0
+          for (let k = 0; k < katexHtmlElement.length; k++) {
+            nbOfCharInKaTeX += katexHtmlElement[k].innerText.length
+            kw += katexHtmlElement[k].clientWidth
+          }
+          console.log("new katex width : " + kw)
           elementsKaTeX[0].parentNode.removeChild(elementsKaTeX[0])
+          console.log("char in katex : " + nbOfCharInKaTeX)
         }
         //@ts-ignore
         const elementsSVG = clone.getElementsByClassName("mathalea2d")
@@ -480,7 +522,7 @@
           elementsSVG[0].parentNode.removeChild(elementsSVG[0])
         }
         //@ts-ignore
-        let nbOfCharactersInTextDiv = clone.innerText.length
+        let nbOfCharactersInTextDiv = clone.innerText.length + nbOfCharInKaTeX
         // console.log("nb caractères : " + nbOfCharactersInTextDiv)
         if (finalSVGHeight !== 0) {
           nbOfCharactersInTextDiv -= 100
@@ -494,33 +536,40 @@
             size = size / 3
           }
         }
-        // startSize = size
-        let consigne_height, correction_height, question_height: number
+        startSize = size
+        let consigne_height, correction_height, question_height, question_width, consigne_width, correction_width: number
         do {
           size = size - 2
           if (question_div !== null) {
             question_div.style.fontSize = size + "px"
             question_height = question_div.clientHeight
+            question_width = question_div.clientWidth
           } else {
             question_height = 0
+            question_width = 0
           }
           if (consigne_div !== null) {
             consigne_div.style.fontSize = size + "px"
             consigne_height = consigne_div.clientHeight
+            consigne_width = consigne_div.clientWidth
           } else {
             consigne_height = 0
+            consigne_width = 0
           }
           if (correction_div !== null) {
             correction_div.style.fontSize = size + "px"
             correction_height = correction_div.clientHeight
+            correction_width = correction_div.clientWidth
           } else {
             correction_height = 0
+            correction_width = 0
           }
+          // console.log("cell w=" + textcell_width + "/h=" + textcell_height)
           // console.log("question w=" + question_width + "/h=" + question_height)
           // console.log("consigne w=" + consigne_width + "/h=" + consigne_height)
           // console.log("correction w=" + correction_width + "/h=" + correction_height)
           //  question_width > textcell_width || consigne_width > textcell_width || correction_width > textcell_width ||
-        } while (question_height + consigne_height + correction_height > textcell_height)
+        } while (question_width > textcell_width || consigne_width > textcell_width || correction_width > textcell_width || question_height + consigne_height + correction_height > textcell_height)
         if (question_div !== null) {
           question_div.style.fontSize = currentZoom * size + "px"
         }
@@ -530,7 +579,7 @@
         if (correction_div !== null) {
           correction_div.style.fontSize = currentZoom * size + "px"
         }
-        // console.log("nb de caractères : " + nbOfCharactersInTextDiv + " / font-size départ : " + startSize + "font-size calculée : " + size + " / ratio : " + (1 - finalSVGHeight / textcell_height))
+        console.log("nb de caractères : " + nbOfCharactersInTextDiv + " / font-size départ : " + startSize + " / font-size calculée : " + size + " / ratio : " + (1 - finalSVGHeight / textcell_height))
       }
     }
   }
@@ -584,6 +633,18 @@
           isCorrectionVisible = !isCorrectionVisible
         }
       }
+    }
+    await tick()
+    setSize()
+  }
+
+  async function switchQuestionToCorrection() {
+    if (isCorrectionVisible) {
+      isCorrectionVisible = false
+      isQuestionVisible = true
+    } else {
+      isCorrectionVisible = true
+      isQuestionVisible = $transitionsBetweenQuestions.questThenQuestAndSolDisplay ? true : false
     }
     await tick()
     setSize()
@@ -644,7 +705,7 @@
    * Gestion du bouton demandant de changer l'ordre des questions
    */
   function handleRandomQuestionOrder() {
-    $questionsOrder.isQuestionsShuffled = !$questionsOrder.isQuestionsShuffled
+    // $questionsOrder.isQuestionsShuffled = !$questionsOrder.isQuestionsShuffled  <- inutile avec ButtonToggle
     globalOptions.update((l) => {
       l.shuffle = $questionsOrder.isQuestionsShuffled
       return l
@@ -657,7 +718,7 @@
    * @author sylvain
    */
   function handleTransitionsMode() {
-    $transitionsBetweenQuestions.isActive = !$transitionsBetweenQuestions.isActive
+    // $transitionsBetweenQuestions.isActive = !$transitionsBetweenQuestions.isActive  <- inutile avec ButtonToggle
     globalOptions.update((l) => {
       l.trans = $transitionsBetweenQuestions.isActive
       return l
@@ -670,10 +731,10 @@
    * @author sylvain
    */
   function handleTransitionSound() {
-    $transitionsBetweenQuestions.isNoisy = !$transitionsBetweenQuestions.isNoisy
+    // $transitionsBetweenQuestions.isNoisy = !$transitionsBetweenQuestions.isNoisy  <- inutile avec ButtonToggle
     if ($transitionsBetweenQuestions.isNoisy) {
       if (typeof $transitionsBetweenQuestions.tune === "undefined") {
-        $transitionsBetweenQuestions.tune = '0'
+        $transitionsBetweenQuestions.tune = "0"
       }
       globalOptions.update((l) => {
         l.sound = $transitionsBetweenQuestions.tune
@@ -727,7 +788,7 @@
 <!-- Page d'accueil du diapo -->
 <div id="diaporama" class={$darkMode.isActive ? "dark" : ""}>
   {#if currentQuestion === -1}
-    <div id="start" class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-corpus  dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus" data-theme="daisytheme">
+    <div id="start" class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus" data-theme="daisytheme">
       <div class="flex flex-row justify-between p-6">
         <div class="text-4xl text-coopmaths-struct font-bold">Réglages du Diaporama</div>
         <button type="button">
@@ -756,7 +817,7 @@
                 </div>
               </div>
             </div>
-            <div class="flex text-lg font-bold text-coopmaths-struct  dark:text-coopmathsdark-struct">
+            <div class="flex text-lg font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
               Plein écran
               <div class="flex flex-row px-4 justify-start">
                 <button
@@ -769,32 +830,41 @@
               </div>
             </div>
           </div>
-          <div class="flex text-lg font-bold mb-2 text-coopmaths-struct  dark:text-coopmathsdark-struct">Multivue</div>
+          <div class="flex text-lg font-bold mb-2 text-coopmaths-struct dark:text-coopmathsdark-struct">Multivue</div>
           <div class="flex px-4 pb-8">
             <FormRadio bind:valueSelected={stringNbOfVues} on:newvalue={updateExercices} title="multivue" labelsValues={labelsForMultivue} />
           </div>
 
           <div class="pb-8">
-            <div class="flex text-lg font-bold mb-1 text-coopmaths-struct  dark:text-coopmathsdark-struct">Transitions</div>
+            <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct">Transitions</div>
             <div class="flex flex-row justify-start items-center px-4">
-              <button type="button" on:click={handleTransitionsMode}>
-                <i
-                  class="mt-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm {$transitionsBetweenQuestions.isActive
-                    ? 'bx-toggle-right'
-                    : 'bx-toggle-left'}"
-                />
-              </button>
-              <div class="inline-flex pl-2">{$transitionsBetweenQuestions.isActive ? "Carton entre questions" : "Pas de carton entre questions"}</div>
+              <ButtonToggle bind:value={$transitionsBetweenQuestions.isQuestThenSolModeActive} titles={["Question <em>puis</em> correction", "Question / Question+Correction / Correction"]} />
             </div>
-            <div class="flex flex-row justify-start items-center  px-4 -mt-2">
-              <button type="button" on:click={handleTransitionSound}>
-                <i
-                  class="mt-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm {$transitionsBetweenQuestions.isNoisy
-                    ? 'bx-toggle-right'
-                    : 'bx-toggle-left'}"
-                />
-              </button>
-              <div class="inline-flex pl-2">{$transitionsBetweenQuestions.isNoisy ? "Son entre questions" : "Pas de son entre questions"}</div>
+            <div class="{$transitionsBetweenQuestions.isQuestThenSolModeActive ? 'flex' : 'hidden'} flex-row justify-start items-center pr-4 pl-6">
+              <input
+                id="checkbox-choice"
+                aria-describedby="checkbox-choice"
+                type="checkbox"
+                class="w-4 h-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {!$transitionsBetweenQuestions.isQuestThenSolModeActive
+                  ? 'border-opacity-10'
+                  : 'border-opacity-100'} border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
+                bind:checked={$transitionsBetweenQuestions.questThenQuestAndSolDisplay}
+                disabled={!$transitionsBetweenQuestions.isQuestThenSolModeActive}
+              />
+              <label
+                for="checkbox-choice"
+                class="ml-3 text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {!$transitionsBetweenQuestions.isQuestThenSolModeActive
+                  ? 'text-opacity-10 dark:text-opacity-10'
+                  : 'text-opacity-70 dark:text-opacity-70'}"
+              >
+                Afficher la question avec la correction
+              </label>
+            </div>
+            <div class="flex flex-row justify-start items-center px-4">
+              <ButtonToggle bind:value={$transitionsBetweenQuestions.isActive} titles={["Carton entre questions", "Pas de carton entre questions"]} on:click={handleTransitionsMode} />
+            </div>
+            <div class="flex flex-row justify-start items-center px-4">
+              <ButtonToggle bind:value={$transitionsBetweenQuestions.isNoisy} titles={["Son entre questions", "Pas de son entre questions"]} on:click={handleTransitionSound} />
             </div>
             <FormRadio
               title="son"
@@ -809,35 +879,30 @@
             />
           </div>
           <div class="pb-6">
-            <div class="flex text-lg font-bold mb-1 text-coopmaths-struct  dark:text-coopmathsdark-struct">Ordre</div>
+            <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct">Ordre</div>
             <div class="flex flex-row justify-start items-center px-4">
-              <button type="button" on:click={handleRandomQuestionOrder}>
-                <i
-                  class="mt-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm {$questionsOrder.isQuestionsShuffled
-                    ? 'bx-toggle-right'
-                    : 'bx-toggle-left'}"
-                />
-              </button>
-              <div class="inline-flex pl-2">{$questionsOrder.isQuestionsShuffled ? "Questions dans le désordre" : "Questions dans l'ordre"}</div>
+              <ButtonToggle bind:value={$questionsOrder.isQuestionsShuffled} titles={["Questions dans le désordre", "Questions dans l'ordre"]} on:click={handleRandomQuestionOrder} />
             </div>
           </div>
           <div class="pb-6">
-            <div class="flex text-lg font-bold mb-1 text-coopmaths-struct  dark:text-coopmathsdark-struct">Choix aléatoire</div>
+            <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct">Choix aléatoire</div>
             <div class="flex flex-row justify-start items-center px-4">
               <input
                 id="checkbox-choice"
                 aria-describedby="checkbox-choice"
                 type="checkbox"
-                class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
+                class="w-4 h-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {exercices.length == 1
+                  ? 'border-opacity-10'
+                  : 'border-opacity-100'} border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
                 checked={$selectedExercises.isActive}
                 on:change={handleSampleChecked}
                 disabled={exercices.length == 1}
               />
               <label
                 for="checkbox-choice"
-                class="ml-3 font-medium text-coopmaths-corpus dark:text-coopmathsdark-corpus {exercices.length == 1
-                  ? 'text-opacity-30 dark:text-opacity-30'
-                  : 'text-opacity-100 dark:text-opacity-100'}"
+                class="ml-3 text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {exercices.length == 1
+                  ? 'text-opacity-10 dark:text-opacity-10'
+                  : 'text-opacity-70 dark:text-opacity-70'}"
               >
                 Seulement certains exercices de la liste
               </label>
@@ -857,7 +922,7 @@
               >
             </div>
           </div>
-          <div class="flex text-lg font-bold pb-2 text-coopmaths-struct  dark:text-coopmathsdark-struct">
+          <div class="flex text-lg font-bold pb-2 text-coopmaths-struct dark:text-coopmathsdark-struct">
             Liens
             <div class="flex flex-row px-4 -mt-2 justify-start">
               <ModalActionWithDialog
@@ -889,7 +954,7 @@
                 id="checkbox-1"
                 aria-describedby="checkbox-1"
                 type="checkbox"
-                class="bg-coopmaths-canvas border-coopmaths-action text-coopmaths-action dark:bg-coopmathsdark-canvas dark:border-coopmathsdark-action dark:text-coopmathsdark-action 
+                class="bg-coopmaths-canvas border-coopmaths-action text-coopmaths-action dark:bg-coopmathsdark-canvas dark:border-coopmathsdark-action dark:text-coopmathsdark-action
                 {exercices.length == 1 || isManualModeActive
                   ? 'border-opacity-30 dark:border-opacity-30'
                   : 'border-opacity-100 dark:border-opacity-100'} focus:ring-3 focus:ring-coopmaths-action h-4 w-4 rounded"
@@ -899,7 +964,7 @@
               />
               <label
                 for="checkbox-1"
-                class="ml-3 font-medium text-coopmaths-corpus dark:text-coopmathsdark-corpus 
+                class="ml-3 font-medium text-coopmaths-corpus dark:text-coopmathsdark-corpus
                 {exercices.length == 1 || isManualModeActive ? 'text-opacity-30 dark:text-opacity-30' : 'text-opacity-100 dark:text-opacity-100'} "
               >
                 Même durée pour toutes les questions
@@ -924,7 +989,7 @@
                   </th>
                   <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct">
                     <div>Durées par question (s)</div>
-                    <div class="text-coopmaths-struct-light  dark:text-coopmathsdark-struct-light font-light text-xs">
+                    <div class="text-coopmaths-struct-light dark:text-coopmathsdark-struct-light font-light text-xs">
                       Durée diapo :<span class="font-light ml-1">{stringDureeTotale}</span>
                     </div>
                   </th>
@@ -1007,7 +1072,7 @@
         <div class="flex flex-row h-full mt-6 w-full justify-center">
           <ul class="steps w-11/12" bind:this={stepsUl}>
             {#each questions[0] as question, i}
-              <li class="step step-neutral dark:step-info  {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => clickOnStep(i)} on:keydown={() => clickOnStep(i)} />
+              <li class="step step-neutral dark:step-info {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" on:click={() => clickOnStep(i)} on:keydown={() => clickOnStep(i)} />
             {/each}
           </ul>
         </div>
@@ -1029,7 +1094,7 @@
                   {i + 1}
                 </div>
               {/if}
-              <div id="textcell{i}" bind:this={divQuestion[i]} class="flex flex-col justify-center px-4 w-full  min-h-[100%]  max-h-[100%]">
+              <div id="textcell{i}" bind:this={divQuestion[i]} class="flex flex-col justify-center px-4 w-full min-h-[100%] max-h-[100%]">
                 {#if isQuestionVisible}
                   <div class="font-light" id="consigne{i}">{@html consignes[i][$questionsOrder.indexes[currentQuestion]]}</div>
                   <div class="py-4" id="question{i}">
@@ -1077,9 +1142,19 @@
                 class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-skip-previous"
               />
             </button>
-            <button type="button" on:click={switchPause} class:invisible={isManualModeActive}>
+            <button
+              type="button"
+              on:click={() => {
+                if ($transitionsBetweenQuestions.isQuestThenSolModeActive) {
+                  nextQuestion()
+                } else {
+                  switchPause()
+                }
+              }}
+              class:invisible={isManualModeActive}
+            >
               <i
-                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg 
+                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg
                 {isPause ? 'bx-play' : 'bx-pause'}"
               />
             </button>
@@ -1125,13 +1200,15 @@
                 </div>
               </div>
             </div>
-            <button type="button" on:click={switchCorrectionMode}>
-              <i
-                class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-show"
-              >
-                <div class="absolute -bottom-[8px] left-1/2 -translate-x-1/2 text-sm font-extrabold font-sans">{displayCurrentCorrectionMode()}</div>
-              </i>
-            </button>
+            <div class={$transitionsBetweenQuestions.isQuestThenSolModeActive ? "hidden" : "block"}>
+              <button type="button" on:click={switchCorrectionMode}>
+                <i
+                  class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-show"
+                >
+                  <div class="absolute -bottom-[8px] left-1/2 -translate-x-1/2 text-sm font-extrabold font-sans">{displayCurrentCorrectionMode()}</div>
+                </i>
+              </button>
+            </div>
             <button type="button" on:click={handleQuit} on:keydown={handleQuit}>
               <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-power-off" />
             </button>

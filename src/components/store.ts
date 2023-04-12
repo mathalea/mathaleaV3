@@ -1,5 +1,5 @@
 import { writable, get } from 'svelte/store'
-import type { InterfaceGlobalOptions, InterfaceParams } from '../lib/types'
+import type { InterfaceGlobalOptions, InterfaceParams, InterfaceResultExercice } from '../lib/types'
 
 /**
  * Pour bloquer la mise à jour de l'url
@@ -26,19 +26,19 @@ export const exercicesParams = writable<InterfaceParams[]>([])
  * Le paramètre 'es' est utilisé pour renseigner les réglages de la vue élève :
  * une unique chaîne de caractères contient dans l'ordre : titre + mode présentation + interactivité +  accès solutions
  */
-export const globalOptions = writable<InterfaceGlobalOptions>({ v: '', z: '1', title: 'Évaluation', presMode: 'page', setInteractive: '2', isSolutionAccessible: true, isInteractiveFree: true })
+export const globalOptions = writable<InterfaceGlobalOptions>({ v: '', z: '1', title: 'Évaluation', presMode: 'page', setInteractive: '2', isSolutionAccessible: true, isInteractiveFree: true})
 
 // utilisé pour les aller-retours entre le composant Diaporam et le composant Can
 export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: [] })
 export const selectedExercises = writable({ isActive: false, indexes: [], count: 1 })
-interface InterfaceTransitionsBetweenQuestions {isActive: boolean, isNoisy: boolean, tune: '0'|'1'|'2'|'3' }
-export const transitionsBetweenQuestions = writable<InterfaceTransitionsBetweenQuestions>({ isActive: true, isNoisy: false, tune: '0' })
+interface InterfaceTransitionsBetweenQuestions {isActive: boolean, isNoisy: boolean, isQuestThenSolModeActive: boolean, questThenQuestAndSolDisplay: boolean, tune: '0'|'1'|'2'|'3' }
+export const transitionsBetweenQuestions = writable<InterfaceTransitionsBetweenQuestions>({ isActive: true, isNoisy: false, isQuestThenSolModeActive: false, questThenQuestAndSolDisplay: false, tune: '0' })
 
 // pour la gestion du mode sombre
 export const darkMode = writable({ isActive: false })
 
 // sauvegarde des résultats des exercices
-export const resultsByExercice = writable([])
+export const resultsByExercice = writable<InterfaceResultExercice[]>([])
 
 // vue Élève : détecter la nécessité d'un menu
 export const isMenuNeededForExercises = writable<boolean>(false)
@@ -85,6 +85,16 @@ export function updateGlobalOptionsInURL (url: URL) {
   } else {
     url.searchParams.delete('dGlobal')
   }
+  if (options.recorder) {
+    url.searchParams.append('recorder', options.recorder)
+  } else {
+    url.searchParams.delete('recorder')
+  }
+  if (options.done) {
+    url.searchParams.append('done', options.done)
+  } else {
+    url.searchParams.delete('done')
+  }
   if (options.choice) {
     url.searchParams.append('choice', options.choice.toString())
   } else {
@@ -106,10 +116,13 @@ export function updateGlobalOptionsInURL (url: URL) {
     url.searchParams.delete('sound')
   }
   if (options.v === 'eleve') {
-    if (typeof options.title !== 'undefined') {
+    if (options.title.length > 0) {
       url.searchParams.append('title', options.title)
     } else {
       url.searchParams.delete('title')
+    }
+    if (options.iframe !== undefined) {
+      url.searchParams.append('iframe', options.iframe)
     }
     if (typeof options !== 'undefined') {
       let es = presModeId.indexOf(options.presMode).toString()

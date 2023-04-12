@@ -23,6 +23,7 @@ import {
   combinaisonListes,
   creerNomDePolygone,
   listeQuestionsToContenu,
+  numAlpha,
   quatriemeProportionnelle,
   randint,
   texFraction,
@@ -84,6 +85,9 @@ export default function CalculDeLongueur () {
       const nom = creerNomDePolygone(3, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(nom)
       let texte = ''
+      let texteAMC = ''
+      let q2AMC = ''
+      let nom1, nom2
       let texteCorr = ''
       const objetsEnonce = []
       const objetsCorrection = []
@@ -99,45 +103,53 @@ export default function CalculDeLongueur () {
           bc = new Decimal(randint(10, 15))
           ab = Decimal.cos(angleABCr).mul(bc)
           ac = Decimal.sin(angleABCr).mul(bc)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ ${unite} près.`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          nom1 = nom[0]
+          nom2 = nom[1]
           break
         case 'sinus':
           bc = new Decimal(randint(10, 15))
           ab = Decimal.cos(angleABCr).mul(bc)
           ac = Decimal.sin(angleABCr).mul(bc)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ ${unite} près.`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          nom1 = nom[0]
+          nom2 = nom[2]
           break
         case 'tangente':
           ab = new Decimal(randint(7, 10))
           ac = Decimal.tan(angleABCr).mul(ab)
           bc = new Decimal(ab).div(Decimal.cos(angleABCr))
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ ${unite} près.`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          nom1 = nom[0]
+          nom2 = nom[2]
           break
         case 'invCosinus':
           ab = new Decimal(randint(7, 10))
           bc = new Decimal(ab).div(Decimal.cos(angleABCr))
           ac = Decimal.sin(angleABCr).mul(bc)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ ${unite} près.`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          nom1 = nom[1]
+          nom2 = nom[2]
           break
         case 'invSinus':
           ac = new Decimal(randint(7, 10))
           bc = new Decimal(ac).div(Decimal.sin(angleABCr))
           ab = Decimal.cos(angleABCr).mul(bc)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ ${unite} près.`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          nom1 = nom[1]
+          nom2 = nom[2]
           break
         case 'invTangente':
           ac = new Decimal(randint(7, 10))
           bc = new Decimal(ac).div(Decimal.sin(angleABCr))
           ab = Decimal.cos(angleABCr).mul(bc)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ ${unite} près.`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          nom1 = nom[0]
+          nom2 = nom[1]
           break
       }
+      texte += texteAMC + `Calculer $${nom1 + nom2}$ à $0,1$ ${unite} près.`
+      q2AMC = `Calculer $${nom1 + nom2}$ au dixième de ${unite}.`
 
       if (!context.isHtml && this.sup) {
         // texte += '\n\\end{minipage}\n'
@@ -360,18 +372,19 @@ export default function CalculDeLongueur () {
       // Pour AMC
       if (context.isAmc) {
         this.autoCorrection[i] = {
-          enonce: texte + '\\\\\n',
+          enonce: texteAMC + (this.sup ? mathalea2d(paramsEnonce, objetsEnonce) + '<br>La figure ci-dessus ne respecte pas les dimensions.' : ''), // + '\\\\\n',
           enonceAvantUneFois: true,
+          // enonceApresNumQuestion: true,
           options: {
             multicols: false,
             barreseparation: true,
             multicolsAll: true,
-            numerotationEnonce: false
+            numerotationEnonce: true
           },
           propositions: [
             {
               type: 'qcmMono',
-              enonce: `Quel calcul effectuer pour calculer ${nomLongueur} :\\\\\n`,
+              enonce: numAlpha(0) + `Quel calcul effectuer pour calculer ${nomLongueur} ?`, // \\\\\n`,
               options: {
                 ordered: true
               },
@@ -413,7 +426,7 @@ export default function CalculDeLongueur () {
               propositions: [
                 {
                   reponse: {
-                    texte: `${nomLongueur} arrondie au dixième de ${unite}:\\\\\n`,
+                    texte: numAlpha(1) + q2AMC, // `${nomLongueur} arrondie au dixième de ${unite}:\\\\\n`,
                     valeur: [reponse],
                     param: {
                       digits: 3,
