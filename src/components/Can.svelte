@@ -248,9 +248,10 @@
               </div>
             {:else}
               <div class="flex flex-row items-center justify-start text-3xl font-black text-coopmaths-struct dark:text-coopmathsdark-struct p-6">
-                {isQuestionsVisible ? "Questions" : ""}{isCorrectionVisible && isQuestionsVisible ? " / " : ""}{isCorrectionVisible ? "Réponses" : ""}<button type="button" class="pl-4"
-                  ><i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm bx-refresh" /></button
-                >
+                {isQuestionsVisible ? "Questions" : ""}{isCorrectionVisible && isQuestionsVisible ? " / " : ""}{isCorrectionVisible ? "Réponses" : ""}
+                <!-- <button type="button" class="pl-4">
+                  <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm bx-refresh" />
+                </button> -->
               </div>
             {/if}
             <div class="list-inside list-decimal mt-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:text-coopmathsdark-struct marker:font-bold">
@@ -260,7 +261,7 @@
                     <div class="flex flex-col justify-start items-center pr-2">
                       <span class="inline-flex text-center text-coopmaths-struct dark:text-coopmathsdark-struct font-black">{i + 1}.</span>
                     </div>
-                    <div class="flex flex-col justify-start items-start">
+                    <div class="flex flex-col justify-start items-start max-w-full">
                       {#if isQuestionsVisible}
                         <div>
                           {@html MathaleaFormatExercice(questions[currentVue][$questionsOrder.indexes[i]])}
@@ -268,16 +269,19 @@
                       {/if}
                       {#if isCorrectionVisible || correctionsSteps.includes($questionsOrder.indexes[i])}
                         <div
-                          class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest {isQuestionsVisible
+                          class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus {isQuestionsVisible
                             ? 'my-4'
-                            : ''} py-2 pl-6"
+                            : ''} py-2 pl-6 max-w-full"
                         >
-                          {@html MathaleaFormatExercice(corrections[currentVue][$questionsOrder.indexes[i]])}
-                          <div
-                            class="absolute flex flex-row justify-center items-center -left-4 top-0 rounded-full bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-canvas dark:text-coopmathsdark-canvas h-6 w-6"
-                          >
-                            <i class="bx bx-sm bx-check" />
+                          <div class="container overflow-x-auto overflow-y-hidden">
+                            {@html MathaleaFormatExercice(corrections[currentVue][$questionsOrder.indexes[i]])}
                           </div>
+                          <div
+                            class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+                          >
+                            Correction
+                          </div>
+                          <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4" />
                         </div>
                       {/if}
                     </div>
@@ -301,7 +305,7 @@
                         <div class="flex flex-col justify-start items-center pr-2">
                           <span class="inline-flex text-center text-coopmaths-struct dark:text-coopmathsdark-struct font-black">{i + 1}.</span>
                         </div>
-                        <div class="flex flex-col justify-start items-start">
+                        <div class="flex flex-col justify-start items-start max-w-full">
                           {#if isQuestionsVisible}
                             <div>
                               {@html MathaleaFormatExercice(questions[currentVueId][$questionsOrder.indexes[i]])}
@@ -309,16 +313,19 @@
                           {/if}
                           {#if isCorrectionVisible || correctionsSteps.includes($questionsOrder.indexes[i])}
                             <div
-                              class="relative border-l-coopmaths-warn-lightest dark:border-l-coopmathsdark-warn-lightest border-l-8 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest {isQuestionsVisible
+                              class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus {isQuestionsVisible
                                 ? 'my-4'
-                                : ''} p-2"
+                                : ''} p-2 max-w-full"
                             >
-                              {@html MathaleaFormatExercice(corrections[currentVueId][$questionsOrder.indexes[i]])}
-                              <div
-                                class="absolute flex flex-row justify-center items-center -left-4 top-0 rounded-full bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-canvas dark:text-coopmathsdark-canvas h-6 w-6"
-                              >
-                                <i class="bx bx-sm bx-check" />
+                              <div class="container overflow-x-auto overflow-y-hidden">
+                                {@html MathaleaFormatExercice(corrections[currentVueId][$questionsOrder.indexes[i]])}
                               </div>
+                              <div
+                                class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+                              >
+                                Correction
+                              </div>
+                              <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4" />
                             </div>
                           {/if}
                         </div>
