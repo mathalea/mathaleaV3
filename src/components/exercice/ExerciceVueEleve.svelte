@@ -335,7 +335,7 @@
                     </div>
                     <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
                     <div
-                      class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+                      class="absolute flex flex-row py-0 px-2 rounded-t-md justify-center items-center left-[0px] -top-[15px] outline outline-[3px] shadow-coopmaths-struct shadow-[-1px_0px,1px_0px] outline-coopmaths-struct bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
                     >
                       Correction
                     </div>
