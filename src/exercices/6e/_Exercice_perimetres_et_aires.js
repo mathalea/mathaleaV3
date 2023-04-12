@@ -279,8 +279,8 @@ export default function ExercicePerimetresEtAires () {
           }
           texteCorr += `<br>Les deux valeurs approchées au dixième de cm du périmètre de ce disque sont donc  $${miseEnEvidence(texNombrec(troncature(2 * R * Math.PI, 1)))}$ $${miseEnEvidence('cm')}$ et $${miseEnEvidence(texNombrec(0.1 + troncature(2 * R * Math.PI, 1)))}$ $${miseEnEvidence('cm')}$, sachant que la valeur la plus proche ($${miseEnEvidence(texNombrec(2 * R * Math.PI, 1))}$ $${miseEnEvidence('cm')}$) est la valeur arrondie.`
           texteCorr += `<br>Les deux valeurs approchées au dixième de cm$^2$ de l'aire de ce disque sont donc  $${miseEnEvidence(texNombre(troncature(R * R * Math.PI, 1)))}$ $${miseEnEvidence('cm^2')}$ et $${miseEnEvidence(texNombre(0.1 + troncature(R * R * Math.PI, 1)))}$ $${miseEnEvidence('cm^2')}$, sachant que la valeur la plus proche ($${miseEnEvidence(texNombrec(R * R * Math.PI, 1))}$ $${miseEnEvidence('cm^2')}$) est la valeur arrondie.<br>`
-          resultat1 = [troncature(2 * R * Math.PI, 1), troncature(2 * R * Math.PI, 1) + 0.1]
-          resultat2 = [troncature(R * R * Math.PI, 1), troncature(R * R * Math.PI, 1) + 0.1]
+          resultat1 = [troncature(2 * R * Math.PI, 1), troncature(2 * R * Math.PI + 0.1, 1)]
+          resultat2 = [troncature(R * R * Math.PI, 1), troncature(R * R * Math.PI + 0.1, 1)]
           break
         case 'demi-disque':
           R = (this.sup2 ? calcul(randint(4, 5) + randint(1, 9) / 10) : calcul(randint(4, 10)))
@@ -334,8 +334,8 @@ export default function ExercicePerimetresEtAires () {
           texteCorr += `<br>Les deux valeurs approchées au dixième de cm du périmètre de ce disque sont donc  $${miseEnEvidence(texNombrec(troncature(2 * R * Math.PI / 2 + 2 * R, 1)))}$ $${miseEnEvidence('cm')}$ et $${miseEnEvidence(texNombrec(0.1 + troncature(2 * R * Math.PI / 2 + 2 * R, 1)))}$ $${miseEnEvidence('cm')}$, sachant que la valeur la plus proche ($${miseEnEvidence(texNombrec(2 * R * Math.PI / 2 + 2 * R, 1))}$ $${miseEnEvidence('cm')}$) est la valeur arrondie.`
           texteCorr += `<br>Les deux valeurs approchées au dixième de cm$^2$ de l'aire de ce disque sont donc  $${miseEnEvidence(texNombre(troncature(R * R * Math.PI / 2, 1)))}$ $${miseEnEvidence('cm^2')}$ et $${miseEnEvidence(texNombre(0.1 + troncature(R * R * Math.PI / 2, 1)))}$ $${miseEnEvidence('cm^2')}$, sachant que la valeur la plus proche ($${miseEnEvidence(texNombrec(R * R * Math.PI / 2, 1))}$ $${miseEnEvidence('cm^2')}$) est la valeur arrondie.<br>`
 
-          resultat1 = [troncature(2 * R * Math.PI / 2 + 2 * R, 1), troncature(2 * R * Math.PI / 2 + 2 * R, 1) + 0.1]
-          resultat2 = [troncature(R * R * Math.PI / 2, 1), troncature(R * R * Math.PI / 2, 1) + 0.1]
+          resultat1 = [troncature(2 * R * Math.PI / 2 + 2 * R, 1), troncature(2 * R * Math.PI / 2 + 2 * R + 0.1, 1)]
+          resultat2 = [troncature(R * R * Math.PI / 2, 1), troncature(R * R * Math.PI / 2 + 0.1, 1)]
           break
       }
       if (reponses.indexOf(resultat1[0] * resultat2[0]) === -1) {
