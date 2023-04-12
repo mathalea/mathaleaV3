@@ -6149,11 +6149,12 @@
         "uuid": "d1513",
         "url": "6e/6M11-1.js",
         "titre": "Calculer périmètre et aire de carrés, rectangles et triangles rectangles",
+        "dateDeModifImportante": "12/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
           "amc": true,
-          "amcType": "AMCNum"
+          "amcType": "AMCHybride"
         }
       },
       "6M11-2": {
@@ -10565,7 +10566,9 @@
         "dateDeModifImportante": "10/04/2023",
         "tags": {
           "interactif": true,
-          "interactifType": "mathLive"
+          "interactifType": "mathLive",
+          "amc": true,
+          "amcType": "AMCHybride"
         }
       },
       "3S15": {

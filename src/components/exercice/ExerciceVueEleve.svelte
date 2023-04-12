@@ -147,7 +147,9 @@
       }
       return l
     })
-    window.parent.postMessage({ resultsByExercice: $resultsByExercice, action: "mathalea:score" }, "*")
+    const url = new URL(window.location.href)
+    const iframe = url.searchParams.get("iframe")
+    window.parent.postMessage({ resultsByExercice: $resultsByExercice, action: "mathalea:score", iframe }, "*")
   }
 
   function initButtonScore() {

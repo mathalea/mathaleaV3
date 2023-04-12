@@ -764,7 +764,15 @@
                   </svg>
                 </i>
               </button>
-              <!-- <button type="button" class="tooltip tooltip-bottom tooltip-neutral " data-tip="Moodle">
+              <button type="button" 
+              class="tooltip tooltip-bottom tooltip-neutral"
+              data-tip="Moodle"
+              on:click={() => {
+                globalOptions.update((params) => {
+                  params.v = "moodle"
+                  return params
+                })
+              }}>
                 <i>
                   <svg
                     viewBox="0 0 8.4666661 8.4666661"
@@ -783,7 +791,7 @@
                     </g>
                   </svg>
                 </i>
-              </button> -->
+              </button>
             </div>
           </div>
 

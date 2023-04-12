@@ -63,7 +63,7 @@
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Comment l'utiliser ?</h1>
 
     <p class="text-coopmaths-corpus dark:text-coopmathsdark-corpus text-lg md:text-xl">
-      MathALÉA vous permet de créer un fichier au format gift que vous pourrez ensuite importer dans votre plateforme Moodle. 
+      MathALÉA vous permet de créer un fichier au format gift que vous pourrez ensuite importer dans la banque de questions de votre plateforme Moodle. 
       Vous trouverez de plus amples informations dans notre <a href="https://github.com/mathalea/mathalea/wiki/Utilisation-de-Mathalea-avec-Moodle" target="_blank" rel="noopener noreferrer" class="text-coopmaths-action dark:text-coopmathsdark-action">documentation</a>.
     </p>
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Exportation</h1>
@@ -75,12 +75,12 @@
       >
       <i class='bx bx-download mr-2'></i>Télécharger le fichier gift
       </button>
-    <button
+    <!-- <button
         on:click={copyCode}
         class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
       >
       Copier le code
-      </button>
+      </button> -->
 
    
     <h1 class="mt-12 md:mt-8 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Code</h1>
