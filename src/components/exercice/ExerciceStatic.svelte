@@ -50,7 +50,7 @@
   {#if isCorrectionVisible}
     <div
       class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 lg:mt-2 mb-6 py-2 pl-4"
-      id="correction${indiceExercice}Q${i}"
+      id="correction${indiceExercice}"
     >
       <div class="container">
         {#each exercice.pngCor as url}
