@@ -39,7 +39,7 @@
         paramUrl += `${key}\\=${param[key]}&`
       }
       paramUrl = paramUrl.slice(0, -1)
-      content += `:: ${param.id} - ${exercices[i].titre} ::\n`
+      content += `:: ${param.id} - ${exercices[i].titre} - ${exercices[i].nbQuestions} ${exercices[i].nbQuestions > 1 ? 'questions' : 'question'} ::\n`
       content += '<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n'
       content += `<mathalea-moodle url\\="${paramUrl}" />\n`
       content += '{\n'
