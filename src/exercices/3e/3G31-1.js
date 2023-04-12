@@ -43,7 +43,7 @@ export default function CalculDAngleFigureComplexe () {
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.spacingCorr = 3
   this.correctionDetailleeDisponible = true
-  context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
+  this.correctionDetaillee = context.isHtml
   // this.sup = 1; // Niveau de difficulté
   // this.tailleDiaporama = 3; // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
@@ -78,7 +78,7 @@ export default function CalculDAngleFigureComplexe () {
       const BAC = Math.round(angle(B, A, C))
       let AC = BA / Math.cos(radians(BAC))
       let ACD = Math.round(degres(Math.atan(AD / AC)))
-      let a1 = afficheMesureAngle(B, A, C, 'black', 1, BAC + '°')
+      let a1 = afficheMesureAngle(B, A, C, 'black', 1, BAC + (context.isHtml ? '°' : '\\degree'))
       const a2 = afficheLongueurSegment(A, B)
       const a3 = afficheLongueurSegment(D, A)
       const a4 = afficheLongueurSegment(A, C)
@@ -137,7 +137,7 @@ export default function CalculDAngleFigureComplexe () {
         case 'BA-AD-ACB':
           AC = BA / Math.sin(radians(ACB))
           ACD = Math.round(degres(Math.atan(AD / AC)))
-          a1 = afficheMesureAngle(A, C, B, 'black', 1, ACB + '\\degree')
+          a1 = afficheMesureAngle(A, C, B, 'black', 1, ACB + (context.isHtml ? '°' : '\\degree'))
           if (this.sup) {
             objetsMathalea.push(a1, a2, a3)
           }
@@ -170,8 +170,8 @@ export default function CalculDAngleFigureComplexe () {
             }, t1, t2c, c1, c2, a3, a4, a5, labels, texte3, texte4)
           }
           texteCorr += `<br><br>$${C.nom + A.nom + D.nom}$ est rectangle en $${A.nom}$ donc $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)=\\dfrac{${A.nom + D.nom}}{${A.nom + C.nom}}\\quad$ `
-          texteCorr += `soit $\\quad\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\quad$ et $\\quad\\widehat{${A.nom + C.nom + D.nom}}\\approx\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${ACD}$\\degree.`
-          texteCorr += `<br><br>La somme des angles d'un triangle est égale à 180\\degree donc $\\widehat{${B.nom + C.nom + A.nom}}=180\\degree-90\\degree-${ACB}\\degree=${90 - ACB}\\degree$.`
+          texteCorr += `soit $\\quad\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\quad$ et $\\quad\\widehat{${A.nom + C.nom + D.nom}}\\approx\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${ACD}\\degree$.`
+          texteCorr += `<br><br>La somme des angles d'un triangle est égale à $180\\degree$ donc $\\widehat{${B.nom + A.nom + C.nom}}=180\\degree-90\\degree-${ACB}\\degree=${90 - ACB}\\degree$.`
           texteCorr += `<br>De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180\\degree-90\\degree-${ACD}\\degree$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${90 - ACD}\\degree$.`
           if (this.interactif) {
             setReponse(this, 3 * i, ACD)
@@ -216,7 +216,7 @@ export default function CalculDAngleFigureComplexe () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: numAlpha(1) + `Valeur de $\\widehat{${B.nom + C.nom + A.nom}}$`,
+                  texte: numAlpha(1) + typesDeQuestion === 'BA-AD-BAC' ? `Valeur de $\\widehat{${B.nom + C.nom + A.nom}}$` : `Valeur de $\\widehat{${B.nom + A.nom + C.nom}}$`,
                   valeur: typesDeQuestion === 'BA-AD-BAC' ? 90 - BAC : 90 - ACB,
                   alignement: 'center',
                   param: {

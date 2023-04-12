@@ -1176,9 +1176,10 @@ export default function ProblemesTrigoLongueur () {
       if (context.isAmc) {
         // enonceAMC = this.nbQuestions > 1 ? '\\begin{Large}\\textbf{Problème n° ' + (i + 1) + '}\\end{Large}' : 'Peu importe'
         this.autoCorrection[i] = {
-          enonce: enonceAMC,
-          enonceCentre: true,
-          enonceAvant: this.nbQuestions > 1, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
+          // enonce: enonceAMC,
+          enonce: '',
+          // enonceAvant: this.nbQuestions > 1, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
+          enonceAvant: false, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
           propositions: propositionsAMC
         }
       }
