@@ -234,7 +234,7 @@
         {/if}
       </div>
     </aside>
-    <main class="bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus">
+    <main class="bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus w-full">
       <!-- Affichage Questions/Réponses -->
       <div class="flex p-2 h-full w-full">
         <div class="w-full" bind:this={divExercice}>
@@ -242,9 +242,9 @@
             {#if nbOfVues > 1}
               <div class="flex flex-row items-center justify-start text-3xl font-black text-coopmaths-struct dark:text-coopmathsdark-struct p-6">
                 Série {currentVue + 1}
-                <button type="button" class="pl-4"
-                  ><i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm bx-refresh" /></button
-                >
+                <!-- <button type="button" class="pl-4">
+                  <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm bx-refresh" />
+                </button> -->
               </div>
             {:else}
               <div class="flex flex-row items-center justify-start text-3xl font-black text-coopmaths-struct dark:text-coopmathsdark-struct p-6">
@@ -286,13 +286,14 @@
               {/each}
             </div>
           {:else}
-            <div class="flex flex-row justify-evenly w-full">
+            <div class="grid grid-cols-4 gap-4 place-content-stretch w-full">
               {#each Array(nbOfVues) as _, currentVueId}
-                <div style="width: {100 / nbOfVues}%">
-                  <div class="flex flex-row justify-start items-center text-3xl font-black text-coopmaths-struct dark:text-coopmathsdark-struct p-6">
-                    Série {currentVueId + 1}<button type="button" class="pl-4"
-                      ><i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm bx-refresh" /></button
-                    >
+                <div class="flex flex-col w-full">
+                  <div class="flex flex-row justify-start items-center text-3xl font-black text-coopmaths-struct dark:text-coopmathsdark-struct p-6 w-full">
+                    Série {currentVueId + 1}
+                    <!-- <button type="button" class="pl-4">
+                      <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm bx-refresh" />
+                    </button> -->
                   </div>
                   {#each questions[currentVueId] as question, i}
                     <div class="pl-6">
