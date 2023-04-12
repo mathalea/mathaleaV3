@@ -1,18 +1,19 @@
 /* globals UI */
-import { texteParPosition } from './2d.js'
-import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
-import { equal, evaluate, format, Fraction, gcd, isInteger, isPrime, matrix, parse, round, isArray } from 'mathjs'
-import { loadScratchblocks } from './loaders.js'
+import Decimal from 'decimal.js'
+import { equal, evaluate, format, Fraction, gcd, isArray, isInteger, isPrime, matrix, parse, round } from 'mathjs'
+import { texteParPosition } from './2d.js'
 import { context } from './context.js'
+import FractionX from './FractionEtendue.js'
+import { fraction } from './fractions.js'
 import { setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
-import FractionX from './FractionEtendue.js'
-import Decimal from 'decimal.js'
+import { loadScratchblocks } from './loaders.js'
 
 export const tropDeChiffres = 'Trop de chiffres'
 export const epsilon = 0.000001
-const math = { format, evaluate }
+const math = {format, evaluate}
+
 /**
  * Fonctions diverses pour la création des exercices
  * @module
@@ -186,6 +187,7 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
     `
   }
 }
+
 /**
  * Renvoie le html ou le latex qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
  * Si en sortie html, il n'y a pas assez de places alors on passe en momocolonne!
@@ -202,9 +204,9 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
  */
 export function deuxColonnesResp (cont1, cont2, options) {
   if (options === undefined) {
-    options = { largeur1: 50 }
+    options = {largeur1: 50}
   } else if (typeof options === 'number') {
-    options = { largeur1: options }
+    options = {largeur1: options}
   }
   if (options.largeur1 === undefined) {
     options.largeur1 = 50
@@ -221,7 +223,7 @@ export function deuxColonnesResp (cont1, cont2, options) {
   if (options.widthmincol2 === undefined) {
     options.widthmincol2 = '0px'
   }
-
+  
   if (context.isHtml) {
     return `
     <style>
@@ -230,11 +232,11 @@ export function deuxColonnesResp (cont1, cont2, options) {
       margin: 0 auto;
       display: grid;
       grid-gap: 1rem;
-    }    
+    }
     /* Screen larger than 900px? 2 column */
     @media (min-width: 900px) {
       .cols-responsive { grid-template-columns: repeat(2, 1fr); }
-    }    
+    }
     </style>
     <div class='cols-responsive'>
       <div id='cols-responsive1-${options.eleId}'style='min-width:${options.widthmincol1};${options.stylecol1}' >
@@ -255,6 +257,7 @@ export function deuxColonnesResp (cont1, cont2, options) {
     `
   }
 }
+
 /**
  *
  * @param {string} texte
@@ -264,6 +267,7 @@ export function deuxColonnesResp (cont1, cont2, options) {
 export function centrage (texte) {
   return context.isHtml ? `<center>${texte}</center>` : `\\begin{center}\n\t${texte}\n\\end{center}\n`
 }
+
 /**
  * Contraint une valeur à rester dans un intervalle donné. Si elle est trop petite, elle prend la valeur min, si elle est trop grande elle prend la valeur max
  * @author Jean-Claude Lhote à partir du code de Eric Elter
@@ -309,6 +313,7 @@ export function egal (a, b, tolerance = epsilon) {
 export function superieur (a, b, tolerance = epsilon) {
   return (a - b > tolerance)
 }
+
 /**
  * Retourne true si a < b
  * @param {number} a premier nombre
@@ -319,6 +324,7 @@ export function superieur (a, b, tolerance = epsilon) {
 export function inferieur (a, b, tolerance = epsilon) {
   return (b - a > tolerance)
 }
+
 /**
  * Retourne true si a ≥ b
  * @param {number} a premier nombre
@@ -329,6 +335,7 @@ export function inferieur (a, b, tolerance = epsilon) {
 export function superieurouegal (a, b, tolerance = epsilon) {
   return (a - b > tolerance || egal(a, b, tolerance))
 }
+
 /**
  * Retourne true si a ≤ b
  * @param {number} a premier nombre
@@ -339,6 +346,7 @@ export function superieurouegal (a, b, tolerance = epsilon) {
 export function inferieurouegal (a, b, tolerance = epsilon) {
   return (b - a > tolerance || egal(a, b, tolerance))
 }
+
 /**
  * Retourne true si a est entier ou "presque" entier
  * @param {number} a premier nombre
@@ -361,9 +369,9 @@ export function quotientier (a, b) {
 }
 
 /**
-* Renvoie le PPCM de deux nombres
-* @author Rémi Angot
-*/
+ * Renvoie le PPCM de deux nombres
+ * @author Rémi Angot
+ */
 export const ppcm = (a, b) => {
   return parseInt(Algebrite.run(`lcm(${a},${b})`))
 }
@@ -389,23 +397,24 @@ export function ecrireNombre2D (x, y, n) {
 }
 
 /**
-* Créé tous les couples possibles avec un élément de E1 et un élément de E2.
-* L'ordre est pris en compte, donc on pourra avoir (3,4) et (4,3).
-* Si le nombre de couples possibles est inférieur à nombreDeCouplesMin alors
-* on concatène 2 fois la même liste mais avec des ordres différents.
-* @param {string[]} E1 - Liste
-* @param {string[]} E2 - Liste
-* @param {int} nombreDeCouplesMin=10 - Nombre de couples souhaités
-* @author Rémi Angot
-*/
+ * Créé tous les couples possibles avec un élément de E1 et un élément de E2.
+ * L'ordre est pris en compte, donc on pourra avoir (3,4) et (4,3).
+ * Si le nombre de couples possibles est inférieur à nombreDeCouplesMin alors
+ * on concatène 2 fois la même liste mais avec des ordres différents.
+ * @param {string[]} E1 - Liste
+ * @param {string[]} E2 - Liste
+ * @param {int} nombreDeCouplesMin=10 - Nombre de couples souhaités
+ * @author Rémi Angot
+ */
 export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
-  let result = []; let temp = []
+  let result = [];
+  let temp = []
   for (const i in E1) {
     for (const j in E2) {
       result.push([E1[i], E2[j]])
     }
   }
-
+  
   temp = shuffle(result).slice(0) // créer un clone du tableau result mélangé
   result = temp.slice(0)
   while (result.length < nombreDeCouplesMin) {
@@ -417,28 +426,28 @@ export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
 // Fonctions mathématiques
 
 /**
-* Choisit un nombre au hasard entre min et max sans appartenir à liste\_a\_eviter.
-* @param {int} min
-* @param {int} max
-* @param {int[]} liste - Tous les éléments que l'on souhaite supprimer
-* @return {int} Nombre au hasard entre min et max non compris dans la listeAEviter
-*
-* @example
-* // Renvoie 1, 2 ou 3
-* randint (1,3)
-* @example
-* // Renvoie -1 ou 1
-* randint(-1,1,[0])
-* @example
-* Renvoie 0 ou 1 ou 4 ou 6 ou 8 ou 9
-* randint(0,9, '2357') // même résultat avec randint(0,9, ['2','3','5','7']) ou randint(0,9, [2,3,5,7])
-* @author Rémi Angot
-* @Source https://gist.github.com/pc035860/6546661
-*/
+ * Choisit un nombre au hasard entre min et max sans appartenir à liste\_a\_eviter.
+ * @param {int} min
+ * @param {int} max
+ * @param {int[]} liste - Tous les éléments que l'on souhaite supprimer
+ * @return {int} Nombre au hasard entre min et max non compris dans la listeAEviter
+ *
+ * @example
+ * // Renvoie 1, 2 ou 3
+ * randint (1,3)
+ * @example
+ * // Renvoie -1 ou 1
+ * randint(-1,1,[0])
+ * @example
+ * Renvoie 0 ou 1 ou 4 ou 6 ou 8 ou 9
+ * randint(0,9, '2357') // même résultat avec randint(0,9, ['2','3','5','7']) ou randint(0,9, [2,3,5,7])
+ * @author Rémi Angot
+ * @Source https://gist.github.com/pc035860/6546661
+ */
 export function randint (min, max, listeAEviter = []) {
   // Source : https://gist.github.com/pc035860/6546661
   if (!Number.isInteger(min) || !Number.isInteger(max)) {
-    window.notify('Les min et max de randint doivent être entiers', { min, max })
+    window.notify('Les min et max de randint doivent être entiers', {min, max})
     min = Math.floor(min)
     max = Math.ceil(max)
     if (max - min < 1) max = min + 1
@@ -452,14 +461,14 @@ export function randint (min, max, listeAEviter = []) {
     if (Number.isInteger(listeAEviter)) {
       listeAEviter = [listeAEviter]
     } else {
-      window.notify('Le nombre fourni à randint en exclusion n\'est pas un entier', { listeAEviter })
+      window.notify('Le nombre fourni à randint en exclusion n\'est pas un entier', {listeAEviter})
       listeAEviter = [listeAEviter] // ce n'est pas grave de mettre un nombre non entier, randint ne choisit que des entiers
     }
   }
   if (Array.isArray(listeAEviter)) {
     listeAEviter = listeAEviter.map(Number).filter(el => Math.round(el) === el) // on filtre les non nombres et les non-entiers
   } else {
-    window.notify('La liste d\'exclusion de randint n\'est pas d\'un type pris en compte', { listeAEviter })
+    window.notify('La liste d\'exclusion de randint n\'est pas d\'un type pris en compte', {listeAEviter})
     listeAEviter = []
   }
   if (listeAEviter.length > 0) {
@@ -471,19 +480,19 @@ export function randint (min, max, listeAEviter = []) {
 }
 
 /**
-* Créé un string aléatoire
-*
-* strRandom({
-*  includeUpperCase: true,
-*  includeNumbers: true,
-*  length: 5,
-*  startsWithLowerCase: true
-* });
-*
-* // renvoie par exemple : "iL0v3"
-*
-* @Source https://www.equinode.com/blog/article/generer-une-chaine-de-caracteres-aleatoire-avec-javascript
-*/
+ * Créé un string aléatoire
+ *
+ * strRandom({
+ *  includeUpperCase: true,
+ *  includeNumbers: true,
+ *  length: 5,
+ *  startsWithLowerCase: true
+ * });
+ *
+ * // renvoie par exemple : "iL0v3"
+ *
+ * @Source https://www.equinode.com/blog/article/generer-une-chaine-de-caracteres-aleatoire-avec-javascript
+ */
 export function strRandom (o) {
   let a = 10
   const b = 'abcdefghijklmnopqrstuvwxyz'
@@ -512,12 +521,12 @@ export function strRandom (o) {
 }
 
 /**
-* Enlève toutes les occurences d'un élément d'un tableau donné
-* @param liste
-* @param element
-*
-* @author Rémi Angot
-*/
+ * Enlève toutes les occurences d'un élément d'un tableau donné
+ * @param liste
+ * @param element
+ *
+ * @author Rémi Angot
+ */
 export function enleveElement (array, item) {
   //
   for (let i = array.length - 1; i >= 0; i--) {
@@ -571,6 +580,7 @@ export function enleveElementBis (array, item = undefined) {
 export function enleveElementNo (array, index) {
   array.splice(index, 1)
 }
+
 /**
  * Enlève l'élément index d'un tableau sans modifier le tableau et retourne le résultat
  * @author Jean-Claude Lhote
@@ -585,19 +595,19 @@ export function enleveElementNoBis (array, index) {
 }
 
 /**
-* Retourne un élément au hasard de la liste sans appartenir à une liste donnée
-* @param {liste}
-* @param {listeAEviter}
-*
-* @example
-* // Renvoie 1, 2 ou 3
-* choice([1,2,3])
-* @example
-* // Renvoie Rémi ou Léa
-* choice(['Rémi','Léa'])
-*
-* @author Rémi Angot
-*/
+ * Retourne un élément au hasard de la liste sans appartenir à une liste donnée
+ * @param {liste}
+ * @param {listeAEviter}
+ *
+ * @example
+ * // Renvoie 1, 2 ou 3
+ * choice([1,2,3])
+ * @example
+ * // Renvoie Rémi ou Léa
+ * choice(['Rémi','Léa'])
+ *
+ * @author Rémi Angot
+ */
 export function choice (liste, listeAEviter = []) {
   // copie la liste pour ne pas y toucher (ce n'est pas le but de choice)
   if (!Array.isArray(listeAEviter)) {
@@ -613,16 +623,16 @@ export function choice (liste, listeAEviter = []) {
 }
 
 /**
-* Retourne une liste des entiers de 0 à max sans appartenir à une liste donnée
-* @param {max}
-* @param {listeAEviter}
-*
-* @example
-* // Renvoie [0,1,4,5,6,7,8,9,10]
-* range(10,[2,3])
-*
-* @author Rémi Angot
-*/
+ * Retourne une liste des entiers de 0 à max sans appartenir à une liste donnée
+ * @param {max}
+ * @param {listeAEviter}
+ *
+ * @example
+ * // Renvoie [0,1,4,5,6,7,8,9,10]
+ * range(10,[2,3])
+ *
+ * @author Rémi Angot
+ */
 export function range (max, listeAEviter = []) {
   // Créer un tableau avec toutes les valeurs de 0 à max sauf celle de la liste à éviter
   const nbMax = parseInt(max, 10)
@@ -634,17 +644,17 @@ export function range (max, listeAEviter = []) {
 }
 
 /**
-* Retourne une liste entre 2 bornes sans appartenir à une liste donnée (par défaut des entiers mais on peut changer le pas)
-* @param {min}
-* @param {max}
-* @param {listeAEviter}
-*
-* @example
-* // Renvoie [6,7,10]
-* range(6,10,[8,9])
-*
-* @author Rémi Angot
-*/
+ * Retourne une liste entre 2 bornes sans appartenir à une liste donnée (par défaut des entiers mais on peut changer le pas)
+ * @param {min}
+ * @param {max}
+ * @param {listeAEviter}
+ *
+ * @example
+ * // Renvoie [6,7,10]
+ * range(6,10,[8,9])
+ *
+ * @author Rémi Angot
+ */
 export function rangeMinMax (min, max, listeAEviter = [], step = 1) {
   // Créer un tableau avec toutes les valeurs de 0 à max sauf celle de la liste à éviter
   const liste = []
@@ -658,13 +668,13 @@ export function rangeMinMax (min, max, listeAEviter = [], step = 1) {
 }
 
 /**
-* Créé un tableau avec toutes les valeurs de 1 à max sauf celle de la liste à éviter
-*
-*
-* @param {int} max
-* @param {liste} liste valeurs à éviter
-* @author Rémi Angot
-*/
+ * Créé un tableau avec toutes les valeurs de 1 à max sauf celle de la liste à éviter
+ *
+ *
+ * @param {int} max
+ * @param {liste} liste valeurs à éviter
+ * @author Rémi Angot
+ */
 export function range1 (max, listeAEviter = []) {
   const nbMax = parseInt(max, 10)
   const liste = []
@@ -678,28 +688,33 @@ export function range1 (max, listeAEviter = []) {
 }
 
 /**
-* Fonction de comparaison à utiliser avec tableau.sort(compareFractions)
-*
-* Le tableau doit être du type `[[num,den],[num2,den2]]`
-*
-* @author Rémi Angot
-*/
+ * Fonction de comparaison à utiliser avec tableau.sort(compareFractions)
+ *
+ * Le tableau doit être du type `[[num,den],[num2,den2]]`
+ *
+ * @author Rémi Angot
+ */
 export function compareFractions (a, b) {
-  if ((a[0] / a[1]) > (b[0] / b[1])) { return 1 }
-  if ((a[0] / a[1]) < (b[0] / b[1])) { return -1 }
+  if ((a[0] / a[1]) > (b[0] / b[1])) {
+    return 1
+  }
+  if ((a[0] / a[1]) < (b[0] / b[1])) {
+    return -1
+  }
   // Sinon il y a égalité
   return 0
 }
 
 /**
-* Fonction de comparaison à utiliser avec tableau.sort(compareNombres)
-*
-*
-* @author Rémi Angot
-*/
+ * Fonction de comparaison à utiliser avec tableau.sort(compareNombres)
+ *
+ *
+ * @author Rémi Angot
+ */
 export function compareNombres (a, b) {
   return a - b
 }
+
 /**
  *
  * Copié sur https://delicious-insights.com/fr/articles/le-piege-de-array-sort/
@@ -709,6 +724,7 @@ export function numTrie (arr) {
     return a - b
   })
 }
+
 /**
  * retourne un tableau dans lequel les doublons ont été supprimés s'il y en a MAIS SANS TRI
  * @param {array} arr Tableau duquel ont veut supprimer les doublons numériques
@@ -730,6 +746,7 @@ export function enleveDoublonNum (arr, tolerance = 0) {
   }
   return arr
 }
+
 /**
  * fonction qui retourne une chaine construite en concaténant les arguments
  * Le rôle de cette fonction est de construire un identifiant unique de question
@@ -747,29 +764,32 @@ export function checkSum (...args) {
   }
   return checkString
 }
-/**
-* Mélange les items d'un tableau, sans modifier le tableau passé en argument
-*
-* @Example
-* tableau_melange = shuffle (tableau_origine)
-* @Source https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-*/
-export function shuffle (array) {
-  let currentIndex = array.length; let temporaryValue; let randomIndex
 
+/**
+ * Mélange les items d'un tableau, sans modifier le tableau passé en argument
+ *
+ * @Example
+ * tableau_melange = shuffle (tableau_origine)
+ * @Source https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+ */
+export function shuffle (array) {
+  let currentIndex = array.length;
+  let temporaryValue;
+  let randomIndex
+  
   // While there remain elements to shuffle...
   const arrayBis = array.slice()
   while (currentIndex !== 0) {
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex)
     currentIndex -= 1
-
+    
     // And swap it with the current element.
     temporaryValue = arrayBis[currentIndex]
     arrayBis[currentIndex] = arrayBis[randomIndex]
     arrayBis[randomIndex] = temporaryValue
   }
-
+  
   return arrayBis
 }
 
@@ -784,27 +804,27 @@ export function shuffleJusqua (array, indice) {
 }
 
 /**
-* Mélange les lettres d'un string
-*
-* @Example
-* motMelange = shuffleLettres (mot)
-* @Source https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-*/
+ * Mélange les lettres d'un string
+ *
+ * @Example
+ * motMelange = shuffleLettres (mot)
+ * @Source https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+ */
 export function shuffleLettres (txt) {
   const array = txt.split('')
   return shuffle(array).join('')
 }
 
 /**
-* Mélange les items de deux tableaux de la même manière
-*
-*
-* @Source https://stackoverflow.com/questions/18194745/shuffle-multiple-javascript-arrays-in-the-same-way
-*/
+ * Mélange les items de deux tableaux de la même manière
+ *
+ *
+ * @Source https://stackoverflow.com/questions/18194745/shuffle-multiple-javascript-arrays-in-the-same-way
+ */
 export function shuffle2tableaux (obj1, obj2) {
   let index = obj1.length
   let rnd, tmp1, tmp2
-
+  
   while (index) {
     rnd = Math.floor(Math.random() * index)
     index -= 1
@@ -818,80 +838,82 @@ export function shuffle2tableaux (obj1, obj2) {
 }
 
 /**
-* Trie un dictionnaire suivant ses clés
-*
-* @Example
-* dictionnaire_tri = tridictionnaire(dictionnaire)
-* @Source https://stackoverflow.com/questions/10946880/sort-a-dictionary-or-whatever-key-value-data-structure-in-js-on-word-number-ke
-*/
+ * Trie un dictionnaire suivant ses clés
+ *
+ * @Example
+ * dictionnaire_tri = tridictionnaire(dictionnaire)
+ * @Source https://stackoverflow.com/questions/10946880/sort-a-dictionary-or-whatever-key-value-data-structure-in-js-on-word-number-ke
+ */
 export function tridictionnaire (dict) {
   const sorted = []
   for (const key in dict) {
     sorted[sorted.length] = key
   }
   sorted.sort()
-
+  
   const tempDict = {}
   for (let i = 0; i < sorted.length; i++) {
     tempDict[sorted[i]] = dict[sorted[i]]
   }
-
+  
   return tempDict
 }
 
 /**
-* Filtre un dictionnaire suivant les premiers caractères de ses clés
-*
-* @Example
-* filtreDictionnaire(dict,'6N') renvoie un dictionnaire où toutes les clés commencent par 6N
-* @author Rémi Angot
-*/
+ * Filtre un dictionnaire suivant les premiers caractères de ses clés
+ *
+ * @Example
+ * filtreDictionnaire(dict,'6N') renvoie un dictionnaire où toutes les clés commencent par 6N
+ * @author Rémi Angot
+ */
 export function filtreDictionnaire (dict, sub) {
-  return Object.assign({}, ...Object.entries(dict).filter(([k]) => k.substring(0, sub.length) === sub).map(([k, v]) => ({ [k]: v }))
+  return Object.assign({}, ...Object.entries(dict).filter(([k]) => k.substring(0, sub.length) === sub).map(([k, v]) => ({[k]: v}))
   )
 }
 
 /**
-* Polyfill Object.fromEntries
-*
-* @Source : https://gitlab.com/moongoal/js-polyfill-object.fromentries/
-*/
+ * Polyfill Object.fromEntries
+ *
+ * @Source : https://gitlab.com/moongoal/js-polyfill-object.fromentries/
+ */
 if (!Object.fromEntries) {
   Object.defineProperty(Object, 'fromEntries', {
     value (entries) {
-      if (!entries || !entries[Symbol.iterator]) { throw new Error('Object.fromEntries() requires a single iterable argument') }
-
+      if (!entries || !entries[Symbol.iterator]) {
+        throw new Error('Object.fromEntries() requires a single iterable argument')
+      }
+      
       const o = {}
-
+      
       Object.keys(entries).forEach((key) => {
         const [k, v] = entries[key]
-
+        
         o[k] = v
       })
-
+      
       return o
     }
   })
 }
 
 /**
-* Filtre un dictionnaire suivant la valeur d'une clé
-*
-* @Example
-* filtreDictionnaireValeurCle(dict,'annee',2020) renvoie un dictionnaire où toutes les clés annee seront égales à 2020
-* @author Rémi Angot
-*/
+ * Filtre un dictionnaire suivant la valeur d'une clé
+ *
+ * @Example
+ * filtreDictionnaireValeurCle(dict,'annee',2020) renvoie un dictionnaire où toutes les clés annee seront égales à 2020
+ * @author Rémi Angot
+ */
 export function filtreDictionnaireValeurCle (dict, key, val) {
   return Object.fromEntries(Object.entries(dict).filter(([k, v]) => v[key] === val))
 }
 
 /**
-* Filtre un dictionnaire si une valeur appartient à une clé de type tableau
-*
-* @Example
-* filtreDictionnaireValeurCle(dict,'annee',2020) renvoie un dictionnaire où toutes les clés annee seront égales à 2020
-* @author Rémi Angot
-*/
+ * Filtre un dictionnaire si une valeur appartient à une clé de type tableau
+ *
+ * @Example
+ * filtreDictionnaireValeurCle(dict,'annee',2020) renvoie un dictionnaire où toutes les clés annee seront égales à 2020
+ * @author Rémi Angot
+ */
 export function filtreDictionnaireValeurTableauCle (dict, key, val) {
   return Object.fromEntries(Object.entries(dict).filter(([k, v]) => cleExisteEtContient(v[key], val)))
 }
@@ -905,15 +927,15 @@ function cleExisteEtContient (v, val) {
 }
 
 /**
-* Concatène liste à elle-même en changeant l'ordre à chaque cycle
-*
-*
-* @Example
-* combinaisonListes([A,B,C],7)
-* // [B,C,A,C,B,A,A,B,C]
-*
-* @author Rémi Angot
-*/
+ * Concatène liste à elle-même en changeant l'ordre à chaque cycle
+ *
+ *
+ * @Example
+ * combinaisonListes([A,B,C],7)
+ * // [B,C,A,C,B,A,A,B,C]
+ *
+ * @author Rémi Angot
+ */
 export function combinaisonListes (liste, tailleMinimale) {
   if (liste.length === 0) return []
   let l = shuffle(liste)
@@ -924,15 +946,15 @@ export function combinaisonListes (liste, tailleMinimale) {
 }
 
 /**
-* Concatène liste à elle-même en imposant à la nouvelle liste de contenir au moins tous les élements
-* de la liste initiale mais sans gestion de nombre de doublons au final.
-* @Example
-* combinaisonListes2([A,B,C],7)
-* // [B,C,B,B,C,A,B]
-* combinaisonListes2([A,B,C,D],6)
-* // [B,C,D,B,C,A,B]
-* @author Eric Elter
-*/
+ * Concatène liste à elle-même en imposant à la nouvelle liste de contenir au moins tous les élements
+ * de la liste initiale mais sans gestion de nombre de doublons au final.
+ * @Example
+ * combinaisonListes2([A,B,C],7)
+ * // [B,C,B,B,C,A,B]
+ * combinaisonListes2([A,B,C,D],6)
+ * // [B,C,D,B,C,A,B]
+ * @author Eric Elter
+ */
 export function combinaisonListes2 (liste, tailleMinimale) {
   if (liste.length === 0) return []
   let l = liste
@@ -949,14 +971,15 @@ export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
   }
   return liste
 }
+
 /** Renvoie une liste exhaustive de tableaux contenant les mêmes élèments que tab mais jamais dans le même ordre
-* Fonction fort utile quand reponse est une suite de nombres par exemple. Voir ligne 111 Exercice 3A10-6.
-* Gros défaut :  Si tab contient plus de 6 éléments, cette fonction est chronophage. A ne pas utiliser
-* @example reponse = diversesReponsesPossibles([3,4,5]) renvoie [[3,4,5],[3,5,4],[4,3,5],[4,5,3],[5,3,4],[5,4,3]]
-* et ensuite pour les tous les i : reponse[i]=reponse[i].join(';') et reponse contient alors toutes les réponses possibles
-* @author Eric Elter
-* Septembre 2022
-*/
+ * Fonction fort utile quand reponse est une suite de nombres par exemple. Voir ligne 111 Exercice 3A10-6.
+ * Gros défaut :  Si tab contient plus de 6 éléments, cette fonction est chronophage. A ne pas utiliser
+ * @example reponse = diversesReponsesPossibles([3,4,5]) renvoie [[3,4,5],[3,5,4],[4,3,5],[4,5,3],[5,3,4],[5,4,3]]
+ * et ensuite pour les tous les i : reponse[i]=reponse[i].join(';') et reponse contient alors toutes les réponses possibles
+ * @author Eric Elter
+ * Septembre 2022
+ */
 export function diversesReponsesPossibles (tab) {
   let tab2, tab3
   const rep = []
@@ -973,27 +996,27 @@ export function diversesReponsesPossibles (tab) {
 }
 
 /**
-* N'écrit pas un nombre s'il est égal à 1
-* @Example
-* //rienSi1(1)+'x' -> x
-* //rienSi1(-1)+'x' -> -x
-* @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
-*/
+ * N'écrit pas un nombre s'il est égal à 1
+ * @Example
+ * //rienSi1(1)+'x' -> x
+ * //rienSi1(-1)+'x' -> -x
+ * @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
+ */
 export function rienSi1 (a) {
   if (equal(a, 1)) return ''
   if (equal(a, -1)) return '-'
   if (a instanceof Fraction || a instanceof FractionX) return a.toLatex()
   if (Number(a) || a === 0) return stringNombre(a) // on retourne 0 ce sera pas joli, mais Number(0) est false !!!
-  window.notify('rienSi1 : type de valeur non prise en compte : ', { a })
+  window.notify('rienSi1 : type de valeur non prise en compte : ', {a})
 }
 
 /**
-* Gère l'écriture de l'exposant en mode text (ne doit pas s'utiliser entre $ $)
-* Pour le mode maths (entre $ $) on utilisera tout simplement ^3 pour mettre au cube ou ^{42} pour la puissance 42.
-* @Example
-* // 'dm'+texteExposant(3)
-* @author Rémi Angot
-*/
+ * Gère l'écriture de l'exposant en mode text (ne doit pas s'utiliser entre $ $)
+ * Pour le mode maths (entre $ $) on utilisera tout simplement ^3 pour mettre au cube ou ^{42} pour la puissance 42.
+ * @Example
+ * // 'dm'+texteExposant(3)
+ * @author Rémi Angot
+ */
 export function texteExposant (texte) {
   if (context.isHtml) {
     return `<sup>${texte}</sup>`
@@ -1003,13 +1026,13 @@ export function texteExposant (texte) {
 }
 
 /**
-* Gère l'écriture de l'indice en mode text (ne doit pas s'utiliser entre $ $)
-* Pour le mode maths (entre $ $) on utilisera tout _3 pour mettre un indice 3 ou _{42} pour l'indice 42.
-* @param {string} texte
-* @Example
-* // `(d${texteIndice(3)})`
-* @author Jean-Claude Lhote
-*/
+ * Gère l'écriture de l'indice en mode text (ne doit pas s'utiliser entre $ $)
+ * Pour le mode maths (entre $ $) on utilisera tout _3 pour mettre un indice 3 ou _{42} pour l'indice 42.
+ * @param {string} texte
+ * @Example
+ * // `(d${texteIndice(3)})`
+ * @author Jean-Claude Lhote
+ */
 export function texteIndice (texte) {
   if (context.isHtml) {
     return `<sub>${texte}</sub>`
@@ -1019,11 +1042,11 @@ export function texteIndice (texte) {
 }
 
 /**
-* Ajoute les parenthèses et le signe
-* @Example
-* //(+3) ou (-3)
-* @author Rémi Angot
-*/
+ * Ajoute les parenthèses et le signe
+ * @Example
+ * //(+3) ou (-3)
+ * @author Rémi Angot
+ */
 export function ecritureNombreRelatif (a) {
   let result = ''
   if (a > 0) {
@@ -1035,6 +1058,7 @@ export function ecritureNombreRelatif (a) {
   }
   return result
 }
+
 /**
  * Idem ecritureNombreRelatif avec le code couleur : vert si positif, rouge si négatif, noir si nul
  * @param {number} a
@@ -1052,11 +1076,11 @@ export function ecritureNombreRelatifc (a) {
 }
 
 /**
-* Ajoute le + devant les nombres positifs
-* @Example
-* //+3 ou -3
-* @author Rémi Angot et Jean-claude Lhote pour le support des fractions
-*/
+ * Ajoute le + devant les nombres positifs
+ * @Example
+ * //+3 ou -3
+ * @author Rémi Angot et Jean-claude Lhote pour le support des fractions
+ */
 export function ecritureAlgebrique (a) {
   if (a instanceof Fraction || a instanceof FractionX) return fraction(a).ecritureAlgebrique
   else if (typeof a === 'number') {
@@ -1075,11 +1099,11 @@ export function ecritureAlgebrique (a) {
 }
 
 /**
-* Ajoute le + devant les nombres positifs, n'écrit rien si 1
-* @Example
-* //+3 ou -3
-* @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
-*/
+ * Ajoute le + devant les nombres positifs, n'écrit rien si 1
+ * @Example
+ * //+3 ou -3
+ * @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
+ */
 export function ecritureAlgebriqueSauf1 (a) {
   if (equal(a, 1)) return '+'
   else if (equal(a, -1)) return '-'
@@ -1114,11 +1138,11 @@ export function signeMoinsEnEvidence (r, precision = 0) {
 }
 
 /**
-* Ajoute des parenthèses aux nombres négatifs
-* @Example
-* // 3 ou (-3)
-* @author Rémi Angot
-*/
+ * Ajoute des parenthèses aux nombres négatifs
+ * @Example
+ * // 3 ou (-3)
+ * @author Rémi Angot
+ */
 export function ecritureParentheseSiNegatif (a) {
   let result = ''
   if (a instanceof Decimal) {
@@ -1135,11 +1159,11 @@ export function ecritureParentheseSiNegatif (a) {
 }
 
 /**
-* Ajoute des parenthèses si une expression commence par un moins
-* @Example
-* // (-3x)
-* @author Rémi Angot
-*/
+ * Ajoute des parenthèses si une expression commence par un moins
+ * @Example
+ * // (-3x)
+ * @author Rémi Angot
+ */
 export function ecritureParentheseSiMoins (expr) {
   if (expr[0] === '-') return `(${expr})`
   else return expr
@@ -1162,33 +1186,48 @@ export function calculAligne (numero, etapes) {
 }
 
 /**
-* Renvoie la valeur du chiffre (8->8, A->10, B->11...)
-*
-* @author Rémi Angot
-*/
+ * Renvoie la valeur du chiffre (8->8, A->10, B->11...)
+ *
+ * @author Rémi Angot
+ */
 export function valeurBase (n) {
   switch (n) {
-    case 'A': return 10
-    case 'B': return 11
-    case 'C': return 12
-    case 'D': return 13
-    case 'E': return 14
-    case 'F': return 15
-    default: return parseInt(n)
+    case 'A':
+      return 10
+    case 'B':
+      return 11
+    case 'C':
+      return 12
+    case 'D':
+      return 13
+    case 'E':
+      return 14
+    case 'F':
+      return 15
+    default:
+      return parseInt(n)
   }
 }
 
 export function baseValeur (n) {
   switch (n) {
-    case 10: return 'A'
-    case 11: return 'B'
-    case 12: return 'C'
-    case 13: return 'D'
-    case 14: return 'E'
-    case 15: return 'F'
-    default: return Number(n).toString()
+    case 10:
+      return 'A'
+    case 11:
+      return 'B'
+    case 12:
+      return 'C'
+    case 13:
+      return 'D'
+    case 14:
+      return 'E'
+    case 15:
+      return 'F'
+    default:
+      return Number(n).toString()
   }
 }
+
 /**
  * Convertit une chaine correspondant à un nombre écrit en base b en un nombre entier en base 10.
  * @param {} nombre
@@ -1249,6 +1288,7 @@ export function produitMatriceVecteur3x3 (matrice, vecteur) { // matrice est un 
   }
   return resultat
 }
+
 /**
  *
  * @param {array} matrice1 Matrice A
@@ -1261,11 +1301,14 @@ export function produitMatriceMatrice3x3 (matrice1, matrice2) { // les deux matr
   const resultat = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
   for (let j = 0; j < 3; j++) {
     for (let i = 0; i < 3; i++) {
-      for (let k = 0; k < 3; k++) { resultat[j][i] += matrice1[j][k] * matrice2[k][i] }
+      for (let k = 0; k < 3; k++) {
+        resultat[j][i] += matrice1[j][k] * matrice2[k][i]
+      }
     }
   }
   return resultat
 }
+
 /**
  *
  * @param {array} point
@@ -1276,6 +1319,7 @@ export function changementDeBaseOrthoTri (point) {
   if (point.length === 2) point.push(1)
   return produitMatriceVecteur3x3([[1, -Math.cos(Math.PI / 3) / Math.sin(Math.PI / 3), 0], [0, 1 / Math.sin(Math.PI / 3), 0], [0, 0, 1]], point)
 }
+
 /**
  *
  * @param {array} point
@@ -1288,33 +1332,33 @@ export function changementDeBaseTriOrtho (point) {
 }
 
 /**
-*
-* @param {number} transformation Entier déterminant la transformation voulue
-** 1=symétrie / passant par O
-**2=symétrie \ passant par O
-**3=symétrie _ passant par O
-**4=symétrie | passant par O
-**5= rotation 90° anti-horaire centre O
-**6= rotation 90° horaire centre O
-**7= symétrie centrale centre O
-**11= rotation 60° anti-horaire centre O
-**12= rotation 60° horaire centre O
-**13= rotation 120° anti-horaire centre O
-**14= rotation 120° horaire centre O
-**8= translation coordonnées de O = vecteur de translation
-**9= homothétie. centre O rapport k
-**10= homothétie. centre O rapport 1/k
-* @param {array} pointA Point dont on cherche l'image
-* @param {array} pointO Centre du repère local pour les symétries, centre pour les rotations et les homothéties
-* @param {array} vecteur Vecteur de la translation
-* @param {number} rapport rapport d'homothétie
-* @author Jean-Claude Lhote
-*/
+ *
+ * @param {number} transformation Entier déterminant la transformation voulue
+ ** 1=symétrie / passant par O
+ **2=symétrie \ passant par O
+ **3=symétrie _ passant par O
+ **4=symétrie | passant par O
+ **5= rotation 90° anti-horaire centre O
+ **6= rotation 90° horaire centre O
+ **7= symétrie centrale centre O
+ **11= rotation 60° anti-horaire centre O
+ **12= rotation 60° horaire centre O
+ **13= rotation 120° anti-horaire centre O
+ **14= rotation 120° horaire centre O
+ **8= translation coordonnées de O = vecteur de translation
+ **9= homothétie. centre O rapport k
+ **10= homothétie. centre O rapport 1/k
+ * @param {array} pointA Point dont on cherche l'image
+ * @param {array} pointO Centre du repère local pour les symétries, centre pour les rotations et les homothéties
+ * @param {array} vecteur Vecteur de la translation
+ * @param {number} rapport rapport d'homothétie
+ * @author Jean-Claude Lhote
+ */
 export function imagePointParTransformation (transformation, pointA, pointO, vecteur = [], rapport = 1) { // pointA,centre et pointO sont des tableaux de deux coordonnées
   // on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
   // nécessite d'être en repère orthonormal...
   // Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
-
+  
   const matriceSymObl1 = matriceCarree([[0, 1, 0], [1, 0, 0], [0, 0, 1]]) // x'=y et y'=x
   const matriceSymxxprime = matriceCarree([[1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=x et y'=-y
   const matriceSymYyPrime = matriceCarree([[-1, 0, 0], [0, 1, 0], [0, 0, 1]]) // x'=-x et y'=y
@@ -1326,25 +1370,25 @@ export function imagePointParTransformation (transformation, pointA, pointO, vec
   const matriceRotation60Indirect = matriceCarree([[0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
   const matriceRotation120Direct = matriceCarree([[-0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
   const matriceRotation120Indirect = matriceCarree([[-0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
-
+  
   let pointA1 = [0, 0, 0]
   let pointA2 = [0, 0, 0]
-
+  
   if (pointA.length === 2) pointA.push(1)
   const x2 = pointO[0] // Point O' (origine du repère dans lequel les transformations sont simples (centre des rotations et point d'intersection des axes))
   const y2 = pointO[1]
   const u = vecteur[0] // (u,v) vecteur de translation.
   const v = vecteur[1]
   const k = rapport // rapport d'homothétie
-
+  
   const matriceChangementDeRepere = matriceCarree([[1, 0, x2], [0, 1, y2], [0, 0, 1]])
   const matriceChangementDeRepereInv = matriceCarree([[1, 0, -x2], [0, 1, -y2], [0, 0, 1]])
   const matriceTranslation = matriceCarree([[1, 0, u], [0, 1, v], [0, 0, 1]])
   const matriceHomothetie = matriceCarree([[k, 0, 0], [0, k, 0], [0, 0, 1]])
   const matriceHomothetie2 = matriceCarree([[1 / k, 0, 0], [0, 1 / k, 0], [0, 0, 1]])
-
+  
   let matrice
-
+  
   switch (transformation) {
     case 1:
       matrice = matriceSymObl1.multiplieMatriceCarree(matriceChangementDeRepereInv)
@@ -1395,11 +1439,11 @@ export function imagePointParTransformation (transformation, pointA, pointO, vec
 }
 
 /**
-* Retourne le signe d'un nombre
-* @Example
-* // + ou -
-* @author Rémi Angot
-*/
+ * Retourne le signe d'un nombre
+ * @Example
+ * // + ou -
+ * @author Rémi Angot
+ */
 export function signe (a) { // + ou -
   let result = ''
   if (a > 0) {
@@ -1420,13 +1464,14 @@ export function unSiPositifMoinsUnSinon (a) {
   if (a < 0) return -1
   else return 1
 }
+
 /**
-* Retourne la somme des chiffres (ou d'un tableau de chiffres) d'un nombre en valeur et sous forme de String [valeur, String]
-* @Example
-* sommeDesChiffres(123)
-* // [ 6, '1+2+3']
-* @author Rémi Angot (Rajout Tableau par EE)
-*/export function sommeDesChiffres (n) {
+ * Retourne la somme des chiffres (ou d'un tableau de chiffres) d'un nombre en valeur et sous forme de String [valeur, String]
+ * @Example
+ * sommeDesChiffres(123)
+ * // [ 6, '1+2+3']
+ * @author Rémi Angot (Rajout Tableau par EE)
+ */export function sommeDesChiffres (n) {
   let nString
   if (Array.isArray(n)) nString = n.join('').toString()
   else nString = n.toString()
@@ -1454,12 +1499,13 @@ export function unSiPositifMoinsUnSinon (a) {
  */
 export function arrondi (nombre, precision = 2) {
   if (isNaN(nombre)) {
-    window.notify('Le nombre à arrondir n\'en est pas un, ça retourne NaN', { nombre, precision })
+    window.notify('Le nombre à arrondir n\'en est pas un, ça retourne NaN', {nombre, precision})
     return NaN
   } else {
     return round(nombre, precision)
   }
 }
+
 /**
  * Retourne la troncature signée de nombre.
  * @author Jean-Claude Lhote
@@ -1473,29 +1519,29 @@ export function troncature (nombre, precision) {
 }
 
 /**
-* Renvoie la valeur absolue
-* @author Rémi Angot + ajout du support des décimaux par Jean-Claude Lhote
-*/
+ * Renvoie la valeur absolue
+ * @author Rémi Angot + ajout du support des décimaux par Jean-Claude Lhote
+ */
 export function abs (a) {
   if (a instanceof Decimal) return a.abs()
   return Math.abs(a)
 }
 
 /**
-* Retourne un arrondi sous la forme d'un string avec une virgule comme séparateur décimal
-* @author Rémi Angot Fonction rendue inutile par Jean-Claude Lhote : lui substituer texNombre ou stringNombre selon le contexte.
-*/
+ * Retourne un arrondi sous la forme d'un string avec une virgule comme séparateur décimal
+ * @author Rémi Angot Fonction rendue inutile par Jean-Claude Lhote : lui substituer texNombre ou stringNombre selon le contexte.
+ */
 // export function arrondiVirgule (nombre, precision = 2) { //
 // const tmp = Math.pow(10, precision)
 //  return String(round(nombre, precision)).replace('.', ',')
 // }
 
 /**
-* Retourne égal si la valeur égal l'arrondi souhaité ou environ égal si ce n'est pas le cas
-* le nombre a est comparé à son arrondi à précision près. Si la différence est inférieure à epsilon, alors on retourne '=' sinon '\\approx'
-* fonctionne aussi si a est une fraction : permet de finir un calcul par la valeur décimale si on veut.
-* @author Jean-Claude Lhote
-*/
+ * Retourne égal si la valeur égal l'arrondi souhaité ou environ égal si ce n'est pas le cas
+ * le nombre a est comparé à son arrondi à précision près. Si la différence est inférieure à epsilon, alors on retourne '=' sinon '\\approx'
+ * fonctionne aussi si a est une fraction : permet de finir un calcul par la valeur décimale si on veut.
+ * @author Jean-Claude Lhote
+ */
 export function egalOuApprox (a, precision) {
   if (typeof a === 'object' && ['Fraction', 'FractionX'].indexOf(a.type) !== -1) {
     return egal(a.n / a.d, arrondi(a.n / a.d, precision)) ? '=' : '\\approx'
@@ -1503,24 +1549,24 @@ export function egalOuApprox (a, precision) {
     return a.eq(a.toDP(precision)) ? '=' : '\\approx'
   } else if (!isNaN(a) && !isNaN(precision)) return egal(a, round(a, precision), 10 ** (-precision - 2)) ? '=' : '\\approx'
   else {
-    window.notify('egalOuApprox : l\'argument n\'est pas un nombre', { a, precision })
+    window.notify('egalOuApprox : l\'argument n\'est pas un nombre', {a, precision})
     return 'Mauvais argument (nombres attendus).'
   }
 }
 
 /**
-* Renvoie le PGCD de deux nombres
-* @author Rémi Angot
-*/
+ * Renvoie le PGCD de deux nombres
+ * @author Rémi Angot
+ */
 export function pgcd (...args) {
   return gcd(...args)
 }
 
 /**
-* Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur,dénominateur)réduite au maximum dans un tableau [numérateur,dénominateur]
-* * **ATTENTION Fonction clonée dans la classe FractionX()**
-* @author Rémi Angot
-*/
+ * Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur,dénominateur)réduite au maximum dans un tableau [numérateur,dénominateur]
+ * * **ATTENTION Fonction clonée dans la classe FractionX()**
+ * @author Rémi Angot
+ */
 export function fractionSimplifiee (n, d) {
   const p = pgcd(n, d)
   let ns = n / p
@@ -1535,9 +1581,9 @@ export function fractionSimplifiee (n, d) {
 }
 
 /**
-* Retourne le code LaTeX d'une fraction simplifiée ou d'un nombre entier
-* @author Rémi Angot
-*/
+ * Retourne le code LaTeX d'une fraction simplifiée ou d'un nombre entier
+ * @author Rémi Angot
+ */
 export function texFractionReduite (n, d) {
   if (Math.abs(n) % Math.abs(d) === 0) {
     return n / d
@@ -1574,11 +1620,11 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
 }
 
 /**
-*
-* Simplifie une fraction en montrant les étapes
-* Le résultat est un string qui doit être entouré de $ pour le mode mathématiques
-* @author Rémi Angot
-*/
+ *
+ * Simplifie une fraction en montrant les étapes
+ * Le résultat est un string qui doit être entouré de $ pour le mode mathématiques
+ * @author Rémi Angot
+ */
 export function simplificationDeFractionAvecEtapes (num, den) {
   let result = '='
   if (num === 0) {
@@ -1659,6 +1705,7 @@ export function reduireAxPlusB (a, b) {
   } else if (a.isZero()) result = '0'
   return result
 }
+
 /**
  * renvoie une chaine correspondant à l'écriture réduite de ax^3+bx^2+cx+d selon les valeurs de a,b,c et d
  * @author Jean-Claude Lhote
@@ -1762,7 +1809,7 @@ export function reduirePolynomeDegre3 (a, b, c, d, x = 'x') {
  * Donne la liste des facteurs premiers d'un nombre
  * @param { number } n - Nombre à décomposer
  * @returns {number[]} - Liste des facteurs premiers
-*/
+ */
 export function obtenirListeFacteursPremiers (n) {
   const facteurs = []
   for (let i = 2; i <= n; i++) {
@@ -1783,7 +1830,8 @@ export function obtenirListeFacteursPremiers (n) {
 
 export function factorisation (n) {
   const liste = obtenirListeFacteursPremiers(n)
-  const facto = []; let index = 0
+  const facto = [];
+  let index = 0
   for (let i = 0; i < liste.length;) {
     if (liste[i] === 0) i++
     else {
@@ -1800,6 +1848,7 @@ export function factorisation (n) {
   }
   return facto
 }
+
 /**
  *
  * @param {number} n
@@ -1834,7 +1883,8 @@ export function texFactorisation (n, puissancesOn = true) {
  */
 export function extraireRacineCarree (n) {
   const facto = factorisation(n)
-  let radical = 1; let facteur = 1
+  let radical = 1;
+  let facteur = 1
   for (let i = 0; i < facto.length; i++) {
     if (facto[i][1] % 2 === 0) {
       facteur *= facto[i][0] ** (facto[i][1] >> 1)
@@ -1845,6 +1895,7 @@ export function extraireRacineCarree (n) {
   }
   return [facteur, radical]
 }
+
 /**
  *
  * @param {Entier} n
@@ -1877,26 +1928,29 @@ export function xcas (expression) {
 }
 
 /**
-* Utilise un arrondi au millionième pour éviter les flottants à rallonge (erreurs d'arrondis des flottants)
-* Le 2e argument facultatif permet de préciser l'arrondi souhaité : c'est le nombre max de chiffres après la virgule souhaités
-* @author Rémi Angot modifié par Jean-Claude Lhote
-*/
+ * Utilise un arrondi au millionième pour éviter les flottants à rallonge (erreurs d'arrondis des flottants)
+ * Le 2e argument facultatif permet de préciser l'arrondi souhaité : c'est le nombre max de chiffres après la virgule souhaités
+ * @author Rémi Angot modifié par Jean-Claude Lhote
+ */
 export function calcul (x, arrondir = 6) {
   const sansPrecision = (arrondir === undefined)
   // if (sansPrecision) arrondir = 6
   if (typeof x === 'string') {
-    window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
+    window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', {x})
     x = parseFloat(evaluate(x))
   }
-  if (sansPrecision && !egal(x, arrondi(x, arrondir), 10 ** (-arrondir - 1))) window.notify('calcul : arrondir semble avoir tronqué des décimales sans avoir eu de paramètre de précision', { x, arrondir })
+  if (sansPrecision && !egal(x, arrondi(x, arrondir), 10 ** (-arrondir - 1))) window.notify('calcul : arrondir semble avoir tronqué des décimales sans avoir eu de paramètre de précision', {
+    x,
+    arrondir
+  })
   return parseFloat(x.toFixed(arrondir))
 }
 
 /**
-* Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
-* Le 2e argument facultatif permet de préciser l'arrondi souhaité
-* @author Rémi Angot
-*/
+ * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
+ * Le 2e argument facultatif permet de préciser l'arrondi souhaité
+ * @author Rémi Angot
+ */
 export function nombreDecimal (expression, arrondir = false) {
   if (!arrondir) {
     return stringNombre(new Decimal(expression), 15)
@@ -1906,10 +1960,10 @@ export function nombreDecimal (expression, arrondir = false) {
 }
 
 /**
-* Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux et retourne un string avec la virgule comme séparateur décimal
-* @author Rémi Angot
-* texNombrec n'apportant rien, je la shinte.
-*/
+ * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux et retourne un string avec la virgule comme séparateur décimal
+ * @author Rémi Angot
+ * texNombrec n'apportant rien, je la shinte.
+ */
 
 export function texNombrec (expression, precision) {
   // return texNombre(parseFloat(Algebrite.eval(expression)))
@@ -1917,11 +1971,11 @@ export function texNombrec (expression, precision) {
 }
 
 /**
-* Formattage pour une sortie LaTeX entre $$
-* formatFraction = false : si l'expression est un objet fraction du module mathjs alors elle peut donner l'écriture fractionnaire
-* Pour une fraction négative la sortie est -\dfrac{6}{7} au lieu de \dfrac{-6}{7}
-* @author Frédéric PIOU
-*/
+ * Formattage pour une sortie LaTeX entre $$
+ * formatFraction = false : si l'expression est un objet fraction du module mathjs alors elle peut donner l'écriture fractionnaire
+ * Pour une fraction négative la sortie est -\dfrac{6}{7} au lieu de \dfrac{-6}{7}
+ * @author Frédéric PIOU
+ */
 
 export function texNum (expression, formatFraction = false) {
   if (typeof expression === 'object') {
@@ -1932,7 +1986,7 @@ export function texNum (expression, formatFraction = false) {
     } else {
       expression = texNombre(evaluate(format(expression)))
     }
-  //  expression = expression.replace(',', '{,}').replace('{{,}}', '{,}') // Supprimé par EE car non fonctionnel dans le else qui précède.
+    //  expression = expression.replace(',', '{,}').replace('{{,}}', '{,}') // Supprimé par EE car non fonctionnel dans le else qui précède.
   } else {
     expression = texNombre(parseFloat(Algebrite.eval(expression)))
   }
@@ -1964,11 +2018,12 @@ export function triePositifsNegatifs (liste) {
 }
 
 /**
-* Renvoie un tableau (somme des termes positifs, somme des termes négatifs)
-* @author Rémi Angot
-*/
+ * Renvoie un tableau (somme des termes positifs, somme des termes négatifs)
+ * @author Rémi Angot
+ */
 export function sommeDesTermesParSigne (liste) {
-  let sommeDesPositifs = 0; let sommeDesNegatifs = 0
+  let sommeDesPositifs = 0;
+  let sommeDesNegatifs = 0
   for (let i = 0; i < liste.length; i++) {
     if (liste[i] > 0) {
       sommeDesPositifs += liste[i]
@@ -1996,7 +2051,7 @@ export function creerNomDePolygone (nbsommets, listeAEviter = []) {
     while (premiersommet + augmentation < 65) augmentation += 26
     polygone += String.fromCharCode(premiersommet + augmentation)
   }
-
+  
   if (listeAEviter.length < 26 - nbsommets - 1) { // On évite la liste à éviter si elle n'est pas trop grosse sinon on n'en tient pas compte
     let cpt = 0
     while (possedeUnCaractereInterdit(polygone, listeAEviter) && cpt < 20) {
@@ -2014,9 +2069,9 @@ export function creerNomDePolygone (nbsommets, listeAEviter = []) {
 }
 
 /**
-* Vérifie dans un texte si un de ses caractères appartient à une liste à éviter
-* @author Rémi Angot
-*/
+ * Vérifie dans un texte si un de ses caractères appartient à une liste à éviter
+ * @author Rémi Angot
+ */
 export function possedeUnCaractereInterdit (texte, listeAEviter) {
   let result = false
   for (const motAeviter of listeAEviter) {
@@ -2028,6 +2083,7 @@ export function possedeUnCaractereInterdit (texte, listeAEviter) {
   }
   return result
 }
+
 /**
  * retourne une liste de combien de nombres compris entre m et n (inclus) en évitant les valeurs de listeAEviter
  * toutes la liste des nombres est retournée si combien est supérieur à l'effectif disponible
@@ -2041,13 +2097,16 @@ export function choisitNombresEntreMetN (m, n, combien, listeAEviter = []) {
     t = m
     m = n
     n = t
-  } else if (m === n) { return [n] }
+  } else if (m === n) {
+    return [n]
+  }
   if (combien > n - m) combien = n - m
   let index = rangeMinMax(m, n, listeAEviter)
   index = shuffle(index)
   index = index.slice(0, combien)
   return index
 }
+
 /**
  * retourne une liste de lettres majuscules (ou minuscule si majuscule=false)
  * il y aura nombre lettres dans un ordre aléatoire
@@ -2055,7 +2114,8 @@ export function choisitNombresEntreMetN (m, n, combien, listeAEviter = []) {
  * @author Jean-Claude Lhote
  */
 export function choisitLettresDifferentes (nombre, lettresAeviter = '', majuscule = true) {
-  const listeAEviter = []; const lettres = []
+  const listeAEviter = [];
+  const lettres = []
   for (const l of lettresAeviter) {
     listeAEviter.push(l.charCodeAt(0) - 64)
   }
@@ -2066,8 +2126,10 @@ export function choisitLettresDifferentes (nombre, lettresAeviter = '', majuscul
   }
   return lettres
 }
+
 export function cesar (word, decal) {
-  let mot = ''; let code = 65
+  let mot = '';
+  let code = 65
   for (let x = 0; x < word.length; x++) {
     code = word.charCodeAt(x) % 65
     code = (code + decal) % 26 + 65
@@ -2085,13 +2147,13 @@ export function codeCesar (mots, decal) {
 }
 
 /**
-* Renvoie une lettre majuscule depuis un nombre compris entre 1 et 702
-* Le 2e paramètre est un booléen qui permet d'éviter la lettre D (et donc décale tout d'une lettre après le C) en vue du bug de MathLive
-* @author Rémi Angot
-*@Example
-* // 0 -> @ 1->A ; 2->B...
-* // 27->AA ; 28 ->AB ...
-*/
+ * Renvoie une lettre majuscule depuis un nombre compris entre 1 et 702
+ * Le 2e paramètre est un booléen qui permet d'éviter la lettre D (et donc décale tout d'une lettre après le C) en vue du bug de MathLive
+ * @author Rémi Angot
+ *@Example
+ * // 0 -> @ 1->A ; 2->B...
+ * // 27->AA ; 28 ->AB ...
+ */
 export function lettreDepuisChiffre (i, saufD = false) {
   let result = ''
   if (i <= 26) {
@@ -2110,44 +2172,44 @@ export function lettreDepuisChiffre (i, saufD = false) {
 }
 
 /**
-* Renvoie une lettre minuscule depuis un nombre compris entre 1 et 702
-* @author Rémi Angot
-*@Example
-* // 0 -> @ 1->a ; 2->b...
-* // 27->aa ; 28 ->ab ...
-*/
+ * Renvoie une lettre minuscule depuis un nombre compris entre 1 et 702
+ * @author Rémi Angot
+ *@Example
+ * // 0 -> @ 1->a ; 2->b...
+ * // 27->aa ; 28 ->ab ...
+ */
 export function lettreMinusculeDepuisChiffre (i) {
   return lettreDepuisChiffre(i).toLowerCase()
 }
 
 /**
-* Renvoie une lettre majuscule (éventuellement indicée) depuis un nombre compris entre 1 et... sans limite.
-* @author Eric Elter
-*@Example
-* // 0 -> @ 1->A ; 2->B...
-* // 27->A_1 ; 28 ->A_2 ...
-*/
+ * Renvoie une lettre majuscule (éventuellement indicée) depuis un nombre compris entre 1 et... sans limite.
+ * @author Eric Elter
+ *@Example
+ * // 0 -> @ 1->A ; 2->B...
+ * // 27->A_1 ; 28 ->A_2 ...
+ */
 export function lettreIndiceeDepuisChiffre (i) {
   const indiceLettre = quotientier(i - 1, 26) === 0 ? '' : quotientier(i - 1, 26)
   return String.fromCharCode(64 + (i - 1) % 26 + 1) + (i > 26 ? `_{${indiceLettre}}` : '')
 }
 
 /**
-* Renvoie une lettre minuscule (éventuellement indicée) depuis un nombre compris entre 1 et... sans limite.
-* @author EricElter
-*@Example
-* // 0 -> @ 1->a ; 2->b...
-* // 27->a_1 ; 28 ->a_2 ...
-*/
+ * Renvoie une lettre minuscule (éventuellement indicée) depuis un nombre compris entre 1 et... sans limite.
+ * @author EricElter
+ *@Example
+ * // 0 -> @ 1->a ; 2->b...
+ * // 27->a_1 ; 28 ->a_2 ...
+ */
 export function lettreIndiceeMinusculeDepuisChiffre (i) {
   return lettreIndiceeDepuisChiffre(i).toLowerCase()
 }
 
 /**
-* @author Rémi Angot
-* @Example
-* //0h24 est accepté
-*/
+ * @author Rémi Angot
+ * @Example
+ * //0h24 est accepté
+ */
 export function minToHoraire (minutes) {
   let nbHour = parseInt(minutes / 60)
   if (nbHour > 23) {
@@ -2162,10 +2224,10 @@ export function minToHoraire (minutes) {
 }
 
 /**
-* @author Rémi Angot
-* @Example
-* //on écrira 24 minutes plutôt que 0h24
-*/
+ * @author Rémi Angot
+ * @Example
+ * //on écrira 24 minutes plutôt que 0h24
+ */
 export function minToHour (minutes) {
   let nbHour = parseInt(minutes / 60)
   if (nbHour > 23) {
@@ -2185,20 +2247,20 @@ export function minToHour (minutes) {
 
 /**
  * Renvoie un tableau de deux valeurs : le nombre d'heures dans un paquet de minutes ainsi que le nombre de minutes restantes.
-* @author Eric Elter
-* @example minToHeuresMinutes (127) renvoie [2,7] car 127min = 2h7min
-* @example minToHeuresMinutes (300) renvoie [5,0] car 300min = 6h
-* @example minToHeuresMinutes (1456) renvoie [24,16] car 1456min = 24h16min
-*
-*/
+ * @author Eric Elter
+ * @example minToHeuresMinutes (127) renvoie [2,7] car 127min = 2h7min
+ * @example minToHeuresMinutes (300) renvoie [5,0] car 300min = 6h
+ * @example minToHeuresMinutes (1456) renvoie [24,16] car 1456min = 24h16min
+ *
+ */
 export function minToHeuresMinutes (minutes) {
   return [parseInt(minutes / 60), (minutes % 60)]
 }
 
 /**
-* Renvoie un prénom féminin au hasard
-* @author Rémi Angot
-*/
+ * Renvoie un prénom féminin au hasard
+ * @author Rémi Angot
+ */
 export function prenomF (n = 1) {
   if (n === 1) {
     return choice(['Aude', 'Béatrice', 'Carine', 'Corinne', 'Dalila', 'Elsa', 'Farida', 'Julie', 'Karole', 'Léa', 'Lisa', 'Manon', 'Marina', 'Magalie', 'Nadia', 'Nawel', 'Teresa', 'Vanessa', 'Yasmine'])
@@ -2208,9 +2270,9 @@ export function prenomF (n = 1) {
 }
 
 /**
-* Renvoie un prénom masculin au hasard
-* @author Rémi Angot
-*/
+ * Renvoie un prénom masculin au hasard
+ * @author Rémi Angot
+ */
 export function prenomM (n = 1) {
   if (n === 1) {
     return choice(['Arthur', 'Benjamin', 'Bernard', 'Christophe', 'Cyril', 'David', 'Fernando', 'Guillaume', 'Jean-Claude', 'Joachim', 'José', 'Kamel', 'Karim', 'Laurent', 'Mehdi', 'Nacim', 'Pablo', 'Rémi', 'Victor', 'Yazid'])
@@ -2220,9 +2282,9 @@ export function prenomM (n = 1) {
 }
 
 /**
-* Renvoie un prénom au hasard
-* @author Rémi Angot
-*/
+ * Renvoie un prénom au hasard
+ * @author Rémi Angot
+ */
 export function prenom (n = 1) {
   if (n === 1) {
     return choice([prenomF(), prenomM()])
@@ -2232,25 +2294,25 @@ export function prenom (n = 1) {
 }
 
 /**
-* Renvoie un petit objet féminin au hasard
-* @author Mireille Gain
-*/
+ * Renvoie un petit objet féminin au hasard
+ * @author Mireille Gain
+ */
 export function objetF () {
   return choice(['boîtes', 'bougies', 'cartes de vœux', 'gommes', 'photos', 'petites peluches'])
 }
 
 /**
-* Renvoie un petit objet masculin au hasard
-* @author Mireille Gain
-*/
+ * Renvoie un petit objet masculin au hasard
+ * @author Mireille Gain
+ */
 export function objetM () {
   return choice(['stickers', 'gâteaux', 'cahiers', 'livres', 'stylos', 'crayons'])
 }
 
 /**
-* Renvoie un petit objet au hasard
-* @author Mireille Gain
-*/
+ * Renvoie un petit objet au hasard
+ * @author Mireille Gain
+ */
 export function objet () {
   return choice(['billes', 'bonbons', 'bougies', 'cartes de vœux', 'crayons', 'gâteaux', 'gommes', 'photos', 'stickers', 'cahiers'])
 }
@@ -2261,7 +2323,7 @@ export function objet () {
  * le 14/03/2021
  */
 class Personne {
-  constructor ({ prenom = '', genre = '', pronom = '', Pronom = '' } = {}) {
+  constructor ({prenom = '', genre = '', pronom = '', Pronom = ''} = {}) {
     let choix
     this.prenom = ''
     this.genre = ''
@@ -2292,8 +2354,8 @@ class Personne {
  * @author Jean-Claude Lhote
  * le 14/03/2021
  */
-export function personne ({ prenom = '', genre = '', pronom = '' } = {}) {
-  return new Personne({ prenom, genre, pronom })
+export function personne ({prenom = '', genre = '', pronom = ''} = {}) {
+  return new Personne({prenom, genre, pronom})
 }
 
 /**
@@ -2302,7 +2364,9 @@ export function personne ({ prenom = '', genre = '', pronom = '' } = {}) {
  * le 14/03/2021
  */
 export function personnes (n) {
-  const liste = []; let essai; let trouve
+  const liste = [];
+  let essai;
+  let trouve
   for (let i = 0; i < n;) {
     essai = personne()
     trouve = false
@@ -2333,12 +2397,12 @@ export function prenomPronom () {
 }
 
 /**
-* Renvoie un tableau avec les résultats des tirages successifs
-* @param nombreTirages Combien de tirages ?
-* @param nombreFaces Pour spécifier le type de dés
-* @param nombreDes Combien de dés à chaque tirage ?
-* @author Jean-Claude Lhote
-*/
+ * Renvoie un tableau avec les résultats des tirages successifs
+ * @param nombreTirages Combien de tirages ?
+ * @param nombreFaces Pour spécifier le type de dés
+ * @param nombreDes Combien de dés à chaque tirage ?
+ * @author Jean-Claude Lhote
+ */
 export function tirerLesDes (nombreTirages, nombreFaces, nombreDes) {
   const tirages = []
   for (let i = 0; i <= (nombreFaces - 1) * nombreDes; i++) tirages.push([i + nombreDes, 0])
@@ -2349,14 +2413,15 @@ export function tirerLesDes (nombreTirages, nombreFaces, nombreDes) {
   }
   return tirages
 }
+
 /**
-* Renvoie un tableau de nombres
-* @param nombreNotes
-* @param noteMin
-* @param noteMax
-* @param distincts Si distincts === true, les notes de la liste seront toutes distinctes
-* @author Jean-Claude Lhote et Guillaume Valmont
-*/
+ * Renvoie un tableau de nombres
+ * @param nombreNotes
+ * @param noteMin
+ * @param noteMax
+ * @param distincts Si distincts === true, les notes de la liste seront toutes distinctes
+ * @author Jean-Claude Lhote et Guillaume Valmont
+ */
 export function listeDeNotes (nombreNotes, noteMin = 0, noteMax = 20, distincts = false) {
   const notes = []
   let candidat, present, limite // nombre candidat, est-ce qu'il est déjà présent, une limite d'itérations pour éviter les boucles infinies
@@ -2385,10 +2450,10 @@ export function listeDeNotes (nombreNotes, noteMin = 0, noteMax = 20, distincts 
 }
 
 /**
-* Renvoie le nombre de jour d'un mois donné
-* @param n quantième du mois (janvier=1...)
-* @author Jean-Claude Lhote
-*/
+ * Renvoie le nombre de jour d'un mois donné
+ * @param n quantième du mois (janvier=1...)
+ * @author Jean-Claude Lhote
+ */
 export function joursParMois (n, annee = 2022) {
   const joursMois = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   if (n === 2) {
@@ -2396,13 +2461,14 @@ export function joursParMois (n, annee = 2022) {
     else return 28
   } else return joursMois[n - 1]
 }
+
 /**
-* Renvoie un tableau de températures
-* @param base température médiane
-* @mois quantième du mois (janvier=1...)
-* @annee pour déterminer si elle est bissextile ou non
-* @author Jean-Claude Lhote
-*/
+ * Renvoie un tableau de températures
+ * @param base température médiane
+ * @mois quantième du mois (janvier=1...)
+ * @annee pour déterminer si elle est bissextile ou non
+ * @author Jean-Claude Lhote
+ */
 export function unMoisDeTemperature (base, mois, annee) {
   const temperatures = []
   let nombreJours = joursParMois(mois)
@@ -2416,30 +2482,30 @@ export function unMoisDeTemperature (base, mois, annee) {
 }
 
 /**
-* Renvoie le nom du mois
-* @param n quantième du mois
-* @author Jean-Claude Lhote
-*/
+ * Renvoie le nom du mois
+ * @param n quantième du mois
+ * @author Jean-Claude Lhote
+ */
 export function nomDuMois (n) {
   const mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
   return mois[n - 1]
 }
 
 /**
-* Renvoie le nom du jour
-* @param n quantième du jour
-* @author Mireille Gain
-*/
+ * Renvoie le nom du jour
+ * @param n quantième du jour
+ * @author Mireille Gain
+ */
 export function nomDuJour (n) {
   const jour = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']
   return jour[n - 1]
 }
 
 /**
-* Renvoie le nom d'un jour au hasard
-* @param n quantième du jour
-* @author Mireille Gain
-*/
+ * Renvoie le nom d'un jour au hasard
+ * @param n quantième du jour
+ * @author Mireille Gain
+ */
 export function jour () {
   return choice(['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'])
 }
@@ -2447,12 +2513,12 @@ export function jour () {
 // Fonctions LaTeX
 
 /**
-* * Retourne un environnement LaTeX enumerate à partir d'une liste.
-* * `<br>`est remplacé par un saut de paragraphe
-* * `<br><br>` est remplacé par un saut de paragraphe et un medskip
-* * L'espacement est généré avec spacing
-* @author Rémi Angot
-*/
+ * * Retourne un environnement LaTeX enumerate à partir d'une liste.
+ * * `<br>`est remplacé par un saut de paragraphe
+ * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
+ * * L'espacement est généré avec spacing
+ * @author Rémi Angot
+ */
 export function texEnumerate (liste, spacing) {
   let result = ''
   if (liste.length > 1) {
@@ -2480,29 +2546,29 @@ export function texEnumerate (liste, spacing) {
 }
 
 /**
-* * Retourne un environnement LaTeX enumerate à partir d'une liste sans afficher les numéros.
-* * `<br>` est remplacé par un saut de paragraphe
-* * `<br><br>` est remplacé par un saut de paragraphe et un medskip
-* * L'espacement est généré avec spacing
-* @author Rémi Angot
-*/
+ * * Retourne un environnement LaTeX enumerate à partir d'une liste sans afficher les numéros.
+ * * `<br>` est remplacé par un saut de paragraphe
+ * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
+ * * L'espacement est généré avec spacing
+ * @author Rémi Angot
+ */
 export function texEnumerateSansNumero (liste, spacing) {
   // return texEnumerate(liste,spacing).replace('\\begin{enumerate}[label={}]','\\begin{enumerate}[label={}]')
   return texEnumerate(liste, spacing).replace('\\begin{enumerate}', '\\begin{enumerate}[label={}]')
 }
 
 /**
-* * Concatène les éléments d'une liste avec un saut de ligne entre chaque élément
-* * `<br>` est remplacé par un saut de paragraphe
-* * `<br><br>` est remplacé par un saut de paragraphe et un medskip
-* @author Rémi Angot
-*/
+ * * Concatène les éléments d'une liste avec un saut de ligne entre chaque élément
+ * * `<br>` est remplacé par un saut de paragraphe
+ * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
+ * @author Rémi Angot
+ */
 export function texParagraphe (liste, spacing = false, retourCharriot) {
   let result = ''
   if (spacing > 1) {
     result = `\\begin{spacing}{${spacing}}\n`
   }
-
+  
   for (const i in liste) {
     if (retourCharriot) {
       result += `\t${liste[i]}\\\\\n`
@@ -2518,22 +2584,22 @@ export function texParagraphe (liste, spacing = false, retourCharriot) {
 }
 
 /**
-* * Recopie le texte.
-* * `<br>` est remplacé par un saut de paragraphe
-* * `<br><br>` est remplacé par un saut de paragraphe et un medskip
-* @author Rémi Angot
-*/
+ * * Recopie le texte.
+ * * `<br>` est remplacé par un saut de paragraphe
+ * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
+ * @author Rémi Angot
+ */
 export function texIntroduction (texte) {
   return texte.replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/mig, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
 }
 
 /**
-*  Renvoie une liste HTML à partir d'une liste
-*
-* @param liste une liste de questions
-* @param spacing interligne (line-height en css)
-* @author Rémi Angot
-*/
+ *  Renvoie une liste HTML à partir d'une liste
+ *
+ * @param liste une liste de questions
+ * @param spacing interligne (line-height en css)
+ * @author Rémi Angot
+ */
 export function htmlEnumerate (liste, spacing, classe = 'question', id = '', tailleDiaporama = 1, classeOl) {
   let result = ''
   // Pour diapCorr, on numérote les questions même si un exercice n'en comporte qu'une
@@ -2555,12 +2621,12 @@ export function htmlEnumerate (liste, spacing, classe = 'question', id = '', tai
 }
 
 /**
-* Renvoie une liste HTML ou LaTeX suivant le contexte
-*
-* @param liste une liste de questions
-* @param spacing interligne (line-height en css)
-* @author Rémi Angot
-*/
+ * Renvoie une liste HTML ou LaTeX suivant le contexte
+ *
+ * @param liste une liste de questions
+ * @param spacing interligne (line-height en css)
+ * @author Rémi Angot
+ */
 export function enumerate (liste, spacing) {
   if (context.isHtml) {
     return htmlEnumerate(liste, spacing)
@@ -2570,12 +2636,12 @@ export function enumerate (liste, spacing) {
 }
 
 /**
-* Renvoie une liste sans puce ni numéro HTML ou LaTeX suivant le contexte
-*
-* @param liste une liste de questions
-* @param spacing interligne (line-height en css)
-* @author Sébastien Lozano
-*/
+ * Renvoie une liste sans puce ni numéro HTML ou LaTeX suivant le contexte
+ *
+ * @param liste une liste de questions
+ * @param spacing interligne (line-height en css)
+ * @author Sébastien Lozano
+ */
 export function enumerateSansPuceSansNumero (liste, spacing) {
   if (context.isHtml) {
     // return htmlEnumerate(liste,spacing)
@@ -2590,11 +2656,11 @@ export function enumerateSansPuceSansNumero (liste, spacing) {
 }
 
 /**
-*  Renvoie un paragraphe HTML à partir d'un string
-*
-* @param string
-* @author Rémi Angot
-*/
+ *  Renvoie un paragraphe HTML à partir d'un string
+ *
+ * @param string
+ * @author Rémi Angot
+ */
 export function htmlParagraphe (texte, retourCharriot) {
   if (texte.length > 1) {
     if (retourCharriot) {
@@ -2608,12 +2674,12 @@ export function htmlParagraphe (texte, retourCharriot) {
 }
 
 /**
-*  Renvoie un div HTML à partir d'une liste découpée par des sauts de ligne
-*
-* @param liste une liste de questions
-* @param spacing interligne (line-height en css)
-* @author Rémi Angot
-*/
+ *  Renvoie un div HTML à partir d'une liste découpée par des sauts de ligne
+ *
+ * @param liste une liste de questions
+ * @param spacing interligne (line-height en css)
+ * @author Rémi Angot
+ */
 export function htmlLigne (liste, spacing, classe = 'question') {
   let result = '<div>'
   const spacingTxt = (spacing > 1) ? `style="line-height: ${spacing};"` : ''
@@ -2625,14 +2691,14 @@ export function htmlLigne (liste, spacing, classe = 'question') {
     // .replace(/\\\\/g,'<br>') abandonné pour supporter les array
   }
   result += '</div></div>\n'
-
+  
   return result
 }
 
 /**
-* Renvoie un environnent LaTeX multicolonnes
-* @author Rémi Angot
-*/
+ * Renvoie un environnent LaTeX multicolonnes
+ * @author Rémi Angot
+ */
 export function texMulticols (texte, nbCols = 2) {
   let result
   if (nbCols > 1) {
@@ -2645,36 +2711,38 @@ export function texMulticols (texte, nbCols = 2) {
 }
 
 /**
-* Renvoie la consigne en titre 4
-* @author Rémi Angot
-*/
+ * Renvoie la consigne en titre 4
+ * @author Rémi Angot
+ */
 export function htmlConsigne (consigne) {
   if (consigne) return '<h4>' + consigne + '</h4>\n\n'
   else return ''
 }
 
 /**
-* Renvoie \exo{consigne}
-* @author Rémi Angot
-*/
+ * Renvoie \exo{consigne}
+ * @author Rémi Angot
+ */
 export function texConsigne (consigne) {
   return '\\exo{' + consigne.replace(/<br>/g, '\\\\') + '}\n\n'
 }
+
 /**
  * @author Frédéric Piou
  * @param {number} nb
  * @returns retourne un nombre au format français sans espace après la virgule
  */
 export function num (nb) {
-  return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
+  return Intl.NumberFormat('fr-FR', {maximumFractionDigits: 20}).format(nb).toString().replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
 }
+
 /**
  * @author Frédéric Piou
  * @param {number} nb
  * @returns retourne un nombre au format français
  */
 export function numberFormat (nb) {
-  return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ')
+  return Intl.NumberFormat('fr-FR', {maximumFractionDigits: 20}).format(nb).toString().replace(/\s+/g, '\\thickspace ')
 }
 
 /**
@@ -2699,7 +2767,7 @@ export function texNombre (nb, precision = 8, force = false) {
  * @author Rémi Angot
  */
 export function texNombre2 (nb) {
-  let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
+  let nombre = math.format(nb, {notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12}).replace('.', ',')
   const rangVirgule = nombre.indexOf(',')
   let partieEntiere = ''
   if (rangVirgule !== -1) {
@@ -2711,7 +2779,7 @@ export function texNombre2 (nb) {
   if (rangVirgule !== -1) {
     partieDecimale = nombre.substring(rangVirgule + 1)
   }
-
+  
   for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
     partieEntiere = partieEntiere.substring(0, i) + '\\,' + partieEntiere.substring(i)
   }
@@ -2736,14 +2804,14 @@ export function nombrec2 (nb) {
 }
 
 /**
-* Renvoie un nombre dans le format français (séparateur de classes) pour la partie entière comme pour la partie décimale
-* Avec espace géré par nbsp en HTML pour pouvoir l'inclure dans une phrase formatée en français et pas seulement un calcul.
-* Modif EE pour la gestion de l'espace dans un texte non mathématique
-* @author Eric Elter d'après la fonction de Rémi Angot
-* Rajout Octobre 2021 pour 6C14
-*/
+ * Renvoie un nombre dans le format français (séparateur de classes) pour la partie entière comme pour la partie décimale
+ * Avec espace géré par nbsp en HTML pour pouvoir l'inclure dans une phrase formatée en français et pas seulement un calcul.
+ * Modif EE pour la gestion de l'espace dans un texte non mathématique
+ * @author Eric Elter d'après la fonction de Rémi Angot
+ * Rajout Octobre 2021 pour 6C14
+ */
 export function texNombre3 (nb) {
-  let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
+  let nombre = math.format(nb, {notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12}).replace('.', ',')
   const rangVirgule = nombre.indexOf(',')
   let partieEntiere = ''
   if (rangVirgule !== -1) {
@@ -2755,7 +2823,7 @@ export function texNombre3 (nb) {
   if (rangVirgule !== -1) {
     partieDecimale = nombre.substring(rangVirgule + 1)
   }
-
+  
   for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
     partieEntiere = partieEntiere.substring(0, i) + sp() + partieEntiere.substring(i)
   }
@@ -2785,19 +2853,19 @@ export function sp (nb = 1) {
 }
 
 /**
-* Renvoie un nombre dans le format français (séparateur de classes)
-* Fonctionne sans le mode maths contrairement à texNombre()
-* insereEspaceDansNombre fonctionne peut-être mieux
-* @author Rémi Angot
-*/
+ * Renvoie un nombre dans le format français (séparateur de classes)
+ * Fonctionne sans le mode maths contrairement à texNombre()
+ * insereEspaceDansNombre fonctionne peut-être mieux
+ * @author Rémi Angot
+ */
 export function nombreAvecEspace (nb) {
   if (isNaN(nb)) {
-    window.notify('nombreAvecEspace : argument NaN ou undefined', { nb })
+    window.notify('nombreAvecEspace : argument NaN ou undefined', {nb})
     return 'NaN'
   }
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
   if (context.isHtml) {
-    return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, ' ')
+    return Intl.NumberFormat('fr-FR', {maximumFractionDigits: 20}).format(nb).toString().replace(/\s+/g, ' ')
   } else {
     let result
     if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
@@ -2880,7 +2948,7 @@ export const insereEspaceDansNombre = nb => {
   }
   for (let i = tableauIndicesEspaces.length - 1; i >= 0; i--) {
     const indice = tableauIndicesEspaces[i] + 1
-    if (indice !== 0)nb = insertCharInString(nb, indice, ' \\thickspace ')
+    if (indice !== 0) nb = insertCharInString(nb, indice, ' \\thickspace ')
   }
   return nb
 }
@@ -2901,6 +2969,7 @@ export const insertCharInString = (string, index, char) => string.substring(0, i
 export function stringNombre (nb, precision = 8, force = false) {
   return afficherNombre(nb, precision, 'stringNombre', force)
 }
+
 /**
  * Fonction auxiliaire aux fonctions stringNombre et texNombre
  * Vérifie le nombre de chiffres significatifs en fonction du nombre de chiffres de la partie entière de nb et du nombre de décimales demandées par le paramètre precision
@@ -2945,15 +3014,21 @@ function afficherNombre (nb, precision, fonction, force = false) {
       // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
       if (Math.abs(nb) < 1) {
         if (force) {
-          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: precision, minimumFractionDigits: precision }).format(nb)
+          nombre = Intl.NumberFormat('fr-FR', {
+            maximumFractionDigits: precision,
+            minimumFractionDigits: precision
+          }).format(nb)
         } else {
-          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: precision }).format(nb)
+          nombre = Intl.NumberFormat('fr-FR', {maximumFractionDigits: precision}).format(nb)
         }
       } else {
         if (force) {
-          nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits, minimumSignificantDigits: maximumSignificantDigits }).format(nb)
+          nombre = Intl.NumberFormat('fr-FR', {
+            maximumSignificantDigits,
+            minimumSignificantDigits: maximumSignificantDigits
+          }).format(nb)
         } else {
-          nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
+          nombre = Intl.NumberFormat('fr-FR', {maximumSignificantDigits}).format(nb)
         }
       }
     }
@@ -2987,10 +3062,10 @@ function afficherNombre (nb, precision, fonction, force = false) {
     }
     return nombre
   } // fin insereEspacesNombre()
-
+  
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
   if (isNaN(nb) && !(nb instanceof Decimal)) {
-    window.notify("AfficherNombre : Le nombre n'en est pas un", { nb, precision, fonction })
+    window.notify("AfficherNombre : Le nombre n'en est pas un", {nb, precision, fonction})
     return ''
   }
   if (nb instanceof Decimal) {
@@ -3028,21 +3103,22 @@ function afficherNombre (nb, precision, fonction, force = false) {
       }
     }
   }
-
+  
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
-
+  
   if ((maximumSignificantDigits > 15) && (!(nb instanceof Decimal))) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondi
-    window.notify(fonction + ` : ${tropDeChiffres}`, { nb, precision })
+    window.notify(fonction + ` : ${tropDeChiffres}`, {nb, precision})
     return insereEspacesNombre(nb, nbChiffresPartieEntiere, precision, fonction)
   } else {
     return insereEspacesNombre(nb, nbChiffresPartieEntiere, precision, fonction)
   }
 }
+
 /**
-* Centre un texte
-*
-* @author Rémi Angot
-*/
+ * Centre un texte
+ *
+ * @author Rémi Angot
+ */
 export function texteCentre (texte) {
   if (context.isHtml) {
     return `<p style="text-align: center">${texte}</p>`
@@ -3054,13 +3130,13 @@ ${texte}
 }
 
 /**
-* Met en couleur et en gras
-*
-* Met en couleur et gras un texte. JCL dit : "S'utilise entre $ car utilise des commandes qui fonctionnent en math inline"
-* @param {string} texte à mettre en couleur
-* @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
-* @author Rémi Angot
-*/
+ * Met en couleur et en gras
+ *
+ * Met en couleur et gras un texte. JCL dit : "S'utilise entre $ car utilise des commandes qui fonctionnent en math inline"
+ * @param {string} texte à mettre en couleur
+ * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
+ * @author Rémi Angot
+ */
 export function miseEnEvidence (texte, couleur = '#f15929') {
   if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
@@ -3073,13 +3149,14 @@ export function miseEnEvidence (texte, couleur = '#f15929') {
     }
   }
 }
+
 /**
-* Met en couleur
-* Met en couleur un texte. JCL dit : "S'utilise entre $ car utilise des commandes qui fonctionnent en math inline"
-* @param {string} texte à mettre en couleur
-* @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
-* @author Guillaume Valmont d'après MiseEnEvidence() de Rémi Angot
-*/
+ * Met en couleur
+ * Met en couleur un texte. JCL dit : "S'utilise entre $ car utilise des commandes qui fonctionnent en math inline"
+ * @param {string} texte à mettre en couleur
+ * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
+ * @author Guillaume Valmont d'après MiseEnEvidence() de Rémi Angot
+ */
 export function miseEnCouleur (texte, couleur = '#f15929') {
   if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
@@ -3094,11 +3171,11 @@ export function miseEnCouleur (texte, couleur = '#f15929') {
 }
 
 /**
-* Met en couleur un texte
-* @param {string} texte à mettre en couleur
-* @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
-* @author Rémi Angot
-*/
+ * Met en couleur un texte
+ * @param {string} texte à mettre en couleur
+ * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
+ * @author Rémi Angot
+ */
 export function texteEnCouleur (texte, couleur = '#f15929') {
   if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
@@ -3113,11 +3190,11 @@ export function texteEnCouleur (texte, couleur = '#f15929') {
 }
 
 /**
-* Met en couleur et gras un texte. JCL dit : "Ne fonctionne qu'en dehors de $....$". Utiliser miseEnEvidence si $....$.
-* @param {string} texte à mettre en couleur
-* @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
-* @author Rémi Angot
-*/
+ * Met en couleur et gras un texte. JCL dit : "Ne fonctionne qu'en dehors de $....$". Utiliser miseEnEvidence si $....$.
+ * @param {string} texte à mettre en couleur
+ * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
+ * @author Rémi Angot
+ */
 export function texteEnCouleurEtGras (texte, couleur = '#f15929') {
   if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
@@ -3130,6 +3207,7 @@ export function texteEnCouleurEtGras (texte, couleur = '#f15929') {
     }
   }
 }
+
 /**
  * couleurAleatoire() renvoie le code d'une couleur au hasard
  *
@@ -3167,6 +3245,7 @@ export function arcenciel (i, fondblanc = true) {
   else couleurs = ['violet', 'indigo', 'blue', 'green', 'yellow', '#f15929', 'red']
   return couleurs[i % 7]
 }
+
 export function texcolors (i, fondblanc = true) {
   const couleurs = ['black', 'blue', 'GreenYellow', 'brown', 'LightSlateBlue', 'cyan', 'darkgray', 'HotPink', 'LightSteelBlue', 'Chocolate', 'gray', 'green', 'lightgray', 'lime', 'magenta', 'olive', 'DarkOrange', 'pink', 'purple', 'red', 'teal', 'violet', 'white', 'yellow']
   if (fondblanc && i % couleurs.length >= couleurs.length - 2) i += 2
@@ -3174,10 +3253,10 @@ export function texcolors (i, fondblanc = true) {
 }
 
 /**
-* Met gras un texte
-* @param {string} texte à mettre en gras
-* @author Rémi Angot
-*/
+ * Met gras un texte
+ * @param {string} texte à mettre en gras
+ * @author Rémi Angot
+ */
 export function texteGras (texte) {
   if (context.isHtml) {
     return `<b>${texte}</b>`
@@ -3187,11 +3266,11 @@ export function texteGras (texte) {
 }
 
 /**
-* Affiche un lien vers une URL
-* @param {string} texte à afficher
-* @param {string} URL
-* @author Rémi Angot
-*/
+ * Affiche un lien vers une URL
+ * @param {string} texte à afficher
+ * @param {string} URL
+ * @author Rémi Angot
+ */
 export function href (texte, lien) {
   if (context.isHtml) {
     return `<a target="_blank" href=${lien}> ${texte} </a>`
@@ -3201,9 +3280,9 @@ export function href (texte, lien) {
 }
 
 /**
-* Pour bien afficher les centimes avec 2 chiffres après la virgule
-* @author Rémi Angot
-*/
+ * Pour bien afficher les centimes avec 2 chiffres après la virgule
+ * @author Rémi Angot
+ */
 export function texPrix (nb) {
   if (nb instanceof Decimal) {
     if (nb.isInteger()) return texNombre(nb, 0)
@@ -3218,9 +3297,9 @@ export function texPrix (nb) {
 }
 
 /**
-* Pour afficher les masses avec 3 chiffres après la virgule
-* @author Mireille Gain
-*/
+ * Pour afficher les masses avec 3 chiffres après la virgule
+ * @author Mireille Gain
+ */
 export function texMasse (nb) {
   // Remplace le . par la ,
   const nombre = Number(nb)
@@ -3234,17 +3313,19 @@ export function texMasse (nb) {
 }
 
 /**
-* Convertit en majuscule la première lettre
-* @author Rémi Angot
-*/
-export function premiereLettreEnMajuscule (text) { return (text + '').charAt(0).toUpperCase() + text.substr(1) }
+ * Convertit en majuscule la première lettre
+ * @author Rémi Angot
+ */
+export function premiereLettreEnMajuscule (text) {
+  return (text + '').charAt(0).toUpperCase() + text.substr(1)
+}
 
 /**
-* Renvoie le nombre de chiffres de la partie décimale
-* @param nb : nombre décimal
-* @param except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
-* @author Rémi Angot
-*/
+ * Renvoie le nombre de chiffres de la partie décimale
+ * @param nb : nombre décimal
+ * @param except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
+ * @author Rémi Angot
+ */
 export function nombreDeChiffresDansLaPartieDecimale (nb, except = 'aucune') {
   let sauf = 0
   if (String(nb).indexOf('.') > 0) {
@@ -3254,12 +3335,14 @@ export function nombreDeChiffresDansLaPartieDecimale (nb, except = 'aucune') {
     return 0
   }
 }
+
 /**
  * Renvoie le nombre de chiffres dans la partie entière
  * @author ?
  */
 export function nombreDeChiffresDansLaPartieEntiere (nb, except = 'aucune') {
-  let nombre; let sauf = 0
+  let nombre;
+  let sauf = 0
   if (nb < 0) {
     nombre = -nb
   } else {
@@ -3273,6 +3356,7 @@ export function nombreDeChiffresDansLaPartieEntiere (nb, except = 'aucune') {
     return String(nombre).length
   }
 }
+
 /**
  * Renvoie le nombre de chiffres d'un nombre décimal
  * @param nb : nombre décimal
@@ -3282,6 +3366,7 @@ export function nombreDeChiffresDansLaPartieEntiere (nb, except = 'aucune') {
 export function nombreDeChiffresDe (nb, except) {
   return nombreDeChiffresDansLaPartieDecimale(nb, except) + nombreDeChiffresDansLaPartieEntiere(nb, except)
 }
+
 /**
  * Retourne la string LaTeX de la fraction
  * @param num
@@ -3301,17 +3386,21 @@ export function texFractionSigne (num, den) {
 }
 
 /**
-* Met de grandes parenthèses autour de la fraction a/b si besoin pour inclure une fraction dans une expresion en fonction du signe
-* @author Jean-Claude Lhote
-*/
+ * Met de grandes parenthèses autour de la fraction a/b si besoin pour inclure une fraction dans une expresion en fonction du signe
+ * @author Jean-Claude Lhote
+ */
 export function texFractionParentheses (a, b) {
-  if (a * b > 0) { return texFractionSigne(a, b) } else { return '\\left(' + texFractionSigne(a, b) + '\\right)' }
+  if (a * b > 0) {
+    return texFractionSigne(a, b)
+  } else {
+    return '\\left(' + texFractionSigne(a, b) + '\\right)'
+  }
 }
 
 /**
-* Retourne une liste de fractions irréductibles
-* @author Jean-Claude Lhote
-*/
+ * Retourne une liste de fractions irréductibles
+ * @author Jean-Claude Lhote
+ */
 export function obtenirListeFractionsIrreductibles () { // sous forme de tableaux [numérateur,dénominateur]
   return [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],
     [1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8],
@@ -3319,18 +3408,18 @@ export function obtenirListeFractionsIrreductibles () { // sous forme de tableau
 }
 
 /**
-* Retourne une liste de fractions irréductibles de dénominateur égal à 2 3 5 7
-* @author Mireille Gain
-*/
+ * Retourne une liste de fractions irréductibles de dénominateur égal à 2 3 5 7
+ * @author Mireille Gain
+ */
 export function obtenirListeFractionsIrreductiblesFaciles () { // sous forme de tableaux [numérateur,dénominateur]
   return [[1, 2], [1, 3], [2, 3], [1, 5], [2, 5], [3, 5], [4, 5],
     [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7]]
 }
 
 /**
-* Retourne la liste des nombres premiers inférieurs à 300
-* @author Rémi Angot
-*/
+ * Retourne la liste des nombres premiers inférieurs à 300
+ * @author Rémi Angot
+ */
 export function obtenirListeNombresPremiers (n = 300) {
   const prems = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
   for (let i = 307; i <= n; i++) {
@@ -3340,9 +3429,9 @@ export function obtenirListeNombresPremiers (n = 300) {
 }
 
 /**
-* Retourne le code LaTeX de la décomposition en produit de facteurs premiers d'un nombre
-* @author Rémi Angot
-*/
+ * Retourne le code LaTeX de la décomposition en produit de facteurs premiers d'un nombre
+ * @author Rémi Angot
+ */
 export function decompositionFacteursPremiers (n) {
   let decomposition = ''
   const liste = obtenirListeFacteursPremiers(n)
@@ -3351,6 +3440,21 @@ export function decompositionFacteursPremiers (n) {
   }
   decomposition = decomposition.substr(0, decomposition.length - 6)
   return decomposition
+}
+
+/**
+ *
+ * @param {number} n
+ * @param {boolean} inférieur si true, commence la recherche à 2 en croissant sinon commence à n+1
+ * @returns {number}
+ */
+export function premierAvec (n, listeAEviter, inférieur = true) {
+  if (n < 2) throw Error(`Impossible de trouver un nombre premier avec ${n}`)
+  let candidat = inferieur ? 2 : n + 1
+  do {
+    if (pgcd(n, candidat) === 1 && !listeAEviter.includes(candidat)) return candidat
+    candidat++
+  } while (true)
 }
 
 /**
@@ -3382,9 +3486,9 @@ export function decompositionFacteursPremiersBarres (nombreADecomposer, facteurs
 }
 
 /**
-* Retourne la liste des diviseurs d'un entier
-* @author Rémi Angot
-*/
+ * Retourne la liste des diviseurs d'un entier
+ * @author Rémi Angot
+ */
 export function listeDesDiviseurs (n) {
   let k = 2
   const liste = [1]
@@ -3394,14 +3498,14 @@ export function listeDesDiviseurs (n) {
     }
     k++
   }
-
+  
   return liste
 }
 
 /**
-* Retourne le code LaTeX d'une fraction a/b
-* @author Rémi Angot
-*/
+ * Retourne le code LaTeX d'une fraction a/b
+ * @author Rémi Angot
+ */
 export function texFraction (a, b) {
   if (b !== 1) {
     return `\\dfrac{${typeof a === 'number' ? texNombre(a) : a}}{${typeof b === 'number' ? texNombre(b) : b}}`
@@ -3435,9 +3539,9 @@ export function texSymbole (symbole) {
 }
 
 /**
-* Utilise printlatex et quote de Algebrite
-* @author Rémi Angot
-*/
+ * Utilise printlatex et quote de Algebrite
+ * @author Rémi Angot
+ */
 
 export function printlatex (e) {
   if (e === '0x') {
@@ -3448,17 +3552,17 @@ export function printlatex (e) {
 }
 
 /**
-* Écrit du texte en mode mathématiques
-* @author Rémi Angot
-*/
+ * Écrit du texte en mode mathématiques
+ * @author Rémi Angot
+ */
 export function texTexte (texte) {
   return '~\\text{' + texte + '}'
 }
 
 /**
-* Retourne un environnement LaTeX itemize à partir d'une liste
-* @author Rémi Angot
-*/
+ * Retourne un environnement LaTeX itemize à partir d'une liste
+ * @author Rémi Angot
+ */
 export function itemize (tableauDeTexte) {
   let texte = ''
   if (context.isHtml) {
@@ -3478,11 +3582,11 @@ export function itemize (tableauDeTexte) {
 }
 
 /**
-* Utilise pgfplots pour tracer la courbe représentative de f dans le repère avec -10 < x < 10 et -8 < y < 8
-*
-* @param string expression de fonction
-* @author Rémi Angot
-*/
+ * Utilise pgfplots pour tracer la courbe représentative de f dans le repère avec -10 < x < 10 et -8 < y < 8
+ *
+ * @param string expression de fonction
+ * @author Rémi Angot
+ */
 
 export function texGraphique (f, xmin = -5, xmax = 5, ymin = -5, ymax = 5) {
   return `
@@ -3531,7 +3635,9 @@ export class MatriceCarree {
       this.dim = table // si c'est un nombre qui est passé en argument, c'est la taille, et on rempli la table de 0
       for (let i = 0; i < this.dim; i++) {
         ligne = []
-        for (let j = 0; j < this.dim; j++) { ligne.push(0) }
+        for (let j = 0; j < this.dim; j++) {
+          ligne.push(0)
+        }
         this.table.push(ligne)
       }
     } else { // si l'argument est une table, on la copie dans this.table et sa longueur donne la dimension de la matrice
@@ -3539,15 +3645,18 @@ export class MatriceCarree {
       this.table = table.slice()
     }
     /**
-   * Méthode : Calcule le déterminant de la matrice carrée
-   * @author Jean-Claude Lhote
-   */
+     * Méthode : Calcule le déterminant de la matrice carrée
+     * @author Jean-Claude Lhote
+     */
     this.determinant = function () {
       const n = this.dim // taille de la matrice = nxn
-      let determinant = 0; let M
+      let determinant = 0;
+      let M
       for (let i = 0; i < n; i++) { // on travaille sur la ligne du haut de la matrice :ligne 0 i est la colonne de 0 à n-1
-      // if (n==1) determinant=this.table[0][0]
-        if (n === 2) { determinant = this.table[0][0] * this.table[1][1] - this.table[1][0] * this.table[0][1] } else {
+        // if (n==1) determinant=this.table[0][0]
+        if (n === 2) {
+          determinant = this.table[0][0] * this.table[1][1] - this.table[1][0] * this.table[0][1]
+        } else {
           M = this.matriceReduite(0, i)
           determinant += ((-1) ** i) * this.table[0][i] * M.determinant()
         }
@@ -3555,12 +3664,13 @@ export class MatriceCarree {
       return determinant
     }
     /**
-   * Méthode : m=M.matriceReduite(l,c) retourne une nouvelle matrice obtenue à partir de la matrice M (carrée) en enlevant la ligne l et la colonne c
-   * (Utilisée dans le calcul du déterminant d'une matrice carrée.)
-   * @author Jean-Claude Lhote
-   */
+     * Méthode : m=M.matriceReduite(l,c) retourne une nouvelle matrice obtenue à partir de la matrice M (carrée) en enlevant la ligne l et la colonne c
+     * (Utilisée dans le calcul du déterminant d'une matrice carrée.)
+     * @author Jean-Claude Lhote
+     */
     this.matriceReduite = function (l, c) {
-      const resultat = []; let ligne
+      const resultat = [];
+      let ligne
       for (let i = 0; i < this.table.length; i++) {
         if (i !== l) {
           ligne = []
@@ -3573,10 +3683,13 @@ export class MatriceCarree {
       return matriceCarree(resultat)
     }
     /**
-   * Méthode : m=M.cofacteurs() retourne la matrice des cofacteurs de M utilisée dans l'inversion de M.
-   */
+     * Méthode : m=M.cofacteurs() retourne la matrice des cofacteurs de M utilisée dans l'inversion de M.
+     */
     this.cofacteurs = function () { // renvoie la matrice des cofacteurs.
-      const n = this.dim; let resultat = []; let ligne; let M
+      const n = this.dim;
+      let resultat = [];
+      let ligne;
+      let M
       if (n > 2) {
         for (let i = 0; i < n; i++) {
           ligne = []
@@ -3592,10 +3705,12 @@ export class MatriceCarree {
       return matriceCarree(resultat)
     }
     /**
-   * Méthode : m=M.transposee() retourne la matrice transposée de M utilisée pour l'inversion de M
-   */
+     * Méthode : m=M.transposee() retourne la matrice transposée de M utilisée pour l'inversion de M
+     */
     this.transposee = function () { // retourne la matrice transposée
-      const n = this.dim; const resultat = []; let ligne
+      const n = this.dim;
+      const resultat = [];
+      let ligne
       for (let i = 0; i < n; i++) {
         ligne = []
         for (let j = 0; j < n; j++) {
@@ -3606,11 +3721,13 @@ export class MatriceCarree {
       return matriceCarree(resultat)
     }
     /**
-   * m=M.multiplieParReel(k) Multiplie tous les éléments de la matrice par k. Utilisée pour l'inversion de M
-   * @param {*} k
-   */
+     * m=M.multiplieParReel(k) Multiplie tous les éléments de la matrice par k. Utilisée pour l'inversion de M
+     * @param {*} k
+     */
     this.multiplieParReel = function (k) { // retourne k * la matrice
-      const n = this.dim; const resultat = []; let ligne
+      const n = this.dim;
+      const resultat = [];
+      let ligne
       for (let i = 0; i < n; i++) {
         ligne = []
         for (let j = 0; j < n; j++) {
@@ -3620,13 +3737,15 @@ export class MatriceCarree {
       }
       return matriceCarree(resultat)
     }
-
+    
     /**
-   * Méthode : Calcule le produit d'une matrice nxn par un vecteur 1xn (matrice colonne): retourne un vecteur 1xn.
-   *
-   */
+     * Méthode : Calcule le produit d'une matrice nxn par un vecteur 1xn (matrice colonne): retourne un vecteur 1xn.
+     *
+     */
     this.multiplieVecteur = function (V) { // Vecteur est un simple array pour l'instant
-      const n = this.dim; const resultat = []; let somme
+      const n = this.dim;
+      const resultat = [];
+      let somme
       if (n === V.length) {
         for (let i = 0; i < n; i++) {
           somme = 0
@@ -3639,8 +3758,8 @@ export class MatriceCarree {
       } else return false
     }
     /**
-   * Méthode : m=M.inverse() Retourne la matrice inverse de M. Utilisation : résolution de systèmes linéaires
-   */
+     * Méthode : m=M.inverse() Retourne la matrice inverse de M. Utilisation : résolution de systèmes linéaires
+     */
     this.inverse = function () { // retourne la matrice inverse (si elle existe)
       const d = this.determinant()
       if (!egal(d, 0)) {
@@ -3648,11 +3767,14 @@ export class MatriceCarree {
       } else return false
     }
     /**
-   * Méthode : m=M.multiplieMatriceCarree(P) : retourne m = M.P
-   *
-   */
+     * Méthode : m=M.multiplieMatriceCarree(P) : retourne m = M.P
+     *
+     */
     this.multiplieMatriceCarree = function (M) {
-      const n = this.dim; const resultat = []; let ligne; let somme
+      const n = this.dim;
+      const resultat = [];
+      let ligne;
+      let somme
       for (let i = 0; i < n; i++) {
         ligne = []
         for (let j = 0; j < n; j++) {
@@ -3700,6 +3822,7 @@ export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
   }
   return [[a / determinant, 1], [b / determinant, 1]]
 }
+
 /**
  * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d (entiers !)
  * sous forme de fraction irréductible. Si pas de solution (déterminant nul) alors retourne [[0,0],[0,0],[0,0]]
@@ -3707,7 +3830,9 @@ export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
  */
 export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
   const matrice = matriceCarree([[x1 ** 3, x1 ** 2, x1], [x2 ** 3, x2 ** 2, x2], [x3 ** 3, x3 ** 2, x3]])
-  const y1 = fx1 - d; const y2 = fx2 - d; const y3 = fx3 - d
+  const y1 = fx1 - d;
+  const y2 = fx2 - d;
+  const y3 = fx3 - d
   const determinant = matrice.determinant()
   if (determinant === 0) {
     return [[0, 0], [0, 0], [0, 0]]
@@ -3730,6 +3855,7 @@ export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
     [b / determinant, 1]
   ]
 }
+
 /**
  * Fonction qui cherche une fonction polynomiale de degré 3 dont les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d
  * sont des fractions dont le dénominateur est inférieur à 10 et pour laquelle l'image de 3 entiers compris entre -10 et 10
@@ -3759,6 +3885,7 @@ export function criblePolynomeEntier () {
   }
   if (trouve) return coefs
 }
+
 /**
  * Fonction qui cherche les minimas et maximas d'une fonction polynomiale f(x)=ax^3 + bx² + cx + d
  * retourne [] si il n'y en a pas, sinon retourne [[x1,f(x1)],[x2,f(x2)] ne précise pas si il s'agit d'un minima ou d'un maxima.
@@ -3771,6 +3898,7 @@ export function chercheMinMaxFonction ([a, b, c, d]) {
   const x2 = (-2 * b + Math.sqrt(delta)) / (6 * a)
   return [[x1, a * x1 ** 3 + b * x1 ** 2 + c * x1 + d], [x2, a * x2 ** 3 + b * x2 ** 2 + c * x2 + d]]
 }
+
 /**
  * retourne les coefficients d'un polynome de degré 3 dont la dérivée s'annule en  x1 et x2 et tel que f(x1)=y1 et f(x2)=y2.
  * @author Jean-Claude Lhote
@@ -4002,12 +4130,12 @@ export function ordreDeGrandeur (x, type) {
 }
 
 /**
-* Fonction créant le bouton d'aide utilisée par les différentes fonctions modal_ type de contenu
-* @param numeroExercice
-* @param contenu code HTML
-* @param icone
-* @author Rémi Angot
-*/
+ * Fonction créant le bouton d'aide utilisée par les différentes fonctions modal_ type de contenu
+ * @param numeroExercice
+ * @param contenu code HTML
+ * @param icone
+ * @author Rémi Angot
+ */
 export function creerModal (numeroExercice, contenu, labelBouton, icone) {
   if (context.isHtml) {
     let HTML = ''
@@ -4029,13 +4157,14 @@ export function creerModal (numeroExercice, contenu, labelBouton, icone) {
     return ''
   }
 }
+
 /**
-* Fonction créant le bouton d'aide utilisée par les différentes fonctions modal_ type de contenu
-* @param numeroExercice
-* @param contenu code HTML
-* @param icone
-* @author Rémi Angot
-*/
+ * Fonction créant le bouton d'aide utilisée par les différentes fonctions modal_ type de contenu
+ * @param numeroExercice
+ * @param contenu code HTML
+ * @param icone
+ * @author Rémi Angot
+ */
 export function creerBoutonMathalea2d (numeroExercice, fonction, labelBouton = 'Aide', icone = 'info circle') {
   if (context.versionMathalea === 3) {
     return `<button class="inline-block px-6 py-2.5 mr-10 my-5 ml-6 bg-coopmaths text-white font-medium text-xs leading-tight uppercase rounded shadow-md transform hover:scale-110 hover:bg-coopmaths-dark hover:shadow-lg focus:bg-coopmaths-dark focus:shadow-lg focus:outline-none focus:ring-0 active:bg-coopmaths-dark active:shadow-lg transition duration-150 ease-in-out" id = "btnMathALEA2d_${numeroExercice}" onclick="${fonction}"><i class="large ${icone} icon"></i>${labelBouton}</button>`
@@ -4045,27 +4174,27 @@ export function creerBoutonMathalea2d (numeroExercice, fonction, labelBouton = '
 }
 
 /**
-* Créé un bouton pour une aide modale avec un texte court
-* @param numeroExercice
-* @param texte Texte court qui sera affiché comme un titre
-* @param labelBouton Titre du bouton (par défaut Aide)
-* @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
-* @author Rémi Angot
-*/
+ * Créé un bouton pour une aide modale avec un texte court
+ * @param numeroExercice
+ * @param texte Texte court qui sera affiché comme un titre
+ * @param labelBouton Titre du bouton (par défaut Aide)
+ * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
+ * @author Rémi Angot
+ */
 export function modalTexteCourt (numeroExercice, texte, labelBouton = 'Aide', icone = 'info circle') {
   const contenu = `<div class="header">${texte}</div>`
   return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
 /**
-* Créé un bouton pour une aide modale avec un texte et une vidéo YouTube
-* @param numeroExercice
-* @param idYoutube
-* @param titre Texte court qui sera affiché comme un titre
-* @param labelBouton Titre du bouton (par défaut Aide)
-* @param icone Nom de l'icone (par défaut c'est youtube icon), liste complète sur https://semantic-ui.com/elements/icon.html
-* @author Rémi Angot
-*/
+ * Créé un bouton pour une aide modale avec un texte et une vidéo YouTube
+ * @param numeroExercice
+ * @param idYoutube
+ * @param titre Texte court qui sera affiché comme un titre
+ * @param labelBouton Titre du bouton (par défaut Aide)
+ * @param icone Nom de l'icone (par défaut c'est youtube icon), liste complète sur https://semantic-ui.com/elements/icon.html
+ * @author Rémi Angot
+ */
 export function modalYoutube (numeroExercice, idYoutube, titre, labelBouton = 'Aide - Vidéo', icone = 'youtube') {
   let contenu
   if (idYoutube.substr(0, 4) === 'http') {
@@ -4086,14 +4215,14 @@ export function modalYoutube (numeroExercice, idYoutube, titre, labelBouton = 'A
 }
 
 /**
-* Créé un bouton pour une aide modale avec un titre et un texte
-* @param numeroExercice
-* @param titre
-* @param texte
-* @param labelBouton Titre du bouton (par défaut Aide)
-* @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
-* @author Rémi Angot
-*/
+ * Créé un bouton pour une aide modale avec un titre et un texte
+ * @param numeroExercice
+ * @param titre
+ * @param texte
+ * @param labelBouton Titre du bouton (par défaut Aide)
+ * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
+ * @author Rémi Angot
+ */
 export function modalTexteLong (numeroExercice, titre, texte, labelBouton = 'Aide', icone = 'info circle') {
   let contenu = ''
   if (context.versionMathalea === 2) {
@@ -4107,27 +4236,27 @@ export function modalTexteLong (numeroExercice, titre, texte, labelBouton = 'Aid
 }
 
 /**
-* Créé un bouton pour une aide modale avec un titre et un texte
-* @param numeroExercice
-* @param url
-* @param labelBouton Titre du bouton (par défaut Aide)
-* @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
-* @author Rémi Angot
-*/
+ * Créé un bouton pour une aide modale avec un titre et un texte
+ * @param numeroExercice
+ * @param url
+ * @param labelBouton Titre du bouton (par défaut Aide)
+ * @param icone Nom de l'icone (par défaut c'est info circle icon), liste complète sur https://semantic-ui.com/elements/icon.html
+ * @author Rémi Angot
+ */
 export function modalUrl (numeroExercice, url, labelBouton = 'Aide', icone = 'info circle') {
   const contenu = `<iframe width="100%" height="600"  src="${url}" frameborder="0" ></iframe>`
   return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
 /**
-* Créé un bouton pour une aide modale avec un texte et une vidéo YouTube
-* @param numeroExercice
-* @param urlPdf
-* @param titre Texte court qui sera affiché comme un titre
-* @param labelBouton Titre du bouton (par défaut Aide)
-* @param icone Nom de l'icone (par défaut c'est file pdf icon), liste complète sur https://semantic-ui.com/elements/icon.html
-* @author Rémi Angot
-*/
+ * Créé un bouton pour une aide modale avec un texte et une vidéo YouTube
+ * @param numeroExercice
+ * @param urlPdf
+ * @param titre Texte court qui sera affiché comme un titre
+ * @param labelBouton Titre du bouton (par défaut Aide)
+ * @param icone Nom de l'icone (par défaut c'est file pdf icon), liste complète sur https://semantic-ui.com/elements/icon.html
+ * @author Rémi Angot
+ */
 export function modalPdf (numeroExercice, urlPdf, titre = 'Aide', labelBouton = 'Aide - PDF', icone = 'file pdf') {
   const contenu = `<div class="header">${titre}</div><div class="content"><p align="center"><embed src=${urlPdf} width=90% height=500 type='application/pdf'/></p></div>`
   return creerModal(numeroExercice, contenu, labelBouton, icone)
@@ -4156,6 +4285,7 @@ export function modalVideo (numeroExercice, urlVideo, titre, labelBouton = 'Vid�
   </div>`
   return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
+
 /**
  *
  * @param {number} numeroExercice
@@ -4192,17 +4322,17 @@ export function listeDiviseurs (n) {
 //= ================================================
 
 /**
-* Crée une machine mathématique Tikz pour la version LaTeX
-* @param {string} nom nom de la machine en mode maths!
-* @param {string} etape1 chaine en mode maths attention aux espaces et accents
-* @param {string} etape2 chaine en mode maths attention aux espaces et accents
-* @param {string} etape3 chaine en mode maths attention aux espaces et accents
-* @param {string} xLigne1 chaine en mode maths attention aux espaces et accents
-* @param {string} xLigne2 chaine en mode maths attention aux espaces et accents
-* @param {string} yLigne1 chaine en mode maths attention aux espaces et accents
-* @param {string} yLigne2 chaine en mode maths attention aux espaces et accents
-* @author Sébastien Lozano
-*/
+ * Crée une machine mathématique Tikz pour la version LaTeX
+ * @param {string} nom nom de la machine en mode maths!
+ * @param {string} etape1 chaine en mode maths attention aux espaces et accents
+ * @param {string} etape2 chaine en mode maths attention aux espaces et accents
+ * @param {string} etape3 chaine en mode maths attention aux espaces et accents
+ * @param {string} xLigne1 chaine en mode maths attention aux espaces et accents
+ * @param {string} xLigne2 chaine en mode maths attention aux espaces et accents
+ * @param {string} yLigne1 chaine en mode maths attention aux espaces et accents
+ * @param {string} yLigne2 chaine en mode maths attention aux espaces et accents
+ * @author Sébastien Lozano
+ */
 
 export function tikzMachineMaths (nom, etape1, etape2, etape3, xLigne1, xLigne2, yLigne1, yLigne2) {
   // tous les textes sont en mode maths !!!
@@ -4389,6 +4519,7 @@ export function katexPopup (texte, titrePopup, textePopup) {
     return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
   }
 }
+
 export function katexPopupTest (texte, titrePopup, textePopup) {
   'use strict'
   let contenu = ''
@@ -4405,12 +4536,14 @@ export function katexPopupTest (texte, titrePopup, textePopup) {
     return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
   }
 }
+
 /**
  * Ecrit un string sans accents
  * @param {string} str
  * @author Sébastien Lozano
  * @source --> http://www.finalclap.com/faq/257-javascript-supprimer-remplacer-accent
  */
+
 /* export function sansAccent(str) {
   var accent = [
     /[\300-\306]/g, /[\340-\346]/g,
@@ -4433,15 +4566,15 @@ export function katexPopupTest (texte, titrePopup, textePopup) {
 */
 
 /**
-* Crée un popup html avec une icône info ou un bouton modal suivant le type donné :0=Latex inline compatible, 1=bouton modal texte long, 2=bouton modal image.
-* ATTENTION la variable texte doit exactement correspondre au nom de l'image sans l'extension  et etre au format png
-* @param {number} numero
-* @param {number} type
-* @param {string} titrePopup = Le titre du texte dévoilé par le bouton
-* @param {string} texte = Ce qu'il y a sur le bouton qui doit exactement etre le nom de l'image sans l'extension
-* @param {string} textePopup = Le texte dévoilé par le bouton ou l'url de l'image.
-* @author Jean-claude Lhote & Rémi Angot & Sebastien Lozano
-**/
+ * Crée un popup html avec une icône info ou un bouton modal suivant le type donné :0=Latex inline compatible, 1=bouton modal texte long, 2=bouton modal image.
+ * ATTENTION la variable texte doit exactement correspondre au nom de l'image sans l'extension  et etre au format png
+ * @param {number} numero
+ * @param {number} type
+ * @param {string} titrePopup = Le titre du texte dévoilé par le bouton
+ * @param {string} texte = Ce qu'il y a sur le bouton qui doit exactement etre le nom de l'image sans l'extension
+ * @param {string} textePopup = Le texte dévoilé par le bouton ou l'url de l'image.
+ * @author Jean-claude Lhote & Rémi Angot & Sebastien Lozano
+ **/
 
 export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
   // ToDo : gérer les popu avec la version 3
@@ -4501,9 +4634,9 @@ export function texCadreParOrange (texte) {
    \\setlength{\\fboxrule}{1.5mm}
    \\par\\vspace{0.25cm}
    \\noindent\\fcolorbox{nombres}{white}{\\parbox{\\linewidth-2\\fboxrule-2\\fboxsep}{` + texte + `}}
-   \\par\\vspace{0.25cm} 
+   \\par\\vspace{0.25cm}
    `
-
+  
   return sortie
 }
 
@@ -4519,13 +4652,13 @@ export function texCadreParOrange (texte) {
 export function machineMathsVideo (urlVideo) {
   'use strict'
   const video = `
-  <div style="text-align:center"> 
+  <div style="text-align:center">
   <video width="560" height="100%" controls  loop autoplay muted style="max-width: 100%">
     <source src="` + urlVideo + `">
     Votre navigateur ne gère pas l'élément <code>video</code>.
   </video>
   </div>`
-
+  
   return video
 }
 
@@ -4540,18 +4673,22 @@ export function detectSafariChromeBrowser () {
   // var is_firefox = navigator.userAgent.indexOf('Firefox') > -1;
   let isSafari = navigator.userAgent.indexOf('Safari') > -1
   const isOpera = navigator.userAgent.toLowerCase().indexOf('op') > -1
-  if ((isChrome) && (isSafari)) { isSafari = false }
-  if ((isChrome) && (isOpera)) { isChrome = false }
-
+  if ((isChrome) && (isSafari)) {
+    isSafari = false
+  }
+  if ((isChrome) && (isOpera)) {
+    isChrome = false
+  }
+  
   return (isChrome || isSafari)
 }
 
 /**
-* Retourne la liste des nombres premiers inférieurs à N N<300 N exclu
-* @param {integer} k On cherchera un multiple de k
-* @param {integer} n Ce multiple sera supérieur ou égal à n
-* @author Rémi Angot
-*/
+ * Retourne la liste des nombres premiers inférieurs à N N<300 N exclu
+ * @param {integer} k On cherchera un multiple de k
+ * @param {integer} n Ce multiple sera supérieur ou égal à n
+ * @author Rémi Angot
+ */
 export function premierMultipleSuperieur (k, n) {
   let result = n
   let reste
@@ -4568,6 +4705,7 @@ export function premierMultipleSuperieur (k, n) {
     }
   }
 }
+
 export function premierMultipleInferieur (k, n) {
   const result = premierMultipleSuperieur(k, n)
   if (result !== n) return result - k
@@ -4575,10 +4713,10 @@ export function premierMultipleInferieur (k, n) {
 }
 
 /**
-* Retourne la liste des nombres premiers inférieurs à N N<300 N exclu
-* @param {number} borneSup
-* @author Sébastien Lozano
-*/
+ * Retourne la liste des nombres premiers inférieurs à N N<300 N exclu
+ * @param {number} borneSup
+ * @author Sébastien Lozano
+ */
 export function listeNombresPremiersStrictJusqua (borneSup) {
   'use strict'
   // tableau contenant les 300 premiers nombres premiers
@@ -4602,12 +4740,12 @@ export function cribleEratostheneN (n) {
   const tabEntiers = [] // pour tous les entiers de 2 à n
   const testMax = Math.sqrt(n + 1) // inutile de tester au dela de racine de n
   const liste = [] // tableau de la liste des premiers jusqu'à n
-
+  
   // On rempli un tableau avec des booléeens de 2 à n
   for (let i = 0; i < n + 1; i++) {
     tabEntiers.push(true)
   }
-
+  
   // On supprime les multiples des nombres premiers à partir de 2, 3, 5,...
   for (let i = 2; i <= testMax; i++) {
     if (tabEntiers[i]) {
@@ -4616,14 +4754,14 @@ export function cribleEratostheneN (n) {
       }
     }
   }
-
+  
   // On récupère tous les indices du tableau des entiers dont le booléen est à true qui sont donc premiers
   for (let i = 2; i < n + 1; i++) {
     if (tabEntiers[i]) {
       liste.push(i)
     }
   }
-
+  
   return liste
 }
 
@@ -4745,7 +4883,7 @@ export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLi
     tableauCL += 'c|'
   }
   tableauCL += '}\n'
-
+  
   tableauCL += '\\hline\n'
   if (typeof tabEntetesColonnes[0] === 'number') {
     tableauCL += math ? texNombre(tabEntetesColonnes[0]) + '' : `\\text{${stringNombre(tabEntetesColonnes[0])}} `
@@ -4784,7 +4922,7 @@ export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLi
   } else {
     tableauCL += '\\renewcommand{\\arraystretch}{1}$\n'
   }
-
+  
   return tableauCL
 }
 
@@ -4837,7 +4975,7 @@ export function warnMessage (texte, couleur, titre) {
  * @author Sébastien Lozano
  */
 
-export function infoMessage ({ titre, texte, couleur }) {
+export function infoMessage ({titre, texte, couleur}) {
   // 'use strict';
   const timeStamp = Date.now()
   if (context.isHtml) {
@@ -4878,7 +5016,7 @@ export function infoMessage ({ titre, texte, couleur }) {
  * @author Sébastien Lozano
  */
 
-export function lampeMessage ({ titre, texte, couleur }) {
+export function lampeMessage ({titre, texte, couleur}) {
   const timeStamp = Date.now()
   if (context.isHtml) {
     if (context.versionMathalea === 3) {
@@ -4944,17 +5082,17 @@ export function decompositionFacteursPremiersArray (n) {
 export function Triangles (l1, l2, l3, a1, a2, a3) {
   'use strict'
   const self = this
-
+  
   /**
    * @constant {array} nomsPossibles liste de noms possibles pour un triangle
    */
   const nomsPossibles = ['AGE', 'AIL', 'AIR', 'ALU', 'AME', 'AMI', 'ANE', 'ARC', 'BAC', 'BAL', 'BAR', 'BEC', 'BEL', 'BIO', 'BIP', 'BIS', 'BLE', 'BOA', 'BOF', 'BOG', 'BOL', 'BUT', 'BYE', 'COQ', 'CRI', 'CRU', 'DUC', 'DUO', 'DUR', 'EAU', 'ECU', 'EGO', 'EPI', 'FER', 'FIL', 'FUN', 'GPS', 'ICE', 'JET', 'KIF', 'KIR', 'MAC', 'NEM', 'PAS', 'PIC', 'PIF', 'PIN', 'POT', 'RAI', 'RAP', 'RAT', 'RIF', 'SEL', 'TAF', 'TIC', 'TAC', 'TOC', 'TOP', 'UNI', 'WOK', 'YAK', 'YEN', 'ZEN', 'ZIG', 'ZAG']
-
+  
   /**
    * @property {string} nom nom du triangle, tiré au hasard dans un tableau
    */
   this.nom = choice(nomsPossibles)
-
+  
   /**
    * @return {string} Renvoie le nom du triangle tiré au hasard
    * * les strings sont EN MODE MATHS le premier caractère du string est un $
@@ -4963,7 +5101,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
   function getNom () {
     return '$' + self.nom + '$'
   }
-
+  
   /**
    * @return {array} Renvoie un tableau contenant le nom des côtés, segments, du triangle tiré au hasard
    * * les strings sont EN MODE MATHS le premier caractère du string est un $
@@ -4976,10 +5114,10 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     cotes[0] = '$[' + sommets[0] + '' + sommets[1] + ']$'
     cotes[1] = '$[' + sommets[1] + '' + sommets[2] + ']$'
     cotes[2] = '$[' + sommets[2] + '' + sommets[0] + ']$'
-
+    
     return cotes
   }
-
+  
   /**
    * @return {array} Renvoie un tableau contenant le nom des longueurs des côtés du triangle tiré au hasard
    * * les strings sont EN MODE MATHS le premier caractère du string est un $
@@ -4992,10 +5130,10 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     longueurs[0] = '$' + sommets[0] + '' + sommets[1] + '$'
     longueurs[1] = '$' + sommets[1] + '' + sommets[2] + '$'
     longueurs[2] = '$' + sommets[2] + '' + sommets[0] + '$'
-
+    
     return longueurs
   }
-
+  
   /**
    * @return {array} Renvoie un tableau avec les valeurs des longueurs des côtés du triangle passées en paramètre à l'instance de la classe
    */
@@ -5008,10 +5146,10 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     longueurs[0] = self.l1
     longueurs[1] = self.l2
     longueurs[2] = self.l3
-
+    
     return longueurs
   }
-
+  
   /**
    * @return {array} Renvoie un tableau de strings avec les noms des angles du triangle.
    * * les strings sont EN MODE MATHS le premier caractère du string est un $
@@ -5023,10 +5161,10 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     angles[0] = `$\\;\\widehat{${sommets[0] + sommets[1] + sommets[2]}}$`
     angles[1] = `$\\;\\widehat{${sommets[1] + sommets[2] + sommets[0]}}$`
     angles[2] = `$\\;\\widehat{${sommets[2] + sommets[0] + sommets[1]}}$`
-
+    
     return angles
   }
-
+  
   /**
    * @return {array} Renvoie un tableau avec les valeurs des angles du triangle passées en paramètre à l'instance de la classe
    */
@@ -5039,10 +5177,10 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     angles[0] = self.a1
     angles[1] = self.a2
     angles[2] = self.a3
-
+    
     return angles
   }
-
+  
   /**
    * @return {array} Renvoie un tableau de strings avec les noms des sommets du triangle.
    * * les strings sont EN MODE MATHS le premier caractère du string est un $
@@ -5057,7 +5195,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     }
     return sommets
   }
-
+  
   /**
    * @return {array} Renvoie le périmètre de l'instance de la classe Triangle() avec les valeurs des longueurs des côtés du triangle passées en paramètre à l'instance
    * @example let triangle = new Triangle();
@@ -5074,7 +5212,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
       return self.l1 + self.l2 + self.l3
     }
   }
-
+  
   /**
    * @return {array} Renvoie un booleen selon que les trois longueurs passées à l'instance de la classe forment un vrai triangle ou non
    * @example let triangle = new Triangle();
@@ -5103,7 +5241,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
       return false
     }
   }
-
+  
   /**
    * @return {array} Renvoie un booleen selon que les trois longueurs passées à l'instance de la classe forment un triangle plat ou non
    * @example let triangle = new Triangle();
@@ -5132,7 +5270,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
       return false
     }
   }
-
+  
   /**
    * @return {array} Renvoie un booleen selon que les trois angles passés à l'instance de la classe forment un vrai triangle ou non
    * @example let triangle = new Triangle();
@@ -5146,7 +5284,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
    * * triangle.a3 = 60
    * * triangle.isTrueTriangleAngles() renvoie true
    */
-
+  
   function isTrueTriangleAngles () {
     // si l'un des angles n'est pas defini ça ne va pas
     if ((typeof self.a1 === 'undefined') || (typeof self.a2 === 'undefined') || (typeof self.a3 === 'undefined')) {
@@ -5168,7 +5306,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
       return false
     }
   }
-
+  
   // renvoie un booleen selon que les trois angles forment un triangle plat ou non
   /**
    * @return {array} Renvoie un booleen selon que les trois angles passés à l'instance de la classe forment un triangle plat ou non
@@ -5198,6 +5336,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
       return false
     }
   }
+  
   this.l1 = l1
   this.l2 = l2
   this.l3 = l3
@@ -5229,7 +5368,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
 export function Relatif (...relatifs) {
   // 'use strict'; pas de use strict avec un paramètre du reste
   this.relatifs = relatifs
-
+  
   /**
    * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs,
    * * Si 0 fait partie des relatifs on renvoie une erreur
@@ -5266,12 +5405,12 @@ export function Relatif (...relatifs) {
     }
     return signes
   }
-
+  
   /**
    * * Récupère le signe de chaque relatif déclaré dans le paramètre du reste relatifs
    * @return {array} Renvoie un tableau de strings valant 'négatif' ou 'positif'
    * @example getSigneNumber(-1,-2,8,-9,4) renvoie le tableau de strings [négatif,négatif,positif,négatif,positif]
-  */
+   */
   function getSigneString () {
     const signesString = []
     const signes = getSigneNumber()
@@ -5285,14 +5424,14 @@ export function Relatif (...relatifs) {
     })
     return signesString
   }
-
+  
   /**
    *
    * @param  {...any} n une liste de deux ou plus de nombres relatifs
    * @return {number} Renvoie le signe du produit des nombres de cette liste. 1 ou -1
    * @example getSigneProduitNumber(1,-4,-7) renvoie 1
    */
-
+  
   function getSigneProduitNumber (...n) {
     let produit = 1
     try {
@@ -5323,14 +5462,14 @@ export function Relatif (...relatifs) {
       console.log(err.stack)
     }
   }
-
+  
   /**
    *
    * @param  {...any} n une liste de deux ou plus de nombres relatifs
    * @return {string} Renvoie un string désignant le signe du produit des nombres de cette liste. postif1 ou négatif
    * @example getSigneProduitNumber(1,-4,-7) renvoie le string positif
    */
-
+  
   function getSigneProduitString (...n) {
     const produit = getSigneProduitNumber(...n)
     if (produit === -1) {
@@ -5340,7 +5479,7 @@ export function Relatif (...relatifs) {
       return 'positif'
     }
   }
-
+  
   /**
    *
    * @param  {...any} n une liste de deux ou plus de nombres relatifs
@@ -5349,7 +5488,7 @@ export function Relatif (...relatifs) {
    * @example getCardNegatifs([1,-4,-7]) renvoie 2
    * @example getCardNegatifs([4,-5,7,7,-8,-9]) renvoie 3
    */
-
+  
   function getCardNegatifs ([...n]) {
     let card = 0
     try {
@@ -5376,7 +5515,7 @@ export function Relatif (...relatifs) {
       console.log(err.message)
     }
   }
-
+  
   /**
    * Fonction locale
    * @param {integer} n un entier désignant le cardinal de facteurs négatifs dans un produit
@@ -5391,13 +5530,13 @@ export function Relatif (...relatifs) {
       return 'facteur négatif'
     }
   }
-
+  
   /**
    * @param  {...any} n une liste de deux ou plus de nombres relatifs qui constituent les facteurs du produit
    * @return {string} Renvoie la règle qui permet de justifier le signe d'un produit de relatifs adaptée à la liste passée en paramètre.
    * @example setRegleProduitFacteurs([1,-2,-8,5]) renvoie le string 'Il y a 2 facteurs négatifs, le nombre de facteurs négatifs est pair donc le produit est positif.'
    */
-
+  
   function setRegleSigneProduit (...n) {
     try {
       // port du string interdit !
@@ -5431,15 +5570,15 @@ export function Relatif (...relatifs) {
       console.log(err.message)
     }
   }
-
+  
   /**
- *
- * @param  {...any} num une liste de deux ou plus de nombres relatifs qui constituent les facteurs du numérateur
- * @param  {...any} den une liste de deux ou plus de nombres relatifs qui constituent les facteurs du dénominateur
- * @return {string} Renvoie la règle qui permet de justifier le signe d'un produit de relatifs adaptée à la liste passée en paramètre.
- * @example setRegleProduitQuotient([1,-2],[-8,5]) renvoie le string 'La somme des facteurs négatifs du numérateur et des facteurs négatifs du dénominateur vaut 2, ce nombre est pair donc le quotient est positif.'
- */
-
+   *
+   * @param  {...any} num une liste de deux ou plus de nombres relatifs qui constituent les facteurs du numérateur
+   * @param  {...any} den une liste de deux ou plus de nombres relatifs qui constituent les facteurs du dénominateur
+   * @return {string} Renvoie la règle qui permet de justifier le signe d'un produit de relatifs adaptée à la liste passée en paramètre.
+   * @example setRegleProduitQuotient([1,-2],[-8,5]) renvoie le string 'La somme des facteurs négatifs du numérateur et des facteurs négatifs du dénominateur vaut 2, ce nombre est pair donc le quotient est positif.'
+   */
+  
   function setRegleSigneQuotient (...n) {
     try {
       // port du string interdit !
@@ -5475,7 +5614,7 @@ export function Relatif (...relatifs) {
       console.log(err.message)
     }
   }
-
+  
   this.getSigneNumber = getSigneNumber
   this.getSigneString = getSigneString
   this.getSigneProduitNumber = getSigneProduitNumber
@@ -5493,7 +5632,7 @@ export function nombreEnLettres (nb, type = 1) {
     partieDecimale = new Decimal(nb).sub(partieEntiere).toDP(3)
     nbDec = partieDecimale.toString().replace(/\d*\./, '').length
     partieDecimale = partieDecimale.mul(10 ** nbDec).toNumber()
-
+    
     switch (nbDec) {
       case 1:
         if (partieDecimale > 1) decstring = ' dixièmes'
@@ -5508,7 +5647,7 @@ export function nombreEnLettres (nb, type = 1) {
         else decstring = ' millième'
         break
     }
-
+    
     if (type === 1) {
       nbstring = partieEntiereEnLettres(partieEntiere) + ' unités et ' + partieEntiereEnLettres(partieDecimale) + decstring
     } else if (nbDec === nombreDeChiffresDansLaPartieEntiere(partieDecimale)) {
@@ -5523,11 +5662,12 @@ export function nombreEnLettres (nb, type = 1) {
   }
   return nbstring
 }
+
 /**
  *
  *
  * @param {int} nb
-
+ 
  *
  */
 export function partieEntiereEnLettres (nb) {
@@ -6534,7 +6674,7 @@ export function partieEntiereEnLettres (nb) {
     998: 'neuf cent quatre-vingt-dix-huit',
     999: 'neuf cent quatre-vingt-dix-neuf'
   }
-
+  
   const nbString = nb.toString()
   let classeDesMilliards = ''
   if (nbString.substring(nbString.length - 12, nbString.length - 9).length > 0) {
@@ -6666,10 +6806,12 @@ export function TrouverSolutionMathador (
   const nbDetermines = arguments.length - 2
   while (eureka === false) {
     tirage = []
-
+    
     if (nbDetermines < 1) a = parseInt(choice(listeChoix))
     else a = A
-    if (nbDetermines < 2) { b = parseInt(choice(listeChoix, [13, 14, 15, 16, 17, 18, 19, 20, a])) } else b = B
+    if (nbDetermines < 2) {
+      b = parseInt(choice(listeChoix, [13, 14, 15, 16, 17, 18, 19, 20, a]))
+    } else b = B
     if (nbDetermines < 3) {
       c = parseInt(
         choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20, a, b])
@@ -6680,7 +6822,9 @@ export function TrouverSolutionMathador (
         choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20, b, c])
       )
     } else d = D
-    if (nbDetermines < 5) { e = parseInt(choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20])) } else e = E
+    if (nbDetermines < 5) {
+      e = parseInt(choice(listeChoix, [12, 13, 14, 15, 16, 17, 18, 19, 20]))
+    } else e = E
     tirage.push(a, b, c, d, e)
     nombresRestants = shuffle(tirage)
     operationsRestantes = ['\\times', '+', '-', '\\div']
@@ -6699,7 +6843,7 @@ export function TrouverSolutionMathador (
       `${nombresRestants[3]}`,
       `${nombresRestants[4]}`
     ]
-
+    
     while (nombresRestants.length > 1) {
       b = nombresRestants.pop()
       a = nombresRestants.pop()
@@ -6707,7 +6851,7 @@ export function TrouverSolutionMathador (
       part1f = expressionEnCoursF.pop()
       part2d = expressionEnCoursD.pop()
       part1d = expressionEnCoursD.pop()
-
+      
       op = operationsRestantes.pop()
       if (op === '\\times') {
         c = a * b
@@ -6756,7 +6900,7 @@ export function TrouverSolutionMathador (
       }
       operationsSuccessives.push(`${a}` + op + `${b}=${c}`)
     }
-
+    
     if (nombresRestants.length === 1 && operationsRestantes.length === 0) {
       solution = nombresRestants[0]
       if (solution >= min && solution <= max) {
@@ -6804,29 +6948,31 @@ export function telechargeFichier (text, filename) {
   const element = document.createElement('a')
   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
   element.setAttribute('download', filename)
-
+  
   element.style.display = 'none'
   document.body.appendChild(element)
   element.click()
-
+  
   document.body.removeChild(element)
 }
 
 // Gestion des styles LaTeX
 
 /**
-* Renvoie un texte avec le préambule d'un fichier LaTeX
-* @param {string} Le titre de l'entête
-* @author Rémi Angot
-*/
+ * Renvoie un texte avec le préambule d'un fichier LaTeX
+ * @param {string} Le titre de l'entête
+ * @author Rémi Angot
+ */
 export function introLatex (entete = 'Exercices', listePackages = '') {
   let isImpressionRectoVerso = false
   const checkBoxImpressionRectoVerso = document.getElementById('impression_recto_verso')
   if (checkBoxImpressionRectoVerso !== null) isImpressionRectoVerso = checkBoxImpressionRectoVerso.checked
-  if (entete === '') { entete = 'Exercices' }
+  if (entete === '') {
+    entete = 'Exercices'
+  }
   return `\\documentclass[${isImpressionRectoVerso ? 'twoside,' : ''}12pt,svgnames]{article}
 \\usepackage[a4paper,left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
-%\\usepackage[utf8]{inputenc}        
+%\\usepackage[utf8]{inputenc}
 %\\usepackage[T1]{fontenc}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % EXIT WARNING DÛ À LA COMPILATION XETEX %
@@ -6842,8 +6988,8 @@ export function introLatex (entete = 'Exercices', listePackages = '') {
 \\fi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\usepackage[french]{babel}
-\\usepackage{multicol} 
-\\usepackage{calc} 
+\\usepackage{multicol}
+\\usepackage{calc}
 \\usepackage{enumerate}
 \\usepackage{enumitem}
 \\usepackage{graphicx}
@@ -6851,14 +6997,14 @@ export function introLatex (entete = 'Exercices', listePackages = '') {
 %\\usepackage[autolanguage]{numprint}
 \\usepackage[autolanguage,np]{numprint}
 \\usepackage{hyperref}
-\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
+\\usepackage{amsmath,amsfonts,amssymb,mathrsfs}
 \\usepackage{cancel}
 \\usepackage{textcomp}
 \\usepackage{gensymb}
 \\usepackage{eurosym}
 %\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
-\\usepackage{fancyhdr,lastpage}          
-\\pagestyle{fancy}                      
+\\usepackage{fancyhdr,lastpage}
+\\pagestyle{fancy}
 \\usepackage{fancybox}
 \\usepackage{setspace}
 \\usepackage{colortbl}
@@ -6877,10 +7023,10 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 
 \\setlength{\\parindent}{0mm}
 \\renewcommand{\\arraystretch}{1.5}
-\\newcounter{exo}          
-\\setcounter{exo}{0}   
+\\newcounter{exo}
+\\setcounter{exo}{0}
 \\newcommand{\\exo}[1]{
-  \\stepcounter{exo}        
+  \\stepcounter{exo}
   \\subsection*{Exercice \\no{\\theexo} \\textmd{\\normalsize #1}}
 }
 \\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}
@@ -6901,20 +7047,23 @@ ${preambulePersonnalise(listePackages)}
 
 `
 }
+
 /**
-* Renvoie un texte avec le préambule d'un fichier LaTeX
-* @param {string} Le titre de l'entête
-* @author Rémi Angot
-*/
+ * Renvoie un texte avec le préambule d'un fichier LaTeX
+ * @param {string} Le titre de l'entête
+ * @author Rémi Angot
+ */
 export function introLatexCan (entete = 'Course aux nombres', listePackages = '') {
   let isImpressionRectoVerso = false
   const checkBoxImpressionRectoVerso = document.getElementById('impression_recto_verso')
   if (checkBoxImpressionRectoVerso !== null) isImpressionRectoVerso = checkBoxImpressionRectoVerso.checked
-  if (entete === '') { entete = 'Course aux nombres' }
+  if (entete === '') {
+    entete = 'Course aux nombres'
+  }
   // return `\\documentclass[12pt, landscape]{article}
   return `\\documentclass[${isImpressionRectoVerso ? 'twoside,' : ''}12pt,svgnames]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
-%\\usepackage[utf8]{inputenc}        
+%\\usepackage[utf8]{inputenc}
 %\\usepackage[T1]{fontenc}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % EXIT WARNING DÛ À LA COMPILATION XETEX %
@@ -6930,8 +7079,8 @@ export function introLatexCan (entete = 'Course aux nombres', listePackages = ''
 \\fi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\usepackage[french]{babel}
-\\usepackage{multicol} 
-\\usepackage{calc} 
+\\usepackage{multicol}
+\\usepackage{calc}
 \\usepackage{enumerate}
 \\usepackage{enumitem}
 \\usepackage{graphicx}
@@ -6939,14 +7088,14 @@ export function introLatexCan (entete = 'Course aux nombres', listePackages = ''
 %\\usepackage[autolanguage]{numprint}
 \\usepackage[autolanguage,np]{numprint}
 \\usepackage{hyperref}
-\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
+\\usepackage{amsmath,amsfonts,amssymb,mathrsfs}
 \\usepackage{cancel}
 \\usepackage{textcomp}
 \\usepackage{gensymb}
 \\usepackage{eurosym}
 %\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
-\\usepackage{fancyhdr,lastpage}          
-\\pagestyle{fancy}                      
+\\usepackage{fancyhdr,lastpage}
+\\pagestyle{fancy}
 \\usepackage{fancybox}
 \\usepackage{setspace}
 \\usepackage{colortbl}
@@ -6964,10 +7113,10 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 
 \\setlength{\\parindent}{0mm}
 \\renewcommand{\\arraystretch}{1.5}
-\\newcounter{exo}          
-\\setcounter{exo}{0}   
+\\newcounter{exo}
+\\setcounter{exo}{0}
 \\newcommand{\\exo}[1]{
-  \\stepcounter{exo}        
+  \\stepcounter{exo}
   \\subsection*{Exercice \\no{\\theexo} \\textmd{\\normalsize #1}}
 }
 \\renewcommand{\\labelenumi}{\\textbf{\\theenumi{}.}}
@@ -6997,27 +7146,27 @@ ${preambulePersonnalise(listePackages)}
 \\tikzset{
   mybox/.style={
     rectangle,
-    drop shadow, 
+    drop shadow,
     inner sep=17pt,
     draw=gray,
     shade,
     top color=gray,
-    every shadow/.append style={fill=gray!40}, 
+    every shadow/.append style={fill=gray!40},
     bottom color=gray!20
     }
   }
   
   \\newcommand\\MyBox[2][]{%
-    \\tikz\\node[mybox,#1] {#2}; 
+    \\tikz\\node[mybox,#1] {#2};
   }
   % Un compteur pour les questions CAN
   \\newcounter{nbEx}
   % Pour travailler avec les compteurs
   \\usepackage{totcount}
-  \\regtotcounter{nbEx}  
+  \\regtotcounter{nbEx}
 
   % Une checkmark !
-  \\def\\checkmark{\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}  
+  \\def\\checkmark{\\tikz\\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
   % Repiqué sans vergogne dans lemanuel TikZ pour l'impatient
   \\def\\arete{3}   \\def\\epaisseur{5}   \\def\\rayon{2}
 
@@ -7029,7 +7178,7 @@ ${preambulePersonnalise(listePackages)}
     arc (60:120:\\rayon) -- ++(210:\\epaisseur)
     arc (120:60:\\rayon) -- cycle}
 
-  \\newcommand{\\dureeCan}{[Temps total à modifier juste après le \\textbackslash begin\\{document\\}]}  
+  \\newcommand{\\dureeCan}{[Temps total à modifier juste après le \\textbackslash begin\\{document\\}]}
 
   \\newcommand{\\titreSujetCan}{\\textbf{[Ligne ci-dessous à modifier juste après le \\textbackslash begin\\{document\\}]\\\\Sujet niveau NN - Mois Année}}
 
@@ -7044,7 +7193,7 @@ ${preambulePersonnalise(listePackages)}
       \\clip (0,-6) rectangle (6,6); % pour croiser
       \\shadedraw  \\ruban;
       \\draw (60:4) node [gray,xscale=2.5,yscale=2.5,rotate=-30]{CoopMaths};
-    \\end{tikzpicture} 
+    \\end{tikzpicture}
   }
   
   \\newcommand{\\pageDeGardeCan}[1]{
@@ -7055,14 +7204,14 @@ ${preambulePersonnalise(listePackages)}
 
     \\vspace{10mm}
     \\textsc{Classe} : \\makebox[.33\\linewidth]{\\dotfill} \\hfill
-    \\MyBox{\\Large\\textsc{Score} : \\makebox[.15\\linewidth]{\\dotfill} / \\total{#1}}      
+    \\MyBox{\\Large\\textsc{Score} : \\makebox[.15\\linewidth]{\\dotfill} / \\total{#1}}
     \\par\\medskip \\hrulefill \\par
     \\checkmark \\textit{\\textbf{Durée :  \\dureeCan~minutes}}
 
     \\smallskip
     \\checkmark \\textit{L'épreuve comporte \\total{#1} questions.}
 
-    \\smallskip  
+    \\smallskip
     \\checkmark \\textit{L'usage de la calculatrice et du brouillon sont interdits.}
 
     \\smallskip
@@ -7102,16 +7251,16 @@ ${preambulePersonnalise(listePackages)}
 }
 
 /**
-* Renvoie un texte avec le préambule d'un fichier LaTeX avec le style CoopMaths
-* @author Rémi Angot
-*/
+ * Renvoie un texte avec le préambule d'un fichier LaTeX avec le style CoopMaths
+ * @author Rémi Angot
+ */
 export function introLatexCoop (listePackages) {
   let isImpressionRectoVerso = false
   const checkBoxImpressionRectoVerso = document.getElementById('impression_recto_verso')
   if (checkBoxImpressionRectoVerso !== null) isImpressionRectoVerso = checkBoxImpressionRectoVerso.checked
   const introLatexCoop = `\\documentclass[${isImpressionRectoVerso ? 'twoside,' : ''}12pt,svgnames]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
-%\\usepackage[utf8]{inputenc}        
+%\\usepackage[utf8]{inputenc}
 %\\usepackage[T1]{fontenc}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % EXIT WARNING DÛ À LA COMPILATION XETEX %
@@ -7128,22 +7277,22 @@ export function introLatexCoop (listePackages) {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\usepackage[french]{babel}
 \\usepackage{hyperref}
-\\usepackage{multicol} 
-\\usepackage{calc} 
+\\usepackage{multicol}
+\\usepackage{calc}
 \\usepackage{enumerate}
 \\usepackage{enumitem}
 \\usepackage{graphicx}
 \\usepackage{tabularx}
 %\\usepackage[autolanguage]{numprint}
 \\usepackage[autolanguage,np]{numprint}
-\\usepackage{amsmath,amsfonts,amssymb,mathrsfs} 
+\\usepackage{amsmath,amsfonts,amssymb,mathrsfs}
 \\usepackage{cancel}
 \\usepackage{textcomp}
 \\usepackage{gensymb}
 \\usepackage{eurosym}
 %\\DeclareUnicodeCharacter{20AC}{\\euro{}} %Incompatible avec XeLaTeX
-\\usepackage{fancyhdr,lastpage}          
-\\pagestyle{fancy}                      
+\\usepackage{fancyhdr,lastpage}
+\\pagestyle{fancy}
 \\usepackage{fancybox}
 \\usepackage{setspace}
 \\usepackage{xcolor}
@@ -7184,7 +7333,7 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
 \\draw[fill=couleur_numerotation,couleur_numerotation](-.3,0)rectangle(.5,.8);
 \\draw[line width=.05cm,couleur_numerotation,fill=white] (0,0)--(.5,.5)--(1,0)--(.5,-.5)--cycle;
 \\node[couleur_numerotation]  at (.5,0) { \\large \\bfseries #1};
-\\draw (-.4,.8) node[white,anchor=north west]{\\bfseries EX}; 
+\\draw (-.4,.8) node[white,anchor=north west]{\\bfseries EX};
 \\end{tikzpicture}
 }
 
@@ -7240,8 +7389,8 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
     \\begin{tikzpicture}[line cap=round,line join=round,remember picture, overlay, shift={(current page.north west)},yshift=-8.5cm]
       \\fill[fill=couleur_theme] (0,5) rectangle (21,6);
       \\fill[fill=couleur_theme] (\\xini,6)--(\\xini+1.5,6)--(\\xini+2.5,7)--(\\xini+1.5,8)--(\\xini,8)--(\\xini+1,7)-- cycle;
-      \\fill[fill=couleur_theme] (\\xini+2,6)--(\\xini+2.5,6)--(\\xini+3.5,7)--(\\xini+2.5,8)--(\\xini+2,8)--(\\xini+3,7)-- cycle;  
-      \\fill[fill=couleur_theme] (\\xini+3,6)--(\\xini+3.5,6)--(\\xini+4.5,7)--(\\xini+3.5,8)--(\\xini+3,8)--(\\xini+4,7)-- cycle;   
+      \\fill[fill=couleur_theme] (\\xini+2,6)--(\\xini+2.5,6)--(\\xini+3.5,7)--(\\xini+2.5,8)--(\\xini+2,8)--(\\xini+3,7)-- cycle;
+      \\fill[fill=couleur_theme] (\\xini+3,6)--(\\xini+3.5,6)--(\\xini+4.5,7)--(\\xini+3.5,8)--(\\xini+3,8)--(\\xini+4,7)-- cycle;
       \\node[color=white] at (10.5,5.5) {\\LARGE \\bfseries{ \\MakeUppercase{ #4}}};
     \\end{tikzpicture}
     \\begin{tikzpicture}[remember picture,overlay]
@@ -7256,8 +7405,8 @@ shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC,
       \\end{tikzpicture}
     \\begin{tikzpicture}[line cap=round,line join=round,remember picture, overlay,xscale=0.5,yscale=0.5, shift={(current page.south west)},xshift=35.7cm,yshift=-6cm]
       \\fill[fill=couleur_theme] (\\xini,6)--(\\xini+1.5,6)--(\\xini+2.5,7)--(\\xini+1.5,8)--(\\xini,8)--(\\xini+1,7)-- cycle;
-      \\fill[fill=couleur_theme] (\\xini+2,6)--(\\xini+2.5,6)--(\\xini+3.5,7)--(\\xini+2.5,8)--(\\xini+2,8)--(\\xini+3,7)-- cycle;  
-      \\fill[fill=couleur_theme] (\\xini+3,6)--(\\xini+3.5,6)--(\\xini+4.5,7)--(\\xini+3.5,8)--(\\xini+3,8)--(\\xini+4,7)-- cycle;  
+      \\fill[fill=couleur_theme] (\\xini+2,6)--(\\xini+2.5,6)--(\\xini+3.5,7)--(\\xini+2.5,8)--(\\xini+2,8)--(\\xini+3,7)-- cycle;
+      \\fill[fill=couleur_theme] (\\xini+3,6)--(\\xini+3.5,6)--(\\xini+4.5,7)--(\\xini+3.5,8)--(\\xini+3,8)--(\\xini+4,7)-- cycle;
     \\end{tikzpicture}
   }
   \\fancyfoot[C]{}
@@ -7282,7 +7431,7 @@ ${preambulePersonnalise(listePackages)}
 %%%%%%%%%%%%%%%%%%%%%%%%
 %%% Fin du préambule %%%
 %%%%%%%%%%%%%%%%%%%%%%%%
-    
+
 
 `
   return introLatexCoop
@@ -7331,8 +7480,8 @@ export function preambulePersonnalise (listePackages) {
 
 \\newcommandx{\\axeGradueFraction}[5][5=]{
 \\begin{tikzpicture}[xscale=#4,>=latex]
-  \\def\\Xmin{#1} 
-  \\def\\Xmax{#2} 
+  \\def\\Xmin{#1}
+  \\def\\Xmax{#2}
   \\def\\Decoupage{#3}
   
   \\ifthenelse { \\equal {#5} {} }
@@ -7344,13 +7493,13 @@ export function preambulePersonnalise (listePackages) {
   }
 
 
-    
+  
   % Xfleche de l'axe
   \\pgfmathparse{\\Xmax+0.2}\\let\\Xfleche\\pgfmathresult;
   % dÃ©but du segment reprÃ©sentant l'axe numÃ©ro 1
   \\ifthenelse{\\equal{\\Xmin}{0}}
   {
-    \\def\\Xorigine{\\Xmin} 
+    \\def\\Xorigine{\\Xmin}
   }
   {
     \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;
@@ -7367,7 +7516,7 @@ export function preambulePersonnalise (listePackages) {
         \\draw (\\Xgrad,-.05) -- (\\Xgrad,.05);
       }
   };
-  % derniÃ¨re graduation Ã la mano 
+  % derniÃ¨re graduation Ã la mano
   \\draw (\\Xmax,-.1) -- (\\Xmax,.1) node[below=.3] {\\Xmax};
 
 \\end{tikzpicture}
@@ -7376,13 +7525,13 @@ export function preambulePersonnalise (listePackages) {
 
 
 \\newcommand{\\axesZoom}[5]{
-{} \\hfill 
+{} \\hfill
 \\begin{tikzpicture}
   \\def\\XA{#1} % nombre (positif pour l'instant) Ã placer (avec deux dÃ©cimales)
   \\def\\Nom{#2} % nom du point Ã placer. Laisser vide si vous ne souhaitez pas voir le point
   \\def\\Xmin{#3} % premiÃ¨re valeur de x entiÃ¨re sur l'axe
   \\setboolean{affichePointilles}{true}  % affiche les pointillÃ©s indiquant le grossissement
-  \\setboolean{affichePoint}{#4} % Est ce que le point doit apparaÃ®tre sur la construction. 
+  \\setboolean{affichePoint}{#4} % Est ce que le point doit apparaÃ®tre sur la construction.
   \\setboolean{afficheGraduations}{#5} % Est ce que l'on gradue tous les axes ou seulement \\Xmin et \\Xmax sur le premier axe (si false)
   \\setboolean{demiDroite}{true} %Par dÃ©faut, on construit des demi-droites pour les 6Ã¨mes, si Xmin=0 ou si une des dÃ©cimales l'exige.
   
@@ -7395,7 +7544,7 @@ export function preambulePersonnalise (listePackages) {
   }
   
   \\pgfmathparse{int(\\Xmin+10)}\\let\\Xmax\\pgfmathresult; % Xmax vaut toujours Xmin+10
-    
+  
   \\pgfmathparse{int(\\XA)}\\let\\Unites\\pgfmathresult;
   \\pgfmathparse{int((\\XA-\\Unites)*10)}\\let\\Dixiemes\\pgfmathresult;
   \\pgfmathparse{int(round((\\XA-\\Unites.\\Dixiemes)*100))}\\let\\Centiemes\\pgfmathresult;
@@ -7407,7 +7556,7 @@ export function preambulePersonnalise (listePackages) {
   \\pgfmathparse{\\Xmax+1}\\let\\Xfleche\\pgfmathresult;
   \\ifthenelse{\\equal{\\Xmin}{0}}
   {
-    \\def\\Xorigine{\\Xmin} 
+    \\def\\Xorigine{\\Xmin}
   }
   {
     \\pgfmathparse{\\Xmin-0.5}\\let\\Xorigine\\pgfmathresult;
@@ -7415,7 +7564,7 @@ export function preambulePersonnalise (listePackages) {
 
   \\pgfmathparse{int(\\Xmax-1)}\\let\\XmaxMoinsUn\\pgfmathresult;
   \\pgfmathparse{int(\\Xmin+1)}\\let\\XminPlusUn\\pgfmathresult;
-    
+  
   \\draw[->,>=latex] (\\Xorigine,0) -- (\\Xfleche,0);
   \\foreach \\x in {\\XminPlusUn,...,\\XmaxMoinsUn}{
     \\ifthenelse{\\boolean{afficheGraduations}}
@@ -7608,7 +7757,7 @@ export function preambulePersonnalise (listePackages) {
         % à noter que le package scratch3 requiert simplekv et tikz qui sont automatiquement chargés en cas de besoin
         %\\usepackage{scratch}
         % Le package scratch est obsolète. On le remplace par le pckage scratch3
-        % Compatibilité avec les anciens sources tex à vérifier          
+        % Compatibilité avec les anciens sources tex à vérifier
         \\usepackage{scratch3}
         %%%%% FIGURES %%%%%
         \\usepackage{graphics} % à distinguer du package graphicx
@@ -8020,6 +8169,7 @@ export function dataTailleDiaporama (exercice) {
     return `data-taille = "${exercice.tailleDiaporama}"`
   }
 }
+
 function dataTaille (taille) {
   if (context.vue !== 'diap' || taille === 1) {
     return ''
@@ -8029,15 +8179,15 @@ function dataTaille (taille) {
 }
 
 /**
-* Donne une liste d'entiers relatifs dont on connait la somme.
-* @example > listeEntiersSommeConnue(4,10,-2)
-* < [1,-2,6,5]
-* @param {int} nbElements Nombre d'éléments de la liste
-* @param {int} total Somme des éléments de la liste (peut être un nombre négatif)
-* @param {int} [valMin = 1] Valeur minimale de chaque élément (peut être un nombre négatif)
-* @return {Array} Liste d'entiers relatifs
-* @author Frédéric PIOU
-*/
+ * Donne une liste d'entiers relatifs dont on connait la somme.
+ * @example > listeEntiersSommeConnue(4,10,-2)
+ * < [1,-2,6,5]
+ * @param {int} nbElements Nombre d'éléments de la liste
+ * @param {int} total Somme des éléments de la liste (peut être un nombre négatif)
+ * @param {int} [valMin = 1] Valeur minimale de chaque élément (peut être un nombre négatif)
+ * @return {Array} Liste d'entiers relatifs
+ * @author Frédéric PIOU
+ */
 export function listeEntiersSommeConnue (nbElements, total, valMin = 1) {
   const liste = []
   liste.push(randint(valMin, total - (nbElements - 1) * valMin))
@@ -8057,5 +8207,5 @@ export function listeEntiersSommeConnue (nbElements, total, valMin = 1) {
  * @author Jean-Léon Henry
  */
 export function prettyTex (expression) {
-  return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
+  return expression.toTex({implicit: 'hide'}).replaceAll('\\cdot', '')
 }
