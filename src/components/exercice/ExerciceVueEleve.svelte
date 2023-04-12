@@ -241,7 +241,7 @@
               updateDisplay()
             }}
           >
-            <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest  bx ml-1 bx-xs bx-plus" />
+            <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-1 bx-xs bx-plus" />
           </button>
         </div>
         {#if $globalOptions.isSolutionAccessible && !isInteractif}
@@ -250,7 +250,7 @@
           </div>
         {/if}
       </div>
-      <article class=" {$isMenuNeededForExercises ? 'text-2xl' : 'text-base'} relative">
+      <article class=" {$isMenuNeededForExercises ? 'text-2xl' : 'text-base'} relative" style="font-size: {($globalOptions.z || 1).toString()}rem">
         <div class="flex flex-col">
           {#if typeof exercice.consigne !== undefined && exercice.consigne.length !== 0}
             <div>
@@ -270,7 +270,7 @@
             <div
               class="{exercice.consigneCorrection.length !== 0
                 ? ''
-                : 'hidden'} bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus leading-relaxed mt-2  ml-2 lg:mx-5"
+                : 'hidden'} bg-coopmaths-warn-lightest dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus leading-relaxed mt-2 ml-2 lg:mx-5"
             >
               {@html exercice.consigneCorrection}
             </div>
