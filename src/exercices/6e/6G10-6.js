@@ -31,8 +31,7 @@ export default class constructionElementaire extends Exercice {
     ]
     this.besoinFormulaire2Numerique = [
       'Nombre de phrases à compléter',
-      10,
-      ' Choisir un nombre entier entre 2 et 10'
+      10
     ]
   }
 

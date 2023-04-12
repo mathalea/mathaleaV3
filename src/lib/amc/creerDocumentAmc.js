@@ -723,7 +723,7 @@ export function exportQcmAmc (exercice, idExo) {
                 }
                 if (rep.param.approx !== undefined && rep.param.approx !== 0) {
                   texQr += `approx=${rep.param.approx},`
-                  texQr += `scoreapprox=${rep.param.scoreapprox || 0.667},`
+                  // texQr += `scoreapprox=${rep.param.scoreapprox || 0.667},`
                 }
                 if (rep.param.vertical !== undefined && rep.param.vertical) {
                   texQr += `vertical=${rep.param.vertical},`

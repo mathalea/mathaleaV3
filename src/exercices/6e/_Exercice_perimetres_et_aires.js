@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, troncature, stringNombre, texTexte, combinaisonListesSansChangerOrdre, texNombre, calcul, texNombrec, creerNomDePolygone, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, rangeMinMax, contraindreValeur, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, troncature, stringNombre, texTexte, combinaisonListesSansChangerOrdre, texNombre, calcul, texNombrec, creerNomDePolygone, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, rangeMinMax, contraindreValeur, miseEnEvidence, arrondi } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -10,7 +10,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModificationImportante = '28/03/2023'
+export const dateDeModificationImportante = '11/04/2023'
 
 /**
  * Déterminer le périmètre et l'aire d'un carré, d'un rectangle, d'un triangle rectangle, d'un disque
@@ -32,6 +32,7 @@ export default function ExercicePerimetresEtAires () {
   this.sup2 = false // décimaux ou pas
   this.sup3 = false // avec figure
   this.sup4 = false // Avec une approximation de π
+  this.exo = 'NoDisk'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -57,16 +58,16 @@ export default function ExercicePerimetresEtAires () {
     ]
     let QuestionsDisponibles
     if (!this.sup) { // Si aucune liste n'est saisie
-      QuestionsDisponibles = rangeMinMax(1, 4)
+      QuestionsDisponibles = rangeMinMax(this.exo === 'NoDisk' ? 1 : 4, this.exo === 'NoDisk' ? 3 : 5)
     } else {
       if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        QuestionsDisponibles = [contraindreValeur(1, 5, this.sup, 2)]
+        QuestionsDisponibles = [contraindreValeur(this.exo === 'NoDisk' ? 1 : 4, this.exo === 'NoDisk' ? 3 : 5, this.sup, this.exo === 'NoDisk' ? 2 : 4)]
       } else {
         QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          QuestionsDisponibles[i] = contraindreValeur(1, 5, parseInt(QuestionsDisponibles[i]), 2) // parseInt en fait un tableau d'entiers
+          QuestionsDisponibles[i] = contraindreValeur(this.exo === 'NoDisk' ? 1 : 4, this.exo === 'NoDisk' ? 3 : 5, parseInt(QuestionsDisponibles[i]), this.exo === 'NoDisk' ? 2 : 4) // parseInt en fait un tableau d'entiers
         }
-        this.nbQuestions = Math.max(this.nbQuestions, QuestionsDisponibles.length)
+        // this.nbQuestions = Math.max(this.nbQuestions, QuestionsDisponibles.length)
       }
     }
     const typesDeQuestions = combinaisonListesSansChangerOrdre(QuestionsDisponibles, this.nbQuestions)
@@ -214,7 +215,7 @@ export default function ExercicePerimetresEtAires () {
               texte += `d'un triangle $${nomTriangle}$ rectangle en $${nomTriangle[1]}$ tel que $${nomTriangle[0] + nomTriangle[1] + ' = ' + texNombre(a)}$ cm, $${nomTriangle[1] + nomTriangle[2] + ' = ' + texNombre(b)}$ cm\
    et $${nomTriangle[0] + nomTriangle[2] + ' = ' + texNombre(c)}$ cm.` + '<br>'
             } else {
-              texte += `d'un triangle rectangle $${nomTriangle}$ a pour côtés : $${texNombre(a)}$ cm, $${texNombre(c)}$ cm et $${texNombre(b)}$ cm.` + '<br>'
+              texte += `d'un triangle rectangle $${nomTriangle}$ qui a pour côtés : $${texNombre(a)}$ cm, $${texNombre(c)}$ cm et $${texNombre(b)}$ cm.` + '<br>'
             }
           }
           texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
@@ -351,6 +352,7 @@ export default function ExercicePerimetresEtAires () {
         } else {
           this.autoCorrection[i] = {
             enonce: texte,
+            options: { multicols: true, barreseparation: true, numerotationEnonce: true },
             propositions: [
               {
                 type: 'AMCNum',
@@ -358,14 +360,15 @@ export default function ExercicePerimetresEtAires () {
                   texte: texteCorr,
                   statut: '',
                   reponse: {
-                    texte: 'Périmètre',
+                    texte: 'Périmètre en cm :',
                     valeur: resultat1[0],
+                    alignement: 'center',
                     param: {
                       digits: resultat1.length === 1 ? nombreDeChiffresDe(resultat1[0]) : Math.max(nombreDeChiffresDe(resultat1[0]), nombreDeChiffresDe(resultat1[1])),
                       decimals: resultat1.length === 1 ? nombreDeChiffresDansLaPartieDecimale(resultat1[0]) : Math.max(nombreDeChiffresDansLaPartieDecimale(resultat1[0]), nombreDeChiffresDansLaPartieDecimale(resultat1[1])),
                       signe: false,
                       approx: 0,
-                      aussicorrect: resultat1.length === 1 ? resultat1[0] : resultat1[1]
+                      aussiCorrect: resultat1.length === 1 ? resultat1[0] : resultat1[1]
                     }
                   }
                 }]
@@ -376,19 +379,21 @@ export default function ExercicePerimetresEtAires () {
                   texte: '',
                   statut: '',
                   reponse: {
-                    texte: 'Aire',
+                    texte: 'Aire en cm$^2$ :',
                     valeur: resultat2[0],
+                    alignement: 'center',
                     param: {
                       digits: resultat1.length === 1 ? nombreDeChiffresDe(resultat2[0]) : Math.max(nombreDeChiffresDe(resultat2[0]), nombreDeChiffresDe(resultat2[1])),
                       decimals: resultat1.length === 1 ? nombreDeChiffresDansLaPartieDecimale(resultat2[0]) : Math.max(nombreDeChiffresDansLaPartieDecimale(resultat2[0]), nombreDeChiffresDansLaPartieDecimale(resultat2[1])),
                       signe: false,
                       approx: 0,
-                      aussicorrect: resultat1.length === 1 ? resultat2[0] : resultat2[1]
+                      aussiCorrect: resultat1.length === 1 ? resultat2[0] : resultat2[1]
                     }
                   }
                 }]
               }]
           }
+          //          console.log(this.autoCorrection[i])
         }
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
