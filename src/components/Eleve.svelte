@@ -203,6 +203,11 @@
 
 <svelte:window bind:innerWidth={currentWindowWidth} />
 <section class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive ? 'dark' : ''}">
+  <div class="fixed z-20 bottom-2 lg:bottom-6 right-2 lg:right-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas rounded-b-full rounded-t-full bg-opacity-80">
+    <div class="flex flex-col space-y-2 scale-75 lg:scale-100">
+      <BtnZoom size="md" />
+    </div>
+  </div>
   <div class="mb-auto">
     <div class="h-[10%] w-full flex flex-col justify-center items-center">
       <!-- titre de la feuille -->
@@ -284,14 +289,6 @@
     <!-- Exercices -->
     <div class="px-8">
       {#if $globalOptions.presMode === "exos"}
-        <!-- <div class="absolute top-2 right-2">
-          <BtnZoom size="xs" />
-        </div> -->
-        <div class="fixed z-20 bottom-2 lg:bottom-6 right-2 lg:right-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas rounded-b-full rounded-t-full bg-opacity-80">
-          <div class="flex flex-col space-y-2 scale-75 lg:scale-100">
-            <BtnZoom size="md" />
-          </div>
-        </div>
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <div class="flex flex-col">
             <div class={$isMenuNeededForExercises ? "" : "hidden"}>
@@ -320,14 +317,6 @@
           </div>
         {/each}
       {:else if $globalOptions.presMode === "page"}
-        <!-- <div class="absolute top-2 right-2">
-          <BtnZoom size="xs" />
-        </div> -->
-        <div class="fixed z-20 bottom-2 lg:bottom-6 right-2 lg:right-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas rounded-b-full rounded-t-full bg-opacity-80">
-          <div class="flex flex-col space-y-2 scale-75 lg:scale-100">
-            <BtnZoom size="md" />
-          </div>
-        </div>
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={isCorrectionVisible[i]} />
         {/each}
@@ -342,7 +331,7 @@
                 <ButtonToggle titles={["Voir la correction", "Masquer la correction"]} classAddenda="ml-4" on:click={() => switchCorrectionVisible(k)} />
               {/if}
             </div>
-            <div class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10">
+            <div class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10" style="font-size: {($globalOptions.z || 1).toString()}rem">
               <div class="flex flex-col my-2 py-2">
                 <div class="text-coopmaths-corpus pl-2 pb-2">
                   {@html consignes[k]}
@@ -393,7 +382,7 @@
             </div>
             <div class={currentIndex === k ? "" : "hidden"} id={`exercice${indiceExercice[k]}Q${k}`}>
               <div class="pb-4 flex flex-col items-start justify-start relative">
-                <div class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10">
+                <div class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10" style="font-size: {($globalOptions.z || 1).toString()}rem">
                   <div class="flex flex-col my-2 py-2">
                     <div class="text-coopmaths-corpus pl-2">
                       {@html consignes[k]}
