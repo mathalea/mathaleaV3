@@ -288,7 +288,7 @@
           </div>
         {/if}
       </div>
-      <article class=" {$isMenuNeededForExercises ? 'text-2xl' : 'text-base'} relative">
+      <article class=" {$isMenuNeededForExercises ? 'text-2xl' : 'text-base'} relative" style="font-size: {($globalOptions.z || 1).toString()}rem">
         <div class="flex flex-col">
           {#if typeof exercice.consigne !== undefined && exercice.consigne.length !== 0}
             <div>

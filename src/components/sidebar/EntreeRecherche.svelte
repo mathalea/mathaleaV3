@@ -80,13 +80,21 @@
     <div class="ml-[3px] pl-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1">
       <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
         <span class="font-bold">{exercice.id} - </span>{exercice.titre}
+        {#if isRecent(exercice.datePublication)}
+          <span
+            class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
+          >
+            NEW
+          </span>
+        {/if}
+        {#if isRecent(exercice.dateModification)}
+          <span
+            class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
+          >
+            MAJ
+          </span>
+        {/if}
       </div>
-      {#if isRecent(exercice.dateDePublication)}
-        <span class="badge badge-secondary dark:badge-info badge-xs text-[8px] font-bold ">NEW</span>
-      {/if}
-      {#if isRecent(exercice.dateDeModifImportante)}
-        <span class="badge badge-secondary dark:badge-info badge-xs text-[8px] font-bold">MAJ</span>
-      {/if}
     </div>
   </div>
   <!-- {#if selectedCount >= 1} -->
