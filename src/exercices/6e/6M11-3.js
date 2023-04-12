@@ -73,7 +73,6 @@ export default function AireCarresRectanglesTriangles () {
     J.positionLabel = 'right'
     const cI = cercle(I, b)
     const cJ = cercle(J, d)
-    debugger
     const K = pointIntersectionCC(cI, cJ, nom[10], 1)
     K.positionLabel = 'above'
     const triangle = polygoneAvecNom(I, J, K)
