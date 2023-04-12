@@ -37,25 +37,16 @@ Certaines questions de calcul d'image n√©cessite le calcul du coefficient au pr√
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    const typesDeQuestions = context.isAmc
-      ? [
-        'imageParExpression',
-        'imageParValeurs',
-        'imageParGraphique',
-        'antecedentParExpression',
-        'antecedentParValeurs',
-        'antecedentParGraphique'
-      ]
-      : [
-        'imageParExpression',
-        'imageParValeurs',
-        'imageParGraphique',
-        'antecedentParExpression',
-        'antecedentParValeurs',
-        'antecedentParGraphique',
-        'expressionParValeur',
-        'expressionParGraphique'
-      ]
+    const typesDeQuestions = [
+      'imageParExpression',
+      'imageParValeurs',
+      'imageParGraphique',
+      'antecedentParExpression',
+      'antecedentParValeurs',
+      'antecedentParGraphique',
+      'expressionParValeur',
+      'expressionParGraphique'
+    ]
     
     const listeTypesDeQuestions = combinaisonListes(typesDeQuestions, this.nbQuestions)
     const antecedents = []
@@ -239,7 +230,11 @@ Certaines questions de calcul d'image n√©cessite le calcul du coefficient au pr√
           break
         case 'expressionParValeur':
           texte += `Soit $f(x)$ une fonction lin√©aire telle que $f(${antecedent0})=${texNombre(image0, 0)}$.<br>`
-          texte += `Donner l'expression de  $f(x)$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          if (context.isAmc) {
+            texte += `Donner le coefficient de  $f$.`
+          } else {
+            texte += `Donner l'expression de  $f(x)$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          }
           texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ est :<br>`
           texteCorr += `$a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {
@@ -247,7 +242,11 @@ Certaines questions de calcul d'image n√©cessite le calcul du coefficient au pr√
             texteCorr += `=${simplification}`
           }
           texteCorr += `$<br>Donc $f(x)=${coefficientString}x$`
-          setReponse(this, i, [`f(x)=${coefficientString}x`, `${coefficientString}x`], {formatInteractif: 'calcul'})
+          if (context.isAmc) {
+            setReponse(this, i, coefficient, {formatInteractif: 'calcul'})
+          } else {
+            setReponse(this, i, [`f(x)=${coefficientString}x`, `${coefficientString}x`], {formatInteractif: 'calcul'})
+          }
           break
         case 'expressionParGraphique':
           texte += mathalea2d({
@@ -257,7 +256,11 @@ Certaines questions de calcul d'image n√©cessite le calcul du coefficient au pr√
             ymax
           }, r, d, t, coordonnees, pointilles)
           texte += `La droite repr√©sentant la fonction lin√©aire $f$ passe par le point de coordonn√©es (${antecedent0};${image0}).<br>`
-          texte += `Donner l'expression de  $f(x)$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          if (context.isAmc) {
+            texte += `Donner le coefficient de  $f$.`
+          } else {
+            texte += `Donner l'expression de  $f(x)$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          }
           texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ est :<br>`
           texteCorr += `$a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {
@@ -265,7 +268,11 @@ Certaines questions de calcul d'image n√©cessite le calcul du coefficient au pr√
             texteCorr += `=${simplification}`
           }
           texteCorr += `$<br>Donc $f(x)=${coefficientString}x$`
-          setReponse(this, i, [`f(x)=${coefficientString}x`, `${coefficientString}x`], {formatInteractif: 'calcul'})
+          if (context.isAmc) {
+            setReponse(this, i, coefficient, {formatInteractif: 'calcul'})
+          } else {
+            setReponse(this, i, [`f(x)=${coefficientString}x`, `${coefficientString}x`], {formatInteractif: 'calcul'})
+          }
           break
       }
       if (this.questionJamaisPosee(i, coefficient, antecedent, image)) {
