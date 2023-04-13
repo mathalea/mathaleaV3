@@ -36,7 +36,9 @@
     for (const param of $exercicesParams) {
       let paramUrl = ''
       for (const key of Object.keys(param)) {
-        paramUrl += `${key}\\=${param[key]}&`
+        if(key !== 'alea') {
+          paramUrl += `${key}\\=${param[key]}&`
+        }
       }
       paramUrl = paramUrl.slice(0, -1)
       content += `:: ${param.id} - ${exercices[i].titre} - ${exercices[i].nbQuestions} ${exercices[i].nbQuestions > 1 ? 'questions' : 'question'} ::\n`
