@@ -12,7 +12,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
-export const dateDeModifImportante = '08/05/2022'
+export const dateDeModifImportante = '12/04/2023'
 
 /**
  * Calculer l'aire de 3 triangles dont une hauteur est tracée.
@@ -32,13 +32,13 @@ export default function AireDeTriangles () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.titre = titre
-  this.consigne = "Calculer l'aire des triangles suivants"
   this.spacing = 2
   // eslint-disable-next-line no-undef
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.nbQuestions = 3
   this.nbCols = 1
   this.nbColsCorr = 1
+  this.sup = 3
 
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
@@ -47,7 +47,6 @@ export default function AireDeTriangles () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.listeQuestions = []
     this.autoCorrection = []
-    if (this.nbQuestions === 1) this.consigne = "Calculer l'aire du triangle suivant"
     const tableauDesCotes = shuffle([5, 6, 7, 8, 9]) // pour s'assurer que les 3 côtés sont différents
     const tableauDesHauteurs = shuffle([3, 4, 5, 6]) // pour s'assurer que les 3 hauteurs sont différents
     const cotes = combinaisonListesSansChangerOrdre(tableauDesCotes, this.nbQuestions)
@@ -58,7 +57,7 @@ export default function AireDeTriangles () {
     const NB_LETTRES = 20
     const nom = creerNomDePolygone(NB_LETTRES, 'QD')
 
-    const typeQuestionsDisponibles = ['intérieur', 'extérieur']
+    const typeQuestionsDisponibles = this.sup === 3 ? ['intérieur', 'extérieur'] : this.sup === 1 ? ['intérieur'] : ['extérieur']
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -86,13 +85,33 @@ export default function AireDeTriangles () {
       ymax = Math.max(A.y, B.y, C.y, H.y) + 1.5
       objetsEnonce.push(polynom[0], polynom[1], hauteurpoly, afficheCoteSegment(segment(B, A), '', 1), afficheLongueurSegment(A, C, 'black', 0.5), afficheLongueurSegment(C, B, 'black', 0.5), afficheLongueurSegment(C, H, 'black', 0.3), codageAngleDroit(A, H, C))
       objetsCorrection.push(polynom[0], polynom[1], hauteurpoly, afficheCoteSegment(segment(B, A), '', 1), afficheLongueurSegment(C, H, 'black', 0.3), codageAngleDroit(A, H, C))
-      texte = mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, pixelsParCm: 20, scale: 0.5, mainlevee: false }, objetsEnonce) + '<br>'
-      if (this.correctionDetaillee) { texteCorr = mathalea2d({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, pixelsParCm: 20, scale: 0.5, mainlevee: false }, objetsCorrection) + '<br>' } else texteCorr = ''
+      texte = `Calculer l'aire du triangle ${A.nom}${B.nom}${C.nom}.<br>`
+      texte += mathalea2d({ xmin, xmax, ymin, ymax, pixelsParCm: 20, scale: 0.5, mainlevee: false }, objetsEnonce) + '<br>'
+      if (this.correctionDetaillee) { texteCorr = mathalea2d({ xmin, xmax, ymin, ymax, pixelsParCm: 20, scale: 0.5, mainlevee: false }, objetsCorrection) + '<br>' } else texteCorr = ''
       texteCorr += `$\\mathcal{A}_{${A.nom}${B.nom}${C.nom}}=\\dfrac{1}{2}\\times ${A.nom}${B.nom}\\times ${H.nom}${C.nom}=\\dfrac{1}{2}\\times${cotes[i]}~\\text{cm}\\times ${hauteurs[i]}~\\text{cm}=${texNombre(
       calcul((cotes[i] * hauteurs[i]) / 2)
     )}~\\text{cm}^2$`
       setReponse(this, i, new Grandeur(arrondi(cotes[i] * hauteurs[i] / 2, 3), 'cm^2'), { formatInteractif: 'unites' })
-      texte += ajouteChampTexteMathLive(this, i, 'unites[aires]')
+      texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore unites[aires]', { texte: `Aire du triangle ${A.nom}${B.nom}${C.nom} :` })
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: texte + `<br>Aire de ${A.nom}${B.nom}${C.nom} en cm$^2$ :`, // Si vide, l'énoncé est celui de l'exercice.
+          propositions: [
+            {
+              texte: texteCorr
+            }
+          ],
+          reponse: {
+            valeur: [arrondi(cotes[i] * hauteurs[i] / 2)], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
+            param: {
+              signe: false,
+              decimals: 1,
+              approx: 0
+            }
+          }
+        }
+      }
+
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Supprime b, c et d dans la ligne ci-dessus et remplace les par NombreAAjouter !
@@ -104,4 +123,5 @@ export default function AireDeTriangles () {
     }
     listeQuestionsToContenu(this)
   }
+  this.besoinFormulaireNumerique = ['Type de triangles', 4, '1 : Que des triangles sans angle obtus\n2 : Que des triangles avec un angle obtus\n3 : Mélange']
 }

@@ -2,7 +2,7 @@ import { codageAngleDroit, codageSegments, pointAdistance, polygoneAvecNom, poin
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, texNombre, creerNomDePolygone, calcul, rangeMinMax, contraindreValeur, combinaisonListesSansChangerOrdre, enleveDoublonNum, compteOccurences, numAlpha, nombreDeChiffresDe, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, creerNomDePolygone, calcul, rangeMinMax, contraindreValeur, enleveDoublonNum, compteOccurences, numAlpha, nombreDeChiffresDe, sp } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -36,7 +36,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = true
   this.sup = 4
-  this.sup = 3
+  this.sup2 = 3
   this.sup3 = true
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
@@ -53,13 +53,12 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
         for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
           QuestionsDisponibles[i] = contraindreValeur(1, 4, parseInt(QuestionsDisponibles[i]), 4) // parseInt en fait un tableau d'entiers
         }
-        this.nbQuestions = Math.max(this.nbQuestions, QuestionsDisponibles.length)
+        // this.nbQuestions = Math.max(this.nbQuestions, QuestionsDisponibles.length)
       }
     }
     enleveDoublonNum(QuestionsDisponibles)
     if (compteOccurences(QuestionsDisponibles, 4)) QuestionsDisponibles = rangeMinMax(1, 3)
-    const typesDeQuestions = combinaisonListesSansChangerOrdre(QuestionsDisponibles, this.nbQuestions)
-    const incrementation = typesDeQuestions.length * (this.sup2 === 3 ? 2 : 1)
+    const incrementation = QuestionsDisponibles.length * (this.sup2 === 3 ? 2 : 1)
     for (let i = 0, texte, texteAMC, texteCorr, nbPuces, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const nom = creerNomDePolygone(11, 'QD')
       const c = randint(2, 6)
@@ -83,14 +82,13 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
       const J = pointAdistance(I, a, randint(-25, 25), nom[9])
       const K = similitude(I, J, -90, b / a, nom[10])
       const triangle = polygoneAvecNom(I, J, K)
-      const objetsEnonce = [carre, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codageSegments('//', 'blue', [A, B, C, D]), afficheLongueurSegment(B, A),
-        rectangle, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), afficheLongueurSegment(F, E), afficheLongueurSegment(G, F),
-        triangle, codageAngleDroit(I, J, K), afficheLongueurSegment(J, I), afficheLongueurSegment(K, J), afficheLongueurSegment(I, K)]
+      const objetsEnonce = [...carre, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codageSegments('//', 'blue', [A, B, C, D]), afficheLongueurSegment(B, A),
+        ...rectangle, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), afficheLongueurSegment(F, E), afficheLongueurSegment(G, F),
+        ...triangle, codageAngleDroit(I, J, K), afficheLongueurSegment(J, I), afficheLongueurSegment(K, J), afficheLongueurSegment(I, K)]
       texte = this.sup3
-        ? mathalea2d({ xmin: -3, xmax: 22, ymin: -3, ymax: 8, pixelsParCm: 20, scale: 0.75, mainlevee: false }, objetsEnonce)
+        ? mathalea2d({ xmin: -3, xmax: 22, ymin: -3, ymax: 8, pixelsParCm: 20, scale: 0.75, mainlevee: false }, objetsEnonce) + '<br>'
       //  ? mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { pixelsParCm: 20, scale: 0.75, mainlevee: false }), objetsEnonce)
         : ''
-
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
@@ -101,8 +99,8 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
 
       texteCorr = ''
       nbPuces = 0
-      for (let ee = 0; ee < typesDeQuestions.length; ee++) {
-        switch (typesDeQuestions[ee]) {
+      for (let ee = 0; ee < QuestionsDisponibles.length; ee++) {
+        switch (QuestionsDisponibles[ee]) {
           case 1 : // Carré
             if (this.sup2 !== 2) {
               texteAMC = numAlpha(nbPuces) + 'Calculer le périmètre, en cm, '
@@ -167,7 +165,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           case 2 : // Rectangle
             if (this.sup2 !== 2) {
               texteAMC = numAlpha(nbPuces) + 'Calculer le périmètre, en cm, '
-              texteAMC += this.sup3 ? 'du rectangle ci-dessus.' : `d'un rectangle de longueur${sp()}$${texNombre(L)}$${sp()}cm et de largeur${sp()}$${texNombre(l)}$${sp()}cm.`
+              texteAMC += this.sup3 ? 'du rectangle ci-dessus.' : `d'un rectangle de longueur${sp()}$${texNombre(L > l ? L : l)}$${sp()}cm et de largeur${sp()}$${texNombre(L > l ? l : L)}$${sp()}cm.`
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, 'inline unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}${sp()}\\text{cm}+${l}${sp()}\\text{cm}+${L}${sp()}\\text{cm}+${l}${sp()}\\text{cm}=${2 * L + 2 * l
@@ -197,7 +195,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
             }
             if (this.sup2 !== 1) {
               texteAMC = numAlpha(nbPuces) + 'Calculer l\'aire, en cm$^2$, '
-              texteAMC += this.sup3 ? 'du rectangle ci-dessus.' : `d'un rectangle de longueur${sp()}$${texNombre(L)}$${sp()}cm et de largeur${sp()}$${texNombre(l)}$${sp()}cm.`
+              texteAMC += this.sup3 ? 'du rectangle ci-dessus.' : `d'un rectangle de longueur${sp()}$${texNombre(L > l ? L : l)}$${sp()}cm et de largeur${sp()}$${texNombre(L > l ? l : L)}$${sp()}cm.`
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, 'inline unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}${sp()}\\text{cm}\\times${l}${sp()}\\text{cm}=${L * l
@@ -229,7 +227,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           case 3 : // Triangle rectangle
             if (this.sup2 !== 2) {
               texteAMC = numAlpha(nbPuces) + 'Calculer le périmètre, en cm, '
-              texteAMC += this.sup3 ? 'du triangle rectangle ci-dessus.' : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2.toFixed(1))}$${sp()}cm et les autres côtés mesurent respectivement $${texNombre(a)}$${sp()}cm et $${texNombre(b)}$${sp()}cm.`
+              texteAMC += this.sup3 ? 'du triangle rectangle ci-dessus.' : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2.toFixed(1))}$${sp()}cm et les côtés de l'angle droit mesurent respectivement $${texNombre(a)}$${sp()}cm et $${texNombre(b)}$${sp()}cm.`
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, 'inline unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}${sp()}\\text{cm}+${b}${sp()}\\text{cm}+${texNombre(c2.toFixed(1))}${sp()}\\text{cm}=${texNombre(pIJK)}${sp()}\\text{cm}$<br>`
@@ -258,7 +256,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
             }
             if (this.sup2 !== 1) {
               texteAMC = numAlpha(nbPuces) + 'Calculer l\'aire, en cm$^2$, '
-              texteAMC += this.sup3 ? 'du triangle rectangle ci-dessus.' : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2.toFixed(1))}$${sp()}cm et les autres côtés mesurent respectivement $${texNombre(a)}$${sp()}cm et $${texNombre(b)}$${sp()}cm.`
+              texteAMC += this.sup3 ? 'du triangle rectangle ci-dessus.' : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2.toFixed(1))}$${sp()}cm et les côtés de l'angle droit mesurent respectivement $${texNombre(a)}$${sp()}cm et $${texNombre(b)}$${sp()}cm.`
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, 'inline unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}${sp()}\\text{cm}\\times${b}${sp()}\\text{cm}\\div2=${texNombre(calcul((a * b) / 2))}${sp()}\\text{cm}^2$<br>`

@@ -1,9 +1,9 @@
-import {codageAngle, labelPoint, rotation, segment, texteParPosition, tracePoint} from '../../modules/2d.js'
-import {rotationAnimee} from '../../modules/2dAnimation.js'
-import {colorToLatexOrHTML, mathalea2d} from '../../modules/2dGeneralites.js'
-import {context} from '../../modules/context.js'
-import {setReponse} from '../../modules/gestionInteractif.js'
-import {ajouteChampTexteMathLive} from '../../modules/interactif/questionMathLive.js'
+import { codageAngle, labelPoint, rotation, segment, texteParPosition, tracePoint } from '../../modules/2d.js'
+import { rotationAnimee } from '../../modules/2dAnimation.js'
+import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
+import { context } from '../../modules/context.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import {
   arcenciel,
   choice,
@@ -15,7 +15,7 @@ import {
   shuffle,
   texcolors
 } from '../../modules/outils.js'
-import {pavage} from '../../modules/Pavage.js'
+import { pavage } from '../../modules/Pavage.js'
 import Exercice from '../Exercice.js'
 
 export const titre = 'Trouver l\'image d\'une figure par une rotation dans un pavage'
@@ -33,7 +33,7 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = '442e0'
 export const ref = '3G12'
-export default function PavageEtRotation2D() {
+export default function PavageEtRotation2D () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -61,7 +61,7 @@ export default function PavageEtRotation2D() {
         for (let j = k + 1; j < tableau.length; j++) {
           // eslint-disable-next-line no-empty
           if (tableau[k][1] === tableau[j][0]) {
-          
+
           }
         }
       }
@@ -69,20 +69,20 @@ export default function PavageEtRotation2D() {
     }
     const compare2polys = function (poly1, poly2) {
       if (comparenbsommets(poly1, poly2)) {
-        return comparesommets(poly1, poly2);
+        return comparesommets(poly1, poly2)
       } else {
         return false
       }
     }
     const comparenbsommets = function (poly1, poly2) {
-      return poly1.listePoints.length === poly2.listePoints.length;
+      return poly1.listePoints.length === poly2.listePoints.length
     }
-    
+
     const compare2sommets = function (sommet1, sommet2) {
-      return egal(sommet1.x, sommet2.x, 0.1) && egal(sommet1.y, sommet2.y, 0.1);
+      return egal(sommet1.x, sommet2.x, 0.1) && egal(sommet1.y, sommet2.y, 0.1)
     }
     const comparesommets = function (poly1, poly2) {
-      let trouve = false;
+      let trouve = false
       let trouves = 0
       if (comparenbsommets(poly1, poly2)) {
         for (const P of poly1.listePoints) {
@@ -105,9 +105,9 @@ export default function PavageEtRotation2D() {
           }
         }
       }
-      return trouves === poly1.listePoints.length;
+      return trouves === poly1.listePoints.length
     }
-    
+
     const rotaccion = function (pavage, A, angle, numero) {
       const poly = pavage.polygones[numero - 1]
       let pol
@@ -121,8 +121,8 @@ export default function PavageEtRotation2D() {
       }
       return result
     }
-    
-    const objets = [];
+
+    const objets = []
     const objetsCorrection = []
     let taillePavage = parseInt(this.sup)
     if (taillePavage < 1 || taillePavage > 2) {
@@ -134,24 +134,24 @@ export default function PavageEtRotation2D() {
     this.listeCorrections = []
     this.listeQuestions = []
     this.autoCorrection = []
-    let Nx;
-    let Ny;
-    let index1;
-    let A;
-    let image;
-    let couples = [];
-    let tailles = [];
-    let monpavage;
+    let Nx
+    let Ny
+    let index1
+    let A
+    let image
+    let couples = []
+    let tailles = []
+    let monpavage
     let fenetre
-    let texte = '';
-    let texteCorr = '';
+    let texte = ''
+    let texteCorr = ''
     let typeDePavage = parseInt(this.sup)
-    let nombreTentatives;
+    let nombreTentatives
     let nombrePavageTestes = 1
     const propositionsAMC = []
     let texteAMC
     let sensdirect, M, N, trace, label, P1, P2, P3, t
-    const alphas = [[60, 120, 180], [90, 180], [60, 120, 180], [60, 120, 90], [45, 90, 135, 180], [60, 120, 180], [60, 120, 180]];
+    const alphas = [[60, 120, 180], [90, 180], [60, 120, 180], [60, 120, 90], [45, 90, 135, 180], [60, 120, 180], [60, 120, 180]]
     let alpha
     if (this.sup3 === 8) {
       typeDePavage = randint(1, 7)
@@ -162,7 +162,7 @@ export default function PavageEtRotation2D() {
       nombreTentatives = 0
       monpavage = pavage() // On crée l'objet Pavage qui va s'appeler monpavage
       tailles = [[[3, 2], [3, 2], [2, 2], [2, 2], [2, 2], [2, 2], [3, 2]], [[4, 3], [4, 3], [3, 3], [3, 3], [3, 3], [3, 2], [5, 3]]]
-      
+
       Nx = tailles[taillePavage - 1][typeDePavage - 1][0]
       Ny = tailles[taillePavage - 1][typeDePavage - 1][1]
       monpavage.construit(typeDePavage, Nx, Ny, 3) // On initialise toutes les propriétés de l'objet.
@@ -170,7 +170,7 @@ export default function PavageEtRotation2D() {
       // fenetreMathalea2d = [fenetre.xmin, fenetre.ymin, fenetre.xmax, fenetre.ymax];
       while (couples.length < this.nbQuestions + 2 && nombreTentatives < 3) { // On cherche d pour avoir suffisamment de couples
         couples = [] // On vide la liste des couples pour une nouvelle recherche
-        
+
         index1 = randint(Math.floor(monpavage.nb_polygones / 3), Math.ceil(monpavage.nb_polygones * 2 / 3)) // On choisit 1 point dans un des polygones
         if (choice([true, false])) {
           A = monpavage.polygones[index1].listePoints[randint(0, monpavage.polygones[index1].listePoints.length - 1)] // On choisit un sommet
@@ -214,7 +214,7 @@ export default function PavageEtRotation2D() {
       console.log('Trop de questions, augmentez la taille du pavage !')
       return
     }
-    
+
     objets.push(trace) // le centre est OK on pousse sa trace
     objets.push(label) // et son label
     couples = shuffle(couples) // on mélange les couples
@@ -250,7 +250,7 @@ export default function PavageEtRotation2D() {
       texteAMC = `Quelle est l'image de la figure $${couples[i][0]}$ ?` + ajouteChampTexteMathLive(this, i, 'largeur25 inline') + '<br>'
       texte += texteAMC
       texteCorr += `L'image de la figure $${couples[i][0]}$ est la figure $${miseEnEvidence(couples[i][1])}$.<br>`
-      
+
       if (context.isAmc) {
         propositionsAMC.push({
           type: 'AMCNum',
@@ -268,7 +268,7 @@ export default function PavageEtRotation2D() {
               }
             }
           ]
-          
+
         })
       } else {
         setReponse(this, i, couples[i][1])
@@ -298,12 +298,12 @@ export default function PavageEtRotation2D() {
     }
     if (context.isAmc) {
       this.autoCorrection[0] = {
-        options: {multicols: true},
+        options: { multicols: true },
         enonce: consigneAMC,
         propositions: propositionsAMC
       }
     }
-    
+
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
