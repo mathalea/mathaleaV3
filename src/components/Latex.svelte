@@ -9,6 +9,13 @@
   import FormRadio from "./forms/FormRadio.svelte"
   import { onMount } from "svelte"
   import { deviceType } from "./utils/measures"
+  import ModalMessageBeforeAction from "./modal/ModalMessageBeforeAction.svelte"
+  import ModalActionWithDialog from "./modal/ModalActionWithDialog.svelte"
+  import { showDialogForLimitedTime } from "./utils/dialogs.js"
+  import { downloadFileFromURL } from "./utils/urls"
+  import JSZip from "jszip"
+  import JSZipUtils from "jszip-utils"
+  import { saveAs } from "file-saver"
 
   let nbVersions = 1
   let title = ""
@@ -20,6 +27,11 @@
   let exercices: TypeExercice[]
   let contents = { content: "", contentCorr: "" }
   let isExerciceStaticInTheList = false
+  let downloadPicsModal: HTMLElement
+  let picsWanted: boolean
+  let messageForCopyPasteModal: string
+  let picsNames: string[][] = []
+  let exosContentList: string[] = []
 
   const latex = new Latex()
   async function initExercices() {
@@ -33,11 +45,105 @@
     }
     latex.addExercices(exercices)
     contents = latex.getContents(style, nbVersions)
+    picsWanted = doesLatexNeedsPics()
+    messageForCopyPasteModal = buildMessageForCopyPaste()
   }
 
   onMount(() => {
     MathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    downloadPicsModal = document.getElementById("downloadPicsModal")
   })
+
+  /* ============================================================================
+  *
+  *                Modal pour le téléchargement des figures
+  * 
+  ===============================================================================*/
+  // click en dehors du moda de téléchargement des figures le fait disparaître
+  window.onclick = function (event) {
+    if (event.target == downloadPicsModal) {
+      downloadPicsModal.style.display = "none"
+    }
+  }
+  /**
+   * Gérer le téléchargement lors du clic sur le bouton du modal
+   */
+  function handleActionFromDownloadPicsModal() {
+    // construire la liste des URLs avec les noms de fichiers correspondants
+    const imagesFilesUrls = []
+    exosContentList.forEach((exo, i) => {
+      const year = exo.groups.year
+      const month = exo.groups.month
+      const area = exo.groups.zone.replace(/ /g, "_")
+      for (const fileName of picsNames[i]) {
+        imagesFilesUrls.push({ url: `static/dnb/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
+      }
+    })
+    // construire l'archive
+    let zip = new JSZip()
+    const zipFileName = "images.zip"
+    let count = 0
+    imagesFilesUrls.forEach((image) => {
+      JSZipUtils.getBinaryContent(image.url, (err, data) => {
+        if (err) {
+          throw err
+        }
+        zip.file(image.fileName, data, { binary: true })
+        count++
+        if (count === imagesFilesUrls.length) {
+          zip.generateAsync({ type: "blob" }).then((content) => {
+            saveAs(content, zipFileName)
+          })
+        }
+      })
+    })
+    downloadPicsModal.style.display = "none"
+  }
+
+  /**
+   * Gérer l'affichage du modal : on donne la liste des images par exercice
+   */
+  function handleDownloadPicsModalDisplay() {
+    let picsList: string[][] = []
+    picsNames = []
+    exosContentList = []
+    const regExpExo = /(?:\\begin\{EXO\}\{(?<title>DNB(?:\s*)(?<month>.*?)(?:\s*)(?<year>\d{4})(?:\s*)(?<zone>.*?)(?:\s*))\})((.|\n)*?)(?:\\end\{EXO\})/g
+    const regExp = /\\includegraphics(?:\[.*?\])?\{(.*?)\}/g
+    const latexCode = contents.content
+    exosContentList = [...latexCode.matchAll(regExpExo)]
+    for (const exo of exosContentList) {
+      const pics = [...exo[0].matchAll(regExp)]
+      picsList.push(pics)
+    }
+    picsList.forEach((list, index) => {
+      picsNames.push([])
+      for (const item of list) {
+        picsNames[index] = [...picsNames[index], item[1].replace(/\.(?:jpg|gif|png|eps|pdf)$/g, "")]
+      }
+    })
+    downloadPicsModal.style.display = "block"
+  }
+
+  /**
+   * Détecter si le code LaTeX contient des images
+   */
+  function doesLatexNeedsPics() {
+    const includegraphicsMatches = contents.content.match("includegraphics")
+    return includegraphicsMatches !== null
+  }
+
+  /**
+   * Construction d'un message contextualisé indiquant le besoin de télécharger les images si besoin
+   */
+  function buildMessageForCopyPaste() {
+    if (picsWanted) {
+      return `<p>Le code LaTeX a été copié dans le presse-papier.</p>
+        <p class="font-bold text-coopmaths-warn-darkest">Ne pas oublier de télécharger les figures !</p>`
+    } else {
+      return "Le code LaTeX a été copié dans le presse-papier."
+    }
+  }
+  //====================== Fin Modal figures ====================================
 
   initExercices()
 
@@ -53,6 +159,23 @@
       console.error("Accès au presse-papier impossible: ", err)
     }
   }
+  /**
+   * Copier le code LaTeX dans le presse-papier
+   * @param {string} dialogId id attaché au composant
+   * @author sylvain
+   */
+  async function copyLaTeXCodeToClipBoard(dialogId: string) {
+    const text = document.querySelector("pre").innerText
+    navigator.clipboard.writeText(text).then(
+      () => {
+        showDialogForLimitedTime(dialogId + "-1", 2000)
+      },
+      (err) => {
+        console.error("Async: Could not copy text: ", err)
+        showDialogForLimitedTime(dialogId + "-2", 1000)
+      }
+    )
+  }
 
   const copyDocument = async () => {
     try {
@@ -61,7 +184,7 @@
       dialogLua.showModal()
       setTimeout(() => {
         dialogLua.close()
-      }, 2000)
+      }, 3000)
     } catch (err) {
       console.error("Accès au presse-papier impossible: ", err)
     }
@@ -79,7 +202,7 @@
   <section class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <h1 class="mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Paramétrage</h1>
     <div class="w-full flex flex-col space-x-5">
-      <div class="flex flex-col mb-2 md:mb-8  md:flex-row justify-start items-start">
+      <div class="flex flex-col mb-2 md:mb-8 md:flex-row justify-start items-start">
         <h2 class="text-xl ml-4 md:text-2xl font-bold md:mr-10 mb-2 md:mb-0 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Mise en page</h2>
         <div class="pb-4 md:pb-0 md:pt-1">
           <FormRadio
@@ -95,7 +218,7 @@
         </div>
       </div>
 
-      <div class="flex flex-col lg:flex-row space-x-0 lg:space-x-4 space-y-3 lg:space-y-0 ">
+      <div class="flex flex-col lg:flex-row space-x-0 lg:space-x-4 space-y-3 lg:space-y-0">
         <h2 class="ml-0 text-xl md:text-2xl font-bold md:mr-10 mb-2 lg:mb-0 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Éléments de titres</h2>
         <input
           type="text"
@@ -103,15 +226,15 @@
           placeholder={style === "Can" ? "Course aux nombres" : "Titre"}
           bind:value={title}
           disabled={style === "Can"}
-          />
-          <input
+        />
+        <input
           type="text"
           class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
           placeholder={style === "Coopmaths" ? "Référence" : "Haut de page gauche"}
           bind:value={reference}
           disabled={style === "Can"}
-          />
-          <input
+        />
+        <input
           type="text"
           class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
           placeholder={style === "Coopmaths" ? "Sous-titre / Chapitre" : "Pied de page droit"}
@@ -148,13 +271,46 @@
       </button>
       <div class="hidden md:block w-10" />
       <div class="block md:hidden h-6" />
-      <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} />
+      <!-- <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} /> -->
+      <ModalActionWithDialog
+        on:display={() => {
+          copyLaTeXCodeToClipBoard("copyPasteModal")
+        }}
+        message={messageForCopyPasteModal}
+        messageError="Impossible de copier le code LaTeX dans le presse-papier"
+        tooltipMessage="Code LaTeX dans presse-papier"
+        dialogId="copyPasteModal"
+        title="Copier le code LaTeX des exercices"
+      />
       <Button title="Copier le code LaTeX complet (avec préambule)" on:click={copyDocument} />
+      <Button idLabel="downloadPicsButton" on:click={handleDownloadPicsModalDisplay} title="Télécharger les figures" isDisabled={!picsWanted} />
+      <ModalMessageBeforeAction
+        modalId="downloadPicsModal"
+        modalButtonId="downloadPicsModalButton"
+        modalButtonTitle="Télécharger les figures"
+        icon="bxs-file-png"
+        on:action={handleActionFromDownloadPicsModal}
+      >
+        <span slot="header">Figures</span>
+        <div slot="content" class="flex flex-col justify-start items-start">
+          Voici ce dont vous aurez besoin :
+          {#each exosContentList as exo, i (exo)}
+            <ul class="flex flex-col justify-start items-start list-disc pl-6">
+              <li>Exercice {i + 1} (<span class="text-italic">{exo.groups.title}</span>) :</li>
+              <ul class="flex flex-col justify-start items-start list-none pl-4">
+                {#each picsNames[i] as name}
+                  <li class="font-mono text-sm">{name}</li>
+                {/each}
+              </ul>
+            </ul>
+          {/each}
+        </div>
+      </ModalMessageBeforeAction>
     </form>
 
-    <dialog bind:this={dialogLua} class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg">
-      <p>Le contenu a été copié dans le presse-papier.</p>
-      <p>Il faudra utiliser <em class="text-coopmaths font-bold">LuaLaTeX</em> pour compiler le document</p>
+    <dialog bind:this={dialogLua} class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light font-light shadow-lg">
+      {@html messageForCopyPasteModal}
+      <p class="mt-4">Il faudra utiliser <em class="text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest font-bold">LuaLaTeX</em> pour compiler le document</p>
     </dialog>
 
     <h1 class="mt-12 md:mt-8 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Code</h1>
