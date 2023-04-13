@@ -7,12 +7,15 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 import {
   choice,
   combinaisonListes,
+  combinaisonListesSansChangerOrdre,
   contraindreValeur,
   ecritureParentheseSiNegatif,
+  enleveDoublonNum,
   listeQuestionsToContenu,
   pgcd,
   premierAvec,
   randint,
+  rangeMinMax,
   texNombre
 } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
@@ -22,23 +25,34 @@ export const interactifType = 'mathLive'
 export const interactifReady = true
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const dateDePublication = '13/04/2023'
 export const ref = '3F20'
 export const uuid = 'aeb5a'
-
-export default function FonctionLineaires () {
+/**
+ * Questions sur les fonctions linéaires
+ * @author Jean-Claude Lhote
+ * @constructor
+ */
+export default function FonctionsLineaires () {
   Exercice.call(this)
   this.comment = `L'exercice propose différents type de questions sur les fonctions linéaires :<br>
 calcul d'image, calcul d'antécédent ou détermination du coefficient.<br>
 Ce coefficient peut être au choix entier relatif ou rationnel relatif.<br>
-Certaines questions de calcul d'image nécessitent le calcul du coefficient au prélable.`
+Certaines questions de calcul d'image nécessite le calcul du coefficient au prélable.<br>
+J'ai fait le choix d'un antécédent primaire entier positif, le coefficient étant négatif avec une probabilité de 50%.<br>
+On peut choisir le type de questions.`
   this.sup = 1 // coefficient entier relatif
-  this.nbQuestions = 5
+  this.nbQuestions = 8
+  this.sup2 = 9
+  
   this.besoinFormulaireNumerique = ['Coefficient : ', 3, '1: Coefficient entier\n2: Coefficient rationnel\n3: Mélange']
+  this.besoinFormulaire2Texte = ['Types de questions', `Nombres séparés par des tirets :\n1: Image par expression\n2: Image par valeurs\n3: Image par graphique\n4: Antécédent par expression\n5: Antécédent par valeurs\n6: Antécédent par graphique\n7: Expression par valeurs\n8: Expression par graphique\n9: Mélange`]
+  
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    const typesDeQuestions = [
+    const typesDeQuestionsDisponibles = [
       'imageParExpression',
       'imageParValeurs',
       'imageParGraphique',
@@ -48,7 +62,24 @@ Certaines questions de calcul d'image nécessitent le calcul du coefficient au p
       'expressionParValeur',
       'expressionParGraphique'
     ]
-
+    let QuestionsDisponibles
+    if (!this.sup2) { // Si aucune liste n'est saisie
+      QuestionsDisponibles = rangeMinMax(1, 8)
+    } else {
+      if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+        QuestionsDisponibles = [contraindreValeur(1, 9, this.sup2, 9)]
+      } else {
+        QuestionsDisponibles = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+          QuestionsDisponibles[i] = contraindreValeur(1, 9, QuestionsDisponibles[i], 9)
+        }
+        this.nbQuestions = Math.max(this.nbQuestions, QuestionsDisponibles.length)
+      }
+    }
+    enleveDoublonNum(QuestionsDisponibles)
+    if (QuestionsDisponibles.includes(9)) QuestionsDisponibles = rangeMinMax(1, 8)
+    const typesDeQuestions = combinaisonListesSansChangerOrdre(QuestionsDisponibles, this.nbQuestions).map(nb => typesDeQuestionsDisponibles[nb])
+    
     const listeTypesDeQuestions = combinaisonListes(typesDeQuestions, this.nbQuestions)
     const antecedents = []
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -61,16 +92,16 @@ Certaines questions de calcul d'image nécessitent le calcul du coefficient au p
       let coefficient, image
       switch (this.sup) {
         case 1:
-          coefficient = randint(2, 15) * choice([-1, 1])
+          coefficient = premierAvec(antecedent0, antecedents, true) * choice([-1, 1])
           break
         case 2:
-          coefficient = new FractionX(premierAvec(antecedent0, antecedents, false), antecedent0)
+          coefficient = new FractionX(premierAvec(antecedent0, antecedents, false) * choice([-1, 1]), antecedent0)
           break
         case 3:
           if (Math.random() < 0.5) {
-            coefficient = premierAvec(antecedent0, antecedents, false)
+            coefficient = premierAvec(antecedent0, antecedents, false) * choice([-1, 1])
           } else {
-            coefficient = new FractionX(premierAvec(antecedent0, antecedents, false), antecedent0)
+            coefficient = new FractionX(premierAvec(antecedent0, antecedents, false) * choice([-1, 1]), antecedent0)
           }
           break
       }
@@ -108,7 +139,7 @@ Certaines questions de calcul d'image nécessitent le calcul du coefficient au p
         yThickMin = -tableauEchelleY[k][0] - yThickDistance
       }
       const xMin = xThickMin
-      const xMax = -xThickMin
+      const xMax = -xThickMin + xThickDistance
       const yMin = yThickMin
       const yMax = -yThickMin
       const xmin = xMin * xUnite
@@ -142,14 +173,14 @@ Certaines questions de calcul d'image nécessitent le calcul du coefficient au p
         // On détermine l'image à partir de l'expression générale de la fonction
         case 'imageParExpression':
           texte += `Soit $f(x)=${coefficient instanceof FractionX ? coefficient.texFSD : texNombre(coefficient)}x$.<br>`
-          texte += `Calculer $f(${antecedent})$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte += `Calculer l'image de $${antecedent}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           texteCorr += `$f(${texNombre(antecedent, 0)})=${coefficient instanceof FractionX ? coefficient.texFSD : texNombre(coefficient, 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}`
           texteCorr += `=${coefficient instanceof FractionX ? image.texFSD : texNombre(image, 0)}$`
           setReponse(this, i, image, { formatInteractif })
           break
         case 'imageParValeurs':
-          texte += `Soit $f$ une fonction linéaire telle que $f(${antecedent0})=${texNombre(image0, 0)}$.<br>`
-          texte += `Calculer $f(${antecedent})$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte += `Soit $f$ la fonction linéaire telle que $f(${antecedent0})=${texNombre(image0, 0)}$.<br>`
+          texte += `Calculer l'image de $${antecedent}$ par $f$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ est :<br>`
           texteCorr += `$a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {
@@ -191,7 +222,7 @@ Certaines questions de calcul d'image nécessitent le calcul du coefficient au p
           setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           break
         case 'antecedentParValeurs':
-          texte += `Soit $f$ une fonction linéaire telle que $f(${antecedent0})=${texNombre(image0, 0)}$.<br>`
+          texte += `Soit $f$ la fonction linéaire telle que $f(${antecedent0})=${texNombre(image0, 0)}$.<br>`
           texte += `Calculer l'antécédent de $${imageString}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           texteCorr += `Comme $f(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $f(x)=ax$ est :<br>`
           texteCorr += `$a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
@@ -230,7 +261,7 @@ Certaines questions de calcul d'image nécessitent le calcul du coefficient au p
           setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
           break
         case 'expressionParValeur':
-          texte += `Soit $f$ une fonction linéaire telle que $f(${antecedent0})=${texNombre(image0, 0)}$.<br>`
+          texte += `Soit $f$ la fonction linéaire telle que $f(${antecedent0})=${texNombre(image0, 0)}$.<br>`
           if (context.isAmc) {
             texte += 'Donner le coefficient de  $f$.'
           } else {
