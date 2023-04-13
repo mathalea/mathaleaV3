@@ -12,6 +12,10 @@
   import ModalMessageBeforeAction from "./modal/ModalMessageBeforeAction.svelte"
   import ModalActionWithDialog from "./modal/ModalActionWithDialog.svelte"
   import { showDialogForLimitedTime } from "./utils/dialogs.js"
+  import { downloadFileFromURL } from "./utils/urls"
+  import JSZip from "jszip"
+  import JSZipUtils from "jszip-utils"
+  import { saveAs } from "file-saver"
 
   let nbVersions = 1
   let title = ""
@@ -26,6 +30,8 @@
   let downloadPicsModal: HTMLElement
   let picsWanted: boolean
   let messageForCopyPasteModal: string
+  let picsNames: string[][] = []
+  let exosContentList: string[] = []
 
   const latex = new Latex()
   async function initExercices() {
@@ -63,14 +69,68 @@
    * Gérer le téléchargement lors du clic sur le bouton du modal
    */
   function handleActionFromDownloadPicsModal() {
+    const imagesFilesUrls = []
+    exosContentList.forEach((exo, i) => {
+      const year = exo.groups.year
+      const month = exo.groups.month
+      const area = exo.groups.zone.replace(/ /g, "_")
+      for (const fileName of picsNames[i]) {
+        imagesFilesUrls.push({ url: `static/dnb/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
+      }
+    })
+    let zip = new JSZip()
+    const zipFileName = "images.zip"
+    let count = 0
+    imagesFilesUrls.forEach((image) => {
+      JSZipUtils.getBinaryContent(image.url, (err, data) => {
+        if (err) {
+          throw err
+        }
+        zip.file(image.fileName, data, { binary: true })
+        count++
+        if (count === imagesFilesUrls.length) {
+          zip.generateAsync({ type: "blob" }).then((content) => {
+            saveAs(content, zipFileName)
+          })
+        }
+      })
+    })
     downloadPicsModal.style.display = "none"
   }
 
+  function handleDownloadPicsModalDisplay() {
+    let picsList: string[][] = []
+    picsNames = []
+    exosContentList = []
+    const regExpExo = /(?:\\begin\{EXO\}\{(?<title>DNB(?:\s*)(?<month>.*?)(?:\s*)(?<year>\d{4})(?:\s*)(?<zone>.*?)(?:\s*))\})((.|\n)*?)(?:\\end\{EXO\})/g
+    const regExp = /\\includegraphics(?:\[.*?\])?\{(.*?)\}/g
+    const latexCode = contents.content
+    // const pics = [...latexCode.matchAll(regExp)]
+    exosContentList = [...latexCode.matchAll(regExpExo)]
+    for (const exo of exosContentList) {
+      const pics = [...exo[0].matchAll(regExp)]
+      picsList.push(pics)
+    }
+    picsList.forEach((list, index) => {
+      picsNames.push([])
+      for (const item of list) {
+        picsNames[index] = [...picsNames[index], item[1].replace(/\.(?:jpg|gif|png|eps|pdf)$/g, "")]
+      }
+    })
+    // console.log(picsNames)
+    // console.log(exosContentList)
+    downloadPicsModal.style.display = "block"
+  }
+  /**
+   * Détecter si le code LaTeX contient des images
+   */
   function doesLatexNeedsPics() {
     const includegraphicsMatches = contents.content.match("includegraphics")
     return includegraphicsMatches !== null
   }
-
+  /**
+   * Construction d'un message contextualisé indiquant le besoin de télécharger les images si besoin
+   */
   function buildMessageForCopyPaste() {
     if (picsWanted) {
       return `<p>Le code LaTeX a été copié dans le presse-papier.</p>
@@ -219,14 +279,7 @@
         title="Copier le code LaTeX des exercices"
       />
       <Button title="Copier le code LaTeX complet (avec préambule)" on:click={copyDocument} />
-      <Button
-        idLabel="downloadPicsButton"
-        on:click={() => {
-          downloadPicsModal.style.display = "block"
-        }}
-        title="Télécharger les figures"
-        isDisabled={!picsWanted}
-      />
+      <Button idLabel="downloadPicsButton" on:click={handleDownloadPicsModalDisplay} title="Télécharger les figures" isDisabled={!picsWanted} />
       <ModalMessageBeforeAction
         modalId="downloadPicsModal"
         modalButtonId="downloadPicsModalButton"
@@ -235,7 +288,19 @@
         on:action={handleActionFromDownloadPicsModal}
       >
         <span slot="header">Figures</span>
-        <div slot="content">Blabla</div>
+        <div slot="content" class="flex flex-col justify-start items-start">
+          Voici ce dont vous aurez besoin :
+          {#each exosContentList as exo, i (exo)}
+            <ul class="flex flex-col justify-start items-start list-disc pl-6">
+              <li>Exercice {i + 1} (<span class="text-italic">{exo.groups.title}</span>) :</li>
+              <ul class="flex flex-col justify-start items-start list-none pl-4">
+                {#each picsNames[i] as name}
+                  <li class="font-mono text-sm">{name}</li>
+                {/each}
+              </ul>
+            </ul>
+          {/each}
+        </div>
       </ModalMessageBeforeAction>
     </form>
 

@@ -103,3 +103,48 @@ export function decrypt (url) {
   }
   return new URL(newUrl)
 }
+
+/**
+ * Télécharger un fichier connaissant l'URL
+ * 
+ * __Exemple__ 
+ * ```tsx
+ * downloadFileFromURL(url, 'image.jpg');
+ * ```
+ * 
+ * __Paramètres__
+ * @param {string} url URL du fichier à télécharger
+ * @param {string} filename nom doné au fichier téléchargé
+ * @see {@link https://blog.gitnux.com/code/javascript-download-file-from-url/}
+ */
+export async function downloadFileFromURL(url, filename) {
+  try {
+    // Fetch the file
+    const response = await fetch(url);
+    
+    // Check if the request was successful
+    if (response.status !== 200) {
+      throw new Error(`Unable to download file. HTTP status: ${response.status}`);
+    }
+
+    // Get the Blob data
+    const blob = await response.blob();
+
+    // Create a download link
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = filename;
+
+    // Trigger the download
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+
+    // Clean up
+    setTimeout(() => {
+      URL.revokeObjectURL(downloadLink.href);
+      document.body.removeChild(downloadLink);
+    }, 100);
+  } catch (error) {
+    console.error('Error downloading the file:', error.message);
+  }
+}
