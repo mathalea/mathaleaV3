@@ -69,11 +69,12 @@
       </div>
       <div class="pt-2 pl-2 grid grid-flow-row md:grid-cols-2 gap-4">
         <div class="pb-2">
-          <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light  dark:text-coopmathsdark-struct-light">Titre</div>
+          <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Titre</div>
           <div class="pl-4">
             <input
               type="text"
               class="text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border-1 border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0"
+              placeholder="Titre ou Vide (pas de bandeau)"
               bind:value={$globalOptions.title}
             />
           </div>
