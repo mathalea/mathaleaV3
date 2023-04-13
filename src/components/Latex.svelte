@@ -69,6 +69,7 @@
    * Gérer le téléchargement lors du clic sur le bouton du modal
    */
   function handleActionFromDownloadPicsModal() {
+    // construire la liste des URLs avec les noms de fichiers correspondants
     const imagesFilesUrls = []
     exosContentList.forEach((exo, i) => {
       const year = exo.groups.year
@@ -78,6 +79,7 @@
         imagesFilesUrls.push({ url: `static/dnb/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
       }
     })
+    // construire l'archive
     let zip = new JSZip()
     const zipFileName = "images.zip"
     let count = 0
@@ -98,6 +100,9 @@
     downloadPicsModal.style.display = "none"
   }
 
+  /**
+   * Gérer l'affichage du modal : on donne la liste des images par exercice
+   */
   function handleDownloadPicsModalDisplay() {
     let picsList: string[][] = []
     picsNames = []
@@ -105,7 +110,6 @@
     const regExpExo = /(?:\\begin\{EXO\}\{(?<title>DNB(?:\s*)(?<month>.*?)(?:\s*)(?<year>\d{4})(?:\s*)(?<zone>.*?)(?:\s*))\})((.|\n)*?)(?:\\end\{EXO\})/g
     const regExp = /\\includegraphics(?:\[.*?\])?\{(.*?)\}/g
     const latexCode = contents.content
-    // const pics = [...latexCode.matchAll(regExp)]
     exosContentList = [...latexCode.matchAll(regExpExo)]
     for (const exo of exosContentList) {
       const pics = [...exo[0].matchAll(regExp)]
@@ -117,10 +121,9 @@
         picsNames[index] = [...picsNames[index], item[1].replace(/\.(?:jpg|gif|png|eps|pdf)$/g, "")]
       }
     })
-    // console.log(picsNames)
-    // console.log(exosContentList)
     downloadPicsModal.style.display = "block"
   }
+
   /**
    * Détecter si le code LaTeX contient des images
    */
@@ -128,6 +131,7 @@
     const includegraphicsMatches = contents.content.match("includegraphics")
     return includegraphicsMatches !== null
   }
+
   /**
    * Construction d'un message contextualisé indiquant le besoin de télécharger les images si besoin
    */
