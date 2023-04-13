@@ -235,14 +235,16 @@ export default function TrouverLaTransformations () {
       texte = this.interactif
         ? `Quelle transformation permet de passer de la figure ${transfos[i].depart} à la figure ${transfos[i].arrivee} ? ` + choixDeroulant(this, i, 0, propositions, 'texte')
         : `Quelle transformation permet de passer de la figure ${transfos[i].depart} à la figure ${transfos[i].arrivee} ?`
+      texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
       texteCorr = transfos[i].texteCorr
+      texteCorr += '<br>' + mathalea2d(paramsCorrection, objetsCorrection)
       setReponse(this, i, [transfos[i].texteInteractif], { formatInteractif: 'texte' })
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
-    this.contenu = deuxColonnes(this.contenu, mathalea2d(paramsEnonce, objetsEnonce), 45)
-    this.contenuCorrection = deuxColonnes(this.contenuCorrection, mathalea2d(paramsCorrection, objetsCorrection), 45)
+    // this.contenu = deuxColonnes(this.contenu, mathalea2d(paramsEnonce, objetsEnonce), 45)
+    // this.contenuCorrection = deuxColonnes(this.contenuCorrection, mathalea2d(paramsCorrection, objetsCorrection), 45)
   }
   this.besoinFormulaireNumerique = ['Types de transformations possibles', 3, '1 : Symétries axiales et centrales\n2 : Symétries et translations\n3 : Symétries, translations et quarts de tour']
 }
