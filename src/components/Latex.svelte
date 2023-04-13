@@ -25,6 +25,7 @@
   let isExerciceStaticInTheList = false
   let downloadPicsModal: HTMLElement
   let picsWanted: boolean
+  let messageForCopyPasteModal: string
 
   const latex = new Latex()
   async function initExercices() {
@@ -39,6 +40,7 @@
     latex.addExercices(exercices)
     contents = latex.getContents(style, nbVersions)
     picsWanted = doesLatexNeedsPics()
+    messageForCopyPasteModal = buildMessageForCopyPaste()
   }
 
   onMount(() => {
@@ -61,13 +63,21 @@
    * Gérer le téléchargement lors du clic sur le bouton du modal
    */
   function handleActionFromDownloadPicsModal() {
-    console.log("figures ? : " + doesLatexNeedsPics())
     downloadPicsModal.style.display = "none"
   }
 
   function doesLatexNeedsPics() {
     const includegraphicsMatches = contents.content.match("includegraphics")
     return includegraphicsMatches !== null
+  }
+
+  function buildMessageForCopyPaste() {
+    if (picsWanted) {
+      return `<p>Le code LaTeX a été copié dans le presse-papier.</p>
+        <p class="font-bold text-coopmaths-warn-darkest">Ne pas oublier de télécharger les figures !</p>`
+    } else {
+      return "Le code LaTeX a été copié dans le presse-papier."
+    }
   }
   //====================== Fin Modal figures ====================================
 
@@ -94,7 +104,7 @@
     const text = document.querySelector("pre").innerText
     navigator.clipboard.writeText(text).then(
       () => {
-        showDialogForLimitedTime(dialogId + "-1", 1000)
+        showDialogForLimitedTime(dialogId + "-1", 2000)
       },
       (err) => {
         console.error("Async: Could not copy text: ", err)
@@ -110,7 +120,7 @@
       dialogLua.showModal()
       setTimeout(() => {
         dialogLua.close()
-      }, 2000)
+      }, 3000)
     } catch (err) {
       console.error("Accès au presse-papier impossible: ", err)
     }
@@ -202,7 +212,7 @@
         on:display={() => {
           copyLaTeXCodeToClipBoard("copyPasteModal")
         }}
-        message="Le code LaTeX est copié dans le presse papier !"
+        message={messageForCopyPasteModal}
         messageError="Impossible de copier le code LaTeX dans le presse-papier"
         tooltipMessage="Code LaTeX dans presse-papier"
         dialogId="copyPasteModal"
@@ -229,9 +239,9 @@
       </ModalMessageBeforeAction>
     </form>
 
-    <dialog bind:this={dialogLua} class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg">
-      <p>Le contenu a été copié dans le presse-papier.</p>
-      <p>Il faudra utiliser <em class="text-coopmaths font-bold">LuaLaTeX</em> pour compiler le document</p>
+    <dialog bind:this={dialogLua} class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light font-light shadow-lg">
+      {@html messageForCopyPasteModal}
+      <p class="mt-4">Il faudra utiliser <em class="text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest font-bold">LuaLaTeX</em> pour compiler le document</p>
     </dialog>
 
     <h1 class="mt-12 md:mt-8 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Code</h1>
