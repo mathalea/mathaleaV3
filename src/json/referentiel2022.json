@@ -6162,6 +6162,7 @@
         "uuid": "5999f",
         "url": "6e/6M11-2.js",
         "titre": "Calculer périmètre et aire de figures composées",
+        "dateDeModifImportante": "12/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -6212,7 +6213,7 @@
         "uuid": "06b1a",
         "url": "6e/6M20.js",
         "titre": "Calculer l'aire de triangles",
-        "dateDeModifImportante": "08/05/2022",
+        "dateDeModifImportante": "12/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -9758,6 +9759,18 @@
       }
     },
     "3F2": {
+      "3F20": {
+        "id": "3F20",
+        "uuid": "aeb5a",
+        "url": "3e/3F20.js",
+        "titre": "Fonctions linéaires",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amc": true,
+          "amcType": "AMCNum"
+        }
+      },
       "3F21-1": {
         "id": "3F21-1",
         "uuid": "e5ddd",
