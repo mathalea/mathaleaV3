@@ -10,6 +10,8 @@
   import { onMount } from "svelte"
   import { deviceType } from "./utils/measures"
   import ModalMessageBeforeAction from "./modal/ModalMessageBeforeAction.svelte"
+  import ModalActionWithDialog from "./modal/ModalActionWithDialog.svelte"
+  import { showDialogForLimitedTime } from "./utils/dialogs.js"
 
   let nbVersions = 1
   let title = ""
@@ -82,6 +84,23 @@
     } catch (err) {
       console.error("Accès au presse-papier impossible: ", err)
     }
+  }
+  /**
+   * Copier le code LaTeX dans le presse-papier
+   * @param {string} dialogId id attaché au composant
+   * @author sylvain
+   */
+  async function copyLaTeXCodeToClipBoard(dialogId: string) {
+    const text = document.querySelector("pre").innerText
+    navigator.clipboard.writeText(text).then(
+      () => {
+        showDialogForLimitedTime(dialogId + "-1", 1000)
+      },
+      (err) => {
+        console.error("Async: Could not copy text: ", err)
+        showDialogForLimitedTime(dialogId + "-2", 1000)
+      }
+    )
   }
 
   const copyDocument = async () => {
@@ -178,7 +197,17 @@
       </button>
       <div class="hidden md:block w-10" />
       <div class="block md:hidden h-6" />
-      <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} />
+      <!-- <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} /> -->
+      <ModalActionWithDialog
+        on:display={() => {
+          copyLaTeXCodeToClipBoard("copyPasteModal")
+        }}
+        message="Le code LaTeX est copié dans le presse papier !"
+        messageError="Impossible de copier le code LaTeX dans le presse-papier"
+        tooltipMessage="Code LaTeX dans presse-papier"
+        dialogId="copyPasteModal"
+        title="Copier le code LaTeX des exercices"
+      />
       <Button title="Copier le code LaTeX complet (avec préambule)" on:click={copyDocument} />
       <Button
         idLabel="downloadPicsButton"
