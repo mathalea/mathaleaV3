@@ -211,6 +211,10 @@
   function newDataForAll() {
     exercices.forEach((exo, i) => {
       exo.applyNewSeed()
+      if (isCorrectionVisible[i]) {
+        window.localStorage.setItem(`${exo.id}|${exo.seed}`, "true")
+      }
+      // TODO: updateDisplay pour chaque exo...
     })
   }
 </script>
