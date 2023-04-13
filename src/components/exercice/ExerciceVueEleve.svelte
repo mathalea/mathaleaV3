@@ -69,14 +69,15 @@
         fields.forEach((field) => {
           field.setAttribute("disabled", "true")
         })
-        // for (let i = 0; i < fields.length; i++) {
-        //   if ($globalOptions.answers[i] !== undefined) {
-        //     const field = document.querySelector(`#champTexteEx${indiceExercice}Q${i}`) as MathfieldElement
-        //     if (field !== null && $globalOptions.answers[i]) {
-        //       field.setValue($globalOptions.answers[i])
-        //     }
-        //   }
-        // }
+        const url = new URL(window.location.href)
+        const answers = url.searchParams.get("answers")
+        const objAnswers = answers ? JSON.parse(answers) : undefined
+        $globalOptions.answers = objAnswers
+        MathaleaUpdateUrlFromExercicesParams($exercicesParams)
+        for (const answer in objAnswers) {
+          const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement
+          field?.setValue(objAnswers[answer])
+      }
         if (buttonScore) {
           buttonScore.click()
         }

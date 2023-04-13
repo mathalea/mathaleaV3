@@ -24,7 +24,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
     // Ici on va s'occuper de ce champTexte qui pose tant de problèmes
     champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
     if (champTexte === {} || champTexte === undefined) champTexte = { value: '' }
-    exercice.answers[`ex${exercice.numeroExercice}Q${i}`] = champTexte.value
+    exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = champTexte.value
     let resultat = 'KO'
     let statut = 'OK'
     let feedbackSaisie
