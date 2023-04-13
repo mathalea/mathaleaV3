@@ -831,3 +831,7 @@ div[id^="aide-content-"]{
 .mathalea2d {
   @apply dark:bg-coopmathsdark-canvas-light
 }
+
+input[id^="checkEx"] {
+  @apply cursor-pointer border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded
+}
