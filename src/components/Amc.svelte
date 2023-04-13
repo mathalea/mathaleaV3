@@ -210,24 +210,25 @@
               }}><i
               class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh"/>
             </button>
-            <!-- <button
-               class="tooltip tooltip-left tooltip-neutral"
-               data-tip="Changer les paramètres de l'exercice"
-               type="button"
-               on:click={() => {
+            {#if exercice.amcType === 'AMCNum'}
+              <button
+                class="tooltip tooltip-left tooltip-neutral"
+                data-tip="Changer les paramètres de l'exercice"
+                type="button"
+                on:click={() => {
     isSettingsVisible[i] = !isSettingsVisible[i]
   }}
-             >
-               <i
-                 class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {isSettingsVisible
+              >
+                <i
+                  class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {isSettingsVisible
         ? 'bxs-cog'
         : 'bx-cog'}"
-               />
-             </button>
-             -->
-            <div class="{isSettingsVisible[i] ? 'flex': 'hidden'} flex-col ...">
-              <SettingsAmc {exercice}/>
-            </div>
+                />
+              </button>
+              <div class="{isSettingsVisible[i] ? 'flex': 'hidden'} flex-col ...">
+                <SettingsAmc {exercice}/>
+              </div>
+            {/if}
           </div>
         {/each}
       </div>
