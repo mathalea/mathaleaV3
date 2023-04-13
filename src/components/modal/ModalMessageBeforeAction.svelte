@@ -53,7 +53,7 @@
   __Exemple d'utilisation__ :
 
   ```tsx
-  <ModalMessageBeforeAction buttonTitle="Continuer" on:action={handleOverLeaf} icon="bxs-error">
+  <ModalMessageBeforeAction modalButtonTitle="Continuer" on:action={handleOverLeaf} icon="bxs-error">
     <span slot="header">Attention !</span>
     <ul slot="content" class="list-inside list-disc text-left text-base">
       <li>Il faudra uploader sur Overleaf le package <span class="font-mono bg-coopmaths-warn-100">automultiplechoice.sty</span> pour compiler.</li>

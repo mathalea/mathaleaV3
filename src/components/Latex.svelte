@@ -9,6 +9,7 @@
   import FormRadio from "./forms/FormRadio.svelte"
   import { onMount } from "svelte"
   import { deviceType } from "./utils/measures"
+  import ModalMessageBeforeAction from "./modal/ModalMessageBeforeAction.svelte"
 
   let nbVersions = 1
   let title = ""
@@ -20,6 +21,8 @@
   let exercices: TypeExercice[]
   let contents = { content: "", contentCorr: "" }
   let isExerciceStaticInTheList = false
+  let downloadPicsModal: HTMLElement
+  let picsWanted: boolean
 
   const latex = new Latex()
   async function initExercices() {
@@ -33,11 +36,38 @@
     }
     latex.addExercices(exercices)
     contents = latex.getContents(style, nbVersions)
+    picsWanted = doesLatexNeedsPics()
   }
 
   onMount(() => {
     MathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    downloadPicsModal = document.getElementById("downloadPicsModal")
   })
+
+  /* ============================================================================
+  *
+  *                Modal pour le téléchargement des figures
+  * 
+  ===============================================================================*/
+  // click en dehors du moda de téléchargement des figures le fait disparaître
+  window.onclick = function (event) {
+    if (event.target == downloadPicsModal) {
+      downloadPicsModal.style.display = "none"
+    }
+  }
+  /**
+   * Gérer le téléchargement lors du clic sur le bouton du modal
+   */
+  function handleActionFromDownloadPicsModal() {
+    console.log("figures ? : " + doesLatexNeedsPics())
+    downloadPicsModal.style.display = "none"
+  }
+
+  function doesLatexNeedsPics() {
+    const includegraphicsMatches = contents.content.match("includegraphics")
+    return includegraphicsMatches !== null
+  }
+  //====================== Fin Modal figures ====================================
 
   initExercices()
 
@@ -79,7 +109,7 @@
   <section class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <h1 class="mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Paramétrage</h1>
     <div class="w-full flex flex-col space-x-5">
-      <div class="flex flex-col mb-2 md:mb-8  md:flex-row justify-start items-start">
+      <div class="flex flex-col mb-2 md:mb-8 md:flex-row justify-start items-start">
         <h2 class="text-xl ml-4 md:text-2xl font-bold md:mr-10 mb-2 md:mb-0 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Mise en page</h2>
         <div class="pb-4 md:pb-0 md:pt-1">
           <FormRadio
@@ -95,7 +125,7 @@
         </div>
       </div>
 
-      <div class="flex flex-col lg:flex-row space-x-0 lg:space-x-4 space-y-3 lg:space-y-0 ">
+      <div class="flex flex-col lg:flex-row space-x-0 lg:space-x-4 space-y-3 lg:space-y-0">
         <h2 class="ml-0 text-xl md:text-2xl font-bold md:mr-10 mb-2 lg:mb-0 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Éléments de titres</h2>
         <input
           type="text"
@@ -103,15 +133,15 @@
           placeholder={style === "Can" ? "Course aux nombres" : "Titre"}
           bind:value={title}
           disabled={style === "Can"}
-          />
-          <input
+        />
+        <input
           type="text"
           class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
           placeholder={style === "Coopmaths" ? "Référence" : "Haut de page gauche"}
           bind:value={reference}
           disabled={style === "Can"}
-          />
-          <input
+        />
+        <input
           type="text"
           class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
           placeholder={style === "Coopmaths" ? "Sous-titre / Chapitre" : "Pied de page droit"}
@@ -150,6 +180,24 @@
       <div class="block md:hidden h-6" />
       <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} />
       <Button title="Copier le code LaTeX complet (avec préambule)" on:click={copyDocument} />
+      <Button
+        idLabel="downloadPicsButton"
+        on:click={() => {
+          downloadPicsModal.style.display = "block"
+        }}
+        title="Télécharger les figures"
+        isDisabled={!picsWanted}
+      />
+      <ModalMessageBeforeAction
+        modalId="downloadPicsModal"
+        modalButtonId="downloadPicsModalButton"
+        modalButtonTitle="Télécharger les figures"
+        icon="bxs-file-png"
+        on:action={handleActionFromDownloadPicsModal}
+      >
+        <span slot="header">Figures</span>
+        <div slot="content">Blabla</div>
+      </ModalMessageBeforeAction>
     </form>
 
     <dialog bind:this={dialogLua} class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg">
