@@ -271,13 +271,18 @@ export function centrage (texte) {
 /**
  * Contraint une valeur à rester dans un intervalle donné. Si elle est trop petite, elle prend la valeur min, si elle est trop grande elle prend la valeur max
  * @author Jean-Claude Lhote à partir du code de Eric Elter
- * @param {number} min borne inférieure
- * @param {number} max borne supérieure
- * @param {number} valeur la valeur à contraindre
- * @param {number} defaut valeur par défaut si non entier
+ * @param {number|string} min borne inférieure
+ * @param {number|string} max borne supérieure
+ * @param {number|string} valeur la valeur à contraindre
+ * @param {number|string} defaut valeur par défaut si non entier
  */
 export function contraindreValeur (min, max, valeur, defaut) {
-  return !(Number.isNaN(valeur)) ? (Number(valeur) < min) ? min : (Number(valeur) > max) ? max : Number(valeur) : defaut
+  if (isNaN(min) || isNaN(max) || isNaN(defaut)) {
+    throw Error(`Erreur dans contraindreValeur : un des paramètre de contrainte est NaN : ${
+      ['min : ' + String(min) + ' ', max, valeur, defaut].reduce((accu, value, index) => String(accu) + ['min', ',max', ',valeur', ',defaut'][index] + ' : ' + String(value) + ' ')
+    }`)
+  }
+  return !isNaN(valeur) ? (Number(valeur) < Number(min) ? Number(min) : (Number(valeur) > Number(max) ? Number(max) : Number(valeur))) : Number(defaut)
 }
 
 /** Retourne un nombre décimal entre a et b, sans être trop près de a et de b
@@ -1355,9 +1360,9 @@ export function changementDeBaseTriOrtho (point) {
  * @author Jean-Claude Lhote
  */
 export function imagePointParTransformation (transformation, pointA, pointO, vecteur = [], rapport = 1) { // pointA,centre et pointO sont des tableaux de deux coordonnées
-  // on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
-  // nécessite d'être en repère orthonormal...
-  // Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
+                                                                                                          // on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
+                                                                                                          // nécessite d'être en repère orthonormal...
+                                                                                                          // Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
   
   const matriceSymObl1 = matriceCarree([[0, 1, 0], [1, 0, 0], [0, 0, 1]]) // x'=y et y'=x
   const matriceSymxxprime = matriceCarree([[1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=x et y'=-y
