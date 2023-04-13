@@ -5,6 +5,20 @@ if (typeof window.iMathAlea === 'undefined') {
   // Remarque dans ce dernier cas : tout les exos seront chargés depuis le premier serveur
   window.iMathAlea = []
 
+  let DEBUG = false
+
+  if (location.hash.startsWith('#DEBUG=')) {
+    const DEBUGURL = new URL('.', location.hash.substring(7))
+    try {
+      if (DEBUGURL.hostname !== 'localhost' && DEBUGURL.hostname !== '127.0.0.1') {
+        throw new Error('Le serveur doit être en localhost ou 127.0.0.1')
+      }
+      DEBUG = DEBUGURL.href
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   window.addEventListener('message', (event) => {
     // V3
     if (event.data.action !== 'undefined' && event.data.action.startsWith('mathalea:')) {
@@ -73,7 +87,11 @@ if (typeof window.iMathAlea === 'undefined') {
       // import.meta.url si le fichier appelé en mode module
       let SERVEUR_URL
       try {
-        SERVEUR_URL = new URL('../..', this.getAttribute('serveur') || document.currentScript?.src || import.meta.url) // ou origin + pathname
+        if(DEBUG) {
+          SERVEUR_URL = new URL(DEBUG)
+        } else {
+          SERVEUR_URL = new URL('../..', this.getAttribute('serveur') || document.currentScript?.src || import.meta.url) // ou origin + pathname
+        }
         if (SERVEUR_URL.protocol !== 'http:' && SERVEUR_URL.protocol !== 'https:') {
           throw new Error('Le serveur doit avoir un protocol en http ou https')
         }
