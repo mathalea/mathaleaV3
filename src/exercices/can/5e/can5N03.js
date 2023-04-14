@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, calcul, texNombre, texNombrec, choice, miseEnEvidence } from '../../../modules/outils.js'
+import { randint, choice, miseEnEvidence } from '../../../modules/outils.js'
 export const titre = 'Déterminer un multiple'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,26 +21,32 @@ export default function PlusGrandMultiple () {
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     const a = randint(2, 16)
-    if (choice([true, true])) {
-      
-      this.question = `Quel est le plus grand entier entier à deux chiffres divisible par $${a}$ ?`
-      this.correction = `On cherche le plus grand multiple de $${a}$ inférieur à $100$.<br>`
+    const b = randint(2, 9)
+    const c = randint(3, 9) * 10
+    if (choice([true, false])) {
+      this.question = `Quel est le plus grand entier  à deux chiffres divisible par $${a}$ ?`
+      this.correction = `Cela revient à chercher le plus grand multiple de $${a}$ strictement inférieur à $100$.<br>`
       if (100 % a === 0) {
         this.reponse = 100 - a
         this.correction += `Comme $100$ est divisible par $${a}$, le plus grand mutiple cherché est $100-${a}=${miseEnEvidence(this.reponse)}$.`
       } else {
-        this.reponse = Math.ceil(100 / a) * a
-        this.correction += `Comme $100$ est divisible par $${a}$, le plus grand mutiple cherché est $100-${a}=${miseEnEvidence(this.reponse)}$.`
+        this.reponse = Math.floor(100 / a) * a
+        this.correction += `On cherche le plus grand multiple de $${a}$ inférieur strictement à $100$.<br>
+        Comme $${Math.floor(100 / a)}\\times ${a}=${Math.floor(100 / a) * a} < 100$ et  
+        $${Math.floor(100 / a)}\\times ${a + 1}=${Math.floor(100 / a) * (a + 1)} > 100$,
+        alors le plus grand mutiple cherché est $${miseEnEvidence(this.reponse)}$.`
       }
     } else {
-      this.question = `Quel est le plus grand entier entier à deux chiffres divisible par $${a}$ ?`
-      this.correction = `On cherche le plus grand multiple de $${a}$ inférieur à $100$.<br>`
-      if (100 % a === 0) {
-        this.reponse = 100 - a
-        this.correction += `Comme $100$ est divisible par $${a}$, le plus grand mutiple cherché est $100-${a}=${miseEnEvidence(this.reponse)}$.`
+      this.question = `Quel est le plus grand entier multiple de $${b}$ strictement inférieur à $${c}$ ?`
+
+      if (c % b === 0) {
+        this.reponse = c - b
+        this.correction = `Comme $${c}$ est divisible par $${b}$, le plus grand mutiple cherché est $${c}-${b}=${miseEnEvidence(this.reponse)}$.`
       } else {
-        this.reponse = Math.ceil(100 / a) * a
-        this.correction += `Comme $100$ est divisible par $${a}$, le plus grand mutiple cherché est $100-${a}=${miseEnEvidence(this.reponse)}$.`
+        this.reponse = Math.floor(c / b) * b
+        this.correction = ` Comme $${Math.floor(c / b)}\\times ${b}=${Math.floor(c / b) * b} < ${c}$ et  
+        $${Math.floor(c / b)}\\times ${b + 1}=${Math.floor(c / b) * (b + 1)} > ${c}$,
+        alors le plus grand mutiple cherché est $${miseEnEvidence(this.reponse)}$.`
       }
     }
     this.canEnonce = this.question// 'Compléter'
