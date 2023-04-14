@@ -32,6 +32,7 @@
   let messageForCopyPasteModal: string
   let picsNames: string[][] = []
   let exosContentList: string[] = []
+  let linkForOverleaf: HTMLLinkElement
 
   const latex = new Latex()
   async function initExercices() {
@@ -213,9 +214,8 @@
       })
     }
     zip.generateAsync({ type: "blob" }).then((content) => {
-      const link = document.createElement("a")
-      link.href = URL.createObjectURL(content)
-      //TODO : textForOverleaf générer une value valide pour overleaf
+      linkForOverleaf = document.createElement("a")
+      linkForOverleaf.href = URL.createObjectURL(content)
       saveAs(content, "coopmath.zip") // <-- à retirer : ici pour vérifier la nature de l'archive...
     })
   }
@@ -287,7 +287,7 @@
 
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Exportation</h1>
     <form class="flex flex-col md:flex-row mx-4 pb-4 md:pb-8 md:space-x-4 space-y-3" method="POST" action="https://www.overleaf.com/docs" target="_blank">
-      <input type="hidden" name="snip_uri" value="" bind:this={textForOverleaf} autocomplete="off" />
+      <input type="hidden" name="snip_uri" bind:value={linkForOverleaf} autocomplete="off" />
       <input type="hidden" name="snip_name" value="CoopMaths" autocomplete="off" />
       <input type="hidden" name="engine" value="lualatex" autocomplete="off" />
       <button
