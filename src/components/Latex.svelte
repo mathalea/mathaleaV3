@@ -66,11 +66,10 @@
     }
   }
   /**
-   * Gérer le téléchargement lors du clic sur le bouton du modal
+   * Construire la liste des URLs pour les fichiers des images nécessaires
    */
-  function handleActionFromDownloadPicsModal() {
-    // construire la liste des URLs avec les noms de fichiers correspondants
-    const imagesFilesUrls = []
+  function buildImagesUrlsList() {
+    let imagesFilesUrls = []
     exosContentList.forEach((exo, i) => {
       const year = exo.groups.year
       const month = exo.groups.month
@@ -79,6 +78,14 @@
         imagesFilesUrls.push({ url: `static/dnb/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
       }
     })
+    return imagesFilesUrls
+  }
+  /**
+   * Gérer le téléchargement lors du clic sur le bouton du modal
+   */
+  function handleActionFromDownloadPicsModal() {
+    // construire la liste des URLs avec les noms de fichiers correspondants
+    const imagesFilesUrls = buildImagesUrlsList()
     // construire l'archive
     let zip = new JSZip()
     const zipFileName = "images.zip"
@@ -190,6 +197,28 @@
     }
   }
 
+  async function buildZipFileForOverleaf(fileName, urls) {
+    const zip = new JSZip()
+    const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
+    zip.file("main.tex", text)
+    if (urls && urls.length !== 0) {
+      const imagesFolder = zip.folder("images")
+      urls.forEach((image) => {
+        JSZipUtils.getBinaryContent(image.url, (err, data) => {
+          if (err) {
+            throw err
+          }
+          imagesFolder.file(image.fileName, data, { binary: true })
+        })
+      })
+    }
+    zip.generateAsync({ type: "blob" }).then((content) => {
+      const link = document.createElement("a")
+      link.href = URL.createObjectURL(content)
+      //TODO : textForOverleaf générer une value valide pour overleaf
+      saveAs(content, "coopmath.zip") // <-- à retirer : ici pour vérifier la nature de l'archive...
+    })
+  }
   const copyDocumentToOverleaf = async () => {
     const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
     textForOverleaf.value = encodeURIComponent(text)
@@ -258,13 +287,15 @@
 
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Exportation</h1>
     <form class="flex flex-col md:flex-row mx-4 pb-4 md:pb-8 md:space-x-4 space-y-3" method="POST" action="https://www.overleaf.com/docs" target="_blank">
-      <input type="hidden" name="encoded_snip" value="" bind:this={textForOverleaf} autocomplete="off" />
+      <input type="hidden" name="snip_uri" value="" bind:this={textForOverleaf} autocomplete="off" />
       <input type="hidden" name="snip_name" value="CoopMaths" autocomplete="off" />
       <input type="hidden" name="engine" value="lualatex" autocomplete="off" />
       <button
         id="btn_overleaf"
         type="submit"
-        on:click={copyDocumentToOverleaf}
+        on:click={() => {
+          buildZipFileForOverleaf("coopmaths.zip", buildImagesUrlsList())
+        }}
         class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
       >
         Compiler en PDF sur Overleaf.com
