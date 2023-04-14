@@ -18,7 +18,6 @@
   import Button from "./forms/Button.svelte"
   import ModalMessageBeforeAction from "./modal/ModalMessageBeforeAction.svelte"
   import {onMount} from "svelte"
-  import SettingsAmc from "./exercice/SettingsAmc.svelte";
   
   let isSettingsVisible: boolean[] = []
   let exercices: TypeExercice[] = []
@@ -224,10 +223,10 @@
         : 'bx-cog'}"
                />
              </button>
-             -->
             <div class="{isSettingsVisible[i] ? 'flex': 'hidden'} flex-col ...">
               <SettingsAmc {exercice}/>
             </div>
+                         -->
           </div>
         {/each}
       </div>
