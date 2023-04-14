@@ -337,7 +337,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
 
       if (context.isAmc) {
         this.autoCorrection[i] = {
-          enonce: 'Calculer le périmètre et l\'aire des figures suivantes.\\\\' + texte,
+          enonce: 'Calculer le périmètre et l\'aire de la figure suivante.\\\\' + texte,
           options: { multicols: true, barreseparation: true, numerotationEnonce: true },
           propositions: [
             {
@@ -351,7 +351,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
                     alignement: 'center',
                     param: {
                       digits: 3,
-                      decimals: 1,
+                      decimals: typesDeQuestions[i] > 3 ? 0 : 1,
                       signe: false,
                       aussiCorrect: [perimetre[1 + (typesDeQuestions[i] > 3 ? 2 : 0)]]
                     }
@@ -370,7 +370,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
                     alignement: 'center',
                     param: {
                       digits: 3,
-                      decimals: 1,
+                      decimals: typesDeQuestions[i] > 3 ? 0 : 1,
                       signe: false,
                       aussiCorrect: [aire[1 + (typesDeQuestions[i] > 3 ? 2 : 0)]]
                     }
