@@ -45,6 +45,8 @@ export default function SujetCAN2022troisieme () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.listeCanEnonces = []
+    this.listeCanReponsesACompleter = []
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 20)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)

@@ -32,6 +32,8 @@ export default function CourseAuxNombres5e (numeroExercice) {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.listeCanEnonces = []
+    this.listeCanReponsesACompleter = []
     let a, b, c, d, resultat, propositions
     const fruits = [
       ['pêches', 4, 10, 30],
