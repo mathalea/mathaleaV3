@@ -40,12 +40,12 @@ export default function LireAbscisseDecimaleBis2d () {
     if (!this.sup) { // Si aucune liste n'est saisie
       QuestionsDisponibles = [1, 2, 3, 4, 5, 6]
     } else {
-      if (this.sup instanceof Number) { // Si c'est un nombre c'est qu'il y a qu'un type de question
-        QuestionsDisponibles = Array(this.nbQuestion).fill(parseInt(this.sup))
+      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+        QuestionsDisponibles = [contraindreValeur(1, 6, this.sup, randint(1, 6))]
       } else {
         QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          QuestionsDisponibles[i] = contraindreValeur(1, 6, parseInt(QuestionsDisponibles[i])) // parseInt en fait un entiers
+          QuestionsDisponibles[i] = contraindreValeur(1, 6, parseInt(QuestionsDisponibles[i]), randint(1, 6)) // parseInt en fait un entiers
         }
       }
     }

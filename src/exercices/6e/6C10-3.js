@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, creerCouples, choice, texNombre, texNombre2, calcul, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, creerCouples, choice, texNombre, texNombre2, calcul, contraindreValeur, rangeMinMax, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
@@ -37,7 +37,7 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
       this.sup = '2-3-4-5-6-7-8-9'
     }
     let tables = []
-    if (typeof this.sup === 'number') {
+    /* if (typeof this.sup === 'number') {
       // Si c'est un nombre c'est qu'il y a qu'une seule table
       tables[0] = this.sup
     } else {
@@ -46,6 +46,21 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
         tables[i] = contraindreValeur(2, 9, parseInt(tables[i]))
       }
     }
+*/
+    if (!this.sup) { // Si aucune liste n'est saisie
+      tables[0] = rangeMinMax(2, 9)
+    } else {
+      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+        tables = [contraindreValeur(2, 9, this.sup, randint(2, 9))]
+      } else {
+        tables = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < tables.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+          tables[i] = contraindreValeur(2, 9, parseInt(tables[i]), 9) // parseInt en fait un tableau d'entiers
+        }
+        // this.nbQuestions = Math.max(this.nbQuestions, QuestionsDisponibles.length)
+      }
+    }
+
     const couples = creerCouples(
       tables,
       [2, 3, 4, 5, 6, 7, 8, 9, 10],
