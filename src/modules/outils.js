@@ -277,8 +277,9 @@ export function centrage (texte) {
  * @param {number|string} defaut valeur par défaut si non entier
  */
 export function contraindreValeur (min, max, valeur, defaut) {
-  if (isNaN(min) || isNaN(max) || (defaut !== undefined && isNaN(defaut))) {
-    throw Error(`Erreur dans contraindreValeur : un des paramètre de contrainte est NaN : ${
+  // if (isNaN(min) || isNaN(max) || (defaut !== undefined && isNaN(defaut))) { // Rajout de Remi
+  if (isNaN(min) || isNaN(max) || (isNaN(defaut))) {
+    throw Error(`Erreur dans contraindreValeur : un des paramètres de contrainte est NaN : ${
       ['min : ' + String(min) + ' ', max, valeur, defaut].reduce((accu, value, index) => String(accu) + ['min', ',max', ',valeur', ',defaut'][index] + ' : ' + String(value) + ' ')
     }`)
   }
