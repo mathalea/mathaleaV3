@@ -71,6 +71,7 @@
    */
   function buildImagesUrlsList() {
     let imagesFilesUrls = []
+    getImagesInCode()
     exosContentList.forEach((exo, i) => {
       const year = exo.groups.year
       const month = exo.groups.month
@@ -107,11 +108,7 @@
     })
     downloadPicsModal.style.display = "none"
   }
-
-  /**
-   * Gérer l'affichage du modal : on donne la liste des images par exercice
-   */
-  function handleDownloadPicsModalDisplay() {
+  function getImagesInCode() {
     let picsList: string[][] = []
     picsNames = []
     exosContentList = []
@@ -129,6 +126,12 @@
         picsNames[index] = [...picsNames[index], item[1].replace(/\.(?:jpg|gif|png|eps|pdf)$/g, "")]
       }
     })
+  }
+  /**
+   * Gérer l'affichage du modal : on donne la liste des images par exercice
+   */
+  function handleDownloadPicsModalDisplay() {
+    getImagesInCode()
     downloadPicsModal.style.display = "block"
   }
 
@@ -198,26 +201,37 @@
     }
   }
 
-  async function buildZipFileForOverleaf(fileName, urls) {
+  async function buildZipFileForOverleaf(fileName) {
     const zip = new JSZip()
     const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
     zip.file("main.tex", text)
-    if (urls && urls.length !== 0) {
+    if (picsWanted) {
+      const urls = buildImagesUrlsList()
+      console.log("URLs:" + urls.length)
       const imagesFolder = zip.folder("images")
+      let count = 0
       urls.forEach((image) => {
+        console.log(image.fileName + " / " + image.url)
         JSZipUtils.getBinaryContent(image.url, (err, data) => {
           if (err) {
             throw err
           }
           imagesFolder.file(image.fileName, data, { binary: true })
+          count++
+          if (count === urls.length) {
+            zip.generateAsync({ type: "blob" }).then((content) => {
+              linkForOverleaf = document.createElement("a")
+              linkForOverleaf.href = URL.createObjectURL(content)
+              saveAs(content, "coopmath.zip")
+            })
+          }
         })
       })
     }
-    zip.generateAsync({ type: "blob" }).then((content) => {
-      linkForOverleaf = document.createElement("a")
-      linkForOverleaf.href = URL.createObjectURL(content)
-      saveAs(content, "coopmath.zip") // <-- à retirer : ici pour vérifier la nature de l'archive...
-    })
+    // zip.generateAsync({ type: "blob" }).then((content) => {
+    //   linkForOverleaf = document.createElement("a")
+    //   linkForOverleaf.href = URL.createObjectURL(content)
+    // })
   }
   const copyDocumentToOverleaf = async () => {
     const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
@@ -294,7 +308,7 @@
         id="btn_overleaf"
         type="submit"
         on:click={() => {
-          buildZipFileForOverleaf("coopmaths.zip", buildImagesUrlsList())
+          buildZipFileForOverleaf("coopmaths.zip")
         }}
         class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
       >
