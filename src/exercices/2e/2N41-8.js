@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, texFractionReduite, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, texFractionReduite, texFraction } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
@@ -39,22 +39,43 @@ export default function MettreAuMemeDenominateurLit () {
     } else { typesDeQuestionsDisponibles = [7, 8, 9] } // coef de x relatif
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0, a, b, typesDeQuestions, fraction = [], ds, ns; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0, a, b, typesDeQuestions, fraction = [], consigne, consigneI, ds, ns; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(1, 9)
       b = randint(2, 9)
       fraction = choice(listeFractions)
       ns = fraction[0]
       ds = fraction[1]
+      consigne = 'Préciser les valeurs interdites éventuelles, puis écrire l\'expression avec un seul quotient : '
+      consigneI = ' Écrire avec un seul quotient :<br>'
       switch (typesDeQuestions) {
         case 1:
-          texte = `Après avoir indiqué les valeurs interdites éventuelles, écrire l'expression sous la forme d'une seule fraction.<br>
-          $(x+${a})^2$` // (x+a)²
-          texteCorr = `$(x+${a})^2=x^2+2 \\times ${a} \\times x+${a}^2=x^2+${2 * a}x+${a * a}$`
+          { const a = randint(1, 9)
+            const b = randint(-9, 9, 0)
+            texte = consigne
+            texte += `$${rienSi1(b)}x+\\dfrac{${a}}{x}$.`
+            texteCorr = `$${rienSi1(b)}x+\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x^2}{x}+\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x^2+${a}}{x}$`
+            const reponse = [`\\dfrac{${b}x^2+${a}}{x}`]
+            setReponse(this, i, reponse)
+            if (this.interactif) {
+              texte = consigneI
+              texte += ` $${rienSi1(b)}x+\\dfrac{${a}}{x}=$` +
+                    ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+            }
+          }
           break
         case 2:
-          texte = `$(x-${a})^2$` // (x-a)²
-          texteCorr = `$(x-${a})^2=x^2-2 \\times ${a} \\times x+${a}^2=x^2-${2 * a}x+${a * a}$`
+          { const a = randint(1, 9)
+            const b = randint(-9, 9, 0)
+            texte = `Préciser les valeurs interdites éventuelles, puis écrire l'expression avec un seul quotient : $${rienSi1(b)}x+\\dfrac{${a}}{x}$.`
+            texteCorr = `$${rienSi1(b)}x+\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x^2}{x}+\\dfrac{${a}}{x}=\\dfrac{${rienSi1(b)}x^2+${a}}{x}$`
+            const reponse = [`\\dfrac{${b}x^2+${a}}{x}`]
+            setReponse(this, i, reponse)
+            if (this.interactif) {
+              texte = ` Écrire avec un seul quotient : $${rienSi1(b)}x+\\dfrac{${a}}{x}=$` +
+                    ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+            }
+          }
           break
         case 3:
           texte = `$(x-${a})(x+${a})$` // (x-a)(x+a)
@@ -86,15 +107,11 @@ export default function MettreAuMemeDenominateurLit () {
           texteCorr = `$\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)=\\left(${texFraction(ns, ds)}x\\right)^2-${a}^2=${texFraction(ns * ns, ds * ds)}x^2-${a * a}$`
           break
       }
-      if (this.interactif) {
-        texte += '$ = $' + ajouteChampTexteMathLive(this, i, 'largeur75 inline')
-      }
+
       if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        const reponse = texteCorr.match(/=([^=$]+)\$$/)[1]
-        setReponse(this, i, reponse)
         i++
       }
       cpt++
