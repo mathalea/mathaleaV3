@@ -74,7 +74,7 @@
     {/if}
   </button>
   <dialog class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg" id={dialogId + "-1"}>
-    {message}
+    <div class="container font-light">{@html message}</div>
   </dialog>
   <dialog class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg" id={dialogId + "-2"}>
     {messageError}
