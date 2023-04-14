@@ -2063,6 +2063,17 @@
             "amc": true,
             "amcType": "AMCNum"
           }
+        },
+        "can5N03": {
+          "id": "can5N03",
+          "uuid": "ed8da",
+          "url": "can/5e/can5N03.js",
+          "titre": "Déterminer un multiple",
+          "datePublication": "12/04/2023",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathLive"
+          }
         }
       },
       "can5P": {
