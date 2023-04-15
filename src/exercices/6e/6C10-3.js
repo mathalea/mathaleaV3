@@ -57,7 +57,6 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
         for (let i = 0; i < tables.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
           tables[i] = contraindreValeur(2, 9, parseInt(tables[i]), 9) // parseInt en fait un tableau d'entiers
         }
-        // this.nbQuestions = Math.max(this.nbQuestions, QuestionsDisponibles.length)
       }
     }
 
