@@ -20,6 +20,7 @@ export default function PpcmEngrenages () {
   this.consigne = ''
   context.isHtml ? this.spacing = 2 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+  this.nbQuestionsModifiable = false
   this.nbQuestions = 4
   // this.correctionDetailleeDisponible = true;
   this.nbCols = 1
