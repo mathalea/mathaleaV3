@@ -77,7 +77,7 @@
       const month = exo.groups.month
       const area = exo.groups.zone.replace(/ /g, "_")
       for (const fileName of picsNames[i]) {
-        imagesFilesUrls.push({ url: `static/dnb/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
+        imagesFilesUrls.push({ url: `public/static/dnb/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
       }
     })
     return imagesFilesUrls
@@ -221,7 +221,8 @@
           if (count === urls.length) {
             zip.generateAsync({ type: "blob" }).then((content) => {
               linkForOverleaf = document.createElement("a")
-              linkForOverleaf.href = URL.createObjectURL(content)
+              linkForOverleaf.href = URL.createObjectURL(content).replace("blob:", "")
+              console.log(linkForOverleaf.href)
               saveAs(content, "coopmath.zip")
             })
           }
@@ -301,9 +302,9 @@
 
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Exportation</h1>
     <form class="flex flex-col md:flex-row mx-4 pb-4 md:pb-8 md:space-x-4 space-y-3" method="POST" action="https://www.overleaf.com/docs" target="_blank">
-      <input type="hidden" name="snip_uri" bind:value={linkForOverleaf} autocomplete="off" />
-      <input type="hidden" name="snip_name" value="CoopMaths" autocomplete="off" />
-      <input type="hidden" name="engine" value="lualatex" autocomplete="off" />
+      <input type="text" name="snip_uri" bind:value={linkForOverleaf} autocomplete="off" />
+      <input type="text" name="snip_name" value="CoopMaths" autocomplete="off" />
+      <input type="text" name="engine" value="lualatex" autocomplete="off" />
       <button
         id="btn_overleaf"
         type="submit"
