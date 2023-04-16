@@ -294,7 +294,7 @@ export function contraindreValeur (min, max, valeur, defaut) {
  * @param {string[] | number[] | undefined} listeOfCase La liste des valeurs à mettre dans la liste en sortie. Si aucune liste n'est fournie, ce sont les nombres qui seront dans la liste
  * @param {boolean} shuffle si true, alors on brasse la liste en sortie sinon on garde l'ordre
  * @param {number} nbQuestions obligatoire : c'est la taille de la liste en sortie
- * @param {boolean} maxIsRandom true si la valeur max est utilisée pour l'option mélange à savoir randint(min,max-1)
+ * @param {number | undefined} random la valeur utilisée pour l'option mélange à savoir randint(min,max)
  */
 export function formTextSerializer ({
                                       saisie,
@@ -304,7 +304,7 @@ export function formTextSerializer ({
                                       listeOfCase,
                                       shuffle = true,
                                       nbQuestions,
-                                      maxIsRandom = true
+                                      random
                                     } = {}) {
   if (max == null || isNaN(max) || max < min) throw Error('La fonction formTextSerialize réclame un paramètre max de type number')
   if (defaut == null || isNaN(defaut) || defaut < min || defaut > max) throw Error('La fonction formTextSerializer réclame un paramètre defaut compris entre min(1) et max')
@@ -331,12 +331,12 @@ export function formTextSerializer ({
   if (Array.isArray(listeOfCase)) { // si une listeOfCase est fournie, on retourne la liste des valeurs construites avec listeIndex
     if (listeOfCase.length < Max) throw Error('La liste de cas fournie ne contient pas assez de valeurs par rapport à max')
     return listeIndex.map((el) => {
-      if (el === max && maxIsRandom) return listeOfCase(randint(min - 1, max - 1))
+      if (random != null && el === random) return listeOfCase(randint(min - 1, max - 1))
       else return listeOfCase(el - 1)
     })
   }
   return listeIndex.map((el) => {
-    if (el === max && maxIsRandom) return randint(min, max - 1)
+    if (random != null && el === random) return randint(min, max)
     else return el
   }) // sinon, on retourne listeIndex qui contient les nombres.
 }
@@ -1416,9 +1416,9 @@ export function changementDeBaseTriOrtho (point) {
  * @author Jean-Claude Lhote
  */
 export function imagePointParTransformation (transformation, pointA, pointO, vecteur = [], rapport = 1) { // pointA,centre et pointO sont des tableaux de deux coordonnées
-  // on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
-  // nécessite d'être en repère orthonormal...
-  // Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
+                                                                                                          // on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
+                                                                                                          // nécessite d'être en repère orthonormal...
+                                                                                                          // Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
   
   const matriceSymObl1 = matriceCarree([[0, 1, 0], [1, 0, 0], [0, 0, 1]]) // x'=y et y'=x
   const matriceSymxxprime = matriceCarree([[1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=x et y'=-y
