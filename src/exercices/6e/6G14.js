@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, range, egal, rangeMinMax, shuffle, combinaisonListes, contraindreValeur, choice } from '../../modules/outils.js'
-import { point, pointIntersectionDD, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteParPointEtPente, rotation, codageAngleDroit, latexParCoordonneesBox, pointSurDroite, segment, pointIntersectionCC } from '../../modules/2d.js'
+import { point, pointIntersectionDD, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteParPointEtPente, rotation, codageAngleDroit, latexParCoordonneesBox, pointSurDroite, segment } from '../../modules/2d.js'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
 export const titre = 'Utiliser les propriétés des droites perpendiculaires'
@@ -353,7 +353,7 @@ export function labelOnLine (droite, nom, options = {}) {
   if (options.taille === undefined) options.taille = 6
   if (options.color === undefined) options.color = 'red'
 
-  let debug = false
+  const debug = false
 
   // const largeur = Math.ceil((nom.replaceAll('$', '').length) * 10 * Math.log10(options.taille))
   const largeur = Math.ceil((nom.replaceAll('$', '').length) * options.taille * 10 / 12)
@@ -505,7 +505,7 @@ export function labelOnLine (droite, nom, options = {}) {
         let colision2 = true
         if (dis > r0 + r1 || dis < Math.abs(r0 - r1)) colision2 = false
         coli[j] = [dis, colision]
-        if (debug) console.log('coli:nom:' + nom + ':position:' + positions[i].position + ':anchor:' + positions[i].anch + ':i:' + i + ':j:' + j + ':dis:' + dis.toFixed(2) + 'texte:' + label.texte + ':colision:' + (colision ? '1' : '0') + ':coli_cer:' + (colision2?'1':'0'))
+        if (debug) console.log('coli:nom:' + nom + ':position:' + positions[i].position + ':anchor:' + positions[i].anch + ':i:' + i + ':j:' + j + ':dis:' + dis.toFixed(2) + 'texte:' + label.texte + ':colision:' + (colision ? '1' : '0') + ':coli_cer:' + (colision2 ? '1' : '0'))
       }
       positions[i].colision = coli
     }
