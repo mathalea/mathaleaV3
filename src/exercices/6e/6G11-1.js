@@ -79,7 +79,8 @@ export default class constructionPerpendiculaires extends Exercice {
       random: 5,
       listeOfCase: ['OrthoInterieur', 'OrthoExterieur', 'CircoInterieur', 'CircoExterieur', 'Mélange'],
       nbQuestions: this.nbQuestions,
-      shuffle: true
+      shuffle: true,
+      saisie: this.sup2
     })
     /* if (!this.sup2) { // Si aucune liste n'est saisie ou mélange demandé
        listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4], this.nbQuestions)

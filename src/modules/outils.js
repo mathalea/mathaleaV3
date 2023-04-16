@@ -311,14 +311,14 @@ export function formTextSerializer ({
   let listeIndex
   
   if (!saisie) { // Si aucune liste n'est saisie
-    listeIndex = rangeMinMax(min, max)
+    listeIndex = [defaut]
   } else {
     if (typeof (saisie) === 'number' || Number.isInteger(saisie)) { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-      listeIndex = [contraindreValeur(min, max, saisie, defaut)]
+      listeIndex = [contraindreValeur(min, Math.max(max, random ?? max), saisie, defaut)]
     } else {
       listeIndex = saisie.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
       for (let i = 0; i < listeIndex.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-        listeIndex[i] = contraindreValeur(min, max, parseInt(listeIndex[i]), defaut) // parseInt en fait un tableau d'entiers
+        listeIndex[i] = contraindreValeur(min, Math.max(max, random ?? max), parseInt(listeIndex[i]), defaut) // parseInt en fait un tableau d'entiers
       }
     }
   }
@@ -328,6 +328,7 @@ export function formTextSerializer ({
     listeIndex = combinaisonListesSansChangerOrdre(listeIndex, nbQuestions)
   }
   const Max = Math.max(...listeIndex)
+  console.log('listeIndex : ', listeIndex)
   if (Array.isArray(listeOfCase)) { // si une listeOfCase est fournie, on retourne la liste des valeurs construites avec listeIndex
     if (listeOfCase.length < Max) throw Error('La liste de cas fournie ne contient pas assez de valeurs par rapport à max')
     return listeIndex.map((el) => {
@@ -1416,9 +1417,9 @@ export function changementDeBaseTriOrtho (point) {
  * @author Jean-Claude Lhote
  */
 export function imagePointParTransformation (transformation, pointA, pointO, vecteur = [], rapport = 1) { // pointA,centre et pointO sont des tableaux de deux coordonnées
-                                                                                                          // on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
-                                                                                                          // nécessite d'être en repère orthonormal...
-                                                                                                          // Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
+  // on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
+  // nécessite d'être en repère orthonormal...
+  // Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
   
   const matriceSymObl1 = matriceCarree([[0, 1, 0], [1, 0, 0], [0, 0, 1]]) // x'=y et y'=x
   const matriceSymxxprime = matriceCarree([[1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=x et y'=-y
