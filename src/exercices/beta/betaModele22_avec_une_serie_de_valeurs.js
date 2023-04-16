@@ -1,5 +1,6 @@
+import { formTextSerializer, listeQuestionsToContenu } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, contraindreValeur, compteOccurences, rangeMinMax } from '../../modules/outils.js'
+
 export const titre = 'Nom de l\'exercice'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -10,54 +11,48 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * Description didactique de l'exercice
  * @author
  * Référence
-*/
+ */
 export default class NomExercice extends Exercice {
   constructor () {
     super()
     this.titre = titre
     this.consigne = 'Consigne'
     this.nbQuestions = 10
-
+    
     this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Fleuriste\n2 : Professeur\n3 : Boulanger\n4 : Mélange']
     this.sup = '1-1-2-3'
-
+    
     this.nbCols = 2
     this.nbColsCorr = 2
     this.tailleDiaporama = 3
     this.video = ''
   }
-
+  
   nouvelleVersion (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-
+    
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3']
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
-
-    let listeDesProblemes = [1, 2, 3] // Paramétrage par défaut
-    const valMaxParametre = 4
-    if (this.sup) { // Si une liste est saisie
-      if (this.sup.toString().indexOf('-') === -1) { // S'il n'y a pas de tiret ...
-        listeDesProblemes = [contraindreValeur(1, valMaxParametre, parseInt(this.sup), 1)] // ... on crée un tableau avec une seule valeur
-      } else {
-        listeDesProblemes = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < listeDesProblemes.length; i++) { // on parcourt notre tableau de strings : ['1', '1', '2'] ...
-          listeDesProblemes[i] = contraindreValeur(1, valMaxParametre, parseInt(listeDesProblemes[i]), 1) // ... pour en faire un tableau d'entiers : [1, 1, 2]
-        }
+    const listeTypeQuestions = formTextSerializer( // retourne une liste de choix pour les questions à partir du paramètre saisie
+      {
+        saisie: this.sup ?? '1-2-3',
+        min: 1,
+        max: 3,
+        random: 4, // si renseigné indique que le choix 4 signifie un choix aléatoire entre min et max
+        listeOfCase: typeQuestionsDisponibles, // si cette liste est fournie, la fonction retournera des valeurs de la liste, sinon des nombres
+        nbQuestions: this.nbQuestions,
+        shuffle: true, // la liste est brassée, si false, l'ordre des choix correspond à la saisie
+        defaut: 1 // si dans la saisie, une valeur est invalide, ce sera cette valeur
       }
-    }
-    // Attention ! Si la valeur max du paramètre n'est pas une option de type "mélange", supprimer la ligne ci-dessous !
-    if (compteOccurences(listeDesProblemes, valMaxParametre) > 0) listeDesProblemes = rangeMinMax(1, valMaxParametre - 1) // Si l'utilisateur a choisi l'option "mélange", on fait une liste avec un de chaque
-
-    listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
-
+    )
+    
     for (let i = 0, texte, texteCorr, typeDeProbleme, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      if (listeDesProblemes[i] === 1) { // On ajuste le type de problème selon le paramètre.
+      if (listeTypeQuestions[i] === 'type1') { // On ajuste le type de problème selon le paramètre.
         typeDeProbleme = 'fleuriste'
-      } else if (listeDesProblemes[i] === 2) {
+      } else if (listeTypeQuestions[i] === 'type2') {
         typeDeProbleme = 'professeur'
-      } else if (listeDesProblemes[i] === 3) {
+      } else if (listeTypeQuestions[i] === 'type3') {
         typeDeProbleme = 'boulanger'
       } else {
         window.notify('listeDesProblemes[i] a une valeur inattendue.\nPeut-être que valMaxParametre est incorrect ?')
