@@ -75,29 +75,13 @@ export default class constructionPerpendiculaires extends Exercice {
     listeTypeDeQuestions = formTextSerializer({
       min: 1,
       max: 4,
-      defaut: 5,
+      defaut: 1,
       random: 5,
       listeOfCase: ['OrthoInterieur', 'OrthoExterieur', 'CircoInterieur', 'CircoExterieur', 'Mélange'],
       nbQuestions: this.nbQuestions,
       shuffle: true,
       saisie: this.sup2
     })
-    /* if (!this.sup2) { // Si aucune liste n'est saisie ou mélange demandé
-       listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
-     } else if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-       listeTypeDeQuestions[0] = contraindreValeur(1, 4, this.sup2, 1)
-     } else {
-       const quests = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-       for (let i = 0; i < quests.length; i++) {
-         const choixtp = parseInt(quests[i])
-         if (choixtp >= 1 && choixtp <= 4) {
-           listeTypeDeQuestions.push(choixtp)
-         }
-       }
-       if (listeTypeDeQuestions.length === 0) { listeTypeDeQuestions = [1, 2] }
-       listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
-     }
- */
     for (let i = 0, texte, typesDeQuestions, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       typesDeQuestions = listeTypeDeQuestions[i]
       const anim = new Alea2iep()
