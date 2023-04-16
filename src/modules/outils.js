@@ -307,7 +307,7 @@ export function formTextSerializer ({
                                       random
                                     } = {}) {
   if (max == null || isNaN(max) || max < min) throw Error('La fonction formTextSerialize réclame un paramètre max de type number')
-  if (defaut == null || isNaN(defaut) || defaut < min || defaut > max) throw Error('La fonction formTextSerializer réclame un paramètre defaut compris entre min(1) et max')
+  if (defaut == null || isNaN(defaut) || defaut < min || (defaut > max && defaut !== random)) throw Error('La fonction formTextSerializer réclame un paramètre defaut compris entre min(1) et max')
   let listeIndex
   
   if (!saisie) { // Si aucune liste n'est saisie
@@ -331,8 +331,8 @@ export function formTextSerializer ({
   if (Array.isArray(listeOfCase)) { // si une listeOfCase est fournie, on retourne la liste des valeurs construites avec listeIndex
     if (listeOfCase.length < Max) throw Error('La liste de cas fournie ne contient pas assez de valeurs par rapport à max')
     return listeIndex.map((el) => {
-      if (random != null && el === random) return listeOfCase(randint(min - 1, max - 1))
-      else return listeOfCase(el - 1)
+      if (random != null && el === random) return listeOfCase[randint(min - 1, max - 1)]
+      else return listeOfCase[el - 1]
     })
   }
   return listeIndex.map((el) => {
