@@ -153,7 +153,7 @@ export default function CalculProbaExperience2Epreuves2e () {
     texteCorr += `L'événement 'obtenir une boule ${boules[choix]}' est réalisé par les issues ('Pile','${boules[choix]}') et ('Face','${boules[choix]}'), donc sa probabilité est la somme des probabilités calculées ci-dessus.<br>`
     texteCorr += `La probabilité d'obtenir une boule ${boules[choix]} est donc de $${texProba(fraction(n1[choix], 2 * card1), true)}+${texProba(fraction(n2[choix], 2 * card2), true)}=${texProba(p[choix], true)}$.`
 
-    return { texte: texte, texteCorr: texteCorr, alea: [...n1, ...n2] }
+    return { texte, texteCorr, alea: [...n1, ...n2] }
   }
 
   function urneDeuxTiragesAvecRemise (exercice, i, sup, sup2, niveau, numQuestionInteractif) { // tirage dans une urne avec remise
@@ -286,7 +286,7 @@ export default function CalculProbaExperience2Epreuves2e () {
     texteCorr += tableau + '<br>'
     texteCorr += `${b1Char} = ${b1Color} et ${b2Char} = ${b2Color}.<br>`
     texteCorr += 'On peut aussi présenter les deux épreuves sous la forme d\'un arbre de dénombrement :<br>'
-    texteCorr += mathalea2d({ xmin: 0, xmax: card * 8.5, ymin: 0, ymax: 13, zoom: 0.8, scale: 1/card }, ...objets)
+    texteCorr += mathalea2d({ xmin: 0, xmax: card * 8.5, ymin: 0, ymax: 13, zoom: 0.8, scale: 1 / card }, ...objets)
     texteCorr += `<br>${numAlpha(0)} L'événement "obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}" est réalisé par l'issue {${choix[2] + choix[2]}}.`
     texteCorr += ` On comptabilise ${choix[0] ** 2} issues {${choix[2] + choix[2]}} sur ${card ** 2} issues en tout.<br>`
     texteCorr += `La probabilité de cet événement est donc de $${probaChoix.texFraction}${!probaChoix.estIrreductible ? '=' + probaChoix.texFractionSimplifiee : ''}$.<br>`
@@ -301,7 +301,7 @@ export default function CalculProbaExperience2Epreuves2e () {
     texteCorr += `Une autre façon de faire est de considéré que c'est l'événement contraire de "obtenir deux boules de la même couleur" dont on a calculé la probabilité à la question ${numAlpha(1)}.<br>`
     texteCorr += `On peut donc calculer la probabilité de cet événement en calculant : $1 -${proba1et2.texFractionSimplifiee} = ${proba1et2.entierMoinsFraction(1).texFractionSimplifiee}$.`
 
-    return { texte: texte, texteCorr: texteCorr, alea: [nbBoule1, nbBoule2, b1Char, b2Char] }
+    return { texte, texteCorr, alea: [nbBoule1, nbBoule2, b1Char, b2Char] }
   }
 
   this.nouvelleVersion = function () {
