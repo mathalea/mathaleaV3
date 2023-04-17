@@ -327,18 +327,17 @@ export function formTextSerializer ({
   } else {
     listeIndex = combinaisonListesSansChangerOrdre(listeIndex, nbQuestions)
   }
+  if (random != null && compteOccurences(listeIndex, random)) {
+    listeIndex = combinaisonListes(rangeMinMax(min, max), nbQuestions)
+  }
   const Max = Math.max(...listeIndex)
   if (Array.isArray(listeOfCase)) { // si une listeOfCase est fournie, on retourne la liste des valeurs construites avec listeIndex
     if (listeOfCase.length < Max) throw Error('La liste de cas fournie ne contient pas assez de valeurs par rapport à max')
     return listeIndex.map((el) => {
-      if (random != null && el === random) return listeOfCase[randint(min - 1, max - 1)]
-      else return listeOfCase[el - 1]
+      listeOfCase[el - 1]
     })
   }
-  return listeIndex.map((el) => {
-    if (random != null && el === random) return randint(min, max)
-    else return el
-  }) // sinon, on retourne listeIndex qui contient les nombres.
+  return listeIndex
 }
 
 /** Retourne un nombre décimal entre a et b, sans être trop près de a et de b
@@ -1416,9 +1415,9 @@ export function changementDeBaseTriOrtho (point) {
  * @author Jean-Claude Lhote
  */
 export function imagePointParTransformation (transformation, pointA, pointO, vecteur = [], rapport = 1) { // pointA,centre et pointO sont des tableaux de deux coordonnées
-                                                                                                          // on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
-                                                                                                          // nécessite d'être en repère orthonormal...
-                                                                                                          // Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
+  // on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
+  // nécessite d'être en repère orthonormal...
+  // Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
   
   const matriceSymObl1 = matriceCarree([[0, 1, 0], [1, 0, 0], [0, 0, 1]]) // x'=y et y'=x
   const matriceSymxxprime = matriceCarree([[1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=x et y'=-y
