@@ -40,8 +40,8 @@ export default function MettreAuMemeDenominateurLit () {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0, typesDeQuestions, consigne1, consigne2, consigneI1, consigneI2; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
-      consigne1 = 'Préciser les valeurs interdites éventuelles, puis écrire l\'expression avec un seul quotient : '
-      consigne2 = 'Préciser les valeurs interdites éventuelles, puis écrire l\'expression avec un seul quotient (réduire le numérateur) : '
+      consigne1 = 'Préciser les valeurs interdites éventuelles, puis écrire l\'expression sous la forme d\'un quotient : '
+      consigne2 = 'Préciser les valeurs interdites éventuelles, puis écrire l\'expression sous la forme d\'un quotient (réduire le numérateur) : '
       consigneI1 = ' Écrire avec un seul quotient :<br>'
       consigneI2 = ' Écrire avec un seul quotient (réduire le numérateur) :<br>'
       switch (typesDeQuestions) {
@@ -51,7 +51,8 @@ export default function MettreAuMemeDenominateurLit () {
             const choix = choice([true, false])
             texte = consigne1
             texte += `$${rienSi1(b)}x${choix ? '-' : '+'}\\dfrac{${a}}{x}$.`
-            texteCorr = `$0$ est une valeur interdite. <br>
+            texteCorr = `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${a}}{x}$, puisque la division par $0$ n'existe pas.<br>
+          $0$ est donc une valeur interdite. <br>
             Pour $x\\in \\mathbb{R}^*$,<br>
             $\\begin{aligned}
             ${rienSi1(b)}x${choix ? '-' : '+'}\\dfrac{${a}}{x}&=\\dfrac{${rienSi1(b)}x^2}{x}${choix ? '-' : '+'}\\dfrac{${a}}{x}\\\\
@@ -73,7 +74,8 @@ export default function MettreAuMemeDenominateurLit () {
             const choix = choice([true, false])
             texte = consigne1
             texte += `$${b}${choix ? '+' : '-'}\\dfrac{${a}}{x}$.`
-            texteCorr = `$0$ est une valeur interdite. <br>
+            texteCorr = `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${a}}{x}$, puisque la division par $0$ n'existe pas.<br>
+            $0$ est donc une valeur interdite. <br>
             Pour $x\\in \\mathbb{R}^*$, <br>
             $\\begin{aligned}
             ${b}${choix ? '+' : '-'}\\dfrac{${a}}{x}&=\\dfrac{${rienSi1(b)}x}{x}${choix ? '+' : '-'}\\dfrac{${a}}{x}\\\\
@@ -100,7 +102,8 @@ export default function MettreAuMemeDenominateurLit () {
             const f = new FractionX(-d, c).simplifie()
             texte = consigne2
             texte += `$${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.`
-            texteCorr = `$${f.texFraction}$ est la solution de l'équation $${reduireAxPlusB(c, d)}=0$.<br>
+            texteCorr = `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$, puisque la division par $0$ n'existe pas.<br>
+            L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
             $${f.texFraction}$ est donc une valeur interdite pour l'expression. <br>
             Pour $x\\in \\mathbb{R}\\smallsetminus\\left\\{${f.texFraction}\\right\\}$, <br>
             $\\begin{aligned}
@@ -129,8 +132,9 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             const f = new FractionX(-d, c).simplifie()
             texte = consigne2
             texte += `$\\dfrac{${a}}{x}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.`
-            texteCorr = `$${f.texFraction}$ est la solution de l'équation $${reduireAxPlusB(c, d)}=0$.<br>
-            $0$ et $${f.texFraction}$ sont donc des valeurs interdites pour l'expression. <br>
+            texteCorr = `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent les dénominateurs de $\\dfrac{${a}}{x}$ et de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$, puisque la division par $0$ n'existe pas.<br>
+            L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
+             $0$ et $${f.texFraction}$ sont donc des valeurs interdites pour l'expression. <br>
             Pour $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-d / c < 0 ? `${f.texFraction}\\,;\\,0` : `0\\,;\\,${f.texFraction}`}\\right\\}$,<br>
             $\\begin{aligned} 
             \\dfrac{${a}}{x}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${reduireAxPlusB(c, d)})}{x(${reduireAxPlusB(c, d)})}${choix ? '+' : '-'}\\dfrac{${rienSi1(b)}x}{x(${reduireAxPlusB(c, d)})}\\\\
@@ -158,8 +162,9 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             const f = new FractionX(-d, c).simplifie()
             texte = consigne2
             texte += `$${rienSi1(a)}x+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.`
-            texteCorr = `$${f.texFraction}$ est la solution de l'équation $${reduireAxPlusB(c, d)}=0$.<br>
-            $${f.texFraction}$ est donc une valeur interdite pour l'expression. <br>
+            texteCorr = `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$, puisque la division par $0$ n'existe pas.<br>
+            L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
+            $${f.texFraction}$ est une valeur interdite pour le quotient $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.<br>
             Pour $x\\in \\mathbb{R}\\smallsetminus\\left\\{${f.texFraction}\\right\\}$, <br>
             $\\begin{aligned}
             ${rienSi1(a)}x+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}x(${reduireAxPlusB(c, d)})}{${reduireAxPlusB(c, d)}}+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}\\\\
@@ -187,8 +192,9 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             const f = new FractionX(-d, c).simplifie()
             texte = consigne2
             texte += `$${reduireAxPlusB(a, e)}+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.`
-            texteCorr = `$${f.texFraction}$ est la solution de l'équation $${reduireAxPlusB(c, d)}=0$.<br>
-            $${f.texFraction}$ est donc une valeur interdite pour l'expression. <br>
+            texteCorr = `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$, puisque la division par $0$ n'existe pas.<br>
+            L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
+              $${f.texFraction}$ est donc une valeur interdite pour l'expression. <br>
             Pour $x\\in \\mathbb{R}\\smallsetminus\\left\\{${f.texFraction}\\right\\}$, <br>
             $\\begin{aligned}
             ${reduireAxPlusB(a, e)}+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}
@@ -220,9 +226,10 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             const f2 = new FractionX(-f, e).simplifie()
             texte = consigne2
             texte += `$\\dfrac{${a}}{${reduireAxPlusB(e, f)}}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.`
-            texteCorr = `$${f1.texFraction}$ est la solution de l'équation $${reduireAxPlusB(c, d)}=0$.<br>
-            $${f2.texFraction}$ est la solution de l'équation $${reduireAxPlusB(e, f)}=0$.<br>
-            $${f1.texFraction}$ et $${f2.texFraction}$ sont donc des valeurs  interdites pour l'expression. <br>
+            texteCorr = `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent les dénominateurs de $\\dfrac{${a}}{${reduireAxPlusB(e, f)}}$ et de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$, puisque la division par $0$ n'existe pas.<br>
+            L'équation $${reduireAxPlusB(e, f)}=0$ a pour solution $${f2.texFraction}$. <br>
+            L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f1.texFraction}$. <br>
+            $${f2.texFraction}$ et $${f1.texFraction}$ sont donc des valeurs interdites pour l'expression. <br>
             Pour $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-d / c < -f / e ? `${f1.texFraction}\\,;\\,${f2.texFraction}` : `${f2.texFraction}\\,;\\,${f1.texFraction}`}\\right\\}$, <br>
             $\\begin{aligned}
             \\dfrac{${a}}{${reduireAxPlusB(e, f)}}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}
