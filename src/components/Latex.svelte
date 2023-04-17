@@ -113,7 +113,7 @@
     picsNames = []
     exosContentList = []
     const regExpExo = /(?:\\begin\{EXO\}\{(?<title>DNB(?:\s*)(?<month>.*?)(?:\s*)(?<year>\d{4})(?:\s*)(?<zone>.*?)(?:\s*))\})((.|\n)*?)(?:\\end\{EXO\})/g
-    const regExp = /\\includegraphics(?:\[.*?\])?\{(.*?)\}/g
+    const regExp = /^(?:(?!%))\\includegraphics(?:\[.*?\])?\{(.*?)\}/gm
     const latexCode = contents.content
     exosContentList = [...latexCode.matchAll(regExpExo)]
     for (const exo of exosContentList) {
