@@ -77,7 +77,7 @@
       const month = exo.groups.month
       const area = exo.groups.zone.replace(/ /g, "_")
       for (const fileName of picsNames[i]) {
-        imagesFilesUrls.push({ url: `public/static/dnb/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
+        imagesFilesUrls.push({ url: `static/dnb/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
       }
     })
     return imagesFilesUrls
