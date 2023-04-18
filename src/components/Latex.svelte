@@ -234,7 +234,7 @@
   const copyDocumentToOverleaf = async () => {
     imagesList = buildImagesUrlsList()
     const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
-    textForOverleafInput.value = encodeURIComponent(text)
+    textForOverleafInput.value = "data:text/plain;base64," + btoa(text)
   }
 </script>
 
@@ -304,8 +304,8 @@
         <input type="hidden" name="snip_uri[]" value={image.url} autocomplete="off" />
         <input type="hidden" name="snip_name[]" value={image.fileName} autocomplete="off" />
       {/each}
-      <input type="hidden" name="encoded_snip" bind:this={textForOverleafInput} autocomplete="off" />
-      <input type="hidden" name="snip_name[]" value="Coopmath" autocomplete="off" />
+      <input type="hidden" name="snip_uri[]" bind:this={textForOverleafInput} autocomplete="off" />
+      <input type="hidden" name="snip_name[]" value="coopmath.tex" autocomplete="off" />
       <input type="hidden" name="engine" value="lualatex" autocomplete="off" />
       <button
         id="btn_overleaf"
