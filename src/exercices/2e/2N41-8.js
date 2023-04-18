@@ -1,9 +1,10 @@
 import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, abs, combinaisonListes, rienSi1, reduirePolynomeDegre3, reduireAxPlusB, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-
+export const dateDePublication = '18/04/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Mettre au même dénominateur des expressions littérales'
@@ -14,7 +15,7 @@ export const titre = 'Mettre au même dénominateur des expressions littérales'
 * 2N41-8
 */
 export const uuid = '641bc'
-export const ref = ''
+export const ref = '2N41-8'
 export default function MettreAuMemeDenominateurLit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -24,8 +25,8 @@ export default function MettreAuMemeDenominateurLit () {
   this.spacingCorr = 1
   this.nbQuestions = 2
   this.sup = 3
-  this.comment = `Les expressions du niveau 1 concerne des expressions du type $a+\\dfrac{b}{x}$ ou $ax+\\dfrac{b}{x}$ ou $a+\\dfrac{b}{cx+d}$.<br>
-  Les expressions de niveau 2 sont plus complexes. Elles nécessitent par exemple un développement du numérateur.`
+  this.comment = `Les expressions du niveau 1 sont des expressions du type $a+\\dfrac{b}{x}$ ou $ax+\\dfrac{b}{x}$ ou $a+\\dfrac{b}{cx+d}$.<br>
+  Les expressions de niveau 2 sont plus complexes. Elles nécessitent par exemple un développement du numérateur et peuvent avoir deux valeurs interdites.`
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
@@ -35,7 +36,7 @@ export default function MettreAuMemeDenominateurLit () {
       typesDeQuestionsDisponibles = [1, 2, 3]
     } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = [4, 5, 6, 7]
-    } else { typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7] } //
+    } else { typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7] } // 1, 2, 3, 4, 5, 6, 7
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0, typesDeQuestions, consigne1, consigne2, consigneI1, consigneI2; i < this.nbQuestions && cpt < 50;) {
@@ -102,8 +103,13 @@ export default function MettreAuMemeDenominateurLit () {
             const f = new FractionX(-d, c).simplifie()
             texte = consigne2
             texte += `$${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.`
-            texteCorr = `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$, puisque la division par $0$ n'existe pas.<br>
-            L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
+            if (context.isDiaporama) {
+              texteCorr = ''
+            } else {
+              texteCorr = `Déterminer les valeurs interdites de cette expression, revient à  déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$, 
+            puisque la division par $0$ n'existe pas.<br>`
+            }
+            texteCorr += `L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
             $${f.texFraction}$ est donc une valeur interdite pour l'expression. <br>
             Pour $x\\in \\mathbb{R}\\smallsetminus\\left\\{${f.texFraction}\\right\\}$, <br>
             $\\begin{aligned}
@@ -132,8 +138,13 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             const f = new FractionX(-d, c).simplifie()
             texte = consigne2
             texte += `$\\dfrac{${a}}{x}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.`
-            texteCorr = `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent les dénominateurs de $\\dfrac{${a}}{x}$ et de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$, puisque la division par $0$ n'existe pas.<br>
-            L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
+            if (context.isDiaporama) {
+              texteCorr = ''
+            } else {
+              texteCorr = `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$, 
+            puisque la division par $0$ n'existe pas.<br>`
+            }
+            texteCorr += ` L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
              $0$ et $${f.texFraction}$ sont donc des valeurs interdites pour l'expression. <br>
             Pour $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-d / c < 0 ? `${f.texFraction}\\,;\\,0` : `0\\,;\\,${f.texFraction}`}\\right\\}$,<br>
             $\\begin{aligned} 
@@ -162,8 +173,14 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             const f = new FractionX(-d, c).simplifie()
             texte = consigne2
             texte += `$${rienSi1(a)}x+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.`
-            texteCorr = `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$, puisque la division par $0$ n'existe pas.<br>
-            L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
+            if (context.isDiaporama) {
+              texteCorr = ''
+            } else {
+              texteCorr = `Déterminer les valeurs interdites de cette expression, revient à 
+            déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$, 
+            puisque la division par $0$ n'existe pas.<br>`
+            }
+            texteCorr += `L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
             $${f.texFraction}$ est une valeur interdite pour le quotient $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.<br>
             Pour $x\\in \\mathbb{R}\\smallsetminus\\left\\{${f.texFraction}\\right\\}$, <br>
             $\\begin{aligned}
@@ -192,8 +209,14 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             const f = new FractionX(-d, c).simplifie()
             texte = consigne2
             texte += `$${reduireAxPlusB(a, e)}+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.`
-            texteCorr = `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$, puisque la division par $0$ n'existe pas.<br>
-            L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
+            if (context.isDiaporama) {
+              texteCorr = ''
+            } else {
+              texteCorr = `Déterminer les valeurs interdites de cette expression, revient à 
+            déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$, 
+            puisque la division par $0$ n'existe pas.<br>`
+            }
+            texteCorr += `L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
               $${f.texFraction}$ est donc une valeur interdite pour l'expression. <br>
             Pour $x\\in \\mathbb{R}\\smallsetminus\\left\\{${f.texFraction}\\right\\}$, <br>
             $\\begin{aligned}
@@ -226,16 +249,21 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             const f2 = new FractionX(-f, e).simplifie()
             texte = consigne2
             texte += `$\\dfrac{${a}}{${reduireAxPlusB(e, f)}}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.`
-            texteCorr = `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent les dénominateurs de $\\dfrac{${a}}{${reduireAxPlusB(e, f)}}$ et de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$, puisque la division par $0$ n'existe pas.<br>
-            L'équation $${reduireAxPlusB(e, f)}=0$ a pour solution $${f2.texFraction}$. <br>
+            if (context.isDiaporama) {
+              texteCorr = ''
+            } else {
+              texteCorr = `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent les dénominateurs de $\\dfrac{${a}}{${reduireAxPlusB(e, f)}}$ et de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$, puisque la division par $0$ n'existe pas.<br>
+              `
+            }
+            texteCorr += `L'équation $${reduireAxPlusB(e, f)}=0$ a pour solution $${f2.texFraction}$. <br>
             L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f1.texFraction}$. <br>
-            $${f2.texFraction}$ et $${f1.texFraction}$ sont donc des valeurs interdites pour l'expression. <br>
+            $${f2.texFraction}$ et $${f1.texFraction}$ sont donc des valeurs interdites pour l'expression. <br>            
             Pour $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-d / c < -f / e ? `${f1.texFraction}\\,;\\,${f2.texFraction}` : `${f2.texFraction}\\,;\\,${f1.texFraction}`}\\right\\}$, <br>
             $\\begin{aligned}
             \\dfrac{${a}}{${reduireAxPlusB(e, f)}}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}
             &= \\dfrac{${a}(${reduireAxPlusB(c, d)})}{(${reduireAxPlusB(e, f)})(${reduireAxPlusB(c, d)})}${choix ? '+' : '-'}\\dfrac{${b}(${reduireAxPlusB(e, f)})}{(${reduireAxPlusB(e, f)})(${reduireAxPlusB(c, d)})}\\\\
-            =\\dfrac{${a}(${reduireAxPlusB(c, d)})${choix ? `${ecritureAlgebriqueSauf1(b)}` : `${ecritureAlgebriqueSauf1(-b)}`}(${reduireAxPlusB(e, f)})}{(${reduireAxPlusB(e, f)})(${reduireAxPlusB(c, d)})}\\\\
-            =\\dfrac{${choix ? `${reduireAxPlusB(a * c + b * e, a * d + b * f)}` : `${reduireAxPlusB(a * c - b * e, a * d - b * f)}`}}{(${reduireAxPlusB(e, f)})(${reduireAxPlusB(c, d)})}
+            &=\\dfrac{${a}(${reduireAxPlusB(c, d)})${choix ? `${ecritureAlgebriqueSauf1(b)}` : `${ecritureAlgebriqueSauf1(-b)}`}(${reduireAxPlusB(e, f)})}{(${reduireAxPlusB(e, f)})(${reduireAxPlusB(c, d)})}\\\\
+            &=\\dfrac{${choix ? `${reduireAxPlusB(a * c + b * e, a * d + b * f)}` : `${reduireAxPlusB(a * c - b * e, a * d - b * f)}`}}{(${reduireAxPlusB(e, f)})(${reduireAxPlusB(c, d)})}
             \\end{aligned}$`
             const reponse = choix ? [`\\dfrac{${a * c + b * e}x+${a * d + b * f}}{(${e}x+${f})(${c}x+${d})}`, `\\dfrac{${-a * c - b * e}x+${-a * d - b * f}}{(${-c}x+${-d})(${e}x+${f})}`, `\\dfrac{${-a * c - b * e}x+${-a * d - b * f}}{(${c}x+${d})(${-e}x+${-f})}`] : [`\\dfrac{${a * c - b * e}x+${a * d - b * f}}{(${e}x+${f})(${c}x+${d})}`, `\\dfrac{${-a * c + b * e}x+${-a * d + b * f}}{(${-e}x+${-f})(${c}x+${d})}`, `\\dfrac{${-a * c + b * e}x+${-a * d + b * f}}{(${e}x+${f})(${-c}x+${-d})}`]
             setReponse(this, i, reponse)
