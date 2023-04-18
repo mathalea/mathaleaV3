@@ -234,7 +234,7 @@
   const copyDocumentToOverleaf = async () => {
     imagesList = buildImagesUrlsList()
     const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
-    textForOverleafInput.value = "data:text/plain;base64," + btoa(text)
+    textForOverleafInput.value = "data:text/plain;base64," + btoa(encodeURIComponent(text))
   }
 </script>
 
