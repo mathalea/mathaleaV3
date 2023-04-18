@@ -211,9 +211,9 @@
 
 <svelte:window bind:innerWidth={currentWindowWidth} />
 <section class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive ? 'dark' : ''}">
-  <div class="fixed z-20 bottom-2 lg:bottom-6 right-2 lg:right-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas rounded-b-full rounded-t-full bg-opacity-80">
-    <div class="flex flex-col space-y-2 scale-75 lg:scale-100">
-      <BtnZoom size="md" />
+  <div class="fixed z-20 bottom-4 lg:top-8 right-2 lg:right-6">
+    <div class="flex flex-col-reverse lg:flex-row-reverse space-y-reverse space-y-4 lg:space-y-0 lg:space-x-4 lg:space-x-reverse scale-75 lg:scale-100">
+      <BtnZoom size="bx-sm md:bx-md" />
     </div>
   </div>
   <div class="mb-auto">
