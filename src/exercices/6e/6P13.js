@@ -8,8 +8,8 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDePublication = '23/07/21'
-export const dateDeModifImportante = '15/03/2022'
+export const dateDePublication = '23/07/2021'
+export const dateDeModifImportante = '16/04/2023'
 
 /**
  * Description didactique de l'exercice
@@ -34,6 +34,7 @@ export default function AugmenterEtReduireDunPourcentage () {
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
+  this.sup2 = 2
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.interactifType = 'mathLive'
@@ -44,7 +45,7 @@ export default function AugmenterEtReduireDunPourcentage () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    this.introduction = (this.interactif && context.isHtml)
+    this.introduction = (this.sup2 && this.interactif && context.isHtml)
       ? lampeMessage({
         titre: 'Calculatrice autorisée.',
         texte: 'Écrire les réponses dans les cases sans arrondir, ne pas préciser "€" ni "euros" ...',
@@ -91,7 +92,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           enonceInit = texte
           enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(0)} Le montant de la réduction est :` : `${numAlpha(0)} Calculer le montant de la réduction.`
           texte = enonceInit + '<br>' + enonceAMC
-          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: ' €' }) : ''
+          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline nospacebefore', { texteApres: ' €.' }) : ''
           texte += '<br>'
           if (!context.isAmc) {
             setReponse(this, 2 * i, mr, { formatInteractif: 'calcul' })
@@ -120,7 +121,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           }
           enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(1)} Finalement, ${prenom1} paiera son billet :` : `${numAlpha(1)} Calculer le prix du billet de ${prenom1}.`
           texte += enonceAMC
-          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texteApres: ' €' }) : ''
+          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline nospacebefore', { texteApres: ' €.' }) : ''
           if (!context.isAmc) {
             setReponse(this, 2 * i + 1, final1)
           } else {
@@ -160,7 +161,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           enonceInit = `Le loyer de l'appartement de ${prenom2} coûte ${loyer} ${sp()}€. Au 1er janvier, il augmente de $${pa} ${sp()}\\%$.`
           enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(0)} Le montant de l'augmentation est :` : `${numAlpha(0)} Calculer le montant de l'augmentation.`
           texte = enonceInit + '<br>' + enonceAMC
-          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: ' €' }) : ''
+          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline nospacebefore', { texteApres: ' €.' }) : ''
           texte += '<br>'
           if (!context.isAmc) {
             setReponse(this, 2 * i, ma)
@@ -189,7 +190,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           }
           enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(1)} Finalement, ${prenom2} paiera son loyer :` : `${numAlpha(1)} Calculer le montant du loyer de ${prenom2}.`
           texte += enonceAMC
-          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texteApres: ' €' }) : ''
+          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline nospacebefore', { texteApres: ' €.' }) : ''
           if (!context.isAmc) {
             setReponse(this, 2 * i + 1, final2)
           } else {
@@ -240,4 +241,5 @@ export default function AugmenterEtReduireDunPourcentage () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Valeurs entières et 10%, 20%...\n2 : Valeurs entières et 10%, 20%... mais aussi 25% et 50%\n3 : Valeurs entières et 4%, 23%...\n4 : Une décimale comme 34,5%']
+  this.besoinFormulaire2CaseACocher = ['Avec indication de la calculatrice (en interactif)']
 }
