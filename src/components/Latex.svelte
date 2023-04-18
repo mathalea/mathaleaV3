@@ -234,7 +234,7 @@
   const copyDocumentToOverleaf = async () => {
     imagesList = buildImagesUrlsList()
     const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
-    textForOverleafInput.value = "data:text/plain;base64," + btoa(encodeURIComponent(text))
+    textForOverleafInput.value = "data:text/plain;base64," + btoa(unescape(encodeURIComponent(text)))
   }
 </script>
 
@@ -299,38 +299,40 @@
     </div>
 
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Exportation</h1>
-    <form class="flex flex-col md:flex-row mx-4 pb-4 md:pb-8 md:space-x-4 space-y-3" method="POST" action="https://www.overleaf.com/docs" target="_blank">
-      {#each imagesList as image}
-        <input type="hidden" name="snip_uri[]" value={image.url} autocomplete="off" />
-        <input type="hidden" name="snip_name[]" value={image.fileName} autocomplete="off" />
-      {/each}
-      <input type="hidden" name="snip_uri[]" bind:this={textForOverleafInput} autocomplete="off" />
-      <input type="hidden" name="snip_name[]" value="coopmath.tex" autocomplete="off" />
-      <input type="hidden" name="engine" value="lualatex" autocomplete="off" />
-      <button
-        id="btn_overleaf"
-        type="submit"
-        on:click={copyDocumentToOverleaf}
-        class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
-      >
-        Compiler en PDF sur Overleaf.com
-      </button>
-      <div class="hidden md:block w-10" />
-      <div class="block md:hidden h-6" />
-    </form>
-    <!-- <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} /> -->
-    <ModalActionWithDialog
-      on:display={() => {
-        copyLaTeXCodeToClipBoard("copyPasteModal")
-      }}
-      message={messageForCopyPasteModal}
-      messageError="Impossible de copier le code LaTeX dans le presse-papier"
-      tooltipMessage="Code LaTeX dans presse-papier"
-      dialogId="copyPasteModal"
-      title="Copier le code LaTeX des exercices"
-    />
-    <Button title="Copier le code LaTeX complet (avec préambule)" on:click={copyDocument} />
-    <Button idLabel="downloadPicsButton" on:click={handleDownloadPicsModalDisplay} title="Télécharger les figures" isDisabled={!picsWanted} />
+    <div class="flex flex-col md:flex-row mx-4 pb-4 md:pb-8 md:space-x-4 space-y-3 justify-center md:justify-start items-center">
+      <form method="POST" action="https://www.overleaf.com/docs" target="_blank">
+        {#each imagesList as image}
+          <input type="hidden" name="snip_uri[]" value={image.url} autocomplete="off" />
+          <input type="hidden" name="snip_name[]" value={image.fileName} autocomplete="off" />
+        {/each}
+        <input type="hidden" name="snip_uri[]" bind:this={textForOverleafInput} autocomplete="off" />
+        <input type="hidden" name="snip_name[]" value="coopmath.tex" autocomplete="off" />
+        <input type="hidden" name="engine" value="lualatex" autocomplete="off" />
+        <button
+          id="btn_overleaf"
+          type="submit"
+          on:click={copyDocumentToOverleaf}
+          class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
+        >
+          Compiler en PDF sur Overleaf.com
+        </button>
+        <!-- <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} /> -->
+        <div class="flex flex-col md:flex-row justify-start space-x-0 space-y-2 mt-6 md:space-x-4 md:space-y-0">
+          <ModalActionWithDialog
+            on:display={() => {
+              copyLaTeXCodeToClipBoard("copyPasteModal")
+            }}
+            message={messageForCopyPasteModal}
+            messageError="Impossible de copier le code LaTeX dans le presse-papier"
+            tooltipMessage="Code LaTeX dans presse-papier"
+            dialogId="copyPasteModal"
+            title="Copier le code LaTeX des exercices"
+          />
+          <Button title="Copier le code LaTeX complet (avec préambule)" on:click={copyDocument} />
+          <Button idLabel="downloadPicsButton" on:click={handleDownloadPicsModalDisplay} title="Télécharger les figures" isDisabled={!picsWanted} />
+        </div>
+      </form>
+    </div>
     <ModalMessageBeforeAction
       modalId="downloadPicsModal"
       modalButtonId="downloadPicsModalButton"
