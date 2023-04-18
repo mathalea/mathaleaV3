@@ -9,6 +9,7 @@
   import { MathaleaFormatExercice, MathaleaGenerateSeed, MathaleaHandleExerciceSimple, MathaleaRenderDiv, MathaleaUpdateUrlFromExercicesParams } from "../../lib/Mathalea"
   import { exercicesParams, isMenuNeededForExercises } from "../store"
   import HeaderExerciceVueEleve from "./HeaderExerciceVueEleve.svelte"
+  import InteractivityIcon from "../icons/TwoStatesIcon.svelte"
   import type { MathfieldElement } from "mathlive"
   export let exercice: TypeExercice
   export let indiceExercice: number
@@ -77,7 +78,7 @@
         for (const answer in objAnswers) {
           const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement
           field?.setValue(objAnswers[answer])
-      }
+        }
         if (buttonScore) {
           buttonScore.click()
         }
@@ -283,6 +284,26 @@
             </button>
           </div>
         {/if}
+        <button class="mx-2 tooltip tooltip-right" data-tip="Nouvel énoncé" type="button" on:click={newData}>
+          <i
+            class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh
+            {headerExerciceProps.randomReady ? '' : 'hidden'}"
+          />
+        </button>
+        <button
+          class="mx-2 tooltip tooltip-right tooltip-neutral {$globalOptions.isInteractiveFree && headerExerciceProps.interactifReady ? '' : 'hidden'}"
+          data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
+          type="button"
+          on:click={() => {
+            isInteractif = !isInteractif
+            exercice.interactif = isInteractif
+            $exercicesParams[indiceExercice].interactif = isInteractif ? "1" : "0"
+            updateDisplay()
+          }}
+        >
+          <InteractivityIcon isOnStateActive={isInteractif} />
+        </button>
+
         {#if $globalOptions.isSolutionAccessible && !isInteractif}
           <div class="ml-2 lg:mx-5">
             <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} bind:value={isCorrectionVisible} on:click={() => adjustMathalea2dFiguresWidth()} />

@@ -6,10 +6,10 @@
   import { globalOptions } from "../store"
   import { exercicesParams, isMenuNeededForExercises } from "../store"
   export let title: string
-  export let randomReady = true
+  // export let randomReady = true
   export let indiceExercice: number
   export let isInteractif = false
-  export let interactifReady: boolean
+  // export let interactifReady: boolean
   export let showNumber = true
   let isVisible = true
   let isSettingsVisible = false
@@ -51,16 +51,16 @@
     <!-- titre -->
     <div class="flex flex-row justify-start items-center" id="exerciceHeader{indiceExercice}">
       {#if showNumber}
-      <div class="{$isMenuNeededForExercises ? 'hidden' : 'inline-flex'} items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg lg:text-normal">
-        {indiceExercice + 1}
-      </div>
+        <div class="{$isMenuNeededForExercises ? 'hidden' : 'inline-flex'} items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg lg:text-normal">
+          {indiceExercice + 1}
+        </div>
       {/if}
       <div class="font-light {$isMenuNeededForExercises ? 'text-3xl' : 'text-2xl'} ml-2">
         {title}
       </div>
     </div>
     <!-- boutons contrôle -->
-    <div class="flex justify-start items-start lg:items-center {$isMenuNeededForExercises ? 'text-3xl mt-4' : 'text-2xl ml-10 mt-2'}">
+    <!-- <div class="flex justify-start items-start lg:items-center {$isMenuNeededForExercises ? 'text-3xl mt-4' : 'text-2xl ml-10 mt-2'}">
       <button class="mx-2 tooltip tooltip-right" data-tip="Nouvel énoncé" type="button" on:click={newData}>
         <i
           class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh {randomReady ? '' : 'hidden'}"
@@ -72,10 +72,9 @@
         type="button"
         on:click={switchInteractif}
       >
-        <!-- <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {isInteractif ? 'bxs-edit' : 'bx-edit'}" /> -->
         <InteractivityIcon isOnStateActive={isInteractif} />
       </button>
-    </div>
+    </div> -->
   </h1>
 </div>
 
