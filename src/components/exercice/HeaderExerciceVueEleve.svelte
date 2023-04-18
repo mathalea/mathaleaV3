@@ -46,7 +46,7 @@
   ```
  -->
 
-<div class="z-0 flex-1 overflow-hidden">
+<div class="z-0 flex-1">
   <h1 class=" text-coopmaths-struct dark:text-coopmathsdark-struct mt-8 pb-2 flex {$isMenuNeededForExercises ? 'flex-col items-center' : 'flex-row items-center'}">
     <!-- titre -->
     <div class="flex flex-row justify-start items-center" id="exerciceHeader{indiceExercice}">
@@ -61,13 +61,13 @@
     </div>
     <!-- boutons contrôle -->
     <div class="flex justify-start items-start lg:items-center {$isMenuNeededForExercises ? 'text-3xl mt-4' : 'text-2xl ml-10 mt-2'}">
-      <button class="mx-2 tooltip tooltip-right" data-tip="Nouvel énoncé" type="button" on:click={newData}>
+      <button class="mx-2 tooltip tooltip-bottom" data-tip="Nouvel énoncé" type="button" on:click={newData}>
         <i
           class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh {randomReady ? '' : 'hidden'}"
         />
       </button>
       <button
-        class="mx-2 tooltip tooltip-right tooltip-neutral {$globalOptions.isInteractiveFree && interactifReady ? '' : 'hidden'}"
+        class="mx-2 tooltip tooltip-bottom tooltip-neutral {$globalOptions.isInteractiveFree && interactifReady ? '' : 'hidden'}"
         data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
         type="button"
         on:click={switchInteractif}

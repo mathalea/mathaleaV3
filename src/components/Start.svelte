@@ -381,7 +381,7 @@
             style="{$isSideMenuVisible || nbExercisesInList === 0
               ? `width:${sidebarWidth}px;`
               : 'width: 0px;'} transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 600ms;"
-            class="flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark overflow-hidden md:h-full {$isSideMenuVisible || nbExercisesInList === 0 ? 'p-4' : 'p-0'}"
+            class="flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark md:h-full {$isSideMenuVisible || nbExercisesInList === 0 ? 'p-4' : 'p-0'}"
           >
             <div class="flex flex-col overflow-y-scroll overscroll-auto">
               <div class="flex flex-row justify justify-between items-center mb-6 text-coopmaths-struct dark:text-coopmathsdark-struct">
@@ -430,7 +430,7 @@
       {/if}
       <!-- content -->
       {#if $exercicesParams.length !== 0}
-        <div class="relative flex flex-col px-6 {deviceType() === 'mobile' ? '' : 'overflow-hidden'} w-full h-full" bind:this={divExercices}>
+        <div class="relative flex flex-col px-6 w-full h-full" bind:this={divExercices}>
           <div class="print-hidden hidden md:block absolute top-0 left-0">
             <button
               type="button"
@@ -1071,7 +1071,7 @@
               </i>
             </button>
           </div>
-          <div class="flex-1 overflow-y-scroll overscroll-auto">
+          <div class="flex-1">
             {#each $exercicesParams as paramsExercice, i (paramsExercice)}
               <div id="exo{i}" animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
                 <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />

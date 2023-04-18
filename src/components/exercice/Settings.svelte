@@ -210,7 +210,7 @@
   {#if exercice.besoinFormulaireTexte}
     <form id="formText1" name="formText1" on:submit|preventDefault={newSettings}>
       <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formText1">{exercice.besoinFormulaireTexte[0]} :</label>
-      <div class="tooltip tooltip-left w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left" data-tip={exercice.besoinFormulaireTexte[1]}>
+      <div class="tooltip tooltip-bottom w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left" data-tip={exercice.besoinFormulaireTexte[1]}>
         <input
           class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
           name="formText1"
@@ -290,7 +290,7 @@
   {#if exercice.besoinFormulaire2Texte}
     <form id="formText2" name="formText2" on:submit|preventDefault={newSettings}>
       <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formText2">{exercice.besoinFormulaire2Texte[0]} :</label>
-      <div class=" tooltip tooltip-left w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left" data-tip={exercice.besoinFormulaire2Texte[1]}>
+      <div class=" tooltip tooltip-bottom w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left" data-tip={exercice.besoinFormulaire2Texte[1]}>
         <input
           class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
           name="formText2"
@@ -370,7 +370,7 @@
   {#if exercice.besoinFormulaire3Texte}
     <form id="formText3" name="formText3" on:submit|preventDefault={newSettings}>
       <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formText3">{exercice.besoinFormulaire3Texte[0]} :</label>
-      <div class=" tooltip tooltip-left w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left" data-tip={exercice.besoinFormulaire3Texte[1]}>
+      <div class=" tooltip tooltip-bottom w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left" data-tip={exercice.besoinFormulaire3Texte[1]}>
         <input
           class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
           name="formText3"
@@ -452,7 +452,7 @@
   {#if exercice.besoinFormulaire4Texte}
     <form id="formText4" name="formText4" class="flex flex-col justify-start" on:submit|preventDefault={newSettings}>
       <label class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light" for="formText4">{exercice.besoinFormulaire4Texte[0]} :</label>
-      <div class="tooltip tooltip-left w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left" data-tip={exercice.besoinFormulaire4Texte[1]}>
+      <div class="tooltip tooltip-bottom w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left" data-tip={exercice.besoinFormulaire4Texte[1]}>
         <input
           class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
           name="formText4"

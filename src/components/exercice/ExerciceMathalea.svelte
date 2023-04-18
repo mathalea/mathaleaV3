@@ -255,7 +255,7 @@
   }
 </script>
 
-<div class="z-0 flex-1 overflow-hidden" bind:this={divExercice}>
+<div class="z-0 flex-1" bind:this={divExercice}>
   <HeaderExercice
     on:clickVisible={(event) => {
       isVisible = event.detail.isVisible

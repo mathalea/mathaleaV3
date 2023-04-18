@@ -51,7 +51,7 @@ function handleStringFromUrl (text: string): boolean|number|string {
 }
 </script>
 
-<div class="z-0 flex-1 overflow-hidden">
+<div class="z-0 flex-1">
   <svelte:component this={ComponentExercice} {...optionsComponent} {indiceExercice} {indiceLastExercice} {isCorrectionVisible} />
 </div>
 
