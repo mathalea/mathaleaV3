@@ -85,10 +85,10 @@
             title="présentation"
             bind:valueSelected={$globalOptions.presMode}
             labelsValues={[
-              { label: "Une page unique", value: "page" },
-              { label: "Une page par exercice", value: "exos" },
-              { label: "Toutes les questions sur une page", value: "liste" },
-              { label: "Une page par question", value: "question" },
+              { label: "Une page unique", value: "liste_exos" },
+              { label: "Une page par exercice", value: "un_exo_par_page" },
+              { label: "Toutes les questions sur une page", value: "liste_questions" },
+              { label: "Une page par question", value: "une_question_par_page" },
             ]}
           />
         </div>

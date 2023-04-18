@@ -155,7 +155,7 @@
       corrections = corrections.map(MathaleaFormatExercice)
       consignes = consignes.map(MathaleaFormatExercice)
     }
-    if ($globalOptions.presMode === "liste" || $globalOptions.presMode === "questions") {
+    if ($globalOptions.presMode === "liste_questions" || $globalOptions.presMode === "une_question_par_page") {
       // Pour les autres mode de présentation, cela est géré par ExerciceMathalea
       MathaleaUpdateUrlFromExercicesParams($exercicesParams)
       await tick()
@@ -217,7 +217,7 @@
     </div>
   </div>
   <div class="mb-auto">
-    <div class="{$globalOptions.title.length > 0 ? 'h-[10%]' : 'h-0'}  w-full flex flex-col justify-center items-center">
+    <div class="{$globalOptions.title.length > 0 ? 'h-[10%]' : 'hidden'}  w-full flex flex-col justify-center items-center">
       <!-- titre de la feuille -->
       {#if $globalOptions.title.length > 0}
         <div
@@ -231,13 +231,13 @@
       <!-- barre de navigation -->
       <div
         id="navigationHeaderID"
-        class="grid justify-items-center w-full mt-4 mb-8 grid-cols-{$globalOptions.presMode === 'exos' ? exercices.length : questions.length}
-          {($globalOptions.presMode === 'exos' && !$isMenuNeededForExercises) || ($globalOptions.presMode === 'questions' && !$isMenuNeededForQuestions)
+        class="grid justify-items-center w-full mt-4 mb-8 grid-cols-{$globalOptions.presMode === 'un_exo_par_page' ? exercices.length : questions.length}
+          {($globalOptions.presMode === 'un_exo_par_page' && !$isMenuNeededForExercises) || ($globalOptions.presMode === 'une_question_par_page' && !$isMenuNeededForQuestions)
           ? 'border-b-2 border-coopmaths-struct'
           : 'border-b-0'}
               bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct"
       >
-        {#if $globalOptions.presMode === "exos" && !$isMenuNeededForExercises}
+        {#if $globalOptions.presMode === "un_exo_par_page" && !$isMenuNeededForExercises}
           {#each $exercicesParams as paramsExercice, i (paramsExercice)}
             <div class="">
               <button
@@ -268,7 +268,7 @@
             </div>
           {/each}
         {/if}
-        {#if $globalOptions.presMode === "questions" && !$isMenuNeededForQuestions}
+        {#if $globalOptions.presMode === "une_question_par_page" && !$isMenuNeededForQuestions}
           {#each questions as question, i (question)}
             <div class="">
               <button
@@ -302,7 +302,7 @@
     </div>
     <!-- Exercices -->
     <div class="px-8">
-      {#if $globalOptions.presMode === "exos"}
+      {#if $globalOptions.presMode === "un_exo_par_page"}
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <div class="flex flex-col">
             <div class={$isMenuNeededForExercises ? "" : "hidden"}>
@@ -330,11 +330,11 @@
             </div>
           </div>
         {/each}
-      {:else if $globalOptions.presMode === "page"}
+      {:else if $globalOptions.presMode === "liste_exos"}
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={isCorrectionVisible[i]} />
         {/each}
-      {:else if $globalOptions.presMode === "liste"}
+      {:else if $globalOptions.presMode === "liste_questions"}
         {#each questions as question, k (question)}
           <div class="pb-4 flex flex-col items-start justify-start relative" id={`exercice${indiceExercice[k]}Q${k}`}>
             <div class="flex flex-row justify-start items-center">
@@ -376,7 +376,7 @@
             </div>
           </div>
         {/each}
-      {:else if $globalOptions.presMode === "questions"}
+      {:else if $globalOptions.presMode === "une_question_par_page"}
         {#each questions as question, k (question)}
           <div class="flex flex-col">
             <div class={$isMenuNeededForQuestions ? "" : "hidden"}>
