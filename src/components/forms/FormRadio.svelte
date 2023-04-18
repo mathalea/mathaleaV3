@@ -4,7 +4,7 @@
 
   export let title: string
   export let valueSelected: string
-  export let labelsValues:{label: string, value: string, isDisabled?: boolean}[] = []
+  export let labelsValues: { label: string; value: string; isDisabled?: boolean }[] = []
   export let isDisabled: boolean = false
   export let orientation: FlexOrientation = "col"
 
@@ -47,7 +47,7 @@
   {#each labelsValues as labelValue, i}
     <div class="form-check flex flex-row ml-4 items-center">
       <input
-        class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas-dark text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2 
+        class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action bg-coopmaths-canvas dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas-dark text-coopmaths-action checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2
         {isDisabled ? 'border-opacity-10 dark:border-opacity-10' : 'cursor-pointer'}"
         type="radio"
         {name}
@@ -59,8 +59,8 @@
       />
       <label
         class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm font-light
-        {(isDisabled || labelValue.isDisabled) ? 'text-opacity-10 dark:text-opacity-10' : 'text-opacity-70 dark:text-opacity-70'}"
-        for="presentationModeRadio1"
+        {isDisabled || labelValue.isDisabled ? 'text-opacity-10 dark:text-opacity-10' : 'text-opacity-70 dark:text-opacity-70'}"
+        for={name + i.toString()}
       >
         {labelValue.label}
       </label>

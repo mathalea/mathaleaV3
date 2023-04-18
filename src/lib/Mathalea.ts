@@ -263,7 +263,7 @@ export function MathaleaUpdateExercicesParamsFromUrl (): InterfaceGlobalOptions 
   let recorder: 'capytale'|'moodle'|'labomep'|'anki'
   let done: '1'
   let choice, sound, es
-  let presMode: 'page'|'exos'|'liste'|'questions' = 'page'
+  let presMode: 'liste_exos'|'un_exo_par_page'|'liste_questions'|'une_question_par_page' = 'liste_exos'
   let setInteractive = '2'
   let isSolutionAccessible = true
   let isInteractiveFree = true

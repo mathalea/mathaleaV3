@@ -217,7 +217,11 @@
     </div>
   </div>
   <div class="mb-auto">
-    <div class="{$globalOptions.title.length > 0 ? 'h-[10%]' : 'hidden'}  w-full flex flex-col justify-center items-center">
+    <div
+      class="{$globalOptions.title.length === 0 && ($globalOptions.presMode === 'liste_exos' || $globalOptions.presMode === 'liste_questions')
+        ? 'hidden'
+        : 'h-[10%]'}  w-full flex flex-col justify-center items-center"
+    >
       <!-- titre de la feuille -->
       {#if $globalOptions.title.length > 0}
         <div

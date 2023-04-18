@@ -8,10 +8,10 @@ import { get } from 'svelte/store'
 export function buildUrlAddendumForEsParam () {
   const options = get(globalOptions)
   const presentationMode = new Map([
-    ['page', 0],
-    ['exos', 1],
-    ['liste', 2],
-    ['question', 3]
+    ['liste_exos', 0],
+    ['un_exo_par_page', 1],
+    ['liste_questions', 2],
+    ['une_question_par_page', 3]
   ])
   let addendum = '&v=eleve&title=' + options.title
   // Paramètre 'es' : presMode|setInteractive|isSolutionAccessible|isInteractiveFree
