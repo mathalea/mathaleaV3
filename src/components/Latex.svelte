@@ -22,7 +22,7 @@
   let reference = ""
   let subtitle = ""
   let style: "Coopmaths" | "Classique" | "Can" = "Coopmaths"
-  let textForOverleaf: HTMLInputElement
+  let textForOverleafInput: HTMLInputElement
   let dialogLua: HTMLDialogElement
   let exercices: TypeExercice[]
   let contents = { content: "", contentCorr: "" }
@@ -32,6 +32,8 @@
   let messageForCopyPasteModal: string
   let picsNames: string[][] = []
   let exosContentList: string[] = []
+  let linkForOverleaf: HTMLLinkElement
+  let imagesList: any[] = [{ url: "https://raw.githubusercontent.com/mathalea/dnb/master/2022/tex/eps/arbresCP.eps", fileName: "arbresCP.eps" }]
 
   const latex = new Latex()
   async function initExercices() {
@@ -66,19 +68,27 @@
     }
   }
   /**
-   * Gérer le téléchargement lors du clic sur le bouton du modal
+   * Construire la liste des URLs pour les fichiers des images nécessaires
    */
-  function handleActionFromDownloadPicsModal() {
-    // construire la liste des URLs avec les noms de fichiers correspondants
-    const imagesFilesUrls = []
+  function buildImagesUrlsList() {
+    let imagesFilesUrls = []
+    getImagesInCode()
     exosContentList.forEach((exo, i) => {
       const year = exo.groups.year
       const month = exo.groups.month
       const area = exo.groups.zone.replace(/ /g, "_")
       for (const fileName of picsNames[i]) {
-        imagesFilesUrls.push({ url: `static/dnb/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
+        imagesFilesUrls.push({ url: `https://raw.githubusercontent.com/mathalea/dnb/master/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
       }
     })
+    return imagesFilesUrls
+  }
+  /**
+   * Gérer le téléchargement lors du clic sur le bouton du modal
+   */
+  function handleActionFromDownloadPicsModal() {
+    // construire la liste des URLs avec les noms de fichiers correspondants
+    const imagesFilesUrls = buildImagesUrlsList()
     // construire l'archive
     let zip = new JSZip()
     const zipFileName = "images.zip"
@@ -99,16 +109,12 @@
     })
     downloadPicsModal.style.display = "none"
   }
-
-  /**
-   * Gérer l'affichage du modal : on donne la liste des images par exercice
-   */
-  function handleDownloadPicsModalDisplay() {
+  function getImagesInCode() {
     let picsList: string[][] = []
     picsNames = []
     exosContentList = []
     const regExpExo = /(?:\\begin\{EXO\}\{(?<title>DNB(?:\s*)(?<month>.*?)(?:\s*)(?<year>\d{4})(?:\s*)(?<zone>.*?)(?:\s*))\})((.|\n)*?)(?:\\end\{EXO\})/g
-    const regExp = /\\includegraphics(?:\[.*?\])?\{(.*?)\}/g
+    const regExp = /^(?:(?!%))(?:.*?)\\includegraphics(?:\[.*?\])?\{(.*?)\}/gm
     const latexCode = contents.content
     exosContentList = [...latexCode.matchAll(regExpExo)]
     for (const exo of exosContentList) {
@@ -121,6 +127,12 @@
         picsNames[index] = [...picsNames[index], item[1].replace(/\.(?:jpg|gif|png|eps|pdf)$/g, "")]
       }
     })
+  }
+  /**
+   * Gérer l'affichage du modal : on donne la liste des images par exercice
+   */
+  function handleDownloadPicsModalDisplay() {
+    getImagesInCode()
     downloadPicsModal.style.display = "block"
   }
 
@@ -190,9 +202,39 @@
     }
   }
 
-  const copyDocumentToOverleaf = async () => {
+  async function buildZipFileForOverleaf(fileName) {
+    const zip = new JSZip()
     const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
-    textForOverleaf.value = encodeURIComponent(text)
+    zip.file("main.tex", text)
+    if (picsWanted) {
+      const urls = buildImagesUrlsList()
+      console.log("URLs:" + urls.length)
+      const imagesFolder = zip.folder("images")
+      let count = 0
+      urls.forEach((image) => {
+        console.log(image.fileName + " / " + image.url)
+        JSZipUtils.getBinaryContent(image.url, (err, data) => {
+          if (err) {
+            throw err
+          }
+          imagesFolder.file(image.fileName, data, { binary: true })
+          count++
+          if (count === urls.length) {
+            zip.generateAsync({ type: "blob" }).then((content) => {
+              linkForOverleaf = document.createElement("a")
+              linkForOverleaf.href = URL.createObjectURL(content).replace("blob:", "")
+              console.log(linkForOverleaf.href)
+              saveAs(content, "coopmath.zip")
+            })
+          }
+        })
+      })
+    }
+  }
+  const copyDocumentToOverleaf = async () => {
+    imagesList = buildImagesUrlsList()
+    const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
+    textForOverleafInput.value = "data:text/plain;base64," + btoa(unescape(encodeURIComponent(text)))
   }
 </script>
 
@@ -257,56 +299,62 @@
     </div>
 
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Exportation</h1>
-    <form class="flex flex-col md:flex-row mx-4 pb-4 md:pb-8 md:space-x-4 space-y-3" method="POST" action="https://www.overleaf.com/docs" target="_blank">
-      <input type="hidden" name="encoded_snip" value="" bind:this={textForOverleaf} autocomplete="off" />
-      <input type="hidden" name="snip_name" value="CoopMaths" autocomplete="off" />
-      <input type="hidden" name="engine" value="lualatex" autocomplete="off" />
-      <button
-        id="btn_overleaf"
-        type="submit"
-        on:click={copyDocumentToOverleaf}
-        class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
-      >
-        Compiler en PDF sur Overleaf.com
-      </button>
-      <div class="hidden md:block w-10" />
-      <div class="block md:hidden h-6" />
-      <!-- <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} /> -->
-      <ModalActionWithDialog
-        on:display={() => {
-          copyLaTeXCodeToClipBoard("copyPasteModal")
-        }}
-        message={messageForCopyPasteModal}
-        messageError="Impossible de copier le code LaTeX dans le presse-papier"
-        tooltipMessage="Code LaTeX dans presse-papier"
-        dialogId="copyPasteModal"
-        title="Copier le code LaTeX des exercices"
-      />
-      <Button title="Copier le code LaTeX complet (avec préambule)" on:click={copyDocument} />
-      <Button idLabel="downloadPicsButton" on:click={handleDownloadPicsModalDisplay} title="Télécharger les figures" isDisabled={!picsWanted} />
-      <ModalMessageBeforeAction
-        modalId="downloadPicsModal"
-        modalButtonId="downloadPicsModalButton"
-        modalButtonTitle="Télécharger les figures"
-        icon="bxs-file-png"
-        on:action={handleActionFromDownloadPicsModal}
-      >
-        <span slot="header">Figures</span>
-        <div slot="content" class="flex flex-col justify-start items-start">
-          Voici ce dont vous aurez besoin :
-          {#each exosContentList as exo, i (exo)}
-            <ul class="flex flex-col justify-start items-start list-disc pl-6">
-              <li>Exercice {i + 1} (<span class="text-italic">{exo.groups.title}</span>) :</li>
-              <ul class="flex flex-col justify-start items-start list-none pl-4">
-                {#each picsNames[i] as name}
-                  <li class="font-mono text-sm">{name}</li>
-                {/each}
-              </ul>
-            </ul>
-          {/each}
+    <div class="flex flex-col md:flex-row mx-4 pb-4 md:pb-8 md:space-x-4 space-y-3 justify-center md:justify-start items-center">
+      <form method="POST" action="https://www.overleaf.com/docs" target="_blank">
+        {#each imagesList as image}
+          <input type="hidden" name="snip_uri[]" value={image.url} autocomplete="off" />
+          <input type="hidden" name="snip_name[]" value={image.fileName} autocomplete="off" />
+        {/each}
+        <input type="hidden" name="snip_uri[]" bind:this={textForOverleafInput} autocomplete="off" />
+        <input type="hidden" name="snip_name[]" value="coopmath.tex" autocomplete="off" />
+        <input type="hidden" name="engine" value="lualatex" autocomplete="off" />
+        <button
+          id="btn_overleaf"
+          type="submit"
+          on:click={copyDocumentToOverleaf}
+          class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
+        >
+          Compiler en PDF sur Overleaf.com
+        </button>
+        <!-- <Button title="Copier le code LaTeX des exercices" on:click={copyExercices} /> -->
+        <div class="flex flex-col md:flex-row justify-start space-x-0 space-y-2 mt-6 md:space-x-4 md:space-y-0">
+          <ModalActionWithDialog
+            on:display={() => {
+              copyLaTeXCodeToClipBoard("copyPasteModal")
+            }}
+            message={messageForCopyPasteModal}
+            messageError="Impossible de copier le code LaTeX dans le presse-papier"
+            tooltipMessage="Code LaTeX dans presse-papier"
+            dialogId="copyPasteModal"
+            title="Copier le code LaTeX des exercices"
+          />
+          <Button title="Copier le code LaTeX complet (avec préambule)" on:click={copyDocument} />
+          <Button idLabel="downloadPicsButton" on:click={handleDownloadPicsModalDisplay} title="Télécharger les figures" isDisabled={!picsWanted} />
         </div>
-      </ModalMessageBeforeAction>
-    </form>
+      </form>
+    </div>
+    <ModalMessageBeforeAction
+      modalId="downloadPicsModal"
+      modalButtonId="downloadPicsModalButton"
+      modalButtonTitle="Télécharger les figures"
+      icon="bxs-file-png"
+      on:action={handleActionFromDownloadPicsModal}
+    >
+      <span slot="header">Figures</span>
+      <div slot="content" class="flex flex-col justify-start items-start">
+        Voici ce dont vous aurez besoin :
+        {#each exosContentList as exo, i (exo)}
+          <ul class="flex flex-col justify-start items-start list-disc pl-6">
+            <li class={picsNames[i].length > 0 ? "container" : "hidden"}>Exercice {i + 1} (<span class="text-italic">{exo.groups.title}</span>) :</li>
+            <ul class="flex flex-col justify-start items-start list-none pl-4">
+              {#each picsNames[i] as name}
+                <li class="font-mono text-sm">{name}</li>
+              {/each}
+            </ul>
+          </ul>
+        {/each}
+      </div>
+    </ModalMessageBeforeAction>
 
     <dialog bind:this={dialogLua} class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light font-light shadow-lg">
       {@html messageForCopyPasteModal}
