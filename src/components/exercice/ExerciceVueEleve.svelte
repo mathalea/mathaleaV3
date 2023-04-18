@@ -285,13 +285,10 @@
           </div>
         {/if}
         <button class="mx-2 tooltip tooltip-right" data-tip="Nouvel énoncé" type="button" on:click={newData}>
-          <i
-            class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh
-            {headerExerciceProps.randomReady ? '' : 'hidden'}"
-          />
+          <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-xs bx-refresh" />
         </button>
         <button
-          class="mx-2 tooltip tooltip-right tooltip-neutral {$globalOptions.isInteractiveFree && headerExerciceProps.interactifReady ? '' : 'hidden'}"
+          class="mx-2 w-5 tooltip tooltip-right tooltip-neutral {$globalOptions.isInteractiveFree && headerExerciceProps.interactifReady ? '' : 'hidden'}"
           data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
           type="button"
           on:click={() => {
@@ -301,7 +298,7 @@
             updateDisplay()
           }}
         >
-          <InteractivityIcon isOnStateActive={isInteractif} />
+          <InteractivityIcon isOnStateActive={isInteractif} size={4} />
         </button>
 
         {#if $globalOptions.isSolutionAccessible && !isInteractif}
