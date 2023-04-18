@@ -3,6 +3,8 @@
   export let value: boolean = true
   export let isDisabled: boolean = false
   export let classAddenda: string = ""
+  export let textSize: string = "sm"
+  export let buttonSize: string = "sm"
 
   function toggle() {
     value = !value
@@ -31,9 +33,9 @@
   ```
  -->
 <div class="flex flex-row justify-start items-center {classAddenda}">
-  <button type="button" on:click={toggle} disabled={isDisabled}>
+  <button type="button" class="flex justify-center items-center" on:click={toggle} disabled={isDisabled}>
     <i
-      class="translate-y-1 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm {value
+      class=" text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-{buttonSize} {value
         ? 'bx-toggle-right'
         : 'bx-toggle-left'}
         {isDisabled ? 'text-opacity-10' : ''}"
@@ -41,7 +43,7 @@
       on:keydown
     />
   </button>
-  <div class="pl-2 inline-block text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {isDisabled ? 'text-opacity-10' : 'text-opacity-70'}">
+  <div class="{textSize === 'xs' ? 'pl-1' : 'pl-2'} inline-block text-{textSize} font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {isDisabled ? 'text-opacity-10' : 'text-opacity-70'}">
     {@html `${value ? titles[0] : titles[1]}`}
   </div>
 </div>

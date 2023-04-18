@@ -49,9 +49,11 @@
 <div class="z-0 flex-1 overflow-hidden">
   <h1 class=" text-coopmaths-struct dark:text-coopmathsdark-struct mt-8 pb-2 flex {$isMenuNeededForExercises ? 'flex-col items-center' : 'flex-row items-center'}">
     <!-- titre -->
-    <div class="flex flex-row justify-start items-center" id="exerciceHeader{indiceExercice}">
+    <div class="flex flex-row justify-start items-start" id="exerciceHeader{indiceExercice}">
       {#if showNumber}
-        <div class="{$isMenuNeededForExercises ? 'hidden' : 'inline-flex'} items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg lg:text-normal">
+        <div
+          class="{$isMenuNeededForExercises ? 'hidden' : 'inline-flex'} items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg lg:text-normal translate-y-1"
+        >
           {indiceExercice + 1}
         </div>
       {/if}

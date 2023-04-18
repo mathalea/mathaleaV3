@@ -288,7 +288,7 @@
           <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-xs bx-refresh" />
         </button>
         <button
-          class="mx-2 w-5 tooltip tooltip-right tooltip-neutral {$globalOptions.isInteractiveFree && headerExerciceProps.interactifReady ? '' : 'hidden'}"
+          class="w-5 tooltip tooltip-right tooltip-neutral {$globalOptions.isInteractiveFree && headerExerciceProps.interactifReady ? '' : 'hidden'}"
           data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
           type="button"
           on:click={() => {
@@ -302,8 +302,8 @@
         </button>
 
         {#if $globalOptions.isSolutionAccessible && !isInteractif}
-          <div class="ml-2 lg:mx-5">
-            <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} bind:value={isCorrectionVisible} on:click={() => adjustMathalea2dFiguresWidth()} />
+          <div class="ml-2">
+            <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} textSize="xs" buttonSize="xs" bind:value={isCorrectionVisible} on:click={() => adjustMathalea2dFiguresWidth()} />
           </div>
         {/if}
       </div>
