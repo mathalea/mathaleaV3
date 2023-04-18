@@ -46,7 +46,7 @@
   ```
  -->
 
-<div class="z-0 flex-1 overflow-hidden">
+<div class="z-0 flex-1">
   <h1 class=" text-coopmaths-struct dark:text-coopmathsdark-struct mt-8 pb-2 flex {$isMenuNeededForExercises ? 'flex-col items-center' : 'flex-row items-center'}">
     <!-- titre -->
     <div class="flex flex-row justify-start items-center" id="exerciceHeader{indiceExercice}">
