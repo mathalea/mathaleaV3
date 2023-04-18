@@ -78,7 +78,9 @@
       const month = exo.groups.month
       const area = exo.groups.zone.replace(/ /g, "_")
       for (const fileName of picsNames[i]) {
-        imagesFilesUrls.push({ url: `https://raw.githubusercontent.com/mathalea/dnb/master/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
+        // imagesFilesUrls.push({ url: `https://raw.githubusercontent.com/mathalea/dnb/master/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
+        // https://coopmaths.fr/alea/static/dnb/2022/tex/eps/arbresCP.eps
+        imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/dnb/master/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
       }
     })
     return imagesFilesUrls
