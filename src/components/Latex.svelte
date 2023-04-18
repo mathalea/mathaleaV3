@@ -114,7 +114,7 @@
     picsNames = []
     exosContentList = []
     const regExpExo = /(?:\\begin\{EXO\}\{(?<title>DNB(?:\s*)(?<month>.*?)(?:\s*)(?<year>\d{4})(?:\s*)(?<zone>.*?)(?:\s*))\})((.|\n)*?)(?:\\end\{EXO\})/g
-    const regExp = /^(?:(?!%))\\includegraphics(?:\[.*?\])?\{(.*?)\}/gm
+    const regExp = /^(?:(?!%))(?:.*?)\\includegraphics(?:\[.*?\])?\{(.*?)\}/gm
     const latexCode = contents.content
     exosContentList = [...latexCode.matchAll(regExpExo)]
     for (const exo of exosContentList) {
@@ -343,7 +343,7 @@
         Voici ce dont vous aurez besoin :
         {#each exosContentList as exo, i (exo)}
           <ul class="flex flex-col justify-start items-start list-disc pl-6">
-            <li>Exercice {i + 1} (<span class="text-italic">{exo.groups.title}</span>) :</li>
+            <li class={picsNames[i].length > 0 ? "container" : "hidden"}>Exercice {i + 1} (<span class="text-italic">{exo.groups.title}</span>) :</li>
             <ul class="flex flex-col justify-start items-start list-none pl-4">
               {#each picsNames[i] as name}
                 <li class="font-mono text-sm">{name}</li>
