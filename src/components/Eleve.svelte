@@ -121,10 +121,18 @@
       // Si ce n'est pas un chargement d'url alors il faut initialiser le store des résultats
       resultsByExercice.update(() => [])
     }
+    if ($globalOptions.setInteractive === "1") {
+      for (const param of $exercicesParams) {
+        param.interactif = "1"
+      }
+    }
     for (const paramsExercice of $exercicesParams) {
       const exercice: TypeExercice = await MathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (typeof exercice === "undefined") return
       MathaleaHandleParamOfOneExercice(exercice, paramsExercice)
+      if ($globalOptions.setInteractive === "1" && exercice.interactifReady) {
+        exercice.interactif = true
+      }
       exercices.push(exercice)
     }
     exercices = exercices
@@ -134,9 +142,6 @@
 
   async function buildQuestions() {
     for (const [k, exercice] of exercices.entries()) {
-      if ($globalOptions.setInteractive === "1" && exercice.interactifReady) {
-        exercice.interactif = true
-      }
       if (exercice.typeExercice === "simple") {
         MathaleaHandleExerciceSimple(exercice, exercice.interactif, k)
       }

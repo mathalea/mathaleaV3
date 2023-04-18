@@ -2,7 +2,7 @@
   import { MathaleaUpdateUrlFromExercicesParams } from "../../lib/Mathalea"
   import { exercicesParams, globalOptions } from "../store"
 
-  export let size: "xs" | "sm" | "md" | "lg" = "sm"
+  export let size: "xs" | "sm" | "md" | "lg" | "bx-sm md:bx-md" = "sm" 
 
   const urlParams = new URLSearchParams(window.location.search)
   let zoom = parseInt(urlParams.get("z")) || 1

@@ -45,12 +45,7 @@
 
   $: {
     if (isInteractif && buttonScore) initButtonScore()
-
-    if ($globalOptions.setInteractive === "1") {
-      setAllInteractif()
-    } else if ($globalOptions.setInteractive === "0") {
-      removeAllInteractif()
-    }
+    
     if (!$globalOptions.isSolutionAccessible) {
       headerExerciceProps.correctionReady = false
       headerExerciceProps.randomReady = false
