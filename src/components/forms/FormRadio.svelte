@@ -8,7 +8,13 @@
   export let isDisabled: boolean = false
   export let orientation: FlexOrientation = "col"
 
-  let name = title !== undefined ? title.replaceAll(" ", "") : Math.round(Math.random() * 1000).toString()
+  let name =
+    title !== undefined
+      ? title
+          .replaceAll(" ", "")
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+      : Math.round(Math.random() * 1000).toString()
   const dispatch = createEventDispatcher()
   function valueHasChanged() {
     dispatch("newvalue")
