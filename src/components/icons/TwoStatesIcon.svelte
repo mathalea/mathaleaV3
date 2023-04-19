@@ -23,7 +23,11 @@
  -->
 <div class={isOnStateActive ? "hidden" : "block"}>
   <slot name="icon_to_switch_on">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8.467 8.467" class="w-{size} h-{size} fill-coopmaths-action stroke-coopmaths-action">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 8.467 8.467"
+      class="w-{size} h-{size} fill-coopmaths-action dark:fill-coopmathsdark-action stroke-coopmaths-action dark:stroke-coopmathsdark-action"
+    >
       <defs>
         <marker id="a" markerHeight="2" markerWidth="2" orient="auto-start-reverse" preserveAspectRatio="xMidYMid" refX="0" refY="0" style="overflow:visible" viewBox="0 0 5.324 6.155">
           <path d="m5.77 0-8.65 5V-5Z" style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt" transform="scale(.5)" />
@@ -57,7 +61,11 @@
 </div>
 <div class=" {isOnStateActive ? 'block' : 'hidden'}">
   <slot name="icon_to_switch_off">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8.467 8.467" class=" w-{size} h-{size} fill-coopmaths-action stroke-coopmaths-action">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 8.467 8.467"
+      class=" w-{size} h-{size} fill-coopmaths-action dark:fill-coopmathsdark-action stroke-coopmaths-action dark:stroke-coopmathsdark-action"
+    >
       <defs>
         <marker id="a" markerHeight="2" markerWidth="2" orient="auto-start-reverse" preserveAspectRatio="xMidYMid" refX="0" refY="0" style="overflow:visible" viewBox="0 0 5.324 6.155">
           <path d="m5.77 0-8.65 5V-5Z" style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt" transform="scale(.5)" />
