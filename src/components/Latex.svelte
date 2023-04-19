@@ -115,7 +115,7 @@
     let picsList: string[][] = []
     picsNames = []
     exosContentList = []
-    const regExpExo = /(?:\\begin\{EXO\}\{(?<title>DNB(?:\s*)(?<month>.*?)(?:\s*)(?<year>\d{4})(?:\s*)(?<zone>.*?)(?:\s*))\})((.|\n)*?)(?:\\end\{EXO\})/g
+    const regExpExo = /(?:\\begin\{EXO\}\{(?<title>(?<serie>[A-Z\d]{3,4})(?:\s*)(?<month>.*?)(?:\s*)(?<year>\d{4})(?:\s*)(?<zone>.*?)(?:\s*))\})((.|\n)*?)(?:\\end\{EXO\})/gm
     const regExp = /^(?:(?!%))(?:.*?)\\includegraphics(?:\[.*?\])?\{(.*?)\}/gm
     const latexCode = contents.content
     exosContentList = [...latexCode.matchAll(regExpExo)]
@@ -204,7 +204,12 @@
     }
   }
 
-  async function buildZipFileForOverleaf(fileName) {
+  /**
+   * Construit l'archive ZIP contenant le code LaTeX et tous les fichiers images nécessaires pour la compilation du code LaTeX
+   * @param {string} archiveName nom donné pour l'archive
+   * @author sylvain
+   */
+  async function buildZipFileForOverleaf(archiveName: string = "coopmaths") {
     const zip = new JSZip()
     const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
     zip.file("main.tex", text)
@@ -226,7 +231,7 @@
               linkForOverleaf = document.createElement("a")
               linkForOverleaf.href = URL.createObjectURL(content).replace("blob:", "")
               console.log(linkForOverleaf.href)
-              saveAs(content, "coopmath.zip")
+              saveAs(content, [archiveName.replace(/\.(?:.*)$/g, ""), "zip"].join("."))
             })
           }
         })
