@@ -322,7 +322,7 @@
 <div class="h-screen scrollbar-hide {$darkMode.isActive ? 'dark' : ''} bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="startComponent">
   <!-- <Header /> -->
   {#if isNavBarVisible}
-    <div id="headerStart" class="h-32 pb-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
+    <div id="headerStart" class="sticky top-0 z-40 h-32 pb-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
       <NavBarV2 />
     </div>
     <!-- <Header2 sideMenuVisible={isSideMenuVisible} on:sideMenuChange={handleSideMenu} /> -->
@@ -471,7 +471,9 @@
           <!-- barre des boutons commandes (tous les boutons) ==> POUR LG ET + SEULEMENT -->
           <div
             id="setupButtonBar"
-            class="fixed top-32 z-50 hidden lg:flex lg:flex-col xl:flex-row pl-4 py-2 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+            class="fixed {$globalOptions.v !== 'l'
+              ? 'top-32'
+              : 'top-0'} z-50 hidden lg:flex lg:flex-col xl:flex-row pl-4 py-2 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
             style="width: calc(100vw - ({sidebarWidth}px  + 4px + 5rem));"
           >
             <!-- réglages pour tous les exercices de la page -->
