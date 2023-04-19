@@ -343,7 +343,7 @@
                   class="lg:hidden text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
                   on:click={toggleExercisesList}
                 >
-                  <i class="bx bxs-up-arrow {isExercisesListVisible ? 'rotate-0' : 'rotate-180'} transition-all ease-in-out duration-500" />
+                  <i class="bx bxs-up-arrow {isExercisesListVisible ? 'rotate-0' : 'rotate-180'} transition-transform ease-in-out duration-500" />
                 </button>
               </div>
               <div class="{isExercisesListVisible ? '' : 'hidden'} h-full">
@@ -379,7 +379,7 @@
             bind:clientWidth={sbWidth}
             style="{$isSideMenuVisible || nbExercisesInList === 0
               ? `width:${sidebarWidth}px;`
-              : 'width: 0px;'} transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 600ms;"
+              : 'width: 0px;'} transition: width; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 600ms;"
             class="flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark md:h-full {$isSideMenuVisible || nbExercisesInList === 0 ? 'p-4' : 'p-0'}"
           >
             <div id="choiceMenuWrapper" class="flex flex-col overflow-y-scroll overscroll-y-auto">
