@@ -46,6 +46,8 @@ export default function SujetCAN2023Seconde () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.listeCanEnonces = []
+    this.listeCanReponsesACompleter = []
     let typeQuestionsDisponibles = []
     if (this.nbQuestions === 30) {
       typeQuestionsDisponibles = range1(30)

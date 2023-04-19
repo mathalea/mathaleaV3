@@ -2063,6 +2063,17 @@
             "amc": true,
             "amcType": "AMCNum"
           }
+        },
+        "can5N03": {
+          "id": "can5N03",
+          "uuid": "ed8da",
+          "url": "can/5e/can5N03.js",
+          "titre": "Déterminer un multiple",
+          "datePublication": "17/04/2023",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathLive"
+          }
         }
       },
       "can5P": {
@@ -7111,7 +7122,7 @@
         "uuid": "064ce",
         "url": "6e/6P13.js",
         "titre": "Augmenter ou diminuer d'un pourcentage",
-        "dateDeModifImportante": "15/03/2022",
+        "dateDeModifImportante": "16/04/2023",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
@@ -11504,6 +11515,16 @@
         "url": "2e/2N41-7v2.js",
         "titre": "Factoriser avec les identités remarquables",
         "tags": {}
+      },
+      "2N41-8": {
+        "id": "2N41-8",
+        "uuid": "641bc",
+        "url": "2e/2N41-8.js",
+        "titre": "Mettre au même dénominateur des expressions littérales",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive"
+        }
       }
     },
     "2N5": {

@@ -277,12 +277,67 @@ export function centrage (texte) {
  * @param {number|string} defaut valeur par défaut si non entier
  */
 export function contraindreValeur (min, max, valeur, defaut) {
-  if (isNaN(min) || isNaN(max) || isNaN(defaut)) {
-    throw Error(`Erreur dans contraindreValeur : un des paramètre de contrainte est NaN : ${
+  // if (isNaN(min) || isNaN(max) || (defaut !== undefined && isNaN(defaut))) { // Rajout de Remi
+  if (isNaN(min) || isNaN(max) || (isNaN(defaut))) {
+    throw Error(`Erreur dans contraindreValeur : un des paramètres de contrainte est NaN : ${
       ['min : ' + String(min) + ' ', max, valeur, defaut].reduce((accu, value, index) => String(accu) + ['min', ',max', ',valeur', ',defaut'][index] + ' : ' + String(value) + ' ')
     }`)
   }
   return !isNaN(valeur) ? (Number(valeur) < Number(min) ? Number(min) : (Number(valeur) > Number(max) ? Number(max) : Number(valeur))) : Number(defaut)
+}
+
+/**
+ *@param {string|number} saisie Ce qui vient du formulaireTexte donc une série de nombres séparés par des tirets ou un seul nombre (normalement en string) ou rien
+ * @param {number} min 1 par défaut
+ * @param {number} max obligatoirement >min
+ * @param {number} defaut obligatoirement compris entre min et max inclus
+ * @param {string[] | number[] | undefined} listeOfCase La liste des valeurs à mettre dans la liste en sortie. Si aucune liste n'est fournie, ce sont les nombres qui seront dans la liste
+ * @param {boolean} shuffle si true, alors on brasse la liste en sortie sinon on garde l'ordre
+ * @param {number} nbQuestions obligatoire : c'est la taille de la liste en sortie
+ * @param {number | undefined} random la valeur utilisée pour l'option mélange à savoir randint(min,max)
+ */
+export function formTextSerializer ({
+                                      saisie,
+                                      min = 1,
+                                      max,
+                                      defaut,
+                                      listeOfCase,
+                                      shuffle = true,
+                                      nbQuestions,
+                                      random
+                                    } = {}) {
+  if (max == null || isNaN(max) || max < min) throw Error('La fonction formTextSerialize réclame un paramètre max de type number')
+  if (defaut == null || isNaN(defaut) || defaut < min || (defaut > max && defaut !== random)) throw Error('La fonction formTextSerializer réclame un paramètre defaut compris entre min(1) et max')
+  let listeIndex
+  
+  if (!saisie) { // Si aucune liste n'est saisie
+    listeIndex = [defaut]
+  } else {
+    if (typeof (saisie) === 'number' || Number.isInteger(saisie)) { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+      listeIndex = [contraindreValeur(min, Math.max(max, random ?? max), saisie, defaut)]
+    } else {
+      listeIndex = saisie.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+      for (let i = 0; i < listeIndex.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+        listeIndex[i] = contraindreValeur(min, Math.max(max, random ?? max), parseInt(listeIndex[i]), defaut) // parseInt en fait un tableau d'entiers
+      }
+    }
+  }
+  if (shuffle) {
+    listeIndex = combinaisonListes(listeIndex, nbQuestions)
+  } else {
+    listeIndex = combinaisonListesSansChangerOrdre(listeIndex, nbQuestions)
+  }
+  if (random != null && compteOccurences(listeIndex, random)) {
+    listeIndex = combinaisonListes(rangeMinMax(min, max), nbQuestions)
+  }
+  const Max = Math.max(...listeIndex)
+  if (Array.isArray(listeOfCase)) { // si une listeOfCase est fournie, on retourne la liste des valeurs construites avec listeIndex
+    if (listeOfCase.length < Max) throw Error('La liste de cas fournie ne contient pas assez de valeurs par rapport à max')
+    return listeIndex.map((el) => {
+      listeOfCase[el - 1]
+    })
+  }
+  return listeIndex
 }
 
 /** Retourne un nombre décimal entre a et b, sans être trop près de a et de b
@@ -412,7 +467,7 @@ export function ecrireNombre2D (x, y, n) {
  * @author Rémi Angot
  */
 export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
-  let result = [];
+  let result = []
   let temp = []
   for (const i in E1) {
     for (const j in E2) {
@@ -778,8 +833,8 @@ export function checkSum (...args) {
  * @Source https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
  */
 export function shuffle (array) {
-  let currentIndex = array.length;
-  let temporaryValue;
+  let currentIndex = array.length
+  let temporaryValue
   let randomIndex
   
   // While there remain elements to shuffle...
@@ -1360,9 +1415,9 @@ export function changementDeBaseTriOrtho (point) {
  * @author Jean-Claude Lhote
  */
 export function imagePointParTransformation (transformation, pointA, pointO, vecteur = [], rapport = 1) { // pointA,centre et pointO sont des tableaux de deux coordonnées
-                                                                                                          // on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
-                                                                                                          // nécessite d'être en repère orthonormal...
-                                                                                                          // Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
+  // on les rends homogènes en ajoutant un 1 comme 3ème coordonnée)
+  // nécessite d'être en repère orthonormal...
+  // Point O sert pour les rotations et homothéties en tant que centre (il y a un changement d'origine du repère en O pour simplifier l'expression des matrices de transformations.)
   
   const matriceSymObl1 = matriceCarree([[0, 1, 0], [1, 0, 0], [0, 0, 1]]) // x'=y et y'=x
   const matriceSymxxprime = matriceCarree([[1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=x et y'=-y
@@ -1835,7 +1890,7 @@ export function obtenirListeFacteursPremiers (n) {
 
 export function factorisation (n) {
   const liste = obtenirListeFacteursPremiers(n)
-  const facto = [];
+  const facto = []
   let index = 0
   for (let i = 0; i < liste.length;) {
     if (liste[i] === 0) i++
@@ -1888,7 +1943,7 @@ export function texFactorisation (n, puissancesOn = true) {
  */
 export function extraireRacineCarree (n) {
   const facto = factorisation(n)
-  let radical = 1;
+  let radical = 1
   let facteur = 1
   for (let i = 0; i < facto.length; i++) {
     if (facto[i][1] % 2 === 0) {
@@ -1944,10 +1999,12 @@ export function calcul (x, arrondir = 6) {
     window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', {x})
     x = parseFloat(evaluate(x))
   }
-  if (sansPrecision && !egal(x, arrondi(x, arrondir), 10 ** (-arrondir - 1))) window.notify('calcul : arrondir semble avoir tronqué des décimales sans avoir eu de paramètre de précision', {
-    x,
-    arrondir
-  })
+  if (sansPrecision && !egal(x, arrondi(x, arrondir), 10 ** (-arrondir - 1))) {
+    window.notify('calcul : arrondir semble avoir tronqué des décimales sans avoir eu de paramètre de précision', {
+      x,
+      arrondir
+    })
+  }
   return parseFloat(x.toFixed(arrondir))
 }
 
@@ -2027,7 +2084,7 @@ export function triePositifsNegatifs (liste) {
  * @author Rémi Angot
  */
 export function sommeDesTermesParSigne (liste) {
-  let sommeDesPositifs = 0;
+  let sommeDesPositifs = 0
   let sommeDesNegatifs = 0
   for (let i = 0; i < liste.length; i++) {
     if (liste[i] > 0) {
@@ -2119,7 +2176,7 @@ export function choisitNombresEntreMetN (m, n, combien, listeAEviter = []) {
  * @author Jean-Claude Lhote
  */
 export function choisitLettresDifferentes (nombre, lettresAeviter = '', majuscule = true) {
-  const listeAEviter = [];
+  const listeAEviter = []
   const lettres = []
   for (const l of lettresAeviter) {
     listeAEviter.push(l.charCodeAt(0) - 64)
@@ -2133,7 +2190,7 @@ export function choisitLettresDifferentes (nombre, lettresAeviter = '', majuscul
 }
 
 export function cesar (word, decal) {
-  let mot = '';
+  let mot = ''
   let code = 65
   for (let x = 0; x < word.length; x++) {
     code = word.charCodeAt(x) % 65
@@ -2369,8 +2426,8 @@ export function personne ({prenom = '', genre = '', pronom = ''} = {}) {
  * le 14/03/2021
  */
 export function personnes (n) {
-  const liste = [];
-  let essai;
+  const liste = []
+  let essai
   let trouve
   for (let i = 0; i < n;) {
     essai = personne()
@@ -3346,7 +3403,7 @@ export function nombreDeChiffresDansLaPartieDecimale (nb, except = 'aucune') {
  * @author ?
  */
 export function nombreDeChiffresDansLaPartieEntiere (nb, except = 'aucune') {
-  let nombre;
+  let nombre
   let sauf = 0
   if (nb < 0) {
     nombre = -nb
@@ -3655,7 +3712,7 @@ export class MatriceCarree {
      */
     this.determinant = function () {
       const n = this.dim // taille de la matrice = nxn
-      let determinant = 0;
+      let determinant = 0
       let M
       for (let i = 0; i < n; i++) { // on travaille sur la ligne du haut de la matrice :ligne 0 i est la colonne de 0 à n-1
         // if (n==1) determinant=this.table[0][0]
@@ -3674,7 +3731,7 @@ export class MatriceCarree {
      * @author Jean-Claude Lhote
      */
     this.matriceReduite = function (l, c) {
-      const resultat = [];
+      const resultat = []
       let ligne
       for (let i = 0; i < this.table.length; i++) {
         if (i !== l) {
@@ -3691,9 +3748,9 @@ export class MatriceCarree {
      * Méthode : m=M.cofacteurs() retourne la matrice des cofacteurs de M utilisée dans l'inversion de M.
      */
     this.cofacteurs = function () { // renvoie la matrice des cofacteurs.
-      const n = this.dim;
-      let resultat = [];
-      let ligne;
+      const n = this.dim
+      let resultat = []
+      let ligne
       let M
       if (n > 2) {
         for (let i = 0; i < n; i++) {
@@ -3713,8 +3770,8 @@ export class MatriceCarree {
      * Méthode : m=M.transposee() retourne la matrice transposée de M utilisée pour l'inversion de M
      */
     this.transposee = function () { // retourne la matrice transposée
-      const n = this.dim;
-      const resultat = [];
+      const n = this.dim
+      const resultat = []
       let ligne
       for (let i = 0; i < n; i++) {
         ligne = []
@@ -3730,8 +3787,8 @@ export class MatriceCarree {
      * @param {*} k
      */
     this.multiplieParReel = function (k) { // retourne k * la matrice
-      const n = this.dim;
-      const resultat = [];
+      const n = this.dim
+      const resultat = []
       let ligne
       for (let i = 0; i < n; i++) {
         ligne = []
@@ -3748,8 +3805,8 @@ export class MatriceCarree {
      *
      */
     this.multiplieVecteur = function (V) { // Vecteur est un simple array pour l'instant
-      const n = this.dim;
-      const resultat = [];
+      const n = this.dim
+      const resultat = []
       let somme
       if (n === V.length) {
         for (let i = 0; i < n; i++) {
@@ -3776,9 +3833,9 @@ export class MatriceCarree {
      *
      */
     this.multiplieMatriceCarree = function (M) {
-      const n = this.dim;
-      const resultat = [];
-      let ligne;
+      const n = this.dim
+      const resultat = []
+      let ligne
       let somme
       for (let i = 0; i < n; i++) {
         ligne = []
@@ -3835,8 +3892,8 @@ export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
  */
 export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
   const matrice = matriceCarree([[x1 ** 3, x1 ** 2, x1], [x2 ** 3, x2 ** 2, x2], [x3 ** 3, x3 ** 2, x3]])
-  const y1 = fx1 - d;
-  const y2 = fx2 - d;
+  const y1 = fx1 - d
+  const y2 = fx2 - d
   const y3 = fx3 - d
   const determinant = matrice.determinant()
   if (determinant === 0) {

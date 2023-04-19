@@ -108,6 +108,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           const E = point(L1 * zoom, 0, 'E')
           const p1 = polygoneAvecNom(A, B, C, D, E)
           const angles1 = [codageAngleDroit(A, B, C), codageAngleDroit(B, C, E), codageAngleDroit(C, E, A), codageAngleDroit(E, A, B), codageSegment(A, B, '/', 'black'), codageSegment(C, E, '/', 'black'), codageSegment(B, C, '//', 'black'), codageSegment(A, E, '//', 'black')]
+          angles1.push(codageAngleDroit(E, C, D, 'blue'))
           const CE = segment(C, E)
           CE.pointilles = 5
           const objets1 = []
@@ -188,6 +189,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           const NO = segment(N, O)
           NO.pointilles = 5
           const angles2 = [codageAngleDroit(M, N, O), codageAngleDroit(N, O, P), codageAngleDroit(N, H, S), codageAngleDroit(O, P, M), codageAngleDroit(P, M, N)]
+          angles2.push(codageAngleDroit(S, H, O, 'blue'))
           const objets2 = []
           objets2.push(p2[0]/*, labelPoint(M, N, S, O, P, H) */, HS, NO, ...angles2, texteSurSeg(P, M, stringNombre(c) + ' cm'), texteSurSeg(S, N, stringNombre(h1) + ' cm'), texteSurSeg(O, S, stringNombre(h2) + ' cm'), texteSurSeg(H, S, stringNombre(com1) + ' cm'), codageSegments('//', 'black', M, N, M, P, O, P))
           texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 1 }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), ...objets2)
@@ -304,6 +306,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           const R = pointSurCercle(cercle(F, zoom * l1 / 2), 185, 'R')
           const demicercle = arc(B, F, 180, false, 'none')
           const angles1 = [codageAngleDroit(A, B, C), codageAngleDroit(B, C, E), codageAngleDroit(C, E, A), codageAngleDroit(E, A, B), texteSurSeg(F, R, stringNombre(l1 / 2) + ' cm'), codageSegment(F, R, '//', 'black'), codageSegment(F, A, '//', 'black'), codageSegment(F, B, '//', 'black'), codageSegment(A, E, '/', 'black'), codageSegment(C, B, '/', 'black')]
+          angles1.push(codageAngleDroit(D, C, E, 'blue'))
           const FR = segment(F, R)
           FR.pointilles = 5
           const AB = segment(A, B)
@@ -337,7 +340,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
 
       if (context.isAmc) {
         this.autoCorrection[i] = {
-          enonce: 'Calculer le périmètre et l\'aire des figures suivantes.\\\\' + texte,
+          enonce: 'Calculer le périmètre et l\'aire de la figure suivante.\\\\' + texte,
           options: { multicols: true, barreseparation: true, numerotationEnonce: true },
           propositions: [
             {
@@ -351,7 +354,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
                     alignement: 'center',
                     param: {
                       digits: 3,
-                      decimals: 1,
+                      decimals: typesDeQuestions[i] > 3 ? 0 : 1,
                       signe: false,
                       aussiCorrect: [perimetre[1 + (typesDeQuestions[i] > 3 ? 2 : 0)]]
                     }
@@ -370,7 +373,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
                     alignement: 'center',
                     param: {
                       digits: 3,
-                      decimals: 1,
+                      decimals: typesDeQuestions[i] > 3 ? 0 : 1,
                       signe: false,
                       aussiCorrect: [aire[1 + (typesDeQuestions[i] > 3 ? 2 : 0)]]
                     }

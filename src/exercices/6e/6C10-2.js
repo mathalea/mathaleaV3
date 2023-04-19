@@ -1,9 +1,19 @@
-import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, creerCouples, randint, choice, texNombre, texNombre2, calcul, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import {
+  calcul,
+  choice,
+  creerCouples,
+  formTextSerializer,
+  listeQuestionsToContenu,
+  randint,
+  texNombre,
+  texNombre2
+} from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
+
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
@@ -14,7 +24,7 @@ export const titre = 'Utiliser tables de multiplication pour effectuer produits 
 /**
  * Les 2 facteurs peuvent terminer par aucun, 1, 2 ou 3 zéros
  * @author Rémi Angot
-* Référence 6C10-2
+ * Référence 6C10-2
  */
 export const uuid = '23bc8'
 export const ref = '6C10-2'
@@ -29,17 +39,26 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   this.consigne = 'Calculer.'
   this.spacing = 2
   this.tailleDiaporama = 3
-
+  
   this.nouvelleVersion = function () {
     this.interactifType = parseInt(this.sup2) === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
     let tables = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    if (!this.sup) {
+    tables = formTextSerializer({
+      min: 2,
+      max: 9,
+      defaut: randint(2, 9),
+      nbQuestions: this.nbQuestions,
+      shuffle: true,
+      saisie: this.sup
+    })
+    /* if (!this.sup) {
       // Si aucune table n'est saisie
       this.sup = '2-3-4-5-6-7-8-9'
     }
+    /*
     if (typeof this.sup === 'number') {
       // Si c'est un nombre c'est qu'il y a qu'une seule table
       tables[0] = this.sup
@@ -49,6 +68,19 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
         tables[i] = contraindreValeur(2, 9, parseInt(tables[i]))
       }
     }
+    if (!this.sup) { // Si aucune liste n'est saisie
+      tables[0] = rangeMinMax(2, 9)
+    } else {
+      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+        tables = [contraindreValeur(2, 9, this.sup, randint(2, 9))]
+      } else {
+        tables = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < tables.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+          tables[i] = contraindreValeur(2, 9, parseInt(tables[i]), 9) // parseInt en fait un tableau d'entiers
+        }
+      }
+    }
+*/
     const couples = creerCouples(
       tables,
       [2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -85,7 +117,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
         ' = ' +
         texNombre(a * b) +
         ' $'
-
+      
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [
         {

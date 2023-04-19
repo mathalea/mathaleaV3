@@ -226,7 +226,7 @@
   }
 </script>
 
-<div class="z-0 flex-1 overflow-hidden" bind:this={divExercice}>
+<div class="z-0 flex-1" bind:this={divExercice}>
   <HeaderExerciceVueEleve
     on:clickCorrection={(event) => {
       isCorrectionVisible = event.detail.isCorrectionVisible

@@ -58,7 +58,7 @@
   ```
  -->
 
-<div class="z-0 flex-1 overflow-hidden">
+<div class="z-0 flex-1">
   <h1
     class="border-b border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-struct dark:text-coopmathsdark-struct pl-0 md:pl-4 mt-4 pb-2 flex flex-col lg:flex-row lg:justify-between lg:items-center"
   >

@@ -33,58 +33,56 @@ export default function CalculFonctionDeriveeAffine () {
         p = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
         f = new FractionX(m * 10, 10)
         this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
-
        $f(x)=${reduireAxPlusB(m, p)}$.<br>
-
-        Déterminer $f'(x)$.   <br>  `
-        if (this.interactif) { this.question += '$f\'(x)=$' }
+        Déterminer $f'(x)$.`
+        if (this.interactif) { this.question += '<br>$f\'(x)=$' }
         this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=${texNombre(m, 1)}$ et $p=${texNombre(p, 1)}$.<br>
         La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=${texNombre(m, 1)}$. `
 
         this.reponse = [m, f.texFraction]
-
+        this.canEnonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+        $f(x)=${reduireAxPlusB(m, p)}$.`
+        this.canReponseACompleter = '$f^\\prime(x)=\\ldots$'
         break
       case 2:// p+mx
         m = choice([randint(2, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
         p = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
         f = new FractionX(m * 10, 10)
         this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
-
       $f(x)=${texNombre(p, 1)}${ecritureAlgebrique(m)}x$.<br>
-
-        Déterminer $f'(x)$. <br>   `
-        if (this.interactif) { this.question += '$f\'(x)=$' }
+        Déterminer $f'(x)$.`
+        if (this.interactif) { this.question += '<br>$f\'(x)=$' }
         this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=${texNombre(m, 1)}$ et $p=${texNombre(p, 1)}$.<br>
         La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=${texNombre(m, 1)}$. `
-
         this.reponse = [m, f.texFraction]
-
+        this.canEnonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+        $f(x)=${texNombre(p, 1)}${ecritureAlgebrique(m)}x$.`
+        this.canReponseACompleter = '$f^\\prime(x)=\\ldots$'
         break
       case 3:// x+p
         p = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
         m = choice([-1, 1])
         if (choice([true, false])) {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :<br>
-
        $f(x)=${reduireAxPlusB(m, p)}$.<br>
-
-       Déterminer $f'(x)$. <br>  `
+       Déterminer $f'(x)$.`
+          this.canEnonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+       $f(x)=${reduireAxPlusB(m, p)}$.`
+          this.canReponseACompleter = '$f^\\prime(x)=\\ldots$'
         } else {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
-
-        $f(x)=${texNombre(p, 1)}${ecritureAlgebriqueSauf1(m)}x$<br>
-
-        Déterminer $f'(x)$.   <br> `
+        $f(x)=${texNombre(p, 1)}${ecritureAlgebriqueSauf1(m)}x$.<br>
+        Déterminer $f'(x)$.`
+          this.canEnonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
+        $f(x)=${texNombre(p, 1)}${ecritureAlgebriqueSauf1(m)}x$.`
+          this.canReponseACompleter = '$f^\\prime(x)=\\ldots$'
         }
-        if (this.interactif) { this.question += '$f\'(x)=$' }
+        if (this.interactif) { this.question += '<br>$f\'(x)=$' }
         this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=${m}$ et $p=${texNombre(p, 1)}$.<br>
         La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=${m}$. `
-
         this.reponse = m
 
         break
     }
-    this.canEnonce = this.question
-    this.canReponseACompleter = ''
   }
 }

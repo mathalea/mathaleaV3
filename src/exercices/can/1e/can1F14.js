@@ -27,16 +27,14 @@ export default function NombreDerivee () {
         b = randint(-5, 5, [0])
         c = randint(-10, 10, [0])
         nbre = randint(-3, 3)
-
         this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${reduirePolynomeDegre3(0, a, b, c)}$.<br>
-      
         Déterminer $f'(${nbre})$.`
-
         this.correction = `$f$ est une fonction polynôme du second degré de la forme $f(x)=ax^2+bx+c$.<br>
     La fonction dérivée est donnée par la somme des dérivées des fonctions $u$ et $v$ définies par $u(x)=${rienSi1(a)}x^2$ et $v(x)=${reduireAxPlusB(b, c)}$.<br>
      Comme $u'(x)=${2 * a}x$ et $v'(x)=${b}$, on obtient  $f'(x)=${reduireAxPlusB(2 * a, b)}$. <br>
      Ainsi, $f'(${nbre})=${2 * a}\\times ${ecritureParentheseSiNegatif(nbre)}${ecritureAlgebrique(b)}=${2 * a * nbre + b}$.`
-
+        this.canEnonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${reduirePolynomeDegre3(0, a, b, c)}$.`
+        this.canReponseACompleter = `$f'(${nbre})=\\ldots$`
         this.reponse = 2 * a * nbre + b
         break
 
@@ -47,16 +45,16 @@ export default function NombreDerivee () {
         nbre = randint(-3, 3)
         if (choice([true, false])) {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :<br>
-          
           $f(x)= ${reduireAxPlusB(b, c)}${ecritureAlgebriqueSauf1(a)}x^2$.<br>
-
             Déterminer $f'(${nbre})$.`
+          this.canEnonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${reduireAxPlusB(b, c)}${ecritureAlgebriqueSauf1(a)}x^2$.`
+          this.canReponseACompleter = `$f'(${nbre})=\\ldots$`
         } else {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
-          
           $f(x)= ${c}${ecritureAlgebriqueSauf1(a)}x^2${ecritureAlgebriqueSauf1(b)}x$.<br>
-
             Déterminer $f'(${nbre})$.`
+          this.canEnonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${c}${ecritureAlgebriqueSauf1(a)}x^2${ecritureAlgebriqueSauf1(b)}x$.`
+          this.canReponseACompleter = `$f'(${nbre})=\\ldots$`
         }
         this.correction = `$f$ est une fonction polynôme du second degré de la forme $f(x)=ax^2+bx+c$.<br>
     La fonction dérivée est donnée par la somme des dérivées des fonctions $u$ et $v$ définies par $u(x)=${rienSi1(a)}x^2$ et $v(x)=${reduireAxPlusB(b, c)}$.<br>
@@ -72,27 +70,24 @@ export default function NombreDerivee () {
         nbre = randint(-5, 5)
         if (choice([true, false])) {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : <br>
-          
           $f(x)= ${reduirePolynomeDegre3(0, a, 0, c)}$.<br>
-
             Déterminer $f'(${nbre})$.`
+          this.canEnonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${reduirePolynomeDegre3(0, a, 0, c)}$.`
+          this.canReponseACompleter = `$f'(${nbre})=\\ldots$`
         } else {
           this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :<br>
-          
           $f(x)= ${c}${ecritureAlgebriqueSauf1(a)}x^2$.<br>
-
             Déterminer $f'(${nbre})$.`
+          this.canEnonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)= ${c}${ecritureAlgebriqueSauf1(a)}x^2$.`
+          this.canReponseACompleter = `$f'(${nbre})=\\ldots$`
         }
 
         this.correction = `$f$ est une fonction polynôme du second degré de la forme $f(x)=ax^2+b$.<br>
     La fonction dérivée est donnée par la somme des dérivées des fonctions $u$ et $v$ définies par $u(x)=${rienSi1(a)}x^2$ et $v(x)=${c}$.<br>
      Comme $u'(x)=${2 * a}x$ et $v'(x)=0$, on obtient  $f'(x)=${reduireAxPlusB(2 * a, 0)}$. <br>
      Ainsi, $f'(${nbre})=${2 * a}\\times ${ecritureParentheseSiNegatif(nbre)}=${2 * a * nbre}$.`
-
         this.reponse = 2 * a * nbre
         break
     }
-    this.canEnonce = this.question
-    this.canReponseACompleter = `$f'(${nbre})=\\ldots$`
   }
 }
