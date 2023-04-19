@@ -63,7 +63,7 @@
   }
 
   // À la construction du component ou à la navigation dans l'historique du navigateur
-  // on met à jour l'url
+  // on met à jour l'url headerStart
   onMount(urlToDisplay)
   addEventListener("popstate", urlToDisplay)
 
@@ -322,7 +322,7 @@
 <div class="h-screen scrollbar-hide {$darkMode.isActive ? 'dark' : ''} bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="startComponent">
   <!-- <Header /> -->
   {#if isNavBarVisible}
-    <div class="pb-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
+    <div id="headerStart" class="h-32 pb-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
       <NavBarV2 />
     </div>
     <!-- <Header2 sideMenuVisible={isSideMenuVisible} on:sideMenuChange={handleSideMenu} /> -->
@@ -383,7 +383,7 @@
               : 'width: 0px;'} transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 600ms;"
             class="flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark md:h-full {$isSideMenuVisible || nbExercisesInList === 0 ? 'p-4' : 'p-0'}"
           >
-            <div class="flex flex-col overflow-y-scroll overscroll-auto">
+            <div id="choiceMenuWrapper" class="flex flex-col overflow-y-scroll">
               <div class="flex flex-row justify justify-between items-center mb-6 text-coopmaths-struct dark:text-coopmathsdark-struct">
                 <div class="font-bold text-xl">Choix des exercices</div>
                 <button
@@ -430,7 +430,7 @@
       {/if}
       <!-- content -->
       {#if $exercicesParams.length !== 0}
-        <div class="relative flex flex-col px-6 w-full h-full" bind:this={divExercices}>
+        <div id="exercisesWrapper" class="relative flex flex-col px-6 w-full h-full overflow-y-scroll" bind:this={divExercices}>
           <div class="print-hidden hidden md:block absolute top-0 left-0">
             <button
               type="button"
@@ -469,10 +469,14 @@
             </button>
           </div>
           <!-- barre des boutons commandes (tous les boutons) ==> POUR LG ET + SEULEMENT -->
-          <div class="w-full hidden lg:flex lg:flex-col xl:flex-row pl-4 pb-6 justify-between items-center">
+          <div
+            id="setupButtonBar"
+            class="fixed top-32 z-50 hidden lg:flex lg:flex-col xl:flex-row pl-4 py-2 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+            style="width: calc(100vw - ({sidebarWidth}px  + 4px + 5rem));"
+          >
             <!-- réglages pour tous les exercices de la page -->
             <div
-              class="print-hidden flex flex-row justify-start items-center space-x-4 px-4 pt-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark lg:bg-coopmaths-canvas lg:dark:bg-coopmathsdark-canvas"
+              class="print-hidden flex flex-row justify-start items-center space-x-4 px-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark lg:bg-coopmaths-canvas lg:dark:bg-coopmathsdark-canvas"
             >
               <button type="button" on:click={zoomMinus} class="tooltip tooltip-bottom tooltip-neutral" data-tip="Réduire la taille du texte">
                 <i
@@ -552,7 +556,7 @@
             </div>
             <!-- boutons d'exports -->
             <div
-              class="print-hidden flex flex-row justify-start items-center space-x-4 px-4 pt-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark lg:bg-coopmaths-canvas lg:dark:bg-coopmathsdark-canvas"
+              class="print-hidden flex flex-row justify-start items-center space-x-4 px-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark lg:bg-coopmaths-canvas lg:dark:bg-coopmathsdark-canvas"
             >
               <button
                 type="button"
@@ -1071,7 +1075,7 @@
               </i>
             </button>
           </div>
-          <div class="flex-1">
+          <div class="flex-1 md:mt-24 xl:mt-12">
             {#each $exercicesParams as paramsExercice, i (paramsExercice)}
               <div id="exo{i}" animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
                 <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
@@ -1098,5 +1102,13 @@
   }
   #startComponent {
     scrollbar-width: none;
+  }
+  #exercisesWrapper {
+    height: calc(100vh - 70px);
+    min-height: 100%;
+  }
+  #choiceMenuWrapper {
+    height: calc(100vh - 70px);
+    min-height: 100%;
   }
 </style>

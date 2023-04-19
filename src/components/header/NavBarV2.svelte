@@ -100,7 +100,7 @@
   }
 </script>
 
-<nav class="p-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas z-50">
+<nav class="p-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
   <!-- container -->
   <div class="flex flex-col md:flex-row justify-start md:justify-between items-start lg:items-center w-full mx-auto lg:space-x-6">
     <!-- bouton menu -->
