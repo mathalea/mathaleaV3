@@ -158,10 +158,10 @@
       picsNames.push([])
       for (const item of list) {
         const imgFile = [...item[1].matchAll(regExImageName)]
-        console.log("image : " + item[1])
+        // console.log("image : " + item[1])
         // picsNames[index] = [...picsNames[index], item[1].replace(/\.(?:jpg|gif|png|eps|pdf)$/g, "")]
         imgFile.forEach((element) => {
-          console.log("name : " + element.groups.name)
+          // console.log("name : " + element.groups.name)
           picsNames[index] = [...picsNames[index], { name: element.groups.name, format: element.groups.format }]
         })
       }
@@ -258,11 +258,11 @@
     zip.file("main.tex", text)
     if (picsWanted) {
       const urls = buildImagesUrlsList()
-      console.log("URLs:" + urls.length)
+      // console.log("URLs:" + urls.length)
       const imagesFolder = zip.folder("images")
       let count = 0
       urls.forEach((image) => {
-        console.log(image.fileName + " / " + image.url)
+        // console.log(image.fileName + " / " + image.url)
         JSZipUtils.getBinaryContent(image.url, (err, data) => {
           if (err) {
             throw err
