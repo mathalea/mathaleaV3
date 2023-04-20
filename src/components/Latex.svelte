@@ -271,7 +271,8 @@
           count++
           if (count === urls.length) {
             zip.generateAsync({ type: "blob" }).then((content) => {
-              saveAs(content, [archiveName.replace(/\.(?:.*)$/g, ""), "zip"].join("."))
+              // saveAs(content, [archiveName.replace(/\.(?:.*)$/g, ""), "zip"].join("."))
+              saveAs(content, [archiveName, "zip"].join("."))
             })
           }
         })
