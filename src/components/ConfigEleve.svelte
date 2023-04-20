@@ -75,7 +75,6 @@
               type="text"
               class="w-1/2 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border-1 border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0"
               bind:value={$globalOptions.title}
-              placeholder="Vide ➔ pas de bandeau"
             />
             <div class="mt-1 text-coopmaths-corpus font-light italic text-xs {$globalOptions.title.length === 0 ? '' : 'invisible'}">Pas de bandeau si laissé vide.</div>
           </div>
@@ -133,7 +132,7 @@
             bind:valueSelected={currentLinkFormat}
             labelsValues={[
               { label: "En clair", value: "clear" },
-              { label: "Raccourci", value: "short" },
+              { label: "Raccourci", value: "short", isDisabled: true },
               { label: "Crypté", value: "crypt", isDisabled: true },
             ]}
             orientation="row"
