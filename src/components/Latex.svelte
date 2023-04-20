@@ -33,7 +33,7 @@
   let picsNames: string[][] = []
   let exosContentList: string[] = []
   let linkForOverleaf: HTMLLinkElement
-  let imagesList: any[] = [{ url: "https://raw.githubusercontent.com/mathalea/dnb/master/2022/tex/eps/arbresCP.eps", fileName: "arbresCP.eps" }]
+  let imagesList: any[] = []
 
   const latex = new Latex()
   async function initExercices() {
@@ -69,6 +69,11 @@
   }
   /**
    * Construire la liste des URLs pour les fichiers des images nécessaires
+   * ### Remarques :
+   * * Chaque URL est construite à partir de l'adresse du site Coopmaths
+   * * Elle a __toujours__ pour forme `https://coopmaths.fr/alea/static/<serie>/<annee>/tex/<format>/<nom_image>.<format>`
+   * * Elle présuppose donc que les images sont toutes au format `eps` et qu'elles ne sont pas stockées ailleurs.
+   * @author sylvain
    */
   function buildImagesUrlsList() {
     let imagesFilesUrls = []
@@ -77,14 +82,24 @@
       const year = exo.groups.year
       const month = exo.groups.month
       const area = exo.groups.zone.replace(/ /g, "_")
-      for (const fileName of picsNames[i]) {
-        imagesFilesUrls.push({ url: `https://raw.githubusercontent.com/mathalea/dnb/master/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
+      const serie = exo.groups.serie.toLowerCase()
+      for (const file of picsNames[i]) {
+        // imagesFilesUrls.push({ url: `https://raw.githubusercontent.com/mathalea/dnb/master/${year}/tex/eps/${fileName}.eps`, fileName: `${fileName}.eps` })
+        // https://coopmaths.fr/alea/static/dnb/2022/tex/eps/arbresCP.eps
+        // https://coopmaths.fr/alea/static/crpe/2022/images/2022-g1-ex1-img1.png
+        if (serie === "crpe") {
+          imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/${serie}/${year}/images/${file.name}.${file.format}`, fileName: `${file.name}.${file.format}` })
+        } else {
+          imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`, fileName: `${file.name}.${file.format}` })
+        }
       }
     })
     return imagesFilesUrls
   }
+
   /**
-   * Gérer le téléchargement lors du clic sur le bouton du modal
+   * Gérer le téléchargement des images dans une archive `images.zip` lors du clic sur le bouton du modal
+   * @author sylvain
    */
   function handleActionFromDownloadPicsModal() {
     // construire la liste des URLs avec les noms de fichiers correspondants
@@ -109,25 +124,50 @@
     })
     downloadPicsModal.style.display = "none"
   }
+
+  /**
+   * Constituer la liste des noms des images présentes dans le code de la feuille d'exercices.
+   * ### Principe :
+   * * Les deux variables globales `exosContentList` et `picsNames` servent à stocker le contenu de chaque
+   * exercice et le nom de chaque images.
+   * * Découpe le contenu du code LaTeX pour identifier les exercices en détectant
+   * le texte entre les deux chaînes `\begin{EXO}` ... `\end{EXO}` (hormi les corrections où `\begin{EXO}`
+   * est systématiquement suivi de `{}` vides)
+   * * Dans le code de chaque exercice, on repère la commande `\includegraphics` dans les lignes non précédées d'un signe `%`
+   * et on récupère le nom du fichier sans l'extension.
+   * ### Remarques :
+   * * `picsNames` est une tableau de tableaux au cas où des exercices contiendraient plusieurs figures
+   * * les figures dans les corrections ne sont pas concernées.
+   * * cette fonction est aussi responsable de l'assignation de la variable `exosContentList`
+   * @author sylvain
+   */
   function getImagesInCode() {
     let picsList: string[][] = []
     picsNames = []
     exosContentList = []
-    const regExpExo = /(?:\\begin\{EXO\}\{(?<title>DNB(?:\s*)(?<month>.*?)(?:\s*)(?<year>\d{4})(?:\s*)(?<zone>.*?)(?:\s*))\})((.|\n)*?)(?:\\end\{EXO\})/g
-    const regExp = /^(?:(?!%))(?:.*?)\\includegraphics(?:\[.*?\])?\{(.*?)\}/gm
+    const regExpExo = /(?:\\begin\{EXO\}\{(?<title>(?<serie>[A-Z\d]{3,4})(?:\s*)(?<month>.*?)(?:\s*)(?<year>\d{4})(?:\s*)(?<zone>.*?)(?:\s*))\})((.|\n)*?)(?:\\end\{EXO\})/gm
+    const regExpImage = /^(?:(?!%))(?:.*?)\\includegraphics(?:\[.*?\])?\{(?<fullName>.*?)\}/gm
+    const regExImageName = /(?<name>.*?)\.(?<format>.*)$/gm
     const latexCode = contents.content
     exosContentList = [...latexCode.matchAll(regExpExo)]
     for (const exo of exosContentList) {
-      const pics = [...exo[0].matchAll(regExp)]
+      const pics = [...exo[0].matchAll(regExpImage)]
       picsList.push(pics)
     }
     picsList.forEach((list, index) => {
       picsNames.push([])
       for (const item of list) {
-        picsNames[index] = [...picsNames[index], item[1].replace(/\.(?:jpg|gif|png|eps|pdf)$/g, "")]
+        const imgFile = [...item[1].matchAll(regExImageName)]
+        // console.log("image : " + item[1])
+        // picsNames[index] = [...picsNames[index], item[1].replace(/\.(?:jpg|gif|png|eps|pdf)$/g, "")]
+        imgFile.forEach((element) => {
+          // console.log("name : " + element.groups.name)
+          picsNames[index] = [...picsNames[index], { name: element.groups.name, format: element.groups.format }]
+        })
       }
     })
   }
+
   /**
    * Gérer l'affichage du modal : on donne la liste des images par exercice
    */
@@ -163,6 +203,10 @@
     contents = latex.getContents(style, nbVersions)
   }
 
+  /**
+   * Récupérer le contenu du code LaTeX des exercices (sans préambule) dans la page HTML
+   * et le copier dans le presse-papier.
+   */
   const copyExercices = async () => {
     try {
       const text = document.querySelector("pre").innerText
@@ -171,6 +215,7 @@
       console.error("Accès au presse-papier impossible: ", err)
     }
   }
+
   /**
    * Copier le code LaTeX dans le presse-papier
    * @param {string} dialogId id attaché au composant
@@ -202,17 +247,22 @@
     }
   }
 
-  async function buildZipFileForOverleaf(fileName) {
+  /**
+   * Construit l'archive ZIP contenant le code LaTeX et tous les fichiers images nécessaires pour la compilation du code LaTeX
+   * @param {string} archiveName nom donné pour l'archive
+   * @author sylvain
+   */
+  async function buildZipFileForOverleaf(archiveName: string = "coopmaths") {
     const zip = new JSZip()
     const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
     zip.file("main.tex", text)
     if (picsWanted) {
       const urls = buildImagesUrlsList()
-      console.log("URLs:" + urls.length)
+      // console.log("URLs:" + urls.length)
       const imagesFolder = zip.folder("images")
       let count = 0
       urls.forEach((image) => {
-        console.log(image.fileName + " / " + image.url)
+        // console.log(image.fileName + " / " + image.url)
         JSZipUtils.getBinaryContent(image.url, (err, data) => {
           if (err) {
             throw err
@@ -221,16 +271,20 @@
           count++
           if (count === urls.length) {
             zip.generateAsync({ type: "blob" }).then((content) => {
-              linkForOverleaf = document.createElement("a")
-              linkForOverleaf.href = URL.createObjectURL(content).replace("blob:", "")
-              console.log(linkForOverleaf.href)
-              saveAs(content, "coopmath.zip")
+              // saveAs(content, [archiveName.replace(/\.(?:.*)$/g, ""), "zip"].join("."))
+              saveAs(content, [archiveName, "zip"].join("."))
             })
           }
         })
       })
     }
   }
+
+  /**
+   * Construction du matériel nécessaire au téléversement vers Overleaf :
+   * -- constitution des URLs pour le téléchargement des images (elles doivent pointer vers un serveur)
+   * -- encodage du contenu du code LaTeX de la feuille d'exercices
+   */
   const copyDocumentToOverleaf = async () => {
     imagesList = buildImagesUrlsList()
     const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
@@ -329,7 +383,8 @@
             title="Copier le code LaTeX des exercices"
           />
           <Button title="Copier le code LaTeX complet (avec préambule)" on:click={copyDocument} />
-          <Button idLabel="downloadPicsButton" on:click={handleDownloadPicsModalDisplay} title="Télécharger les figures" isDisabled={!picsWanted} />
+          <Button idLabel="downloadPicsButton" on:click={handleDownloadPicsModalDisplay} title="Télécharger uniquement les figures" isDisabled={!picsWanted} />
+          <Button idLabel="downloadFullArchive" on:click={buildZipFileForOverleaf} title="Téléchager l'archive complète" />
         </div>
       </form>
     </div>
@@ -347,8 +402,8 @@
           <ul class="flex flex-col justify-start items-start list-disc pl-6">
             <li class={picsNames[i].length > 0 ? "container" : "hidden"}>Exercice {i + 1} (<span class="text-italic">{exo.groups.title}</span>) :</li>
             <ul class="flex flex-col justify-start items-start list-none pl-4">
-              {#each picsNames[i] as name}
-                <li class="font-mono text-sm">{name}</li>
+              {#each picsNames[i] as img}
+                <li class="font-mono text-sm">{img.name}</li>
               {/each}
             </ul>
           </ul>
