@@ -45,13 +45,20 @@
 
   $: {
     if (isInteractif && buttonScore) initButtonScore()
-    
+
     if (!$globalOptions.isSolutionAccessible) {
       headerExerciceProps.correctionReady = false
       headerExerciceProps.randomReady = false
     }
     headerExerciceProps.isInteractif = isInteractif
     headerExerciceProps = headerExerciceProps
+  }
+
+  let numberOfAnswerFields: number = 0
+  async function countMathField() {
+    // IDs de la forme 'champTexteEx1Q0'
+    const answerFields = document.querySelectorAll(`[id^='champTexteEx${indiceExercice}']`)
+    numberOfAnswerFields = answerFields.length
   }
 
   onMount(async () => {
@@ -79,6 +86,8 @@
         }
       }
     }, 100)
+    await tick()
+    countMathField()
   })
 
   afterUpdate(async () => {
@@ -158,8 +167,10 @@
       "mr-10",
       "my-5",
       "ml-6",
-      "bg-coopmaths",
-      "text-white",
+      "bg-coopmaths-action",
+      "dark:bg-coopmathsdark-action",
+      "text-coopmaths-canvas",
+      "dark:text-coopmathsdark-canvas",
       "font-medium",
       "text-xs",
       "leading-tight",
@@ -167,14 +178,16 @@
       "rounded",
       "shadow-md",
       "transform",
-      "hover:scale-110",
-      "hover:bg-coopmaths-dark",
+      "hover:bg-coopmaths-action-lightest",
+      "dark:hover:bg-coopmathsdark-action-lightest",
       "hover:shadow-lg",
-      "focus:bg-coopmaths-dark",
+      "focus:bg-coopmaths-action-lightest",
+      "dark:focus:bg-coopmathsdark-action-lightest",
       "focus:shadow-lg",
       "focus:outline-none",
       "focus:ring-0",
-      "active:bg-coopmaths-dark",
+      "active:bg-coopmaths-action-lightest",
+      "dark:active:bg-coopmathsdark-action-lightest",
       "active:shadow-lg",
       "transition",
       "duration-150",
@@ -223,37 +236,10 @@
 </script>
 
 <div class="z-0 flex-1" bind:this={divExercice}>
-  <HeaderExerciceVueEleve
-    on:clickCorrection={(event) => {
-      isCorrectionVisible = event.detail.isCorrectionVisible
-      if (isCorrectionVisible) {
-        window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, "true")
-      }
-      if (isInteractif) {
-        isInteractif = !isInteractif
-        exercice.interactif = isInteractif
-        updateDisplay()
-      }
-    }}
-    on:clickInteractif={(event) => {
-      isInteractif = event.detail.isInteractif
-      exercice.interactif = isInteractif
-      $exercicesParams[indiceExercice].interactif = isInteractif ? "1" : "0"
-      updateDisplay()
-    }}
-    on:clickNewData={newData}
-    {...headerExerciceProps}
-    {indiceExercice}
-    interactifReady={exercice.interactifReady && !isCorrectionVisible && headerExerciceProps.interactifReady}
-    on:clickMessages={(event) => {
-      isMessagesVisible = event.detail.isMessagesVisible
-      updateDisplay()
-    }}
-    showNumber={indiceLastExercice > 1}
-  />
+  <HeaderExerciceVueEleve {...headerExerciceProps} {indiceExercice} showNumber={indiceLastExercice > 1} />
 
   <div class="flex flex-col-reverse lg:flex-row">
-    <div class="flex flex-col w-full" id="exercice{indiceExercice}">
+    <div class="flex flex-col justify-start items-start" id="exercice{indiceExercice}">
       <div class="flex flex-row justify-start items-center mt-2">
         {#if $globalOptions.recorder === undefined}
           <div class="hidden md:flex flex-row justify-start items-center text-coopmaths-struct dark:text-coopmathsdark-struct text-xs pl-0 md:pl-2">
@@ -362,7 +348,7 @@
         </div>
       </article>
       {#if isInteractif && !isCorrectionVisible}
-        <button type="submit" on:click={verifExerciceVueEleve} bind:this={buttonScore}>Vérifier les réponses</button>
+        <button type="submit" on:click={verifExerciceVueEleve} bind:this={buttonScore}>Vérifier {numberOfAnswerFields > 1 ? "les réponses" : "la réponse"}</button>
       {/if}
       <div bind:this={divScore} />
     </div>

@@ -72,11 +72,20 @@
     headerExerciceProps = headerExerciceProps
   }
 
+  let numberOfAnswerFields: number = 0
+  async function countMathField() {
+    // IDs de la forme 'champTexteEx1Q0'
+    const answerFields = document.querySelectorAll(`[id^='champTexteEx${indiceExercice}']`)
+    numberOfAnswerFields = answerFields.length
+  }
+
   onMount(async () => {
     document.addEventListener("newDataForAll", newData)
     document.addEventListener("setAllInteractif", setAllInteractif)
     document.addEventListener("removeAllInteractif", removeAllInteractif)
     updateDisplay()
+    await tick()
+    countMathField()
   })
 
   afterUpdate(async () => {
@@ -186,14 +195,14 @@
   function initButtonScore() {
     buttonScore.classList.remove(...buttonScore.classList)
     buttonScore.classList.add(
-      "inline-block",
+      "inline-flex",
       "px-6",
       "py-2.5",
-      "mr-10",
-      "my-5",
       "ml-6",
-      "bg-coopmaths",
-      "text-white",
+      "bg-coopmaths-action",
+      "dark:bg-coopmathsdark-action",
+      "text-coopmaths-canvas",
+      "dark:text-coopmathsdark-canvas",
       "font-medium",
       "text-xs",
       "leading-tight",
@@ -201,14 +210,16 @@
       "rounded",
       "shadow-md",
       "transform",
-      "hover:scale-110",
-      "hover:bg-coopmaths-dark",
+      "hover:bg-coopmaths-action-lightest",
+      "dark:hover:bg-coopmathsdark-action-lightest",
       "hover:shadow-lg",
-      "focus:bg-coopmaths-dark",
+      "focus:bg-coopmaths-action-lightest",
+      "dark:focus:bg-coopmathsdark-action-lightest",
       "focus:shadow-lg",
       "focus:outline-none",
       "focus:ring-0",
-      "active:bg-coopmaths-dark",
+      "active:bg-coopmaths-action-lightest",
+      "dark:active:bg-coopmathsdark-action-lightest",
       "active:shadow-lg",
       "transition",
       "duration-150",
@@ -378,7 +389,7 @@
           </div>
         </article>
         {#if isInteractif && !isCorrectionVisible && isContentVisible}
-          <button type="submit" on:click={verifExercice} bind:this={buttonScore}>Vérifier les réponses </button>
+          <button id="verif{indiceExercice}" type="submit" on:click={verifExercice} bind:this={buttonScore}>Vérifier {numberOfAnswerFields > 1 ? "les réponses" : "la réponse"}</button>
         {/if}
         <div bind:this={divScore} />
       </div>
