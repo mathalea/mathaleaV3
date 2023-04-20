@@ -10,11 +10,11 @@ export const interactifType = 'mathLive'
 export const amcReady = true // Pour en bénéficier avec le générateur AMC
 export const amcType = 'AMCNum' // Les réponses sont des valeurs numériques à encoder
 export const dateDePublication = '9/12/2021'
-
+export const dateDeModifImportante = '20/04/2023' // ajout du cas entreprise
 /**
 * Problèmes de proportions
 *
-* * Situations variées : spectacle, cadeau, réserve
+* * Situations variées : spectacle, cadeau, réserve, entreprise
 *
 * * Déterminer l'effectif de la sous population
 * * Calculer une proportion
@@ -23,6 +23,7 @@ export const dateDePublication = '9/12/2021'
 * @author Florence Tapiero
 * * ajout de lignes pour l'export AMC par Jean-Claude Lhote
 * 2S10-1
+* ajout du cas entreprise par Gilles Mora
 */
 export const uuid = '612a5'
 export const ref = '2S10-2'
@@ -32,10 +33,10 @@ export default function Proportions () {
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.consigne = ''
-  this.nbQuestions = 4
+  this.nbQuestions = 2
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup = 4 // type de questions
+  this.sup = 4 // type de questions mettre 4
   this.spacing = 1
   this.spacingCorr = 2
 
@@ -57,7 +58,7 @@ export default function Proportions () {
     if (this.sup === 4) {
       typesDeQuestionsDisponibles = ['sous-population', 'proportion', 'population-totale']
     }
-    const situationsDisponibles = ['spectacle', 'cadeau', 'réserve']
+    const situationsDisponibles = ['spectacle', 'cadeau', 'réserve', 'entreprise']// 
     // const situationsDisponibles = ['cadeau'] pour test de chaque situation
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const typesDeSituations = combinaisonListes(situationsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -228,6 +229,56 @@ export default function Proportions () {
               texte = `Une réserve de protection d'oiseaux contient $${texNombre(totale, 0)}$ individus d'oiseaux. On dénombre $${texNombre(sous, 2)}$ ${espèces}. <br>Calculer la proportion en pourcentage de ${espèces} dans la réserve.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous, 2)}}{${texNombre(totale, 0)}} = ${texNombre(p, 2)}$.`
               texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Le pourcentage de ${espèces} dans la réserve est donc de $${taux}~\\%$.`
+              reponse = taux
+              paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 } // Le taux est ici inférieur à 100%
+              break
+          }
+          break
+
+        case 'entreprise' :
+          switch (randint(1, 3)) {
+            case 1:
+              totale = 50 * randint(1, 9, 2)
+              taux = 2 * randint(3, 17)
+              break
+            case 2:
+              totale = 50 * randint(1, 9, 2)
+              taux = 2 * randint(3, 29)
+              break
+            case 3:
+              totale = 10 * randint(3, 25)
+              taux = 10 * randint(1, 4)
+              break
+          }
+          p = new Decimal(taux).div(100)
+          sous = p.mul(totale)
+          sous2 = sous.mul(-1).plus(totale)
+          switch (listeTypeDeQuestions[i]) {
+            case 'sous-population':
+              texte = `Dans une entreprise de $${texNombre(totale, 0)}$ salariés, il y a  $${taux}\\,\\%$ de cadres. <br>Combien y a-t-il de cadres dans cette entreprise ?`
+              texteCorr = `Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$. <br>Comme il y a  $${taux}\\,\\%$ des $${texNombre(totale, 0)}$ salariés qui sont cadres, le nombre de cadres est donné par :`
+              texteCorr += `<br>$\\dfrac{${taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(p, 2)} \\times ${texNombre(totale, 0)}=${texNombre(sous, 2)}$`
+              texteCorr += `<br>Il y a donc  $${texNombre(sous)}$  cadres dans cette entreprise.`
+              reponse = sous
+              paramAMC = { digits: 3, decimals: 0, signe: false, approx: 0 } // la participation n'a que 2 chiffres mais on ne contraint pas la réponse
+              break
+            case 'population-totale':
+              texte = `Dans un entreprise, il y a  $${texNombre(sous)}$ cadres. Ils  représentent $${taux}\\,\\%$ du nombre total de salariés. <br>Quel est le nombre total de salariés dans cette entreprise ?`
+              texteCorr = `Soit $n$ le nombre total de salariés dans l'entreprise. <br> Comme $${taux}\\,\\%$ de $n$ est égal à $${texNombre(sous)}$, on a :`
+              texteCorr += `<br>$\\begin{aligned}
+                \\dfrac{${taux}}{100} \\times n &= ${sous} \\\\\\
+                ${texNombre(p, 2)} \\times n &= ${sous} \\\\
+                x &= \\dfrac{${texNombre(sous, 2)}}{${texNombre(p, 2)}} \\\\
+                x &= ${texNombre(totale, 2)}
+                \\end{aligned}$`
+              texteCorr += `<br>Le nombre total de salariés dans l'entreprise est $${texNombre(totale)}$.`
+              reponse = totale
+              paramAMC = { digits: 3, decimals: 0, signe: false, approx: 0 }
+              break
+            case 'proportion':
+              texte = `Dans une entreprise, il y a $${texNombre(totale)}$ salariés au total. Parmi eux, on dénombre  $${texNombre(sous)}$ cadres. <br>Calculer la proportion en pourcentage de cadres dans cette entreprise.`
+              texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous)}}{${texNombre(totale)}} = ${texNombre(p, 2)}$.`
+              texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Il y a donc $${taux}\\,\\%$ de cadres dans cette entreprise.`
               reponse = taux
               paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 } // Le taux est ici inférieur à 100%
               break
