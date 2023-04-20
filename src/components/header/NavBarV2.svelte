@@ -100,7 +100,7 @@
   }
 </script>
 
-<nav class="p-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas z-50">
+<nav class="p-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
   <!-- container -->
   <div class="flex flex-col md:flex-row justify-start md:justify-between items-start lg:items-center w-full mx-auto lg:space-x-6">
     <!-- bouton menu -->
@@ -130,7 +130,7 @@
         </div>
       {/if}
     </div>
-    <div class="flex flex-row space-x-4 px-0 pt-8 md:pt-0 md:px-4">
+    <div class="flex flex-row space-x-4 px-0 pt-8 md:mt-0 lg:px-4">
       <label class="swap swap-rotate text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
         <!-- this hidden checkbox controls the state -->
         <input type="checkbox" class="invisible" bind:checked={$darkMode.isActive} />
