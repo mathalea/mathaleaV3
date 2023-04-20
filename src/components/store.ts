@@ -26,7 +26,7 @@ export const exercicesParams = writable<InterfaceParams[]>([])
  * Le paramètre 'es' est utilisé pour renseigner les réglages de la vue élève :
  * une unique chaîne de caractères contient dans l'ordre : titre + mode présentation + interactivité +  accès solutions
  */
-export const globalOptions = writable<InterfaceGlobalOptions>({ v: '', z: '1', title: 'Évaluation', presMode: 'page', setInteractive: '2', isSolutionAccessible: true, isInteractiveFree: true})
+export const globalOptions = writable<InterfaceGlobalOptions>({ v: '', z: '1', title: 'Évaluation', presMode: 'liste_exos', setInteractive: '2', isSolutionAccessible: true, isInteractiveFree: true})
 
 // utilisé pour les aller-retours entre le composant Diaporam et le composant Can
 export const questionsOrder = writable({ isQuestionsShuffled: false, indexes: [] })
@@ -153,4 +153,4 @@ export function updateGlobalOptionsInURL (url: URL) {
   }
 }
 
-export const presModeId: ['page', 'exos', 'liste', 'questions'] = ['page', 'exos', 'liste', 'questions']
+export const presModeId: ['liste_exos', 'un_exo_par_page', 'liste_questions', 'une_question_par_page'] = ['liste_exos', 'un_exo_par_page', 'liste_questions', 'une_question_par_page']

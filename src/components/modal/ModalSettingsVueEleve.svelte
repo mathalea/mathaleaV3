@@ -66,7 +66,7 @@
     </div>
     <div class="pt-2 pl-2 grid grid-cols-2 gap-4">
       <div class="pb-2">
-        <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light  dark:text-coopmathsdark-struct-light">Titre</div>
+        <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Titre</div>
         <div class="pl-4">
           <input
             type="text"
@@ -81,10 +81,10 @@
           title="présentation"
           bind:valueSelected={$globalOptions.presMode}
           labelsValues={[
-            { label: "Une page unique", value: "page" },
-            { label: "Une page par exercice", value: "exos" },
-            { label: "Toutes les questions sur une page", value: "liste" },
-            { label: "Une page par question", value: "question" },
+            { label: "Une page unique", value: "liste_exos" },
+            { label: "Une page par exercice", value: "un_exos_par_page" },
+            { label: "Toutes les questions sur une page", value: "liste_questions" },
+            { label: "Une page par question", value: "une_question_par_page" },
           ]}
         />
       </div>
