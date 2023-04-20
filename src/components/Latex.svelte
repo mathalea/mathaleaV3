@@ -252,7 +252,7 @@
    * @param {string} archiveName nom donné pour l'archive
    * @author sylvain
    */
-  async function buildZipFileForOverleaf(archiveName: string = "coopmaths") {
+  async function buildZipFileForOverleaf(archiveName: string) {
     const zip = new JSZip()
     const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
     zip.file("main.tex", text)
@@ -276,6 +276,10 @@
             })
           }
         })
+      })
+    } else {
+      zip.generateAsync({ type: "blob" }).then((content) => {
+        saveAs(content, [archiveName, "zip"].join("."))
       })
     }
   }
@@ -384,7 +388,13 @@
           />
           <Button title="Copier le code LaTeX complet (avec préambule)" on:click={copyDocument} />
           <Button idLabel="downloadPicsButton" on:click={handleDownloadPicsModalDisplay} title="Télécharger uniquement les figures" isDisabled={!picsWanted} />
-          <Button idLabel="downloadFullArchive" on:click={buildZipFileForOverleaf} title="Téléchager l'archive complète" />
+          <Button
+            idLabel="downloadFullArchive"
+            on:click={() => {
+              buildZipFileForOverleaf("coopmaths")
+            }}
+            title="Téléchager l'archive complète"
+          />
         </div>
       </form>
     </div>
