@@ -1,7 +1,11 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte"
+  import { tick } from "svelte"
   import { exercicesParams } from "../store"
   import type { InterfaceReferentiel } from "../../lib/types"
   import EntreeRecherche from "./EntreeRecherche.svelte"
+  import Button from "../forms/Button.svelte"
+  import Chip from "../forms/Chip.svelte"
   export let referentiel: object
 
   /**
@@ -29,6 +33,9 @@
   let listeDesExercices = getAllExercices(referentiel)
   let filteredList: InterfaceReferentiel[]
   let isCanInclusDansResultats: boolean
+  export let isAmcOnlySelected: boolean = false
+  export let isInteractiveOnlySelected: boolean = false
+  let isFiltersDisplayed: boolean = false
 
   $: {
     referentiel = referentiel
@@ -84,19 +91,83 @@
   //   }
   //   exercicesParams.update((list) => [...list, newExercise])
   // }
+
+  const dispatch = createEventDispatcher()
+
+  function triggerAction() {
+    dispatch("specific", {
+      msg: "Action triggered !",
+    })
+  }
 </script>
 
 <!-- <svelte:window on:keydown={handlePressEnter} /> -->
-<div class="mb-2 items-center font-bold text-large text-coopmaths-struct dark:text-coopmathsdark-struct">Recherche</div>
+<div class="flex flex-row space-x-6 {isFiltersDisplayed ? 'mb-0' : 'mb-2'} justify-start items-center">
+  <div class="font-bold text-large text-coopmaths-struct dark:text-coopmathsdark-struct">Recherche</div>
+  <Button
+    title=""
+    icon="bx-filter-alt"
+    on:click={() => {
+      isFiltersDisplayed = !isFiltersDisplayed
+    }}
+  />
+  <div class="inline-flex justify-start text-sm">
+    <Chip
+      text="AMC"
+      textColor="canvas"
+      bgColor="struct"
+      isVisible={isAmcOnlySelected}
+      on:action={() => {
+        isAmcOnlySelected = !isAmcOnlySelected
+        triggerAction()
+      }}
+    />
+    <Chip
+      text="Interactif"
+      textColor="canvas"
+      bgColor="struct"
+      isVisible={isInteractiveOnlySelected}
+      on:action={() => {
+        isInteractiveOnlySelected = !isInteractiveOnlySelected
+        triggerAction()
+      }}
+    />
+    <!-- <span class={isAmcOnlySelected ? "flex" : "hidden"}>AMC</span>
+    <span class={isInteractiveOnlySelected ? "flex" : "hidden"}>Interactif</span> -->
+  </div>
+</div>
+<div class="{isFiltersDisplayed ? 'flex' : 'hidden'} flex-col justify-start items-start mb-2">
+  <div class="flex-row justify-start items-center pr-4 pl-6">
+    <input
+      id="checkbox-amc"
+      aria-describedby="checkbox-amc"
+      type="checkbox"
+      class="w-3 h-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action rounded"
+      bind:checked={isAmcOnlySelected}
+      on:change={triggerAction}
+    />
+    <label for="checkbox-choice" class="ml-2 text-xs font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"> Exercices compatibles AMC </label>
+  </div>
+  <div class="flex-row justify-start items-center pr-4 pl-6">
+    <input
+      id="checkbox-interactive"
+      aria-describedby="checkbox-interactive"
+      type="checkbox"
+      class="w-3 h-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action rounded"
+      bind:checked={isInteractiveOnlySelected}
+      on:change={triggerAction}
+    />
+    <label for="checkbox-choice" class="ml-2 text-xs font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"> Exercices interactifs </label>
+  </div>
+</div>
 <div class="mb-4 w-full">
-  <!-- <span class="block"> -->
   <input
     type="text"
+    id="searchField"
     class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm"
     placeholder="Thème, identifiant..."
     bind:value={inputSearch}
   />
-  <!-- </span> -->
 </div>
 {#if inputSearch.length > 0}
   <div class="mb-4 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light text-sm font-light">

@@ -847,7 +847,7 @@
                 type="checkbox"
                 class="w-4 h-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {!$transitionsBetweenQuestions.isQuestThenSolModeActive
                   ? 'border-opacity-10'
-                  : 'border-opacity-100'} border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
+                  : 'border-opacity-100'} border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action rounded"
                 bind:checked={$transitionsBetweenQuestions.questThenQuestAndSolDisplay}
                 disabled={!$transitionsBetweenQuestions.isQuestThenSolModeActive}
               />
