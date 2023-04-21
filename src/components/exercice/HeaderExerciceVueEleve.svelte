@@ -50,14 +50,16 @@
   <h1 class=" text-coopmaths-struct dark:text-coopmathsdark-struct mt-8 pb-2 flex {$isMenuNeededForExercises ? 'flex-col items-start' : 'flex-row items-center'}">
     <!-- titre -->
     <div class="flex flex-row justify-start items-start" id="exerciceHeader{indiceExercice}">
-      <div class={showNumber ? "flex" : "hidden"}>
+      <div class={showNumber && $globalOptions.presMode === "liste_exos" ? "flex" : "hidden"}>
         <div
-          class="{$isMenuNeededForExercises ? 'hidden' : 'inline-flex'} items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg lg:text-normal translate-y-1"
+          class="{$isMenuNeededForExercises && $globalOptions.presMode !== 'liste_exos'
+            ? 'hidden'
+            : 'inline-flex'} items-center justify-center h-6 w-6 bg-coopmaths-struct text-coopmaths-canvas font-light text-lg lg:text-normal translate-y-1"
         >
           {indiceExercice + 1}
         </div>
       </div>
-      <div class="font-light {$isMenuNeededForExercises ? 'text-2xl' : 'text-xl'} ml-2">
+      <div class="font-light {$isMenuNeededForExercises && $globalOptions.presMode !== 'liste_exos' ? 'text-xl' : 'text-lg'} ml-2">
         {title}
       </div>
     </div>
