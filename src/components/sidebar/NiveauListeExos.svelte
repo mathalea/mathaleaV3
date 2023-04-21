@@ -31,9 +31,13 @@
    * Basculer le flag pour l'affichage du contenu
    */
   function toggleContent() {
-    const item = Array.from(items, ([key, obj]) => ({ key, obj }))
-    const regExp = /^(?:(?:(?:(?:c3)|\d)\S\d){1}|(?:can\d\S))(?:.*){0}$/g
-    if (item[0].key.match(regExp) === null) {
+    // const item = Array.from(items, ([key, obj]) => ({ key, obj }))
+    const regExpEntreesRef = /^(?:(?:(?:(?:c3)|\d)\S\d){1}|(?:can\d\S))(?:.*){0}$/g
+    const regExpBrevetAnnee = /^(?:Brevet)(?:.*?)(?:année)/g
+    if (levelTitle.match(regExpBrevetAnnee)) {
+      items = new Map([...items.entries()].reverse())
+    }
+    if (levelTitle.match(regExpEntreesRef)) {
       items = new Map([...items.entries()].sort())
     }
     expanded = !expanded
