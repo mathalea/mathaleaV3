@@ -90,7 +90,11 @@
         if (serie === "crpe") {
           imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/${serie}/${year}/images/${file.name}.${file.format}`, fileName: `${file.name}.${file.format}` })
         } else {
-          imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`, fileName: `${file.name}.${file.format}` })
+          if (file.format) {
+            imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`, fileName: `${file.name}.${file.format}` })
+          } else {
+            imagesFilesUrls.push({ url: `https://coopmaths.fr/alea/static/${serie}/${year}/tex/eps/${file.name}.eps`, fileName: `${file.name}.eps` })
+          }
         }
       }
     })
@@ -147,7 +151,7 @@
     exosContentList = []
     const regExpExo = /(?:\\begin\{EXO\}\{(?<title>(?<serie>[A-Z\d]{3,4})(?:\s*)(?<month>.*?)(?:\s*)(?<year>\d{4})(?:\s*)(?<zone>.*?)(?:\s*))\})((.|\n)*?)(?:\\end\{EXO\})/gm
     const regExpImage = /^(?:(?!%))(?:.*?)\\includegraphics(?:\[.*?\])?\{(?<fullName>.*?)\}/gm
-    const regExImageName = /(?<name>.*?)\.(?<format>.*)$/gm
+    const regExpImageName = /(?<name>.*?)\.(?<format>.*)$/gm
     const latexCode = contents.content
     exosContentList = [...latexCode.matchAll(regExpExo)]
     for (const exo of exosContentList) {
@@ -157,15 +161,18 @@
     picsList.forEach((list, index) => {
       picsNames.push([])
       for (const item of list) {
-        const imgFile = [...item[1].matchAll(regExImageName)]
+        let imgObj
+        if (item[1].match(regExpImageName)) {
+          const imgFile = [...item[1].matchAll(regExpImageName)]
+          imgObj = { name: imgFile[0].groups.name, format: imgFile[0].groups.format }
+        } else {
+          imgObj = { name: item[1], format: undefined }
+        }
         // console.log("image : " + item[1])
-        // picsNames[index] = [...picsNames[index], item[1].replace(/\.(?:jpg|gif|png|eps|pdf)$/g, "")]
-        imgFile.forEach((element) => {
-          // console.log("name : " + element.groups.name)
-          picsNames[index] = [...picsNames[index], { name: element.groups.name, format: element.groups.format }]
-        })
+        picsNames[index] = [...picsNames[index], imgObj]
       }
     })
+    // console.log(picsNames)
   }
 
   /**
@@ -262,7 +269,7 @@
       const imagesFolder = zip.folder("images")
       let count = 0
       urls.forEach((image) => {
-        // console.log(image.fileName + " / " + image.url)
+        console.log(image.fileName + " / " + image.url)
         JSZipUtils.getBinaryContent(image.url, (err, data) => {
           if (err) {
             throw err
