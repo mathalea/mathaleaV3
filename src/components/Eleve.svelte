@@ -24,6 +24,7 @@
   import BtnZoom from "./ui/btnZoom.svelte"
   import { getCanvasFont, getTextWidth, remToPixels } from "./utils/measures"
   import Footer2 from "./Footer2.svelte"
+  import Amc from "./Amc.svelte"
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -55,6 +56,10 @@
    * @author sylvain
    */
   function buildExoTitle(dim: number, nbOfExercises: number) {
+    if ($globalOptions.title.length === 0) {
+      $isMenuNeededForExercises = false
+      return ""
+    }
     const navigationHeaderElt = document.getElementById("navigationHeaderID")
     const exerciseTitleElt = document.getElementById("exerciseTitleID0")
     // soit l'élément existe et on récupère sa vraie largeur, soit on calcule une valeur approchée
@@ -121,10 +126,18 @@
       // Si ce n'est pas un chargement d'url alors il faut initialiser le store des résultats
       resultsByExercice.update(() => [])
     }
+    if ($globalOptions.setInteractive === "1") {
+      for (const param of $exercicesParams) {
+        param.interactif = "1"
+      }
+    }
     for (const paramsExercice of $exercicesParams) {
       const exercice: TypeExercice = await MathaleaLoadExerciceFromUuid(paramsExercice.uuid)
       if (typeof exercice === "undefined") return
       MathaleaHandleParamOfOneExercice(exercice, paramsExercice)
+      if ($globalOptions.setInteractive === "1" && exercice.interactifReady) {
+        exercice.interactif = true
+      }
       exercices.push(exercice)
     }
     exercices = exercices
@@ -134,9 +147,6 @@
 
   async function buildQuestions() {
     for (const [k, exercice] of exercices.entries()) {
-      if ($globalOptions.setInteractive === "1" && exercice.interactifReady) {
-        exercice.interactif = true
-      }
       if (exercice.typeExercice === "simple") {
         MathaleaHandleExerciceSimple(exercice, exercice.interactif, k)
       }
@@ -155,7 +165,7 @@
       corrections = corrections.map(MathaleaFormatExercice)
       consignes = consignes.map(MathaleaFormatExercice)
     }
-    if ($globalOptions.presMode === "liste" || $globalOptions.presMode === "questions") {
+    if ($globalOptions.presMode === "liste_questions" || $globalOptions.presMode === "une_question_par_page") {
       // Pour les autres mode de présentation, cela est géré par ExerciceMathalea
       MathaleaUpdateUrlFromExercicesParams($exercicesParams)
       await tick()
@@ -211,13 +221,22 @@
 
 <svelte:window bind:innerWidth={currentWindowWidth} />
 <section class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive ? 'dark' : ''}">
-  <div class="fixed z-20 bottom-2 lg:bottom-6 right-2 lg:right-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas rounded-b-full rounded-t-full bg-opacity-80">
-    <div class="flex flex-col space-y-2 scale-75 lg:scale-100">
-      <BtnZoom size="md" />
+  <div
+    class="fixed z-20 bottom-4 right-2 {($globalOptions.title.length === 0 && ($globalOptions.presMode === 'liste_exos' || $globalOptions.presMode === 'liste_questions')) ||
+    $globalOptions.title.length > 0
+      ? 'lg:top-8'
+      : 'lg:top-20'}  lg:right-6"
+  >
+    <div class="flex flex-col-reverse lg:flex-row space-y-reverse space-y-4 lg:space-y-0 lg:space-x-4 scale-75 lg:scale-100">
+      <BtnZoom size="bx-sm md:bx-md" />
     </div>
   </div>
   <div class="mb-auto">
-    <div class="h-[10%] w-full flex flex-col justify-center items-center">
+    <div
+      class="{$globalOptions.title.length === 0 && ($globalOptions.presMode === 'liste_exos' || $globalOptions.presMode === 'liste_questions')
+        ? 'hidden'
+        : 'h-[10%]'}  w-full flex flex-col justify-center items-center"
+    >
       <!-- titre de la feuille -->
       {#if $globalOptions.title.length > 0}
         <div
@@ -231,13 +250,13 @@
       <!-- barre de navigation -->
       <div
         id="navigationHeaderID"
-        class="grid justify-items-center w-full mt-4 mb-8 grid-cols-{$globalOptions.presMode === 'exos' ? exercices.length : questions.length}
-          {($globalOptions.presMode === 'exos' && !$isMenuNeededForExercises) || ($globalOptions.presMode === 'questions' && !$isMenuNeededForQuestions)
+        class="grid justify-items-center w-full mt-4 mb-8 grid-cols-{$globalOptions.presMode === 'un_exo_par_page' ? exercices.length : questions.length}
+          {($globalOptions.presMode === 'un_exo_par_page' && !$isMenuNeededForExercises) || ($globalOptions.presMode === 'une_question_par_page' && !$isMenuNeededForQuestions)
           ? 'border-b-2 border-coopmaths-struct'
           : 'border-b-0'}
               bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct"
       >
-        {#if $globalOptions.presMode === "exos" && !$isMenuNeededForExercises}
+        {#if $globalOptions.presMode === "un_exo_par_page" && !$isMenuNeededForExercises}
           {#each $exercicesParams as paramsExercice, i (paramsExercice)}
             <div class="">
               <button
@@ -268,7 +287,7 @@
             </div>
           {/each}
         {/if}
-        {#if $globalOptions.presMode === "questions" && !$isMenuNeededForQuestions}
+        {#if $globalOptions.presMode === "une_question_par_page" && !$isMenuNeededForQuestions}
           {#each questions as question, i (question)}
             <div class="">
               <button
@@ -302,7 +321,7 @@
     </div>
     <!-- Exercices -->
     <div class="px-8">
-      {#if $globalOptions.presMode === "exos"}
+      {#if $globalOptions.presMode === "un_exo_par_page"}
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <div class="flex flex-col">
             <div class={$isMenuNeededForExercises ? "" : "hidden"}>
@@ -330,53 +349,55 @@
             </div>
           </div>
         {/each}
-      {:else if $globalOptions.presMode === "page"}
+      {:else if $globalOptions.presMode === "liste_exos"}
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={isCorrectionVisible[i]} />
         {/each}
-      {:else if $globalOptions.presMode === "liste"}
-        {#each questions as question, k (question)}
-          <div class="pb-4 flex flex-col items-start justify-start relative" id={`exercice${indiceExercice[k]}Q${k}`}>
-            <div class="flex flex-row justify-start items-center">
-              <div class="text-coopmaths-struct font-bold text-md">Question {k + 1}</div>
-              {#if exercices[indiceExercice[k]].interactif}
-                <Button title="Vérifier" classDeclaration="p-1 font-bold rounded-xl text-xs ml-2" on:click={() => checkQuestion(k)} isDisabled={isDisabledButton[k]} />
-              {:else if $globalOptions.isSolutionAccessible}
-                <ButtonToggle titles={["Voir la correction", "Masquer la correction"]} classAddenda="ml-4" on:click={() => switchCorrectionVisible(k)} />
-              {/if}
-            </div>
-            <div class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10" style="font-size: {($globalOptions.z || 1).toString()}rem">
-              <div class="flex flex-col my-2 py-2">
-                <div class="text-coopmaths-corpus pl-2 pb-2">
-                  {@html consignes[k]}
-                </div>
-                <div class="text-coopmaths-corpus pl-2 pb-2">
-                  {@html question}
-                  <span id={`resultatCheckEx${indiceExercice[k]}Q${k}`} />
-                </div>
+      {:else if $globalOptions.presMode === "liste_questions"}
+        <div class={$globalOptions.title.length === 0 ? "mt-6" : ""}>
+          {#each questions as question, k (question)}
+            <div class="pb-4 flex flex-col items-start justify-start relative" id={`exercice${indiceExercice[k]}Q${k}`}>
+              <div class="flex flex-row justify-start items-center">
+                <div class="text-coopmaths-struct font-bold text-md">Question {k + 1}</div>
+                {#if exercices[indiceExercice[k]].interactif}
+                  <Button title="Vérifier" classDeclaration="p-1 font-bold rounded-xl text-xs ml-2" on:click={() => checkQuestion(k)} isDisabled={isDisabledButton[k]} />
+                {:else if $globalOptions.isSolutionAccessible}
+                  <ButtonToggle titles={["Voir la correction", "Masquer la correction"]} classAddenda="ml-4" on:click={() => switchCorrectionVisible(k)} />
+                {/if}
               </div>
-              {#if isCorrectionVisible[k]}
-                <div
-                  class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-2 mb-6 py-2 pl-4"
-                  style="break-inside:avoid"
-                  bind:this={divsCorrection[k]}
-                >
-                  <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="break-inside:avoid">
-                    {@html MathaleaFormatExercice(corrections[k])}
+              <div class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10" style="font-size: {($globalOptions.z || 1).toString()}rem">
+                <div class="flex flex-col my-2 py-2">
+                  <div class="text-coopmaths-corpus pl-2 pb-2">
+                    {@html consignes[k]}
                   </div>
-                  <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
-                  <div
-                    class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
-                  >
-                    Correction
+                  <div class="text-coopmaths-corpus pl-2 pb-2">
+                    {@html question}
+                    <span id={`resultatCheckEx${indiceExercice[k]}Q${k}`} />
                   </div>
-                  <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4" />
                 </div>
-              {/if}
+                {#if isCorrectionVisible[k]}
+                  <div
+                    class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-2 mb-6 py-2 pl-4"
+                    style="break-inside:avoid"
+                    bind:this={divsCorrection[k]}
+                  >
+                    <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="break-inside:avoid">
+                      {@html MathaleaFormatExercice(corrections[k])}
+                    </div>
+                    <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
+                    <div
+                      class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+                    >
+                      Correction
+                    </div>
+                    <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4" />
+                  </div>
+                {/if}
+              </div>
             </div>
-          </div>
-        {/each}
-      {:else if $globalOptions.presMode === "questions"}
+          {/each}
+        </div>
+      {:else if $globalOptions.presMode === "une_question_par_page"}
         {#each questions as question, k (question)}
           <div class="flex flex-col">
             <div class={$isMenuNeededForQuestions ? "" : "hidden"}>

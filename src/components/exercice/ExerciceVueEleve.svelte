@@ -9,6 +9,7 @@
   import { MathaleaFormatExercice, MathaleaGenerateSeed, MathaleaHandleExerciceSimple, MathaleaRenderDiv, MathaleaUpdateUrlFromExercicesParams } from "../../lib/Mathalea"
   import { exercicesParams, isMenuNeededForExercises } from "../store"
   import HeaderExerciceVueEleve from "./HeaderExerciceVueEleve.svelte"
+  import InteractivityIcon from "../icons/TwoStatesIcon.svelte"
   import type { MathfieldElement } from "mathlive"
   export let exercice: TypeExercice
   export let indiceExercice: number
@@ -45,17 +46,19 @@
   $: {
     if (isInteractif && buttonScore) initButtonScore()
 
-    if ($globalOptions.setInteractive === "1") {
-      setAllInteractif()
-    } else if ($globalOptions.setInteractive === "0") {
-      removeAllInteractif()
-    }
     if (!$globalOptions.isSolutionAccessible) {
       headerExerciceProps.correctionReady = false
       headerExerciceProps.randomReady = false
     }
     headerExerciceProps.isInteractif = isInteractif
     headerExerciceProps = headerExerciceProps
+  }
+
+  let numberOfAnswerFields: number = 0
+  async function countMathField() {
+    // IDs de la forme 'champTexteEx1Q0'
+    const answerFields = document.querySelectorAll(`[id^='champTexteEx${indiceExercice}']`)
+    numberOfAnswerFields = answerFields.length
   }
 
   onMount(async () => {
@@ -77,12 +80,14 @@
         for (const answer in objAnswers) {
           const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement
           field?.setValue(objAnswers[answer])
-      }
+        }
         if (buttonScore) {
           buttonScore.click()
         }
       }
     }, 100)
+    await tick()
+    countMathField()
   })
 
   afterUpdate(async () => {
@@ -162,8 +167,10 @@
       "mr-10",
       "my-5",
       "ml-6",
-      "bg-coopmaths",
-      "text-white",
+      "bg-coopmaths-action",
+      "dark:bg-coopmathsdark-action",
+      "text-coopmaths-canvas",
+      "dark:text-coopmathsdark-canvas",
       "font-medium",
       "text-xs",
       "leading-tight",
@@ -171,14 +178,16 @@
       "rounded",
       "shadow-md",
       "transform",
-      "hover:scale-110",
-      "hover:bg-coopmaths-dark",
+      "hover:bg-coopmaths-action-lightest",
+      "dark:hover:bg-coopmathsdark-action-lightest",
       "hover:shadow-lg",
-      "focus:bg-coopmaths-dark",
+      "focus:bg-coopmaths-action-lightest",
+      "dark:focus:bg-coopmathsdark-action-lightest",
       "focus:shadow-lg",
       "focus:outline-none",
       "focus:ring-0",
-      "active:bg-coopmaths-dark",
+      "active:bg-coopmaths-action-lightest",
+      "dark:active:bg-coopmathsdark-action-lightest",
       "active:shadow-lg",
       "transition",
       "duration-150",
@@ -227,37 +236,10 @@
 </script>
 
 <div class="z-0 flex-1" bind:this={divExercice}>
-  <HeaderExerciceVueEleve
-    on:clickCorrection={(event) => {
-      isCorrectionVisible = event.detail.isCorrectionVisible
-      if (isCorrectionVisible) {
-        window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, "true")
-      }
-      if (isInteractif) {
-        isInteractif = !isInteractif
-        exercice.interactif = isInteractif
-        updateDisplay()
-      }
-    }}
-    on:clickInteractif={(event) => {
-      isInteractif = event.detail.isInteractif
-      exercice.interactif = isInteractif
-      $exercicesParams[indiceExercice].interactif = isInteractif ? "1" : "0"
-      updateDisplay()
-    }}
-    on:clickNewData={newData}
-    {...headerExerciceProps}
-    {indiceExercice}
-    interactifReady={exercice.interactifReady && !isCorrectionVisible && headerExerciceProps.interactifReady}
-    on:clickMessages={(event) => {
-      isMessagesVisible = event.detail.isMessagesVisible
-      updateDisplay()
-    }}
-    showNumber={indiceLastExercice > 1}
-  />
+  <HeaderExerciceVueEleve {...headerExerciceProps} {indiceExercice} showNumber={indiceLastExercice > 1} />
 
   <div class="flex flex-col-reverse lg:flex-row">
-    <div class="flex flex-col w-full" id="exercice{indiceExercice}">
+    <div class="flex flex-col justify-start items-start" id="exercice{indiceExercice}">
       <div class="flex flex-row justify-start items-center mt-2">
         {#if $globalOptions.recorder === undefined}
           <div class="hidden md:flex flex-row justify-start items-center text-coopmaths-struct dark:text-coopmathsdark-struct text-xs pl-0 md:pl-2">
@@ -283,9 +265,26 @@
             </button>
           </div>
         {/if}
+        <button class="mx-2 tooltip tooltip-right" data-tip="Nouvel énoncé" type="button" on:click={newData}>
+          <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-xs bx-refresh" />
+        </button>
+        <button
+          class="w-5 tooltip tooltip-right tooltip-neutral {$globalOptions.isInteractiveFree && headerExerciceProps.interactifReady ? '' : 'hidden'}"
+          data-tip={isInteractif ? "Désactiver l'interactivité" : "Rendre interactif"}
+          type="button"
+          on:click={() => {
+            isInteractif = !isInteractif
+            exercice.interactif = isInteractif
+            $exercicesParams[indiceExercice].interactif = isInteractif ? "1" : "0"
+            updateDisplay()
+          }}
+        >
+          <InteractivityIcon isOnStateActive={isInteractif} size={4} />
+        </button>
+
         {#if $globalOptions.isSolutionAccessible && !isInteractif}
-          <div class="ml-2 lg:mx-5">
-            <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} bind:value={isCorrectionVisible} on:click={() => adjustMathalea2dFiguresWidth()} />
+          <div class="ml-2">
+            <ButtonToggle titles={["Masquer la correction", "Voir la correction"]} textSize="xs" buttonSize="xs" bind:value={isCorrectionVisible} on:click={() => adjustMathalea2dFiguresWidth()} />
           </div>
         {/if}
       </div>
@@ -349,7 +348,7 @@
         </div>
       </article>
       {#if isInteractif && !isCorrectionVisible}
-        <button type="submit" on:click={verifExerciceVueEleve} bind:this={buttonScore}>Vérifier les réponses</button>
+        <button type="submit" on:click={verifExerciceVueEleve} bind:this={buttonScore}>Vérifier {numberOfAnswerFields > 1 ? "les réponses" : "la réponse"}</button>
       {/if}
       <div bind:this={divScore} />
     </div>

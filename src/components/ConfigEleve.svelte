@@ -69,13 +69,14 @@
       </div>
       <div class="pt-2 pl-2 grid grid-flow-row md:grid-cols-2 gap-4">
         <div class="pb-2">
-          <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light  dark:text-coopmathsdark-struct-light">Titre</div>
-          <div class="pl-4">
+          <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Titre</div>
+          <div class="pl-4 flex flex-col">
             <input
               type="text"
-              class="text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border-1 border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0"
+              class="w-1/2 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border-1 border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0"
               bind:value={$globalOptions.title}
             />
+            <div class="mt-1 text-coopmaths-corpus font-light italic text-xs {$globalOptions.title.length === 0 ? '' : 'invisible'}">Pas de bandeau si laissé vide.</div>
           </div>
         </div>
         <div class="pb-2">
@@ -84,10 +85,10 @@
             title="présentation"
             bind:valueSelected={$globalOptions.presMode}
             labelsValues={[
-              { label: "Une page unique", value: "page" },
-              { label: "Une page par exercice", value: "exos" },
-              { label: "Toutes les questions sur une page", value: "liste" },
-              { label: "Une page par question", value: "question" },
+              { label: "Une page unique", value: "liste_exos" },
+              { label: "Une page par exercice", value: "un_exo_par_page" },
+              { label: "Toutes les questions sur une page", value: "liste_questions" },
+              { label: "Une page par question", value: "une_question_par_page" },
             ]}
           />
         </div>
@@ -131,7 +132,7 @@
             bind:valueSelected={currentLinkFormat}
             labelsValues={[
               { label: "En clair", value: "clear" },
-              { label: "Racourci", value: "short", isDisabled: true },
+              { label: "Raccourci", value: "short", isDisabled: true },
               { label: "Crypté", value: "crypt", isDisabled: true },
             ]}
             orientation="row"
