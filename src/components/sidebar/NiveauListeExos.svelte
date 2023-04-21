@@ -27,12 +27,15 @@
       return ""
     }
   }
-
   /**
    * Basculer le flag pour l'affichage du contenu
    */
   function toggleContent() {
     const item = Array.from(items, ([key, obj]) => ({ key, obj }))
+    const regExp = /^(?:(?:(?:(?:c3)|\d)\S\d){1}|(?:can\d\S))(?:.*){0}$/g
+    if (item[0].key.match(regExp) === null) {
+      items = new Map([...items.entries()].sort())
+    }
     expanded = !expanded
   }
 
