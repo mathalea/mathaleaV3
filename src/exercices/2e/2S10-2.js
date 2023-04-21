@@ -58,7 +58,7 @@ export default function Proportions () {
     if (this.sup === 4) {
       typesDeQuestionsDisponibles = ['sous-population', 'proportion', 'population-totale']
     }
-    const situationsDisponibles = ['spectacle', 'cadeau', 'réserve', 'entreprise']// 
+    const situationsDisponibles = ['spectacle', 'cadeau', 'réserve', 'entreprise']//
     // const situationsDisponibles = ['cadeau'] pour test de chaque situation
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const typesDeSituations = combinaisonListes(situationsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
