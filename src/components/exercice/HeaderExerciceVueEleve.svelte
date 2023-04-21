@@ -47,7 +47,7 @@
  -->
 
 <div class="z-0 flex-1">
-  <h1 class=" text-coopmaths-struct dark:text-coopmathsdark-struct mt-8 pb-2 flex {$isMenuNeededForExercises ? 'flex-col items-center' : 'flex-row items-center'}">
+  <h1 class=" text-coopmaths-struct dark:text-coopmathsdark-struct mt-8 pb-2 flex {$isMenuNeededForExercises ? 'flex-col items-start' : 'flex-row items-center'}">
     <!-- titre -->
     <div class="flex flex-row justify-start items-start" id="exerciceHeader{indiceExercice}">
       <div class={showNumber ? "flex" : "hidden"}>
@@ -57,7 +57,7 @@
           {indiceExercice + 1}
         </div>
       </div>
-      <div class="font-light {$isMenuNeededForExercises ? 'text-3xl' : 'text-2xl'} ml-2">
+      <div class="font-light {$isMenuNeededForExercises ? 'text-2xl' : 'text-xl'} ml-2">
         {title}
       </div>
     </div>

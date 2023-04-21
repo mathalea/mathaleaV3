@@ -56,10 +56,10 @@
    * @author sylvain
    */
   function buildExoTitle(dim: number, nbOfExercises: number) {
-    if ($globalOptions.title.length === 0) {
-      $isMenuNeededForExercises = false
-      return ""
-    }
+    // if ($globalOptions.title.length === 0) {
+    //   $isMenuNeededForExercises = false
+    //   return ""
+    // }
     const navigationHeaderElt = document.getElementById("navigationHeaderID")
     const exerciseTitleElt = document.getElementById("exerciseTitleID0")
     // soit l'élément existe et on récupère sa vraie largeur, soit on calcule une valeur approchée
@@ -418,7 +418,7 @@
               </button>
             </div>
             <div class={currentIndex === k ? "" : "hidden"} id={`exercice${indiceExercice[k]}Q${k}`}>
-              <div class="pb-4 flex flex-col items-start justify-start relative">
+              <div class="pb-4 flex flex-col items-start justify-start relative {isMenuNeededForQuestions ? 'lg:mt-2' : ''}">
                 <div class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10" style="font-size: {($globalOptions.z || 1).toString()}rem">
                   <div class="flex flex-col my-2 py-2">
                     <div class="text-coopmaths-corpus pl-2">
