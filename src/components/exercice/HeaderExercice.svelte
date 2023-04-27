@@ -67,7 +67,7 @@
         Exercice&#8239;{indiceExercice + 1}
       </div>
       <div class="flex font-normal text-lg lg:text-normal">
-        <span class="invisible lg:visible mx-1 font-bold">&middot;</span>{title}
+        <div><span class="invisible lg:visible mx-1 font-bold">&middot;</span> {title}</div>
       </div>
     </div>
     <div class="print-hidden flex flex-col md:flex-row justify-start space-x-2 md:space-x-10 text-normal mt-1 text-xl lg:justify-end mr-1">

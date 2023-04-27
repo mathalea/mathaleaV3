@@ -7,12 +7,12 @@
   /*--------------------------------------------------------------
     Gestions des exercices via la liste
    ---------------------------------------------------------------*/
-  const isPresent = (code) => {
+  const isPresent = (code: string) => {
     return code === exercice.uuid
   }
   const tags = exercice.tags
   let selectedCount = 0
-  let listeCodes = []
+  let listeCodes : string[]
   // on compte réactivement le nombre d'occurences
   // de l'exercice dans la liste des sélectionnés
   $: {

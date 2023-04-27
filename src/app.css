@@ -825,7 +825,7 @@ div[id^="aide-content-"]{
 
 
 .katex {
-  @apply text-coopmaths-corpus dark:text-coopmathsdark-corpus
+  /* @apply text-coopmaths-corpus dark:text-coopmathsdark-corpus*/
 }
 
 .mathalea2d {
