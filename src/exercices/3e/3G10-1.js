@@ -89,8 +89,9 @@ export default function TransformationsDuPlanEtCoordonnees () {
         yB = randint(-7, 7, -1)
         xC = randint(-7, 7, 0) // Point C
         yC = randint(-7, 7, [yA, yB, -1])
-
+        console.log('trouve')
         punto[0] = imagePointParTransformation(choixTransformation[0], [xA, yA], [xO, yO], [xO, yO], k[0])
+        compteur = 0
         while ((punto[0][0] < -9 || punto[0][0] > 9 || punto[0][1] < -9 || punto[0][1] > 9) && compteur < 20) { // on teste si A est dans la fenêtre sinon on en choisit un autre
           xA = randint(-7, 7) // Point A
           yA = randint(-7, 7, -1)
@@ -98,13 +99,14 @@ export default function TransformationsDuPlanEtCoordonnees () {
           compteur++
         }
         if (compteur < 20) {
-          compteur = 0
+          // console.log('compteur fin1:' + compteur)
         } else {
-          compteur = 100
+          continue
         }
         A = point(xA, yA, 'A')
         Aprime = point(punto[0][0], punto[0][1], "A'")
         if (choixTransformation[1] > 4) { punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xA, yA], [xA, yA], k[1]) } else { punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xO, yO]) } // si c'est une symétrie, l'axe passe par O'
+        compteur = 0
         while ((punto[1][0] < -9 || punto[1][0] > 9 || punto[1][1] < -9 || punto[1][1] > 9) && compteur < 20) { // on teste si on est dans les clous, sinon on choisit un autre punto B
           xB = randint(-7, 7, [xA]) // Point B
           yB = randint(-7, 7, -1)
@@ -112,15 +114,16 @@ export default function TransformationsDuPlanEtCoordonnees () {
           compteur++
         }
         if (compteur < 20) {
-          compteur = 0
+          // console.log('compteur fin2:' + compteur)
         } else {
-          compteur = 100
+          continue
         }
 
         B = point(xB, yB, 'B')
         Bprime = point(punto[1][0], punto[1][1], "B'")
 
         if (choixTransformation[2] > 4) { punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xB, yB], [xB, yB], k[2]) } else { punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xO, yO]) } // si c'est une symétrie, l'axe passe par O'
+        compteur = 0
         while ((punto[2][0] < -9 || punto[2][0] > 9 || punto[2][1] < -9 || punto[2][1] > 9) && compteur < 20) { // on vérifie que C est dans le repère sinon on change le punto C.
           xC = randint(-7, 7) // Point C
           yC = randint(-7, 7, [yA, yB, -1])
@@ -128,7 +131,10 @@ export default function TransformationsDuPlanEtCoordonnees () {
           compteur++
         }
         if (compteur < 20) {
+          console.log('compteur fin3:' + compteur)
           trouve = true
+        } else {
+          continue
         }
         C = point(xC, yC, 'C')
         Cprime = point(punto[2][0], punto[2][1], "C'")
