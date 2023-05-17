@@ -1,4 +1,6 @@
-# MathALÉA
+# MathALÉA est maintenant sur forge.aeif.fr/coopmaths/mathalea
+
+
 
 MathALÉA est un générateur d'exercices de mathématiques qui suit le programme actuel de mathématiques en France.
 
