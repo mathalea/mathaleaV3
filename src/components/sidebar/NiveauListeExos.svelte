@@ -5,14 +5,13 @@
 
   export let expanded: boolean = false
   export let levelTitle: string
-  export let items: any
+  export let items: Map<string, Map<string, any>>
   export let pathToThisNode: string[]
   export let nestedLevelCount: number
   import themesList from "../../json/levelsThemesList.json"
-  import { MathaleaRenderDiv } from "../../lib/Mathalea"
 
   const themes = toMap(themesList)
-  let listeExercices: HTMLUListElement
+
   /**
    * Recherche dans la liste des thèmes si le thème est référencé
    * et si oui, renvoie son intitulé
@@ -32,13 +31,11 @@
    * Basculer le flag pour l'affichage du contenu
    */
   function toggleContent() {
-    const item = Array.from(items, ([key, obj]) => ({ key, obj }))
+    //const item = Array.from(items, ([key, obj]) => ({ key, obj }))
+    //console.log(items.size)
     expanded = !expanded
   }
 
-  $: {
-    if (listeExercices) MathaleaRenderDiv(listeExercices)
-  }
 </script>
 
 <!-- 
@@ -71,13 +68,13 @@
       <span class="font-light italic text-sm">Pas de publication ou de modification récente.</span>
     </div>
   {/if}
-  <ul transition:slide={{ duration: 500 }} bind:this={listeExercices}>
+  <ul transition:slide={{ duration: 500 }}>
     {#each Array.from(items, ([key, obj]) => ({ key, obj })) as item}
       <li>
         {#if item.obj.has("uuid")}
           <EntreeListeExos nestedLevelCount={nestedLevelCount + 1} exercice={item.obj} />
         {:else}
-          <svelte:self nestedLevelCount={nestedLevelCount + 1} pathToThisNode={[...pathToThisNode, item.key]} levelTitle={item.key} items={item.obj} />
+          <svelte:self nestedLevelCount={nestedLevelCount + 1} pathToThisNode={[...pathToThisNode, item.key]} expanded levelTitle={item.key} items={item.obj} />
         {/if}
       </li>
     {/each}

@@ -1,12 +1,12 @@
 
-import { point3d, polygone3d, prisme3d, rotation3d, droite3d, arete3d, arc3d, vecteur3d, cylindre3d, pyramide3d, sphere3d } from '../../modules/3d.js'
-import { segment, cone, point, milieu, homothetie, tracePoint } from '../../modules/2d.js'
+import { point3d, polygone3d, prisme3d, rotation3d, droite3d, arete3d, arc3d, vecteur3d, cone3d, cylindre3d, pyramide3d, sphere3d } from '../../modules/3d.js'
+import { segment, cone as cone2d, point, milieu, homothetie, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, choice, premiereLettreEnMajuscule } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, fixeBordures, vide2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { mathalea2d, fixeBordures, vide2d } from '../../modules/2dGeneralites.js'
 export const titre = 'Reconnaitre des solides'
 export const dateDePublication = '24/09/2022'
 export const interactifReady = true
@@ -22,9 +22,9 @@ export const ref = '6G44-1'
 export const uuid = '051aa'
 export default function ReconnaitreDesSolides () {
   Exercice.call(this)
-  this.nbQuestions = 4
+  this.nbQuestions = 10
   this.formatChampTexte = 'largeur15 inline'
-  this.sup = '1-2-3' // Type de question
+  this.sup = '8' // Type de question
   this.sup2 = false // qcm
   this.sup3 = false // axes
   const solides = ['prisme', 'pyramide', 'cône', 'cylindre', 'pavé droit', 'cube', 'sphère']
@@ -49,12 +49,18 @@ export default function ReconnaitreDesSolides () {
     const listeDesProblemes = []
     if (!this.sup) { // Si aucune liste n'est saisie ou mélange demandé
       listeDesProblemes.push('1', '2', '3', '4', '5', '6', '7', '1', '2', '1', '2', '1', '2', '1', '2', '3', '4', '5')
+    } else if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+      if (this.sup >= 1 && this.sup <= 7) {
+        listeDesProblemes.push(this.sup)
+      } else {
+        listeDesProblemes.push('1', '2', '3', '4', '5', '6', '7', '1', '2', '1', '2', '1', '2', '1', '2', '1', '2', '1', '2', '1', '2', '1', '2', '3', '4', '5')
+      }
     } else {
       const quests = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
       for (let i = 0; i < quests.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
         const type = quests[i].split(',')
         const choixtp = parseInt(type[0])
-        if (choixtp >= 1 && choixtp <= 8) {
+        if (choixtp >= 1 && choixtp <= 7) {
           listeDesProblemes.push(quests[i])
         } else {
           listeDesProblemes.push('1', '2', '3', '4', '5', '6', '7', '1', '2', '1', '2', '1', '2', '1', '2', '1', '2', '1', '2', '1', '2', '1', '2', '3', '4', '5')
@@ -77,11 +83,11 @@ export default function ReconnaitreDesSolides () {
       // a1, a2, a3 sont des objets 2d ou vides.
       // axe=1 -> base dans XY ;  axe=2 -> base dans YZ ; axe=3 -> base dans XZ ;
       let axe = ((choix >= 1 && choix <= 5) ? (type.length > 1 ? parseInt(type[1]) : randint(1, 3)) : 0)
-
+      // console.log('axe' + axe + ':' + solides[choix - 1])
       // nombre de sommets de la base.
       const n = (choix < 3 ? (type.length > 2 ? parseInt(type[2]) : randint(3, 8)) : (choix === 5 || choix === 6 ? 4 : 0))
 
-      let prisme, pyra, leCone, cylindre, pave, sphere
+      let prisme, pyra, cone, cylindre, pave, sphere
       switch (solides[choix - 1]) {
         case 'prisme': // Prisme  ?
         case 'pyramide': // Pyramides  ?
@@ -173,34 +179,38 @@ export default function ReconnaitreDesSolides () {
           break
         case 'cône': // cone  ?
         {
-          axe = 1
-          /* if (axe === 3) {
-              cone = cone3d(point3d(0, 0, 0), point3d(0, -3, 0), vecteur3d(0, 1, 0), vecteur3d(Math.cos(30 * Math.PI / 180.0), 0, Math.sin(30 * Math.PI / 180.0)))
-              /* c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
-              c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0)
-              const c1 = arc3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 180, 220)
-              const c2 = arc3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 220, 360 + 180)
-              const g1 = arete3d(point3d(0, -3, 0), point3d(1, 0, 0))
-              const g2 = arete3d(point3d(0, -3, 0), point3d(-1, 0, 0))
-              cone.c2d.length = 0
-              cone.c2d.push(c1, c2, g1.c2d, g2.c2d, arete3d(point3d(0, 2, 0), point3d(0, -4, 0), 'red', false).c2d)
-            } else if (axe === 2) {
-              cone = cone3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(1, 0, 0), vecteur3d(0, Math.cos(60 * Math.PI / 180.0), Math.sin(60 * Math.PI / 180.0)))
-              cone.c2d[4].pointilles = 2
-              cone.c2d[4].color = colorToLatexOrHTML('red')
-              cone.c2d[5].pointilles = false
-              cone.c2d[5].color = colorToLatexOrHTML('blue')
-          } else { */
-          leCone = cone({ centre: point(0, 0), Rx: randint(15, 30) / 10, hauteur: choice([3, 4, 5]) })
-          const t = tracePoint(leCone.centre)
-          const g = homothetie(segment(leCone.centre, leCone.sommet), milieu(leCone.centre, leCone.sommet), 1.5)
-          g.color = colorToLatexOrHTML('red')
-          g.pointilles = 2
-          objets.push(leCone, g, t)
+          if (axe === 3) {
+            cone = cone3d(point3d(0, 0, 0), point3d(0, -7, 0), vecteur3d(Math.cos(30 * Math.PI / 180.0), 0, Math.sin(30 * Math.PI / 180.0)), 'black', true, 'black', 'white')
+            for (let kk = 15; kk < 25; kk++) {
+              cone.c2d[kk].isVisible = (kk % 2)
+              console.log(cone.c2d[kk])
+            }
+            // c1 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 0)
+            // c2 = demicercle3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 0)
+            /* const c1 = arc3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'caché', 'red', 180, 220)
+            const c2 = arc3d(point3d(0, 0, 0), point3d(0, -1, 0), vecteur3d(1, 0, 0), 'visible', 'blue', 220, 360 + 180)
+            const g1 = arete3d(point3d(0, -3, 0), point3d(1, 0, 0))
+            const g2 = arete3d(point3d(0, -3, 0), point3d(-1, 0, 0))
+            cone.c2d.length = 0
+            cone.c2d.push(c1, c2, g1.c2d, g2.c2d, arete3d(point3d(0, 2, 0), point3d(0, -4, 0), 'red', false).c2d) */
+            objets.push(...cone.c2d)
+          } else if (axe === 2) {
+            cone = cone3d(point3d(0, 0, 0), point3d(3, 0, 0), vecteur3d(0, Math.cos(60 * Math.PI / 180.0), Math.sin(60 * Math.PI / 180.0)), 'black', true, 'black', 'white')
+            for (let kk = 3; kk < 3 + 17; kk++) {
+              cone.c2d[kk].isVisible = (kk % 2)
+              console.log(cone.c2d[kk])
+            }
+            objets.push(...cone.c2d)
+          } else {
+            cone = cone2d({ centre: point(0, 0), Rx: randint(15, 30) / 10, hauteur: choice([3, 4, 5]) })
+            const t = tracePoint(cone.centre)
+            const g = homothetie(segment(cone.centre, cone.sommet), milieu(cone.centre, cone.sommet), 1.5)
+            // g.color = colorToLatexOrHTML('red')
+            g.pointilles = 2
+            objets.push(cone, g, t)
+          }
           this.reponse = ['cône', 'cone', 'cône de révolution', 'cone de révolution']
-          this.correction = 'Cône de révolution.' // suivant l'axe=$${axe}$`
-
-          //  }
+          this.correction = 'Cône de révolution' // suivant l'axe=$${axe}$`
           break
         }
         case 'cylindre': // cylindre
@@ -334,7 +344,9 @@ export default function ReconnaitreDesSolides () {
 
           break
       }
+      console.log(j + ':' + choix + ':' + ':' + n + ':' + axe)
       if (this.questionJamaisPosee(j, choix, n, axe)) {
+        console.log(n + 'entrer')
         reponseQcm = solides[choix - 1]
         if (this.sup2) this.reponse = solides[choix - 1] // on remplace les éventuelles réponses multiples par l'unique réponse du QCM
 
